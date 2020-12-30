@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from '@material-ui/core';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -7,6 +8,11 @@ export class Home extends Component {
     return (
       <div>
         <h1>Hello, world!</h1>
+
+        <Button variant="contained" color="primary">
+          Hello world!
+        </Button>
+
         <p>Welcome to your new single-page application, built with:</p>
         <ul>
           <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
