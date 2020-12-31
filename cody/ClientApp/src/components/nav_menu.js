@@ -7,7 +7,8 @@ export class NavMenu extends Component {
   static displayName = NavMenu.name;
   
   render () {
-    return (
+    return null;
+    /*(
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
@@ -21,6 +22,6 @@ export class NavMenu extends Component {
           </IconButton>
         </Toolbar>
       </AppBar>
-    );
+    );*/
   }
 }
