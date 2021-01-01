@@ -7,17 +7,11 @@ import { Checkbox } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core/';
-import { IconButton } from '@material-ui/core';
-import { OutlinedInput } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
-import { InputAdornment } from '@material-ui/core';
-import { FormControl } from '@material-ui/core';
-import { Visibility } from '@material-ui/icons';
-import { VisibilityOff } from '@material-ui/icons';
+
+import { Password } from './password_textfield'
 
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-
 
 
 const useStyles  = makeStyles({
@@ -29,27 +23,9 @@ const useStyles  = makeStyles({
   },
 });
 
+
 export function LoginBox(props){
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-      amount: '',
-      password: '',
-      weight: '',
-      weightRange: '',
-      showPassword: false,
-    });
-    
-    const handleChange = (prop) => (event) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
-  
-    const handleClickShowPassword = () => {
-      setValues({ ...values, showPassword: !values.showPassword });
-    };
-  
-    const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-    };
 
     return (
       <Box width={props.size}>
@@ -73,37 +49,7 @@ export function LoginBox(props){
               fullWidth={true} 
             />  
             <Box m={0.5}/>  
-            <FormControl 
-              variant="outlined"
-              fullWidth={true}              
-            >
-              <InputLabel 
-                htmlFor="password"
-                color="secondary"
-              >
-                Password
-              </InputLabel>
-              <OutlinedInput             
-                id="password"
-                color="secondary"  
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                onChange={handleChange('password')}                
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                labelWidth={70}
-              />
-            </FormControl>                      
+            <Password/>     
             <Grid
               container
               justify="flex-start"

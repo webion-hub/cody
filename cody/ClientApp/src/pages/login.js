@@ -4,8 +4,8 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { LoginSvg } from '../components/illustrations/loginSvg'
-import { LoginBox } from '../components/loginBox'
+import { LoginSvg } from '../components/illustrations/login_svg'
+import { LoginBox } from '../components/login_box'
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
