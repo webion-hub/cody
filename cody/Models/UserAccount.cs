@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace cody.Models
 {
+    [Table("useraccount")]
     public class UserAccount
     {
         [Key]
