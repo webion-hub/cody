@@ -1,3 +1,5 @@
+import { throwIfNullOrEmpty } from './utility';
+
 'use-strict';
 
 /**
@@ -15,9 +17,9 @@ export class User {
    * @returns {Promise}
    */
   static tryLogin(username, password) {
-    if (!username || !password)
-      throw new Error("Arguments must not be null");
-
+    throwIfNullOrEmpty(username, 'username');
+    throwIfNullOrEmpty(password, 'password');
+    
     const login = 
       fetch(`user/login/${username}/${password}`);
 
