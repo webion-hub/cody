@@ -33,7 +33,9 @@ namespace cody
                 var connectionString =
                     Configuration.GetConnectionString("CodyContext");
 
-                options.UseNpgsql(connectionString);
+                options
+                    .UseNpgsql(connectionString)
+                    .UseLowerCaseNamingConvention();
             });
         }
 
