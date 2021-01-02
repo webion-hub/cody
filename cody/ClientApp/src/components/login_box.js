@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TextField } from '@material-ui/core';
 import { Link } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
@@ -16,7 +16,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 const useStyles  = makeStyles({
   checkBox: {
-    color: "grey"
+    color: "rgba(255,255,255,0.6)"
   },
   forgotPassword: {
     fontSize: 12
@@ -49,7 +49,10 @@ export function LoginBox(props){
               fullWidth={true} 
             />  
             <Box m={0.5}/>  
-            <Password/>     
+            <Password
+              label="Password"
+              labelWidth= {70}
+            />     
             <Grid
               container
               justify="flex-start"

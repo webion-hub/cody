@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+
 import { Button } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { LoginSvg } from '../components/illustrations/login_svg'
+import { AuthenticationSVG } from '../components/illustrations'
 import { LoginBox } from '../components/login_box'
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -33,7 +34,7 @@ export class Login extends Component {
                 justify="center"
                 alignItems="center"
               >      
-                <LoginSvg size={360}/>
+                <AuthenticationSVG size={330}/>
                 <LoginBox size={300}/>
               </Grid>
             </Box>
@@ -42,7 +43,8 @@ export class Login extends Component {
           <Button
             color="secondary"
             variant="outlined"
-            endIcon={<ArrowForwardIcon/>}
+            endIcon={<ArrowForwardIcon/>}            
+            href="/sign-up"
           >
             Crea un account
           </Button>         
