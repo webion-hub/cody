@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace cody.Models
 {
-    public class User
+    public class UserAccount
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

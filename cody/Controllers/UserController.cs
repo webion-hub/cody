@@ -23,7 +23,7 @@ namespace cody.Controllers
 
         [HttpGet]
         [Route("login")]
-        public IActionResult TryLoginAsync([FromQuery] User inUser)
+        public IActionResult TryLoginAsync([FromQuery] UserAccount inUser)
         {
             var maybeUser =
                 from user in _context.Users

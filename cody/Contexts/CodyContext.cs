@@ -9,13 +9,18 @@ namespace cody.Contexts
             : base(options)
         { }
 
+        public DbSet<UserAccount> UsersAccounts { get; set; }
 
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            ConfigurePasswordHashing(modelBuilder);
+        }
+
+        private static void ConfigurePasswordHashing(ModelBuilder modelBuilder)
+        {
             modelBuilder
-                .Entity<User>()
+                .Entity<UserAccount>()
                 .Property(u => u.Password)
                 .HasConversion(
                     pw => Password.CreateFrom(pw),
