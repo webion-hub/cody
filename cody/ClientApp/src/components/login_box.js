@@ -13,8 +13,10 @@ import { Password } from './password_textfield'
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
+import { User } from '../lib/user';
 
-const useStyles  = makeStyles({
+
+const useStyles = makeStyles({
   checkBox: {
     color: "rgba(255,255,255,0.6)"
   },
@@ -24,89 +26,112 @@ const useStyles  = makeStyles({
 });
 
 
-export function LoginBox(props){
-    const classes = useStyles();
+export function LoginBox(props) {
+  let _username = '';
+  let _password = '2437Productions';
+  
+  /**
+   * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
+   */
+  const _updateUsername = e => {
+    _username = e.target.value;
+  };
 
-    return (
-      <Box width={props.size}>
+  /**
+   * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
+   */
+  const _updatePassword = e => {
+    _password = e.target.value;
+  };
+
+
+  const classes = useStyles();
+
+  return (
+    <Box width={props.size}>
+      <Grid
+        container
+        direction="column"   
+        justify="center"
+        alignItems="center"
+      >
         <Grid
           container
-          direction="column"   
+          direction="column"
           justify="center"
           alignItems="center"
         >
+          <TextField
+            id="username"
+            label="Username"
+            variant="outlined"
+            color="secondary"
+            fullWidth={true}
+            onChange={_updateUsername}
+          />
+          <Box m={0.5}/>
+          <Password
+            label="Password"
+            labelWidth={70}
+          />     
           <Grid
             container
-            direction="column"
-            justify="center"
-            alignItems="center"            
+            justify="flex-start"
           >
-            <TextField
-              id="username"
-              label="Username"
-              variant="outlined"
-              color="secondary"
-              fullWidth={true} 
-            />  
-            <Box m={0.5}/>  
-            <Password
-              label="Password"
-              labelWidth= {70}
-            />     
-            <Grid
-              container
-              justify="flex-start"
-            >
-              <FormControlLabel
-                value="end"
-                control={
-                  <Checkbox 
-                    color="secondary" 
-                    size="small"
-                    className ={classes.checkBox}
-                  />
-                }
-                label={          
+            <FormControlLabel
+              value="end"
+              control={
+                <Checkbox 
+                  color="secondary"
+                  size="small"
+                  className={classes.checkBox}
+                />
+              }
+              label={
                 <Typography 
                   variant="body2" 
-                  className ={classes.checkBox}
+                  className={classes.checkBox}
                 >
                   Ricordami
                 </Typography>
-                }
-                labelPlacement="end"
-              />   
-            </Grid>           
-          </Grid>            
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"            
+              }
+              labelPlacement="end"
+            />   
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"            
+        >
+          <Button 
+            variant="contained"
+            color="primary"
+            fullWidth={true}
+            endIcon={<AccountCircleRoundedIcon/>}
+            onClick={() => {
+              console.log(_username);
+              User.tryLogin(_username, _password);
+            }}
           >
-            <Button 
-              variant="contained" 
-              color="primary"  
-              fullWidth={true}          
-              endIcon={<AccountCircleRoundedIcon/>}        
+            Accedi
+          </Button> 
+          <Box mt={1}>
+            <Link
+              className={classes.forgotPassword}
+              component="button"
+              variant="body2"
+              color="secondary"
+              onClick={() => {
+                console.info("I'm a button.");
+              }}
             >
-              Accedi
-            </Button> 
-            <Box mt={1}>
-              <Link
-                className={classes.forgotPassword}
-                component="button"
-                variant="body2"
-                color="secondary"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Password dimenticata?
-              </Link> 
-            </Box>
-          </Grid>    
-        </Grid> 
-      </Box>
-    );
-  }
+              Password dimenticata?
+            </Link> 
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
