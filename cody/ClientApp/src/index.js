@@ -5,18 +5,26 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';  
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { itIT } from '@material-ui/core/locale';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
+
+const Colors = {
+  primary: 'rgb(51, 102, 255)',
+  secondary: 'rgb(102, 153, 255)',
+}
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: 'rgb(51, 102, 255)',
+      main: Colors.primary,
       contrastText: '#fff',
     },
     secondary: {
-      main: 'rgb(102, 153, 255)',
+      main: Colors.secondary,
       contrastText: '#fff',
     },
     background: {
@@ -28,11 +36,52 @@ const theme = createMuiTheme({
       primary: "#FFFFFF",
       secondary: "#FFFFFF",      
     },
+    action: {
+      disabled: "rgba(255,255,255,0.25)"
+    }
   },
   typography: { 
      useNextVariants: true
+  },
+
+  overrides: {
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: "rgba(255,255,255,0.3)",
+      }
+    },
+    MuiIconButton: {
+      root: {
+        color: "rgba(255,255,255,0.5)"
+      },      
+    },   
+    MuiStepIcon: {
+      completed: {
+        color: `${Colors.secondary} !important` 
+      }
+    },
+    MuiDivider: {
+      root: {
+        backgroundColor: "rgba(255,255,255,0.1)"
+      }
+    },
+    MuiPickersCalendarHeader: {
+      dayLabel: {
+        color: "white"
+      }
+    },
+    MuiTypography: {
+      colorPrimary: {
+        color: Colors.secondary
+      }
+    },
+    MuiPickersToolbarText: {
+      toolbarTxt: {
+        color: "rgba(255, 255, 255, 0.8)"
+      }
+    }
   }
-});
+}, itIT);
 
 ReactDOM.render(
   <BrowserRouter basename={baseUrl}>

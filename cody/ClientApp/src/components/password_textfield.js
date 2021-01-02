@@ -7,7 +7,7 @@ import { FormControl } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import { VisibilityOff } from '@material-ui/icons';
 
-export function Password()
+export function Password(props)
 {
   const [values, setValues] = React.useState({
     amount: '',
@@ -38,10 +38,10 @@ export function Password()
         htmlFor="password"
         color="secondary"
       >
-        Password
+        {props.label}
       </InputLabel>
       <OutlinedInput             
-        id="password"
+        id={props.label}
         color="secondary"  
         type={values.showPassword ? 'text' : 'password'}
         value={values.password}
@@ -58,7 +58,7 @@ export function Password()
             </IconButton>
           </InputAdornment>
         }
-        labelWidth={70}
+        labelWidth={props.labelWidth}
       />
     </FormControl>  
   );

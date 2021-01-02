@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import { Layout } from './components/layout';
 import { Login } from './pages/login';
+import { SignUp } from './pages/sign_up/sign_up';
 
 import './custom.css'
 
@@ -11,7 +12,10 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
-        <Route exact path='/' component={Login} />
+        <Router>
+          <Route exact path='/' component={Login} />
+          <Route path='/sign-up' component={SignUp} />
+        </Router>
       </Layout>
     );
   }
