@@ -22,21 +22,26 @@ namespace cody.Controllers
 
 
         [HttpGet]
-        [Route("login")]
-        public IActionResult TryLoginAsync([FromQuery] UserAccount inUser)
+        [Route("login/{username}/{password}")]
+        public IActionResult TryLoginAsync(string username, string password)
         {
             var maybeUser =
-                from user in _context.Users
-                where
-                    user.Email == inUser.Email &&
-                    Password.AreEqual(inUser.Password, user.Password)
+                from user in _context.UsersAccounts
+                where user.Username == username
                 select user;
 
             var userExists = maybeUser.Any();
-            if (userExists)
-                return Ok();
+            if (!userExists)
+                return NotFound("The user does not exist");
 
-            return ValidationProblem();
+            var foundUser = maybeUser.First();
+            var isPasswordCorrect = 
+                Password.AreEqual(password, foundUser.Password);
+
+            if (!isPasswordCorrect)
+                return BadRequest("The password is incorrect");
+
+            return Ok();
         }
     }
 }
