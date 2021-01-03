@@ -11,11 +11,12 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
 
-const Colors = {
+export const Colors = {
   primary: 'rgb(51, 102, 255)',
   secondary: 'rgb(102, 153, 255)',
+  background: 'rgb(40, 40, 40)', 
+  lightGrey: 'rgba(255,255,255,0.6)',
 }
-
 
 const theme = createMuiTheme({
   palette: {

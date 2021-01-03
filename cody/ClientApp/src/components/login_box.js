@@ -9,6 +9,7 @@ import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core/';
 
 import { Password } from './password_textfield'
+import { Colors } from '../index';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -17,9 +18,6 @@ import { User } from '../lib/user';
 
 
 const useStyles = makeStyles({
-  checkBox: {
-    color: "rgba(255,255,255,0.6)"
-  },
   forgotPassword: {
     fontSize: 12
   },
@@ -51,7 +49,7 @@ export function LoginBox(props) {
     <Box width={props.size}>
       <Grid
         container
-        direction="column"   
+        direction="column"
         justify="center"
         alignItems="center"
       >
@@ -73,7 +71,7 @@ export function LoginBox(props) {
           <Password
             label="Password"
             labelWidth={70}
-          />     
+          />
           <Grid
             container
             justify="flex-start"
@@ -81,31 +79,35 @@ export function LoginBox(props) {
             <FormControlLabel
               value="end"
               control={
-                <Checkbox 
+                <Checkbox
                   color="secondary"
                   size="small"
-                  className={classes.checkBox}
+                  style={{
+                    color: Colors.lightGrey
+                  }}
                 />
               }
               label={
-                <Typography 
-                  variant="body2" 
-                  className={classes.checkBox}
+                <Typography
+                  variant="body2"
+                  style={{
+                    color: Colors.lightGrey
+                  }}
                 >
                   Ricordami
                 </Typography>
               }
               labelPlacement="end"
-            />   
+            />
           </Grid>
         </Grid>
         <Grid
           container
           direction="column"
           justify="center"
-          alignItems="center"            
+          alignItems="center"
         >
-          <Button 
+          <Button
             variant="contained"
             color="primary"
             fullWidth={true}
@@ -116,7 +118,7 @@ export function LoginBox(props) {
             }}
           >
             Accedi
-          </Button> 
+          </Button>
           <Box mt={1}>
             <Link
               className={classes.forgotPassword}
@@ -128,7 +130,7 @@ export function LoginBox(props) {
               }}
             >
               Password dimenticata?
-            </Link> 
+            </Link>
           </Box>
         </Grid>
       </Grid>

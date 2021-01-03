@@ -13,7 +13,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Router>
-          <Route exact path='/' component={Login} />
+          <Route exact path='/login' component={Login} />
           <Route path='/sign-up' component={SignUp} />
         </Router>
       </Layout>
