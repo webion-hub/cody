@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { OutlinedInput } from '@material-ui/core';
 import { InputLabel } from '@material-ui/core';
@@ -32,7 +32,7 @@ export function Password(props)
   return (
     <FormControl 
       variant="outlined"
-      fullWidth={true}              
+      fullWidth={true}
     >
       <InputLabel 
         htmlFor="password"
@@ -40,12 +40,12 @@ export function Password(props)
       >
         {props.label}
       </InputLabel>
-      <OutlinedInput             
+      <OutlinedInput
         id={props.label}
-        color="secondary"  
+        color="secondary"
         type={values.showPassword ? 'text' : 'password'}
         value={values.password}
-        onChange={handleChange('password')}                
+        onChange={handleChange('password')}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -60,6 +60,6 @@ export function Password(props)
         }
         labelWidth={props.labelWidth}
       />
-    </FormControl>  
+    </FormControl>
   );
 }

@@ -9,6 +9,39 @@ import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import ClassRoundedIcon from '@material-ui/icons/ClassRounded';
 
+export class NavMenu extends Component {
+  static displayName = NavMenu.name;
+  
+  render () {
+    return (
+      <Box
+        position="fixed"
+      >
+        <Grid
+          container
+          direction="column"
+        >
+          <AppBarItem
+            title="Home"
+            color="primary"
+            icon={<HomeRoundedIcon />}
+          />
+           <AppBarItem
+            title="Classi"
+            color="secondary"
+            icon={<ClassRoundedIcon />}
+          />
+          <AppBarItem
+            title="Account"
+            color="secondary"
+            icon={<AccountCircleRoundedIcon />}
+          />
+        </Grid>
+      </Box>
+    );
+  }
+}
+
 function AppBarItem(props){
   return (
     <Box
@@ -34,37 +67,4 @@ function AppBarItem(props){
       </Tooltip>  
     </Box>
   );
-}
-
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
-  
-  render () {
-    return (
-      <Box
-        position="fixed"
-      >
-        <Grid
-          container
-          direction="column"
-        >
-          <AppBarItem
-            title="Home"
-            color="primary"     
-            icon={<HomeRoundedIcon />}     
-          />              
-           <AppBarItem
-            title="Classi"
-            color="secondary"     
-            icon={<ClassRoundedIcon />}     
-          />           
-          <AppBarItem
-            title="Account"
-            color="secondary"     
-            icon={<AccountCircleRoundedIcon />}     
-          />                                 
-        </Grid>
-      </Box>
-    );
-  }
 }

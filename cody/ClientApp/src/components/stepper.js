@@ -2,11 +2,13 @@ import React from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Stepper } from '@material-ui/core/';
+import { Step } from '@material-ui/core/';
+import { StepLabel } from '@material-ui/core/';
+import { Button } from '@material-ui/core/';
+import { Typography } from '@material-ui/core/';
+
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -114,9 +116,23 @@ const useStyles = makeStyles((theme) => ({
               <div>
                 {finalSteps}
               </div>
-              <Button onClick={handleBack} className={classes.button}>
-                Indietro
-              </Button>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+              >
+                <Button onClick={handleBack} className={classes.button}>
+                  Indietro
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href="/"
+                  endIcon={<HomeRoundedIcon/>}
+                >
+                  Vai alla home
+                </Button> 
+              </Grid>
             </div>
           ) : (
             <div>
@@ -127,7 +143,10 @@ const useStyles = makeStyles((theme) => ({
                   direction="row"
                   justify="space-between"
                 >
-                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                  <Button 
+                    onClick={activeStep === 0 ? function() { return undefined; } : handleBack} 
+                    href={activeStep === 0 ? "/login" : ""}
+                    className={classes.button}>
                     Indietro
                   </Button>
                   <div>
@@ -141,14 +160,13 @@ const useStyles = makeStyles((theme) => ({
                         Salta
                       </Button>
                     )}
-  
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={handleNext}
                     >
                       {activeStep === steps.length - 1 ? 'Finisci' : 'Avanti'}
-                    </Button>
+                    </Button> 
                   </div>
                 </Grid>
               </div>
