@@ -1,6 +1,5 @@
 import { throwIfNullOrEmpty } from './utility';
 
-'use-strict';
 
 /**
  * @typedef {object} UserAccount
