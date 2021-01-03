@@ -31,11 +31,11 @@ namespace cody
             services.AddDbContext<CodyContext>(options =>
             {
                 var connectionString =
-                    Configuration.GetConnectionString("CodyContext");
+                    Configuration.GetConnectionString("CodyContextRemote");
 
                 options
                     .UseNpgsql(connectionString)
-                    .UseLowerCaseNamingConvention();
+                    .UseSnakeCaseNamingConvention();
             });
         }
 
@@ -62,7 +62,8 @@ namespace cody
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}"
+                );
             });
 
             app.UseSpa(spa =>
