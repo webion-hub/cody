@@ -4,38 +4,31 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 
 import { Box } from '@material-ui/core';
-import { Tooltip } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
+import { Colors } from '../../../index';
 import { SignUpBase } from '../sign_up_base'
 
-import { PersonalData2SVG } from '../../../components/illustrations';
+import { Step2 } from '../../../components/illustrations/step2';
 
 
-export function IDDatas(){
+export function IDDatas(props){
   return (
     <SignUpBase
-      image={<PersonalData2SVG size={330}/>}
-      formWidth={300}
+      image={<Step2 size={props.imageWidth}/>}
+      formWidth={props.formWidth}
       margin={1}
       bottomMargin={2}
       items={[
-        <Tooltip 
-          title={          
-            <Typography 
-              variant="subtitle2" 
-            >
-              L'username deve essere lungo dai 4 ai 28 caratteri.
-            </Typography>
-          }
-          aria-label="password"
-          placement="right"              
-          arrow
-          interactive
+        <Typography
+          variant="body2"
+          color="secondary"
         >
+          Come ti chiami?
+        </Typography>,
           <Box>
             <TextField
                 id="username"
@@ -44,15 +37,22 @@ export function IDDatas(){
                 color="secondary"
                 fullWidth={true}
             />
-          </Box>
-        </Tooltip>,  
-        <Box m={1.5}/>,      
+            <Typography
+              variant="caption"
+              style={{
+                color: Colors.lightGrey
+              }}
+            >
+              Tra 4 e 28 caratteri
+            </Typography>
+          </Box>,  
+        <Box m={1.5}/>,
         <TextField
           id="name"
           label="Nome"
           variant="outlined"
           color="secondary"
-          fullWidth={true}          
+          fullWidth={true}
         />,
         <TextField
           id="surname"
@@ -60,8 +60,8 @@ export function IDDatas(){
           variant="outlined"
           color="secondary"
           fullWidth={true}
-        />,    
-        <Box m={1}/>,  
+        />,
+        <Box m={1}/>,
         <DatePicker/>
       ]}
     />

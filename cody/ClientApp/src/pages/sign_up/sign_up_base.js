@@ -27,18 +27,18 @@ export function SignUpBase(props){
         <Box width={props.formWidth}>
           <Grid
             container
-            direction="column"  
-            alignItems="center" 
-            justify="center"       
+            direction="column"
+            alignItems="center"
+            justify="center"
           >
-            <Box 
+            <Box
               width={props.formWidth}
             >
               {getItems}
-            </Box>  
-          </Grid> 
-        </Box>  
-      </Grid> 
+            </Box>
+          </Grid>
+        </Box>
+      </Grid>
     </Box>
     
   );

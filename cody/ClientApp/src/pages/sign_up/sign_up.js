@@ -11,14 +11,21 @@ import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
 import { HorizontalLinearStepper } from '../../components/stepper';
 
-
+const base = {
+  imageWidth: 330,
+  formWidth: 300,
+  backgroundImage: "images/forest.jpeg"  
+};
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
   render () {
     return (  
       <Grid
-        style={{height: "100vh"}}
+        style={{
+          height: "100vh",
+          backgroundImage: `url(${base.backgroundImage})`
+        }}
         container
         justify="center"
         alignItems="center"
@@ -33,25 +40,35 @@ export class SignUp extends Component {
                 steps={3}
                 stepsContent={
                   [
-                    EmailPassword(),
-                    IDDatas(),
-                    OptionalDatas(),
+                    <EmailPassword
+                      imageWidth = {base.imageWidth}
+                      formWidth = {base.imageWidth}
+                    />,
+                    <IDDatas
+                    imageWidth = {base.imageWidth}
+                    formWidth = {base.imageWidth}
+                    />,    
+                    <OptionalDatas
+                    imageWidth = {base.imageWidth}
+                    formWidth = {base.imageWidth}
+                    />,
                   ]
                 }
                 optionalSteps={[3]}
                 completed={
-                  SignUpCompleted()
+                  <SignUpCompleted
+                      imageWidth = {base.imageWidth}
+                      formWidth = {base.imageWidth}
+                  />
                 }
               />
             </Grid>
-          </Box>                      
+          </Box>
         </Paper>
       </Grid>
     );
   }
 }
-
-
 
 
 
