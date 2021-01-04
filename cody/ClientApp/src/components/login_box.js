@@ -38,10 +38,10 @@ export function LoginBox(props) {
   /**
    * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
    */
-  const _updatePassword = e => {
-    _password = e.target.value;
+  function _updatePassword(value){
+    _password = value;
+    console.log(value);
   };
-
 
   const classes = useStyles();
 
@@ -71,6 +71,7 @@ export function LoginBox(props) {
           <Password
             label="Password"
             labelWidth={70}
+            onChange={_updatePassword}
           />
           <Grid
             container
