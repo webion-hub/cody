@@ -40,7 +40,6 @@ export function LoginBox(props) {
    */
   function _updatePassword(value){
     _password = value;
-    console.log(value);
   };
 
   const classes = useStyles();
