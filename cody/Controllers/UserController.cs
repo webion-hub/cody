@@ -21,11 +21,9 @@ namespace cody.Controllers
         }
 
 
-        /// <returns>
-        /// <see cref="StatusCodes.Status200OK"/> if the login was successfull <br/>
-        /// <see cref="StatusCodes.Status404NotFound"/> if the username wasn't found <br/>
-        /// <see cref="StatusCodes.Status400BadRequest"/> if the passwords didn't match
-        /// </returns>
+        /// <response code="200">The login was successfull</response>
+        /// <response code="404">The username wasn't found</response>
+        /// <response code="400">The passwords didn't match</response>
         [HttpGet]
         [Route("login/{username}/{password}")]
         public IActionResult TryLoginAsync(string username, string password)
@@ -50,10 +48,8 @@ namespace cody.Controllers
         }
 
 
-        /// <returns>
-        /// <see cref="StatusCodes.Status200OK"/> if the registration was successfull <br/>
-        /// <see cref="StatusCodes.Status400BadRequest"/> along with the reject reasons <br/>
-        /// </returns>
+        /// <response code="200">The registration was successfull</response>
+        /// <response code="400">Registration error, along with the reject reasons</response>
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> TryRegisterUser([FromBody] UserAccount account) 
@@ -71,15 +67,13 @@ namespace cody.Controllers
         }
 
 
-        private IEnumerable<string> MaybeGetAccountRejectReasons(UserAccount account)
+        private static IEnumerable<string> MaybeGetAccountRejectReasons(UserAccount account)
         {
             if (account.Password.Length is < 6 or > 16)
                 yield return "password";
 
             if (account.Username.Length is < 4 or > 28)
                 yield return "username";
-
-            yield break;
         }
     }
 }
