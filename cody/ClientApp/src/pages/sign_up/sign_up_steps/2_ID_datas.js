@@ -70,7 +70,6 @@ export function IDDatas(props){
 
 
 function DatePicker() {
-  // The first commit of Material-UI
   const newDate = new Date()
   const [selectedDate, setSelectedDate] = React.useState(newDate.getDate());
 

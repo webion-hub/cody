@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
-export function SignUpBase(props){
+export function SignUpBase(props) {
 
   const items = props.items;
   const getItems = items.map((item, index) => 
@@ -40,6 +40,5 @@ export function SignUpBase(props){
         </Box>
       </Grid>
     </Box>
-    
   );
 }
