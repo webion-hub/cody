@@ -17,9 +17,37 @@ const base = {
   backgroundImage: "images/forest.jpeg"  
 };
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
 export class SignUp extends Component {
   static displayName = SignUp.name;
   render () {
+    const screenWidth = getWindowDimensions().width;
+    const isImageBigger = base.imageWidth > screenWidth;
+    const isFormBigger = base.formWidth > screenWidth;
+    const isImageOrFormBigger = isImageBigger || isFormBigger;
+
+    const padding = 3;
+
+    const imageWidth = isImageBigger ?
+      screenWidth - 5:
+      base.imageWidth;
+
+    const formWidth = isFormBigger ? 
+      screenWidth - 5 : 
+      base.formWidth;
+    
+    const sidePadding = isImageOrFormBigger ? 
+      0 : 
+      padding;
+
+
     return (  
       <Grid
         style={{
@@ -31,38 +59,38 @@ export class SignUp extends Component {
         alignItems="center"
       >        
         <Paper elevation={3}>
-          <Box p={3}>
-            <Grid
-              container
-              direction="column"
-            >
-              <HorizontalLinearStepper
-                steps={3}
-                stepsContent={
-                  [
-                    <EmailPassword
-                      imageWidth = {base.imageWidth}
-                      formWidth = {base.imageWidth}
-                    />,
-                    <IDDatas
-                    imageWidth = {base.imageWidth}
-                    formWidth = {base.imageWidth}
-                    />,    
-                    <OptionalDatas
-                    imageWidth = {base.imageWidth}
-                    formWidth = {base.imageWidth}
-                    />,
-                  ]
-                }
-                optionalSteps={[3]}
-                completed={
-                  <SignUpCompleted
-                      imageWidth = {base.imageWidth}
-                      formWidth = {base.imageWidth}
-                  />
-                }
-              />
-            </Grid>
+          <Box 
+            pt={padding}
+            pb={padding}
+            pl={sidePadding}
+            pr={sidePadding}
+          >
+            <HorizontalLinearStepper
+              steps={3}
+              stepsContent={
+                [
+                  <EmailPassword
+                    imageWidth = {imageWidth}
+                    formWidth = {formWidth}
+                  />,
+                  <IDDatas
+                  imageWidth = {imageWidth}
+                  formWidth = {formWidth}
+                  />,    
+                  <OptionalDatas
+                  imageWidth = {imageWidth}
+                  formWidth = {formWidth}
+                  />,
+                ]
+              }
+              optionalSteps={[3]}
+              completed={
+                <SignUpCompleted
+                    imageWidth = {imageWidth}
+                    formWidth = {formWidth}
+                />
+              }
+            />
           </Box>
         </Paper>
       </Grid>

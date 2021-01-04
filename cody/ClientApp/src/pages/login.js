@@ -14,13 +14,41 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 
 const base = {
-  backgroundImage: "images/forest.jpeg"  
+  imageWidth: 330,
+  formWidth: 300,
+  backgroundImage: "images/forest.jpeg",  
 };
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
 
 export class Login extends Component {
   static displayName = Login.name;
   render () {
+    const screenWidth = getWindowDimensions().width;
+    const isImageBigger = base.imageWidth > screenWidth;
+    const isFormBigger = base.formWidth > screenWidth;
+    const isImageOrFormBigger = isImageBigger || isFormBigger;
+
+    const padding = 3;
+
+    const imageWidth = isImageBigger ?
+      screenWidth - 5:
+      base.imageWidth;
+
+    const formWidth = isFormBigger ? 
+      screenWidth - 5 : 
+      base.formWidth;
+    
+    const sidePadding = isImageOrFormBigger ? 
+      0 : 
+      padding;
+
     return (  
       <Grid
         style={{
@@ -38,15 +66,20 @@ export class Login extends Component {
           alignItems="center"
         >
           <Paper elevation={3}>
-            <Box p={3}>
+            <Box 
+              pt={padding}
+              pb={padding}
+              pl={sidePadding}
+              pr={sidePadding}
+            >
               <Grid
                 container
                 direction="row"
                 justify="center"
                 alignItems="center"
               >
-                <Authentication size={330}/>
-                <LoginBox size={300}/>
+                <Authentication size={imageWidth}/>
+                <LoginBox size={formWidth}/>
               </Grid>
             </Box>
           </Paper> 
