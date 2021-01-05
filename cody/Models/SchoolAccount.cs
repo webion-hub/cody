@@ -20,5 +20,15 @@ namespace cody.Models
 
 
         public List<UserAccountDetail> Students { get; set; }
+
+
+        public void TrimFields()
+        {
+            Utility.TrimAll(this,
+                _ => _.Name,
+                _ => _.City,
+                _ => _.Country
+            );
+        }
     }
 }

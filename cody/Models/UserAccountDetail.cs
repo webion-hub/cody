@@ -29,5 +29,24 @@ namespace cody.Models
 
 
         public UserProfilePicture ProfilePicture { get; set; }
+
+
+        public IEnumerable<string> GetRejectReasons()
+        { 
+            if (Validation.IsValidNameOrSurname(Name))
+                yield return "name";
+
+            if (Validation.IsValidNameOrSurname(Surname))
+                yield return "surname";
+        }
+
+
+        public void TrimFields()
+        {
+            Utility.TrimAll(this,
+                _ => _.Name,
+                _ => _.Surname
+            );
+        }
     }
 }
