@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { TextField } from '@material-ui/core';
 import { Link } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
@@ -7,45 +7,71 @@ import { Checkbox } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core/';
+import { CircularProgress } from '@material-ui/core';
 
 import { Password } from './password_textfield'
 import { Colors } from '../index';
 
-import { makeStyles } from '@material-ui/core/styles';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { User } from '../lib/user';
 
 
-const useStyles = makeStyles({
-  forgotPassword: {
-    fontSize: 12
-  },
-});
+export class LoginBox extends Component{
 
+  constructor(props){
+    super(props);
+    this._updatePassword = this._updatePassword.bind(this)
 
-export function LoginBox(props) {
-  let _username = '';
-  let _password = '';
-  
+    this.state = {
+      username: '',
+      password: '',
+      wrongUsername: false,
+      wrongPassword: false,
+      loading: false,
+    }
+  }
+
   /**
    * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
    */
-  const _updateUsername = e => {
-    _username = e.target.value;
+  _updateUsername = e => {
+    this.setState({username: e.target.value});
   };
 
   /**
    * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
    */
-  function _updatePassword(value){
-    _password = value;
+  _updatePassword(value){
+    this.setState({password: value});
   };
 
-  const classes = useStyles();
+  render(){
+    return(
+    <Box width={this.props.size}
+      justifyContent="center"
+      display="flex"
+      position="relative"
+    >
+      {
+        this.state.loading ? (
+          <Box
+            position="absolute"
+            top="50%"
+            left="50%"
+            style={{
+              transform: "translate(-50%, -50%)"
+            }}
+          >
+            <CircularProgress
+              color="secondary"
+            />
+          </Box> 
+        ) : (
+          null
+        )
+      }
 
-  return (
-    <Box width={props.size}>
       <Grid
         container
         direction="column"
@@ -64,13 +90,15 @@ export function LoginBox(props) {
             variant="outlined"
             color="secondary"
             fullWidth={true}
-            onChange={_updateUsername}
+            onChange={this._updateUsername}
+            error={this.state.wrongUsername}
           />
           <Box m={0.5}/>
           <Password
             label="Password"
             labelWidth={70}
-            onChange={_updatePassword}
+            onChange={this._updatePassword}
+            error={this.state.wrongPassword}
           />
           <Grid
             container
@@ -113,20 +141,36 @@ export function LoginBox(props) {
             fullWidth={true}
             endIcon={<AccountCircleRoundedIcon/>}
             onClick={() => {
-              User.tryLogin({
-                username: _username,
-                password: _password,
-                onSuccess: _ => console.log('success'),
-                onUserNotFound: _ => console.log('user not found'),
-                onPasswordMismatch: _ => console.log('wrong password'),
-              });
+              this.setState({wrongUsername: false});
+              this.setState({wrongUsername: false});
+
+              if(this.state.username != 0 && this.state.password != 0)
+              {
+                this.setState({loading: true});
+                User.tryLogin({
+                  username: this.state.username,
+                  password: this.state.password,
+                  onSuccess: _ => console.log('success'),
+                  onUserNotFound: _ => this.setState({wrongUsername: true}),
+                  onPasswordMismatch: _ => this.setState({wrongPassword: true}),
+                }).then(
+                  _=> this.setState({loading: false})
+                );
+              }
+              else
+              {
+                this.setState({wrongUsername: true});
+                this.setState({wrongPassword: true});
+              }
             }}
           >
             Accedi
           </Button>
           <Box mt={1}>
             <Link
-              className={classes.forgotPassword}
+              style={{
+                fontSize: 12,
+              }}
               component="button"
               variant="body2"
               color="secondary"
@@ -140,5 +184,7 @@ export function LoginBox(props) {
         </Grid>
       </Grid>
     </Box>
-  );
+    )
+  }
 }
+
