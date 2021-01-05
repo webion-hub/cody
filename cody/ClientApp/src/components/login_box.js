@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 export function LoginBox(props) {
   let _username = '';
-  let _password = '2437Productions';
+  let _password = '';
   
   /**
    * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
@@ -113,8 +113,13 @@ export function LoginBox(props) {
             fullWidth={true}
             endIcon={<AccountCircleRoundedIcon/>}
             onClick={() => {
-              console.log(_username);
-              User.tryLogin(_username, _password);
+              User.tryLogin({
+                username: _username,
+                password: _password,
+                onSuccess: _ => console.log('success'),
+                onUserNotFound: _ => console.log('user not found'),
+                onPasswordMismatch: _ => console.log('wrong password'),
+              });
             }}
           >
             Accedi
