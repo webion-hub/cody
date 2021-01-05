@@ -10,6 +10,6 @@ export class IDControl{
   isWrongNameSurname(val){
     let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
 
-    return val.length == 0 || re.test(val);
+    return val.length == 0 || !re.test(val);
   }
 }

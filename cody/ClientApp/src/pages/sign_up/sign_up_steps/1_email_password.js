@@ -20,8 +20,8 @@ export class EmailPassword extends Component{
 
   constructor(props) {
     super(props);
-    this.getPassword = this.getPassword.bind(this)
-    this.getConfirmPassword = this.getConfirmPassword.bind(this)
+    this.getPassword = this.getPassword.bind(this);
+    this.getConfirmPassword = this.getConfirmPassword.bind(this);
     
     this.formatControl = new FormatControl();
     this.pwControl = new PasswordControl();
