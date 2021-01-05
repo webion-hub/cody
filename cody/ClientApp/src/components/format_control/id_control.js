@@ -4,13 +4,11 @@ export class IDControl{
   }
 
   isWrongUsername(username){
-    let re = /[ `!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?~éèçò°à§ù]/;
-
-    return this.isUsernameWrongLength(username) || re.test(username);
+    return this.isUsernameWrongLength(username);
   }  
 
   isWrongNameSurname(val){
-    let re = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
 
     return val.length == 0 || re.test(val);
   }

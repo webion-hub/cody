@@ -6,6 +6,7 @@ import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 
 import { Password } from '../../../components/password_textfield';
+import { PwStrengthProgress } from '../../../components/password_strenght_progress';
 import { SignUpBase } from '../sign_up_base';
 import { Colors } from '../../../index';
 
@@ -58,7 +59,7 @@ export class EmailPassword extends Component{
       value,
       this.state.confirmPassword, 
       this.state.email);
-
+    
     areErrors(areErrorsCheck);
   };
 
@@ -118,8 +119,11 @@ export class EmailPassword extends Component{
                 color: Colors.lightGrey
               }}
             >
-              Tra 6 e 16 caratteri
+              Tra 8 e 128 caratteri
             </Typography>
+            <PwStrengthProgress
+              password={this.state.password}
+            />
           </Box>,
           <Password
             label="Conferma Password"
@@ -135,4 +139,7 @@ export class EmailPassword extends Component{
     );
   }
 }
+
+
+
 
