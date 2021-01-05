@@ -13,15 +13,21 @@ namespace cody.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        
 
+        [Required] public string Name { get; set; }
+        [Required] public string Surname { get; set; }
+        [Required] public DateTime BirthDate { get; set; }
+
+
+        [Required]
         public int UserAccountId { get; set; }
         public UserAccount UserAccount { get; set; }
 
 
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public DateTime BirthDate { get; set; }
         public int? SchoolId { get; set; }
+        public SchoolAccount School { get; set; }
+
+
+        public UserProfilePicture ProfilePicture { get; set; }
     }
 }
