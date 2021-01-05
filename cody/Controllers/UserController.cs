@@ -6,11 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Linq.Expressions;
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace cody.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly CodyContext _context;
@@ -21,24 +25,39 @@ namespace cody.Controllers
         }
 
 
+        [HttpGet]
+        [Route("exists/{usernameOrEmail}")]
+        public IActionResult UserExists(string usernameOrEmail)
+        {
+            return _context.UserExists(usernameOrEmail)
+                ? Ok()
+                : NotFound();
+        }
+
+
         /// <response code="200">The login was successfull</response>
         /// <response code="404">The username wasn't found</response>
         /// <response code="400">The passwords didn't match</response>
         [HttpGet]
         [Route("login/{username}/{password}")]
-        public IActionResult TryLoginAsync(string username, string password)
+        public IActionResult TryLogin(string username, string password)
         {
+            if (string.IsNullOrWhiteSpace(username))
+                return NotFound();
+
+            if (string.IsNullOrWhiteSpace(password))
+                return BadRequest();
+
+
             var maybeUser =
-                from user in _context.UsersAccounts
-                where user.Username == username
-                select user;
+                _context.MaybeGetUserBy(username);
 
             var userExists = maybeUser.Any();
             if (!userExists)
                 return NotFound();
 
             var foundUser = maybeUser.First();
-            var isPasswordCorrect = 
+            var isPasswordCorrect =
                 Password.AreEqual(password, foundUser.Password);
 
             if (!isPasswordCorrect)
@@ -52,28 +71,48 @@ namespace cody.Controllers
         /// <response code="400">Registration error, along with the reject reasons</response>
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> TryRegisterUser([FromBody] UserAccount account) 
+        public async Task<IActionResult> TryRegisterUser([FromBody] UserAccount account)
         {
-            var rejectReasons = new List<string>();
-            rejectReasons.AddRange(
-                MaybeGetAccountRejectReasons(account));
+            account.TrimSelfAndRelated();
 
+            var rejectReasons = MaybeReject(account);
             if (rejectReasons.Any())
                 return BadRequest(rejectReasons);
 
-            await _context.UsersAccounts.AddAsync(account);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.UsersAccounts.AddAsync(account);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException) {
+                return BadRequest(new string[] { "server_error" });
+            }
+
             return Ok();
         }
 
 
-        private static IEnumerable<string> MaybeGetAccountRejectReasons(UserAccount account)
+        private List<string> MaybeReject(UserAccount account)
         {
-            if (account.Password.Length is < 6 or > 16)
-                yield return "password";
+            var rejectReasons = new List<string>();
+            rejectReasons.AddRange(account.GetRejectReasons());
+            rejectReasons.AddRange(account.AccountDetail?.GetRejectReasons());
 
-            if (account.Username.Length is < 4 or > 28)
-                yield return "username";
+            if (!rejectReasons.Any()) {
+                rejectReasons.AddRange(
+                    MaybeUserExists(account.Username, account.Email));
+            }
+
+            return rejectReasons;
+        }
+
+        private IEnumerable<string> MaybeUserExists(string username, string email)
+        {
+            if (_context.UserExists(username))
+                yield return "username_exists";
+
+            if (_context.UserExists(email))
+                yield return "email_exists";
         }
     }
 }
