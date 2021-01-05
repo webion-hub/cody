@@ -10,6 +10,7 @@ import { OptionalDatas } from './sign_up_steps/3_optional';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
 import { HorizontalLinearStepper } from '../../components/stepper';
+import { updateElementAccess } from 'typescript';
 
 const base = {
   imageWidth: 330,
@@ -27,6 +28,33 @@ function getWindowDimensions() {
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
+  constructor() {
+    super(); 
+    this.getCheckErrors = this.getCheckErrors.bind(this);
+    this.getCurrentStep = this.getCurrentStep.bind(this);
+    this.areErrors = this.areErrors.bind(this);
+
+    this.state = {
+      checkErrors: false,
+      currentStep: 0,
+      areErrors: false,
+    }
+  }
+
+  getCheckErrors(){
+    this.setState({checkErrors: true});
+  };
+
+  getCurrentStep(step){
+    this.setState({currentStep: step});
+    this.setState({checkErrors: false});
+    this.setState({areErrors: false});
+  }
+
+  areErrors(value){
+    this.setState({areErrors: value});
+  }
+
   render () {
     const screenWidth = getWindowDimensions().width;
     const isImageBigger = base.imageWidth > screenWidth;
@@ -48,6 +76,26 @@ export class SignUp extends Component {
       padding;
 
 
+    let elements = [
+      <EmailPassword
+        imageWidth = {imageWidth}
+        formWidth = {formWidth}
+        checkErrors = {this.state.checkErrors}
+        areErrors = {this.areErrors}
+      />,
+      <IDDatas
+        imageWidth = {imageWidth}
+        formWidth = {formWidth}
+        checkErrors = {this.state.checkErrors}
+        areErrors = {this.areErrors}
+      />,    
+      <OptionalDatas
+        imageWidth = {imageWidth}
+        formWidth = {formWidth}
+        checkErrors = {this.state.checkErrors}
+      />,      
+    ]
+
     return (  
       <Grid
         style={{
@@ -67,23 +115,11 @@ export class SignUp extends Component {
           >
             <HorizontalLinearStepper
               steps={3}
-              stepsContent={
-                [
-                  <EmailPassword
-                    imageWidth = {imageWidth}
-                    formWidth = {formWidth}
-                  />,
-                  <IDDatas
-                  imageWidth = {imageWidth}
-                  formWidth = {formWidth}
-                  />,    
-                  <OptionalDatas
-                  imageWidth = {imageWidth}
-                  formWidth = {formWidth}
-                  />,
-                ]
-              }
+              checkErrors={this.getCheckErrors}
+              areErrors={this.state.areErrors}
+              currentStep={this.getCurrentStep}
               optionalSteps={[3]}
+              element={elements[this.state.currentStep]}
               completed={
                 <SignUpCompleted
                     imageWidth = {imageWidth}

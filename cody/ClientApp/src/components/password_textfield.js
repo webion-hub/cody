@@ -11,6 +11,7 @@ import { VisibilityOff } from '@material-ui/icons';
 export class Password extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       amount: '',
@@ -45,6 +46,7 @@ export class Password extends Component {
         <InputLabel 
           htmlFor="password"
           color="secondary"
+          error={this.props.error}
         >
           {this.props.label}
         </InputLabel>
@@ -54,6 +56,7 @@ export class Password extends Component {
           type={this.state.showPassword ? 'text' : 'password'}
           value={this.state.password}
           onChange={this.handleChange('password')}
+          error={this.props.error}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
