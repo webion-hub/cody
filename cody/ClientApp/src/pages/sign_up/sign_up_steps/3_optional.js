@@ -6,6 +6,8 @@ import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { SignUpBase } from '../sign_up_base'
 import { AddPhoto } from '../../../components/add_photo';
@@ -13,10 +15,20 @@ import { Colors } from '../../../index'
 
 import { Step3 } from '../../../components/illustrations/step3';
 
-
-
+const useStyles = makeStyles({
+  '@global': {
+    '.MuiAutocomplete-option[data-focus="true"]': {
+        background: 'rgb(150, 150, 150, 0.1)'
+    },
+    '.MuiAutocomplete-option': {
+      background: 'rgb(255,255,255, 0.1)'
+  }
+  }
+});
 
 export function OptionalDatas(props){
+  const classes = useStyles(props);
+
   return (
     <SignUpBase
       image={<Step3 size={props.imageWidth}/>}
@@ -61,12 +73,39 @@ export function OptionalDatas(props){
           >
             Sei uno studente?
           </Typography>
-          <TextField
+          <Box m={1}/>
+          <Autocomplete
             id="school"
-            label="Istituto"
-            variant="outlined"
-            color="secondary"
-            fullWidth={true}
+            selectOnFocus            
+            handleHomeEndKeys
+            clearOnBlur
+            freeSolo
+            options={schoolsList}
+            getOptionLabel={(option) => (option.name + " - " + option.city)}
+            renderOption={(option) => (
+              <Grid
+                container
+                direction="column"
+              >
+                {option.name}
+                <Typography
+                  variant="caption"
+                >
+                  {option.country} - {option.city}
+                </Typography>                
+              </Grid>
+            )}
+            style={{ width: 300 }}
+            renderInput={
+              (params) => 
+              <TextField 
+                {...params} 
+                label="Istituto" 
+                variant="outlined" 
+                color="secondary"
+                fullWidth={true}
+              />
+            }
           />
         </Box>,
       ]}
@@ -75,3 +114,30 @@ export function OptionalDatas(props){
 }
 
 
+const schoolsList = [
+  { 
+    name: "ITIS Fermi", 
+    city: "Modena",
+    country: "Italy" 
+  },
+  { 
+    name: "Unimore", 
+    city: "Modena",
+    country: "Italy" 
+  },
+  { 
+    name: "Unimi", 
+    city: "Milano",
+    country: "Italy" 
+  },
+  { 
+    name: "Politecnico Torino", 
+    city: "Torino",
+    country: "Italy" 
+  },
+  { 
+    name: "MIT", 
+    city: "Boston",
+    country: "Massachusetts" 
+  },
+];
