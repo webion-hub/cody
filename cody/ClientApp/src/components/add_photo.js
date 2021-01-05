@@ -1,31 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { Box } from '@material-ui/core';
-
 import { Fab } from '@material-ui/core';
 
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 
-export function AddPhoto(props){
+export class AddPhoto extends Component{
 
-    const iconSize = props.iconSize;
-    const boxSize = props.size;
+  constructor(props){
+    super(props);
+
+    this.state = {
+      image: null,
+    }
+  }
+
+  deleteImage = () => {
+    this.setState({image: null});     
+  };
+
+  fileSelectedHandler = (event) => {
+    this.setState({image: event.target.files[0]});
+  }
+
+  render(){
+    const iconSize = this.props.iconSize;
+    const boxSize = this.props.size;
     const margin = (boxSize - iconSize) / 16
-  
+
     return (
       <Box 
-        style={ 
-          props.image ? {
-              backgroundImage: `url(${props.image})`,
-              backgroundPosition: "center",
-              backgroundSize: props.size,
-            } : {
-              backgroundColor: "rgba(0,0,0,0.2)"
-            }
-        }
+        style={{
+          backgroundColor: "rgba(0,0,0,0.2)"
+        }}
         boxShadow={3}
         width={boxSize}
         height={boxSize}
@@ -35,22 +45,53 @@ export function AddPhoto(props){
           container
           justify="flex-end"
         >
+          {
+            this.state.image? (
+              <img 
+                src={URL.createObjectURL(this.state.image)} 
+                alt={this.state.image.name}
+                style={{
+                  width: boxSize,
+                  height: boxSize,
+                  overflow: "hidden",
+                  objectFit: "cover",
+                  borderRadius: boxSize / 2,
+                }}                
+              />
+            ) : null
+          }
+
           <Box
             position="absolute"
             style={{
               transform: "translate(8px, 8px)"
             }}
-            mt={(props.size - 56) / 8}
+            mt={(this.props.size - 56) / 8}
           >
-            <Fab color="primary" aria-label="add">
-              {
-                props.image ? (
-                    <EditRoundedIcon/>
-                  ) : (
-                    <AddRoundedIcon />
-                  )
-                }
-            </Fab>
+            {
+              this.state.image? (
+                <Fab 
+                  color="primary"
+                  onClick={this.deleteImage}
+                >     
+                  <DeleteRoundedIcon />          
+                </Fab>
+              ):(
+                <Fab 
+                  component="label"
+                  color="primary"
+                >     
+                  <AddRoundedIcon />          
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={this.fileSelectedHandler}
+                    hidden
+                  />
+                </Fab>
+              )
+            }
+
           </Box>
         </Grid>
         <Grid
@@ -58,9 +99,10 @@ export function AddPhoto(props){
           justify="center"
         >
           {
-            props.image ? (
+            this.state.image? (
                 <div></div>
               ) : (
+                
                 <Box
                   m={margin}
                 >
@@ -72,5 +114,7 @@ export function AddPhoto(props){
           }  
         </Grid>
       </Box>
-    );
+    )
   }
+}
+
