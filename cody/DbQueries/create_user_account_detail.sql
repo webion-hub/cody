@@ -17,5 +17,5 @@ CREATE TABLE user_account_detail
 	
 	CONSTRAINT school_id_fk
 		FOREIGN KEY(school_id)
-		REFERENCES school_account(id),
+		REFERENCES school_account(id)
 );
