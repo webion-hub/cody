@@ -19,25 +19,32 @@ export class IDDatas extends Component{
 
   constructor(props) {
     super(props);
-    
+    this.getDate = this.getDate.bind(this);
+
     this.formatControl = new FormatControl();
     this.idControl = new IDControl();
 
     this.state = {
-      username: '',
-      name: '',
-      surname: '',
+      username: this.props.values.username,
+      name: this.props.values.name,
+      surname: this.props.values.surname,
+      birthDate: this.props.values.birthDate,
     }
 
+    const areErrorsCheck = this.formatControl.areErrorsId(
+      this.state.username,
+      this.state.name, 
+      this.state.surname);
     const {areErrors} = this.props;
-    areErrors(true);
+    areErrors(areErrorsCheck);
   }
 
-
+  
 
   getUsername = (event) => {
     this.setState({username: event.target.value });
     const {areErrors} = this.props;
+    const {username} = this.props;
 
     const areErrorsCheck = this.formatControl.areErrorsId(
       event.target.value,
@@ -45,11 +52,13 @@ export class IDDatas extends Component{
       this.state.surname);
 
     areErrors(areErrorsCheck);
+    username(event.target.value);
   };
 
   getName = (event) => {
     this.setState({name: event.target.value });
     const {areErrors} = this.props;
+    const {name} = this.props;
 
     const areErrorsCheck = this.formatControl.areErrorsId(
       this.state.username,
@@ -57,11 +66,13 @@ export class IDDatas extends Component{
       this.state.surname);
 
     areErrors(areErrorsCheck);
+    name(event.target.value);
   };
 
   getSurname = (event) => {
     this.setState({surname: event.target.value });
     const {areErrors} = this.props;
+    const {surname} = this.props;
 
     const areErrorsCheck = this.formatControl.areErrorsId(
       this.state.username,
@@ -69,8 +80,15 @@ export class IDDatas extends Component{
       event.target.value);
 
     areErrors(areErrorsCheck);
+    surname(event.target.value);
   };
 
+  getDate(value){
+    this.setState({birthDate: value});
+    const {date} = this.props;
+
+    date(value);
+  }
 
   render(){
     return (
@@ -93,6 +111,7 @@ export class IDDatas extends Component{
                   variant="outlined"
                   color="secondary"
                   fullWidth={true}
+                  value={this.props.values.username}
                   onChange={this.getUsername}
                   error={
                     this.props.checkErrors && 
@@ -115,6 +134,7 @@ export class IDDatas extends Component{
             variant="outlined"
             color="secondary"
             fullWidth={true}
+            value={this.props.values.name}
             onChange={this.getName}
             error={
               this.props.checkErrors &&
@@ -127,6 +147,7 @@ export class IDDatas extends Component{
             variant="outlined"
             color="secondary"
             fullWidth={true}
+            value={this.props.values.surname}
             onChange={this.getSurname}
             error={
               this.props.checkErrors &&
@@ -134,7 +155,10 @@ export class IDDatas extends Component{
             }  
           />,
           <Box m={1}/>,
-          <DatePicker/>
+          <DatePicker
+            value={this.props.values.birthDate}
+            onChange={this.getDate}
+          />
         ]}
       />
     );

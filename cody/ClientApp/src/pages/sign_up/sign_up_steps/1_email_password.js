@@ -28,20 +28,24 @@ export class EmailPassword extends Component{
     this.emailControl = new EmailControl();
 
     this.state = {
-      password: '',
-      confirmPassword: '',
-      email: '',
+      email: this.props.values.email,
+      password: this.props.values.password,
+      confirmPassword: '',      
     }
 
+    const areErrorsCheck = this.formatControl.areErrorsPWEmail(
+      this.state.password,
+      this.state.confirmPassword, 
+      this.state.email);
+
     const {areErrors} = this.props;
-    areErrors(true);
+    areErrors(areErrorsCheck);
   }
-
-
 
   getEmail = (event) => {
     this.setState({email: event.target.value });
     const {areErrors} = this.props;
+    const {email} = this.props;
 
     const areErrorsCheck = this.formatControl.areErrorsPWEmail(
       this.state.password,
@@ -49,11 +53,13 @@ export class EmailPassword extends Component{
       event.target.value);
 
     areErrors(areErrorsCheck);
+    email(event.target.value);
   };
 
   getPassword(value){
     this.setState({password: value });
     const {areErrors} = this.props;
+    const {password} = this.props;
 
     const areErrorsCheck = this.formatControl.areErrorsPWEmail(
       value,
@@ -61,6 +67,7 @@ export class EmailPassword extends Component{
       this.state.email);
     
     areErrors(areErrorsCheck);
+    password(value);
   };
 
   getConfirmPassword(value){
@@ -95,6 +102,7 @@ export class EmailPassword extends Component{
             type="email"
             variant="outlined"
             color="secondary"
+            value={this.props.values.email}
             fullWidth={true}
             onChange={this.getEmail}
             error={
@@ -107,6 +115,7 @@ export class EmailPassword extends Component{
             <Password
               label="Password"
               labelWidth={70}
+              value={this.props.values.password}
               onChange={this.getPassword}
               error={
                 this.props.checkErrors && 
