@@ -5,7 +5,7 @@ import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
 import { EmailPassword } from './sign_up_steps/1_email_password';
-import { IDDatas } from './sign_up_steps/2_ID_datas';
+import { IDData } from './sign_up_steps/2_ID_data';
 import { OptionalDatas } from './sign_up_steps/3_optional';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
@@ -39,6 +39,7 @@ export class SignUp extends Component {
     this.getName = this.getName.bind(this);
     this.getSurname = this.getSurname.bind(this);
     this.getDate = this.getDate.bind(this);
+    this.getSchool = this.getSchool.bind(this);
 
     this.state = {
       checkErrors: false,
@@ -52,6 +53,12 @@ export class SignUp extends Component {
       name: '',
       surname: '',
       birthDate: new Date(),
+
+      school: {
+        name: '',
+        city: '',
+        country: '',
+      }
     }
   }
 
@@ -79,6 +86,11 @@ export class SignUp extends Component {
     this.setState({birthDate: value});
   }
 
+  getSchool(value){
+    this.setState({school: value});
+    console.log(value);
+  }
+
   setUser(){
     return {
       username: this.state.username,
@@ -87,7 +99,8 @@ export class SignUp extends Component {
       accountDetail: {
         name: this.state.name,
         surname: this.state.surname,
-        birthDate: this.state.birthDate
+        birthDate: this.state.birthDate,
+        school: this.state.school,
       }
     } 
   }
@@ -140,7 +153,7 @@ export class SignUp extends Component {
           password: this.state.password,
         }}
       />,
-      <IDDatas
+      <IDData
         imageWidth = {imageWidth}
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
@@ -155,12 +168,13 @@ export class SignUp extends Component {
           surname: this.state.surname,
           birthDate: this.state.birthDate,
         }}
-      />,    
+      />,  
       <OptionalDatas
         imageWidth = {imageWidth}
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
-      />,      
+        school = {this.getSchool}
+      />,        
     ]
 
     return (  

@@ -35,7 +35,7 @@ export class DatePicker extends Component{
           id="date-picker"
           label="Data di nascita"
           fullWidth={true}
-          value={this.props.value == "" ? this.state.selectedDate : this.props.value}
+          value={this.props.value === "" ? this.state.selectedDate : this.props.value}
           onChange={this.handleDateChange}
           KeyboardButtonProps={{
             'aria-label': 'Data di nascita',

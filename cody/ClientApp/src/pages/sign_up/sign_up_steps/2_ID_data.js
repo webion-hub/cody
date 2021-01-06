@@ -15,7 +15,7 @@ import { IDControl } from '../../../components/format_control/id_control';
 
 import { Step2 } from '../../../components/illustrations/step2';
 
-export class IDDatas extends Component{
+export class IDData extends Component{
 
   constructor(props) {
     super(props);

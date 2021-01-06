@@ -54,7 +54,7 @@ export class Password extends Component {
           id={this.props.label}
           color="secondary"
           type={this.state.showPassword ? 'text' : 'password'}
-          value={this.props.value == "" ? this.state.password : this.props.value}
+          value={this.props.value === "" ? this.state.password : this.props.value}
           onChange={this.handleChange('password')}
           error={this.props.error}
           endAdornment={

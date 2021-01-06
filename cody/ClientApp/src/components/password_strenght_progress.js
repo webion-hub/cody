@@ -46,9 +46,9 @@ export function PwStrengthProgress(props){
   const classes = useStyles(props);
 
   function changeColor(){
-    if(pwControl.pwStrength(props.password) == 100)
+    if(pwControl.pwStrength(props.password) === 100)
         return classes.strong;
-      else if(pwControl.pwStrength(props.password) == 50)
+      else if(pwControl.pwStrength(props.password) === 50)
         return classes.medium;
       else 
         return classes.weak;
