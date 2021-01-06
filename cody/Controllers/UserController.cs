@@ -85,7 +85,7 @@ namespace cody.Controllers
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException) {
-                return BadRequest(new string[] { "server_error" });
+                return BadRequest(new []{ "server_error" });
             }
 
             return Ok();
@@ -111,7 +111,7 @@ namespace cody.Controllers
             if (_context.UserExists(username))
                 yield return "username_exists";
 
-            if (_context.UserExists(email))
+            else if (_context.UserExists(email))
                 yield return "email_exists";
         }
     }
