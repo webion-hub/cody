@@ -1,4 +1,4 @@
-import { throwIfNullOrEmpty } from './utility';
+import { invokeCallback } from './utility';
 import { AxiosResponse } from 'axios';
 import axios from 'axios';
 import './cody_types';
@@ -31,11 +31,28 @@ import './cody_types';
  * @typedef {object} TryRegisterOptions
  * @property {UserAccount} user
  * @property {() => void} [onSuccess]
+ * @property {(fields: string[]) => void} [onMissingFields]
  * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
  */
 
 
 export class User {
+  /**
+   * @param {string} usernameOrEmail
+   * @returns {boolean} 
+   */
+  static async existsWith(usernameOrEmail) {
+    return await axios
+      .get(`user/exists/${usernameOrEmail}`)
+      .then(resp => {
+        return {
+          200: true,
+          400: false,
+        }[resp.status];
+      });
+  }
+
+
   /**
    * @param {TryLoginOptions} options
    * @returns {Promise<AxiosResponse<any>>}
@@ -56,14 +73,13 @@ export class User {
         validateStatus: false,
       })
       .then(response => {
-        const action = {
+        const actions = {
           200: onSuccess,
           404: onUserNotFound,
           400: onPasswordMismatch,
-        }[response.status];
+        };
         
-        if (action)
-          action();
+        invokeCallback(response.status, actions);
       });
   }
 
@@ -77,6 +93,7 @@ export class User {
       user,
       onSuccess,
       onError,
+      onMissingFields,
     } = options;
 
     return axios
@@ -88,13 +105,17 @@ export class User {
         data: user,
       })
       .then(response => {
-        const action = {
-          200: onSuccess,
-          400: _ => onError(response.data),
-        }[response.status];
+        const data = response.data;
+        const errorCallback = data.errors != undefined
+          ? _ => onMissingFields(Object.keys(data.errors))
+          : _=> onError(response.data);
 
-        if (action)
-          action();
+        const actions = {
+          200: onSuccess,
+          400: errorCallback,
+        };
+
+        invokeCallback(response.status, actions);
       });
   }
 }
