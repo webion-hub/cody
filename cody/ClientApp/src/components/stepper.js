@@ -151,8 +151,7 @@ export class HorizontalLinearStepper extends Component {
                         variant="contained"
                         color="primary"
                         onClick={() => {
-                          console.log(this.props.user)
-                          /*User.tryRegister({
+                          User.tryRegister({
                             user: this.props.user,
                             onSuccess: _ => {
                               console.log('success');
@@ -167,7 +166,7 @@ export class HorizontalLinearStepper extends Component {
                                   console.log("password")                            
                               });
                             }
-                          });*/
+                          });
                         }}
                       >
                         Finisci
