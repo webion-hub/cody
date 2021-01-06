@@ -10,6 +10,8 @@ import { Typography } from '@material-ui/core/';
 
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
+import { User } from '../lib/user';
+
 export class HorizontalLinearStepper extends Component {
   constructor(props){
     super(props);
@@ -20,7 +22,7 @@ export class HorizontalLinearStepper extends Component {
       skipped: new Set(),
       steps: Array.isArray(props.steps) ? props.steps : Array(props.steps).fill(""),
       stepsContent: props.stepsContent,
-      finalSteps: props.completed,
+      finalStep: props.completed,
       optionalSteps: props.optionalSteps,
     }
   }
@@ -107,7 +109,7 @@ export class HorizontalLinearStepper extends Component {
           {this.state.activeStep === this.state.steps.length ? (
             <div>
               <div>
-                {this.state.finalSteps}
+                {this.state.finalStep}
               </div>
               <Grid
                 container
@@ -143,23 +145,55 @@ export class HorizontalLinearStepper extends Component {
                     Indietro
                   </Button>
                   <div>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => {
-                        if(this.isStepOptional(this.state.activeStep))
-                          this.handleSkip()  
-                        else
-                          {
-                            if(this.props.areErrors)
-                              this.handleCheckErrors();
-                            else
+                  {this.state.activeStep === this.state.steps.length - 1 ?  
+                    (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          console.log(this.props.user)
+                          /*User.tryRegister({
+                            user: this.props.user,
+                            onSuccess: _ => {
+                              console.log('success');
                               this.handleNext();
-                          }
-                      }}
-                    >
-                      {this.state.activeStep === this.state.steps.length - 1 ? 'Finisci' : 'Avanti'}
-                    </Button> 
+                            },
+                            onError: reasons => {
+                              reasons.forEach(reason => {                            
+                                if(reason == 'email')
+                                  console.log("wrong email");
+                                  
+                                if(reason == 'password')
+                                  console.log("password")                            
+                              });
+                            }
+                          });*/
+                        }}
+                      >
+                        Finisci
+                      </Button> 
+                    )
+                    : 
+                    (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          if(this.isStepOptional(this.state.activeStep))
+                            this.handleSkip()  
+                          else
+                            {
+                              if(this.props.areErrors)
+                                this.handleCheckErrors();
+                              else
+                                this.handleNext();
+                            }
+                        }}
+                      >
+                        Avanti
+                      </Button> 
+                    )
+                  }
                   </div>
                 </Grid>
               </div>

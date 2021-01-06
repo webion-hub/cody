@@ -10,7 +10,6 @@ import { OptionalDatas } from './sign_up_steps/3_optional';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
 import { HorizontalLinearStepper } from '../../components/stepper';
-import { updateElementAccess } from 'typescript';
 
 const base = {
   imageWidth: 330,
@@ -22,7 +21,7 @@ function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
-    height
+    height,
   };
 }
 
@@ -34,11 +33,63 @@ export class SignUp extends Component {
     this.getCurrentStep = this.getCurrentStep.bind(this);
     this.areErrors = this.areErrors.bind(this);
 
+    this.getEmail = this.getEmail.bind(this);
+    this.getPassword = this.getPassword.bind(this);
+    this.getUsername = this.getUsername.bind(this);
+    this.getName = this.getName.bind(this);
+    this.getSurname = this.getSurname.bind(this);
+    this.getDate = this.getDate.bind(this);
+
     this.state = {
       checkErrors: false,
       currentStep: 0,
       areErrors: false,
+
+      username: '',
+      password: '',
+      email: '',
+
+      name: '',
+      surname: '',
+      birthDate: new Date(),
     }
+  }
+
+  getEmail(value){
+    this.setState({email: value});
+  }
+
+  getPassword(value){
+    this.setState({password: value});
+  }
+
+  getUsername(value){
+    this.setState({username: value});
+  }
+
+  getName(value){
+    this.setState({name: value});
+  }
+
+  getSurname(value){
+    this.setState({surname: value});
+  }
+
+  getDate(value){
+    this.setState({birthDate: value});
+  }
+
+  setUser(){
+    return {
+      username: this.state.username,
+      password: this.state.password,
+      email: this.state.email,
+      accountDetail: {
+        name: this.state.name,
+        surname: this.state.surname,
+        birthDate: this.state.birthDate
+      }
+    } 
   }
 
   getCheckErrors(){
@@ -82,12 +133,28 @@ export class SignUp extends Component {
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
         areErrors = {this.areErrors}
+        email = {this.getEmail}
+        password = {this.getPassword}
+        values = {{
+          email: this.state.email,
+          password: this.state.password,
+        }}
       />,
       <IDDatas
         imageWidth = {imageWidth}
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
         areErrors = {this.areErrors}
+        username = {this.getUsername}
+        name = {this.getName}
+        surname = {this.getSurname}
+        date = {this.getDate}
+        values = {{
+          username: this.state.username,
+          name: this.state.name,
+          surname: this.state.surname,
+          birthDate: this.state.birthDate,
+        }}
       />,    
       <OptionalDatas
         imageWidth = {imageWidth}
@@ -120,6 +187,7 @@ export class SignUp extends Component {
               currentStep={this.getCurrentStep}
               optionalSteps={[3]}
               element={elements[this.state.currentStep]}
+              user={this.setUser()}
               completed={
                 <SignUpCompleted
                     imageWidth = {imageWidth}
