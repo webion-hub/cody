@@ -11,4 +11,12 @@
  * @property {string} name
  * @property {string} surname
  * @property {Date} birthDate
+ * @property {SchoolAccount} [school]
+ */
+
+/**
+ * @typedef {object} SchoolAccount
+ * @property {string} name
+ * @property {string} city
+ * @property {string} country
  */
