@@ -35,7 +35,7 @@ namespace cody.Models
             if (Username.Length is < 4 or > 28)
                 yield return "username";
 
-            if (Validation.IsValidEmail(Email) is not true)
+            if (!Validation.IsValidEmail(Email))
                 yield return "email";
         }
 

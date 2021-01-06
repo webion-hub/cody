@@ -33,10 +33,10 @@ namespace cody.Models
 
         public IEnumerable<string> GetRejectReasons()
         { 
-            if (Validation.IsValidNameOrSurname(Name))
+            if (!Validation.IsValidNameOrSurname(Name))
                 yield return "name";
 
-            if (Validation.IsValidNameOrSurname(Surname))
+            if (!Validation.IsValidNameOrSurname(Surname))
                 yield return "surname";
         }
 
