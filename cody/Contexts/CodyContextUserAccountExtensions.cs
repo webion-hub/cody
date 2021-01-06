@@ -10,6 +10,9 @@ namespace cody.Contexts
     {
         public static bool UserExists(this CodyContext context, string usernameOrEmail)
         {
+            if (string.IsNullOrWhiteSpace(usernameOrEmail))
+                return false;
+
             var userExists = context
                 .MaybeGetUserBy(usernameOrEmail)
                 .Any();
