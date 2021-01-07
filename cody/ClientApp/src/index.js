@@ -38,7 +38,8 @@ const theme = createMuiTheme({
       secondary: "#FFFFFF",      
     },
     action: {
-      disabled: "rgba(255,255,255,0.25)"
+      disabled: "rgba(255,255,255,0.3)",
+      disabledBackground: "rgba(140,140,140,0.25)"
     }
   },
   typography: { 
@@ -46,6 +47,11 @@ const theme = createMuiTheme({
   },
 
   overrides: {
+    MuiFormLabel: {
+      root: {
+        color: Colors.lightGrey,
+      }
+    },
     MuiOutlinedInput: {
       notchedOutline: {
         borderColor: "rgba(255,255,255,0.3)",
