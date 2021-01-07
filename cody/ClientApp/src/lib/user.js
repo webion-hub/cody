@@ -44,12 +44,7 @@ export class User {
   static async existsWith(usernameOrEmail) {
     return await axios
       .get(`user/exists/${usernameOrEmail}`)
-      .then(resp => {
-        return {
-          200: true,
-          400: false,
-        }[resp.status];
-      });
+      .then(resp => resp.data);
   }
 
 

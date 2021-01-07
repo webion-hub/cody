@@ -29,9 +29,7 @@ namespace cody.Controllers
         [Route("exists/{usernameOrEmail}")]
         public IActionResult UserExists(string usernameOrEmail)
         {
-            return _context.UserExists(usernameOrEmail)
-                ? Ok()
-                : NotFound();
+            return Ok(_context.UserExists(usernameOrEmail));
         }
 
 
