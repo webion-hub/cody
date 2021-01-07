@@ -44,6 +44,7 @@ export class Password extends Component {
         fullWidth={true}
       >
         <InputLabel 
+          required={this.props.required}
           htmlFor="password"
           color="secondary"
           error={this.props.error}
