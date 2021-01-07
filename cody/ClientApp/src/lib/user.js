@@ -1,5 +1,5 @@
-import { invokeCallback } from './utility';
-import { AxiosResponse } from 'axios';
+import { invokeCallback, maybeGetCancelToken } from './utility';
+import { AxiosResponse, CancelToken } from 'axios';
 import axios from 'axios';
 import './cody_types';
 
@@ -19,9 +19,16 @@ import './cody_types';
 
 
 /**
+ * @typedef {object} ExistsWithOptions
+ * @property {string} usernameOrEmail
+ * @property {CancelToken} [cancelToken]
+ */
+
+/**
  * @typedef {object} TryLoginOptions
  * @property {string} username
  * @property {string} password
+ * @property {CancelToken} [cancelToken]
  * @property {() => void} [onSuccess]
  * @property {() => void} [onUserNotFound]
  * @property {() => void} [onPasswordMismatch]
@@ -30,6 +37,7 @@ import './cody_types';
 /**
  * @typedef {object} TryRegisterOptions
  * @property {UserAccount} user
+ * @property {CancelToken} [cancelToken]
  * @property {() => void} [onSuccess]
  * @property {(fields: string[]) => void} [onMissingFields]
  * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
@@ -38,12 +46,21 @@ import './cody_types';
 
 export class User {
   /**
-   * @param {string} usernameOrEmail
+   * @param {ExistsWithOptions} options
    * @returns {boolean} 
    */
-  static async existsWith(usernameOrEmail) {
+  static async existsWith(options) {
+    const {
+      usernameOrEmail,
+      cancelToken,
+    } = options;
+
     return await axios
-      .get(`user/exists/${usernameOrEmail}`)
+      .request({
+        url: `user/exists/${usernameOrEmail}`,
+        method: 'GET',
+        ...maybeGetCancelToken(cancelToken),
+      })
       .then(resp => resp.data);
   }
 
@@ -56,6 +73,7 @@ export class User {
     const {
       username,
       password,
+      cancelToken,
       onSuccess,
       onUserNotFound,
       onPasswordMismatch,
@@ -66,15 +84,14 @@ export class User {
         url: `user/login/${username}/${password}/`,
         method: 'GET',
         validateStatus: false,
+        ...maybeGetCancelToken(cancelToken),
       })
       .then(response => {
-        const actions = {
+        invokeCallback(response.status, {
           200: onSuccess,
           404: onUserNotFound,
           400: onPasswordMismatch,
-        };
-        
-        invokeCallback(response.status, actions);
+        });
       });
   }
 
@@ -86,6 +103,7 @@ export class User {
   static async tryRegister(options) {
     const {
       user,
+      cancelToken,
       onSuccess,
       onError,
       onMissingFields,
@@ -98,6 +116,7 @@ export class User {
         responseType: 'json',
         validateStatus: false,
         data: user,
+        ...maybeGetCancelToken(cancelToken),
       })
       .then(response => {
         const data = response.data;
@@ -105,12 +124,10 @@ export class User {
           ? _ => onMissingFields(Object.keys(data.errors))
           : _=> onError(response.data);
 
-        const actions = {
+        invokeCallback(response.status, {
           200: onSuccess,
           400: errorCallback,
-        };
-
-        invokeCallback(response.status, actions);
+        });
       });
   }
 }
