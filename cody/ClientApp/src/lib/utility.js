@@ -1,3 +1,5 @@
+import { CancelToken } from 'axios';
+
 
 /**
  * @param {any} object 
@@ -18,4 +20,22 @@ export function invokeCallback(key, actions) {
   const action = actions[key];
   if (action)
     action();
+}
+
+
+export async function sleep(time) {
+  return new Promise(res => {
+    setTimeout(res, time);
+  });
+}
+
+
+/**
+ * @param {CancelToken?} maybeToken 
+ * @returns {{cancelToken: CancelToken} | {}}
+ */
+export function maybeGetCancelToken(maybeToken) {
+  return !!maybeToken
+    ? { cancelToken: maybeToken }
+    : {};
 }
