@@ -16,7 +16,7 @@ import { Colors } from '../../../index'
 
 import { Step3 } from '../../../components/illustrations/step3';
 
-export class OptionalDatas extends Component{
+export class OptionalData extends Component{
   constructor(props){
     super(props);
     this.handleOpen = this.handleOpen.bind(this);    

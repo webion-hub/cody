@@ -6,7 +6,7 @@ import { Box } from '@material-ui/core';
 
 import { EmailPassword } from './sign_up_steps/1_email_password';
 import { IDData } from './sign_up_steps/2_ID_data';
-import { OptionalDatas } from './sign_up_steps/3_optional';
+import { OptionalData } from './sign_up_steps/3_optional';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
 import { HorizontalLinearStepper } from '../../components/stepper';
@@ -169,7 +169,7 @@ export class SignUp extends Component {
           birthDate: this.state.birthDate,
         }}
       />,  
-      <OptionalDatas
+      <OptionalData
         imageWidth = {imageWidth}
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
