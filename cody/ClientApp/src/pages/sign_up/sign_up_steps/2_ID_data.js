@@ -111,6 +111,7 @@ export class IDData extends Component{
                   variant="outlined"
                   color="secondary"
                   fullWidth={true}
+                  required={true}
                   value={this.props.values.username}
                   onChange={this.getUsername}
                   error={
@@ -134,6 +135,7 @@ export class IDData extends Component{
             variant="outlined"
             color="secondary"
             fullWidth={true}
+            required={true}
             value={this.props.values.name}
             onChange={this.getName}
             error={
@@ -147,6 +149,7 @@ export class IDData extends Component{
             variant="outlined"
             color="secondary"
             fullWidth={true}
+            required={true}
             value={this.props.values.surname}
             onChange={this.getSurname}
             error={

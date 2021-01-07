@@ -104,6 +104,7 @@ export class EmailPassword extends Component{
             color="secondary"
             value={this.props.values.email}
             fullWidth={true}
+            required={true}
             onChange={this.getEmail}
             error={
               this.props.checkErrors && 
@@ -115,6 +116,7 @@ export class EmailPassword extends Component{
             <Password
               label="Password"
               labelWidth={70}
+              required={true}
               value={this.props.values.password}
               onChange={this.getPassword}
               error={
@@ -137,6 +139,7 @@ export class EmailPassword extends Component{
           <Password
             label="Conferma Password"
             labelWidth= {148}
+            required={true}
             onChange={this.getConfirmPassword}
             error={
               this.props.checkErrors && 
