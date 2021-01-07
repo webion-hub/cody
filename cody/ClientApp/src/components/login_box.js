@@ -18,6 +18,8 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { User } from '../lib/user';
 
+import SingleXHRRequest from '../lib/single_xhr_request';
+
 
 export class LoginBox extends Component{
 
@@ -31,23 +33,56 @@ export class LoginBox extends Component{
       wrongUsername: false,
       wrongPassword: false,
       loading: false,
-      navigatoToHome: false,
+      navigateToHome: false,
+      loginRequest: new SingleXHRRequest(),
     }
   }
 
-  /**
-   * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
-   */
+
+  _maybeLogin() {
+    this.setState({wrongUsername: false});
+    this.setState({wrongUsername: false});
+
+    if (!this.state.username)
+      this.setState({wrongUsername: true});
+
+    if (!this.state.password)
+      this.setState({wrongPassword: true});
+
+    if (!this.state.username || !this.state.password)
+      return;
+
+    this.setState({loading: true});
+    this._tryLogin();
+  }
+
+
+  _tryLogin() {
+    this.state.loginRequest.send(tokenSource => {
+      User.tryLogin({
+        username: this.state.username,
+        password: this.state.password,
+        cancelToken: tokenSource.token,
+
+        onSuccess: _ => this.setState({navigateToHome: true}),
+        onUserNotFound: _ => this.setState({wrongUsername: true}),
+        onPasswordMismatch: _ => this.setState({wrongPassword: true}),
+      })
+      .then(
+        _=> this.setState({loading: false})
+      );
+    });
+  }
+
+
   _updateUsername = e => {
     this.setState({username: e.target.value});
-  };
+  }
 
-  /**
-   * @param {React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>} e 
-   */
-  _updatePassword(value){
+  _updatePassword(value) {
     this.setState({password: value});
-  };
+  }
+  
 
   render(){
     return(
@@ -126,31 +161,7 @@ export class LoginBox extends Component{
               disabled={this.state.loading}
               fullWidth={true}
               endIcon={<AccountCircleRoundedIcon/>}
-              onClick={() => {
-                this.setState({wrongUsername: false});
-                this.setState({wrongUsername: false});
-
-                if(this.state.username != 0 && this.state.password != 0)
-                {
-                  this.setState({loading: true});
-                  User.tryLogin({
-                    username: this.state.username,
-                    password: this.state.password,
-                    onSuccess: _ => this.setState({navigatoToHome: true}),
-                    onUserNotFound: _ => this.setState({wrongUsername: true}),
-                    onPasswordMismatch: _ => this.setState({wrongPassword: true}),
-                  }).then(
-                    _=> {
-                      this.setState({loading: false})
-                    }
-                  );
-                }
-                else
-                {
-                  this.setState({wrongUsername: true});
-                  this.setState({wrongPassword: true});
-                }
-              }}
+              onClick={_ => this._maybeLogin()}
             >
               {
                 this.state.loading ? 
@@ -168,7 +179,7 @@ export class LoginBox extends Component{
               Accedi
             </Button>                
             {
-              this.state.navigatoToHome ? (<Redirect to="/"/>) : null
+              this.state.navigateToHome ? (<Redirect to="/"/>) : null
             }     
             <Box mt={1}>
               <Link
