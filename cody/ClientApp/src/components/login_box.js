@@ -58,19 +58,23 @@ export class LoginBox extends Component{
 
 
   _tryLogin() {
-    this.state.loginRequest.send(tokenSource => {
-      User.tryLogin({
+    let success = false;
+    this.state.loginRequest.send(async tokenSource => {
+      await User.tryLogin({
         username: this.state.username,
         password: this.state.password,
         cancelToken: tokenSource.token,
-
-        onSuccess: _ => this.setState({navigateToHome: true}),
+        
+        onSuccess: _ => success = true,
         onUserNotFound: _ => this.setState({wrongUsername: true}),
         onPasswordMismatch: _ => this.setState({wrongPassword: true}),
       })
       .then(
         _=> this.setState({loading: false})
-      );
+      ); 
+
+      if(success)
+        this.setState({navigateToHome: true})
     });
   }
 
@@ -175,7 +179,6 @@ export class LoginBox extends Component{
                   />   
                 ): null
               }
-
               Accedi
             </Button>                
             {

@@ -14,7 +14,7 @@ import { HorizontalLinearStepper } from '../../components/stepper';
 const base = {
   imageWidth: 330,
   formWidth: 300,
-  backgroundImage: "images/forest.jpeg"  
+  backgroundImage: "images/bulb.jpeg"  
 };
 
 function getWindowDimensions() {
@@ -181,7 +181,9 @@ export class SignUp extends Component {
       <Grid
         style={{
           height: "100vh",
-          backgroundImage: `url(${base.backgroundImage})`
+          backgroundImage: `url(${base.backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
         }}
         container
         justify="center"
