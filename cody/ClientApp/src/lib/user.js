@@ -119,14 +119,13 @@ export class User {
         ...maybeGetCancelToken(cancelToken),
       })
       .then(response => {
-        const data = response.data;
-        const errorCallback = data.errors != undefined
-          ? _ => onMissingFields(Object.keys(data.errors))
-          : _=> onError(response.data);
-
         invokeCallback(response.status, {
           200: onSuccess,
-          400: errorCallback,
+          400: _ => {
+            return data.errors != undefined
+              ? _ => onMissingFields(Object.keys(data.errors))
+              : _=> onError(response.data);
+          },
         });
       });
   }
