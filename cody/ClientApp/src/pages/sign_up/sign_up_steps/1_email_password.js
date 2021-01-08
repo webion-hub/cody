@@ -5,14 +5,15 @@ import { Box } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 
-import { Password } from '../../../components/password_textfield';
-import { PwStrengthProgress } from '../../../components/password_strenght_progress';
-import { SignUpBase } from '../sign_up_base';
+import { Password } from '../../../components/password/password_textfield';
+import { PwStrengthProgress } from '../../../components/password/password_strenght_progress';
+import { SignUpBase } from '../sign_up_components/sign_up_base';
+import { NextFocus } from '../../../lib/next_focus';
 import { Colors } from '../../../index';
 
-import { FormatControl } from '../../../components/format_control/format_control';
-import { PasswordControl } from '../../../components/format_control/password_control';
-import { EmailControl } from '../../../components/format_control/email_control';
+import { FormatControl } from '../../../lib/format_control/format_control';
+import { PasswordControl } from '../../../lib/format_control/password_control';
+import { EmailControl } from '../../../lib/format_control/email_control';
 
 import { Step1 } from '../../../components/illustrations/step1';
 
@@ -40,6 +41,8 @@ export class EmailPassword extends Component{
 
     const {areErrors} = this.props;
     areErrors(areErrorsCheck);
+
+    this.nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
   }
 
   getEmail = (event) => {
@@ -106,23 +109,35 @@ export class EmailPassword extends Component{
             fullWidth={true}
             required={true}
             onChange={this.getEmail}
+            inputRef={this.nextFocus.getInput("email")} 
             error={
               this.props.checkErrors && 
               this.emailControl.isEmailWrong(this.state.email)
-            }            
+            }   
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                this.nextFocus.focusOn("password");
+              }              
+           }}         
           />,
           <Box m={3}/>,
           <Box>
             <Password
               label="Password"
-              labelWidth={70}
+              labelWidth={85}
               required={true}
               value={this.props.values.password}
               onChange={this.getPassword}
+              inputRef={this.nextFocus.getInput("password")} 
               error={
                 this.props.checkErrors && 
                 this.pwControl.arePwWrong(this.state.password, this.state.confirmPassword)
               }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.nextFocus.focusOn("confirmPassword");
+                }
+             }}             
             />
             <Typography
               variant="caption"
@@ -138,13 +153,19 @@ export class EmailPassword extends Component{
           </Box>,
           <Password
             label="Conferma Password"
-            labelWidth= {148}
+            labelWidth= {163}
             required={true}
             onChange={this.getConfirmPassword}
             error={
               this.props.checkErrors && 
               this.pwControl.arePwWrong(this.state.password, this.state.confirmPassword)
             }
+            inputRef={this.nextFocus.getInput("confirmPassword")} 
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                this.nextFocus.removeFocus()
+              }
+           }}
           />
         ]}
       />

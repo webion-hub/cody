@@ -7,11 +7,12 @@ import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 
 import { Colors } from '../../../index';
-import { SignUpBase } from '../sign_up_base'
+import { SignUpBase } from '../sign_up_components/sign_up_base'
 import { DatePicker } from '../../../components/date_picker';
+import { NextFocus } from '../../../lib/next_focus';
 
-import { FormatControl } from '../../../components/format_control/format_control';
-import { IDControl } from '../../../components/format_control/id_control';
+import { FormatControl } from '../../../lib/format_control/format_control';
+import { IDControl } from '../../../lib/format_control/id_control';
 
 import { Step2 } from '../../../components/illustrations/step2';
 
@@ -37,6 +38,8 @@ export class IDData extends Component{
       this.state.surname);
     const {areErrors} = this.props;
     areErrors(areErrorsCheck);
+
+    this.nextFocus = new NextFocus(["username", "name", "surname"]);
   }
 
   
@@ -110,6 +113,7 @@ export class IDData extends Component{
                   label="Username"
                   variant="outlined"
                   color="secondary"
+                  inputRef={this.nextFocus.getInput("username")} 
                   fullWidth={true}
                   required={true}
                   value={this.props.values.username}
@@ -118,6 +122,11 @@ export class IDData extends Component{
                     this.props.checkErrors && 
                     this.idControl.isWrongUsername(this.state.username)
                   }  
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      this.nextFocus.focusOn("name");
+                    }              
+                 }}  
               />
               <Typography
                 variant="caption"
@@ -134,6 +143,7 @@ export class IDData extends Component{
             label="Nome"
             variant="outlined"
             color="secondary"
+            inputRef={this.nextFocus.getInput("name")} 
             fullWidth={true}
             required={true}
             value={this.props.values.name}
@@ -142,12 +152,18 @@ export class IDData extends Component{
               this.props.checkErrors &&
               this.idControl.isWrongNameSurname(this.state.name)
             }  
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                this.nextFocus.focusOn("surname");
+              }              
+           }}  
           />,
           <TextField
             id="surname"
             label="Cognome"
             variant="outlined"
             color="secondary"
+            inputRef={this.nextFocus.getInput("surname")} 
             fullWidth={true}
             required={true}
             value={this.props.values.surname}
@@ -156,6 +172,11 @@ export class IDData extends Component{
               this.props.checkErrors &&
               this.idControl.isWrongNameSurname(this.state.surname)
             }  
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                this.nextFocus.removeFocus();
+              }              
+           }}  
           />,
           <Box m={1}/>,
           <DatePicker

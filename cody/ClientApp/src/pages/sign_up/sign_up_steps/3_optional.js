@@ -9,10 +9,11 @@ import { Typography } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Link } from '@material-ui/core';
 
-import { SignUpBase } from '../sign_up_base'
-import { AddSchoolDialog } from './add_school'
+import { SignUpBase } from '../sign_up_components/sign_up_base'
+import { AddSchoolDialog } from '../sign_up_components/add_school_dialog'
 import { AddPhoto } from '../../../components/add_photo';
 import { Colors } from '../../../index'
+import { NextFocus } from '../../../lib/next_focus';
 
 import { Step3 } from '../../../components/illustrations/step3';
 
@@ -24,12 +25,10 @@ export class OptionalData extends Component{
 
     this.state = {
       open: false,
-      school: {
-        name: '',
-        city: '',
-        country: '',
-      },
+      schoolId: null,
     }
+
+    this.nextFocus = new NextFocus(["school"]);
   }
 
   handleOpen(value){
@@ -37,10 +36,10 @@ export class OptionalData extends Component{
   }
 
   getSchool(value){
-    this.setState({school: value});
+    this.setState({schoolId: value.id});
 
     const {school} = this.props;
-    school(value);
+    school(value.id);
   } 
 
   render(){
@@ -96,6 +95,11 @@ export class OptionalData extends Component{
               clearOnBlur
               freeSolo
               onChange={(event, value) => this.getSchool(value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.nextFocus.removeFocus();
+                }              
+             }}  
               options={schoolsList}
               getOptionLabel={(option) => (option.name + " - " + option.city)}
               renderOption={(option) => (
@@ -152,26 +156,31 @@ export class OptionalData extends Component{
 
 const schoolsList = [
   { 
+    id: 1,
     name: "ITIS Fermi", 
     city: "Modena",
     country: "Italy" 
   },
   { 
+    id: 2,
     name: "Unimore", 
     city: "Modena",
     country: "Italy" 
   },
   { 
+    id: 3,
     name: "Unimi", 
     city: "Milano",
     country: "Italy" 
   },
   { 
+    id: 4,
     name: "Politecnico Torino", 
     city: "Torino",
     country: "Italy" 
   },
   { 
+    id: 5,
     name: "MIT", 
     city: "Boston",
     country: "Massachusetts" 
