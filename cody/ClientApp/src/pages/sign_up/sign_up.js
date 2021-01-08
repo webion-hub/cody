@@ -9,7 +9,7 @@ import { IDData } from './sign_up_steps/2_ID_data';
 import { OptionalData } from './sign_up_steps/3_optional';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
-import { HorizontalLinearStepper } from '../../components/stepper';
+import { SignUpStepper } from './sign_up_components/signup_stepper';
 
 const base = {
   imageWidth: 330,
@@ -54,11 +54,7 @@ export class SignUp extends Component {
       surname: '',
       birthDate: new Date(),
 
-      school: {
-        name: '',
-        city: '',
-        country: '',
-      }
+      schoolId: null,
     }
   }
 
@@ -87,8 +83,7 @@ export class SignUp extends Component {
   }
 
   getSchool(value){
-    this.setState({school: value});
-    console.log(value);
+    this.setState({schoolId: value});
   }
 
   setUser(){
@@ -100,7 +95,7 @@ export class SignUp extends Component {
         name: this.state.name,
         surname: this.state.surname,
         birthDate: this.state.birthDate,
-        school: this.state.school,
+        schoolId: this.state.schoolId,
       }
     } 
   }
@@ -196,7 +191,7 @@ export class SignUp extends Component {
             pl={sidePadding}
             pr={sidePadding}
           >
-            <HorizontalLinearStepper
+            <SignUpStepper
               steps={3}
               checkErrors={this.getCheckErrors}
               areErrors={this.state.areErrors}

@@ -10,9 +10,9 @@ import { Typography } from '@material-ui/core/';
 
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
-import { User } from '../lib/user';
+import { User } from '../../../lib/user';
 
-export class HorizontalLinearStepper extends Component {
+export class SignUpStepper extends Component {
   constructor(props){
     super(props);
     this.handleCheckErrors = this.handleCheckErrors.bind(this);
@@ -151,6 +151,7 @@ export class HorizontalLinearStepper extends Component {
                         variant="contained"
                         color="primary"
                         onClick={() => {
+                          console.log(this.props.user);
                           User.tryRegister({
                             user: this.props.user,
                             onSuccess: _ => {
@@ -165,7 +166,8 @@ export class HorizontalLinearStepper extends Component {
                                 if(reason == 'password')
                                   console.log("password")                            
                               });
-                            }
+                            },
+                            onMissingFields: _=>{}
                           });
                         }}
                       >

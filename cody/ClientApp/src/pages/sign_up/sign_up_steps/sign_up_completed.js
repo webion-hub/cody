@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
-import { SignUpBase } from '../sign_up_base'
+import { SignUpBase } from '../sign_up_components/sign_up_base'
 
 import { RocketLaunch } from '../../../components/illustrations/rocket_launch';
 

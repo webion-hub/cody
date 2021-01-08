@@ -5,10 +5,10 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { Authentication } from '../components/illustrations/authentication';
-import { LoginBox } from '../components/login_box';
+import { Authentication } from '../../components/illustrations/authentication';
+import { LoginBox } from './login_box';
 
-import { Colors } from '../index';
+import { Colors } from '../../index';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 

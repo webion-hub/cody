@@ -57,7 +57,10 @@ export class Password extends Component {
           type={this.state.showPassword ? 'text' : 'password'}
           value={this.props.value === "" ? this.state.password : this.props.value}
           onChange={this.handleChange('password')}
+          onKeyDown={this.props.onKeyDown}
           error={this.props.error}
+          autoFocus={this.props.autoFocus}
+          inputRef={this.props.inputRef}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
