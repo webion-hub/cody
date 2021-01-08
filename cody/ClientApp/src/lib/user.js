@@ -122,9 +122,10 @@ export class User {
         invokeCallback(response.status, {
           200: onSuccess,
           400: _ => {
+            const data = response.data;
             return data.errors != undefined
-              ? _ => onMissingFields(Object.keys(data.errors))
-              : _=> onError(response.data);
+              ? _ => onMissingFields(data.errors)
+              : _=> onError(data);
           },
         });
       });
