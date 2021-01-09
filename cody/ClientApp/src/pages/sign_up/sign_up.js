@@ -107,15 +107,6 @@ export class SignUp extends Component {
 
 
     let elements = [
-      <OptionalData
-        imageWidth = {imageWidth}
-        formWidth = {formWidth}
-        checkErrors = {this.state.checkErrors}
-        school = {this.handleChange("schoolId")}
-        values = {{
-          schoolId: this.state.schoolId,
-        }}
-      />, 
       <EmailPassword
         imageWidth = {imageWidth}
         formWidth = {formWidth}
@@ -144,7 +135,15 @@ export class SignUp extends Component {
           birthDate: this.state.birthDate,
         }}
       />,  
-       
+      <OptionalData
+        imageWidth = {imageWidth}
+        formWidth = {formWidth}
+        checkErrors = {this.state.checkErrors}
+        school = {this.handleChange("schoolId")}
+        values = {{
+          schoolId: this.state.schoolId,
+        }}
+      />, 
     ]
 
     return (  
