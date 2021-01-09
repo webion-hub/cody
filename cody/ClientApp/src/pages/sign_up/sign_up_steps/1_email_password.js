@@ -1,5 +1,5 @@
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import { Box } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -11,9 +11,8 @@ import { SignUpBase } from '../sign_up_components/sign_up_base';
 import { NextFocus } from '../../../lib/next_focus';
 import { Colors } from '../../../index';
 
-import { FormatControl } from '../../../lib/format_control/format_control';
-import { PasswordControl } from '../../../lib/format_control/password_control';
-import { EmailControl } from '../../../lib/format_control/email_control';
+import { PasswordController } from '../../../lib/format_controller/password_controller';
+import { EmailController } from '../../../lib/format_controller/email_controller';
 
 import { Step1 } from '../../../components/illustrations/step1';
 
@@ -23,68 +22,83 @@ export class EmailPassword extends Component{
     super(props);
     this.getPassword = this.getPassword.bind(this);
     this.getConfirmPassword = this.getConfirmPassword.bind(this);
-    
-    this.formatControl = new FormatControl();
-    this.pwControl = new PasswordControl();
-    this.emailControl = new EmailControl();
 
     this.state = {
       email: this.props.values.email,
       password: this.props.values.password,
-      confirmPassword: '',      
-    }
+      confirmPassword: '',   
+      
+      passwordError: false,
+      emailError: false,
+    };
 
-    const areErrorsCheck = this.formatControl.areErrorsPWEmail(
+    this.updateFormErrors(
+      this.state.email,
       this.state.password,
-      this.state.confirmPassword, 
-      this.state.email);
-
-    const {areErrors} = this.props;
-    areErrors(areErrorsCheck);
+      this.state.confirmPassword,
+    );
 
     this.nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
   }
 
   getEmail = (event) => {
     this.setState({email: event.target.value });
-    const {areErrors} = this.props;
-    const {email} = this.props;
-
-    const areErrorsCheck = this.formatControl.areErrorsPWEmail(
+    
+    this.updateFormErrors(
+      event.target.value,
       this.state.password,
-      this.state.confirmPassword, 
-      event.target.value);
+      this.state.confirmPassword,
+    );
 
-    areErrors(areErrorsCheck);
+    const {email} = this.props;
     email(event.target.value);
   };
 
   getPassword(value){
     this.setState({password: value });
-    const {areErrors} = this.props;
-    const {password} = this.props;
 
-    const areErrorsCheck = this.formatControl.areErrorsPWEmail(
+    this.updateFormErrors(
+      this.state.email,
       value,
-      this.state.confirmPassword, 
-      this.state.email);
-    
-    areErrors(areErrorsCheck);
+      this.state.confirmPassword,
+    );
+
+    const {password} = this.props;
     password(value);
   };
 
   getConfirmPassword(value){
     this.setState({confirmPassword: value});
-    const {areErrors} = this.props;
-    
-    const areErrorsCheck = this.formatControl.areErrorsPWEmail(
-      this.state.password,
-      value, 
-      this.state.email);
 
-    areErrors(areErrorsCheck);
+    this.updateFormErrors(
+      this.state.email,
+      this.state.password,
+      value,
+    );
   }
 
+
+  updateFormErrors(email, password, confirmPassword){
+    const pwControl = new PasswordController();
+    const emailControl = new EmailController();
+    const {formError} = this.props;
+
+    pwControl.checkPassword(password, confirmPassword).then(
+      result => {
+        this.setState({passwordError: result});
+        formError(result || this.state.emailError);   
+      }
+    ); 
+
+    emailControl.checkEmail(email).then(
+      result => {
+        this.setState({emailError: result});
+        formError(result || this.state.passwordError);   
+      }
+    );     
+  }
+
+  
   render(){
     return (
       <SignUpBase
@@ -100,20 +114,19 @@ export class EmailPassword extends Component{
             Email &amp; Password
           </Typography>,
           <TextField
-            id="email"
+            id="registration_email"
             label="Email"
-            type="email"
             variant="outlined"
             color="secondary"
-            value={this.props.values.email}
+            value={this.state.email}
             fullWidth={true}
             required={true}
             onChange={this.getEmail}
             inputRef={this.nextFocus.getInput("email")} 
             error={
-              this.props.checkErrors && 
-              this.emailControl.isEmailWrong(this.state.email)
-            }   
+              this.state.emailError &&
+              this.props.checkErrors
+            }
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 this.nextFocus.focusOn("password");
@@ -124,14 +137,15 @@ export class EmailPassword extends Component{
           <Box>
             <Password
               label="Password"
+              name="new_password"
               labelWidth={85}
               required={true}
-              value={this.props.values.password}
+              value={this.state.password}
               onChange={this.getPassword}
               inputRef={this.nextFocus.getInput("password")} 
               error={
-                this.props.checkErrors && 
-                this.pwControl.arePwWrong(this.state.password, this.state.confirmPassword)
+                this.state.passwordError &&
+                this.props.checkErrors
               }
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -157,8 +171,7 @@ export class EmailPassword extends Component{
             required={true}
             onChange={this.getConfirmPassword}
             error={
-              this.props.checkErrors && 
-              this.pwControl.arePwWrong(this.state.password, this.state.confirmPassword)
+              this.state.passwordError && this.props.checkErrors
             }
             inputRef={this.nextFocus.getInput("confirmPassword")} 
             onKeyDown={(e) => {

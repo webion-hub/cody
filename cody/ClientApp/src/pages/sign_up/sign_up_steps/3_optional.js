@@ -14,6 +14,7 @@ import { AddSchoolDialog } from '../sign_up_components/add_school_dialog'
 import { AddPhoto } from '../../../components/add_photo';
 import { Colors } from '../../../index'
 import { NextFocus } from '../../../lib/next_focus';
+import { School } from '../../../lib/school';
 
 import { Step3 } from '../../../components/illustrations/step3';
 
@@ -25,11 +26,21 @@ export class OptionalData extends Component{
 
     this.state = {
       open: false,
-      schoolId: null,
+      schoolId: this.props.values.schoolId,
     }
 
     this.nextFocus = new NextFocus(["school"]);
+
+    this.schoolsList = this.getSchoolsList();
+    console.log(schoolsList);
   }
+
+  async getSchoolsList(){
+    let list = await School.getAll();
+    console.log(list);
+    return list;
+  }
+
 
   handleOpen(value){
     this.setState({open: value});
@@ -65,7 +76,6 @@ export class OptionalData extends Component{
                   <AddPhoto
                     size={150}
                     iconSize={90}
-                    image="https://personale.unimore.it/foto.aspx?id=724"
                   />
                   <Box
                     mt={2}
