@@ -20,6 +20,8 @@ namespace cody.Controllers
         }
 
 
+        /// <response code="200">The id of the newly created school</response>
+        /// <response code="400">The id of the existing school</response>
         [HttpPost]
         [Route("create_new")]
         public async Task<IActionResult> CreateNew([FromBody] SchoolAccount school)
@@ -41,11 +43,21 @@ namespace cody.Controllers
         }
 
 
+        /// <response code="200">The list of school accounts</response>
         [HttpGet]
         [Route("get_all")]
         public IActionResult GetAll()
         {
-            return Ok(_context.Schools);
+            var schools = 
+                from s in _context.Schools
+                select new {
+                    s.Id,
+                    s.Name,
+                    s.City,
+                    s.Country,
+                };
+
+            return Ok(schools);
         }
     }
 }
