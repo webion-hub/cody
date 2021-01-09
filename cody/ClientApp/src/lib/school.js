@@ -55,15 +55,17 @@ export class School {
    * @returns {Promise<SchoolAccount[]>}
    */
   static async getAll(options) {
-    const {
-      axiosConfig
-    } = options;
-
+    const getConfig = () => {
+      return !!options
+        ? options.axiosConfig
+        : {};
+    };
+    
     return axios
       .request({
         url: 'school/get_all',
         method: 'GET',
-        ...axiosConfig,
+        ...getConfig(),
       })
       .then(response => response.data);
   }
