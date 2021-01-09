@@ -30,8 +30,12 @@ export class SignUpStepper extends Component {
   handleCheckErrors = (event) => {    
     const {checkErrors} = this.props;
     checkErrors();
+
+    if(!this.props.formError)
+      this.handleNext();
   };
 
+  
   isStepOptional = (step) => {
     var isOptional = false;
     for(var i = 0; i < this.state.optionalSteps.length; i++)
@@ -68,12 +72,6 @@ export class SignUpStepper extends Component {
     this.setState({activeStep: this.state.activeStep + 1});
     const {currentStep} = this.props;
     currentStep(this.state.activeStep + 1);
-    
-    if (!this.isStepOptional(this.state.activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("Errore, non puoi saltare questo passo.");
-    }
   }
 
   render(){
@@ -151,7 +149,6 @@ export class SignUpStepper extends Component {
                         variant="contained"
                         color="primary"
                         onClick={() => {
-                          console.log(this.props.user);
                           User.tryRegister({
                             user: this.props.user,
                             onSuccess: _ => {
@@ -184,7 +181,7 @@ export class SignUpStepper extends Component {
                             this.handleSkip()  
                           else
                             {
-                              if(this.props.areErrors)
+                              if(this.props.formError)
                                 this.handleCheckErrors();
                               else
                                 this.handleNext();

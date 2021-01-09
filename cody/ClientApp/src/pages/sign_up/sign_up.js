@@ -31,20 +31,14 @@ export class SignUp extends Component {
     super(); 
     this.getCheckErrors = this.getCheckErrors.bind(this);
     this.getCurrentStep = this.getCurrentStep.bind(this);
-    this.areErrors = this.areErrors.bind(this);
+    this.formError = this.formError.bind(this);
 
-    this.getEmail = this.getEmail.bind(this);
-    this.getPassword = this.getPassword.bind(this);
-    this.getUsername = this.getUsername.bind(this);
-    this.getName = this.getName.bind(this);
-    this.getSurname = this.getSurname.bind(this);
-    this.getDate = this.getDate.bind(this);
-    this.getSchool = this.getSchool.bind(this);
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       checkErrors: false,
       currentStep: 0,
-      areErrors: false,
+      formError: true,
 
       username: '',
       password: '',
@@ -58,32 +52,9 @@ export class SignUp extends Component {
     }
   }
 
-  getEmail(value){
-    this.setState({email: value});
-  }
-
-  getPassword(value){
-    this.setState({password: value});
-  }
-
-  getUsername(value){
-    this.setState({username: value});
-  }
-
-  getName(value){
-    this.setState({name: value});
-  }
-
-  getSurname(value){
-    this.setState({surname: value});
-  }
-
-  getDate(value){
-    this.setState({birthDate: value});
-  }
-
-  getSchool(value){
-    this.setState({schoolId: value});
+  handleChange = (prop) => (value) => {
+    this.setState({[prop]: value});
+    this.setState({checkErrors: false});
   }
 
   setUser(){
@@ -107,11 +78,11 @@ export class SignUp extends Component {
   getCurrentStep(step){
     this.setState({currentStep: step});
     this.setState({checkErrors: false});
-    this.setState({areErrors: false});
+    this.setState({formError: true});
   }
 
-  areErrors(value){
-    this.setState({areErrors: value});
+  formError(value){
+    this.setState({formError: value});
   }
 
   render () {
@@ -136,13 +107,22 @@ export class SignUp extends Component {
 
 
     let elements = [
+      <OptionalData
+        imageWidth = {imageWidth}
+        formWidth = {formWidth}
+        checkErrors = {this.state.checkErrors}
+        school = {this.handleChange("schoolId")}
+        values = {{
+          schoolId: this.state.schoolId,
+        }}
+      />, 
       <EmailPassword
         imageWidth = {imageWidth}
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
-        areErrors = {this.areErrors}
-        email = {this.getEmail}
-        password = {this.getPassword}
+        formError = {this.formError}
+        email = {this.handleChange("email")}
+        password = {this.handleChange("password")}
         values = {{
           email: this.state.email,
           password: this.state.password,
@@ -152,11 +132,11 @@ export class SignUp extends Component {
         imageWidth = {imageWidth}
         formWidth = {formWidth}
         checkErrors = {this.state.checkErrors}
-        areErrors = {this.areErrors}
-        username = {this.getUsername}
-        name = {this.getName}
-        surname = {this.getSurname}
-        date = {this.getDate}
+        formError = {this.formError}
+        username = {this.handleChange("username")}
+        name = {this.handleChange("name")}
+        surname = {this.handleChange("surname")}
+        date = {this.handleChange("date")}
         values = {{
           username: this.state.username,
           name: this.state.name,
@@ -164,12 +144,7 @@ export class SignUp extends Component {
           birthDate: this.state.birthDate,
         }}
       />,  
-      <OptionalData
-        imageWidth = {imageWidth}
-        formWidth = {formWidth}
-        checkErrors = {this.state.checkErrors}
-        school = {this.getSchool}
-      />,        
+       
     ]
 
     return (  
@@ -194,7 +169,7 @@ export class SignUp extends Component {
             <SignUpStepper
               steps={3}
               checkErrors={this.getCheckErrors}
-              areErrors={this.state.areErrors}
+              formError={this.state.formError}
               currentStep={this.getCurrentStep}
               optionalSteps={[3]}
               element={elements[this.state.currentStep]}
