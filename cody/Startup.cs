@@ -45,6 +45,7 @@ namespace cody
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors();
             }
             else
             {
