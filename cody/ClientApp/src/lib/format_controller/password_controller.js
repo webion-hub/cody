@@ -1,4 +1,4 @@
-export class PasswordControl{
+export class PasswordController{
   isPasswordWrongLength(password){
     return !(password.length >= 8 && password.length <= 128);
   }
@@ -9,6 +9,13 @@ export class PasswordControl{
     const wrongPw = isWrongLength || areDifferent;
 
     return wrongPw;
+  }
+  
+  checkPassword(password, confirmPassword){
+    return new Promise(resolve => {
+      const pwError = this.arePwWrong(password, confirmPassword)
+      resolve(pwError);
+    });
   }
 
   pwStrength(password){
