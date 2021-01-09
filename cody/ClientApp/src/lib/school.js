@@ -52,7 +52,7 @@ export class School {
 
   /**
    * @param {{cancelToken?: CancelToken}} options
-   * @returns {Promise<AxiosResponse<SchoolAccount[]>>}
+   * @returns {Promise<SchoolAccount[]>}
    */
   static async getAll(options) {
     return axios
@@ -60,6 +60,7 @@ export class School {
         url: 'school/get_all',
         method: 'GET',
         ...maybeGetCancelToken(options.cancelToken),
-      });
+      })
+      .then(response => response.data);
   }
 }

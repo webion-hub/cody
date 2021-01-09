@@ -47,7 +47,7 @@ import './cody_types';
 export class User {
   /**
    * @param {ExistsWithOptions} options
-   * @returns {Promise<AxiosResponse<boolean>>} 
+   * @returns {Promise<boolean>} 
    */
   static async existsWith(options) {
     const {
