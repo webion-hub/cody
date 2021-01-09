@@ -10,6 +10,8 @@ import { DialogTitle } from '@material-ui/core';
 
 import { SignUpBase } from './sign_up_base'
 import { NextFocus } from '../../../lib/next_focus';
+import { School } from '../../../lib/school';
+import { LoadingButton } from '../../../components/loading_button';
 
 import { Graduation } from '../../../components/illustrations/graduation';
 
@@ -17,15 +19,35 @@ export class AddSchoolDialog extends Component {
   constructor(props){
     super(props);
 
+    this.state = {
+      name: "",
+      city: "",
+      country: "",
+
+      loading: false,
+    }
+
     this.handleClose = this.handleClose.bind(this);
 
     this.nextFocus = new NextFocus(["name","city","country"]);
+  }
+
+  disableButton(){
+    const emptyName = this.state.name === ""
+    const emptyCity = this.state.city === ""
+    const emptyCountry = this.state.country === ""
+
+    return emptyName || emptyCity || emptyCountry;
   }
   
   handleClose(){
     const {onClose} = this.props;
     onClose(false);
   }
+
+  handleChange = (prop) => (event) => {
+    this.setState({[prop]: event.target.value});
+  }  
 
   render(){
     return(
@@ -50,6 +72,7 @@ export class AddSchoolDialog extends Component {
                 color="secondary"
                 inputRef={this.nextFocus.getInput("name")} 
                 fullWidth={true}      
+                onChange={this.handleChange('name')}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("city");
@@ -63,6 +86,7 @@ export class AddSchoolDialog extends Component {
                 color="secondary"
                 inputRef={this.nextFocus.getInput("city")} 
                 fullWidth={true}    
+                onChange={this.handleChange('city')}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("country");
@@ -76,6 +100,7 @@ export class AddSchoolDialog extends Component {
                 color="secondary"
                 inputRef={this.nextFocus.getInput("country")} 
                 fullWidth={true}   
+                onChange={this.handleChange('country')}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.removeFocus();
@@ -92,14 +117,26 @@ export class AddSchoolDialog extends Component {
           >
             Chiudi
           </Button>
-          <Button 
-            onClick={this.handleClose} 
-            color="primary"
-            variant="contained" 
-            autoFocus
-          >
-            Aggiungi
-          </Button>
+          <LoadingButton 
+            loading={this.state.loading}
+            label="Aggiungi"
+            disabled={this.disableButton()}
+            onClick={_ => {
+              this.setState({loading: true});
+              School.createNew({
+                school: {
+                  name: this.state.name,
+                  city: this.state.city,
+                  country: this.state.country,
+                },
+                onError: existingId => console.log("esiste"),
+                onSuccess: newId => {
+                  this.setState({loading: false});
+                  this.handleClose();
+                },
+              })
+            }}
+          />
         </DialogActions>
       </Dialog>
     )
