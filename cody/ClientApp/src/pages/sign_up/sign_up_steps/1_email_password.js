@@ -50,8 +50,7 @@ export class EmailPassword extends Component{
       this.state.confirmPassword,
     );
 
-    const {email} = this.props;
-    email(event.target.value);
+
   };
 
   getPassword(value){
@@ -63,8 +62,6 @@ export class EmailPassword extends Component{
       this.state.confirmPassword,
     );
 
-    const {password} = this.props;
-    password(value);
   };
 
   getConfirmPassword(value){
@@ -81,23 +78,35 @@ export class EmailPassword extends Component{
   updateFormErrors(email, password, confirmPassword){
     const pwControl = new PasswordController();
     const emailControl = new EmailController();
-    const {formError} = this.props;
 
     pwControl.checkPassword(password, confirmPassword).then(
       result => {
         this.setState({passwordError: result});
-        formError(result || this.state.emailError);   
       }
     ); 
 
     emailControl.checkEmail(email).then(
       result => {
         this.setState({emailError: result});
-        formError(result || this.state.passwordError);   
       }
-    );     
+    );        
   }
 
+  componentDidUpdate(prevProps, prevState){
+    const emailUpdate = prevState.emailError != this.state.emailError
+    const passwordUpdate = prevState.passwordError != this.state.passwordError;
+
+    if(emailUpdate || passwordUpdate)
+    {
+      const {formError} = this.props;
+      const {email} = this.props;    
+      const {password} = this.props;
+      
+      formError(this.state.passwordError || this.state.emailError);   
+      email(this.state.email);  
+      password(this.state.password);   
+    }
+  }
   
   render(){
     return (

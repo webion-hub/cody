@@ -50,8 +50,7 @@ export class IDData extends Component{
       this.state.surname,
     );
     
-    const {username} = this.props;
-    username(event.target.value);
+
   };
 
   getName = (event) => {
@@ -63,8 +62,7 @@ export class IDData extends Component{
       this.state.surname,
     );
 
-    const {name} = this.props;
-    name(event.target.value);
+
   };
 
   getSurname = (event) => {
@@ -76,8 +74,7 @@ export class IDData extends Component{
       event.target.value
     );
 
-    const {surname} = this.props;
-    surname(event.target.value);
+
   };
 
   getDate(value){
@@ -89,28 +86,49 @@ export class IDData extends Component{
 
   updateFormError(username, name, surname){
     const idControl = new IDController();
-    const {formError} = this.props;
 
     idControl.checkUsername(username).then(
       result => {
         this.setState({usernameError: result});
-        formError(result || this.state.nameError || this.state.surnameError);   
       }
     );   
 
     checkID(name).then(
       result => {
         this.setState({nameError: result});
-        formError(this.state.usernameError || result || this.state.surnameError); 
       }
     );
 
     checkID(surname).then(
       result => {
         this.setState({surnameError: result});
-        formError(this.state.usernameError || this.state.nameError || result); 
       }
     );
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    const usernameUpdate = prevState.usernameError != this.state.usernameError
+    const nameUpdate = prevState.nameError != this.state.nameError;
+    const surnameUpdate = prevState.surnameError != this.state.surnameError;
+
+    if(usernameUpdate || nameUpdate || surnameUpdate)
+    {
+      const {formError} = this.props;
+      const usernameError = this.state.usernameError;
+      const nameError = this.state.nameError;
+      const surnameError = this.state.surnameError;
+      const error = usernameError || nameError || surnameError;
+
+      formError(error);  
+      
+      const {username} = this.props;
+      const {name} = this.props;
+      const {surname} = this.props;
+
+      username(this.state.username);      
+      name(this.state.name);      
+      surname(this.state.surname);
+    }
   }
 
   render(){
