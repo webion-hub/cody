@@ -3,7 +3,7 @@ import React from 'react';
 import { LinearProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { PasswordControl } from '../../lib/format_controller/password_controller';
+import { PasswordController } from '../../lib/format_controller/password_controller';
 
 const progressBarColors = {
   green: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 });
   
 export function PwStrengthProgress(props){
-  const pwControl = new PasswordControl();
+  const pwControl = new PasswordController();
   const classes = useStyles(props);
 
   function changeColor(){
