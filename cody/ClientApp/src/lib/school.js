@@ -1,5 +1,5 @@
-import { invokeCallback, maybeGetCancelToken } from './utility';
-import { CancelToken, AxiosResponse } from 'axios';
+import { invokeCallback } from './utility';
+import { CancelToken, AxiosResponse, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import './cody_types';
 
@@ -15,7 +15,7 @@ import './cody_types';
  * @property {SchoolAccount} school
  * @property {SchoolCreationCallback} [onSuccess]
  * @property {SchoolCreationCallback} [onError]
- * @property {CancelToken} [cancelToken]
+ * @property {AxiosRequestConfig} [axiosConfig]
  */
 
 
@@ -27,7 +27,7 @@ export class School {
   static async createNew(options) {
     const {
       school,
-      cancelToken,
+      axiosConfig,
       onSuccess,
       onError,
     } = options;
@@ -38,7 +38,7 @@ export class School {
         method: 'POST',
         data: school,
         validateStatus: false,
-        ...maybeGetCancelToken(cancelToken),
+        ...axiosConfig,
       })
       .then(response => {
         const schoolId = response.data;
@@ -51,7 +51,7 @@ export class School {
 
 
   /**
-   * @param {{cancelToken?: CancelToken}} options
+   * @param {{axiosConfig?: AxiosRequestConfig}} options
    * @returns {Promise<SchoolAccount[]>}
    */
   static async getAll(options) {
@@ -59,7 +59,7 @@ export class School {
       .request({
         url: 'school/get_all',
         method: 'GET',
-        ...maybeGetCancelToken(options.cancelToken),
+        ...options.axiosConfig,
       })
       .then(response => response.data);
   }

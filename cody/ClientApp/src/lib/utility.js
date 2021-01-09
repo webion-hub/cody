@@ -28,14 +28,3 @@ export async function sleep(time) {
     setTimeout(res, time);
   });
 }
-
-
-/**
- * @param {CancelToken?} maybeToken 
- * @returns {{cancelToken: CancelToken} | {}}
- */
-export function maybeGetCancelToken(maybeToken) {
-  return !!maybeToken
-    ? { cancelToken: maybeToken }
-    : {};
-}
