@@ -17,26 +17,36 @@ export default class SingleXHRRequest {
   }
 
 
-  updateCancelToken() {
-    this.tokenSource = axios.CancelToken.source();
-  }
-
-
   /**
    * @param {SingleRequestCallback} request
    */
-  async send(request) {
+  send(request) {
     this._lastRequest = request;
     
+    this._maybeCancelLastRequest();
+    this._updateCancelToken();
+    this._maybeClearLastTimeout();
+    this._scheduleCurrentRequest();
+  }
+
+  
+  _maybeCancelLastRequest() {
     if (!!this.tokenSource) {
       this.tokenSource.cancel();
     }
-    this.updateCancelToken();
+  }
 
+  _updateCancelToken() {
+    this.tokenSource = axios.CancelToken.source();
+  }
+  
+  _maybeClearLastTimeout() {
     if (!!this._lastTimeout) {
       clearTimeout(this._lastTimeout);
     }
+  }
 
+  _scheduleCurrentRequest(request) {
     this._lastTimeout = setTimeout(
       _ => this._sendAfterTimeout(request),
       this.timeout

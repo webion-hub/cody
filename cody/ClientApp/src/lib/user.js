@@ -47,7 +47,7 @@ import './cody_types';
 export class User {
   /**
    * @param {ExistsWithOptions} options
-   * @returns {boolean} 
+   * @returns {Promise<AxiosResponse<boolean>>} 
    */
   static async existsWith(options) {
     const {
@@ -55,9 +55,9 @@ export class User {
       cancelToken,
     } = options;
 
-    return await axios
+    return axios
       .request({
-        url: `user/exists/${usernameOrEmail}`,
+        url: `user/exists/${usernameOrEmail}/`,
         method: 'GET',
         ...maybeGetCancelToken(cancelToken),
       })
