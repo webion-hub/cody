@@ -3,7 +3,7 @@ import React from 'react';
 import { LinearProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { PasswordControl } from '../../lib/format_control/password_control';
+import { PasswordControl } from '../../lib/format_controller/password_controller';
 
 const progressBarColors = {
   green: {

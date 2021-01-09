@@ -12,15 +12,13 @@ import { Box } from '@material-ui/core/';
 import { CircularProgress } from '@material-ui/core';
 
 import { Password } from '../../components/password/password_textfield';
+import { LoadingButton } from '../../components/loading_button';
 import { NextFocus } from '../../lib/next_focus';
 import { Colors } from '../../index';
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { User } from '../../lib/user';
-
-import SingleXHRRequest from '../../lib/single_xhr_request';
-
 
 export class LoginBox extends Component{
 
@@ -36,7 +34,6 @@ export class LoginBox extends Component{
       loading: false,
       navigateToHome: false,
       focusPw: false,
-      loginRequest: new SingleXHRRequest(),
     }
 
     this.nextFocus = new NextFocus(["username","password"]);
@@ -60,25 +57,23 @@ export class LoginBox extends Component{
   }
 
 
-  _tryLogin() {
+  async _tryLogin() {
     let success = false;
-    this.state.loginRequest.send(async tokenSource => {
-      await User.tryLogin({
-        username: this.state.username,
-        password: this.state.password,
-        cancelToken: tokenSource.token,
-        
-        onSuccess: _ => success = true,
-        onUserNotFound: _ => this.setState({wrongUsername: true}),
-        onPasswordMismatch: _ => this.setState({wrongPassword: true}),
-      })
-      .then(
-        _=> this.setState({loading: false})
-      ); 
+    await User.tryLogin({
+      username: this.state.username,
+      password: this.state.password,
+      
+      onSuccess: _ => success = true,
+      onUserNotFound: _ => this.setState({wrongUsername: true}),
+      onPasswordMismatch: _ => this.setState({wrongPassword: true}),
+    })
+    .then(
+      _=> this.setState({loading: false})
+    ); 
 
-      if(success)
-        this.setState({navigateToHome: true})
-    });
+  
+    if(success)
+      this.setState({navigateToHome: true})
   }
 
   _updateUsername = e => {
@@ -112,6 +107,7 @@ export class LoginBox extends Component{
             <TextField
               id="username"
               label="Username"
+              name="login_username"
               variant="outlined"
               color="secondary"
               fullWidth={true}
@@ -127,6 +123,7 @@ export class LoginBox extends Component{
             <Box m={0.5}/>
             <Password
               label="Password"
+              name="login_password"
               labelWidth={70}
               onChange={this._updatePassword}
               inputRef={this.nextFocus.getInput("password")} 
@@ -173,31 +170,15 @@ export class LoginBox extends Component{
             justify="center"
             alignItems="center"
           >
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={this.state.loading}
+            <LoadingButton
+              loading={this.state.loading}
               fullWidth={true}
               endIcon={<AccountCircleRoundedIcon/>}
               onClick={_ => this._maybeLogin()}
-            >
-              {
-                this.state.loading ? 
-                (              
-                  <CircularProgress
-                    color="secondary"
-                    size={25}
-                    style={{
-                      position: "absolute"
-                    }}
-                  />   
-                ): null
-              }
-              Accedi
-            </Button>                
-            {
-              this.state.navigateToHome ? (<Redirect to="/"/>) : null
-            }     
+              href="/"
+              label="Accedi"
+              navigateToHome={this.state.navigateToHome}
+            />
             <Box mt={1}>
               <Link
                 style={{

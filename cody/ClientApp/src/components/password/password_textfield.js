@@ -53,6 +53,7 @@ export class Password extends Component {
         </InputLabel>
         <OutlinedInput
           id={this.props.label}
+          name={this.props.name}
           color="secondary"
           type={this.state.showPassword ? 'text' : 'password'}
           value={this.props.value === "" ? this.state.password : this.props.value}
