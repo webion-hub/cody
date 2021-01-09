@@ -10,6 +10,8 @@ namespace cody.Contexts
         { }
 
         public DbSet<UserAccount> UsersAccounts { get; set; }
+        public DbSet<UserAccountDetail> UserDatails { get; set; }
+        public DbSet<SchoolAccount> Schools { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
