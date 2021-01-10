@@ -68,7 +68,6 @@ export class SignUp extends Component {
         surname: this.state.surname,
         birthDate: this.state.birthDate,
         schoolId: this.state.schoolId,
-        profileImage: this.state.profileImage,
       }
     } 
   }
@@ -215,6 +214,7 @@ export class SignUp extends Component {
               currentStep={this.getCurrentStep}
               newStep={this.state.newStep}
               user={this.setUser()}
+              profileImage={this.state.profileImage}
               completed={
                 <SignUpCompleted
                     imageWidth = {imageWidth}
