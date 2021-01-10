@@ -4,12 +4,10 @@ import  { Redirect } from 'react-router-dom'
 import { TextField } from '@material-ui/core';
 import { Link } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import { Checkbox } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core/';
-import { CircularProgress } from '@material-ui/core';
 
 import { Password } from '../../components/password/password_textfield';
 import { LoadingButton } from '../../components/loading_button';
