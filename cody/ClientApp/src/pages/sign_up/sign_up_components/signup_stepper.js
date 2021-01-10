@@ -10,6 +10,9 @@ import { Typography } from '@material-ui/core/';
 
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
+import { LoadingButton } from '../../../components/loading_button';
+import { AlertDialog } from '../../../components/alert_dialog';
+
 import { User } from '../../../lib/user';
 
 export class SignUpStepper extends Component {
@@ -24,6 +27,10 @@ export class SignUpStepper extends Component {
       stepsContent: props.stepsContent,
       finalStep: props.completed,
       optionalSteps: props.optionalSteps,
+
+      loading: false,
+      registerErrors: null,
+      onMissingFields: null,
     }
   }
   
@@ -121,7 +128,7 @@ export class SignUpStepper extends Component {
                 direction="row"
                 justify="space-between"
               >
-                <Button onClick={this.handleBack}>
+                <Button disabled>
                   Indietro
                 </Button>
                 <Button
@@ -152,31 +159,40 @@ export class SignUpStepper extends Component {
                   <div>
                   {this.state.activeStep === this.state.steps.length - 1 ?  
                     (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          User.tryRegister({
-                            user: this.props.user,
-                            onSuccess: _ => {
-                              console.log('success');
-                              this.handleNext();
-                            },
-                            onError: reasons => {
-                              reasons.forEach(reason => {                            
-                                if(reason == 'email')
-                                  console.log("wrong email");
-                                  
-                                if(reason == 'password')
-                                  console.log("password")                            
-                              });
-                            },
-                            onMissingFields: _=>{}
-                          });
-                        }}
-                      >
-                        Finisci
-                      </Button> 
+                      <div>
+                        <LoadingButton
+                          loading={this.state.loading}
+                          label="Finisci"
+                          onClick={() => {
+                            User.tryRegister({
+                              user: this.props.user,
+                              onSuccess: _ => {
+                                this.setState({loading: false})
+                                this.handleNext();
+                              },
+                              onError: reasons => {
+                                this.setState({registerErrors: reasons});
+                              },
+                              onMissingFields: reasons =>{
+                                this.setState({onMissingFields: reasons});
+                              }
+                            })
+                            .then(
+                              _=> this.setState({loading: true})
+                            );
+                          }}
+                        />
+                        <AlertDialog
+                          open={
+                            this.state.registerErrors != null 
+                            || this.state.onMissingFields != null
+                          }
+                          items={[
+                            this.state.registerErrors,
+                            this.state.onMissingFields,
+                          ]}
+                        />
+                      </div>
                     )
                     : 
                     (
@@ -184,8 +200,6 @@ export class SignUpStepper extends Component {
                         variant="contained"
                         color="primary"
                         onClick={() => {
-                          
-                         
                           if(this.isStepOptional(this.state.activeStep))
                             this.handleSkip()  
                           else
