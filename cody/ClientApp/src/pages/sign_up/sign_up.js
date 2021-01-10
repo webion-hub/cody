@@ -4,27 +4,18 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { EmailPassword, EmailPasswordController } from './sign_up_steps/1_email_password';
-import { IDData, IDController } from './sign_up_steps/2_ID_data';
-import { OptionalData } from './sign_up_steps/3_optional';
+import { EmailPassword } from './sign_up_steps/1_email_password/email_password_step';
+import { EmailPasswordController } from './sign_up_steps/1_email_password/email_password_controller';
+
+import { IDData } from './sign_up_steps/2_ID_data/id_step';
+import { IDController } from './sign_up_steps/2_ID_data/id_controller';
+
+import { OptionalData } from './sign_up_steps/3_optional/optional_step';
+
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
-
 import { SignUpStepper } from './sign_up_components/signup_stepper';
-import { User } from '../../lib/user';
 
-const base = {
-  imageWidth: 330,
-  formWidth: 300,
-  backgroundImage: "images/bulb.jpeg"  
-};
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
+import { Base, getWindowDimensions, Images } from '../../index';
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
@@ -49,8 +40,10 @@ export class SignUp extends Component {
       schoolId: null,
 
       emailError: false,
+      emailExist: false,
       passwordError: false,
       usernameError: false,
+      usernameExist: false,
       nameError: false,
       surnameError: false,
     }
@@ -81,57 +74,54 @@ export class SignUp extends Component {
   onClick(controller){   
     if(controller != null)
     {
-      this.resetErrors(); 
+      this.resetErrors();
       this.setState({newStep: this.state.currentStep});
-      controller.checkAll(this.state)
-      .then(
-        results => results.forEach(result => {
-          if(result === "emailError")
-            this.setState({emailError: true})
-          if(result === "passwordError")
-            this.setState({passwordError: true})
-          if(result === "usernameError")
-            this.setState({usernameError: true})
-          if(result === "nameError")
-            this.setState({nameError: true})
-          if(result === "surnameError")
-            this.setState({surnameError: true})
-          if(result === "noError")
-            this.nextStep();
-        })
-      );    
+      controller
+        .checkAll(this.state)
+        .then(results => {
+          let errors = {};
+          results.forEach(result => {   
+            console.log(result);         
+            if (result == 'noError') {
+              errors.newStep = this.state.currentStep + 1;
+              return;
+            }
+
+            errors[result] = true;
+          });
+
+          this.setState(errors);
+        });
     }
   }
 
   resetErrors(){
     this.setState({
       emailError: false,
+      emailExist: false,
       passwordError: false,
       usernameError: false,
+      usernameExist: false,
       nameError: false,
-      surnameError: false
+      surnameError: false,
     });
-  }
-
-  nextStep(){    
-    this.setState({newStep: this.state.currentStep + 1});
   }
 
   render () {
     const screenWidth = getWindowDimensions().width;
-    const isImageBigger = base.imageWidth > screenWidth;
-    const isFormBigger = base.formWidth > screenWidth;
+    const isImageBigger = Base.formImageWidth > screenWidth;
+    const isFormBigger = Base.formWidth > screenWidth;
     const isImageOrFormBigger = isImageBigger || isFormBigger;
 
     const padding = 3;
 
     const imageWidth = isImageBigger ?
       screenWidth - 5:
-      base.imageWidth;
+      Base.formImageWidth;
 
     const formWidth = isFormBigger ? 
       screenWidth - 5 : 
-      base.formWidth;
+      Base.formWidth;
     
     const sidePadding = isImageOrFormBigger ? 
       0 : 
@@ -153,6 +143,7 @@ export class SignUp extends Component {
           }}
           errors = {{
             email: this.state.emailError,
+            emailExist: this.state.emailExist,
             password: this.state.passwordError,
           }}
         />
@@ -174,6 +165,7 @@ export class SignUp extends Component {
           }}
           errors = {{
             username: this.state.usernameError,
+            usernameExist: this.state.usernameExist,
             name: this.state.nameError,
             surname: this.state.surnameError,
           }}
@@ -197,7 +189,7 @@ export class SignUp extends Component {
       <Grid
         style={{
           height: "100vh",
-          backgroundImage: `url(${base.backgroundImage})`,
+          backgroundImage: `url(${Images.bulbImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
@@ -216,7 +208,7 @@ export class SignUp extends Component {
               steps={3}
               onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
               optionalSteps={[3]}
-              element={elements[this.state.currentStep].element}
+              element={this.state.currentStep > 3 ? null : elements[this.state.currentStep].element}
               currentStep={this.getCurrentStep}
               newStep={this.state.newStep}
               user={this.setUser()}
