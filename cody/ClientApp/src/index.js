@@ -16,6 +16,25 @@ export const Colors = {
   secondary: 'rgb(102, 153, 255)',
   background: 'rgb(40, 40, 40)', 
   lightGrey: 'rgba(255,255,255,0.6)',
+  errorRed: 'rgb(244,67,54)'
+}
+
+export const Base = {
+  formImageWidth: 330,
+  formWidth: 300,
+  bulbImage: "images/bulb.jpeg"  
+};
+
+export const Images = {
+  bulbImage: "images/bulb.jpeg"  
+};
+
+export function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
 }
 
 const theme = createMuiTheme({
