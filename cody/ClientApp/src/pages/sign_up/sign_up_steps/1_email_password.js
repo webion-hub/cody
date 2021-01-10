@@ -155,27 +155,29 @@ export class EmailPasswordController{
 
       let errorsList = ["noError"];
 
-      emailController.checkEmail(email)
-      .then(
-        result => {
-          if(result) {
-            errorsList.push("emailError");
-            errorsList = this.removeNoError(errorsList);
-          }            
-        },
-      );          
-
-      passwordController.checkPassword(password, confirmPassword)
-      .then(
-        result => {
-          if(result) {
-            errorsList.push("passwordError");
-            errorsList = this.removeNoError(errorsList);
-          }
-        },
-      );
-
-      resolve(errorsList);
+      Promise.all([
+        emailController.checkEmail(email)
+        .then(
+          result => {
+            if(result) {
+              errorsList.push("emailError");
+              errorsList = this.removeNoError(errorsList);
+            }            
+          },
+        ),       
+        passwordController.checkPassword(password, confirmPassword)
+        .then(
+          result => {
+            if(result) {
+              errorsList.push("passwordError");
+              errorsList = this.removeNoError(errorsList);
+            }
+          },
+        ),
+      ])
+      .then(_ => {
+        resolve(errorsList);
+      });
     })
   }
 } 

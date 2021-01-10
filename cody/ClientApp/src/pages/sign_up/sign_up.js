@@ -86,7 +86,6 @@ export class SignUp extends Component {
       controller.checkAll(this.state)
       .then(
         results => results.forEach(result => {
-          console.log(result);
           if(result === "emailError")
             this.setState({emailError: true})
           if(result === "passwordError")

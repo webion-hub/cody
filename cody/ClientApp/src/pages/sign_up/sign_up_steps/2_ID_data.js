@@ -166,37 +166,43 @@ export class IDController{
 
       let errorsList = ["noError"];
 
-      usernameController.checkUsername(username)
-      .then(
-        result => {
-          if(result) {
-            errorsList.push("usernameError");
-            errorsList = this.removeNoError(errorsList);
-          }            
-        },
-      );          
-
-      nameSurnameController.checkNameSurname(name)
-      .then(
-        result => {
-          if(result) {
-            errorsList.push("nameError");
-            errorsList = this.removeNoError(errorsList);
-          }
-        },
-      );
-
-      nameSurnameController.checkNameSurname(surname)
-      .then(
-        result => {
-          if(result) {
-            errorsList.push("surnameError");
-            errorsList = this.removeNoError(errorsList);
-          }
-        },
-      );
-
-      resolve(errorsList);
+      Promise.all([
+        usernameController
+          .checkUsername(username)
+          .then(
+            result => {
+              if(result) {
+                errorsList.push("usernameError");
+                errorsList = this.removeNoError(errorsList);
+              }            
+            },
+          ),
+  
+        nameSurnameController
+          .checkNameSurname(name)
+          .then(
+            result => {
+              if(result) {
+                errorsList.push("nameError");
+                errorsList = this.removeNoError(errorsList);
+              }
+            },
+          ),
+  
+        nameSurnameController
+          .checkNameSurname(surname)
+          .then(
+            result => {
+              if(result) {
+                errorsList.push("surnameError");
+                errorsList = this.removeNoError(errorsList);
+              }
+            },
+          ),
+      ])
+      .then(_ => {
+        resolve(errorsList);
+      });
     })
   }
 } 
