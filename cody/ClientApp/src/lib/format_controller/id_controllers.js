@@ -23,11 +23,16 @@ export class UsernameController{
 
       if(wrongFormat || wrongLenght)
       {          
-        resolve(true);
+        resolve("usernameError");
       }
       else {
         this.usernameExist(username).then(
-          result => resolve(result)
+          result => {
+            if(result) 
+              resolve("usernameExist")
+            else
+              resolve("correctUsername")
+          }
         )
       }
     })
