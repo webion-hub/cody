@@ -11,9 +11,10 @@ import { SignUpBase } from '../sign_up_components/sign_up_base'
 import { DatePicker } from '../../../components/date_picker';
 import { NextFocus } from '../../../lib/next_focus';
 
-import { IDController, checkID } from '../../../lib/format_controller/id_controller';
+import { UsernameController, NameSurnameController } from '../../../lib/format_controller/id_controller';
 
 import { Step2 } from '../../../components/illustrations/step2';
+import { User } from '../../../lib/user';
 
 export class IDData extends Component{
 
@@ -26,109 +27,33 @@ export class IDData extends Component{
       name: this.props.values.name,
       surname: this.props.values.surname,
       birthDate: this.props.values.birthDate,
-
-      usernameError: false,
-      nameError: false,
-      surnameError: false,
     }
-
-    this.updateFormError(
-      this.state.username,
-      this.state.name,
-      this.state.surname,
-    );
 
     this.nextFocus = new NextFocus(["username", "name", "surname"]);
   }
 
   getUsername = (event) => {
-    this.setState({username: event.target.value });
-
-    this.updateFormError(
-      event.target.value,
-      this.state.name,
-      this.state.surname,
-    );
-    
-
+    this.setState({username: event.target.value });  
+    const {username} = this.props;
+    username(event.target.value); 
   };
 
   getName = (event) => {
     this.setState({name: event.target.value });
-
-    this.updateFormError(
-      this.state.username,
-      event.target.value,
-      this.state.surname,
-    );
-
-
+    const {name} = this.props;
+    name(event.target.value);
   };
 
   getSurname = (event) => {
-    this.setState({surname: event.target.value });    
-
-    this.updateFormError(
-      this.state.username,
-      this.state.name,
-      event.target.value
-    );
-
-
+    this.setState({surname: event.target.value });  
+    const {surname} = this.props;
+    surname(event.target.value);  
   };
 
   getDate(value){
     this.setState({birthDate: value});
     const {date} = this.props;
-
     date(value);
-  }
-
-  updateFormError(username, name, surname){
-    const idControl = new IDController();
-
-    idControl.checkUsername(username).then(
-      result => {
-        this.setState({usernameError: result});
-      }
-    );   
-
-    checkID(name).then(
-      result => {
-        this.setState({nameError: result});
-      }
-    );
-
-    checkID(surname).then(
-      result => {
-        this.setState({surnameError: result});
-      }
-    );
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    const usernameUpdate = prevState.usernameError != this.state.usernameError
-    const nameUpdate = prevState.nameError != this.state.nameError;
-    const surnameUpdate = prevState.surnameError != this.state.surnameError;
-
-    if(usernameUpdate || nameUpdate || surnameUpdate)
-    {
-      const {formError} = this.props;
-      const usernameError = this.state.usernameError;
-      const nameError = this.state.nameError;
-      const surnameError = this.state.surnameError;
-      const error = usernameError || nameError || surnameError;
-
-      formError(error);  
-      
-      const {username} = this.props;
-      const {name} = this.props;
-      const {surname} = this.props;
-
-      username(this.state.username);      
-      name(this.state.name);      
-      surname(this.state.surname);
-    }
   }
 
   render(){
@@ -156,10 +81,7 @@ export class IDData extends Component{
                   required={true}
                   value={this.state.username}
                   onChange={this.getUsername}
-                  error={
-                    this.state.usernameError &&
-                    this.props.checkErrors                     
-                  }  
+                  error={this.props.errors.username}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       this.nextFocus.focusOn("name");
@@ -186,10 +108,7 @@ export class IDData extends Component{
             required={true}
             value={this.state.name}
             onChange={this.getName}
-            error={
-              this.state.nameError &&
-              this.props.checkErrors        
-            }  
+            error={this.props.errors.name}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 this.nextFocus.focusOn("surname");
@@ -206,10 +125,7 @@ export class IDData extends Component{
             required={true}
             value={this.state.surname}
             onChange={this.getSurname}
-            error={
-              this.state.surnameError &&
-              this.props.checkErrors   
-            }  
+            error={this.props.errors.surname}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 this.nextFocus.removeFocus();
@@ -226,4 +142,62 @@ export class IDData extends Component{
     );
   }
 }
+
+
+
+export class IDController{
+
+  removeNoError(array){
+    const index = array.indexOf("noError");
+    if (index >= 0) {
+      array.splice(index, 1);
+    }
+    return array;
+  }
+
+  checkAll(values){
+    return new Promise(resolve => {
+      const usernameController = new UsernameController();
+      const nameSurnameController = new NameSurnameController();
+
+      const username = values.username;
+      const name = values.name;
+      const surname = values.surname;
+
+      let errorsList = ["noError"];
+
+      usernameController.checkUsername(username)
+      .then(
+        result => {
+          if(result) {
+            errorsList.push("usernameError");
+            errorsList = this.removeNoError(errorsList);
+          }            
+        },
+      );          
+
+      nameSurnameController.checkNameSurname(name)
+      .then(
+        result => {
+          if(result) {
+            errorsList.push("nameError");
+            errorsList = this.removeNoError(errorsList);
+          }
+        },
+      );
+
+      nameSurnameController.checkNameSurname(surname)
+      .then(
+        result => {
+          if(result) {
+            errorsList.push("surnameError");
+            errorsList = this.removeNoError(errorsList);
+          }
+        },
+      );
+
+      resolve(errorsList);
+    })
+  }
+} 
 

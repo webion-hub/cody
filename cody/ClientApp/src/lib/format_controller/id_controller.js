@@ -1,7 +1,7 @@
 import { User } from '../user';
 
 
-export class IDController{
+export class UsernameController{
   usernameExist(email){
     return User.existsWith({
       usernameOrEmail: email,
@@ -22,9 +22,9 @@ export class IDController{
       const wrongFormat = this.wrongFormat(username);
 
       if(wrongFormat || wrongLenght)
-        {          
-          resolve(true);
-        }
+      {          
+        resolve(true);
+      }
       else {
         this.usernameExist(username).then(
           result => resolve(result)
@@ -34,13 +34,13 @@ export class IDController{
   }
 }
 
-
-export function checkID(val){
-  return new Promise(resolve => {
-    let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
-    const wrongId = val.length == 0 || !re.test(val)
-    
-    resolve(wrongId);
-  })
-
+export class NameSurnameController{
+  checkNameSurname(val){
+    return new Promise(resolve => {
+      let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
+      const wrongId = val.length == 0 || !re.test(val)
+      
+      resolve(wrongId);
+    })
+  }
 }

@@ -18,9 +18,9 @@ export class EmailController{
     return new Promise(resolve => {
 
       if(this.wrongFormat(email))
-        {          
-          resolve(true);
-        }
+      {          
+        resolve(true);
+      }
       else {
         this.emailExist(email).then(
           result => resolve(result)

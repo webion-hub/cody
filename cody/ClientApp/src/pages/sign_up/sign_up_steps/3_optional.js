@@ -27,18 +27,22 @@ export class OptionalData extends Component{
     this.state = {
       open: false,
       schoolId: this.props.values.schoolId,
+
+      schoolsList: {
+        id: "",
+        name: "",
+        city: "",
+        country: "",
+      },
     }
 
     this.nextFocus = new NextFocus(["school"]);
 
-    this.schoolsList = this.getSchoolsList();
-    console.log(schoolsList);
-  }
-
-  async getSchoolsList(){
-    let list = await School.getAll();
-    console.log(list);
-    return list;
+    School.getAll().then(schools => {
+      schools.forEach(school => {
+        this.setState({schoolsList: school});
+      });
+    });
   }
 
 

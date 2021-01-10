@@ -4,12 +4,13 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { EmailPassword } from './sign_up_steps/1_email_password';
-import { IDData } from './sign_up_steps/2_ID_data';
+import { EmailPassword, EmailPasswordController } from './sign_up_steps/1_email_password';
+import { IDData, IDController } from './sign_up_steps/2_ID_data';
 import { OptionalData } from './sign_up_steps/3_optional';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 
 import { SignUpStepper } from './sign_up_components/signup_stepper';
+import { User } from '../../lib/user';
 
 const base = {
   imageWidth: 330,
@@ -29,19 +30,16 @@ export class SignUp extends Component {
   static displayName = SignUp.name;
   constructor() {
     super(); 
-    this.getCheckErrors = this.getCheckErrors.bind(this);
     this.getCurrentStep = this.getCurrentStep.bind(this);
-    this.formError = this.formError.bind(this);
-
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      checkErrors: false,
       currentStep: 0,
-      formError: true,
+      newStep: 0,
 
       username: '',
       password: '',
+      confirmPassword: '',
       email: '',
 
       name: '',
@@ -49,12 +47,21 @@ export class SignUp extends Component {
       birthDate: new Date(),
 
       schoolId: null,
+
+      emailError: false,
+      passwordError: false,
+      usernameError: false,
+      nameError: false,
+      surnameError: false,
     }
   }
 
   handleChange = (prop) => (value) => {
     this.setState({[prop]: value});
-    this.setState({checkErrors: false});
+  }
+
+  getCurrentStep(step){
+    this.setState({currentStep: step});
   }
 
   setUser(){
@@ -71,18 +78,44 @@ export class SignUp extends Component {
     } 
   }
 
-  getCheckErrors(){
-    this.setState({checkErrors: true});
-  };
-
-  getCurrentStep(step){
-    this.setState({currentStep: step});
-    this.setState({checkErrors: false});
-    this.setState({formError: true});
+  onClick(controller){   
+    if(controller != null)
+    {
+      this.resetErrors(); 
+      this.setState({newStep: this.state.currentStep});
+      controller.checkAll(this.state)
+      .then(
+        results => results.forEach(result => {
+          console.log(result);
+          if(result === "emailError")
+            this.setState({emailError: true})
+          if(result === "passwordError")
+            this.setState({passwordError: true})
+          if(result === "usernameError")
+            this.setState({usernameError: true})
+          if(result === "nameError")
+            this.setState({nameError: true})
+          if(result === "surnameError")
+            this.setState({surnameError: true})
+          if(result === "noError")
+            this.nextStep();
+        })
+      );    
+    }
   }
 
-  formError(value){
-    this.setState({formError: value});
+  resetErrors(){
+    this.setState({
+      emailError: false,
+      passwordError: false,
+      usernameError: false,
+      nameError: false,
+      surnameError: false
+    });
+  }
+
+  nextStep(){    
+    this.setState({newStep: this.state.currentStep + 1});
   }
 
   render () {
@@ -105,45 +138,60 @@ export class SignUp extends Component {
       0 : 
       padding;
 
-
     let elements = [
-      <EmailPassword
-        imageWidth = {imageWidth}
-        formWidth = {formWidth}
-        checkErrors = {this.state.checkErrors}
-        formError = {this.formError}
-        email = {this.handleChange("email")}
-        password = {this.handleChange("password")}
-        values = {{
-          email: this.state.email,
-          password: this.state.password,
-        }}
-      />,
-      <IDData
-        imageWidth = {imageWidth}
-        formWidth = {formWidth}
-        checkErrors = {this.state.checkErrors}
-        formError = {this.formError}
-        username = {this.handleChange("username")}
-        name = {this.handleChange("name")}
-        surname = {this.handleChange("surname")}
-        date = {this.handleChange("date")}
-        values = {{
-          username: this.state.username,
-          name: this.state.name,
-          surname: this.state.surname,
-          birthDate: this.state.birthDate,
-        }}
-      />,  
-      <OptionalData
-        imageWidth = {imageWidth}
-        formWidth = {formWidth}
-        checkErrors = {this.state.checkErrors}
-        school = {this.handleChange("schoolId")}
-        values = {{
-          schoolId: this.state.schoolId,
-        }}
-      />, 
+      {
+        controller: new EmailPasswordController(),
+        element: <EmailPassword
+          imageWidth = {imageWidth}
+          formWidth = {formWidth}
+          email = {this.handleChange("email")}
+          password = {this.handleChange("password")}
+          confirmPassword = {this.handleChange("confirmPassword")}
+          values = {{
+            email: this.state.email,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword,
+          }}
+          errors = {{
+            email: this.state.emailError,
+            password: this.state.passwordError,
+          }}
+        />
+      },
+      {
+        controller: new IDController(),
+        element: <IDData
+          imageWidth = {imageWidth}
+          formWidth = {formWidth}
+          username = {this.handleChange("username")}
+          name = {this.handleChange("name")}
+          surname = {this.handleChange("surname")}
+          date = {this.handleChange("date")}
+          values = {{
+            username: this.state.username,
+            name: this.state.name,
+            surname: this.state.surname,
+            birthDate: this.state.birthDate,
+          }}
+          errors = {{
+            username: this.state.usernameError,
+            name: this.state.nameError,
+            surname: this.state.surnameError,
+          }}
+        />
+      },  
+      {
+        controller: null,
+        element: <OptionalData
+          imageWidth = {imageWidth}
+          formWidth = {formWidth}
+          checkErrors = {this.state.checkErrors}
+          school = {this.handleChange("schoolId")}
+          values = {{
+            schoolId: this.state.schoolId,
+          }}
+        />, 
+      },  
     ]
 
     return (  
@@ -167,11 +215,11 @@ export class SignUp extends Component {
           >
             <SignUpStepper
               steps={3}
-              checkErrors={this.getCheckErrors}
-              formError={this.state.formError}
-              currentStep={this.getCurrentStep}
+              onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
               optionalSteps={[3]}
-              element={elements[this.state.currentStep]}
+              element={elements[this.state.currentStep].element}
+              currentStep={this.getCurrentStep}
+              newStep={this.state.newStep}
               user={this.setUser()}
               completed={
                 <SignUpCompleted

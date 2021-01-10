@@ -26,86 +26,28 @@ export class EmailPassword extends Component{
     this.state = {
       email: this.props.values.email,
       password: this.props.values.password,
-      confirmPassword: '',   
-      
-      passwordError: false,
-      emailError: false,
+      confirmPassword: this.props.values.confirmPassword,   
     };
-
-    this.updateFormErrors(
-      this.state.email,
-      this.state.password,
-      this.state.confirmPassword,
-    );
 
     this.nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
   }
 
   getEmail = (event) => {
     this.setState({email: event.target.value });
-    
-    this.updateFormErrors(
-      event.target.value,
-      this.state.password,
-      this.state.confirmPassword,
-    );
-
-
+    const {email} = this.props;
+    email(event.target.value); 
   };
 
   getPassword(value){
     this.setState({password: value });
-
-    this.updateFormErrors(
-      this.state.email,
-      value,
-      this.state.confirmPassword,
-    );
-
+    const {password} = this.props;
+    password(value); 
   };
 
   getConfirmPassword(value){
     this.setState({confirmPassword: value});
-
-    this.updateFormErrors(
-      this.state.email,
-      this.state.password,
-      value,
-    );
-  }
-
-
-  updateFormErrors(email, password, confirmPassword){
-    const pwControl = new PasswordController();
-    const emailControl = new EmailController();
-
-    pwControl.checkPassword(password, confirmPassword).then(
-      result => {
-        this.setState({passwordError: result});
-      }
-    ); 
-
-    emailControl.checkEmail(email).then(
-      result => {
-        this.setState({emailError: result});
-      }
-    );        
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    const emailUpdate = prevState.emailError != this.state.emailError
-    const passwordUpdate = prevState.passwordError != this.state.passwordError;
-
-    if(emailUpdate || passwordUpdate)
-    {
-      const {formError} = this.props;
-      const {email} = this.props;    
-      const {password} = this.props;
-      
-      formError(this.state.passwordError || this.state.emailError);   
-      email(this.state.email);  
-      password(this.state.password);   
-    }
+    const {confirmPassword} = this.props;
+    confirmPassword(value); 
   }
   
   render(){
@@ -132,10 +74,7 @@ export class EmailPassword extends Component{
             required={true}
             onChange={this.getEmail}
             inputRef={this.nextFocus.getInput("email")} 
-            error={
-              this.state.emailError &&
-              this.props.checkErrors
-            }
+            error={this.props.errors.email}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 this.nextFocus.focusOn("password");
@@ -152,10 +91,7 @@ export class EmailPassword extends Component{
               value={this.state.password}
               onChange={this.getPassword}
               inputRef={this.nextFocus.getInput("password")} 
-              error={
-                this.state.passwordError &&
-                this.props.checkErrors
-              }
+              error={this.props.errors.password}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   this.nextFocus.focusOn("confirmPassword");
@@ -178,10 +114,9 @@ export class EmailPassword extends Component{
             label="Conferma Password"
             labelWidth= {163}
             required={true}
+            value={this.state.confirmPassword}
             onChange={this.getConfirmPassword}
-            error={
-              this.state.passwordError && this.props.checkErrors
-            }
+            error={this.props.errors.password}
             inputRef={this.nextFocus.getInput("confirmPassword")} 
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -198,3 +133,49 @@ export class EmailPassword extends Component{
 
 
 
+export class EmailPasswordController{
+
+  removeNoError(array){
+    const index = array.indexOf("noError");
+    if (index >= 0) {
+      array.splice(index, 1);
+    }
+
+    return array;
+  }
+
+  checkAll(values){
+    return new Promise(resolve => {
+      const emailController = new EmailController();
+      const passwordController = new PasswordController();
+
+      const email = values.email;
+      const password = values.password;
+      const confirmPassword = values.confirmPassword;
+
+      let errorsList = ["noError"];
+
+      emailController.checkEmail(email)
+      .then(
+        result => {
+          if(result) {
+            errorsList.push("emailError");
+            errorsList = this.removeNoError(errorsList);
+          }            
+        },
+      );          
+
+      passwordController.checkPassword(password, confirmPassword)
+      .then(
+        result => {
+          if(result) {
+            errorsList.push("passwordError");
+            errorsList = this.removeNoError(errorsList);
+          }
+        },
+      );
+
+      resolve(errorsList);
+    })
+  }
+} 

@@ -50,6 +50,13 @@ export class SignUpStepper extends Component {
     return this.state.skipped.has(step);
   }
   
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.newStep < this.props.newStep)
+    {
+      this.handleNext();
+    }
+  }
+
   handleNext = () => {
     let newSkipped = this.state.skipped;
     if (this.isStepSkipped(this.state.activeStep)) {
@@ -61,7 +68,7 @@ export class SignUpStepper extends Component {
     const {currentStep} = this.props;
     currentStep(this.state.activeStep + 1);
   }
-  
+
   handleBack = () => {
     this.setState({activeStep: this.state.activeStep - 1});
     const {currentStep} = this.props;
@@ -177,15 +184,12 @@ export class SignUpStepper extends Component {
                         variant="contained"
                         color="primary"
                         onClick={() => {
+                          
+                         
                           if(this.isStepOptional(this.state.activeStep))
                             this.handleSkip()  
                           else
-                            {
-                              if(this.props.formError)
-                                this.handleCheckErrors();
-                              else
-                                this.handleNext();
-                            }
+                            this.props.onClick()
                         }}
                       >
                         Avanti
