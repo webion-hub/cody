@@ -19,11 +19,16 @@ export class EmailController{
 
       if(this.wrongFormat(email))
       {          
-        resolve(true);
+        resolve("emailError");
       }
       else {
         this.emailExist(email).then(
-          result => resolve(result)
+          result => {
+            if(result) 
+              resolve("emailExist")
+            else
+              resolve("correctEmail")
+          }
         )
       }
     })
