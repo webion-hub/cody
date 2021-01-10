@@ -48,6 +48,11 @@ export class OptionalData extends Component{
     this.setState({open: value});
   }
 
+  getImage(value){
+    const {profileImage} = this.props;
+    profileImage(value);
+  } 
+
   getSchool(value){
     this.setState({schoolId: value.id});
 
@@ -78,6 +83,7 @@ export class OptionalData extends Component{
                   <AddPhoto
                     size={150}
                     iconSize={90}
+                    image={this.getImage}
                   />
                   <Box
                     mt={2}

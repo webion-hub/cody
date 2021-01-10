@@ -19,11 +19,15 @@ export class AddPhoto extends Component{
   }
 
   deleteImage = () => {
-    this.setState({image: null});     
+    this.setState({image: null});    
+    const {image} = this.props;
+    image(null);  
   };
 
   fileSelectedHandler = (event) => {
     this.setState({image: event.target.files[0]});
+    const {image} = this.props;
+    image(event.target.files[0]); 
   }
 
   render(){

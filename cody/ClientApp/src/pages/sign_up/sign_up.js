@@ -37,6 +37,7 @@ export class SignUp extends Component {
       surname: '',
       birthDate: new Date(),
 
+      profileImage: null,
       schoolId: null,
 
       emailError: false,
@@ -67,6 +68,7 @@ export class SignUp extends Component {
         surname: this.state.surname,
         birthDate: this.state.birthDate,
         schoolId: this.state.schoolId,
+        profileImage: this.state.profileImage,
       }
     } 
   }
@@ -178,6 +180,7 @@ export class SignUp extends Component {
           formWidth = {formWidth}
           checkErrors = {this.state.checkErrors}
           school = {this.handleChange("schoolId")}
+          profileImage = {this.handleChange("profileImage")}
           values = {{
             schoolId: this.state.schoolId,
           }}
