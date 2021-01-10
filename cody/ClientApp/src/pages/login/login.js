@@ -12,38 +12,26 @@ import { Colors } from '../../index';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
+import { Base, getWindowDimensions, Images } from '../../index';
 
-const base = {
-  imageWidth: 330,
-  formWidth: 300,
-  backgroundImage: "images/bulb.jpeg",  
-};
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
 
 export class Login extends Component {
   static displayName = Login.name;
   render () {
     const screenWidth = getWindowDimensions().width;
-    const isImageBigger = base.imageWidth > screenWidth;
-    const isFormBigger = base.formWidth > screenWidth;
+    const isImageBigger = Base.formImageWidth > screenWidth;
+    const isFormBigger = Base.formWidth > screenWidth;
     const isImageOrFormBigger = isImageBigger || isFormBigger;
 
     const padding = 3;
 
     const imageWidth = isImageBigger ?
       screenWidth - 5:
-      base.imageWidth;
+      Base.formImageWidth;
 
     const formWidth = isFormBigger ? 
       screenWidth - 5 : 
-      base.formWidth;
+      Base.formWidth;
     
     const sidePadding = isImageOrFormBigger ? 
       0 : 
@@ -53,7 +41,7 @@ export class Login extends Component {
       <Grid
         style={{
           height: "100vh",
-          backgroundImage: `url(${base.backgroundImage})`,
+          backgroundImage: `url(${Images.bulbImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center center"
         }}
