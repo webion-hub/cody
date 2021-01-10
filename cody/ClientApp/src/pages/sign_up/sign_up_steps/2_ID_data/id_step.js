@@ -5,16 +5,15 @@ import React, {Component} from 'react';
 import { Box } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
-import { Colors } from '../../../index';
-import { SignUpBase } from '../sign_up_components/sign_up_base'
-import { DatePicker } from '../../../components/date_picker';
-import { NextFocus } from '../../../lib/next_focus';
+import { Colors } from '../../../../index';
+import { SignUpBase } from '../../sign_up_components/sign_up_base'
+import { DatePicker } from '../../../../components/date_picker';
+import { NextFocus } from '../../../../lib/next_focus';
 
-import { UsernameController, NameSurnameController } from '../../../lib/format_controller/id_controller';
-
-import { Step2 } from '../../../components/illustrations/step2';
-import { User } from '../../../lib/user';
+import { Step2 } from '../../../../components/illustrations/step2';
 
 export class IDData extends Component{
 
@@ -81,21 +80,42 @@ export class IDData extends Component{
                   required={true}
                   value={this.state.username}
                   onChange={this.getUsername}
-                  error={this.props.errors.username}
+                  error={
+                    this.props.errors.username 
+                    || this.props.errors.usernameExist
+                  }
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       this.nextFocus.focusOn("name");
                     }              
                  }}  
               />
-              <Typography
-                variant="caption"
-                style={{
-                  color: Colors.lightGrey
-                }}
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
               >
-                Tra 4 e 28 caratteri
-              </Typography>
+                <Typography
+                  variant="caption"
+                  style={{
+                    color: Colors.lightGrey
+                  }}
+                >
+                  Tra 4 e 28 caratteri
+                </Typography>
+                <Fade
+                  in={this.props.errors.usernameExist}
+                >
+                  <Typography
+                    variant="caption"
+                    style={{
+                      color: Colors.errorRed,
+                    }}
+                  >
+                    Username già usato!
+                  </Typography>
+                </Fade>
+              </Grid>
             </Box>,  
           <Box m={1.5}/>,
           <TextField
@@ -144,66 +164,4 @@ export class IDData extends Component{
 }
 
 
-
-export class IDController{
-
-  removeNoError(array){
-    const index = array.indexOf("noError");
-    if (index >= 0) {
-      array.splice(index, 1);
-    }
-    return array;
-  }
-
-  checkAll(values){
-    return new Promise(resolve => {
-      const usernameController = new UsernameController();
-      const nameSurnameController = new NameSurnameController();
-
-      const username = values.username;
-      const name = values.name;
-      const surname = values.surname;
-
-      let errorsList = ["noError"];
-
-      Promise.all([
-        usernameController
-          .checkUsername(username)
-          .then(
-            result => {
-              if(result) {
-                errorsList.push("usernameError");
-                errorsList = this.removeNoError(errorsList);
-              }            
-            },
-          ),
-  
-        nameSurnameController
-          .checkNameSurname(name)
-          .then(
-            result => {
-              if(result) {
-                errorsList.push("nameError");
-                errorsList = this.removeNoError(errorsList);
-              }
-            },
-          ),
-  
-        nameSurnameController
-          .checkNameSurname(surname)
-          .then(
-            result => {
-              if(result) {
-                errorsList.push("surnameError");
-                errorsList = this.removeNoError(errorsList);
-              }
-            },
-          ),
-      ])
-      .then(_ => {
-        resolve(errorsList);
-      });
-    })
-  }
-} 
 

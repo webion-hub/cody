@@ -9,14 +9,14 @@ import { Typography } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Link } from '@material-ui/core';
 
-import { SignUpBase } from '../sign_up_components/sign_up_base'
-import { AddSchoolDialog } from '../sign_up_components/add_school_dialog'
-import { AddPhoto } from '../../../components/add_photo';
-import { Colors } from '../../../index'
-import { NextFocus } from '../../../lib/next_focus';
-import { School } from '../../../lib/school';
+import { SignUpBase } from '../../sign_up_components/sign_up_base'
+import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
+import { AddPhoto } from '../../../../components/add_photo';
+import { Colors } from '../../../../index'
+import { NextFocus } from '../../../../lib/next_focus';
+import { School } from '../../../../lib/school';
 
-import { Step3 } from '../../../components/illustrations/step3';
+import { Step3 } from '../../../../components/illustrations/step3';
 
 export class OptionalData extends Component{
   constructor(props){
@@ -39,9 +39,7 @@ export class OptionalData extends Component{
     this.nextFocus = new NextFocus(["school"]);
 
     School.getAll().then(schools => {
-      schools.forEach(school => {
-        this.setState({schoolsList: school});
-      });
+      this.setState({schoolsList: schools});
     });
   }
 
@@ -114,7 +112,7 @@ export class OptionalData extends Component{
                   this.nextFocus.removeFocus();
                 }              
              }}  
-              options={schoolsList}
+              options={this.state.schoolsList}
               getOptionLabel={(option) => (option.name + " - " + option.city)}
               renderOption={(option) => (
                 <Grid

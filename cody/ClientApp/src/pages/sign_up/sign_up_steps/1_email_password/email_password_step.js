@@ -4,17 +4,16 @@ import React, { Component } from 'react';
 import { Box } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
-import { Password } from '../../../components/password/password_textfield';
-import { PwStrengthProgress } from '../../../components/password/password_strenght_progress';
-import { SignUpBase } from '../sign_up_components/sign_up_base';
-import { NextFocus } from '../../../lib/next_focus';
-import { Colors } from '../../../index';
+import { Password } from '../../../../components/password/password_textfield';
+import { PwStrengthProgress } from '../../../../components/password/password_strenght_progress';
+import { SignUpBase } from '../../sign_up_components/sign_up_base';
+import { NextFocus } from '../../../../lib/next_focus';
+import { Colors } from '../../../../index';
 
-import { PasswordController } from '../../../lib/format_controller/password_controller';
-import { EmailController } from '../../../lib/format_controller/email_controller';
-
-import { Step1 } from '../../../components/illustrations/step1';
+import { Step1 } from '../../../../components/illustrations/step1';
 
 export class EmailPassword extends Component{
 
@@ -55,8 +54,8 @@ export class EmailPassword extends Component{
       <SignUpBase
         image={<Step1 size={this.props.imageWidth}/>}
         formWidth={this.props.formWidth}
-        margin={1}
         bottomMargin={2}
+        margin={1}
         items={[
           <Typography
             variant="body2"
@@ -64,24 +63,47 @@ export class EmailPassword extends Component{
           >
             Email &amp; Password
           </Typography>,
-          <TextField
-            id="registration_email"
-            label="Email"
-            variant="outlined"
-            color="secondary"
-            value={this.state.email}
-            fullWidth={true}
-            required={true}
-            onChange={this.getEmail}
-            inputRef={this.nextFocus.getInput("email")} 
-            error={this.props.errors.email}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                this.nextFocus.focusOn("password");
-              }              
-           }}         
-          />,
-          <Box m={3}/>,
+          <Box>
+            <TextField
+              id="registration_email"
+              label="Email"
+              variant="outlined"
+              color="secondary"
+              value={this.state.email}
+              fullWidth={true}
+              required={true}
+              onChange={this.getEmail}
+              inputRef={this.nextFocus.getInput("email")} 
+              error={
+                this.props.errors.email 
+                || this.props.errors.emailExist
+              }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.nextFocus.focusOn("password");
+                }              
+            }}         
+            />
+            <Grid
+                container
+                direction="row"
+                justify="flex-end"
+            >
+              <Fade
+                in={this.props.errors.emailExist}
+              >
+                <Typography
+                  variant="caption"
+                  style={{
+                    color: Colors.errorRed,
+                  }}
+                >
+                  Email già usata!
+                </Typography>
+              </Fade>
+            </Grid>
+          </Box>,
+          <Box m={1.5}/>,
           <Box>
             <Password
               label="Password"
@@ -110,6 +132,7 @@ export class EmailPassword extends Component{
               password={this.state.password}
             />
           </Box>,
+          <Box m={1.5}/>,
           <Password
             label="Conferma Password"
             labelWidth= {163}
@@ -133,51 +156,4 @@ export class EmailPassword extends Component{
 
 
 
-export class EmailPasswordController{
-
-  removeNoError(array){
-    const index = array.indexOf("noError");
-    if (index >= 0) {
-      array.splice(index, 1);
-    }
-
-    return array;
-  }
-
-  checkAll(values){
-    return new Promise(resolve => {
-      const emailController = new EmailController();
-      const passwordController = new PasswordController();
-
-      const email = values.email;
-      const password = values.password;
-      const confirmPassword = values.confirmPassword;
-
-      let errorsList = ["noError"];
-
-      Promise.all([
-        emailController.checkEmail(email)
-        .then(
-          result => {
-            if(result) {
-              errorsList.push("emailError");
-              errorsList = this.removeNoError(errorsList);
-            }            
-          },
-        ),       
-        passwordController.checkPassword(password, confirmPassword)
-        .then(
-          result => {
-            if(result) {
-              errorsList.push("passwordError");
-              errorsList = this.removeNoError(errorsList);
-            }
-          },
-        ),
-      ])
-      .then(_ => {
-        resolve(errorsList);
-      });
-    })
-  }
-} 
+ 
