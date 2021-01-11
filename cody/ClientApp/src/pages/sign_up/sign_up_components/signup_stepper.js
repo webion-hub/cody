@@ -19,7 +19,6 @@ import { ProfilePicture } from '../../../lib/profile_picture';
 export class SignUpStepper extends Component {
   constructor(props){
     super(props);
-    this.handleCheckErrors = this.handleCheckErrors.bind(this);
 
     this.state = {
       activeStep: 0,
@@ -41,15 +40,6 @@ export class SignUpStepper extends Component {
       this.handleNext();
     }
   }
-
-  handleCheckErrors = (event) => {    
-    const {checkErrors} = this.props;
-    checkErrors();
-
-    if(!this.props.formError)
-      this.handleNext();
-  };
-
   
   isStepOptional = (step) => {
     var isOptional = false;
@@ -139,7 +129,6 @@ export class SignUpStepper extends Component {
       _=> this.setState({loading: true})
     );
   }
-
 
   render(){
     return (
