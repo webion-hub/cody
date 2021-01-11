@@ -16,7 +16,8 @@ export const Colors = {
   secondary: 'rgb(102, 153, 255)',
   background: 'rgb(40, 40, 40)', 
   lightGrey: 'rgba(255,255,255,0.6)',
-  errorRed: 'rgb(244,67,54)'
+  errorRed: 'rgb(244,67,54)',
+  disable: 'rgba(255,255,255,0.25)'
 }
 
 export const Base = {
@@ -54,22 +55,22 @@ const theme = createMuiTheme({
     },
     text: {
       primary: "#FFFFFF",
-      secondary: "#FFFFFF",      
+      secondary: "#FFFFFF",  
+      disabled: Colors.disable,    
     },
     action: {
       disabled: "rgba(255,255,255,0.3)",
-      disabledBackground: "rgba(140,140,140,0.25)"
+      disabledBackground: Colors.disable, 
     }
   },
   typography: { 
      useNextVariants: true
   },
-
   overrides: {
     MuiFormLabel: {
       root: {
         color: Colors.lightGrey,
-      }
+      },
     },
     MuiOutlinedInput: {
       notchedOutline: {
@@ -105,8 +106,8 @@ const theme = createMuiTheme({
       toolbarTxt: {
         color: "rgba(255, 255, 255, 0.8)"
       }
-    }
-  }
+    },
+  },
 }, itIT);
 
 ReactDOM.render(
