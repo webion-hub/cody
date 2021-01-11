@@ -21,9 +21,12 @@ export class AddPhoto extends Component{
   deleteImage = () => {
     this.setState({image: null});    
     const {image} = this.props;
-    image(null);  
+    image(null);
   };
 
+  /**
+   * @param {React.ChangeEvent<HTMLInputElement>} event 
+   */
   fileSelectedHandler = (event) => {
     this.setState({image: event.target.files[0]});
     const {image} = this.props;
