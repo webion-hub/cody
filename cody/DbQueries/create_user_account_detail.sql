@@ -8,9 +8,8 @@ CREATE TABLE user_account_detail
 	surname    text NOT NULL,
 	birth_date date NOT NULL,
 	
-	user_account_id    int UNIQUE NOT NULL,
-	school_id  		   int,
-	profile_picture_id int,
+	user_account_id int UNIQUE NOT NULL,
+	school_id  	    int,
 	
 	CONSTRAINT user_account_fk
 		FOREIGN KEY(user_account_id)
@@ -18,9 +17,5 @@ CREATE TABLE user_account_detail
 	
 	CONSTRAINT school_id_fk
 		FOREIGN KEY(school_id)
-		REFERENCES school_account(id),
-	
-	CONSTRAINT profile_picture_fk
-		FOREIGN KEY(profile_picture_id)
-		REFERENCES user_profile_picture(id)
+		REFERENCES school_account(id)
 );
