@@ -124,7 +124,7 @@ export class SignUp extends Component {
       Base.formWidth;
     
     const sidePadding = isImageOrFormBigger ? 
-      0 : 
+      2 : 
       padding;
 
     let elements = [
@@ -186,6 +186,8 @@ export class SignUp extends Component {
       },  
     ]
 
+    const elementsNumber = elements.length;
+
     return (  
       <Grid
         style={{
@@ -195,6 +197,7 @@ export class SignUp extends Component {
           backgroundPosition: "center center",
         }}
         container
+        direction="column"
         justify="center"
         alignItems="center"
       >        
@@ -206,14 +209,15 @@ export class SignUp extends Component {
             pr={sidePadding}
           >
             <SignUpStepper
-              steps={3}
+              steps={elementsNumber}
               onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
               optionalSteps={[3]}
-              element={this.state.currentStep > 3 ? null : elements[this.state.currentStep].element}
+              element={this.state.currentStep > elementsNumber ? null : elements[this.state.currentStep].element}
               currentStep={this.getCurrentStep}
               newStep={this.state.newStep}
               user={this.setUser()}
               profileImage={this.state.profileImage}
+              termsAndService={true}
               completed={
                 <SignUpCompleted
                     imageWidth = {imageWidth}
