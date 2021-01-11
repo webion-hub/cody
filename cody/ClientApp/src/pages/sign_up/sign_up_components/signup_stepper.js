@@ -85,54 +85,24 @@ export class SignUpStepper extends Component {
     this.setState({loading: true});
     User.tryRegister({
       user: this.props.user,
+      profilePicture: this.props.profileImage,
+
       onSuccess: uid => {
-        this._createProfilePictureAndContinue(uid);
+        this.setState({loading: false});
+        this.handleNext();
       },
       onError: reasons => {
         this.setState({registerErrors: reasons});
       },
       onMissingFields: reasons => {
         this.setState({onMissingFields: reasons});
-      }
-    });
-  }
-
-  /**
-   * @param {number} uid 
-   */
-  _createProfilePictureAndContinue = (uid) => {
-    this
-      ._createProfilePicture(uid)
-      .catch(_ => {
+      },
+      onImageUploadError: _ => {
         // TODO upload fallito
-      })
-      .finally(_ => {
-        this._showFinalStep();
-      });
-  }
-
-  /**
-   * @param {number} accounDetailId
-   * @returns {Promise<number | null>}
-   */
-  _createProfilePicture = (accounDetailId) => {  
-    const image = 
-      this.props.profileImage;
-    
-    if (!image)
-      return new Promise(res => res(null));
-
-    return ProfilePicture.createOrUpdate({
-      accountDetailId: accounDetailId,
-      picture: image,
+      },
     });
   }
 
-
-  _showFinalStep = () => {
-    this.setState({ loading: false });
-    this.handleNext();
-  }
 
   render(){
     return (
