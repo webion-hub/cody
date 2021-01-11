@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
+import { Link } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import { EmailPassword } from './sign_up_steps/1_email_password/email_password_step';
 import { EmailPasswordController } from './sign_up_steps/1_email_password/email_password_controller';
@@ -15,7 +17,7 @@ import { OptionalData } from './sign_up_steps/3_optional/optional_step';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 import { SignUpStepper } from './sign_up_components/signup_stepper';
 
-import { Base, getWindowDimensions, Images } from '../../index';
+import { Base, getWindowDimensions, Images, Colors } from '../../index';
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
@@ -233,6 +235,35 @@ export class SignUp extends Component {
             />
           </Box>
         </Paper>
+        <div>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignContent="flex-start"
+          >
+            <Typography
+              variant="caption"
+              style={{
+                color: Colors.disable,
+                marginRight: 5
+              }}
+            >
+              Registrandoti accetti i nostri
+            </Typography>
+            <Link
+              component="button"
+              variant="caption"
+              href="/terms_and_services"
+              style={{
+                color: Colors.disable,
+                fontWeight: "bold",
+              }}
+            >
+              termini di servizio.
+            </Link>
+          </Grid>
+        </div>
       </Grid>
     );
   }

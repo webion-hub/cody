@@ -17,7 +17,7 @@ export const Colors = {
   background: 'rgb(40, 40, 40)', 
   lightGrey: 'rgba(255,255,255,0.6)',
   errorRed: 'rgb(244,67,54)',
-  disable: 'rgba(255,255,255,0.25)'
+  disable: 'rgba(100,100,100)'
 }
 
 export const Base = {

@@ -6,7 +6,6 @@ import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import { Link } from '@material-ui/core';
 
 import { Password } from '../../../../components/password/password_textfield';
 import { PwStrengthProgress } from '../../../../components/password/password_strenght_progress';
@@ -133,50 +132,22 @@ export class EmailPassword extends Component{
             >
               Tra 8 e 128 caratteri
             </Typography>
-          </Box>,
-          <Box>
-            <Password
-              label="Conferma Password"
-              labelWidth= {163}
-              required={true}
-              value={this.state.confirmPassword}
-              onChange={this.getConfirmPassword}
-              error={this.props.errors.password}
-              inputRef={this.nextFocus.getInput("confirmPassword")} 
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  this.nextFocus.removeFocus()
-                }
-              }}
-            />
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignContent="flex-start"
-            >
-              <Typography
-                variant="caption"
-                style={{
-                  color: Colors.disable,
-                  marginRight: 5
-                }}
-              >
-                Registrandoti accetti i nostri
-              </Typography>
-              <Link
-                component="button"
-                variant="caption"
-                href="/terms_and_services"
-                style={{
-                  color: Colors.disable,
-                  fontWeight: "bold",
-                }}
-              >
-                termini di servizio.
-              </Link>
-            </Grid>
-          </Box>,
+          </Box>,          
+          <Password
+            label="Conferma Password"
+            labelWidth= {163}
+            required={true}
+            value={this.state.confirmPassword}
+            onChange={this.getConfirmPassword}
+            error={this.props.errors.password}
+            inputRef={this.nextFocus.getInput("confirmPassword")} 
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                this.nextFocus.removeFocus()
+              }
+            }}
+          />
+          ,
         ]}
       />
     );
