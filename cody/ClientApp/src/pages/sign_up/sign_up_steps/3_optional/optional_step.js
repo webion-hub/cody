@@ -30,7 +30,7 @@ export class OptionalData extends Component{
       open: false,
       schoolId: this.props.values.schoolId,
 
-      schoolsList: null,
+      schoolsList: [],
       schoolFromDialog: null,
     }
 
