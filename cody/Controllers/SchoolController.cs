@@ -1,6 +1,7 @@
 ﻿using cody.Contexts;
 using cody.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace cody.Controllers
     [Route("school")]
     public class SchoolController : ControllerBase
     {
+        private readonly ILogger<SchoolController> _logger;
         private readonly CodyContext _context;
 
-        public SchoolController(CodyContext context)
+        public SchoolController(ILogger<SchoolController> logger, CodyContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
@@ -34,11 +37,15 @@ namespace cody.Controllers
                     s.Country == school.Country
                 select s;
 
-            if (maybeExisting.Any())
+            if (maybeExisting.Any()) {
+                _logger.LogInformation("School creation - {School} already exists", school);
                 return BadRequest(maybeExisting.First().Id);
+            }
 
             await _context.Schools.AddAsync(school);
             await _context.SaveChangesAsync();
+
+            _logger.LogInformation("School created - {School}", school);
             return Ok(school.Id);
         }
 

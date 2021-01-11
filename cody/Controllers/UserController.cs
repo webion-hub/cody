@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace cody.Controllers
 {
@@ -17,10 +18,12 @@ namespace cody.Controllers
     [Route("user")]
     public class UserController : ControllerBase
     {
+        private readonly ILogger<UserController> _logger;
         private readonly CodyContext _context;
 
-        public UserController(CodyContext context)
+        public UserController(ILogger<UserController> logger, CodyContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
@@ -29,7 +32,11 @@ namespace cody.Controllers
         [Route("exists/{usernameOrEmail}")]
         public IActionResult UserExists(string usernameOrEmail)
         {
-            return Ok(_context.UserExists(usernameOrEmail));
+            var exists = 
+                _context.UserExists(usernameOrEmail);
+
+            _logger.LogInformation($"UserExists - {usernameOrEmail} -> {exists}");
+            return Ok(exists);
         }
 
 
@@ -58,9 +65,12 @@ namespace cody.Controllers
             var isPasswordCorrect =
                 Password.AreEqual(password, foundUser.Password);
 
-            if (!isPasswordCorrect)
+            if (!isPasswordCorrect) {
+                _logger.LogWarning($"User {username} -> incorrect password");
                 return BadRequest();
+            }
 
+            _logger.LogInformation($"User {username} -> logged in");
             return Ok();
         }
 
@@ -74,18 +84,22 @@ namespace cody.Controllers
             account.TrimSelfAndRelated();
 
             var rejectReasons = MaybeReject(account);
-            if (rejectReasons.Any())
+            if (rejectReasons.Any()) {
+                _logger.LogInformation("User registration rejected - {Account}|{RejectReasons}", account, rejectReasons);
                 return BadRequest(rejectReasons);
+            }
 
             try
             {
                 await _context.UsersAccounts.AddAsync(account);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException) {
+            catch (DbUpdateException e) {
+                _logger.LogError(e, "DB Register error - {Account}", account);
                 return BadRequest(new []{ "server_error" });
             }
 
+            _logger.LogInformation("Registered user -> {Account}", account);
             return Ok();
         }
 
