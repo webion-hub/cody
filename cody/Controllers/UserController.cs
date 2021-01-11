@@ -75,7 +75,7 @@ namespace cody.Controllers
         }
 
 
-        /// <response code="200">The registration was successfull</response>
+        /// <response code="200">Returns the id of the new user</response>
         /// <response code="400">Registration error, along with the reject reasons</response>
         [HttpPost]
         [Route("register")]
@@ -100,7 +100,7 @@ namespace cody.Controllers
             }
 
             _logger.LogInformation("Registered user -> {Account}", account);
-            return Ok();
+            return Ok(account.AccountDetail.Id);
         }
 
 

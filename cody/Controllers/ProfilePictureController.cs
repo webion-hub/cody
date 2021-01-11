@@ -33,19 +33,50 @@ namespace cody.Controllers
         /// <response code="200">The id of the created or updated picture</response>
         [HttpPut]
         [Route("create_or_update")]
-        public async Task<IActionResult> CreateOrReplace([FromForm] UserProfilePicture profilePicture)
-        {
-            _logger.LogInformation("Profile picture received -> {ProfilePicture}", profilePicture);
+        public async Task<IActionResult> CreateOrReplace(
+            [FromForm] int accountDetailId,
+            [FromForm] IFormFile picture
+        ) {
+            _logger.LogInformation("Profile picture received -> {AccountDetailId}|{ProfilePicture}", accountDetailId, picture);
 
-            var img = profilePicture.Picture;
-            _sftp.UploadFile(
-                img,
-                $"users/profile_pictures/{img.FileName}"
-            );
+            var basePath = @$"/cody_files/users/profile_pictures/{accountDetailId}/";
+            var fileName = picture.FileName;
+
+            var profilePicture = new UserProfilePicture {
+                AccountDetailId = accountDetailId,
+                FilePath = basePath + fileName,
+                Picture = picture,
+            };
+
+            var wasUploaded = 
+                await TryUploadPictureAsync(profilePicture, basePath);
+
+            if (!wasUploaded)
+                return StatusCode(StatusCodes.Status500InternalServerError);
 
             await _context.ProfilePictures.AddAsync(profilePicture);
             await _context.SaveChangesAsync();
             return Ok(profilePicture.Id);
+        }
+
+
+        private async Task<bool> TryUploadPictureAsync(UserProfilePicture profilePicture, string basePath)
+        {
+            _sftp.MaybeCreateDirectiories(profilePicture.FilePath);
+            var wasUploaded = await _sftp.TryUploadFileAsync(
+                profilePicture.Picture,
+                profilePicture.FilePath
+            );
+
+            if (!wasUploaded)
+                return false;
+
+            await _sftp.DeleteAllExceptAsync(
+                basePath, 
+                profilePicture.Picture.FileName
+            );
+
+            return true;
         }
     }
 }
