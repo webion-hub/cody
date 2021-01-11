@@ -8,6 +8,7 @@ import { TextField } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Link } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 
 import { SignUpBase } from '../../sign_up_components/sign_up_base'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
@@ -29,12 +30,8 @@ export class OptionalData extends Component{
       open: false,
       schoolId: this.props.values.schoolId,
 
-      schoolsList: {
-        id: "",
-        name: "",
-        city: "",
-        country: "",
-      },
+      schoolsList: null,
+      schoolFromDialog: null,
     }
 
     this.nextFocus = new NextFocus(["school"]);
@@ -57,6 +54,12 @@ export class OptionalData extends Component{
   getSchool = (value) => {
     this.setState({schoolId: value.id});
 
+    const {school} = this.props;
+    school(value.id);
+  }
+
+  getSchoolFromDialog = (value) => {
+    this.setState({schoolFromDialog: value});
     const {school} = this.props;
     school(value.id);
   }
@@ -113,6 +116,8 @@ export class OptionalData extends Component{
               handleHomeEndKeys
               clearOnBlur
               freeSolo
+              value={this.state.schoolFromDialog}
+              disabled={this.state.schoolFromDialog != null}
               onChange={(event, value) => this.getSchool(value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -146,25 +151,31 @@ export class OptionalData extends Component{
                 />
               }
             />
-            <Link
-              style={{
-                fontSize: 12,
-                color: Colors.lightGrey
-              }}
-              component="button"
-              variant="caption"
-              onClick={() => {
-                this.handleOpen(true);
-              }}
+            <Fade
+              in={this.state.schoolFromDialog == null}
             >
-              Non trovi il tuo Istituto? Aggiungilo
-            </Link>
+              <Link
+                style={{
+                  fontSize: 12,
+                  color: Colors.lightGrey
+                }}
+                disabled={this.state.schoolFromDialog != null}
+                component="button"
+                variant="caption"
+                onClick={() => {
+                  this.handleOpen(true);
+                }}
+              >
+                Non trovi il tuo Istituto? Aggiungilo
+              </Link>        
+            </Fade>
             <AddSchoolDialog
               open = {this.state.open}
               onClose = {this.handleOpen}
               imageWidth = {this.props.imageWidth} 
               formWidth={this.props.formWidth}
-            />
+              school={this.getSchoolFromDialog}
+            />      
           </Box>,
         ]}
       />
