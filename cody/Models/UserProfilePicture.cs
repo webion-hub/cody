@@ -16,14 +16,13 @@ namespace cody.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required] public string FilePath { get; set; }
+        [Required] public int AccountDetailId { get; set; }
 
-        [Required] 
-        public string FilePath { get; set; }
-        
+
+        public UserAccountDetail AccountDetail { get; set; }
+
         [NotMapped]
         public IFormFile Picture { get; set; }
-
-
-        public UserAccountDetail UserAccountDetail { get; set; }
     }
 }

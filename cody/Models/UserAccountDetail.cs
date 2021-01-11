@@ -28,7 +28,6 @@ namespace cody.Models
         public SchoolAccount School { get; set; }
 
 
-        public int? ProfilePictureId { get; set; }
         public UserProfilePicture ProfilePicture { get; set; }
 
 
