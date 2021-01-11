@@ -80,52 +80,58 @@ export class SignUpStepper extends Component {
     currentStep(this.state.activeStep + 1);
   }
 
-
-  _beginRegistration = () => {
-    this
-      ._createProfilePicture()
-      .then(ppId => {
-        this._registerUser(ppId);
-      });
-  }
   
-  /**
-   * @returns {Promise<number | null>}
-   */
-  _createProfilePicture = () => {  
-    const image = 
-      this.props.image;
-    
-    console.log(image);
-    if (!image)
-      return new Promise(res => res(null));
-
-    return ProfilePicture.createOrUpdate({
-      picture: image,
-    });
-  }
-
-  /**
-   * @param {number} profilePictureId 
-   */
-  _registerUser = (profilePictureId) => {
+  _registerUser = () => {
     this.setState({loading: true});
     User.tryRegister({
-      user: {
-        profilePictureId: profilePictureId,
-        ...this.props.user
-      },
-      onSuccess: _ => {
-        this.setState({loading: false})
-        this.handleNext();
+      user: this.props.user,
+      onSuccess: uid => {
+        this._createProfilePictureAndContinue(uid);
       },
       onError: reasons => {
         this.setState({registerErrors: reasons});
       },
-      onMissingFields: reasons =>{
+      onMissingFields: reasons => {
         this.setState({onMissingFields: reasons});
       }
     });
+  }
+
+  /**
+   * @param {number} uid 
+   */
+  _createProfilePictureAndContinue = (uid) => {
+    this
+      ._createProfilePicture(uid)
+      .catch(_ => {
+        // TODO upload fallito
+      })
+      .finally(_ => {
+        this._showFinalStep();
+      });
+  }
+
+  /**
+   * @param {number} accounDetailId
+   * @returns {Promise<number | null>}
+   */
+  _createProfilePicture = (accounDetailId) => {  
+    const image = 
+      this.props.profileImage;
+    
+    if (!image)
+      return new Promise(res => res(null));
+
+    return ProfilePicture.createOrUpdate({
+      accountDetailId: accounDetailId,
+      picture: image,
+    });
+  }
+
+
+  _showFinalStep = () => {
+    this.setState({ loading: false });
+    this.handleNext();
   }
 
   render(){
@@ -204,7 +210,7 @@ export class SignUpStepper extends Component {
                         <LoadingButton
                           loading={this.state.loading}
                           label="Finisci"
-                          onClick={this._beginRegistration}
+                          onClick={this._registerUser}
                         />
                         <AlertDialog
                           open={
