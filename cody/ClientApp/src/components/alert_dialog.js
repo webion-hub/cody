@@ -7,6 +7,10 @@ import { DialogActions } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import { DialogTitle } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
+import { List } from '@material-ui/core';
+import { ListItem } from '@material-ui/core';
+import { ListItemText } from '@material-ui/core';
 
 import { SignUpBase } from '../pages/sign_up/sign_up_components/sign_up_base'
 
@@ -27,13 +31,14 @@ export class AlertDialog extends Component {
 
   getItems(){
     const items = this.props.items;
-    const getItems = items.map((item, index) => 
-    <Typography 
-      key={index}
-      variant="subtitle1"
-    >
-      {item}
-    </Typography>
+    const cleanItems = items.filter(item => item !== undefined && item !== null)
+    const getItems = cleanItems.map((item, index) => 
+      <div key={index}>
+        <ListItem>
+          <ListItemText primary={item} />
+        </ListItem>
+        <Divider />
+      </div>
     );
     
     return getItems;
@@ -56,7 +61,6 @@ export class AlertDialog extends Component {
       <Dialog
         maxWidth="xl"
         open={this.props.open}
-        onClose={this.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -70,7 +74,10 @@ export class AlertDialog extends Component {
               <Typography variant="h6">
                 Ci sono i seguenti errori:
               </Typography>,
-              this.getItems()
+              <List component="nav">
+                <Divider />
+                {this.getItems()}
+              </List>              
             ]}
           />
         </DialogContent>
