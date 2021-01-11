@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Renci.SshNet;
+using Renci.SshNet.Async;
 using Renci.SshNet.Sftp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace cody.Services
@@ -44,15 +46,18 @@ namespace cody.Services
         }
 
 
-        public void UploadFile(IFormFile file, string remoteFilePath)
+        public async Task<bool> TryUploadFileAsync(IFormFile file, string remoteFilePath)
         {
             try {
                 using var fileStream = file.OpenReadStream();
-                _client.UploadFile(fileStream, remoteFilePath);
-                _logger.LogInformation($"Stfp service - uploaded -> {file.Name} to {remoteFilePath}");
+                await _client.UploadAsync(fileStream, remoteFilePath);
+                
+                _logger.LogInformation($"Stfp service - uploaded -> {file.FileName} to {remoteFilePath}");
+                return true;
             }
             catch (Exception e) {
-                _logger.LogError(e, $"Stfp service - upload failed -> {file.Name} to {remoteFilePath}");
+                _logger.LogError(e, $"Stfp service - upload failed -> {file.FileName} to {remoteFilePath}");
+                return false;
             }
         }
 
@@ -77,6 +82,23 @@ namespace cody.Services
         }
 
 
+        public async Task DeleteAllExceptAsync(string path, string exception)
+        {
+            var directory =
+                await _client.ListDirectoryAsync(path);
+
+            foreach (var file in directory)
+            {
+                if (file.IsDirectory)
+                    continue;
+
+                if (file.Name == exception)
+                    continue;
+
+                file.Delete();
+            }
+        }
+
         public void DeleteFile(string remoteFilePath)
         {
             try {
@@ -85,6 +107,25 @@ namespace cody.Services
             }
             catch (Exception e) {
                 _logger.LogError(e, $"Stfp service - delete error -> {remoteFilePath}");
+            }
+        }
+
+
+        public void MaybeCreateDirectiories(string path)
+        {
+            var folders = 
+                path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+            string current = string.Empty;
+            foreach (var folder in folders)
+            {
+                if (Regex.IsMatch(folder, @".+\..+"))
+                    continue;
+
+                current += @$"/{folder}";
+
+                if (!_client.Exists(current))
+                    _client.CreateDirectory(current);
             }
         }
 
