@@ -163,7 +163,7 @@ export class SignUp extends Component {
           username = {this.handleChange("username")}
           name = {this.handleChange("name")}
           surname = {this.handleChange("surname")}
-          date = {this.handleChange("date")}
+          birthDate = {this.handleChange("birthDate")}
           values = {{
             username: this.state.username,
             name: this.state.name,

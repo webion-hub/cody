@@ -51,8 +51,8 @@ export class IDData extends Component{
 
   getDate(value){
     this.setState({birthDate: value});
-    const {date} = this.props;
-    date(value);
+    const {birthDate} = this.props;
+    birthDate(value);
   }
 
   render(){
