@@ -208,6 +208,7 @@ export class AddSchoolDialog extends Component {
           <Button 
             onClick={this.handleClose} 
             color="secondary"
+            disabled={this.state.loading}
           >
             Chiudi
           </Button>
