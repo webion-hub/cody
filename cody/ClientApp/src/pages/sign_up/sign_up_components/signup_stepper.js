@@ -14,6 +14,7 @@ import { LoadingButton } from '../../../components/loading_button';
 import { AlertDialog } from '../../../components/alert_dialog';
 
 import { User } from '../../../lib/user';
+import { ProfilePicture } from '../../../lib/profile_picture';
 
 export class SignUpStepper extends Component {
   constructor(props){
@@ -87,6 +88,57 @@ export class SignUpStepper extends Component {
     const {currentStep} = this.props;
     currentStep(this.state.activeStep + 1);
   }
+
+
+  _beginRegistration = () => {
+    this
+      ._createProfilePicture()
+      .then(ppId => {
+        this._registerUser(ppId);
+      });
+  }
+  
+  /**
+   * @returns {Promise<number | null>}
+   */
+  _createProfilePicture = () => {  
+    const image = 
+      this.props.image;
+    
+    console.log(image);
+    if (!image)
+      return new Promise(res => res(null));
+
+    return ProfilePicture.createOrUpdate({
+      picture: image,
+    });
+  }
+
+  /**
+   * @param {number} profilePictureId 
+   */
+  _registerUser = (profilePictureId) => {
+    User.tryRegister({
+      user: {
+        profilePictureId: profilePictureId,
+        ...this.props.user
+      },
+      onSuccess: _ => {
+        this.setState({loading: false})
+        this.handleNext();
+      },
+      onError: reasons => {
+        this.setState({registerErrors: reasons});
+      },
+      onMissingFields: reasons =>{
+        this.setState({onMissingFields: reasons});
+      }
+    })
+    .then(
+      _=> this.setState({loading: true})
+    );
+  }
+
 
   render(){
     return (
@@ -163,24 +215,7 @@ export class SignUpStepper extends Component {
                         <LoadingButton
                           loading={this.state.loading}
                           label="Finisci"
-                          onClick={() => {
-                            User.tryRegister({
-                              user: this.props.user,
-                              onSuccess: _ => {
-                                this.setState({loading: false})
-                                this.handleNext();
-                              },
-                              onError: reasons => {
-                                this.setState({registerErrors: reasons});
-                              },
-                              onMissingFields: reasons =>{
-                                this.setState({onMissingFields: reasons});
-                              }
-                            })
-                            .then(
-                              _=> this.setState({loading: true})
-                            );
-                          }}
+                          onClick={this._beginRegistration}
                         />
                         <AlertDialog
                           open={

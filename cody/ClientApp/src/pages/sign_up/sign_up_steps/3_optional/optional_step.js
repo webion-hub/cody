@@ -48,17 +48,17 @@ export class OptionalData extends Component{
     this.setState({open: value});
   }
 
-  getImage(value){
+  getImage = (value) => {
     const {profileImage} = this.props;
     profileImage(value);
-  } 
+  }
 
-  getSchool(value){
+  getSchool = (value) => {
     this.setState({schoolId: value.id});
 
     const {school} = this.props;
     school(value.id);
-  } 
+  }
 
   render(){
     return (
