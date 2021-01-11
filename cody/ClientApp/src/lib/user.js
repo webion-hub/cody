@@ -38,7 +38,7 @@ import './cody_types';
  * @typedef {object} TryRegisterOptions
  * @property {UserAccount} user
  * @property {AxiosRequestConfig} [axiosConfig]
- * @property {() => void} [onSuccess]
+ * @property {(accountDetailId: number) => void} [onSuccess]
  * @property {(fields: string[]) => void} [onMissingFields]
  * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
  */
@@ -103,6 +103,7 @@ export class User {
   static async tryRegister(options) {
     const {
       user,
+      profilePicture,
       axiosConfig,
       onSuccess,
       onError,
@@ -119,10 +120,10 @@ export class User {
         ...axiosConfig,
       })
       .then(response => {
+        const data = response.data;
         invokeCallback(response.status, {
-          200: onSuccess,
+          200: _ => onSuccess(data),
           400: _ => {
-            const data = response.data;
             return data.errors != undefined
               ? _ => onMissingFields(data.errors)
               : _=> onError(data);
