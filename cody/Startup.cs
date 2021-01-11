@@ -1,4 +1,5 @@
 using cody.Contexts;
+using cody.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Renci.SshNet;
 
 namespace cody
 {
@@ -28,6 +31,7 @@ namespace cody
                 configuration.RootPath = "ClientApp/build";
             });
 
+
             services.AddDbContext<CodyContext>(options =>
             {
                 var connectionString =
@@ -37,10 +41,24 @@ namespace cody
                     .UseNpgsql(connectionString)
                     .UseSnakeCaseNamingConvention();
             });
+
+
+            services.AddLogging();
+            services.AddSingleton<SftpService>(serviceProvider =>
+            {
+                var logger = 
+                    serviceProvider.GetRequiredService<ILogger<SftpService>>();
+
+                var connection = Configuration
+                    .GetSection("SftpConnection")
+                    .Get<SftpConnection>();
+
+                return new(logger, connection);
+            });
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SftpService sftp)
         {
             if (env.IsDevelopment())
             {
@@ -76,6 +94,9 @@ namespace cody
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+
+            sftp.Connect();
         }
     }
 }
