@@ -7,27 +7,38 @@ import { Dialog } from '@material-ui/core';
 import { DialogActions } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import { DialogTitle } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { InputAdornment } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import { SignUpBase } from './sign_up_base'
 import { NextFocus } from '../../../lib/next_focus';
 import { School } from '../../../lib/school';
 import { LoadingButton } from '../../../components/loading_button';
+import { getWindowDimensions, Colors } from '../../../index';
+
+import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
+import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
+import PublicRoundedIcon from '@material-ui/icons/PublicRounded';
 
 import { Graduation } from '../../../components/illustrations/graduation';
 
 export class AddSchoolDialog extends Component {
   constructor(props){
     super(props);
+    this.handleClose = this.handleClose.bind(this);
+    this.passSchool = this.passSchool.bind(this);
 
     this.state = {
+      id: null,
       name: "",
       city: "",
       country: "",
 
       loading: false,
-    }
-
-    this.handleClose = this.handleClose.bind(this);
+      error: false,
+    }    
 
     this.nextFocus = new NextFocus(["name","city","country"]);
   }
@@ -49,7 +60,52 @@ export class AddSchoolDialog extends Component {
     this.setState({[prop]: event.target.value});
   }  
 
+  tryAddSchool(){
+    this.setState({
+      error: false,
+      loading: true,
+    })
+    School.createNew({
+      school: {
+        name: this.state.name,
+        city: this.state.city,
+        country: this.state.country,
+      },
+      onError: existingId => {
+        this.setState({
+          error: true,
+          loading: false,
+        })
+      },
+      onSuccess: newId => {
+        this.setState({
+          loading: false,
+          id: newId,
+        });
+        this.passSchool();
+        this.handleClose();
+      },
+    })
+  }
+
+  passSchool(){
+    const {school} = this.props;
+    school({
+      id: this.state.id,
+      name: this.state.name,
+      city: this.state.city,
+      country: this.state.country,
+    }); 
+  }
+
   render(){
+    const screenWidth = getWindowDimensions().width;
+    const formWidth = screenWidth < 400 ? 
+      this.props.formWidth - 70 : this.props.formWidth;
+
+    const imageWidth = screenWidth < 400 ? 
+      this.props.imageWidth - 70 : this.props.imageWidth;
+
     return(
       <Dialog
         maxWidth="xl"
@@ -61,8 +117,8 @@ export class AddSchoolDialog extends Component {
         <DialogTitle id="alert-dialog-title">{"Aggiungi il tuo istituto"}</DialogTitle>
         <DialogContent>
           <SignUpBase
-            image={<Graduation size={this.props.imageWidth}/>}
-            formWidth={this.props.formWidth}
+            image={<Graduation size={imageWidth}/>}
+            formWidth={formWidth}
             margin={1}
             items={[
               <TextField
@@ -71,13 +127,21 @@ export class AddSchoolDialog extends Component {
                 variant="outlined"
                 color="secondary"
                 inputRef={this.nextFocus.getInput("name")} 
-                fullWidth={true}      
+                fullWidth={true}   
+                error={this.state.error}
                 onChange={this.handleChange('name')}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("city");
                   }              
-                }}       
+                }}  
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SchoolRoundedIcon />
+                    </InputAdornment>
+                  ),
+                }}     
               />,
               <TextField
                 id="school_city"
@@ -85,28 +149,58 @@ export class AddSchoolDialog extends Component {
                 variant="outlined"
                 color="secondary"
                 inputRef={this.nextFocus.getInput("city")} 
-                fullWidth={true}    
+                fullWidth={true}   
+                error={this.state.error} 
                 onChange={this.handleChange('city')}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("country");
                   }              
-                }}         
-              />,
-              <TextField
-                id="school_county"
-                label="Stato"
-                variant="outlined"
-                color="secondary"
-                inputRef={this.nextFocus.getInput("country")} 
-                fullWidth={true}   
-                onChange={this.handleChange('country')}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    this.nextFocus.removeFocus();
-                  }              
+                }}  
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocationCityRoundedIcon />
+                    </InputAdornment>
+                  ),
                 }}          
               />,
+              <Box>
+                <TextField
+                  id="school_county"
+                  label="Stato"
+                  variant="outlined"
+                  color="secondary"
+                  inputRef={this.nextFocus.getInput("country")} 
+                  fullWidth={true}   
+                  error={this.state.error}
+                  onChange={this.handleChange('country')}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      this.nextFocus.removeFocus();
+                    }              
+                  }}  
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PublicRoundedIcon />
+                      </InputAdornment>
+                    ),
+                  }}           
+                />
+                <Fade
+                  in={this.state.error}
+                >
+                  <Typography
+                    variant="caption"
+                    style={{
+                      color: Colors.errorRed,
+                    }}
+                  >
+                    Scuola già inserita!
+                  </Typography>
+                </Fade>
+              </Box>
             ]}
           />
         </DialogContent>
@@ -122,19 +216,7 @@ export class AddSchoolDialog extends Component {
             label="Aggiungi"
             disabled={this.disableButton()}
             onClick={_ => {
-              this.setState({loading: true});
-              School.createNew({
-                school: {
-                  name: this.state.name,
-                  city: this.state.city,
-                  country: this.state.country,
-                },
-                onError: existingId => console.log("esiste"),
-                onSuccess: newId => {
-                  this.setState({loading: false});
-                  this.handleClose();
-                },
-              })
+              this.tryAddSchool();
             }}
           />
         </DialogActions>
