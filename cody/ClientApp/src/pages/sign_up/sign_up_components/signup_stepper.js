@@ -109,6 +109,7 @@ export class SignUpStepper extends Component {
    * @param {number} profilePictureId 
    */
   _registerUser = (profilePictureId) => {
+    this.setState({loading: true});
     User.tryRegister({
       user: {
         profilePictureId: profilePictureId,
@@ -124,10 +125,7 @@ export class SignUpStepper extends Component {
       onMissingFields: reasons =>{
         this.setState({onMissingFields: reasons});
       }
-    })
-    .then(
-      _=> this.setState({loading: true})
-    );
+    });
   }
 
   render(){
@@ -195,6 +193,7 @@ export class SignUpStepper extends Component {
                   <Button 
                     onClick={this.state.activeStep === 0 ? function() { return undefined; } : this.handleBack} 
                     href={this.state.activeStep === 0 ? "/login" : ""}
+                    disabled={this.props.loading}
                   >
                     Indietro
                   </Button>
@@ -221,18 +220,16 @@ export class SignUpStepper extends Component {
                     )
                     : 
                     (
-                      <Button
-                        variant="contained"
-                        color="primary"
+                      <LoadingButton 
+                        loading={this.props.loading}
+                        label="Avanti"
                         onClick={() => {
                           if(this.isStepOptional(this.state.activeStep))
                             this.handleSkip()  
                           else
                             this.props.onClick()
                         }}
-                      >
-                        Avanti
-                      </Button> 
+                      />
                     )
                   }
                   </div>

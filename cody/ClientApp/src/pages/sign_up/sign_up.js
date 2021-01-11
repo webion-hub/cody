@@ -27,6 +27,7 @@ export class SignUp extends Component {
     this.state = {
       currentStep: 0,
       newStep: 0,
+      loading: false,
 
       username: '',
       password: '',
@@ -76,7 +77,10 @@ export class SignUp extends Component {
     if(controller != null)
     {
       this.resetErrors();
-      this.setState({newStep: this.state.currentStep});
+      this.setState({
+        newStep: this.state.currentStep,
+        loading: true,
+      });
       controller
         .checkAll(this.state)
         .then(results => {
@@ -91,6 +95,7 @@ export class SignUp extends Component {
           });
 
           this.setState(errors);
+          this.setState({loading: false});
         });
     }
   }
@@ -218,6 +223,7 @@ export class SignUp extends Component {
               user={this.setUser()}
               profileImage={this.state.profileImage}
               termsAndService={true}
+              loading={this.state.loading}
               completed={
                 <SignUpCompleted
                     imageWidth = {imageWidth}
