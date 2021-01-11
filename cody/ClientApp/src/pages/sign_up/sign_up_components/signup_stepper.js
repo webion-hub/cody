@@ -14,7 +14,6 @@ import { LoadingButton } from '../../../components/loading_button';
 import { AlertDialog } from '../../../components/alert_dialog';
 
 import { User } from '../../../lib/user';
-import { ProfilePicture } from '../../../lib/profile_picture';
 
 export class SignUpStepper extends Component {
   constructor(props){
@@ -30,7 +29,10 @@ export class SignUpStepper extends Component {
 
       loading: false,
       registerErrors: null,
-      onMissingFields: null,
+      missingFields: null,
+      imageUploadError: null,
+
+      openAlert: false,
     }
   }
   
@@ -56,13 +58,7 @@ export class SignUpStepper extends Component {
   }
   
 
-  handleNext = () => {
-    let newSkipped = this.state.skipped;
-    if (this.isStepSkipped(this.state.activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(this.state.activeStep);
-    }
-  
+  handleNext = () => { 
     this.setState({activeStep: this.state.activeStep + 1});
     const {currentStep} = this.props;
     currentStep(this.state.activeStep + 1);
@@ -74,12 +70,9 @@ export class SignUpStepper extends Component {
     currentStep(this.state.activeStep - 1);
   }
 
-  handleSkip = () => {
-    this.setState({activeStep: this.state.activeStep + 1});
-    const {currentStep} = this.props;
-    currentStep(this.state.activeStep + 1);
+  handleAlertClose = () => {
+    this.setState({openAlert: false})
   }
-
   
   _registerUser = () => {
     this.setState({loading: true});
@@ -92,13 +85,22 @@ export class SignUpStepper extends Component {
         this.handleNext();
       },
       onError: reasons => {
-        this.setState({registerErrors: reasons});
+        this.setState({
+          registerErrors: reasons,
+          openAlert: true,
+        });
       },
       onMissingFields: reasons => {
-        this.setState({onMissingFields: reasons});
+        this.setState({
+          missingFields: "Manca " + reasons,
+          openAlert: true,
+        });
       },
       onImageUploadError: _ => {
-        // TODO upload fallito
+        this.setState({
+          imageUploadError: "Prova a ricaricare l'immagine più tardi.",
+          openAlert: true,
+        });
       },
     });
   }
@@ -169,7 +171,7 @@ export class SignUpStepper extends Component {
                   <Button 
                     onClick={this.state.activeStep === 0 ? function() { return undefined; } : this.handleBack} 
                     href={this.state.activeStep === 0 ? "/login" : ""}
-                    disabled={this.props.loading}
+                    disabled={this.state.loading}
                   >
                     Indietro
                   </Button>
@@ -183,13 +185,14 @@ export class SignUpStepper extends Component {
                           onClick={this._registerUser}
                         />
                         <AlertDialog
-                          open={
-                            this.state.registerErrors != null 
-                            || this.state.onMissingFields != null
-                          }
+                          open={this.state.openAlert}
+                          onClose={this.handleAlertClose}
                           items={[
                             this.state.registerErrors,
                             this.state.onMissingFields,
+                            this.state.imageUploadError,
+                            "Prova a ricaricare l'immagine più tardi.",
+                            "serverError",
                           ]}
                         />
                       </div>
@@ -201,7 +204,7 @@ export class SignUpStepper extends Component {
                         label="Avanti"
                         onClick={() => {
                           if(this.isStepOptional(this.state.activeStep))
-                            this.handleSkip()  
+                            this.handleNext()  
                           else
                             this.props.onClick()
                         }}
