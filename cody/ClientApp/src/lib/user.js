@@ -2,6 +2,7 @@ import { invokeCallback } from './utility';
 import { AxiosResponse, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import './cody_types';
+import { ProfilePicture } from './profile_picture';
 
 
 /**
@@ -37,9 +38,11 @@ import './cody_types';
 /**
  * @typedef {object} TryRegisterOptions
  * @property {UserAccount} user
+ * @property {File} [profilePicture]
  * @property {AxiosRequestConfig} [axiosConfig]
  * @property {(accountDetailId: number) => void} [onSuccess]
  * @property {(fields: string[]) => void} [onMissingFields]
+ * @property {() => void} [onImageUploadError]
  * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
  */
 
@@ -107,6 +110,7 @@ export class User {
       axiosConfig,
       onSuccess,
       onError,
+      onImageUploadError,
       onMissingFields,
     } = options;
 
@@ -122,13 +126,57 @@ export class User {
       .then(response => {
         const data = response.data;
         invokeCallback(response.status, {
-          200: _ => onSuccess(data),
-          400: _ => {
-            return data.errors != undefined
-              ? _ => onMissingFields(data.errors)
-              : _=> onError(data);
+          200: _ => {
+            /**@type {number} */
+            const accountDetailId = data;
+            
+            User._onRegistrationSuccess(
+              onSuccess,
+              accountDetailId,
+              profilePicture,
+              onImageUploadError
+            );
           },
+          400: data.errors != undefined
+            ? _ => onMissingFields(data.errors)
+            : _=> onError(data),
         });
       });
+  }
+
+  static _onRegistrationSuccess(
+    onSuccess,
+    accountDetailId,
+    profilePicture,
+    onImageUploadError
+  ) {
+    if (!!onSuccess)
+      onSuccess(accountDetailId);
+
+    this._maybeUploadProfilePicture(
+      accountDetailId,
+      profilePicture
+    )
+    .catch(_ => {
+      if (!!onImageUploadError)
+        onImageUploadError();
+    });
+  }
+
+  /**
+   * @param {number} accountDetailId 
+   * @param {File} profilePicture 
+   */
+  static async _maybeUploadProfilePicture(
+    accountDetailId,
+    profilePicture
+  ) {
+    if (!profilePicture)
+      return new Promise(res => res());
+
+    return ProfilePicture.createOrUpdate({
+      picture: profilePicture,
+      accountDetailId: accountDetailId,
+    });
   }
 }
