@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,8 +24,6 @@ namespace cody.Models
         public IFormFile Picture { get; set; }
 
 
-        [Required]
-        public int UserAccountDetailId { get; set; }
         public UserAccountDetail UserAccountDetail { get; set; }
     }
 }
