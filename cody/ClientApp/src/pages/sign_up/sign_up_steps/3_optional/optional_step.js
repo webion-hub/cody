@@ -23,6 +23,7 @@ export class OptionalData extends Component{
     super(props);
     this.handleOpen = this.handleOpen.bind(this);    
     this.getSchool = this.getSchool.bind(this);
+    this.getImage = this.getImage.bind(this);
 
     this.state = {
       open: false,

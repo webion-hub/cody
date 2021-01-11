@@ -35,6 +35,13 @@ export class SignUpStepper extends Component {
     }
   }
   
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps.newStep < this.props.newStep)
+    {
+      this.handleNext();
+    }
+  }
+
   handleCheckErrors = (event) => {    
     const {checkErrors} = this.props;
     checkErrors();
@@ -58,12 +65,6 @@ export class SignUpStepper extends Component {
     return this.state.skipped.has(step);
   }
   
-  componentDidUpdate(prevProps, prevState){
-    if(prevProps.newStep < this.props.newStep)
-    {
-      this.handleNext();
-    }
-  }
 
   handleNext = () => {
     let newSkipped = this.state.skipped;
