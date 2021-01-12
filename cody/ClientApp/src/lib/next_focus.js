@@ -1,7 +1,7 @@
 import React from 'react';
 
 export class NextFocus{
-  constructor(elements){  
+  constructor(elements){
     this.elements = elements;
     this.elementsNumber = elements.length;
 

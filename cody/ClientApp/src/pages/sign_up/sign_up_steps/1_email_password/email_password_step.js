@@ -11,7 +11,7 @@ import { Password } from '../../../../components/password/password_textfield';
 import { PwStrengthProgress } from '../../../../components/password/password_strenght_progress';
 import { SignUpBase } from '../../sign_up_components/sign_up_base';
 import { NextFocus } from '../../../../lib/next_focus';
-import { Colors } from '../../../../index';
+import { Colors } from '../../../../lib/default_values/custom_colors';
 
 import { Step1 } from '../../../../components/illustrations/step1';
 
@@ -25,7 +25,7 @@ export class EmailPassword extends Component{
     this.state = {
       email: this.props.values.email,
       password: this.props.values.password,
-      confirmPassword: this.props.values.confirmPassword,   
+      confirmPassword: this.props.values.confirmPassword,
     };
 
     this.nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
@@ -35,18 +35,18 @@ export class EmailPassword extends Component{
     this.setState({email: event.target.value });
     const {email} = this.props;
     email(event.target.value); 
-  };
+  }
 
   getPassword(value){
     this.setState({password: value });
     const {password} = this.props;
-    password(value); 
-  };
+    password(value);
+  }
 
   getConfirmPassword(value){
     this.setState({confirmPassword: value});
     const {confirmPassword} = this.props;
-    confirmPassword(value); 
+    confirmPassword(value);
   }
   
   render(){
@@ -81,8 +81,8 @@ export class EmailPassword extends Component{
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   this.nextFocus.focusOn("password");
-                }              
-            }}         
+                }
+            }}
             />
             <Grid
                 container
@@ -118,7 +118,7 @@ export class EmailPassword extends Component{
                 if (e.key === "Enter") {
                   this.nextFocus.focusOn("confirmPassword");
                 }
-             }}             
+             }}
             />
             <Box m={0.5}/>
             <PwStrengthProgress
@@ -132,7 +132,7 @@ export class EmailPassword extends Component{
             >
               Tra 8 e 128 caratteri
             </Typography>
-          </Box>,          
+          </Box>,
           <Password
             label="Conferma Password"
             labelWidth= {163}

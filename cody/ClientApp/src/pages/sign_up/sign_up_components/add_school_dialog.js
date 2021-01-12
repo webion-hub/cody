@@ -16,13 +16,14 @@ import { SignUpBase } from './sign_up_base'
 import { NextFocus } from '../../../lib/next_focus';
 import { School } from '../../../lib/school';
 import { LoadingButton } from '../../../components/loading_button';
-import { getWindowDimensions, Colors } from '../../../index';
-
+import { Colors } from '../../../lib/default_values/custom_colors'
+ 
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
 import PublicRoundedIcon from '@material-ui/icons/PublicRounded';
 
 import { Graduation } from '../../../components/illustrations/graduation';
+import { Form } from '../../../lib/default_values/sizes/form_size';
 
 export class AddSchoolDialog extends Component {
   constructor(props){
@@ -99,13 +100,6 @@ export class AddSchoolDialog extends Component {
   }
 
   render(){
-    const screenWidth = getWindowDimensions().width;
-    const formWidth = screenWidth < 400 ? 
-      this.props.formWidth - 70 : this.props.formWidth;
-
-    const imageWidth = screenWidth < 400 ? 
-      this.props.imageWidth - 70 : this.props.imageWidth;
-
     return(
       <Dialog
         maxWidth="xl"
@@ -117,8 +111,8 @@ export class AddSchoolDialog extends Component {
         <DialogTitle id="alert-dialog-title">{"Aggiungi il tuo istituto"}</DialogTitle>
         <DialogContent>
           <SignUpBase
-            image={<Graduation size={imageWidth}/>}
-            formWidth={formWidth}
+            image={<Graduation size={Form.imageWidth}/>}
+            formWidth={Form.width}
             margin={1}
             items={[
               <TextField
@@ -133,15 +127,15 @@ export class AddSchoolDialog extends Component {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("city");
-                  }              
-                }}  
+                  }
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <SchoolRoundedIcon />
                     </InputAdornment>
                   ),
-                }}     
+                }}
               />,
               <TextField
                 id="school_city"
@@ -155,15 +149,15 @@ export class AddSchoolDialog extends Component {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("country");
-                  }              
-                }}  
+                  }
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <LocationCityRoundedIcon />
                     </InputAdornment>
                   ),
-                }}          
+                }}
               />,
               <Box>
                 <TextField
@@ -171,22 +165,22 @@ export class AddSchoolDialog extends Component {
                   label="Stato"
                   variant="outlined"
                   color="secondary"
-                  inputRef={this.nextFocus.getInput("country")} 
-                  fullWidth={true}   
+                  inputRef={this.nextFocus.getInput("country")}
+                  fullWidth={true}
                   error={this.state.error}
                   onChange={this.handleChange('country')}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       this.nextFocus.removeFocus();
-                    }              
-                  }}  
+                    }
+                  }}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
                         <PublicRoundedIcon />
                       </InputAdornment>
                     ),
-                  }}           
+                  }}
                 />
                 <Fade
                   in={this.state.error}
@@ -205,14 +199,14 @@ export class AddSchoolDialog extends Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button 
-            onClick={this.handleClose} 
+          <Button
+            onClick={this.handleClose}
             color="secondary"
             disabled={this.state.loading}
           >
             Chiudi
           </Button>
-          <LoadingButton 
+          <LoadingButton
             loading={this.state.loading}
             label="Aggiungi"
             disabled={this.disableButton()}
@@ -223,5 +217,5 @@ export class AddSchoolDialog extends Component {
         </DialogActions>
       </Dialog>
     )
-  }    
+  }
 }

@@ -13,7 +13,7 @@ import { Fade } from '@material-ui/core';
 import { SignUpBase } from '../../sign_up_components/sign_up_base'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
 import { AddPhoto } from '../../../../components/add_photo';
-import { Colors } from '../../../../index'
+import { Colors } from '../../../../lib/default_values/custom_colors'
 import { NextFocus } from '../../../../lib/next_focus';
 import { School } from '../../../../lib/school';
 
@@ -112,7 +112,7 @@ export class OptionalData extends Component{
             <Box m={1}/>
             <Autocomplete
               id="school"
-              selectOnFocus            
+              selectOnFocus
               handleHomeEndKeys
               clearOnBlur
               freeSolo
@@ -122,8 +122,8 @@ export class OptionalData extends Component{
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   this.nextFocus.removeFocus();
-                }              
-             }}  
+                }
+             }}
               options={this.state.schoolsList}
               getOptionLabel={(option) => (option.name + " - " + option.city)}
               renderOption={(option) => (
@@ -136,7 +136,7 @@ export class OptionalData extends Component{
                     variant="caption"
                   >
                     {option.country} - {option.city}
-                  </Typography>                
+                  </Typography>
                 </Grid>
               )}
               style={{ width: 300 }}
@@ -167,7 +167,7 @@ export class OptionalData extends Component{
                 }}
               >
                 Non trovi il tuo Istituto? Aggiungilo
-              </Link>        
+              </Link>
             </Fade>
             <AddSchoolDialog
               open = {this.state.open}
@@ -175,44 +175,10 @@ export class OptionalData extends Component{
               imageWidth = {this.props.imageWidth} 
               formWidth={this.props.formWidth}
               school={this.getSchoolFromDialog}
-            />      
+            />
           </Box>,
         ]}
       />
     );
   }
 }
-
-
-const schoolsList = [
-  { 
-    id: 1,
-    name: "ITIS Fermi", 
-    city: "Modena",
-    country: "Italy" 
-  },
-  { 
-    id: 2,
-    name: "Unimore", 
-    city: "Modena",
-    country: "Italy" 
-  },
-  { 
-    id: 3,
-    name: "Unimi", 
-    city: "Milano",
-    country: "Italy" 
-  },
-  { 
-    id: 4,
-    name: "Politecnico Torino", 
-    city: "Torino",
-    country: "Italy" 
-  },
-  { 
-    id: 5,
-    name: "MIT", 
-    city: "Boston",
-    country: "Massachusetts" 
-  },
-];

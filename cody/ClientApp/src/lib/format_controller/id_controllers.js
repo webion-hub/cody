@@ -22,7 +22,7 @@ export class UsernameController{
       const wrongFormat = this.wrongFormat(username);
 
       if(wrongFormat || wrongLenght)
-      {          
+      {
         resolve("usernameError");
       }
       else {

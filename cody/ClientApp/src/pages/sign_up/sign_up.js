@@ -17,13 +17,15 @@ import { OptionalData } from './sign_up_steps/3_optional/optional_step';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 import { SignUpStepper } from './sign_up_components/signup_stepper';
 
-import { Base, getWindowDimensions, Images, Colors } from '../../index';
+import { Colors } from '../../lib/default_values/custom_colors';
+import { Form } from '../../lib/default_values/sizes/form_size';
+import { Images } from '../../lib/default_values/images';
+import { getWindowDimensions } from '../../lib/window_dimensions';
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
   constructor() {
     super(); 
-    this.getCurrentStep = this.getCurrentStep.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
@@ -57,10 +59,6 @@ export class SignUp extends Component {
     this.setState({[prop]: value});
   }
 
-  getCurrentStep(step){
-    this.setState({currentStep: step});
-  }
-
   setUser(){
     return {
       username: this.state.username,
@@ -87,7 +85,7 @@ export class SignUp extends Component {
         .checkAll(this.state)
         .then(results => {
           let errors = {};
-          results.forEach(result => {   
+          results.forEach(result => {
             if (result == 'noError') {
               errors.newStep = this.state.currentStep + 1;
               return;
@@ -115,31 +113,17 @@ export class SignUp extends Component {
   }
 
   render () {
-    const screenWidth = getWindowDimensions().width;
-    const isImageBigger = Base.formImageWidth > screenWidth;
-    const isFormBigger = Base.formWidth > screenWidth;
-    const isImageOrFormBigger = isImageBigger || isFormBigger;
 
-    const padding = 3;
-
-    const imageWidth = isImageBigger ?
-      screenWidth - 5:
-      Base.formImageWidth;
-
-    const formWidth = isFormBigger ? 
-      screenWidth - 5 : 
-      Base.formWidth;
+    //
+    //The props values is used for setting the default values of each textfield
+    //
     
-    const sidePadding = isImageOrFormBigger ? 
-      2 : 
-      padding;
-
     let elements = [
       {
         controller: new EmailPasswordController(),
         element: <EmailPassword
-          imageWidth = {imageWidth}
-          formWidth = {formWidth}
+          imageWidth = {Form.imageWidth}
+          formWidth = {Form.width}
           email = {this.handleChange("email")}
           password = {this.handleChange("password")}
           confirmPassword = {this.handleChange("confirmPassword")}
@@ -158,8 +142,8 @@ export class SignUp extends Component {
       {
         controller: new IDController(),
         element: <IDData
-          imageWidth = {imageWidth}
-          formWidth = {formWidth}
+          imageWidth = {Form.imageWidth}
+          formWidth = {Form.width}
           username = {this.handleChange("username")}
           name = {this.handleChange("name")}
           surname = {this.handleChange("surname")}
@@ -181,8 +165,8 @@ export class SignUp extends Component {
       {
         controller: null,
         element: <OptionalData
-          imageWidth = {imageWidth}
-          formWidth = {formWidth}
+          imageWidth = {Form.imageWidth}
+          formWidth = {Form.width}
           checkErrors = {this.state.checkErrors}
           school = {this.handleChange("schoolId")}
           profileImage = {this.handleChange("profileImage")}
@@ -190,16 +174,17 @@ export class SignUp extends Component {
             schoolId: this.state.schoolId,
           }}
         />, 
-      },  
+      },
     ]
 
     const elementsNumber = elements.length;
+    const screenWidth = getWindowDimensions().width;
 
-    return (  
+    return (
       <Grid
         style={{
-          height: "100vh",
-          backgroundImage: `url(${Images.bulbImage})`,
+          minHeight: "100vh",
+          backgroundImage: screenWidth < 380 ? null : `url(${Images.bulbImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
@@ -210,17 +195,14 @@ export class SignUp extends Component {
       >        
         <Paper elevation={3}>
           <Box 
-            pt={padding}
-            pb={padding}
-            pl={sidePadding}
-            pr={sidePadding}
+            p={3}
           >
             <SignUpStepper
               steps={elementsNumber}
               onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
               optionalSteps={[3]}
               element={this.state.currentStep > elementsNumber ? null : elements[this.state.currentStep].element}
-              currentStep={this.getCurrentStep}
+              currentStep={this.handleChange("currentStep")}
               newStep={this.state.newStep}
               user={this.setUser()}
               profileImage={this.state.profileImage}
@@ -228,8 +210,8 @@ export class SignUp extends Component {
               loading={this.state.loading}
               completed={
                 <SignUpCompleted
-                    imageWidth = {imageWidth}
-                    formWidth = {formWidth}
+                  imageWidth = {Form.imageWidth}
+                  formWidth = {Form.width}
                 />
               }
             />

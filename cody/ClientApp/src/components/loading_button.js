@@ -13,7 +13,7 @@ export class LoadingButton extends Component{
 
   render(){
     return(
-      this.props.fullWidth ? ( 
+      this.props.fullWidth ? (
         <Box width={1}>
           <MainButton
             variant="contained"
@@ -26,7 +26,7 @@ export class LoadingButton extends Component{
             onClick={this.props.onClick}
             label={this.props.label}
             loading={this.props.loading}
-          />                
+          />
           {
             this.props.navigateToHome ? (<Redirect to={this.props.href}/>) : null
           } 
@@ -44,7 +44,7 @@ export class LoadingButton extends Component{
             onClick={this.props.onClick}
             label={this.props.label}
             loading={this.props.loading}
-          />                
+          />
           {
             this.props.navigateToHome ? (<Redirect to={this.props.href}/>) : null
           } 
@@ -69,17 +69,17 @@ function MainButton(props){
     >
       {
         props.loading ? 
-        (              
+        (
           <CircularProgress
             color="secondary"
             size={25}
             style={{
               position: "absolute" 
             }}
-          />   
+          />
         ): null
       }
       {props.label}
-    </Button>   
+    </Button>
   );
 }

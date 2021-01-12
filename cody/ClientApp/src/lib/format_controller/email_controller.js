@@ -18,13 +18,13 @@ export class EmailController{
     return new Promise(resolve => {
 
       if(this.wrongFormat(email))
-      {          
+      {
         resolve("emailError");
       }
       else {
         this.emailExist(email).then(
           result => {
-            if(result) 
+            if(result)
               resolve("emailExist")
             else
               resolve("correctEmail")

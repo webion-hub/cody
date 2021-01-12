@@ -12,7 +12,7 @@ import { Box } from '@material-ui/core/';
 import { Password } from '../../components/password/password_textfield';
 import { LoadingButton } from '../../components/loading_button';
 import { NextFocus } from '../../lib/next_focus';
-import { Colors } from '../../index';
+import { Colors } from '../../lib/default_values/custom_colors';
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
@@ -111,12 +111,12 @@ export class LoginBox extends Component{
               fullWidth={true}
               onChange={this._updateUsername}
               error={this.state.wrongUsername}
-              inputRef={this.nextFocus.getInput("username")} 
+              inputRef={this.nextFocus.getInput("username")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   this.nextFocus.focusOn("password");
-                }              
-             }}  
+                }
+             }}
             />
             <Box m={0.5}/>
             <Password
@@ -124,7 +124,7 @@ export class LoginBox extends Component{
               name="login_password"
               labelWidth={70}
               onChange={this._updatePassword}
-              inputRef={this.nextFocus.getInput("password")} 
+              inputRef={this.nextFocus.getInput("password")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   this._maybeLogin();

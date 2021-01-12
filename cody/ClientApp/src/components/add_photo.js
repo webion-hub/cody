@@ -19,13 +19,13 @@ export class AddPhoto extends Component{
   }
 
   deleteImage = () => {
-    this.setState({image: null});    
+    this.setState({image: null});
     const {image} = this.props;
     image(null);
   };
 
   /**
-   * @param {React.ChangeEvent<HTMLInputElement>} event 
+   * @param {React.ChangeEvent<HTMLInputElement>} event
    */
   fileSelectedHandler = (event) => {
     this.setState({image: event.target.files[0]});
@@ -39,7 +39,7 @@ export class AddPhoto extends Component{
     const margin = (boxSize - iconSize) / 16
 
     return (
-      <Box 
+      <Box
         style={{
           backgroundColor: "rgba(0,0,0,0.2)"
         }}
@@ -63,7 +63,7 @@ export class AddPhoto extends Component{
                   overflow: "hidden",
                   objectFit: "cover",
                   borderRadius: boxSize / 2,
-                }}                
+                }}
               />
             ) : null
           }
@@ -80,15 +80,15 @@ export class AddPhoto extends Component{
                 <Fab 
                   color="primary"
                   onClick={this.deleteImage}
-                >     
-                  <DeleteRoundedIcon />          
+                >
+                  <DeleteRoundedIcon />
                 </Fab>
               ):(
                 <Fab 
                   component="label"
                   color="primary"
-                >     
-                  <AddRoundedIcon />          
+                >
+                  <AddRoundedIcon />
                   <input
                     type="file"
                     accept="image/*"
@@ -118,7 +118,7 @@ export class AddPhoto extends Component{
                   />
                 </Box>
               )
-          }  
+          }
         </Grid>
       </Box>
     )

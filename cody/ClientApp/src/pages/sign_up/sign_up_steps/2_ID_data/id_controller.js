@@ -29,7 +29,7 @@ export class IDController{
                 if(result != "correctUsername") {
                   errorsList.push(result);
                   errorsList = this.removeNoError(errorsList);
-                }            
+                }
               },
             ),
     
@@ -60,6 +60,4 @@ export class IDController{
         });
       })
     }
-  } 
-  
-  
+  }

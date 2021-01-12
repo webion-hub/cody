@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
-import { Colors } from '../../../../index';
+import { Colors } from '../../../../lib/default_values/custom_colors';
 import { SignUpBase } from '../../sign_up_components/sign_up_base'
 import { DatePicker } from '../../../../components/date_picker';
 import { NextFocus } from '../../../../lib/next_focus';
@@ -75,7 +75,7 @@ export class IDData extends Component{
                   label="Username"
                   variant="outlined"
                   color="secondary"
-                  inputRef={this.nextFocus.getInput("username")} 
+                  inputRef={this.nextFocus.getInput("username")}
                   fullWidth={true}
                   required={true}
                   value={this.state.username}
@@ -87,7 +87,7 @@ export class IDData extends Component{
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       this.nextFocus.focusOn("name");
-                    }              
+                    }
                  }}  
               />
               <Grid
@@ -116,7 +116,7 @@ export class IDData extends Component{
                   </Typography>
                 </Fade>
               </Grid>
-            </Box>,  
+            </Box>,
           <Box m={1.5}/>,
           <TextField
             id="name"
@@ -132,8 +132,8 @@ export class IDData extends Component{
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 this.nextFocus.focusOn("surname");
-              }              
-           }}  
+              }
+           }}
           />,
           <TextField
             id="surname"
@@ -149,8 +149,8 @@ export class IDData extends Component{
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 this.nextFocus.removeFocus();
-              }              
-           }}  
+              }
+           }}
           />,
           <Box m={1}/>,
           <DatePicker

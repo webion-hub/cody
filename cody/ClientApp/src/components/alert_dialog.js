@@ -16,7 +16,7 @@ import { SignUpBase } from '../pages/sign_up/sign_up_components/sign_up_base'
 
 import { Error } from './illustrations/error';
 
-import { Base, getWindowDimensions } from '../index';
+import { Form } from '../lib/default_values/sizes/form_size';
 
 export class AlertDialog extends Component {
   constructor(props){
@@ -45,18 +45,6 @@ export class AlertDialog extends Component {
   }
 
   render(){
-    const screenWidth = getWindowDimensions().width;
-    const isImageBigger = Base.formImageWidth > screenWidth;
-    const isFormBigger = Base.formWidth > screenWidth;
-
-    const imageWidth = isImageBigger ?
-      screenWidth - 5:
-      Base.formImageWidth;
-
-    const formWidth = isFormBigger ? 
-      screenWidth - 5 : 
-      Base.formWidth;
-
     return(
       <Dialog
         maxWidth="xl"
@@ -67,8 +55,8 @@ export class AlertDialog extends Component {
         <DialogTitle id="alert-dialog-title">{"C'è stato un errore"}</DialogTitle>
         <DialogContent>
           <SignUpBase
-            image={<Error size={imageWidth}/>}
-            formWidth={formWidth}
+            image={<Error size={Form.imageWidth}/>}
+            formWidth={Form.width}
             margin={1}
             items={[
               <Typography variant="h6">
@@ -77,13 +65,13 @@ export class AlertDialog extends Component {
               <List component="nav">
                 <Divider />
                 {this.getItems()}
-              </List>              
+              </List>
             ]}
           />
         </DialogContent>
         <DialogActions>
           <Button 
-            onClick={this.handleClose} 
+            onClick={this.handleClose}
             color="primary"
             variant="contained"
           >
@@ -92,5 +80,5 @@ export class AlertDialog extends Component {
         </DialogActions>
       </Dialog>
     )
-  }    
+  }
 }

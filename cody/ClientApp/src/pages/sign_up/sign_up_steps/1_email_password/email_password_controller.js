@@ -30,9 +30,9 @@ export class EmailPasswordController{
               if(result != "correctEmail") {
                 errorsList.push(result);
                 errorsList = this.removeNoError(errorsList);
-              }            
+              }
             },
-          ),       
+          ),
           passwordController.checkPassword(password, confirmPassword)
           .then(
             result => {

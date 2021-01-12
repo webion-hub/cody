@@ -8,39 +8,20 @@ import { Box } from '@material-ui/core';
 import { Authentication } from '../../components/illustrations/authentication';
 import { LoginBox } from './login_box';
 
-import { Colors } from '../../index';
+import { Colors } from '../../lib/default_values/custom_colors';
+import { Form } from '../../lib/default_values/sizes/form_size';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { Base, getWindowDimensions, Images } from '../../index';
-
+import { Images } from '../../lib/default_values/images';
 
 export class Login extends Component {
   static displayName = Login.name;
   render () {
-    const screenWidth = getWindowDimensions().width;
-    const isImageBigger = Base.formImageWidth > screenWidth;
-    const isFormBigger = Base.formWidth > screenWidth;
-    const isImageOrFormBigger = isImageBigger || isFormBigger;
-
-    const padding = 3;
-
-    const imageWidth = isImageBigger ?
-      screenWidth - 5:
-      Base.formImageWidth;
-
-    const formWidth = isFormBigger ? 
-      screenWidth - 5 : 
-      Base.formWidth;
-    
-    const sidePadding = isImageOrFormBigger ? 
-      0 : 
-      padding;
-
-    return (  
+    return (
       <Grid
         style={{
-          height: "100vh",
+          minHeight: "100vh",
           backgroundImage: `url(${Images.bulbImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center center"
@@ -56,11 +37,8 @@ export class Login extends Component {
           alignItems="center"
         >
           <Paper elevation={3}>
-            <Box 
-              pt={padding}
-              pb={padding}
-              pl={sidePadding}
-              pr={sidePadding}
+            <Box
+              p={3}
             >
               <Grid
                 container
@@ -68,8 +46,8 @@ export class Login extends Component {
                 justify="center"
                 alignItems="center"
               >
-                <Authentication size={imageWidth}/>
-                <LoginBox size={formWidth}/>
+                <Authentication size={Form.imageWidth}/>
+                <LoginBox size={Form.width}/>
               </Grid>
             </Box>
           </Paper> 

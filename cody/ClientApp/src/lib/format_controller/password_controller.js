@@ -29,6 +29,6 @@ export class PasswordController{
     else if(password == 0)
       return 0;
     else 
-      return 10;    
+      return 10;
   }
 }
