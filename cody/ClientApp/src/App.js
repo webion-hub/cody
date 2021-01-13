@@ -19,7 +19,7 @@ export default class App extends Component {
             <Route exact path='/login' component={Login} />
             <Route path='/sign-up' component={SignUp} />
             
-            <Route component={<div>Error 404</div>} />
+            <Route component={Error404Page} />
           </Switch>
         </Router>
       </Layout>
