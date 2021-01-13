@@ -24,7 +24,7 @@ export function BasePhotoText(props) {
         alignItems="center"
       >
         {props.image}
-        <Box width={props.formWidth}>
+        <Box maxWidth={props.formWidth}>
           <Grid
             container
             direction="column"
@@ -32,7 +32,7 @@ export function BasePhotoText(props) {
             justify="center"
           >
             <Box
-              width={props.formWidth}
+              maxWidth={props.formWidth}
             >
               {getItems}
             </Box>

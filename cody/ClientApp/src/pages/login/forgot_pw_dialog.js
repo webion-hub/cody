@@ -72,7 +72,6 @@ export class ForgotPasswordDialog extends Component {
   }
 
   render(){
-    console.log(Form.imageWidth);
     return(
       <Dialog
         maxWidth="xl"
@@ -87,7 +86,7 @@ export class ForgotPasswordDialog extends Component {
           >
             Inserisci la tua email, ti invieremo un link per cambiare password.
           </Typography>
-          <Box mt={1}>
+          <Box mt={2}>
             <TextField
               id="registration_email"
               label="Email"

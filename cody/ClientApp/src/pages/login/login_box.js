@@ -96,7 +96,7 @@ export class LoginBox extends Component{
 
   render(){
     return(
-      <Box width={this.props.size}
+      <Box maxWidth={this.props.size}
         justifyContent="center"
         display="flex"
         position="relative"
