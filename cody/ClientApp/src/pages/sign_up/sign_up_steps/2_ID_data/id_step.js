@@ -9,7 +9,7 @@ import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
 import { Colors } from '../../../../lib/default_values/custom_colors';
-import { SignUpBase } from '../../sign_up_components/sign_up_base'
+import { BasePhotoText } from '../../../../components/base_photo_text'
 import { DatePicker } from '../../../../components/date_picker';
 import { NextFocus } from '../../../../lib/next_focus';
 
@@ -57,7 +57,7 @@ export class IDData extends Component{
 
   render(){
     return (
-      <SignUpBase
+      <BasePhotoText
         image={<Step2 size={this.props.imageWidth}/>}
         formWidth={this.props.formWidth}
         margin={1}
@@ -108,9 +108,7 @@ export class IDData extends Component{
                 >
                   <Typography
                     variant="caption"
-                    style={{
-                      color: Colors.errorRed,
-                    }}
+                    color="error"
                   >
                     Username già usato!
                   </Typography>

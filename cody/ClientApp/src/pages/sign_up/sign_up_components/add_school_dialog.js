@@ -12,11 +12,10 @@ import { Typography } from '@material-ui/core';
 import { InputAdornment } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { SignUpBase } from './sign_up_base'
+import { BasePhotoText } from '../../../components/base_photo_text'
 import { NextFocus } from '../../../lib/next_focus';
 import { School } from '../../../lib/school';
 import { LoadingButton } from '../../../components/loading_button';
-import { Colors } from '../../../lib/default_values/custom_colors'
  
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
@@ -110,7 +109,7 @@ export class AddSchoolDialog extends Component {
       >
         <DialogTitle id="alert-dialog-title">{"Aggiungi il tuo istituto"}</DialogTitle>
         <DialogContent>
-          <SignUpBase
+          <BasePhotoText
             image={<Graduation size={Form.imageWidth}/>}
             formWidth={Form.width}
             margin={1}
@@ -187,9 +186,7 @@ export class AddSchoolDialog extends Component {
                 >
                   <Typography
                     variant="caption"
-                    style={{
-                      color: Colors.errorRed,
-                    }}
+                    color="error"
                   >
                     Scuola già inserita!
                   </Typography>

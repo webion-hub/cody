@@ -10,7 +10,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { Link } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 
-import { SignUpBase } from '../../sign_up_components/sign_up_base'
+import { BasePhotoText } from '../../../../components/base_photo_text'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
 import { AddPhoto } from '../../../../components/add_photo';
 import { Colors } from '../../../../lib/default_values/custom_colors'
@@ -66,7 +66,7 @@ export class OptionalData extends Component{
 
   render(){
     return (
-      <SignUpBase
+      <BasePhotoText
         image={<Step3 size={this.props.imageWidth}/>}
         formWidth={this.props.formWidth}
         margin={1}

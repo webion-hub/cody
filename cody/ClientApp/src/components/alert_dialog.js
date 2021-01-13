@@ -12,7 +12,7 @@ import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 
-import { SignUpBase } from '../pages/sign_up/sign_up_components/sign_up_base'
+import { BasePhotoText } from './base_photo_text'
 
 import { Error } from './illustrations/error';
 
@@ -54,7 +54,7 @@ export class AlertDialog extends Component {
       >
         <DialogTitle id="alert-dialog-title">{"C'è stato un errore"}</DialogTitle>
         <DialogContent>
-          <SignUpBase
+          <BasePhotoText
             image={<Error size={Form.imageWidth}/>}
             formWidth={Form.width}
             margin={1}

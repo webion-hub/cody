@@ -12,6 +12,9 @@ export const MainTheme = createMuiTheme({
         main: Colors.secondary,
         contrastText: '#fff',
       },
+      error: {
+        main: Colors.errorRed,
+      },
       background: {
         default: 'rgb(40, 40, 40)',
         paper: 'rgb(55, 55, 55)',
@@ -25,7 +28,7 @@ export const MainTheme = createMuiTheme({
       action: {
         disabled: "rgba(255,255,255,0.3)",
         disabledBackground: Colors.disable, 
-      }
+      },
     },
     typography: { 
        useNextVariants: true

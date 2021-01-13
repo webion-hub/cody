@@ -9,7 +9,7 @@ import { Grid } from '@material-ui/core';
 
 import { Password } from '../../../../components/password/password_textfield';
 import { PwStrengthProgress } from '../../../../components/password/password_strenght_progress';
-import { SignUpBase } from '../../sign_up_components/sign_up_base';
+import { BasePhotoText } from '../../../../components/base_photo_text';
 import { NextFocus } from '../../../../lib/next_focus';
 import { Colors } from '../../../../lib/default_values/custom_colors';
 
@@ -51,7 +51,7 @@ export class EmailPassword extends Component{
   
   render(){
     return (
-      <SignUpBase
+      <BasePhotoText
         image={<Step1 size={this.props.imageWidth}/>}
         formWidth={this.props.formWidth}
         bottomMargin={1}
@@ -64,26 +64,30 @@ export class EmailPassword extends Component{
             Email &amp; Password
           </Typography>,
           <Box>
-            <TextField
-              id="registration_email"
-              label="Email"
-              variant="outlined"
-              color="secondary"
-              value={this.state.email}
-              fullWidth={true}
-              required={true}
-              onChange={this.getEmail}
-              inputRef={this.nextFocus.getInput("email")} 
-              error={
-                this.props.errors.email 
-                || this.props.errors.emailExist
-              }
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  this.nextFocus.focusOn("password");
+            <form
+              autoComplete="off"
+            >
+              <TextField
+                id="registration_email"
+                label="Email"
+                variant="outlined"
+                color="secondary"
+                value={this.state.email}
+                fullWidth={true}
+                required={true}
+                onChange={this.getEmail}
+                inputRef={this.nextFocus.getInput("email")} 
+                error={
+                  this.props.errors.email 
+                  || this.props.errors.emailExist
                 }
-            }}
-            />
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    this.nextFocus.focusOn("password");
+                  }
+              }}
+              />
+            </form>
             <Grid
                 container
                 direction="row"
@@ -94,9 +98,7 @@ export class EmailPassword extends Component{
               >
                 <Typography
                   variant="caption"
-                  style={{
-                    color: Colors.errorRed,
-                  }}
+                  color="error"
                 >
                   Email già usata!
                 </Typography>
