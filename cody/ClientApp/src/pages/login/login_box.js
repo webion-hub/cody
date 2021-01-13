@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import  { Redirect } from 'react-router-dom'
 
 import { TextField } from '@material-ui/core';
 import { Link } from '@material-ui/core';
@@ -12,6 +11,7 @@ import { Box } from '@material-ui/core/';
 import { Password } from '../../components/password/password_textfield';
 import { LoadingButton } from '../../components/loading_button';
 import { NextFocus } from '../../lib/next_focus';
+import  { ForgotPasswordDialog } from './forgot_pw_dialog'
 import { Colors } from '../../lib/default_values/custom_colors';
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -22,7 +22,9 @@ export class LoginBox extends Component{
 
   constructor(props){
     super(props);
-    this._updatePassword = this._updatePassword.bind(this)
+    this._updatePassword = this._updatePassword.bind(this);
+    this.openForgotPw = this.openForgotPw.bind(this);
+    this.closeForgotPw = this.closeForgotPw.bind(this);
 
     this.state = {
       username: '',
@@ -32,6 +34,8 @@ export class LoginBox extends Component{
       loading: false,
       navigateToHome: false,
       focusPw: false,
+
+      openForgotPw: false,
     }
 
     this.nextFocus = new NextFocus(["username","password"]);
@@ -81,7 +85,14 @@ export class LoginBox extends Component{
   _updatePassword(value) {
     this.setState({password: value});
   }
+ 
   
+  openForgotPw(){
+    this.setState({openForgotPw: true});
+  }
+  closeForgotPw(){
+    this.setState({openForgotPw: false});
+  }
 
   render(){
     return(
@@ -185,12 +196,14 @@ export class LoginBox extends Component{
                 component="button"
                 variant="body2"
                 color="secondary"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
+                onClick={this.openForgotPw}
               >
                 Password dimenticata?
               </Link>
+              <ForgotPasswordDialog
+                open={this.state.openForgotPw}
+                onClose={this.closeForgotPw}
+              />
             </Box>
           </Grid>
         </Grid>

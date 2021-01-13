@@ -85,7 +85,7 @@ export class EmailPassword extends Component{
                   if (e.key === "Enter") {
                     this.nextFocus.focusOn("password");
                   }
-              }}
+                }}
               />
             </form>
             <Grid
