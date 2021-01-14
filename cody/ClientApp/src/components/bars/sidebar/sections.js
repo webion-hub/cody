@@ -35,7 +35,7 @@ export const sections = [
             }}
           />
         ),
-        padding: 8,
+        avatarPadding: 8,
       },
       {
         label: 'Esci',

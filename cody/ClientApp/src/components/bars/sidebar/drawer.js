@@ -34,13 +34,13 @@ export function getDrawer(classes, handleFullWidth, sections, fullWidth){
               {elements.map((element, index) => (
                 <CustomListItem                   
                   key={element.label + index}
-                  padding={element.padding}
+                  padding={element.avatarPadding}
                   href={element.href}
                 >    
                   {
                     element.avatar? 
                       <ListItemAvatar 
-                        style={{minWidth: restrictedWidth + element.padding}}
+                        style={{minWidth: restrictedWidth + element.avatarPadding}}
                       >
                         {element.avatar}
                       </ListItemAvatar> 
@@ -49,9 +49,7 @@ export function getDrawer(classes, handleFullWidth, sections, fullWidth){
                   }
                   {
                     element.icon? 
-                      <ListItemIcon
-                        style={{minWidth: restrictedWidth + element.padding}}
-                      >
+                      <ListItemIcon>
                         {element.icon}
                       </ListItemIcon> 
                       : 
