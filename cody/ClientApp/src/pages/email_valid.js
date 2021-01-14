@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import { Confirmation } from '../components/illustrations/confirmation';
 
@@ -35,19 +36,7 @@ export class EmailValid extends Component {
             >
               Email valida
             </Typography>
-            <div
-              style={{
-                padding: "0 20px"
-              }}
-            >
-              <Typography
-                variant="subtitle1"
-                align="center"
-              >            
-                La tua email è stata validata, inizia ad esplorare cody.
-              </Typography>
-              <Divider />
-            </div>
+            <Alert severity="success">La tua email è stata validata, ora puoi iniziare ad esplorare cody.</Alert>
             <Box
               mt={2}
               width={200}
