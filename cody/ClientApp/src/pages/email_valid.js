@@ -5,9 +5,10 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 
 import { Confirmation } from '../components/illustrations/confirmation';
+
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
 export class EmailValid extends Component {
   static displayName = Error.name; 
@@ -29,14 +30,38 @@ export class EmailValid extends Component {
               maxWidth={500}
               margin="0 auto"
             />
-            <Typography
-              component="h1"
-              variant="h3"
-              align="center"
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
             >
-              Email valida
-            </Typography>
-            <Alert severity="success">La tua email è stata validata, ora puoi iniziare ad esplorare cody.</Alert>
+              <CheckRoundedIcon
+                style={{
+                  fontSize: "50"
+                }}
+              />
+              <Typography
+                component="h1"
+                variant="h3"
+                align="center"
+              >
+                Email valida
+              </Typography>
+            </Grid>
+            <div
+              style={{
+                padding: "0 20px"
+              }}
+            >
+              <Typography
+                variant="subtitle1"
+                align="center"
+              >            
+                La tua email è stata validata, ora puoi iniziare ad esplorare cody.
+              </Typography>
+              <Divider />
+            </div>
             <Box
               mt={2}
               width={200}
