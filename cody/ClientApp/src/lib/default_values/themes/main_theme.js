@@ -16,8 +16,8 @@ export const MainTheme = createMuiTheme({
         main: Colors.errorRed,
       },
       background: {
-        default: 'rgb(40, 40, 40)',
-        paper: 'rgb(55, 55, 55)',
+        default: Colors.background,
+        paper: Colors.backgroundLight,
         contrastText: '#fff',
       },
       text: {
@@ -74,5 +74,15 @@ export const MainTheme = createMuiTheme({
           color: "rgba(255, 255, 255, 0.8)"
         }
       },
+      MuiListItemIcon: {
+        root: {
+          color: "rgb(255 255 255 / 0.75)"
+        }
+      },
+      MuiAppBar: {
+        colorPrimary: {
+          backgroundColor: Colors.appBar
+        }
+      }
     },
   }, itIT);
