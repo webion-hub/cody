@@ -30,12 +30,12 @@ export const sections = [
             alt="Profile Image" 
             src="/images/bulb.jpeg" 
             style={{
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
             }}
           />
         ),
-        avatarPadding: 8,
+        avatarPadding: 6,
       },
       {
         label: 'Esci',

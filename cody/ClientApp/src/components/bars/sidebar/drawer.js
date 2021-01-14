@@ -9,8 +9,6 @@ import { ListItemText } from '@material-ui/core';
 import { ButtonBase } from '@material-ui/core';
 import { ListItemAvatar } from '@material-ui/core';
 
-import { restrictedWidth } from './sidebar_styles';
-
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 
@@ -36,11 +34,12 @@ export function getDrawer(classes, handleFullWidth, sections, fullWidth){
                   key={element.label + index}
                   padding={element.avatarPadding}
                   href={element.href}
+                  className={classes.listItem}
                 >    
                   {
                     element.avatar? 
                       <ListItemAvatar 
-                        style={{minWidth: restrictedWidth + element.avatarPadding}}
+                        style={{minWidth: 56 + element.avatarPadding}}
                       >
                         {element.avatar}
                       </ListItemAvatar> 
@@ -81,6 +80,7 @@ function CustomListItem(props){
         style={{
           paddingLeft: props.padding 
         }}
+        className={props.className}
       >  
         {props.children}
       </ListItem> 

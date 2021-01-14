@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Colors } from '../../../lib/default_values/custom_colors';
 
 export const fullDrawerWidth = 240;
-export const restrictedWidth = 56;
+export const restrictedWidth = 48;
 
 export const sidebarStyles = makeStyles((theme) => ({
   fullDrawerPaper: {
@@ -51,6 +51,11 @@ export const sidebarStyles = makeStyles((theme) => ({
 
   listText: {
     whiteSpace: "nowrap",
+  },
+
+  listItem: {
+    paddingLeft: 12,
+    paddingRight: 12,
   },
 
 
