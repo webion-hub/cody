@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AppBar } from '@material-ui/core';
-import { Drawer } from '@material-ui/core';
+import { Drawer  } from '@material-ui/core';
+import { SwipeableDrawer  } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
@@ -74,11 +75,12 @@ export function SideBar(props) {
           smUp 
           implementation="css"
         >
-          <Drawer
+          <SwipeableDrawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={mobileOpen}
             onClose={handleDrawerToggle}
+            onOpen={handleDrawerToggle}
             classes={{
               paper: classes.fullDrawerPaper,
             }}
@@ -87,7 +89,7 @@ export function SideBar(props) {
             }}
           >
             {drawer}
-          </Drawer>
+          </SwipeableDrawer>
         </Hidden>
         <Hidden //PC
           xsDown 
