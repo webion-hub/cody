@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 
-import { Grid } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Fab } from '@material-ui/core';
 import { Avatar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Badge } from '@material-ui/core';
 
-import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 
@@ -22,7 +20,7 @@ export class AddPhoto extends Component{
 
   constructor(props){
     super(props);
-
+    
     this.state = {
       image: null,
     }

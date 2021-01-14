@@ -120,19 +120,6 @@ export class SignUp extends Component {
     
     let elements = [
       {
-        controller: null,
-        element: <OptionalData
-          imageWidth = {Form.imageWidth}
-          formWidth = {Form.width}
-          checkErrors = {this.state.checkErrors}
-          school = {this.handleChange("schoolId")}
-          profileImage = {this.handleChange("profileImage")}
-          values = {{
-            schoolId: this.state.schoolId,
-          }}
-        />, 
-      },
-      {
         controller: new EmailPasswordController(),
         element: <EmailPassword
           imageWidth = {Form.imageWidth}
@@ -175,7 +162,19 @@ export class SignUp extends Component {
           }}
         />
       },  
-
+      {
+        controller: null,
+        element: <OptionalData
+          imageWidth = {Form.imageWidth}
+          formWidth = {Form.width}
+          checkErrors = {this.state.checkErrors}
+          school = {this.handleChange("schoolId")}
+          profileImage = {this.handleChange("profileImage")}
+          values = {{
+            schoolId: this.state.schoolId,
+          }}
+        />, 
+      },
     ]
 
     const elementsNumber = elements.length;
@@ -201,7 +200,7 @@ export class SignUp extends Component {
             <SignUpStepper
               steps={elementsNumber}
               onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
-              optionalSteps={[1,2,3]}
+              optionalSteps={[3]}
               element={this.state.currentStep > elementsNumber ? null : elements[this.state.currentStep].element}
               currentStep={this.handleChange("currentStep")}
               newStep={this.state.newStep}
