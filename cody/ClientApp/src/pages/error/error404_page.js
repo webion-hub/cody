@@ -4,6 +4,7 @@ import { Box, Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import { Paper } from '@material-ui/core';
 
 import { Error404 } from '../../components/illustrations/error404';
 
@@ -19,40 +20,44 @@ export class Error404Page extends Component {
         justify="center"
         alignItems="center"
       >
-        <div>
-          <Error404 
-            maxWidth={500}
-            margin="0 auto"
-          />
-          <Typography
-            component="h1"
-            variant="h3"
-            align="center"
-          >
-            Pagina non trovata
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            align="center"
-          >
-            Ci scusiamo, probabilmente l'url inserita è sbagliata o non esiste più.
-          </Typography>
-          <Skeleton />
+        <Paper>
           <Box
-            mt={2}
-            width={200}
-            margin="0 auto"
+            p={3}
           >
-            <Button
-              color="primary"
-              variant="contained"
-              href="/"
-              fullWidth={true}
+            <Error404 
+              maxWidth={500}
+              margin="0 auto"
+            />
+            <Typography
+              component="h1"
+              variant="h3"
+              align="center"
             >
-              Torna alla home
-            </Button>
+              Pagina non trovata
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              align="center"
+            >
+              Ci scusiamo, probabilmente l'url inserita è sbagliata o non esiste più.
+            </Typography>
+            <Skeleton />
+            <Box
+              mt={2}
+              width={200}
+              margin="0 auto"
+            >
+              <Button
+                color="primary"
+                variant="contained"
+                href="/"
+                fullWidth={true}
+              >
+                Torna alla home
+              </Button>
+            </Box>
           </Box>
-        </div>
+        </Paper>
       </Grid>
     );
   }
