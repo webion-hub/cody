@@ -13,7 +13,6 @@ import { Alert } from '@material-ui/lab';
 
 import { LoadingButton } from '../../components/loading_button';
 
-import { Form } from '../../lib/default_values/sizes/form_size';
 import { EmailController } from '../../lib/format_controller/email_controller';
 
 export class ForgotPasswordDialog extends Component {
