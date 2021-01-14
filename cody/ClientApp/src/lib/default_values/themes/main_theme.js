@@ -33,7 +33,21 @@ export const MainTheme = createMuiTheme({
     typography: { 
        useNextVariants: true
     },
+    
     overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          '*': {
+            'scrollbar-width': 'thin',
+          },
+          '*::-webkit-scrollbar': {
+            width: '4px',
+          },
+          '*::-webkit-scrollbar-thumb': {
+            background: Colors.grey
+          },
+        }
+      },
       MuiFormLabel: {
         root: {
           color: Colors.lightGrey,

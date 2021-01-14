@@ -7,13 +7,13 @@ export const restrictedWidth = 48;
 export const sidebarStyles = makeStyles((theme) => ({
   fullDrawerPaper: {
     width: fullDrawerWidth,
-    overflow: "hidden",
+    overflowX: "hidden",
     transition: "all 0.25s",
     backgroundColor: Colors.backgroundDark
   },
   restrictedDrawerPaper: {
     width: restrictedWidth,
-    overflow: "hidden",
+    overflowX: "hidden",
     transition: "all 0.25s",
     backgroundColor: Colors.backgroundDark
   },

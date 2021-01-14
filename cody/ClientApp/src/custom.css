@@ -7,6 +7,10 @@ code {
   color: #E01A76;
 }
 
+body {
+  overflow: overlay
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
