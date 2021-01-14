@@ -7,6 +7,9 @@ import { ListItem } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 import { ButtonBase } from '@material-ui/core';
+import { ListItemAvatar } from '@material-ui/core';
+
+import { restrictedWidth } from './sidebar_styles';
 
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
@@ -34,7 +37,26 @@ export function getDrawer(classes, handleFullWidth, sections, fullWidth){
                   padding={element.padding}
                   href={element.href}
                 >    
-                  <ListItemIcon>{element.icon}</ListItemIcon>
+                  {
+                    element.avatar? 
+                      <ListItemAvatar 
+                        style={{minWidth: restrictedWidth + element.padding}}
+                      >
+                        {element.avatar}
+                      </ListItemAvatar> 
+                      : 
+                      null
+                  }
+                  {
+                    element.icon? 
+                      <ListItemIcon
+                        style={{minWidth: restrictedWidth + element.padding}}
+                      >
+                        {element.icon}
+                      </ListItemIcon> 
+                      : 
+                      null
+                  }
                   <ListItemText 
                     primary={element.label} 
                     className={classes.listText}

@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Colors } from '../../../lib/default_values/custom_colors';
 
-const fullDrawerWidth = 240;
-const restrictedWidth = 56;
+export const fullDrawerWidth = 240;
+export const restrictedWidth = 56;
 
 export const sidebarStyles = makeStyles((theme) => ({
   fullDrawerPaper: {

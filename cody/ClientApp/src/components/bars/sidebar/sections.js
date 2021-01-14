@@ -25,7 +25,7 @@ export const sections = [
     [
       {
         label: 'Account',
-        icon: (
+        avatar: (
           <Avatar 
             alt="Profile Image" 
             src="/images/bulb.jpeg" 
