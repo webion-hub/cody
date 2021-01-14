@@ -7,6 +7,7 @@ import { Step } from '@material-ui/core/';
 import { StepLabel } from '@material-ui/core/';
 import { Button } from '@material-ui/core/';
 import { Typography } from '@material-ui/core/';
+import { withStyles } from '@material-ui/core/styles';
 
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
@@ -14,6 +15,14 @@ import { LoadingButton } from '../../../components/loading_button';
 import { AlertDialog } from '../../../components/alert_dialog';
 
 import { User } from '../../../lib/user';
+
+
+const StyledStepper = withStyles({
+  root: {
+    padding: "24px 0px 24px 0px"
+  },
+})(Stepper);
+
 
 export class SignUpStepper extends Component {
   constructor(props){
@@ -109,9 +118,12 @@ export class SignUpStepper extends Component {
   render(){
     return (
       <Box width={1}>
-        <Stepper 
+        <StyledStepper 
           activeStep={this.state.activeStep}
           alternativeLabel
+          style={{
+            padding: "0 !important"
+          }}
         >
           {this.state.steps.map((label, index) => {
             const stepProps = {};
@@ -134,7 +146,7 @@ export class SignUpStepper extends Component {
               </Step>
             );
           })}
-        </Stepper>
+        </StyledStepper>
         <div>
           {this.state.activeStep === this.state.steps.length ? (
             <div>

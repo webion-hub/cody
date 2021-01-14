@@ -93,7 +93,7 @@ export class OptionalData extends Component{
                     mt={2}
                   >
                     <Typography
-                      variant="subtitle1"
+                      variant="subtitle2"
                     >
                       Aggiungi un'immagine profilo
                     </Typography>
@@ -139,7 +139,7 @@ export class OptionalData extends Component{
                   </Typography>
                 </Grid>
               )}
-              style={{ width: 300 }}
+              style={{ maxWidth: 300 }}
               renderInput={
                 (params) => 
                 <TextField 
