@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using cody.Services;
 
 namespace cody.Controllers
 {
@@ -19,11 +20,16 @@ namespace cody.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
+        private readonly EmailValidationService _emailValidationService;
         private readonly CodyContext _context;
 
-        public UserController(ILogger<UserController> logger, CodyContext context)
-        {
+        public UserController(
+            ILogger<UserController> logger, 
+            EmailValidationService emailValidationService, 
+            CodyContext context
+        ) {
             _logger = logger;
+            _emailValidationService = emailValidationService;
             _context = context;
         }
 
@@ -99,6 +105,7 @@ namespace cody.Controllers
                 return BadRequest(new []{ "server_error" });
             }
 
+            await _emailValidationService.RegisterUserForValidationAsync(account);
             _logger.LogInformation("Registered user -> {Account}", account);
             return Ok(account.AccountDetail.Id);
         }
