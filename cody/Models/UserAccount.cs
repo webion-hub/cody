@@ -25,6 +25,7 @@ namespace cody.Models
 
 
         public UserAccountDetail AccountDetail { get; set; }
+        public UserAccountState AccountState { get; set; }
 
 
         public IEnumerable<string> GetRejectReasons()

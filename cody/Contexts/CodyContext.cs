@@ -18,6 +18,7 @@ namespace cody.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigurePasswordHashing(modelBuilder);
+            ConfigureDefaultValues(modelBuilder);
         }
 
         private static void ConfigurePasswordHashing(ModelBuilder modelBuilder)
@@ -29,6 +30,14 @@ namespace cody.Contexts
                     pw => Password.CreateFrom(pw),
                     pw => pw
                 );
+        }
+
+        private static void ConfigureDefaultValues(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<UserAccountState>()
+                .Property(b => b.IsEmailValid)
+                .HasDefaultValue(false);
         }
     }
 }
