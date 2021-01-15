@@ -6,7 +6,7 @@ import { SignUp } from './pages/sign_up/sign_up';
 import { Error404Page } from './pages/error/error404_page';
 import { EmailValid } from './pages/email_valid';
 
-import './custom.css'
+import './custom.css';
 
 
 export default class App extends Component {
