@@ -25,9 +25,6 @@ export const sidebarStyles = makeStyles((theme) => ({
     paddingLeft: restrictedWidth,
     transition: "all 0.25s",
   },
-
-
-
   
   root: {
     display: 'flex',
