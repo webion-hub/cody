@@ -9,6 +9,7 @@ import { Typography } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { Link } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 
 import { BasePhotoText } from '../../../../components/base_photo_text'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
@@ -28,16 +29,21 @@ export class OptionalData extends Component{
 
     this.state = {
       open: false,
-      schoolId: this.props.values.schoolId,
+      school: this.props.values.school,
 
       schoolsList: [],
-      schoolFromDialog: null,
+      isAddedSchool: this.props.values.isAddedSchool,
+
+      loading: true,
     }
 
     this.nextFocus = new NextFocus(["school"]);
 
     School.getAll().then(schools => {
-      this.setState({schoolsList: schools});
+      this.setState({
+        schoolsList: schools,
+        loading: false,
+      });
     });
   }
 
@@ -52,16 +58,27 @@ export class OptionalData extends Component{
   }
 
   getSchool = (value) => {
-    this.setState({schoolId: value.id});
+    if(!this.state.isAddedSchool)
+    {
+      this.setState({school: value});
 
-    const {school} = this.props;
-    school(value.id);
+      const {school} = this.props;
+      school(value);   
+      const {isAddedSchool} = this.props;
+      isAddedSchool(false); 
+    }
   }
 
   getSchoolFromDialog = (value) => {
-    this.setState({schoolFromDialog: value});
+    this.setState({
+      school: value,
+      isAddedSchool: true,
+    });
+
     const {school} = this.props;
-    school(value.id);
+    school(value);  
+    const {isAddedSchool} = this.props;
+    isAddedSchool(true);
   }
 
   render(){
@@ -103,12 +120,29 @@ export class OptionalData extends Component{
             </Paper>
           </Box>,
           <Box>
-            <Typography
-              variant="body2"
-              color="secondary"
+            <Grid
+              container
+              direction="row"              
             >
-              Sei uno studente?
-            </Typography>
+              <Typography
+                variant="body2"
+                color="secondary"
+              >
+                Sei uno studente?
+              </Typography>
+              <Fade
+                in={this.state.loading}
+              >
+                <Box
+                  ml={1}
+                >
+                  <CircularProgress
+                    color="secondary"
+                    size={15}
+                  />
+                </Box>
+              </Fade>
+            </Grid>
             <Box m={1}/>
             <Autocomplete
               id="school"
@@ -116,8 +150,8 @@ export class OptionalData extends Component{
               handleHomeEndKeys
               clearOnBlur
               freeSolo
-              value={this.state.schoolFromDialog}
-              disabled={this.state.schoolFromDialog != null}
+              value={this.state.school}
+              disabled={this.state.isAddedSchool || this.state.loading}
               onChange={(event, value) => this.getSchool(value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -152,14 +186,14 @@ export class OptionalData extends Component{
               }
             />
             <Fade
-              in={this.state.schoolFromDialog == null}
+              in={!this.state.isAddedSchool}
             >
               <Link
                 style={{
                   fontSize: 12,
                   color: Colors.lightGrey
                 }}
-                disabled={this.state.schoolFromDialog != null}
+                disabled={this.state.isAddedSchool}
                 component="button"
                 variant="caption"
                 onClick={() => {

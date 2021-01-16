@@ -43,7 +43,8 @@ export class SignUp extends Component {
       birthDate: new Date(),
 
       profileImage: null,
-      schoolId: null,
+      school: null,
+      isAddedSchool: false,
 
       emailError: false,
       emailExist: false,
@@ -68,7 +69,7 @@ export class SignUp extends Component {
         name: this.state.name,
         surname: this.state.surname,
         birthDate: this.state.birthDate,
-        schoolId: this.state.schoolId,
+        schoolId: this.state.school ? this.state.school.id : null,
       }
     } 
   }
@@ -168,17 +169,18 @@ export class SignUp extends Component {
           imageWidth = {Form.imageWidth}
           formWidth = {Form.width}
           checkErrors = {this.state.checkErrors}
-          school = {this.handleChange("schoolId")}
+          school = {this.handleChange("school")}
+          isAddedSchool = {this.handleChange("isAddedSchool")}
           profileImage = {this.handleChange("profileImage")}
           values = {{
-            schoolId: this.state.schoolId,
+            school: this.state.school,
+            isAddedSchool: this.state.isAddedSchool,
           }}
         />, 
       },
     ]
 
     const elementsNumber = elements.length;
-    const screenWidth = getWindowDimensions().width;
 
     return (
       <Grid
