@@ -1,126 +1,288 @@
-﻿<!DOCTYPE html>
+﻿<!-- THIS EMAIL WAS BUILT AND TESTED WITH LITMUS http://litmus.com -->
+<!-- IT WAS RELEASED UNDER THE MIT LICENSE https://opensource.org/licenses/MIT -->
+<!-- QUESTIONS? TWEET US @LITMUSAPP -->
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+        /* FONTS */
+        @media screen {
+            @font-face {
+                font-family: 'Lato';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+            }
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+            @font-face {
+                font-family: 'Lato';
+                font-style: normal;
+                font-weight: 700;
+                src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+            }
+
+            @font-face {
+                font-family: 'Lato';
+                font-style: italic;
+                font-weight: 400;
+                src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+            }
+
+            @font-face {
+                font-family: 'Lato';
+                font-style: italic;
+                font-weight: 700;
+                src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+            }
+        }
+
+        /* CLIENT-SPECIFIC STYLES */
+        body, table, td, a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* Reset STYLES */
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        /* iOS BLUE LINKS */
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* MOBILE STYLES */
+        @media screen and (max-width:600px) {
+            h1 {
+                font-size: 32px !important;
+                line-height: 32px !important;
+            }
+        }
+
+        /* ANDROID CENTER FIX */
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+    </style>
 </head>
-<body>
-    <div class="box center">
-        <div>
-            <svg class="center image" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 400 300" width="100%" height="100%" class="illustration"><rect x="152.61" y="41.72" width="142.26" height="175.91" fill="#e6e6e6" /><rect x="190.23" y="170.64" width="66.6" height="25.02" fill="#ffd200" /><path d="M158,100.17s14.32,2.15,11.77,11.94A34.47,34.47,0,0,1,160.05,128v22L181,173.72l6.91-14,19.41,9s-14.81,35.4-11.24,48.93H169.77l-23.93-53.36,2.71-46Z" opacity="0.09" /><path d="M191.39,167.78s11.4,1.65,4.59,13.57-11.91,49.51-32.17,40.41Z" fill="#f4a28c" /><path d="M191.39,167.78s11.4,1.65,4.59,13.57-11.91,49.51-32.17,40.41Z" opacity="0.09" /><polygon points="147.37 106.76 140.7 130.3 153.94 133.05 153.48 114.81 147.37 106.76" fill="#f4a28c" /><path d="M153.75,118.8a8.86,8.86,0,0,1-4-3.1s-.34,4.47,4,9.44Z" fill="#ce8172" opacity="0.31" /><path d="M161.08,107.44s-.66,7.44-2.76,12.1a3.76,3.76,0,0,1-5,1.86c-2.33-1.09-5.16-3.24-5.29-7.27L147,107.31a6.71,6.71,0,0,1,4.17-6.54C155.83,98.53,161.72,102.93,161.08,107.44Z" fill="#f4a28c" /><path d="M147,131.61l7,1.44s28.8,17,27.78,39-15.07,47.75-15.07,47.75h-49S83.9,140.48,147,131.61Z" fill="#3366ff" /><rect x="177.84" y="155.46" width="14.64" height="26.48" transform="translate(75.95 -56.73) rotate(21.82)" fill="#ffd200" /><path d="M139.42,146.09s15.54,4.11,15.79,24.28-1.53,33.45,14.56,32.17l-40.48,17.22H117.63s-7.21-16.46-8.3-34.84S127.45,143.26,139.42,146.09Z" opacity="0.09" /><polygon points="117.63 219.76 115.64 251.56 179.21 249.77 166.65 219.76 117.63 219.76" fill="#24285b" /><path d="M152.15,112.35s.45-2.84-1.72-3-2.83,3.94,0,4.84Z" fill="#f4a28c" /><path d="M127.16,142.64s12.47-2.49,16.89,10.94.08,51.22,9.45,54.51,29.33-29.74,29.33-29.74-.19-10.75,7.1-13.82,2.69,13.05-1.15,16.89S174.77,229,145,228.07,103,153.78,127.16,142.64Z" fill="#f4a28c" /><path d="M160.42,112.11,162,115.3a1.2,1.2,0,0,1-1.06,1.72l-2.91,0Z" fill="#f4a28c" /><path d="M161.13,97.79s7.27,8.55-2.14,10.34-11.35,3.48-10.44,13,4.62,18.29-7.85,24.27-1.76,16-4,27.69-13.28,19.78-27.32,11.81-22.73-28.41-7.66-40.66,34-15.19,34-34.92S151.4,88.6,161.13,97.79Z" fill="#24285b" /><circle cx="222.83" cy="116.47" r="32.34" fill="#3366ff" /><circle cx="170.52" cy="57.33" r="5.15" fill="#ffd200" /><circle cx="185.04" cy="57.33" r="5.15" fill="#3366ff" /><circle cx="198.93" cy="57.33" r="5.15" fill="#24285b" /><polyline points="209.09 116.47 219.04 129.68 235.13 104.28" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="7" /></svg>
-        </div>
-        <div>
-            <h1 class="center-text no-margin">
-                Benvenuto in cody!
-            </h1>
-            <p class="center-text">
-                Prima di iniziare a scoprire cody, devi confermare la tua email!
-            </p>
-            <p class="center-text">
-                Confermando l'email potrai utilizzare tutte le funzioni di cody ed entrare in contatto con gli altri utenti.
-            </p>
-            <div class="center-text button-box">
-                <a class="button primary-bg" href="{0}">
-                    Verifica la tua email
-                </a>
-            </div>
-            <p class="center-text small-text">
-                Se non hai creato tu l'account inviaci una mail a <a href="mailto: info@cody.com">info@cody.com</a>
-            </p>
-        </div>
+<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+
+    <!-- HIDDEN PREHEADER TEXT -->
+    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+        Siamo entusiasti di averti qui! Preparati ad usare il tuo nuovo account.
     </div>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!-- LOGO -->
+        <tr>
+            <td bgcolor="#3366ff" align="center">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tr>
+                        <td align="center" valign="top" style="padding: 25px 10px 25px 10px;">
+                            <a href="http://litmus.com" target="_blank" style="font-family: 'Lato', Helvetica, Arial, sans-serif; text-decoration: none;">
+                                <h1 style="color: #ffffff; font-size: 48px; font-weight: 400; margin: 0;">Cody</h1>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- HERO -->
+        <tr>
+            <td bgcolor="#3366ff" align="center" style="padding: 0px 10px 0px 10px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tr>
+                        <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                            <h2 style="font-size: 48px; font-weight: 400; margin: 0;">Benvunuto</h2>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- COPY BLOCK -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <!-- COPY -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                            <p style="margin: 0;">Prima di iniziare ad espoloreare cody, devi confemrare la tua email.</p>
+                        </td>
+                    </tr>
+                    <!-- BULLETPROOF BUTTON -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                                        <table border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#3366ff">
+                                                    <a href="{0}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #3366ff; display: inline-block;">
+                                                        Conferma Account
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- COPY -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                            <p style="margin: 0;">Se non funziona copia e incolla il seguente link nel tuo browser:</p>
+                        </td>
+                    </tr>
+                    <!-- COPY -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                            <p style="margin: 0;"><a href="http://litmus.com" target="_blank" style="color: #3366ffabove;">{0}</a></p>
+                        </td>
+                    </tr>
+                    <!-- COPY -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                            <p style="margin: 0;">Saluti,<br>Il team di Cody</p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- SUPPORT CALLOUT -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <!-- HEADLINE -->
+                    <tr>
+                        <td bgcolor="#809fff" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                            <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Hai qualche domanda?</h2>
+                            <p style="margin: 0;"><a href="http://litmus.com" target="_blank" style="color: #0040ff;">Scrivici</a></p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- FOOTER -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <!-- NAVIGATION -->
+                    <tr>
+                        <td bgcolor="#f4f4f4" align="left" style="padding: 30px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">
+                            <p style="margin: 0;">
+                                <a href="http://litmus.com" target="_blank" style="color: #111111; font-weight: 700;">Home</a> -
+                                <a href="http://litmus.com" target="_blank" style="color: #111111; font-weight: 700;">Aiuto</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <!-- PERMISSION REMINDER -->
+                    <tr>
+                        <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">
+                            <p style="margin: 0;">Hai ricevuto questa email perchè ti sei appena iscritto su Cody. Se ti sembra strano, <a href="http://litmus.com" target="_blank" style="color: #111111; font-weight: 700;">apri nel tuo browser</a>.</p>
+                        </td>
+                    </tr>
+                    <!-- UNSUBSCRIBE -->
+                    <tr>
+                        <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">
+                            <p style="margin: 0;">Se vuoi cancellare la tua iscrizione alla newsletter: <a href="http://litmus.com" target="_blank" style="color: #111111; font-weight: 700;">Cancellati</a>.</p>
+                        </td>
+                    </tr>
+                    <!-- ADDRESS -->
+                    <tr>
+                        <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;">
+                            <p style="margin: 0;">Ceej - 1234 Main Street - Anywhere, MA - 56789</p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>
-
-
-<style>
-    @media (prefers-color-scheme: dark) {
-        body {
-            background-color: rgb(30, 30, 30) !important;
-        }
-
-        h1, h2, h3, h4, p, a {
-            font-family: 'Roboto', sans-serif;
-            color: rgb(225, 225, 225) !important;
-        }
-
-        .small-text {
-            font-size: 13px;
-            color: rgb(155, 155, 155) !important;
-        }
-
-        .small-text a {
-            color: rgb(155, 155, 155) !important;
-        }
-    }
-
-
-    h1, h2, h3, h4, p, a {
-        font-family: 'Roboto', sans-serif;
-        color: rgb(30, 30, 30)
-    }
-
-    .primary-bg {
-        background-color: rgb(51, 102, 255);
-        color: white !important;
-    }
-
-    .center {
-        margin: auto;
-        display: block;
-    }
-
-    .center-text {
-        text-align: center;
-    }
-
-    .no-margin {
-        margin: 0;
-    }
-
-    .small-text {
-        font-size: 13px;
-        color: rgb(100, 100, 100);
-    }
-
-    .small-text a {
-        color: rgb(100, 100, 100);
-    }
-
-    .button {
-        padding: 8px 12px 8px 12px;
-        border-radius: 4px;
-        text-decoration: none;
-        transition: all 0.5s;
-    }
-
-    .button:hover {
-        box-shadow: 2px 2px 3px -1px #7c7c7c;
-    }
-
-    .button-box {
-        margin-top: 40px;
-        margin-bottom: 20px;
-    }
-
-
-    @media (max-width:700px) {
-        .image {
-            max-width: 100vw !important;
-        }
-
-        .box {
-            max-width: 80vw !important;
-        }
-    }
-
-    .box {
-        max-width: 550px;
-    }
-
-    .image {
-        max-width: 500px;
-    }
-</style>
