@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
-import itLocale from "date-fns/locale/it";
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { KeyboardDatePicker } from '@material-ui/pickers';
@@ -25,7 +24,7 @@ export class DatePicker extends Component{
 
   render(){
     return(
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={itLocale}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} >
         <KeyboardDatePicker
           inputVariant="outlined"
           variant="inline"
