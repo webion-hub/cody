@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SideBar } from './bars/sidebar/sidebar'
-import Typography from '@material-ui/core/Typography';
+import { AppBar } from './bars/appbar/appbar'
+
 
 import { sections } from './bars/sidebar/sections'
 
@@ -13,12 +14,7 @@ export class NavMenu extends Component {
         sections={sections} 
         appbarPosition="fixed"
         appBar={            
-          <Typography 
-            variant="h6" 
-            noWrap
-          >
-            Cody
-          </Typography> 
+          <AppBar></AppBar>
         }
       >
         {this.props.children}

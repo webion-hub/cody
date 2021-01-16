@@ -54,19 +54,33 @@ export function SideBar(props) {
             <MenuRoundedIcon />
           </IconButton>
           {/* Appbar section */}
-          <Hidden //Smartphone
-            xsDown 
-            implementation="css"
-            className={fullWidth ? classes.fullPadding : classes.restrictedPadding}
+          <div
+            style={{
+              width: "100vw",
+              position: "absolute",
+              left: 0,
+            }}
           >
-            {props.appBar}
-          </Hidden>
-          <Hidden //Pc
-            smUp 
-            implementation="css"
+            <Hidden //Smartphone
+              smUp 
+              implementation="css"
+            >
+              {props.appBar}
+            </Hidden>
+          </div>
+          <div
+            style={{
+              width: "100%"
+            }}
           >
-            {props.appBar}
-          </Hidden>
+            <Hidden //Pc
+              xsDown 
+              implementation="css"
+              className={fullWidth ? classes.fullPadding : classes.restrictedPadding}
+            >
+              {props.appBar}
+            </Hidden>
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
