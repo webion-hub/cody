@@ -10,7 +10,6 @@ import { useTheme } from '@material-ui/core/styles';
 import { sidebarStyles } from './sidebar_styles'
 import { getDrawerList } from './drawer_list'
 import { DynamicAppbar } from '../appbar/dynamic_appbar'
-import MenuRoundedIcon from '@material-ui/icons/HomeRounded';
 
 export function SideBar(props) {
   const classes = sidebarStyles();
