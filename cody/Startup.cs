@@ -56,15 +56,13 @@ namespace cody
                 return new(logger, connection);
             });
 
-            services.AddSingleton<EmailValidationService>(serviceProvider =>
+            services.AddScoped<EmailValidationService>(serviceProvider =>
             {
                 var logger =
                     serviceProvider.GetRequiredService<ILogger<EmailValidationService>>();
 
-                using var scope = serviceProvider.CreateScope();
-                var codyContext = scope
-                    .ServiceProvider
-                    .GetRequiredService<CodyContext>();
+                var codyContext = 
+                    serviceProvider.GetRequiredService<CodyContext>();
 
                 var info = Configuration
                     .GetSection("EmailServiceInfo")
