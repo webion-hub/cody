@@ -97,6 +97,7 @@ namespace cody.Controllers
 
             try
             {
+                await _emailValidationService.MarkUserForValidationAsync(account);
                 await _context.UsersAccounts.AddAsync(account);
                 await _context.SaveChangesAsync();
             }
@@ -105,7 +106,6 @@ namespace cody.Controllers
                 return BadRequest(new []{ "server_error" });
             }
 
-            await _emailValidationService.RegisterUserForValidationAsync(account);
             _logger.LogInformation("Registered user -> {Account}", account);
             return Ok(account.AccountDetail.Id);
         }
