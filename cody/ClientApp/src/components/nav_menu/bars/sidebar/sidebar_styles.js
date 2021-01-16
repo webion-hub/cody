@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Colors } from '../../../lib/default_values/custom_colors';
+import { Colors } from '../../../../lib/default_values/custom_colors';
 
 export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;
@@ -25,6 +25,15 @@ export const sidebarStyles = makeStyles((theme) => ({
     paddingLeft: restrictedWidth,
     transition: "all 0.25s",
   },
+
+
+  children: {
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: restrictedWidth,
+      transition: "all 0.25s",
+    },
+  },
+
   
   root: {
     display: 'flex',
@@ -35,10 +44,6 @@ export const sidebarStyles = makeStyles((theme) => ({
     },
   },
 
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-    },
-  },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
@@ -56,13 +61,13 @@ export const sidebarStyles = makeStyles((theme) => ({
   },
 
 
-  fullToolbar: {
+  fullDrawerList: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     ...theme.mixins.toolbar,
   },
-  restrictedToolbar: {
+  restrictedDrawerList: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

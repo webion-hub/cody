@@ -1,26 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AppBar } from '@material-ui/core';
 import { Drawer  } from '@material-ui/core';
 import { SwipeableDrawer  } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
-import { Toolbar } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
 
 import { sidebarStyles } from './sidebar_styles'
-import { getDrawer } from './drawer'
-
-import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
+import { getDrawerList } from './drawer_list'
+import { DynamicAppbar } from '../appbar/dynamic_appbar'
+import MenuRoundedIcon from '@material-ui/icons/HomeRounded';
 
 export function SideBar(props) {
   const classes = sidebarStyles();
   const theme = useTheme();
-  
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(false);
+
+  const getAppBarSections = () => {
+    const leftIsNull = props.appBarSections.left === null;
+    const rightIsNull = props.appBarSections.right === null;
+
+    if(leftIsNull && !rightIsNull)
+      return [props.appBarSections.right]
+    if(rightIsNull && !leftIsNull)
+      return [props.appBarSections.left]
+    if(leftIsNull && rightIsNull)
+      return [];  
+    if(!leftIsNull && !rightIsNull)
+      return [
+        props.appBarSections.left,
+        props.appBarSections.right,
+      ]
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -30,59 +43,25 @@ export function SideBar(props) {
     setFullWidth(!fullWidth);
   };
 
-  const drawer = getDrawer(
+  const drawerList = getDrawerList(
     classes,
     handleFullWidth,
-    props.sections,
+    props.sideBarSections,
+    getAppBarSections(),
     fullWidth,
   );
 
   return (
     <div className={classes.root}>
-      <AppBar 
-        position={props.appbarPosition} 
-        className={classes.appBar}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuRoundedIcon />
-          </IconButton>
-          {/* Appbar section */}
-          <div
-            style={{
-              width: "100vw",
-              position: "absolute",
-              left: 0,
-            }}
-          >
-            <Hidden //Smartphone
-              smUp 
-              implementation="css"
-            >
-              {props.appBar}
-            </Hidden>
-          </div>
-          <div
-            style={{
-              width: "100%"
-            }}
-          >
-            <Hidden //Pc
-              xsDown 
-              implementation="css"
-              className={fullWidth ? classes.fullPadding : classes.restrictedPadding}
-            >
-              {props.appBar}
-            </Hidden>
-          </div>
-        </Toolbar>
-      </AppBar>
+      <DynamicAppbar
+        menuOnClick={handleDrawerToggle}
+        appBarPosition={props.appBarPosition}
+        leftAppBar={props.appBarSections.left}
+        centerAppBar={props.appBarSections.center}
+        rightAppBar={props.appBarSections.right}
+        sections={props.sideBarSections}
+        width={fullWidth}
+      />
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* Drawer section */}
         <Hidden //Smartphone
@@ -102,9 +81,11 @@ export function SideBar(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            {drawerList}
           </SwipeableDrawer>
         </Hidden>
+
+
         <Hidden //PC
           xsDown 
           implementation="css"
@@ -116,25 +97,17 @@ export function SideBar(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            {drawerList}
           </Drawer>
         </Hidden>
       </nav>
       <main className={classes.content}>
+
         {/* Content section */}
-        <Hidden //Smartphone
-          smUp 
-          implementation="css"
-        >
+        <div className={classes.children}>
           {props.children}  
-        </Hidden>
-        <Hidden //Pc
-          xsDown 
-          implementation="css"
-          className={classes.restrictedPadding}
-        >
-          {props.children}  
-        </Hidden>                
+        </div>   
+                     
       </main>
     </div>
   );
