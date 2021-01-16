@@ -82,6 +82,9 @@ export class SignUpStepper extends Component {
   handleAlertClose = () => {
     this.setState({openAlert: false})
   }
+
+
+  
   
   _registerUser = () => {
     this.setState({loading: true});
@@ -90,7 +93,6 @@ export class SignUpStepper extends Component {
       profilePicture: this.props.profileImage,
 
       onSuccess: uid => {
-        this.setState({loading: false});
         this.handleNext();
       },
       onError: reasons => {
@@ -111,7 +113,11 @@ export class SignUpStepper extends Component {
           openAlert: true,
         });
       },
-    });
+    }).finally(
+      () => {
+        this.setState({loading: false});
+      }
+    );
   }
 
 
