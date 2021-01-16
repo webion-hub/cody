@@ -137,9 +137,11 @@ export class User {
               onImageUploadError
             );
           },
-          400: data.errors != undefined
-            ? _ => onMissingFields(data.errors)
-            : _=> onError(data),
+          400: _ => {
+            return data.errors != undefined
+              ? _ => onMissingFields(data.errors)
+              : _=> onError(data);
+          },
         });
       });
   }
