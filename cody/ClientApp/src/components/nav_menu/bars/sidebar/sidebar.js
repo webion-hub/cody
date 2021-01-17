@@ -8,7 +8,7 @@ import { Hidden } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
 import { sidebarStyles } from './sidebar_styles'
-import { getDrawerList } from './drawer_list'
+import { GetDrawerList } from './drawer_list'
 import { DynamicAppbar } from '../appbar/dynamic_appbar'
 
 export function SideBar(props) {
@@ -42,13 +42,15 @@ export function SideBar(props) {
     setFullWidth(!fullWidth);
   };
 
-  const drawerList = getDrawerList(
-    classes,
-    handleFullWidth,
-    props.sideBarSections,
-    getAppBarSections(),
-    fullWidth,
-  );
+  const drawerList = (
+    <GetDrawerList
+      classes={classes}
+      handleFullWidth={handleFullWidth}
+      sections={props.sideBarSections}
+      appBarSections={getAppBarSections()}
+      fullWidth={fullWidth}
+    />
+  )
 
   return (
     <div className={classes.root}>
@@ -92,7 +94,7 @@ export function SideBar(props) {
           <Drawer
             classes={{
               paper: fullWidth ? classes.fullDrawerPaper : classes.restrictedDrawerPaper,
-            }}
+            }}            
             variant="permanent"
             open
           >

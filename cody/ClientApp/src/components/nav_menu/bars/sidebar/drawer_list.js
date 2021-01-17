@@ -12,7 +12,7 @@ import { ListItemAvatar } from '@material-ui/core';
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 
-export function getDrawerList(classes, handleFullWidth, sections, appBarSections, fullWidth){
+export function GetDrawerList(props){
 
   function createListItems(sections){
     return sections.map((elements, index) => (
@@ -24,7 +24,7 @@ export function getDrawerList(classes, handleFullWidth, sections, appBarSections
               key={element.label + index}
               padding={element.avatarPadding}
               href={element.href}
-              className={classes.listItem}
+              className={props.classes.listItem}
             >    
               {
                 element.avatar? 
@@ -46,7 +46,7 @@ export function getDrawerList(classes, handleFullWidth, sections, appBarSections
               }
               <ListItemText 
                 primary={element.label} 
-                className={classes.listText}
+                className={props.classes.listText}
               />
             </CustomListItem>
           ))}
@@ -58,20 +58,20 @@ export function getDrawerList(classes, handleFullWidth, sections, appBarSections
   return (
     <div>
       <div 
-        className={fullWidth ? classes.fullDrawerList : classes.restrictedDrawerList}
+        className={props.fullWidth ? props.classes.fullDrawerList : props.classes.restrictedDrawerList}
       >
         <Hidden xsDown implementation="css">
-          <IconButton onClick={handleFullWidth}>
-            {fullWidth ? (<ChevronLeftRoundedIcon/>):(<ChevronRightRoundedIcon/>)}          
+          <IconButton onClick={props.handleFullWidth}>
+            {props.fullWidth ? (<ChevronLeftRoundedIcon/>):(<ChevronRightRoundedIcon/>)}          
           </IconButton>
         </Hidden>
       </div>
-      {createListItems(sections)}
+      {createListItems(props.sections)}
       <Hidden //Smartphone
         smUp 
         implementation="css"
       >
-        {createListItems(appBarSections)}
+        {createListItems(props.appBarSections)}
       </Hidden>      
     </div>
   );
