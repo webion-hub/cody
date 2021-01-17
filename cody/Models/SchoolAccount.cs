@@ -19,6 +19,7 @@ namespace cody.Models
         public string RedirectUrl { get; set; }
 
 
+        public SchoolAccountState State { get; set; }
         public List<UserAccountDetail> Students { get; set; }
 
 
