@@ -6,6 +6,7 @@ import { IconButton } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import { sidebarStyles } from '../sidebar/sidebar_styles'
 
@@ -72,12 +73,16 @@ export function DynamicAppbar(props) {
           }}
         >
           {getSection(props.leftAppBar)}
-          <Grid
-            container
-            justify="center"
+          <Box
+            position="absolute"
+            left={0}
+            display="flex"
+            width={1}
+            justifyContent="center"
           >
             {props.centerAppBar}
-          </Grid>
+          </Box>
+          <Box width={1}/>
           {getSection(props.rightAppBar)}
         </Toolbar>
       </Hidden>
