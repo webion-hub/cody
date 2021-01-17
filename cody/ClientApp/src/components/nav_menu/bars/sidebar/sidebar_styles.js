@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Colors } from '../../../../lib/default_values/custom_colors';
 
 export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;
@@ -9,13 +8,13 @@ export const sidebarStyles = makeStyles((theme) => ({
     width: fullDrawerWidth,
     overflowX: "hidden",
     transition: "all 0.25s",
-    backgroundColor: Colors.backgroundDark
+    backgroundColor: theme.palette.drawer.default,
   },
   restrictedDrawerPaper: {
     width: restrictedWidth,
     overflowX: "hidden",
     transition: "all 0.25s",
-    backgroundColor: Colors.backgroundDark
+    backgroundColor: theme.palette.drawer.default,
   },
   fullPadding: {
     paddingLeft: fullDrawerWidth,
@@ -59,7 +58,6 @@ export const sidebarStyles = makeStyles((theme) => ({
     paddingLeft: 12,
     paddingRight: 12,
   },
-
 
   fullDrawerList: {
     display: 'flex',
