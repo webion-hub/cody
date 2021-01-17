@@ -42,6 +42,10 @@ namespace cody.Controllers
                 return BadRequest(maybeExisting.First().Id);
             }
 
+            school.State = new SchoolAccountState {
+                HasBeenVerified = false,
+            };
+
             await _context.Schools.AddAsync(school);
             await _context.SaveChangesAsync();
 
@@ -57,6 +61,7 @@ namespace cody.Controllers
         {
             var schools = 
                 from s in _context.Schools
+                where s.State.HasBeenVerified
                 select new {
                     s.Id,
                     s.Name,
