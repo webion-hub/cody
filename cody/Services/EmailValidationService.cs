@@ -69,7 +69,6 @@ namespace cody.Services
             {
                 Subject = "Convalida dell'account",
                 BodyEncoding = Encoding.UTF8,
-                IsBodyHtml = true,
                 Body = $@"
                     Benvenuto in cody!
                     Prima di iniziare a scoprire cody, devi confermare la tua email!
@@ -83,7 +82,7 @@ namespace cody.Services
 
             var alternateView = AlternateView.CreateAlternateViewFromString(
                 content: _emailModel.Value.Replace("{0}", validationUrl),
-                contentEncoding: Encoding.Unicode,
+                contentEncoding: Encoding.UTF8,
                 mediaType: "text/html"
             );
 
