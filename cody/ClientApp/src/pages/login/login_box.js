@@ -12,7 +12,6 @@ import { Password } from '../../components/password/password_textfield';
 import { LoadingButton } from '../../components/loading_button';
 import { NextFocus } from '../../lib/next_focus';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
-import { Colors } from '../../lib/default_values/custom_colors';
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
@@ -154,17 +153,12 @@ export class LoginBox extends Component{
                   <Checkbox
                     color="secondary"
                     size="small"
-                    style={{
-                      color: Colors.lightGrey
-                    }}
                   />
                 }
                 label={
                   <Typography
                     variant="body2"
-                    style={{
-                      color: Colors.lightGrey
-                    }}
+                    color="textSecondary"
                   >
                     Ricordami
                   </Typography>

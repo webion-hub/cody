@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 import { Grid } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -14,7 +13,6 @@ import { CircularProgress } from '@material-ui/core';
 import { BasePhotoText } from '../../../../components/base_photo_text'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
 import { AddPhoto } from '../../../../components/add_photo';
-import { Colors } from '../../../../lib/default_values/custom_colors'
 import { NextFocus } from '../../../../lib/next_focus';
 import { School } from '../../../../lib/school';
 
@@ -89,35 +87,29 @@ export class OptionalData extends Component{
         margin={1}
         bottomMargin={2}
         items={[
-          <Box mb={3}>
-            <Paper 
-              elevation={3}
-              style={{
-                backgroundColor: Colors.background
-              }}
+          <Box 
+            p={2}
+            mb={3}
+          >         
+            <Grid
+              container
+              justify="center"
             >
-              <Box p={2}>
-                <Grid
-                  container
-                  justify="center"
+              <AddPhoto
+                size={150}
+                iconSize={90}
+                image={this.getImage}
+              />
+              <Box
+                mt={2}
+              >
+                <Typography
+                  variant="subtitle2"
                 >
-                  <AddPhoto
-                    size={150}
-                    iconSize={90}
-                    image={this.getImage}
-                  />
-                  <Box
-                    mt={2}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                    >
-                      Aggiungi un'immagine profilo
-                    </Typography>
-                  </Box>
-                </Grid>
+                  Aggiungi un'immagine profilo
+                </Typography>
               </Box>
-            </Paper>
+            </Grid>
           </Box>,
           <Box>
             <Grid
@@ -190,9 +182,9 @@ export class OptionalData extends Component{
             >
               <Link
                 style={{
-                  fontSize: 12,
-                  color: Colors.lightGrey
+                  fontSize: 12,                  
                 }}
+                color="textSecondary"
                 disabled={this.state.isAddedSchool}
                 component="button"
                 variant="caption"

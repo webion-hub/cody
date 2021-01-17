@@ -8,7 +8,6 @@ import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
-import { Colors } from '../../../../lib/default_values/custom_colors';
 import { BasePhotoText } from '../../../../components/base_photo_text'
 import { DatePicker } from '../../../../components/date_picker';
 import { NextFocus } from '../../../../lib/next_focus';
@@ -97,9 +96,7 @@ export class IDData extends Component{
               >
                 <Typography
                   variant="caption"
-                  style={{
-                    color: Colors.lightGrey
-                  }}
+                  color="textSecondary"
                 >
                   Tra 4 e 28 caratteri
                 </Typography>

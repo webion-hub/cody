@@ -17,10 +17,8 @@ import { OptionalData } from './sign_up_steps/3_optional/optional_step';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 import { SignUpStepper } from './sign_up_components/signup_stepper';
 
-import { Colors } from '../../lib/default_values/custom_colors';
 import { Form } from '../../lib/default_values/sizes/form_size';
 import { Images } from '../../lib/default_values/images';
-import { getWindowDimensions } from '../../lib/window_dimensions';
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
@@ -229,8 +227,8 @@ export class SignUp extends Component {
             <Typography
               variant="caption"
               style={{
-                color: Colors.disable,
-                marginRight: 5
+                marginRight: 5,
+                color: "#9e9e9e"
               }}
             >
               Registrandoti accetti i nostri
@@ -240,8 +238,8 @@ export class SignUp extends Component {
               variant="caption"
               href="/terms_and_services"
               style={{
-                color: Colors.disable,
                 fontWeight: "bold",
+                color: "#9e9e9e"
               }}
             >
               termini di servizio.

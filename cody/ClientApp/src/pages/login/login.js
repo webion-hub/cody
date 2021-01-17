@@ -8,7 +8,6 @@ import { Box } from '@material-ui/core';
 import { Authentication } from '../../components/illustrations/authentication';
 import { LoginBox } from './login_box';
 
-import { Colors } from '../../lib/default_values/custom_colors';
 import { Form } from '../../lib/default_values/sizes/form_size';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -53,9 +52,7 @@ export class Login extends Component {
           </Paper> 
           <Box m={0.5}/>
           <Button
-            style={{
-              color: Colors.secondary
-            }}
+            color="secondary"
             endIcon={<ArrowForwardIcon/>}
             href="/sign-up"
           >
