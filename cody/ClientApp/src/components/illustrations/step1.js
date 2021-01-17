@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { Colors } from '../../lib/default_values/custom_colors';
+import { Colors } from '../../lib/default_values/themes/colors/main_colors';
 
 export function Step1(props){
   const svgColor = Colors.primary;
