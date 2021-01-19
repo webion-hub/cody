@@ -1,4 +1,5 @@
 ﻿using cody.Models;
+using cody.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace cody.Contexts
@@ -10,6 +11,7 @@ namespace cody.Contexts
         { }
 
         public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public DbSet<UserAccountDetail> UserDatails { get; set; }
         public DbSet<SchoolAccount> Schools { get; set; }
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }

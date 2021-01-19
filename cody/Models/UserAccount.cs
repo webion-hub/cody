@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using cody.Security;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,6 +27,7 @@ namespace cody.Models
 
         public UserAccountDetail AccountDetail { get; set; }
         public UserAccountState AccountState { get; set; }
+        public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
 
 
         public IEnumerable<string> GetRejectReasons()
