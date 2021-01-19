@@ -12,6 +12,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using cody.Services;
+using cody.Security;
 
 namespace cody.Controllers
 {
@@ -22,15 +23,18 @@ namespace cody.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly EmailValidationService _emailValidationService;
         private readonly CodyContext _context;
+        private readonly UserLoginCookieEmitter _cookieEmitter;
 
         public UserController(
-            ILogger<UserController> logger, 
-            EmailValidationService emailValidationService, 
-            CodyContext context
+            ILogger<UserController> logger,
+            EmailValidationService emailValidationService,
+            CodyContext context,
+            UserLoginCookieEmitter cookieEmitter
         ) {
             _logger = logger;
             _emailValidationService = emailValidationService;
             _context = context;
+            _cookieEmitter = cookieEmitter;
         }
 
 
@@ -38,7 +42,7 @@ namespace cody.Controllers
         [Route("exists/{usernameOrEmail}")]
         public IActionResult UserExists(string usernameOrEmail)
         {
-            var exists = 
+            var exists =
                 _context.UserExists(usernameOrEmail);
 
             _logger.LogInformation($"UserExists - {usernameOrEmail} -> {exists}");
@@ -78,6 +82,58 @@ namespace cody.Controllers
 
             _logger.LogInformation($"User {username} -> logged in");
             return Ok();
+        }
+
+
+        [HttpGet]
+        [Route("remember_me/{userId}")]
+        public async Task<IActionResult> TryRememberMe(int userId)
+        {
+            var user = _context
+                .UserAccounts
+                .Find(userId);
+
+            if (user is null)
+                return NotFound();
+
+            await GenerateUserLoginCookies(user);
+            return Ok();
+        }
+
+
+        [HttpGet]
+        [Route("login_with_cookie")]
+        public async Task<IActionResult> LoginWithCookie() 
+        {
+            var cookieIdString = Request.Cookies["login_cookie_id"];
+            var cookie = Request.Cookies["login_cookie"];
+
+            if (!int.TryParse(cookieIdString, out var cookieId))
+                return BadRequest();
+
+            if (string.IsNullOrWhiteSpace(cookie))
+                return BadRequest();
+
+
+            var maybeUser =
+                await _cookieEmitter.TryLoginAsync(cookieId, cookie);
+
+            if (maybeUser is null)
+                return BadRequest();
+
+
+            await GenerateUserLoginCookies(maybeUser);
+            return Ok();
+        }
+
+
+        public async Task GenerateUserLoginCookies(UserAccount user)
+        {
+            var (cookieId, cookie) =
+                await _cookieEmitter.EmitPersistentLoginCookieForAsync(user);
+
+            Response.Cookies.Append("login_cookie_id", cookieId.ToString());
+            Response.Cookies.Append("login_cookie", cookie);
         }
 
 
