@@ -1,6 +1,6 @@
 ﻿using BCryptAlgorithm = BCrypt.Net.BCrypt;
 
-namespace cody
+namespace cody.Security
 {
     public class Password
     {

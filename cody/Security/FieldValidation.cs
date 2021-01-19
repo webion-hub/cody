@@ -6,9 +6,9 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace cody
+namespace cody.Security
 {
-    public static class Validation
+    public partial class Validation
     {
         public static bool IsValidNameOrSurname(string name)
         {
