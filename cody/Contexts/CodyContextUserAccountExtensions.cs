@@ -24,7 +24,7 @@ namespace cody.Contexts
         public static IQueryable<UserAccount> MaybeGetUserBy(this CodyContext context, string usernameOrEmail)
         {
             var maybeUser =
-                from user in context.UsersAccounts
+                from user in context.UserAccounts
                 where
                     user.Username == usernameOrEmail ||
                     user.Email == usernameOrEmail

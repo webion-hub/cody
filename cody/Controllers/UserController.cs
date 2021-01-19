@@ -98,7 +98,7 @@ namespace cody.Controllers
             try
             {
                 await _emailValidationService.MarkUserForValidationAsync(account);
-                await _context.UsersAccounts.AddAsync(account);
+                await _context.UserAccounts.AddAsync(account);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException e) {

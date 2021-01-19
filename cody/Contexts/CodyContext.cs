@@ -9,7 +9,7 @@ namespace cody.Contexts
             : base(options)
         { }
 
-        public DbSet<UserAccount> UsersAccounts { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserAccountDetail> UserDatails { get; set; }
         public DbSet<SchoolAccount> Schools { get; set; }
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
