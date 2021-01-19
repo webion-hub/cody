@@ -41,7 +41,7 @@ namespace cody
                     .UseNpgsql(connectionString)
                     .UseSnakeCaseNamingConvention();
             });
-
+            
 
             services.AddLogging();
             services.AddSingleton<SftpService>(serviceProvider =>
@@ -70,6 +70,8 @@ namespace cody
 
                 return new(logger, codyContext, info);
             });
+
+            services.AddScoped<UserLoginCookieEmitter>();
         }
 
 
