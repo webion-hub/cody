@@ -36,6 +36,13 @@ import { ProfilePicture } from './profile_picture';
  */
 
 /**
+ * @typedef {object} CookieLoginOptions
+ * @property {() => void} [onSuccess]
+ * @property {() => void} [onError] 
+ * @property {AxiosRequestConfig} [axiosConfig]
+ */
+
+/**
  * @typedef {object} TryRegisterOptions
  * @property {UserAccount} user
  * @property {File} [profilePicture]
@@ -94,6 +101,32 @@ export class User {
           200: onSuccess,
           404: onUserNotFound,
           400: onPasswordMismatch,
+        });
+      });
+  }
+
+
+  /**
+   * @param {CookieLoginOptions} options 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async tryLoginWithCookie(options) {
+    const {
+      onSuccess,
+      onError,
+      axiosConfig,
+    } = options;
+
+    return axios
+      .request({
+        url: 'user/login_with_cookie',
+        method: 'GET',
+        ...axiosConfig,
+      })
+      .then(response => {
+        invokeCallback(response.status, {
+          200: onSuccess,
+          400: onError,
         });
       });
   }
