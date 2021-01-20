@@ -9,7 +9,7 @@ import { Grid } from '@material-ui/core';
 
 import { Password } from '../../../../components/password/password_textfield';
 import { PwStrengthProgress } from '../../../../components/password/password_strenght_progress';
-import { BasePhotoText } from '../../../../components/base_photo_text';
+import { BasePhotoText } from '../../../../components/bases/base_photo_text';
 import { NextFocus } from '../../../../lib/next_focus';
 
 import { Step1 } from '../../../../components/illustrations/step1';

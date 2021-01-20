@@ -12,8 +12,8 @@ import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 
-import { BasePhotoText } from './base_photo_text'
-import { DialogBase } from './dialog_base';
+import { BasePhotoText } from './bases/base_photo_text'
+import { DialogBase } from './bases/dialog_base';
 
 import { Error } from './illustrations/error';
 

@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../../components/base_photo_text'
+import { BasePhotoText } from '../../../../components/bases/base_photo_text'
 import { DatePicker } from '../../../../components/date_picker';
 import { NextFocus } from '../../../../lib/next_focus';
 

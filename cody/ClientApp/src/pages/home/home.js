@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { CustomizableMenuContext } from '../../components/nav_menu/customizable_menu';
-import { SearchBar } from '../../components/search_bar';
+import { SearchBar } from '../../components/search_bar/search_bar';
 import { Images } from '../../lib/default_values/images';
 import { MainTextBox } from './home_components/main_text_box';
 

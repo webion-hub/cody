@@ -10,7 +10,7 @@ import { Link } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../../components/base_photo_text'
+import { BasePhotoText } from '../../../../components/bases/base_photo_text'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
 import { AddPhoto } from '../../../../components/add_photo';
 import { NextFocus } from '../../../../lib/next_focus';

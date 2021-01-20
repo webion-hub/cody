@@ -8,8 +8,8 @@ import { Typography } from '@material-ui/core';
 import { InputAdornment } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../components/base_photo_text'
-import { DialogBase } from '../../../components/dialog_base'
+import { BasePhotoText } from '../../../components/bases/base_photo_text'
+import { DialogBase } from '../../../components/bases/dialog_base'
 import { NextFocus } from '../../../lib/next_focus';
 import { School } from '../../../lib/school';
 import { LoadingButton } from '../../../components/loading_button';

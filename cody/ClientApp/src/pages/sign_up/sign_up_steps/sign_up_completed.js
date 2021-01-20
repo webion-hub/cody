@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../components/base_photo_text'
+import { BasePhotoText } from '../../../components/bases/base_photo_text'
 
 import { RocketLaunch } from '../../../components/illustrations/rocket_launch';
 
