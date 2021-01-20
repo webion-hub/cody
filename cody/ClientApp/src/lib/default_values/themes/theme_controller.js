@@ -6,8 +6,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 export class ThemeController {
   constructor(){
-    this.color = lightColors;
-    this.themeMode = "light";
+    this.color = darkColors;
+    this.themeMode = "dark";
   }
 
   setThemeMode(themeMode){
