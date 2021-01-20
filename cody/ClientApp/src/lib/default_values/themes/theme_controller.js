@@ -50,6 +50,7 @@ export class ThemeController {
             },
             '*::-webkit-scrollbar': {
               width: '4px',
+              height: '4px',
             },
             '*::-webkit-scrollbar-thumb': {
               background: this.color.tertiary
