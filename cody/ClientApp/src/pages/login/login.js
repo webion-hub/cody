@@ -21,7 +21,7 @@ export class Login extends Component {
       <Grid
         style={{
           minHeight: "100vh",
-          backgroundImage: `url(${Images.bulbImage})`,
+          backgroundImage: `url(${Images.forestImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center center"
         }}
@@ -52,7 +52,11 @@ export class Login extends Component {
           </Paper> 
           <Box m={0.5}/>
           <Button
-            color="secondary"
+            style={{
+              backdropFilter: "blur(10px)",
+              background: "rgba(0,0,0,0.2)",
+              color: "rgba(208,208,208,0.9)",
+            }}
             endIcon={<ArrowForwardIcon/>}
             href="/sign-up"
           >
