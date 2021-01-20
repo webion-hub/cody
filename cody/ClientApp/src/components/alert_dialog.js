@@ -13,6 +13,7 @@ import { ListItem } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 
 import { BasePhotoText } from './base_photo_text'
+import { DialogBase } from './dialog_base';
 
 import { Error } from './illustrations/error';
 
@@ -33,7 +34,7 @@ export class AlertDialog extends Component {
     const items = this.props.items;
     const cleanItems = items.filter(item => item !== undefined && item !== null)
     const getItems = cleanItems.map((item, index) => 
-      <div key={index}>
+      <div key={item}>
         <ListItem>
           <ListItemText primary={item} />
         </ListItem>
@@ -46,30 +47,11 @@ export class AlertDialog extends Component {
 
   render(){
     return(
-      <Dialog
-        maxWidth="xl"
+      <DialogBase
+        title="C'è stato un errore"
         open={this.props.open}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"C'è stato un errore"}</DialogTitle>
-        <DialogContent>
-          <BasePhotoText
-            image={<Error size={Form.imageWidth}/>}
-            formWidth={Form.width}
-            margin={1}
-            items={[
-              <Typography variant="h6">
-                Ci sono i seguenti errori:
-              </Typography>,
-              <List component="nav">
-                <Divider />
-                {this.getItems()}
-              </List>
-            ]}
-          />
-        </DialogContent>
-        <DialogActions>
+        onClose={this.handleClose}
+        firstButton={
           <Button 
             onClick={this.handleClose}
             color="primary"
@@ -77,8 +59,23 @@ export class AlertDialog extends Component {
           >
             Chiudi
           </Button>
-        </DialogActions>
-      </Dialog>
+        }
+      >
+        <BasePhotoText
+          image={<Error size={Form.imageWidth}/>}
+          formWidth={Form.width}
+          margin={1}
+          items={[
+            <Typography variant="h6">
+              Ci sono i seguenti errori:
+            </Typography>,
+            <List component="nav">
+              <Divider />
+              {this.getItems()}
+            </List>
+          ]}
+        />
+      </DialogBase>
     )
   }
 }

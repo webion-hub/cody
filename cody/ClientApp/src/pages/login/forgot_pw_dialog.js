@@ -12,6 +12,7 @@ import { Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 import { LoadingButton } from '../../components/loading_button';
+import { DialogBase } from '../../components/dialog_base';
 
 import { EmailController } from '../../lib/format_controller/email_controller';
 
@@ -72,54 +73,10 @@ export class ForgotPasswordDialog extends Component {
 
   render(){
     return(
-      <Dialog
-        maxWidth="xl"
+      <DialogBase
         open={this.props.open}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Password dimenticata?"}</DialogTitle>
-        <DialogContent>
-          <Typography
-            variant="subtitle1"
-          >
-            Inserisci la tua email, ti invieremo un link per cambiare password.
-          </Typography>
-          <Box mt={2}>
-            <TextField
-              id="registration_email"
-              label="Email"
-              variant="outlined"
-              color="secondary"
-              disabled={this.state.success}
-              fullWidth={true}
-              required={true}
-              onChange={this.getEmail}
-              error={this.state.emailNotExist || this.state.emailWrongFormat}
-            />
-            <Box
-              textAlign="right"
-            >
-              <Fade
-                in={this.state.emailNotExist}
-              >
-                <Typography
-                  variant="caption"
-                  color="error"
-                >
-                  L'email non è registrata!
-                </Typography>
-              </Fade>
-            </Box> 
-          </Box>
-          <Fade
-            in={this.state.success}
-            disableStrictModeCompat={true}
-          >
-            <Alert severity="success">Controlla la tua email, per resettare la password.</Alert>
-          </Fade>          
-        </DialogContent>
-        <DialogActions>
+        title="Password dimenticata?"
+        firstButton={
           <Fade
             in={!this.state.success}
           >
@@ -130,14 +87,55 @@ export class ForgotPasswordDialog extends Component {
               Chiudi
             </Button>
           </Fade>
+        }
+        secondButton={
           <LoadingButton
             loading={this.state.loading}
             onClick={this.state.success ? this.handleClose : this.tryEmail}
             href="/"
             label={this.state.success ? "Chiudi" : "Conferma"}
           />
-        </DialogActions>
-      </Dialog>
+        }
+      >
+        <Typography
+          variant="subtitle1"
+        >
+          Inserisci la tua email, ti invieremo un link per cambiare password.
+        </Typography>
+        <Box mt={2}>
+          <TextField
+            id="registration_email"
+            label="Email"
+            variant="outlined"
+            color="secondary"
+            disabled={this.state.success}
+            fullWidth={true}
+            required={true}
+            onChange={this.getEmail}
+            error={this.state.emailNotExist || this.state.emailWrongFormat}
+          />
+          <Box
+            textAlign="right"
+          >
+            <Fade
+              in={this.state.emailNotExist}
+            >
+              <Typography
+                variant="caption"
+                color="error"
+              >
+                L'email non è registrata!
+              </Typography>
+            </Fade>
+          </Box> 
+        </Box>
+        <Fade
+          in={this.state.success}
+          disableStrictModeCompat={true}
+        >
+          <Alert severity="success">Controlla la tua email, per resettare la password.</Alert>
+        </Fade>    
+      </DialogBase>
     )
   }
 }
