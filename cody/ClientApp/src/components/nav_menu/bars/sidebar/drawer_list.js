@@ -13,7 +13,7 @@ import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 
 export function GetDrawerList(props){
-
+  
   function createListItems(sections){
     return sections.map((elements, index) => (
       <div key={index}>
@@ -25,6 +25,7 @@ export function GetDrawerList(props){
               padding={element.avatarPadding}
               href={element.href}
               className={props.classes.listItem}
+              onClick={element.onClick}
             >    
               {
                 element.avatar? 
@@ -87,6 +88,7 @@ function CustomListItem(props){
   return (
     <ButtonBase
       href={props.href}
+      onClick={props.onClick}
       style={{
         width: "100%"
       }}

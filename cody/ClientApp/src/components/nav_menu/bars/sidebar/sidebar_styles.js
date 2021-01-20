@@ -38,6 +38,7 @@ export const sidebarStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   drawer: {
+    zIndex: 100000,
     [theme.breakpoints.up('sm')]: {
       flexShrink: 0,
     },
