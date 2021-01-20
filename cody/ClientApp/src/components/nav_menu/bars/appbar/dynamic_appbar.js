@@ -7,6 +7,8 @@ import { Toolbar } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import { Box } from '@material-ui/core';
+import { Slide } from '@material-ui/core';
+import { useScrollTrigger } from '@material-ui/core';
 
 import { sidebarStyles } from '../sidebar/sidebar_styles'
 
@@ -35,57 +37,60 @@ export function DynamicAppbar(props) {
     ))
   }
 
-  return (
-    <AppBar 
-      position={props.appBarPosition} 
-    >
-      <Hidden //Smartphone
-        smUp 
-        implementation="css"
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={props.menuOnClick}
-            className={classes.menuButton}
-          >
-            <MenuRoundedIcon />
-          </IconButton>
-          <Grid
-            container
-            justify="center"
-          >
-            {props.centerAppBar}
-          </Grid>
-        </Toolbar>  
-      </Hidden>
+  const trigger = useScrollTrigger({ target: props.window ? window() : undefined }); //hide on scroll
 
-      <Hidden //Pc
-        xsDown 
-        implementation="css"
-        className={props.width ? classes.fullPadding : classes.restrictedPadding}
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      <AppBar 
+        position={props.appBarPosition} 
       >
-        <Toolbar
-          style={{
-            width: "100%"
-          }}
+        <Hidden //Smartphone
+          smUp 
+          implementation="css"
         >
-          {getSection(props.leftAppBar)}
-          <Box
-            position="absolute"
-            left={0}
-            display="flex"
-            width={1}
-            justifyContent="center"
+          <Toolbar>
+            <IconButton
+              aria-label="open drawer"
+              edge="start"
+              onClick={props.menuOnClick}
+              className={classes.menuButton}
+            >
+              <MenuRoundedIcon />
+            </IconButton>
+            <Grid
+              container
+              justify="center"
+            >
+              {props.centerAppBar}
+            </Grid>
+          </Toolbar>  
+        </Hidden>
+
+        <Hidden //Pc
+          xsDown 
+          implementation="css"
+          className={props.width ? classes.fullPadding : classes.restrictedPadding}
+        >
+          <Toolbar
+            style={{
+              width: "100%"
+            }}
           >
-            {props.centerAppBar}
-          </Box>
-          <Box width={1}/>
-          {getSection(props.rightAppBar)}
-        </Toolbar>
-      </Hidden>
-    </AppBar>
+            {getSection(props.leftAppBar)}
+            <Box
+              position="absolute"
+              left={0}
+              display="flex"
+              width={1}
+              justifyContent="center"
+            >
+              {props.centerAppBar}
+            </Box>
+            <Box width={1}/>
+            {getSection(props.rightAppBar)}
+          </Toolbar>
+        </Hidden>
+      </AppBar>
+    </Slide>
   );
 }
