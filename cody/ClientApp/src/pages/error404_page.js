@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { Paper } from '@material-ui/core';
 
-import { Error404 } from '../../components/illustrations/error404';
+import { Error404 } from '../components/illustrations/error404';
 
 export class Error404Page extends Component {
   static displayName = Error.name; 
