@@ -8,12 +8,12 @@ namespace cody.Security
 {
     public class AttemptedCookieBreachException : UnauthorizedAccessException
     {
-        public UserAccount AffectedAccount { get; init; }
+        public UserAccount AffectedUser { get; init; }
 
         public AttemptedCookieBreachException(UserAccount affectedAccount)
             : base()
         {
-            AffectedAccount = affectedAccount;
+            AffectedUser = affectedAccount;
         }
     }
 }

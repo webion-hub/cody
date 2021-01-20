@@ -23,44 +23,52 @@ namespace cody.Services
         }
 
 
-        public async Task<(int, string)> EmitPersistentLoginCookieForAsync(UserAccount user)
+        public async Task<(int cookieId, string token)> EmitPersistentLoginCookieForAsync(UserAccount user)
         {
-            var cookie = UniqueKey.Create();
+            var cookie = UniqueToken.Create();
             var userCookie = new UserAccountPersistentLoginCookie
             {
                 UserAccount = user,
-                Cookie = cookie.HashedKey,
+                Token = cookie.HashedToken,
                 Salt = cookie.Salt,
             };
 
             await _dbContext.LoginCookies.AddAsync(userCookie);
             await _dbContext.SaveChangesAsync();
 
+            _logger.LogInformation("Created login cookie - {Cookie}", userCookie);
             return (
-                userCookie.Id,
-                Convert.ToBase64String(cookie.PlainTextKey)
+                cookieId: userCookie.Id,
+                token: Convert.ToBase64String(cookie.PlainTextToken)
             );
         }
 
 
-        public async Task<UserAccount> TryLoginAsync(int storedCookieId, string plainTextCookie)
+        public async Task<UserAccount> TryLoginAsync(int storedCookieId, string plainTextToken)
         {
             try
             {
                 var storedCookie = 
                     await GetStoredCookieOrThrowAsync(storedCookieId);
 
-                ConsumeCookieOrThrow(plainTextCookie, storedCookie);
+                ConsumeCookieOrThrow(plainTextToken, storedCookie);
+                _logger.LogInformation(
+                    "Consumed login cookie {Cookie}", storedCookie);
+
                 return storedCookie.UserAccount;
             }
             catch (AttemptedCookieBreachException e) 
-            when (e.AffectedAccount is null)
+            when (e.AffectedUser is null)
             {
+                _logger.LogWarning("Attempted cookie breach");
                 return null;
             }
             catch (AttemptedCookieBreachException e)
             {
-                DropAllCookiesFor(e.AffectedAccount);
+                DropAllCookiesFor(e.AffectedUser);
+                _logger.LogWarning(
+                    "Attempted cookie breach - dropped all tokens for {User}", e.AffectedUser);
+                
                 return null;
             }
             finally 
@@ -85,11 +93,11 @@ namespace cody.Services
 
 
         private void ConsumeCookieOrThrow(
-            string plainTextCookie,
+            string plainTextToken,
             UserAccountPersistentLoginCookie storedCookie
         ) {
             var areEqual = 
-                AreCookiesEqual(plainTextCookie, storedCookie);
+                AreTokensEqual(plainTextToken, storedCookie);
 
             if (!areEqual)
                 throw new AttemptedCookieBreachException(storedCookie.UserAccount);
@@ -100,16 +108,16 @@ namespace cody.Services
         }
 
 
-        private static bool AreCookiesEqual(
-            string plainTextCookie,
+        private static bool AreTokensEqual(
+            string plainTextToken,
             UserAccountPersistentLoginCookie storedCookie
         ) {
-            var submittedCookie = UniqueKey.From(
-                plainKey: Convert.FromBase64String(plainTextCookie), 
+            var submittedCookie = UniqueToken.From(
+                plainTextToken: Convert.FromBase64String(plainTextToken), 
                 salt: storedCookie.Salt
             );
 
-            return UniqueKey.AreEqual(submittedCookie, storedCookie.Cookie);
+            return UniqueToken.AreEqual(submittedCookie, storedCookie.Token);
         }
 
 

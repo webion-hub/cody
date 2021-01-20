@@ -22,19 +22,16 @@ namespace cody.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly EmailValidationService _emailValidationService;
-        private readonly CodyContext _context;
-        private readonly UserLoginCookieEmitter _cookieEmitter;
+        private readonly CodyContext _dbContext;
 
         public UserController(
             ILogger<UserController> logger,
             EmailValidationService emailValidationService,
-            CodyContext context,
-            UserLoginCookieEmitter cookieEmitter
+            CodyContext dbContext
         ) {
             _logger = logger;
             _emailValidationService = emailValidationService;
-            _context = context;
-            _cookieEmitter = cookieEmitter;
+            _dbContext = dbContext;
         }
 
 
@@ -43,7 +40,7 @@ namespace cody.Controllers
         public IActionResult UserExists(string usernameOrEmail)
         {
             var exists =
-                _context.UserExists(usernameOrEmail);
+                _dbContext.UserExists(usernameOrEmail);
 
             _logger.LogInformation($"UserExists - {usernameOrEmail} -> {exists}");
             return Ok(exists);
@@ -65,7 +62,7 @@ namespace cody.Controllers
 
 
             var maybeUser =
-                _context.MaybeGetUserBy(username);
+                _dbContext.MaybeGetUserBy(username);
 
             var userExists = maybeUser.Any();
             if (!userExists)
@@ -82,58 +79,6 @@ namespace cody.Controllers
 
             _logger.LogInformation($"User {username} -> logged in");
             return Ok();
-        }
-
-
-        [HttpGet]
-        [Route("remember_me/{userId}")]
-        public async Task<IActionResult> TryRememberMe(int userId)
-        {
-            var user = _context
-                .UserAccounts
-                .Find(userId);
-
-            if (user is null)
-                return NotFound();
-
-            await GenerateUserLoginCookies(user);
-            return Ok();
-        }
-
-
-        [HttpGet]
-        [Route("login_with_cookie")]
-        public async Task<IActionResult> LoginWithCookie() 
-        {
-            var cookieIdString = Request.Cookies["login_cookie_id"];
-            var cookie = Request.Cookies["login_cookie"];
-
-            if (!int.TryParse(cookieIdString, out var cookieId))
-                return BadRequest();
-
-            if (string.IsNullOrWhiteSpace(cookie))
-                return BadRequest();
-
-
-            var maybeUser =
-                await _cookieEmitter.TryLoginAsync(cookieId, cookie);
-
-            if (maybeUser is null)
-                return BadRequest();
-
-
-            await GenerateUserLoginCookies(maybeUser);
-            return Ok();
-        }
-
-
-        public async Task GenerateUserLoginCookies(UserAccount user)
-        {
-            var (cookieId, cookie) =
-                await _cookieEmitter.EmitPersistentLoginCookieForAsync(user);
-
-            Response.Cookies.Append("login_cookie_id", cookieId.ToString());
-            Response.Cookies.Append("login_cookie", cookie);
         }
 
 
@@ -154,8 +99,8 @@ namespace cody.Controllers
             try
             {
                 await _emailValidationService.MarkUserForValidationAsync(account);
-                await _context.UserAccounts.AddAsync(account);
-                await _context.SaveChangesAsync();
+                await _dbContext.UserAccounts.AddAsync(account);
+                await _dbContext.SaveChangesAsync();
             }
             catch (DbUpdateException e) {
                 _logger.LogError(e, "DB Register error - {Account}", account);
@@ -183,10 +128,10 @@ namespace cody.Controllers
 
         private IEnumerable<string> MaybeUserExists(string username, string email)
         {
-            if (_context.UserExists(username))
+            if (_dbContext.UserExists(username))
                 yield return "username_exists";
 
-            else if (_context.UserExists(email))
+            else if (_dbContext.UserExists(email))
                 yield return "email_exists";
         }
     }

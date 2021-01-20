@@ -15,7 +15,7 @@ namespace cody.Models
         public int Id { get; set; }
 
 
-        public byte[] Cookie { get; set; }
+        public byte[] Token { get; set; }
         public byte[] Salt { get; set; }
 
 
