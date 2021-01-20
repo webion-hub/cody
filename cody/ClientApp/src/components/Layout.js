@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavMenu } from './nav_menu/nav_menu';
+import { CustomizableMenu } from './nav_menu/customizable_menu';
 
 export class Layout extends Component {
   static displayName = Layout.name;
@@ -7,9 +7,9 @@ export class Layout extends Component {
   render () {
     return (
       <div>
-        <NavMenu>
+        <CustomizableMenu>
           {this.props.children}
-        </NavMenu>
+        </CustomizableMenu>
       </div>
     );
   }
