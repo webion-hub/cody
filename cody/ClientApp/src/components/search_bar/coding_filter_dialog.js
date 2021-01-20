@@ -7,13 +7,11 @@ import { Autocomplete } from '@material-ui/lab';
 import { Grid } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { DialogBase } from './dialog_base';
-import { Form } from '../lib/default_values/sizes/form_size';
-import { languages } from '../lib/default_values/lists/coding_languages';
+import { DialogBase } from '../bases/dialog_base';
+import { Form } from '../../lib/default_values/sizes/form_size';
+import { languages } from '../../lib/default_values/lists/coding_languages';
 
-import { Coding } from './illustrations/coding';
-
-
+import { Coding } from '../illustrations/coding';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +65,7 @@ export function CodingFilterDialog(props) {
             maxWidth: Form.width,
             width: "100%"
           }}
-          defaultValue={props.defaultValue}
+          value={props.defaultValue}
           classes={{paper: classes.menuPaper}}
           onChange={(event, value) => handleChange(value)}
           renderOption={(option, { selected }) => (
