@@ -184,7 +184,7 @@ export class SignUp extends Component {
       <Grid
         style={{
           minHeight: "100vh",
-          backgroundImage: `url(${Images.bulbImage})`,
+          backgroundImage: `url(${Images.forestImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
@@ -228,7 +228,7 @@ export class SignUp extends Component {
               variant="caption"
               style={{
                 marginRight: 5,
-                color: "#9e9e9e"
+                color: "#d0d0d0"
               }}
             >
               Registrandoti accetti i nostri
@@ -239,7 +239,7 @@ export class SignUp extends Component {
               href="/terms_and_services"
               style={{
                 fontWeight: "bold",
-                color: "#9e9e9e"
+                color: "#d0d0d0"
               }}
             >
               termini di servizio.
