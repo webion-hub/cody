@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import { Layout } from './components/layout';
+import { Layout } from './components/Layout';
 
 import { Login } from './pages/login/login';
 import { SignUp } from './pages/sign_up/sign_up';

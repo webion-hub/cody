@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchBar } from '../../search_bar';
+import { SearchBar } from '../../search_bar/search_bar';
 
 import { Avatar } from '@material-ui/core';
 
