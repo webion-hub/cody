@@ -42,8 +42,9 @@ export function ChipsArray(props){
   }
 
   return(
-    <ul className={classes.root}>
-      {console.log(chipData)}
+    <ul 
+      className={classes.root}
+    >
       {
         chipData.length === 0 ?
           <Typography
