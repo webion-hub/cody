@@ -45,7 +45,6 @@ export const sidebarStyles = makeStyles((theme) => ({
   },
 
   menuButton: {
-    marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
