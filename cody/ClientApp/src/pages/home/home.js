@@ -47,7 +47,7 @@ const sidebarStyles = makeStyles((theme) => ({
 }));
 
 export function Home(){
-  const { customMenuSection, setCustomMenuSection } = React.useContext(CustomizableMenuContext);
+  const { setCustomMenuSection } = React.useContext(CustomizableMenuContext);
   const classes = sidebarStyles();
 
   useEffect(() => {

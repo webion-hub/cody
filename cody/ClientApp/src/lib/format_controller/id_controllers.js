@@ -43,7 +43,7 @@ export class NameSurnameController{
   checkNameSurname(val){
     return new Promise(resolve => {
       let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
-      const wrongId = val.length == 0 || !re.test(val)
+      const wrongId = val.length === 0 || !re.test(val)
       
       resolve(wrongId);
     })

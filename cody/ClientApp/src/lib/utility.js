@@ -1,6 +1,3 @@
-import { CancelToken } from 'axios';
-
-
 /**
  * @param {any} object 
  * @param {string} name 

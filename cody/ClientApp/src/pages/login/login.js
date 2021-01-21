@@ -55,7 +55,7 @@ export class Login extends Component {
             style={{
               backdropFilter: "blur(10px)",
               background: "rgba(0,0,0,0.2)",
-              color: "rgba(208,208,208,0.9)",
+              color: "rgba(255,255,255,0.9)",
             }}
             endIcon={<ArrowForwardIcon/>}
             href="/sign-up"

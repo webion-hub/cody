@@ -69,6 +69,8 @@ export function PwStrengthProgress(props){
         return classes.strong;
       case 100:
         return classes.veryStrong;
+      default:
+        return 0;
     }
   }
 

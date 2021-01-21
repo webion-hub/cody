@@ -2,10 +2,6 @@
 import React, { Component } from 'react';
 
 import { Button } from '@material-ui/core';
-import { Dialog } from '@material-ui/core';
-import { DialogActions } from '@material-ui/core';
-import { DialogContent } from '@material-ui/core';
-import { DialogTitle } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import { List } from '@material-ui/core';

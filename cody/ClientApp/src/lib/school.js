@@ -1,5 +1,5 @@
 import { invokeCallback } from './utility';
-import { CancelToken, AxiosResponse, AxiosRequestConfig } from 'axios';
+import { AxiosResponse, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import './cody_types';
 

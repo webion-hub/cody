@@ -18,6 +18,9 @@ export class ThemeController {
         break;
       case "light":
         this.color = lightColors;
+        break;
+      default:
+        this.color = lightColors;
     }
   }
 

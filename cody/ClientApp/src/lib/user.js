@@ -171,7 +171,7 @@ export class User {
             );
           },
           400: _ => {
-            return data.errors != undefined
+            return data.errors !== undefined
               ? _ => onMissingFields(data.errors)
               : _=> onError(data);
           },

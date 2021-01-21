@@ -1,7 +1,6 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import './cody_types';
 import 'axios';
-import { AccountTreeRounded } from '@material-ui/icons';
 
 /**
  * @typedef {object} CreateOrUpdateOptions

@@ -26,7 +26,7 @@ export class IDController{
             .checkUsername(username)
             .then(
               result => {
-                if(result != "correctUsername") {
+                if(result !== "correctUsername") {
                   errorsList.push(result);
                   errorsList = this.removeNoError(errorsList);
                 }

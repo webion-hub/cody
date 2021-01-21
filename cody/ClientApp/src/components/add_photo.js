@@ -52,10 +52,6 @@ export class AddPhoto extends Component{
   }
 
   render(){
-    const iconSize = this.props.iconSize;
-    const boxSize = this.props.size;
-    const margin = (boxSize - iconSize) / 16;
-
     return (
       <Box>
         <Badge

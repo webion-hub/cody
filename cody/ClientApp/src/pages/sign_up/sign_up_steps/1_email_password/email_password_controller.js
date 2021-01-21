@@ -27,7 +27,7 @@ export class EmailPasswordController{
           emailController.checkEmail(email)
           .then(
             result => {
-              if(result != "correctEmail") {
+              if(result !== "correctEmail") {
                 errorsList.push(result);
                 errorsList = this.removeNoError(errorsList);
               }

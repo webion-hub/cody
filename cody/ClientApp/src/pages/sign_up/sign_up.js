@@ -85,7 +85,7 @@ export class SignUp extends Component {
         .then(results => {
           let errors = {};
           results.forEach(result => {
-            if (result == 'noError') {
+            if (result === 'noError') {
               errors.newStep = this.state.currentStep + 1;
               return;
             }
