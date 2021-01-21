@@ -1,14 +1,31 @@
 import React from 'react';
-import { SearchBar } from '../../search_bar/search_bar';
-
 import { Avatar } from '@material-ui/core';
+import { Hidden } from '@material-ui/core';
+import { Box } from '@material-ui/core';
+
+import { SearchBar } from '../../search_bar/search_bar';
+import { CompressedSearchBar } from '../../search_bar/compressed_search_bar';
 
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 
 
 const leftAppBar = null;
 
-const centerAppBar = <SearchBar />
+const centerAppBar =  (
+  <Box width={1}>
+    <Hidden //Smartphone
+      smUp 
+    >
+      <CompressedSearchBar/>
+    </Hidden>    
+    <Hidden //PC
+      xsDown 
+    >
+      <SearchBar />
+    </Hidden>
+  </Box>
+); 
+
 
 const rightAppBar = [
   {
