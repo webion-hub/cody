@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     height: 44,
     overflowX: "auto",
     whiteSpace: "nowrap",
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: "normal",
+    },
   },
   li: {
     display: "inline-block"

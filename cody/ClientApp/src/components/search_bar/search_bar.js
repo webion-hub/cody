@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SearchBar() {
+export function SearchBar(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [languageSelected, setLanguageSelected] = React.useState(null);
-  const [showChips, setShowChips] = React.useState(false);
+  const [showFavorite, setShowFavorite] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,8 +48,8 @@ export function SearchBar() {
     setOpen(false);
   };
 
-  const handleShowChips = () => {
-    setShowChips(!showChips);
+  const handleShowFavorite = () => {
+    setShowFavorite(!showFavorite);
   };
 
   const getLanguage = (value) => {
@@ -64,20 +64,26 @@ export function SearchBar() {
       alignItems="center"
     >
       <Paper component="form" className={classes.root}>
-        <Tooltip 
-          title={showChips ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
-          aria-label="filter"
-          placement="left"
-          arrow
-        >
-          <IconButton 
-            className={classes.iconButton}
-            onClick={handleShowChips}
-            aria-label="favorite"
-          >
-            {showChips ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
-          </IconButton>
-        </Tooltip>
+        {
+          props.showFavoriteAlways ? (
+            null
+          ):(
+            <Tooltip 
+              title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
+              aria-label="filter"
+              placement="left"
+              arrow
+            >
+              <IconButton 
+                className={classes.iconButton}
+                onClick={handleShowFavorite}
+                aria-label="favorite"
+              >
+                {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
+              </IconButton>
+            </Tooltip>
+          )
+        }
         <InputBase
           className={classes.input}
           placeholder="Cerca"
@@ -113,7 +119,7 @@ export function SearchBar() {
         width={1}
       >
         <Fade
-          in={showChips}
+          in={showFavorite || props.showFavoriteAlways}
         >
           <div>
             <ChipsArray
