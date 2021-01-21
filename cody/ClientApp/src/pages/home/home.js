@@ -17,7 +17,7 @@ const sidebarStyles = makeStyles((theme) => ({
     transform: "translate(0%, -50%)",
     [theme.breakpoints.up('sm')]: {
       position: "sticky",
-      top: "31px",
+      top: "32px",
       padding: "8px",
       zIndex: "1200",
     },

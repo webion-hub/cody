@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from '@material-ui/core';
@@ -23,9 +23,16 @@ const useStyles = makeStyles((theme) => ({
 export function CodingFilterDialog(props) {
   const classes = useStyles();
   const [languageValue, setLanguageValue] = React.useState(null);
+  const [defaultLanguage, setDefaultLanguage] = React.useState(null);
+
+  useEffect(() => {
+    //execute before render
+    setDefaultLanguage(props.defaultValue);
+  }, []);
 
   function handleChange(value){
     setLanguageValue(value);
+    setDefaultLanguage(value);
   }
 
   function handleSubmit(){
@@ -65,7 +72,7 @@ export function CodingFilterDialog(props) {
             maxWidth: Form.width,
             width: "100%"
           }}
-          value={props.defaultValue}
+          value={defaultLanguage}
           classes={{paper: classes.menuPaper}}
           onChange={(event, value) => handleChange(value)}
           renderOption={(option, { selected }) => (

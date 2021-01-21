@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import { Chip } from '@material-ui/core';
 import { languages } from '../../lib/default_values/lists/coding_languages'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "normal",
     listStyle: 'none',
     margin: "0 auto",
     padding: 0,
@@ -14,9 +15,6 @@ const useStyles = makeStyles((theme) => ({
     height: 44,
     overflowX: "auto",
     whiteSpace: "nowrap",
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: "normal",
-    },
   },
   li: {
     display: "inline-block"
@@ -45,25 +43,33 @@ export function ChipsArray(props){
 
   return(
     <ul className={classes.root}>
+      {console.log(chipData)}
       {
-        chipData.map((data) => {
-          return (
-            <li key={data.key} className={classes.li}>
-              <Chip
-                clickable
-                onClick={() => handleOnClick(data)} 
-                icon={
-                  <div className={classes.icon}>
-                    {data.icon}
-                  </div>
-                }
-                label={data.title}
-                onDelete={handleDelete(data)}
-                className={classes.chip}
-              />
-            </li>
-          );
-        })
+        chipData.length === 0 ?
+          <Typography
+            variant="body2"
+          >
+            Non hai linguaggi preferiti
+          </Typography>
+          :
+          chipData.map((data) => {
+            return (
+              <li key={data.key} className={classes.li}>
+                <Chip
+                  clickable
+                  onClick={() => handleOnClick(data)} 
+                  icon={
+                    <div className={classes.icon}>
+                      {data.icon}
+                    </div>
+                  }
+                  label={data.title}
+                  onDelete={handleDelete(data)}
+                  className={classes.chip}
+                />
+              </li>
+            );
+          })
       }
     </ul>
   );
