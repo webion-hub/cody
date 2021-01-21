@@ -90,10 +90,10 @@ namespace cody.Controllers
 
         private async Task GenerateUserLoginCookies(UserAccount user)
         {
-            var (cookieId, token) =
+            var (id, token) =
                 await _cookieEmitter.EmitPersistentLoginCookieForAsync(user);
 
-            Response.Cookies.Append(Cookies.ID, cookieId.ToString());
+            Response.Cookies.Append(Cookies.ID, id.ToString());
             Response.Cookies.Append(Cookies.TOKEN, token);
         }
     }

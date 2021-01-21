@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace cody.Services
 {
+    public record PersistentLoginCookie(int Id, string Token);
+
+
     public class UserLoginCookieEmitter
     {
         private readonly ILogger<UserLoginCookieEmitter> _logger;
@@ -23,7 +26,7 @@ namespace cody.Services
         }
 
 
-        public async Task<(int cookieId, string token)> EmitPersistentLoginCookieForAsync(UserAccount user)
+        public async Task<PersistentLoginCookie> EmitPersistentLoginCookieForAsync(UserAccount user)
         {
             var cookie = UniqueToken.Create();
             var userCookie = new UserAccountPersistentLoginCookie
@@ -37,9 +40,9 @@ namespace cody.Services
             await _dbContext.SaveChangesAsync();
 
             _logger.LogInformation("Created login cookie - {Cookie}", userCookie);
-            return (
-                cookieId: userCookie.Id,
-                token: Convert.ToBase64String(cookie.PlainTextToken)
+            return new (
+                Id: userCookie.Id,
+                Token: Convert.ToBase64String(cookie.PlainTextToken)
             );
         }
 
