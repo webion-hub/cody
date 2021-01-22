@@ -25,6 +25,16 @@ namespace cody
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+
             services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration => 
             {
@@ -32,46 +42,22 @@ namespace cody
             });
 
 
-            services.AddDbContext<CodyContext>(options =>
-            {
-                var connectionString =
-                    Configuration.GetConnectionString("CodyContextRemote");
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/login";
+                    options.AccessDeniedPath = "/error/404";
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                });
 
-                options
-                    .UseNpgsql(connectionString)
-                    .UseSnakeCaseNamingConvention();
-            });
-            
 
-            services.AddLogging();
-            services.AddSingleton<SftpService>(serviceProvider =>
-            {
-                var logger = 
-                    serviceProvider.GetRequiredService<ILogger<SftpService>>();
-
-                var connection = Configuration
-                    .GetSection("SftpConnection")
-                    .Get<SftpConnection>();
-
-                return new(logger, connection);
-            });
-
-            services.AddScoped<EmailValidationService>(serviceProvider =>
-            {
-                var logger =
-                    serviceProvider.GetRequiredService<ILogger<EmailValidationService>>();
-
-                var codyContext = 
-                    serviceProvider.GetRequiredService<CodyContext>();
-
-                var info = Configuration
-                    .GetSection("EmailServiceInfo")
-                    .Get<EmailServiceInfo>();
-
-                return new(logger, codyContext, info);
-            });
-
-            services.AddScoped<UserLoginCookieEmitter>();
+            services
+                .AddLogging()
+                .AddCodyContext(Configuration)
+                .AddSftpService(Configuration)
+                .AddEmailValidationService(Configuration)
+                .AddPersistentLoginCookieEmitterService();
         }
 
 
@@ -93,6 +79,10 @@ namespace cody
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
