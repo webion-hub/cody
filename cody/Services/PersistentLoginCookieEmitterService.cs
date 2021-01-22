@@ -1,6 +1,6 @@
-﻿using cody.Contexts;
-using cody.Models;
-using cody.Security;
+﻿using Cody.Contexts;
+using Cody.Models;
+using Cody.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,17 +9,17 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace cody.Services
+namespace Cody.Services
 {
     public record PersistentLoginCookie(int Id, string Token);
 
 
-    public class UserLoginCookieEmitter
+    public class PersistentLoginCookieEmitterService
     {
-        private readonly ILogger<UserLoginCookieEmitter> _logger;
+        private readonly ILogger<PersistentLoginCookieEmitterService> _logger;
         private readonly CodyContext _dbContext;
 
-        public UserLoginCookieEmitter(ILogger<UserLoginCookieEmitter> logger, CodyContext dbContext)
+        public PersistentLoginCookieEmitterService(ILogger<PersistentLoginCookieEmitterService> logger, CodyContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
