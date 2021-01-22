@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace cody.Security
+namespace Cody.Security
 {
     public class UniqueToken
     {
@@ -15,10 +15,10 @@ namespace cody.Security
 
         public static UniqueToken Create()
         {
-            var randomToken = Cryptography.GetRandomKey();
-            var salt = Cryptography.GetRandomKey();
-
-            return From(randomToken, salt);
+            var (token, salt) = 
+                Cryptography.GetRandomPair();
+            
+            return From(token, salt);
         }
 
         public static UniqueToken From(byte[] plainTextToken, byte[] salt)
