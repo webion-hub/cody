@@ -1,15 +1,21 @@
-﻿using cody.Contexts;
-using cody.Models;
-using cody.Services;
+﻿using Cody.Contexts;
+using Cody.Extensions;
+using Cody.Models;
+using Cody.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace cody.Controllers
+namespace Cody.Controllers
 {
     [ApiController]
     [Route("user")]
@@ -40,6 +46,7 @@ namespace cody.Controllers
 
         [HttpGet]
         [Route("remember_me/{userId}")]
+        [Authorize]
         public async Task<IActionResult> TryRememberMe(int userId)
         {
             var user = _dbContext
@@ -67,7 +74,7 @@ namespace cody.Controllers
             if (maybeUser is null)
                 return BadRequest();
 
-
+            await HttpContext.UserSignInAsync(maybeUser);
             await GenerateUserLoginCookies(maybeUser);
             return Ok();
         }
@@ -94,7 +101,12 @@ namespace cody.Controllers
                 await _cookieEmitter.EmitPersistentLoginCookieForAsync(user);
 
             Response.Cookies.Append(Cookies.ID, id.ToString());
-            Response.Cookies.Append(Cookies.TOKEN, token);
+            Response.Cookies.Append(Cookies.TOKEN, token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+            });
         }
     }
 }

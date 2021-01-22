@@ -33,6 +33,7 @@ namespace cody.Controllers
         /// <response code="200">The id of the created or updated picture</response>
         [HttpPut]
         [Route("create_or_update")]
+        [Authorize]
         public async Task<IActionResult> CreateOrReplace(
             [FromForm] int accountDetailId,
             [FromForm] IFormFile picture

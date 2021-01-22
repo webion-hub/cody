@@ -1,5 +1,6 @@
-﻿using cody.Contexts;
-using cody.Security;
+﻿using Cody.Contexts;
+using Cody.Extensions;
+using Cody.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Controllers
+namespace Cody.Controllers
 {
     [ApiController]
     [Route("user")]
@@ -29,7 +30,7 @@ namespace cody.Controllers
         /// <response code="400">The passwords didn't match</response>
         [HttpGet]
         [Route("login/{username}/{password}")]
-        public IActionResult TryLogin(string username, string password)
+        public async Task<IActionResult> TryLoginAsync(string username, string password)
         {
             if (string.IsNullOrWhiteSpace(username))
                 return NotFound();
@@ -45,7 +46,7 @@ namespace cody.Controllers
             if (!userExists)
                 return NotFound();
 
-            var foundUser = maybeUser.First();
+            var foundUser = maybeUser.Single();
             var isPasswordCorrect =
                 Password.AreEqual(password, foundUser.Password);
 
@@ -55,6 +56,7 @@ namespace cody.Controllers
                 return BadRequest();
             }
 
+            await HttpContext.UserSignInAsync(foundUser);
             _logger.LogInformation($"User {username} -> logged in");
             return Ok();
         }
