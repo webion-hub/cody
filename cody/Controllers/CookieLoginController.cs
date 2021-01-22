@@ -17,7 +17,7 @@ namespace cody.Controllers
     {
         private readonly ILogger<CookieLoginController> _logger;
         private readonly CodyContext _dbContext;
-        private readonly UserLoginCookieEmitter _cookieEmitter;
+        private readonly PersistentLoginCookieEmitterService _cookieEmitter;
 
 
         private struct Cookies
@@ -30,7 +30,7 @@ namespace cody.Controllers
         public CookieLoginController(
             ILogger<CookieLoginController> logger,
             CodyContext dbContext, 
-            UserLoginCookieEmitter cookieEmitter)
+            PersistentLoginCookieEmitterService cookieEmitter)
         {
             _logger = logger;
             _dbContext = dbContext;
