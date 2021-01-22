@@ -1,6 +1,7 @@
-﻿using cody.Contexts;
-using cody.Models;
-using cody.Services;
+﻿using Cody.Contexts;
+using Cody.Models;
+using Cody.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Controllers
+namespace Cody.Controllers
 {
     [ApiController]
     [Route("profile_picture")]

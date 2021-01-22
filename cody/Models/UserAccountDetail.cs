@@ -1,4 +1,4 @@
-﻿using cody.Security;
+﻿using Cody.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Models
+namespace Cody.Models
 {
     [Table("user_account_detail")]
     public class UserAccountDetail

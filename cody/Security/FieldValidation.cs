@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace cody.Security
+namespace Cody.Security
 {
     public class Validation
     {

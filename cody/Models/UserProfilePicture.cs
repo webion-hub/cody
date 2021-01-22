@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Models
+namespace Cody.Models
 {
     [Table("user_profile_picture")]
     public class UserProfilePicture

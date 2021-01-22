@@ -1,5 +1,5 @@
-﻿using cody.Contexts;
-using cody.Models;
+﻿using Cody.Contexts;
+using Cody.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -11,10 +11,10 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using cody.Services;
-using cody.Security;
+using Cody.Services;
+using Cody.Security;
 
-namespace cody.Controllers
+namespace Cody.Controllers
 {
     [ApiController]
     [Route("user")]

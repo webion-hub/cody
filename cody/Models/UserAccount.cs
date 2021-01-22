@@ -1,9 +1,9 @@
-﻿using cody.Security;
+﻿using Cody.Security;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace cody.Models
+namespace Cody.Models
 {
     [Table("user_account")]
     public class UserAccount

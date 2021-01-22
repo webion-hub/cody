@@ -1,10 +1,10 @@
-﻿using cody.Models;
+﻿using Cody.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Security
+namespace Cody.Security
 {
     public class AttemptedCookieBreachException : UnauthorizedAccessException
     {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Models
+namespace Cody.Models
 {
     [Table("user_account_persistent_login_cookie")]
     public class UserAccountPersistentLoginCookie

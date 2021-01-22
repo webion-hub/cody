@@ -1,8 +1,8 @@
-﻿using cody.Models;
-using cody.Security;
+﻿using Cody.Models;
+using Cody.Security;
 using Microsoft.EntityFrameworkCore;
 
-namespace cody.Contexts
+namespace Cody.Contexts
 {
     public sealed class CodyContext : DbContext
     {

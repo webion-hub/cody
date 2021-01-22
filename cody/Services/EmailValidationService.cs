@@ -1,5 +1,5 @@
-﻿using cody.Contexts;
-using cody.Models;
+﻿using Cody.Contexts;
+using Cody.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cody.Services
+namespace Cody.Services
 {
     public class EmailValidationService : IDisposable
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace cody.Models
+namespace Cody.Models
 {
     [Table("school_account")]
     public class SchoolAccount

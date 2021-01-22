@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cody.Models
+namespace Cody.Models
 {
     [Table("school_account_state")]
     public class SchoolAccountState
