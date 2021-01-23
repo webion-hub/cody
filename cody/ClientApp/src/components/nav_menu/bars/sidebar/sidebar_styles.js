@@ -7,24 +7,15 @@ export const sidebarStyles = makeStyles((theme) => ({
   fullDrawerPaper: {
     width: fullDrawerWidth,
     overflowX: "hidden",
-    transition: "all 0.25s",
+    transition: "width 0.25s",
     backgroundColor: theme.palette.drawer.default,
   },
   restrictedDrawerPaper: {
     width: restrictedWidth,
     overflowX: "hidden",
-    transition: "all 0.25s",
+    transition: "width 0.25s",
     backgroundColor: theme.palette.drawer.default,
   },
-  fullPadding: {
-    paddingLeft: fullDrawerWidth,
-    transition: "all 0.25s",
-  },
-  restrictedPadding: {
-    paddingLeft: restrictedWidth,
-    transition: "all 0.25s",
-  },
-
 
   children: {
     [theme.breakpoints.up('sm')]: {
@@ -41,12 +32,6 @@ export const sidebarStyles = makeStyles((theme) => ({
     zIndex: 100000,
     [theme.breakpoints.up('sm')]: {
       flexShrink: 0,
-    },
-  },
-
-  menuButton: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
     },
   },
 

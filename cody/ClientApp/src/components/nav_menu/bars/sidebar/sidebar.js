@@ -61,7 +61,7 @@ export function SideBar(props) {
         centerAppBar={props.appBarSections.center}
         rightAppBar={props.appBarSections.right}
         sections={props.sideBarSections}
-        width={fullWidth}
+        fullWidth={fullWidth}
       />
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* Drawer section */}
