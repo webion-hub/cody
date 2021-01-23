@@ -24,7 +24,8 @@ export class ThemeController {
     }
   }
 
-  getTheme(){
+  getTheme(themeMode){
+    this.setThemeMode(themeMode);
     return createMuiTheme({
       palette: {
         type: this.themeMode,
