@@ -1,5 +1,4 @@
 import React from 'react';
-import { Divider } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { List } from '@material-ui/core';
@@ -15,6 +14,8 @@ import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 export function GetDrawerList(props){
   
   function createListItems(sections){
+    if(sections === null)
+      return null;
     return sections.map((elements, index) => (
       <div key={index}>
         <List>

@@ -60,6 +60,9 @@ export function SideBar(props) {
         leftAppBar={props.appBarSections.left}
         centerAppBar={props.appBarSections.center}
         rightAppBar={props.appBarSections.right}
+        fadeLeft={props.fadeSections.left}
+        fadeCenter={props.fadeSections.center}
+        fadeRight={props.fadeSections.right}
         sections={props.sideBarSections}
         fullWidth={fullWidth}
       />

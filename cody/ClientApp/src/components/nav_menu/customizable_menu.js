@@ -59,15 +59,11 @@ export function CustomizableMenu(props){
         sideBarSections={sideBar} 
         appBarPosition="fixed"
         appBarSections={{
-          left: leftAppbar,
-          center: 
-          <Fade
-            in={fadeAppBarSection.center}
-          >
-            {centerAppbar}
-          </Fade>,
-          right: rightAppbar,
+          left: leftAppbar,          
+          center: centerAppbar, 
+          right: rightAppbar, 
         }}
+        fadeSections={fadeAppBarSection}
       >
         {props.children}
       </SideBar>

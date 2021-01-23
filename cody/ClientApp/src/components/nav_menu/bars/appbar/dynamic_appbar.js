@@ -8,6 +8,7 @@ import { Tooltip } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
 import { useScrollTrigger } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
@@ -109,13 +110,25 @@ export function DynamicAppbar(props) {
               >
                 <MenuRoundedIcon />
               </IconButton>
-              {getSection(props.leftAppBar)}
+              <Fade in={props.fadeLeft}>
+                <div>
+                  {getSection(props.leftAppBar)}
+                </div>
+              </Fade>
             </Grid>
             <Grid item xs={6}>
-              {props.centerAppBar}
+              <Fade in={props.fadeCenter}>
+                <div>
+                  {props.centerAppBar}
+                </div>
+              </Fade>              
             </Grid>
-            <Grid item xs={3} className={classes.rightSection}>
-              {getSection(props.rightAppBar)}
+            <Grid item xs={3}>
+              <Fade in={props.fadeRight}>
+                <div className={classes.rightSection}>
+                  {getSection(props.rightAppBar)}
+                </div>
+              </Fade>
             </Grid>
           </Grid>
         </Toolbar>

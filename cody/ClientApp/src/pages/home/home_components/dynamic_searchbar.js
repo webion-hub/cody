@@ -33,12 +33,12 @@ export function DynamicSearchBar(){
   const searchBarRef = useRef();
   
   const theme = useTheme();
-  let media = theme.breakpoints.up('md');
+  let media = theme.breakpoints.up('sm');
   media = media.replace('@media ','');
 
   const defaultHomeAppBar = () => {
     setFadeAppBarSection({
-      left: true,
+      left: false,
       center: false,
       right: true,
     });
