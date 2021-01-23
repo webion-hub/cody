@@ -24,8 +24,8 @@ const mainTextStyles = makeStyles((theme) => ({
       marginBottom: 30,
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: "4.5rem",
-      marginBottom: 20,
+      fontSize: "10vw",
+      marginBottom: "3vw",
     },
     [theme.breakpoints.down('xs')]: {
       textAlign: "left",
@@ -42,8 +42,8 @@ const mainTextStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       position: "absolute",
-      fontSize: "1.75rem",
-      transform: "translate(0px, 35px)",
+      fontSize: "3.5vw",
+      transform: "translate(0px, 5vw)",
     },
     [theme.breakpoints.down('xs')]: {
       position: "relative",
