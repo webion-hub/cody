@@ -17,39 +17,43 @@ export function GetDrawerList(props){
   function createListItems(sections){
     return sections.map((elements, index) => (
       <div key={index}>
-        <Divider />
         <List>
           {elements.map((element, index) => (
-            <CustomListItem                   
-              key={element.label + index}
-              padding={element.avatarPadding}
-              href={element.href}
-              className={props.classes.listItem}
-              onClick={element.onClick}
-            >    
+            <div key={element.label + index}>
               {
-                element.avatar? 
-                  <ListItemAvatar 
-                    style={{minWidth: 56 + element.avatarPadding}}
-                  >
-                    {element.avatar}
-                  </ListItemAvatar> 
-                : 
-                  null
+                element.showAlways ? null : (
+                  <CustomListItem                   
+                    padding={element.padding}
+                    href={element.href}
+                    className={props.classes.listItem}
+                    onClick={element.onClick}
+                  >    
+                    {
+                      element.avatar? 
+                        <ListItemAvatar 
+                          style={{minWidth: 56 + element.padding}}
+                        >
+                          {element.avatar}
+                        </ListItemAvatar> 
+                      : 
+                        null
+                    }
+                    {
+                      element.icon? 
+                        <ListItemIcon>
+                          {element.icon}
+                        </ListItemIcon> 
+                      : 
+                        null
+                    }
+                    <ListItemText 
+                      primary={element.label} 
+                      className={props.classes.listText}
+                    />
+                  </CustomListItem>
+                )
               }
-              {
-                element.icon? 
-                  <ListItemIcon>
-                    {element.icon}
-                  </ListItemIcon> 
-                : 
-                  null
-              }
-              <ListItemText 
-                primary={element.label} 
-                className={props.classes.listText}
-              />
-            </CustomListItem>
+            </div>
           ))}
         </List>
       </div>
