@@ -191,7 +191,7 @@ export class SignUpStepper extends Component {
                     href={this.state.activeStep === 0 ? "/login" : ""}
                     disabled={this.state.loading}
                   >
-                    Indietro
+                    {this.state.activeStep === 0 ? "Vai al login" : "Indietro"}
                   </Button>
                   <div>
                   {this.state.activeStep === this.state.steps.length - 1 ?  
