@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useTheme } from '@material-ui/core/styles';
 
 import { CustomizableMenuContext } from '../../components/nav_menu/customizable_menu';
-import { SearchBar } from '../../components/search_bar/search_bar';
+import { DynamicSearchBar } from './home_components/dynamic_searchbar';
+
 import { Images } from '../../lib/default_values/images';
 import { MainTextBox } from './home_components/main_text_box';
 
@@ -10,22 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;
 
-const sidebarStyles = makeStyles((theme) => ({
-  searchBar: {    
-    display: "flex",
-    justifyContent: "center",
-    transform: "translate(0%, -50%)",
-    [theme.breakpoints.up('sm')]: {
-      position: "sticky",
-      top: "32px",
-      padding: "8px",
-      zIndex: "1200",
-    },
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: "20px",
-      marginRight: "20px"
-    },
-  },
+const homeStyles = makeStyles((theme) => ({
   background: {
     position: "absolute",
     left: 0,   
@@ -47,19 +34,7 @@ const sidebarStyles = makeStyles((theme) => ({
 }));
 
 export function Home(){
-  const { setCustomMenuSection } = React.useContext(CustomizableMenuContext);
-  const classes = sidebarStyles();
-
-  useEffect(() => {
-    setCustomMenuSection({
-      appBar: {
-        left: null,
-        center: <div></div>,
-        right: null,
-      },
-      sideBar: null,
-    });
-  }, []);
+  const classes = homeStyles();
 
   return(
     <div
@@ -68,9 +43,7 @@ export function Home(){
       }}
     >
       <MainTextBox/>
-      <div className={classes.searchBar} >
-        <SearchBar/>
-      </div>
+      <DynamicSearchBar/>
       <div className={classes.background}/>    
     </div>
   );

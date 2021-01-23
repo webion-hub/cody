@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fade } from '@material-ui/core';
 
 import { SideBar } from './bars/sidebar/sidebar'
 import { sideBarSections } from './sections/sidebar_sections'
@@ -13,7 +14,13 @@ export const CustomizableMenuContext = React.createContext({
     },
     sideBar: null,
   },
-  setHideAppBar: () => {}
+  setHideAppBar: () => {},
+  setFadeAppBarSection: {
+    left: true,
+    center: true,
+    right: true,
+  },
+  setFadeAppBar: () => {}
 });
 
 export function CustomizableMenu(props){
@@ -25,7 +32,20 @@ export function CustomizableMenu(props){
     },
     sideBar: null,
   });
-  const value = { customMenuSection, setCustomMenuSection };
+
+  const [fadeAppBarSection, setFadeAppBarSection] = React.useState({
+    left: true,
+    center: true,
+    right: true,
+  });
+
+  const value = { 
+    customMenuSection,
+    setCustomMenuSection,
+
+    fadeAppBarSection,
+    setFadeAppBarSection
+  };
   
   const leftAppbar = customMenuSection.appBar.left ? customMenuSection.appBar.left : appBarSections.left;
   const centerAppbar = customMenuSection.appBar.center ? customMenuSection.appBar.center : appBarSections.center;
@@ -40,7 +60,12 @@ export function CustomizableMenu(props){
         appBarPosition="fixed"
         appBarSections={{
           left: leftAppbar,
-          center: centerAppbar,
+          center: 
+          <Fade
+            in={fadeAppBarSection.center}
+          >
+            {centerAppbar}
+          </Fade>,
           right: rightAppbar,
         }}
       >

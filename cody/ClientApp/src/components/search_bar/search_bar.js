@@ -8,9 +8,10 @@ import { IconButton } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
+import { ClickAwayListener } from '@material-ui/core';
 
 import { CodingFilterDialog } from './coding_filter_dialog';
-import { ChipsArray } from './chips_array';
+import { FavoriteChips } from './favorites_chips';
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
@@ -24,6 +25,19 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     maxWidth: 500,
     width: "100%",
+  },
+  searchBarBox: {
+    maxWidth: 500,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: "50vw",
+    },
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: 500,
+    },
+    margin: "0 auto"
+  },
+  chipsBox: {
+    maxWidth: 500
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -57,77 +71,81 @@ export function SearchBar(props) {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-    >
-      <Paper component="form" className={classes.root}>
-        {
-          props.showFavoriteAlways ? (
-            null
-          ):(
-            <Tooltip 
-              title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
-              aria-label="filter"
-              placement="left"
-              arrow
-            >
-              <IconButton 
-                className={classes.iconButton}
-                onClick={handleShowFavorite}
-                aria-label="favorite"
-              >
-                {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
-              </IconButton>
-            </Tooltip>
-          )
-        }
-        <InputBase
-          className={classes.input}
-          placeholder="Cerca"
-          inputProps={{ 'aria-label': 'Cerca' }}
-        />
-        <IconButton type="submit" className={classes.iconButton} aria-label="search">
-          <SearchRoundedIcon />
-        </IconButton>
-        <Tooltip 
-          title="Seleziona il linguaggio di programmazione." 
-          aria-label="filter"
-          placement="right"
-          arrow
-        >
-          <IconButton 
-            className={classes.iconButton} 
-            aria-label="filter"
-            onClick={handleClickOpen}
-          >
-            {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
-          </IconButton>
-        </Tooltip>
-        <CodingFilterDialog
-          open={open}
-          onClose={handleClose}
-          language={getLanguage}
-          defaultValue={languageSelected}
-        />
-      </Paper>
-      <Box 
-        position="absolute"
-        top={60}
-        width={1}
+    <ClickAwayListener onClickAway={() => setShowFavorite(false)}>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className={classes.searchBarBox}
       >
-        <Fade
-          in={showFavorite || props.showFavoriteAlways}
+        <Paper component="form" className={classes.root}>
+          {
+            props.showFavoriteAlways ? (
+              null
+            ):(
+              <Tooltip 
+                title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
+                aria-label="filter"
+                placement="left"
+                arrow
+              >
+                <IconButton 
+                  className={classes.iconButton}
+                  onClick={handleShowFavorite}
+                  aria-label="favorite"
+                >
+                  {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
+                </IconButton>
+              </Tooltip>
+            )
+          }
+          <InputBase
+            className={classes.input}
+            placeholder="Cerca"
+            inputProps={{ 'aria-label': 'Cerca' }}
+          />
+          <IconButton type="submit" className={classes.iconButton} aria-label="search">
+            <SearchRoundedIcon />
+          </IconButton>
+          <Tooltip 
+            title="Seleziona il linguaggio di programmazione." 
+            aria-label="filter"
+            placement="right"
+            arrow
+          >
+            <IconButton 
+              className={classes.iconButton} 
+              aria-label="filter"
+              onClick={handleClickOpen}
+            >
+              {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
+            </IconButton>
+          </Tooltip>
+          <CodingFilterDialog
+            open={open}
+            onClose={handleClose}
+            language={getLanguage}
+            defaultValue={languageSelected}
+          />
+        </Paper>
+        <Box 
+          position="absolute"
+          top={60}
+          width={1}
+          className={classes.chipsBox}
         >
-          <div>
-            <ChipsArray
-              language={getLanguage}
-            />
-          </div>
-        </Fade>        
-      </Box>
-    </Grid>
+          <Fade
+            in={showFavorite || props.showFavoriteAlways}
+          >
+            <div>
+              <FavoriteChips
+                language={getLanguage}
+              />
+            </div>
+          </Fade>        
+        </Box>
+      </Grid>
+    </ClickAwayListener>
   );
 }
