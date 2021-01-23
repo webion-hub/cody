@@ -9,15 +9,25 @@ import { CompressedSearchBar } from '../../search_bar/compressed_search_bar';
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 
 
-const leftAppBar = null;
+const leftAppBar = [
+  {  
+    label: "Cerca",
+    element: (
+      <Box width={1}>
+        <Hidden //Smartphone
+          smUp 
+        >
+          <CompressedSearchBar/>
+        </Hidden>    
+      </Box>
+    ), 
+    showAlways: true,
+    padding: 0,   
+  }
+];
 
 const centerAppBar =  (
-  <Box width={1}>
-    <Hidden //Smartphone
-      smUp 
-    >
-      <CompressedSearchBar/>
-    </Hidden>    
+  <Box width={1}> 
     <Hidden //PC
       xsDown 
     >
@@ -30,7 +40,7 @@ const centerAppBar =  (
 const rightAppBar = [
   {
     label: 'Notifiche',
-    icon: (<NotificationsRoundedIcon />)
+    icon: (<NotificationsRoundedIcon />),
   },
   {
     label: 'Account',
@@ -44,7 +54,7 @@ const rightAppBar = [
         }}
       />
     ),
-    avatarPadding: 6,
+    padding: 6,
   },
 ]
 
