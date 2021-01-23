@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function ChipsArray(props){
+export function FavoriteChips(props){
   const classes = useStyles();
   const [chipData, setChipData] = React.useState(languages);
 
@@ -58,6 +58,7 @@ export function ChipsArray(props){
               <li key={data.key} className={classes.li}>
                 <Chip
                   clickable
+                  color="primary"
                   onClick={() => handleOnClick(data)} 
                   icon={
                     <div className={classes.icon}>
