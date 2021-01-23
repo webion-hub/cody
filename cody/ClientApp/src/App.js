@@ -16,6 +16,7 @@ import { ThemeController } from "./lib/default_values/themes/theme_controller";
 
 import './custom.css';
 
+const themeController = new ThemeController();
 
 export default class App extends Component {
   static displayName = App.name;
@@ -42,18 +43,10 @@ export default class App extends Component {
 
 function Theme(props){
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const themeMode = prefersDarkMode ? "dark" : "light";
+  const theme = prefersDarkMode ? "dark" : "light";
 
-  let themeController = new ThemeController();
-  let theme = themeController.getTheme();
-
-  useEffect(() => {
-    //execute before render
-    themeController.setThemeMode(themeMode);
-  }, []);
-  
   return (
-    <MuiThemeProvider theme = {theme}>
+    <MuiThemeProvider theme = {themeController.getTheme(theme)}>
       <CssBaseline />
       {props.children}
     </MuiThemeProvider>
