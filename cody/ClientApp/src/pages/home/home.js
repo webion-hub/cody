@@ -1,7 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import { useTheme } from '@material-ui/core/styles';
-
-import { CustomizableMenuContext } from '../../components/nav_menu/customizable_menu';
+import React from 'react';
 import { DynamicSearchBar } from './home_components/dynamic_searchbar';
 
 import { Images } from '../../lib/default_values/images';
