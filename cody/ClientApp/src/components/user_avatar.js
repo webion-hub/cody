@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
 export function UserAvatar(){  
   const classes = useStyles();
   const logged = true;
-  const notification = true;
+  const notificationsNumber = 10;
+  const notification = notificationsNumber > 0;
 
   const [openMenu, setOpenMenu] = React.useState(null);
 
@@ -112,10 +113,16 @@ export function UserAvatar(){
                 <ListItemIcon>
                   {
                     notification ? (
-                      <NotificationsRoundedIcon 
-                        color="secondary"
-                        className={classes.notifications}
-                      />
+                      <Tooltip
+                        arrow
+                        placement="left"
+                        title={`Hai ${notificationsNumber} notifiche`}
+                      >
+                        <NotificationsRoundedIcon 
+                          color="secondary"
+                          className={classes.notifications}
+                        />
+                      </Tooltip>
                     ):(
                       <NotificationsRoundedIcon/>
                     )
