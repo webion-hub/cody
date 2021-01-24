@@ -48,6 +48,26 @@ export const dynamicAppbarStyles = makeStyles((theme) => ({
 
 export function DynamicAppbar(props) {
   const classes = dynamicAppbarStyles();
+
+  function getMainContent(element){
+    return <div>
+      {
+        element.element? (
+          element.element
+        ):(
+          <IconButton
+            href={element.href}
+            style={{
+              padding: element.padding
+            }}
+          >
+            {element.icon? element.icon : null}
+            {element.avatar? element.avatar : null}
+          </IconButton>    
+        )
+      }  
+    </div>
+  }
   
   function getSection(section){
     if(section === null)
@@ -58,29 +78,20 @@ export function DynamicAppbar(props) {
         xsDown={!element.showAlways}
         implementation="css"
       >
-        <Tooltip
-          title={element.label}
-          placement="bottom"
-          arrow
-        >
-          {
-            element.element? (
-              <div>
-                {element.element}
-              </div> 
-            ):(
-              <IconButton
-                href={element.href}
-                style={{
-                  padding: element.padding
-                }}
-              >
-                {element.icon? element.icon : null}
-                {element.avatar? element.avatar : null}
-              </IconButton>    
-            )
-          }                       
-        </Tooltip>
+        {
+          element.tooltip ? (
+            getMainContent(element)
+          ):(
+            <Tooltip
+              title={element.label?element.label : ""}
+              placement="bottom"
+              arrow
+            >
+              {getMainContent(element)}               
+            </Tooltip>
+          )
+        }
+
       </Hidden>
     ))
   }
