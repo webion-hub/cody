@@ -78,6 +78,15 @@ export class ThemeController {
           paperAnchorDockedLeft: {
             borderRight: "none",
           }
+        },
+        MuiTooltip: {
+          tooltip: {
+            color: this.color.backgroundDark,
+            backgroundColor: this.color.tertiary
+          },
+          arrow: {
+            color: this.color.tertiary
+          },
         }
       },
     }, itIT)
