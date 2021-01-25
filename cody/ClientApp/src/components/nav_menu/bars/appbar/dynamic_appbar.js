@@ -9,28 +9,14 @@ import { Slide } from '@material-ui/core';
 import { useScrollTrigger } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
+
+import { useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-
-export const fullDrawerWidth = 240;
-export const restrictedWidth = 48;
-
-export const dynamicAppbarStyles = makeStyles((theme) => ({
-  fullPadding: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: fullDrawerWidth,
-      transition: "all 0.25s",
-    }
-  },
-  restrictedPadding: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: restrictedWidth,
-      transition: "all 0.25s",
-    }
-  },
+const dynamicAppbarStyles = makeStyles((theme) => ({
   rightSection: {
     display: "flex",
     justifyContent: "flex-end"
@@ -38,11 +24,14 @@ export const dynamicAppbarStyles = makeStyles((theme) => ({
   leftSection: {
     display: "flex",
   },
-  menuButton: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+  toolbar: {
+    paddingLeft: 0
   },
+  toolbarGrid: {
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: 24
+    },
+  }
 }));
 
 
@@ -91,36 +80,32 @@ export function DynamicAppbar(props) {
             </Tooltip>
           )
         }
-
       </Hidden>
     ))
   }
 
   const trigger = useScrollTrigger({ target: props.window ? window() : undefined }); //hide on scroll
+  const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={false} direction="down" in={mobileView ? !trigger : true}>
       <AppBar 
-        position={props.appBarPosition} 
-        className={props.fullWidth ? classes.fullPadding : classes.restrictedPadding}
+        position={props.appBarPosition}
       >
-        <Toolbar
-          style={{
-            width: "100%"
-          }}          
-        >
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            aria-label="open drawer"
+            onClick={props.menuOnClick}
+            className={classes.menuButton}
+          >
+            <MenuRoundedIcon />
+          </IconButton>
           <Grid
             container 
+            className={classes.toolbarGrid}
           >
             <Grid item xs={3} className={classes.leftSection}>
-              <IconButton
-                aria-label="open drawer"
-                edge="start"
-                onClick={props.menuOnClick}
-                className={classes.menuButton}
-              >
-                <MenuRoundedIcon />
-              </IconButton>
               <Fade in={props.fadeLeft}>
                 <div>
                   {getSection(props.leftAppBar)}

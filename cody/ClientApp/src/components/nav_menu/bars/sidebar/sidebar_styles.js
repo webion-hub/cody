@@ -9,12 +9,20 @@ export const sidebarStyles = makeStyles((theme) => ({
     overflowX: "hidden",
     transition: "width 0.25s",
     backgroundColor: theme.palette.drawer.default,
+    marginTop: 64,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 56,
+    },
   },
   restrictedDrawerPaper: {
     width: restrictedWidth,
     overflowX: "hidden",
     transition: "width 0.25s",
     backgroundColor: theme.palette.drawer.default,
+    marginTop: 64,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 56,
+    },
   },
 
   children: {
@@ -42,19 +50,6 @@ export const sidebarStyles = makeStyles((theme) => ({
   listItem: {
     paddingLeft: 12,
     paddingRight: 12,
-  },
-
-  fullDrawerList: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    ...theme.mixins.toolbar,
-  },
-  restrictedDrawerList: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...theme.mixins.toolbar,
   },
 
   content: {

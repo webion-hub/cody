@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Drawer  } from '@material-ui/core';
 import { SwipeableDrawer  } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
 
@@ -14,6 +15,8 @@ import { DynamicAppbar } from '../appbar/dynamic_appbar'
 export function SideBar(props) {
   const classes = sidebarStyles();
   const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(false);
 
@@ -45,17 +48,15 @@ export function SideBar(props) {
   const drawerList = (
     <GetDrawerList
       classes={classes}
-      handleFullWidth={handleFullWidth}
       sections={props.sideBarSections}
       appBarSections={getAppBarSections()}
-      fullWidth={fullWidth}
     />
   )
 
   return (
     <div className={classes.root}>
       <DynamicAppbar
-        menuOnClick={handleDrawerToggle}
+        menuOnClick={mobileView ? handleDrawerToggle : handleFullWidth}
         appBarPosition={props.appBarPosition}
         leftAppBar={props.appBarSections.left}
         centerAppBar={props.appBarSections.center}
@@ -64,7 +65,6 @@ export function SideBar(props) {
         fadeCenter={props.fadeSections.center}
         fadeRight={props.fadeSections.right}
         sections={props.sideBarSections}
-        fullWidth={fullWidth}
       />
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* Drawer section */}
