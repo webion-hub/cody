@@ -2,12 +2,10 @@ import React from 'react';
 import { Hidden } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { SearchBar } from '../../search_bar/search_bar';
-import { CompressedSearchBar } from '../../search_bar/compressed_search_bar';
-import { UserAvatar } from '../../user_avatar';
-
-import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
-
+import { SearchBar } from '../../pickers/search_bar/search_bar';
+import { CompressedSearchBar } from '../../pickers/search_bar/compressed_search_bar';
+import { UserAvatarIcon } from '../../interactive_icons/user_avatar_icon';
+import { NotificationsIcon } from '../../interactive_icons/notifications_icon';
 
 const leftAppBar = [
   {  
@@ -40,7 +38,12 @@ const centerAppBar =  (
 const rightAppBar = [
   {
     tooltip: false,
-    element: (<UserAvatar/>),
+    element: (<NotificationsIcon/>),
+    showAlways: true,
+  },
+  {
+    tooltip: false,
+    element: (<UserAvatarIcon/>),
     showAlways: true,
   },
 ]
@@ -50,4 +53,3 @@ export const appBarSections = {
   center: centerAppBar,
   right: rightAppBar,
 }
-
