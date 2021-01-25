@@ -103,7 +103,7 @@ export function UserAvatar(){
             >
               <MenuItem onClick={() => {}}>
                 <ListItemIcon>
-                  <AccountCircleRoundedIcon fontSize="small" />
+                  <AccountCircleRoundedIcon fontSize="small"/>
                 </ListItemIcon>
                 <Typography variant="inherit" noWrap>
                   Account
@@ -120,11 +120,12 @@ export function UserAvatar(){
                       >
                         <NotificationsRoundedIcon 
                           color="secondary"
+                          fontSize="small"
                           className={classes.notifications}
                         />
                       </Tooltip>
                     ):(
-                      <NotificationsRoundedIcon/>
+                      <NotificationsRoundedIcon fontSize="small"/>
                     )
                   }
 

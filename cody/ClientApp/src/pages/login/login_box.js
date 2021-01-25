@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core/';
 
 import { Password } from '../../components/password/password_textfield';
-import { LoadingButton } from '../../components/loading_button';
+import { LoadingButton } from '../../components/buttons/loading_button';
 import { NextFocus } from '../../lib/next_focus';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
 

@@ -1,15 +1,11 @@
 import React from 'react';
 import { Hidden } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 import { ButtonBase } from '@material-ui/core';
 import { ListItemAvatar } from '@material-ui/core';
-
-import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 
 export function GetDrawerList(props){
   
@@ -19,8 +15,8 @@ export function GetDrawerList(props){
     return sections.map((elements, index) => (
       <div key={index}>
         <List>
-          {elements.map((element, index) => (
-            <div key={element.label + index}>
+          {elements.map((element, innerIndex) => (
+            <div key={index * 10 + innerIndex}>
               {
                 element.showAlways ? null : (
                   <CustomListItem                   
@@ -62,16 +58,7 @@ export function GetDrawerList(props){
   }
 
   return (
-    <div>
-      <div 
-        className={props.fullWidth ? props.classes.fullDrawerList : props.classes.restrictedDrawerList}
-      >
-        <Hidden xsDown implementation="css">
-          <IconButton onClick={props.handleFullWidth}>
-            {props.fullWidth ? (<ChevronLeftRoundedIcon/>):(<ChevronRightRoundedIcon/>)}          
-          </IconButton>
-        </Hidden>
-      </div>
+    <div>      
       {createListItems(props.sections)}
       <Hidden //Smartphone
         smUp 
@@ -82,11 +69,6 @@ export function GetDrawerList(props){
     </div>
   );
 }
-
-
-
-
-
 
 
 function CustomListItem(props){

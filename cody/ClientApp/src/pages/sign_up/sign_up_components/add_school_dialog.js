@@ -12,7 +12,7 @@ import { BasePhotoText } from '../../../components/bases/base_photo_text'
 import { DialogBase } from '../../../components/bases/dialog_base'
 import { NextFocus } from '../../../lib/next_focus';
 import { School } from '../../../lib/school';
-import { LoadingButton } from '../../../components/loading_button';
+import { LoadingButton } from '../../../components/buttons/loading_button';
  
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';

@@ -7,7 +7,7 @@ import { Fade } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
-import { LoadingButton } from '../../components/loading_button';
+import { LoadingButton } from '../../components/buttons/loading_button';
 import { DialogBase } from '../../components/bases/dialog_base';
 
 import { EmailController } from '../../lib/format_controller/email_controller';

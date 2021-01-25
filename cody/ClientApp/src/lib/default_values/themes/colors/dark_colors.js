@@ -6,6 +6,6 @@ export const darkColors = {
   tertiary: '#bbe1fa',
   backgroundLight: '#27373f', 
   background: '#1b262c', 
-  backgroundDark: '#131c20', 
-  appBar: '#0c3b5a',  
-}
+  backgroundDark: '#131b20', 
+  appBar: '#1b262c',  
+} 

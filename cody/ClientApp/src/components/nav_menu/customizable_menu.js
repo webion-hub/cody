@@ -1,5 +1,4 @@
 import React from 'react';
-import { Fade } from '@material-ui/core';
 
 import { SideBar } from './bars/sidebar/sidebar'
 import { sideBarSections } from './sections/sidebar_sections'

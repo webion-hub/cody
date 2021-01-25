@@ -37,6 +37,9 @@ export class ThemeController {
           main: this.color.secondary,
           contrastText: '#fff',
         },
+        tertiary: {
+          main: this.color.tertiary,
+        },
         background: {
           default: this.color.background,
           paper: this.color.backgroundLight,

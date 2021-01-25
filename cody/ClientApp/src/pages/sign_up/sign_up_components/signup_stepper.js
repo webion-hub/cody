@@ -11,8 +11,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
-import { LoadingButton } from '../../../components/loading_button';
-import { AlertDialog } from '../../../components/alert_dialog';
+import { LoadingButton } from '../../../components/buttons/loading_button';
+import { AlertDialog } from '../../../components/dialogs/alert_dialog';
 
 import { User } from '../../../lib/user';
 

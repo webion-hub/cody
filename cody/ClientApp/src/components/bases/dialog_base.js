@@ -25,7 +25,7 @@ export function DialogBase(props){
       onClose={props.onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      className={classes.dialog}
+      classes={{paper: classes.dialog,}}
     >
       <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title">{props.title}</DialogTitle>
       <DialogContent>
