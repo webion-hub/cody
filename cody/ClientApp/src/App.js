@@ -13,6 +13,7 @@ import { CssBaseline } from "@material-ui/core";
 import { useMediaQuery } from '@material-ui/core';
 
 import { ThemeController } from "./lib/default_values/themes/theme_controller";
+import { UserControllerContext } from "./components/user_controller_context";
 
 import './custom.css';
 
@@ -23,20 +24,22 @@ export default class App extends Component {
 
   render () {
     return (
-      <Theme>
-        <Layout>
-          <Router>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/login' component={Login} />
-              <Route path='/sign-up' component={SignUp} />
-              <Route path='/email-valid' component={EmailValid} />
+      <UserControllerContext>
+        <Theme>
+          <Layout>
+            <Router>
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route path='/login' component={Login} />
+                <Route path='/sign-up' component={SignUp} />
+                <Route path='/email-valid' component={EmailValid} />
 
-              <Route component={Error404Page} />
-            </Switch>
-          </Router>
-        </Layout>
-      </Theme>
+                <Route component={Error404Page} />
+              </Switch>
+            </Router>
+          </Layout>
+        </Theme>
+      </UserControllerContext>
     );
   }
 }
