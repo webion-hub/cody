@@ -1,4 +1,5 @@
 import React from 'react';
+import { User } from '../lib/user';
 
 export const UserContext = React.createContext({
   logged: true,
@@ -13,6 +14,11 @@ export function UserControllerContext(props){
     setLogged,
   };
   
+  User.tryLoginWithCookie({
+    onSuccess: () => console.log("si"),
+    onError: () => console.log("no"),
+  });
+
   return (
     <UserContext.Provider value={value}>
       {props.children}
