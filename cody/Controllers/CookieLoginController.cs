@@ -1,7 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
 using Cody.Models;
-using Cody.Security;
 using Cody.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
