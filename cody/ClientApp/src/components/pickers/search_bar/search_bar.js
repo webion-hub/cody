@@ -11,7 +11,8 @@ import { Fade } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
 
 import { CodingFilterDialog } from './coding_filter_dialog';
-import { FavoriteChips } from './favorites_chips';
+import { ScrollableChipsArray } from '../../scrollable_chips_array';
+import { languages } from '../../../lib/default_values/lists/coding_languages'
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
@@ -37,7 +38,13 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto"
   },
   chipsBox: {
-    maxWidth: 500
+    maxWidth: 500,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: "50vw",
+    },
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: 500,
+    },
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -71,7 +78,7 @@ export function SearchBar(props) {
   };
 
   return (
-    <ClickAwayListener onClickAway={() => setShowFavorite(false)}>
+    <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => setShowFavorite(false)}>
       <Grid
         container
         direction="column"
@@ -139,8 +146,14 @@ export function SearchBar(props) {
             in={showFavorite || props.showFavoriteAlways}
           >
             <div>
-              <FavoriteChips
-                language={getLanguage}
+              <ScrollableChipsArray
+                value={getLanguage}
+                list={languages}
+                clickables
+                delete
+                getValue
+                color="secondary"
+                emptyMessage="Non hai linguaggi preferiti"
               />
             </div>
           </Fade>        

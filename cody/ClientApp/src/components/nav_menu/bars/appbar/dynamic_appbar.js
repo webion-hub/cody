@@ -86,7 +86,7 @@ export function DynamicAppbar(props) {
 
   const trigger = useScrollTrigger({ target: props.window ? window() : undefined }); //hide on scroll
   const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('sm'));
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Slide appear={false} direction="down" in={mobileView ? !trigger : true}>
