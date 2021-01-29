@@ -26,6 +26,13 @@ import { ProfilePicture } from './profile_picture';
  */
 
 /**
+ * @typedef {object} LogoutOptions
+ * @property {() => void} [onSuccess]
+ * @property {() => void} [onError]
+ * @property {AxiosRequestConfig} [axiosConfig]
+ */
+
+/**
  * @typedef {object} TryLoginOptions
  * @property {string} username
  * @property {string} password
@@ -72,6 +79,31 @@ export class User {
         ...axiosConfig,
       })
       .then(resp => resp.data);
+  }
+
+
+  /**
+   * @param {LogoutOptions} options 
+   */
+  static async logout(options) {
+    const {
+      onSuccess,
+      onError,
+      axiosConfig,
+    } = options;
+
+    return axios
+      .request({
+        url: 'user/logout',
+        method: 'GET',
+        ...axiosConfig,
+      })
+      .then(response => {
+        invokeCallback(response.status, {
+          200: onSuccess,
+          401: onError,
+        });
+      });
   }
 
 
