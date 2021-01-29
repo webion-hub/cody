@@ -26,6 +26,13 @@ import { ProfilePicture } from './profile_picture';
  */
 
 /**
+ * @typedef {object} LoginRequest
+ * @property {string} username
+ * @property {string} password
+ * @property {bool} rememberMe
+ */
+
+/**
  * @typedef {object} LogoutOptions
  * @property {() => void} [onSuccess]
  * @property {() => void} [onError]
@@ -34,8 +41,7 @@ import { ProfilePicture } from './profile_picture';
 
 /**
  * @typedef {object} TryLoginOptions
- * @property {string} username
- * @property {string} password
+ * @property {LoginRequest} userInfo
  * @property {AxiosRequestConfig} [axiosConfig]
  * @property {() => void} [onSuccess]
  * @property {() => void} [onUserNotFound]
@@ -95,7 +101,7 @@ export class User {
     return axios
       .request({
         url: 'user/logout',
-        method: 'GET',
+        method: 'POST',
         ...axiosConfig,
       })
       .then(response => {
@@ -113,8 +119,7 @@ export class User {
    */
   static async tryLogin(options) {
     const {
-      username,
-      password,
+      userInfo,
       axiosConfig,
       onSuccess,
       onUserNotFound,
@@ -123,9 +128,10 @@ export class User {
 
     return axios
       .request({
-        url: `user/login/${username}/${password}/`,
-        method: 'GET',
+        url: `user/login`,
+        method: 'POST',
         validateStatus: false,
+        data: userInfo,
         ...axiosConfig,
       })
       .then(response => {
@@ -152,7 +158,7 @@ export class User {
     return axios
       .request({
         url: 'user/login_with_cookie',
-        method: 'GET',
+        method: 'POST',
         ...axiosConfig,
       })
       .then(response => {

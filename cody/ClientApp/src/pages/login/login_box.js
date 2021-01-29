@@ -61,18 +61,20 @@ export class LoginBox extends Component{
   async _tryLogin() {
     let success = false;
     await User.tryLogin({
-      username: this.state.username,
-      password: this.state.password,
+      userInfo: {
+        username: this.state.username,
+        password: this.state.password,
+        rememberMe: true,
+      },
       
       onSuccess: _ => success = true,
       onUserNotFound: _ => this.setState({wrongUsername: true}),
       onPasswordMismatch: _ => this.setState({wrongPassword: true}),
     })
-    .then(
-      _=> this.setState({loading: false})
-    ); 
+    .then(_=> {
+      this.setState({loading: false});
+    });
 
-  
     if(success)
       this.setState({navigateToHome: true})
   }
