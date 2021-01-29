@@ -159,6 +159,7 @@ export class User {
       .request({
         url: 'user/login_with_cookie',
         method: 'POST',
+        validateStatus: false,
         ...axiosConfig,
       })
       .then(response => {
