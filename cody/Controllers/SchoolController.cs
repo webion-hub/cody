@@ -1,9 +1,8 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +26,7 @@ namespace Cody.Controllers
         /// <response code="400">The id of the existing school</response>
         [HttpPost]
         [Route("create_new")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateNew([FromBody] SchoolAccount school)
         {
             var maybeExisting =
@@ -41,7 +41,7 @@ namespace Cody.Controllers
                 _logger.LogInformation("School creation - {School} already exists", school);
                 return BadRequest(maybeExisting.First().Id);
             }
-
+            
             school.State = new SchoolAccountState {
                 HasBeenVerified = false,
             };

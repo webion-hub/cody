@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Cody.Services;
 using Cody.Security;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cody.Controllers
 {
@@ -30,8 +31,8 @@ namespace Cody.Controllers
         }
 
 
-        [HttpGet]
-        [Route("exists/{usernameOrEmail}")]
+        [HttpGet("exists/{usernameOrEmail}")]
+        [AllowAnonymous]
         public IActionResult UserExists(string usernameOrEmail)
         {
             var exists =

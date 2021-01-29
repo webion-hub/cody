@@ -14,6 +14,7 @@ namespace Cody.Controllers
 {
     [ApiController]
     [Route("profile_picture")]
+    [Authorize]
     public class ProfilePictureController : ControllerBase
     {
         private readonly ILogger<ProfilePictureController> _logger;

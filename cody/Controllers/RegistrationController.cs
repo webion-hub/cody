@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
 using Cody.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -34,8 +35,8 @@ namespace Cody.Controllers
 
         /// <response code="200">Returns the id of the new user</response>
         /// <response code="400">Registration error, along with the reject reasons</response>
-        [HttpPost]
-        [Route("register")]
+        [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> TryRegisterUser([FromBody] UserAccount account)
         {
             account.TrimSelfAndRelated();
