@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
 import { Login } from './pages/login/login';
@@ -27,7 +27,7 @@ export default class App extends Component {
       <UserControllerContext>
         <Theme>
           <Layout>
-            <Router>
+            <BrowserRouter>
               <Switch>
                 <Route exact path='/' component={Home} />
                 <Route path='/login' component={Login} />
@@ -36,7 +36,7 @@ export default class App extends Component {
 
                 <Route component={Error404Page} />
               </Switch>
-            </Router>
+            </BrowserRouter>
           </Layout>
         </Theme>
       </UserControllerContext>
