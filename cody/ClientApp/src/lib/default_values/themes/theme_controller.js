@@ -67,7 +67,7 @@ export class ThemeController {
         },
         MuiStepIcon: {
           root: {
-            color: this.color.tertiary,
+            color: this.color.secondary,
           },
           completed: {
             color: `${this.color.secondary} !important` 
