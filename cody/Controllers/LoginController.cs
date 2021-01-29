@@ -1,6 +1,9 @@
 ﻿using Cody.Contexts;
+using Cody.Controllers.Requests;
 using Cody.Extensions;
+using Cody.Models;
 using Cody.Security;
+using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,48 +19,66 @@ namespace Cody.Controllers
     {
         private readonly ILogger<LoginController> _logger;
         private readonly CodyContext _dbContext;
+        private readonly PersistentLoginCookieEmitterService _cookieEmitter;
 
-        public LoginController(ILogger<LoginController> logger, CodyContext dbContext)
-        {
+        public LoginController(
+            ILogger<LoginController> logger, 
+            CodyContext dbContext, 
+            PersistentLoginCookieEmitterService cookieEmitter
+        ) {
             _logger = logger;
             _dbContext = dbContext;
+            _cookieEmitter = cookieEmitter;
         }
 
 
         /// <response code="200">The login was successfull</response>
         /// <response code="404">The username wasn't found</response>
         /// <response code="400">The passwords didn't match</response>
-        [HttpGet("login/{username}/{password}")]
+        [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> TryLoginAsync(string username, string password)
+        public async Task<IActionResult> TryLoginAsync([FromBody] LoginRequest request) 
         {
-            if (string.IsNullOrWhiteSpace(username))
+            if (string.IsNullOrWhiteSpace(request.Username))
                 return NotFound();
 
-            if (string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(request.Password))
                 return BadRequest();
 
+            if (!TryGetUser(request.Username, out var user))
+                return NotFound();
 
+            
+            var isPasswordCorrect =
+                Password.AreEqual(request.Password, user.Password);
+
+            if (!isPasswordCorrect) 
+            {
+                _logger.LogWarning($"User {request.Username} -> incorrect password");
+                return BadRequest();
+            }
+
+            await HttpContext.SignInAsync(user);
+
+            if (request.RememberMe)
+                await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
+
+            return Ok();
+        }
+
+
+        private bool TryGetUser(string username, out UserAccount user)
+        {
+            user = null;
             var maybeUser =
                 _dbContext.MaybeGetUserBy(username);
 
             var userExists = maybeUser.Any();
             if (!userExists)
-                return NotFound();
+                return false;
 
-            var foundUser = maybeUser.Single();
-            var isPasswordCorrect =
-                Password.AreEqual(password, foundUser.Password);
-
-            if (!isPasswordCorrect)
-            {
-                _logger.LogWarning($"User {username} -> incorrect password");
-                return BadRequest();
-            }
-
-            await HttpContext.SignInAsync(foundUser);
-            _logger.LogInformation($"User {username} -> logged in");
-            return Ok();
+            user = maybeUser.Single();
+            return true;
         }
     }
 }
