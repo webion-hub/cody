@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -24,31 +27,34 @@ namespace Cody.Controllers
         public CookieLoginController(
             ILogger<CookieLoginController> logger,
             CodyContext dbContext, 
-            PersistentLoginCookieEmitterService cookieEmitter)
-        {
+            PersistentLoginCookieEmitterService cookieEmitter
+        ) {
             _logger = logger;
             _dbContext = dbContext;
             _cookieEmitter = cookieEmitter;
         }
 
 
-        [HttpGet("remember_me/{userId}")]
+        [HttpPost("remember_me")]
         [Authorize]
-        public async Task<IActionResult> TryRememberMe(int userId)
+        [Obsolete]
+        internal async Task<IActionResult> TryRememberMe()
         {
+            var usernameClaim = HttpContext
+                .User
+                .Claims
+                .First(c => c.Type == ClaimTypes.Name);
+
             var user = _dbContext
-                .UserAccounts
-                .Find(userId);
+                .MaybeGetUserBy(usernameClaim.Value)
+                .Single();
 
-            if (user is null)
-                return NotFound();
-
-            await GenerateUserLoginCookies(user);
+            await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
             return Ok();
         }
 
 
-        [HttpGet("login_with_cookie")]
+        [HttpPost("login_with_cookie")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithCookie()
         {
@@ -62,17 +68,8 @@ namespace Cody.Controllers
                 return BadRequest();
 
             await HttpContext.SignInAsync(user);
-            await GenerateUserLoginCookies(user);
+            await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
             return Ok();
-        }
-
-
-        private async Task GenerateUserLoginCookies(UserAccount user)
-        {
-            var (id, token) =
-                await _cookieEmitter.EmitPersistentLoginCookieForAsync(user);
-
-            Response.SetLoginCookies(id, token);
         }
     }
 }
