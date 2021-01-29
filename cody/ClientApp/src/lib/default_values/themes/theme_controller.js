@@ -43,6 +43,7 @@ export class ThemeController {
         background: {
           default: this.color.background,
           paper: this.color.backgroundLight,
+          dark: this.color.backgroundDark,
           contrastText: '#fff',
         },
         drawer: {
