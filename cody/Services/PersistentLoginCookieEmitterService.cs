@@ -1,6 +1,8 @@
 ﻿using Cody.Contexts;
+using Cody.Extensions;
 using Cody.Models;
 using Cody.Security;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,6 +25,15 @@ namespace Cody.Services
         {
             _logger = logger;
             _dbContext = dbContext;
+        }
+
+
+        public async Task EmitAndAttachToResponseAsync(UserAccount user, HttpResponse response)
+        {
+            var (id, token) =
+                await EmitPersistentLoginCookieForAsync(user);
+
+            response.SetLoginCookies(id, token);
         }
 
 
