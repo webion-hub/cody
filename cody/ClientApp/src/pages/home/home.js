@@ -66,15 +66,35 @@ export function Home(){
             ]
          },
          {
-          image: "images/bulb.jpeg",
-          title: "Classe 1",
-          icon: (<Cpp/>),
-          admin: {
-            username: "Matteo2437",
-            profilePic: "images/forest.jpg"
+            image: "images/bulb.jpeg",
+            title: "Classe 1",
+            icon: (<Cpp/>),
+            admin: {
+              username: "Matteo2437",
+              profilePic: "images/forest.jpg"
+            },
+            users: []
           },
-          users: []
-       }
+          {
+             image: "images/bulb.jpeg",
+             title: "Classe 1",
+             icon: (<Cpp/>),
+             admin: {
+               username: "Matteo2437",
+               profilePic: "images/forest.jpg"
+             },
+             users: []
+           },
+           {
+            image: "images/bulb.jpeg",
+            title: "Classe 1",
+            icon: (<Cpp/>),
+            admin: {
+              username: "Matteo2437",
+              profilePic: "images/forest.jpg"
+            },
+            users: []
+          }
        ]}
       />
       <div className={classes.background}/>    

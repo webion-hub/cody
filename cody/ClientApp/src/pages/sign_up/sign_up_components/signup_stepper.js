@@ -128,7 +128,7 @@ export class SignUpStepper extends Component {
           activeStep={this.state.activeStep}
           alternativeLabel
           style={{
-            padding: "0 !important"
+            padding: "0 !important",
           }}
         >
           {this.state.steps.map((label, index) => {

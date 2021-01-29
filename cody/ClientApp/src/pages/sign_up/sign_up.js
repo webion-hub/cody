@@ -5,6 +5,7 @@ import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Link } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 import { EmailPassword } from './sign_up_steps/1_email_password/email_password_step';
 import { EmailPasswordController } from './sign_up_steps/1_email_password/email_password_controller';
@@ -250,7 +251,3 @@ export class SignUp extends Component {
     );
   }
 }
-
-
-
-

@@ -7,10 +7,6 @@ import { CircularProgress } from '@material-ui/core';
 
 
 export class LoadingButton extends Component{
-  constructor(props){
-    super(props);
-  }
-
   render(){
     return(
       this.props.fullWidth ? (
