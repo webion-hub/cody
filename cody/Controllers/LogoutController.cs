@@ -24,7 +24,7 @@ namespace Cody.Controllers
         }
 
 
-        [HttpGet("logout")]
+        [HttpPost("logout")]
         [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
