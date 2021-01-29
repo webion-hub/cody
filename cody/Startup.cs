@@ -9,6 +9,7 @@ using Cody.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using System.Threading.Tasks;
 
 namespace Cody
 {
@@ -45,9 +46,12 @@ namespace Cody
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/login";
-                    options.AccessDeniedPath = "/error/404";
                     options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Events.OnRedirectToLogin = ctx => 
+                    {
+                        ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        return Task.CompletedTask;
+                    };
                 });
 
 
