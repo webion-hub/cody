@@ -16,6 +16,7 @@ import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 
 import { User } from 'src/lib/user';
 import { ProfilePicture } from 'src/lib/profile_picture';
+import { UserContext } from 'src/components/user_controller_context';
 
 
 const StyledStepper = withStyles({
@@ -25,7 +26,7 @@ const StyledStepper = withStyles({
 })(Stepper);
 
 
-export class SignUpStepper extends Component {
+export class SignUpStepperMain extends Component {
   constructor(props){
     super(props);
 
@@ -178,6 +179,7 @@ export class SignUpStepper extends Component {
                 <Button
                   variant="contained"
                   color="primary"
+                  onClick={() => this.props.setLogged(true)}
                   href="/"
                   endIcon={<HomeRoundedIcon/>}
                 >
@@ -249,6 +251,27 @@ export class SignUpStepper extends Component {
 }
   
 
+export function SignUpStepper(props){
+  const { setLogged } = React.useContext(UserContext);
+
+  return (
+    <SignUpStepperMain
+      steps={props.steps}
+      onClick={props.onClick}
+      optionalSteps={props.optionalSteps}
+      element={props.element}
+      currentStep={props.currentStep}
+      newStep={props.newStep}
+      user={props.user}
+      profileImage={props.profileImage}
+      termsAndService={props.termsAndService}
+      loading={props.loading}
+      completed={props.completed}
+
+      setLogged={setLogged}
+    />
+  );
+}
 
 
 
