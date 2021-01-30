@@ -198,17 +198,7 @@ export class User {
       .then(response => {
         const data = response.data;
         invokeCallback(response.status, {
-          200: _ => {
-            /**@type {number} */
-            const accountDetailId = data;
-            
-            User._onRegistrationSuccess(
-              onSuccess,
-              accountDetailId,
-              profilePicture,
-              onImageUploadError
-            );
-          },
+          200: _ => onSuccess(data),
           400: _ => {
             return data.errors !== undefined
               ? _ => onMissingFields(data.errors)
@@ -216,41 +206,5 @@ export class User {
           },
         });
       });
-  }
-
-  static _onRegistrationSuccess(
-    onSuccess,
-    accountDetailId,
-    profilePicture,
-    onImageUploadError
-  ) {
-    if (!!onSuccess)
-      onSuccess(accountDetailId);
-
-    this._maybeUploadProfilePicture(
-      accountDetailId,
-      profilePicture
-    )
-    .catch(_ => {
-      if (!!onImageUploadError)
-        onImageUploadError();
-    });
-  }
-
-  /**
-   * @param {number} accountDetailId 
-   * @param {File} profilePicture 
-   */
-  static async _maybeUploadProfilePicture(
-    accountDetailId,
-    profilePicture
-  ) {
-    if (!profilePicture)
-      return new Promise(res => res());
-
-    return ProfilePicture.createOrUpdate({
-      picture: profilePicture,
-      accountDetailId: accountDetailId,
-    });
   }
 }

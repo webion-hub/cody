@@ -4,7 +4,6 @@ import 'axios';
 
 /**
  * @typedef {object} CreateOrUpdateOptions
- * @property {number} accountDetailId
  * @property {File} picture
  * @property {AxiosRequestConfig} axiosConfig
  */
@@ -17,13 +16,11 @@ export class ProfilePicture {
    */
   static async createOrUpdate(options) {
     const {
-      accountDetailId,
       picture,
       axiosConfig,
     } = options;
 
     const formData = new FormData();
-    formData.append('accountDetailId', accountDetailId);
     formData.append('picture', picture, picture.name);
 
     return axios

@@ -15,6 +15,7 @@ import { LoadingButton } from '../../../components/buttons/loading_button';
 import { AlertDialog } from '../../../components/dialogs/alert_dialog';
 
 import { User } from '../../../lib/user';
+import { ProfilePicture } from '../../../lib/profile_picture';
 
 
 const StyledStepper = withStyles({
@@ -86,11 +87,10 @@ export class SignUpStepper extends Component {
 
   
   
-  _registerUser = () => {
+  _registerUser = async () => {
     this.setState({loading: true});
-    User.tryRegister({
+    await User.tryRegister({
       user: this.props.user,
-      profilePicture: this.props.profileImage,
 
       onSuccess: uid => {
         this.handleNext();
@@ -107,18 +107,26 @@ export class SignUpStepper extends Component {
           openAlert: true,
         });
       },
-      onImageUploadError: _ => {
-        this.setState({
-          imageUploadError: "Prova a ricaricare l'immagine più tardi.",
-          openAlert: true,
-        });
-      },
-    }).finally(
-      () => {
-        this.setState({loading: false});
-      }
-    );
+    });
+
+    await this._maybeUploadImage();
+    this.setState({loading: false});
   }
+
+  _maybeUploadImage = async () => {
+    if (!this.props.profileImage)
+      return;
+
+    return ProfilePicture.createOrUpdate({
+      picture: this.props.profileImage,
+    })
+    .catch(_ => {
+      this.setState({
+        imageUploadError: "Prova a ricaricare l'immagine più tardi.",
+        openAlert: true,
+      });
+    });
+  };
 
 
   render(){
