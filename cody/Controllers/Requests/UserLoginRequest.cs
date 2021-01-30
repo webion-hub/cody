@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Requests
 {
-    public record LoginRequest(
+    public record UserLoginRequest(
         string Username,
         string Password,
         bool RememberMe
