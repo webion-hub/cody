@@ -10,30 +10,29 @@ namespace Cody.Security
     {
         public static byte[] GetRandomKey()
         {
-            return GetRandomKeys(256, 1).First();
+            return GetRandomKeys(256).First();
         }
 
         public static (byte[], byte[]) GetRandomPair()
         {
-            var keys = 
-                GetRandomKeys(256, 2).ToArray();
+            var keys = GetRandomKeys(256)
+                .Take(2)
+                .ToArray();
             
             return (keys[0], keys[1]);
         }
 
-        public static IEnumerable<byte[]> GetRandomKeys(uint length, uint howMany)
+        public static IEnumerable<byte[]> GetRandomKeys(uint length)
         {
             using var generator = RandomNumberGenerator.Create();
 
-            while (howMany-- > 0)
+            while (true)
             {
                 var result = new byte[length];
                 generator.GetBytes(result);
                 
                 yield return result;
             }
-
-            yield break;
         }
 
         public static byte[] HashKey(byte[] key, byte[] salt) 
