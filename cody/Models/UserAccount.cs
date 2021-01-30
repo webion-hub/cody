@@ -41,21 +41,5 @@ namespace Cody.Models
             if (!Validation.IsValidEmail(Email))
                 yield return "email";
         }
-
-
-        public void TrimSelfAndRelated()
-        {
-            TrimFields();
-            AccountDetail?.TrimFields();
-            AccountDetail?.School?.TrimFields();
-        }
-
-        public void TrimFields()
-        {
-            Utility.TrimAll(this,
-                _ => _.Username,
-                _ => _.Email
-            );
-        }
     }
 }

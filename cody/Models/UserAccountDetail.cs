@@ -40,14 +40,5 @@ namespace Cody.Models
             if (!Validation.IsValidNameOrSurname(Surname))
                 yield return "surname";
         }
-
-
-        public void TrimFields()
-        {
-            Utility.TrimAll(this,
-                _ => _.Name,
-                _ => _.Surname
-            );
-        }
     }
 }
