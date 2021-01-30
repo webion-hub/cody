@@ -15,9 +15,10 @@ import  { ForgotPasswordDialog } from './forgot_pw_dialog'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
+import { UserContext } from '../../components/user_controller_context';
 import { User } from '../../lib/user';
 
-export class LoginBox extends Component{
+export class LoginBoxMain extends Component{
 
   constructor(props){
     super(props);
@@ -28,6 +29,7 @@ export class LoginBox extends Component{
     this.state = {
       username: '',
       password: '',
+      rememberMe: false,
       wrongUsername: false,
       wrongPassword: false,
       loading: false,
@@ -64,7 +66,7 @@ export class LoginBox extends Component{
       userInfo: {
         username: this.state.username,
         password: this.state.password,
-        rememberMe: true,
+        rememberMe: this.state.rememberMe,
       },
       
       onSuccess: _ => success = true,
@@ -75,8 +77,10 @@ export class LoginBox extends Component{
       this.setState({loading: false});
     });
 
-    if(success)
-      this.setState({navigateToHome: true})
+    if(success){
+      this.setState({navigateToHome: true});
+      this.props.context(true);
+    }
   }
 
   _updateUsername = e => {
@@ -86,7 +90,10 @@ export class LoginBox extends Component{
   _updatePassword(value) {
     this.setState({password: value});
   }
- 
+
+  _updateRememberMe = e =>  {
+    this.setState({rememberMe: !this.state.rememberMe});
+  }
   
   openForgotPw(){
     this.setState({openForgotPw: true});
@@ -155,6 +162,7 @@ export class LoginBox extends Component{
                   <Checkbox
                     color="secondary"
                     size="small"
+                    onChange={this._updateRememberMe}
                   />
                 }
                 label={
@@ -208,3 +216,13 @@ export class LoginBox extends Component{
   }
 }
 
+export function LoginBox(props){
+  const { logged, setLogged } = React.useContext(UserContext);
+
+  return(
+    <LoginBoxMain
+      size={props.size}
+      context={setLogged}
+    />
+  );
+}

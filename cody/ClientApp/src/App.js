@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
 import { Login } from './pages/login/login';
@@ -14,6 +14,7 @@ import { useMediaQuery } from '@material-ui/core';
 
 import { ThemeController } from "./lib/default_values/themes/theme_controller";
 import { UserControllerContext } from "./components/user_controller_context";
+import { UserContext } from "./components/user_controller_context";
 
 import './custom.css';
 
@@ -27,21 +28,47 @@ export default class App extends Component {
       <UserControllerContext>
         <Theme>
           <Layout>
-            <BrowserRouter>
-              <Switch>
-                <Route exact path='/' component={Home} />
-                <Route path='/login' component={Login} />
-                <Route path='/sign-up' component={SignUp} />
-                <Route path='/email-valid' component={EmailValid} />
-
-                <Route component={Error404Page} />
-              </Switch>
-            </BrowserRouter>
+            <Routes/>
           </Layout>
         </Theme>
       </UserControllerContext>
     );
   }
+}
+
+function Routes(){
+  const { logged, setLogged } = React.useContext(UserContext);
+
+  return (
+    <BrowserRouter>
+      <Switch>
+        <CustomRoute exact path='/' component={Home} />
+        <CustomRoute path='/login' component={Login} to='/' redirect={logged}/>
+        <CustomRoute path='/sign-up' component={SignUp} to='/' redirect={logged}/>
+        <CustomRoute path='/email-valid' component={EmailValid} />
+
+        <CustomRoute component={Error404Page} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+function CustomRoute(props){
+  return (
+    <div>
+      {
+        props.redirect ? (
+          <Redirect to={props.redirectTo}/>
+        ):(
+          <Route 
+            exact={props.exact}
+            path={props.path} 
+            component={props.component} 
+          />
+        )
+      }
+    </div>
+  );
 }
 
 function Theme(props){
