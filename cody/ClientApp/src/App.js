@@ -58,7 +58,7 @@ function CustomRoute(props){
     <div>
       {
         props.redirect ? (
-          <Redirect to={props.redirectTo}/>
+          <Redirect to={props.redirectTo? props.redirectTo : '/'}/>
         ):(
           <Route 
             exact={props.exact}
