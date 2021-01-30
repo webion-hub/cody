@@ -36,7 +36,7 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> CreateOrReplace([FromForm] IFormFile picture) 
         {
-            var user = HttpContext.GetLoggedUserFrom(_dbContext);
+            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
             var accountDetailId = user.AccountDetail.Id;
 
             var basePath = @$"/cody_files/users/profile_pictures/{accountDetailId}/";

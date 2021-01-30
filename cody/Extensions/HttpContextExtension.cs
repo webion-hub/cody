@@ -3,8 +3,10 @@ using Cody.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -42,16 +44,18 @@ namespace Cody.Extensions
         }
 
 
-        public static UserAccount GetLoggedUserFrom(this HttpContext context, CodyContext dbContext)
+        public static async Task<UserAccount> GetLoggedUserFromAsync(this HttpContext context, CodyContext dbContext)
         {
             var rawId = context
                 .User
                 .FindFirstValue(ClaimTypes.NameIdentifier);
 
             var userId = int.Parse(rawId);
-            return dbContext
+            return await dbContext
                 .UserAccounts
-                .Find(userId);
+                .Include(u => u.AccountDetail)
+                .Include(u => u.AccountState)
+                .FirstAsync(u => u.Id == userId);
         }
     }
 }

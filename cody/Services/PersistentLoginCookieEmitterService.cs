@@ -71,8 +71,7 @@ namespace Cody.Services
 
                 return storedCookie.UserAccount;
             }
-            catch (AttemptedCookieBreachException e) 
-            when (e.AffectedUser is null)
+            catch (AttemptedCookieBreachException e) when (e.AffectedUser is null)
             {
                 _logger.LogWarning("Attempted cookie breach");
                 return null;
