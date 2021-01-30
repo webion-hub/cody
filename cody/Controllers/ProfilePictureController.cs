@@ -1,4 +1,5 @@
 ﻿using Cody.Contexts;
+using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,16 +16,16 @@ namespace Cody.Controllers
     public class ProfilePictureController : ControllerBase
     {
         private readonly ILogger<ProfilePictureController> _logger;
-        private readonly CodyContext _context;
+        private readonly CodyContext _dbContext;
         private readonly SftpService _sftp;
 
         public ProfilePictureController(
             ILogger<ProfilePictureController> logger, 
-            CodyContext context,
+            CodyContext dbContext,
             SftpService sftp
         ) {
             _logger = logger;
-            _context = context;
+            _dbContext = dbContext;
             _sftp = sftp;
         }
 
@@ -33,11 +34,10 @@ namespace Cody.Controllers
         [HttpPut]
         [Route("create_or_update")]
         [Authorize]
-        public async Task<IActionResult> CreateOrReplace(
-            [FromForm] int accountDetailId,
-            [FromForm] IFormFile picture
-        ) {
-            _logger.LogInformation("Profile picture received -> {AccountDetailId}|{ProfilePicture}", accountDetailId, picture);
+        public async Task<IActionResult> CreateOrReplace([FromForm] IFormFile picture) 
+        {
+            var user = HttpContext.GetLoggedUserFrom(_dbContext);
+            var accountDetailId = user.AccountDetail.Id;
 
             var basePath = @$"/cody_files/users/profile_pictures/{accountDetailId}/";
             var fileName = picture.FileName;
@@ -54,8 +54,8 @@ namespace Cody.Controllers
             if (!wasUploaded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
-            await _context.ProfilePictures.AddAsync(profilePicture);
-            await _context.SaveChangesAsync();
+            await _dbContext.ProfilePictures.AddAsync(profilePicture);
+            await _dbContext.SaveChangesAsync();
             return Ok(profilePicture.Id);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Cody.Contexts;
+using Cody.Controllers.Requests;
 using Cody.Models;
 using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -37,31 +38,28 @@ namespace Cody.Controllers
         /// <response code="400">Registration error, along with the reject reasons</response>
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> TryRegisterUser([FromBody] UserAccount account)
+        public async Task<IActionResult> TryRegisterUser([FromBody] UserRegistrationRequest request)
         {
-            account.TrimSelfAndRelated();
+            UserAccount user = request;
 
-            var rejectReasons = MaybeReject(account);
+            var rejectReasons = MaybeReject(user);
             if (rejectReasons.Any())
-            {
-                _logger.LogInformation("User registration rejected - {Account}|{RejectReasons}", account, rejectReasons);
                 return BadRequest(rejectReasons);
-            }
 
             try
             {
-                await _emailValidationService.MarkUserForValidationAsync(account);
-                await _dbContext.UserAccounts.AddAsync(account);
+                await _emailValidationService.MarkUserForValidationAsync(user);
+                await _dbContext.UserAccounts.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
             }
             catch (DbUpdateException e)
             {
-                _logger.LogError(e, "DB Register error - {Account}", account);
+                _logger.LogError(e, "DB Register error - {Account}", user);
                 return BadRequest(new[] { "server_error" });
             }
 
-            _logger.LogInformation("Registered user -> {Account}", account);
-            return Ok(account.AccountDetail.Id);
+            _logger.LogInformation("Registered user -> {Account}", user);
+            return Ok(user.AccountDetail.Id);
         }
 
 

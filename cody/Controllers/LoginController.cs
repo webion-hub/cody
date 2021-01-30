@@ -37,7 +37,7 @@ namespace Cody.Controllers
         /// <response code="400">The passwords didn't match</response>
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> TryLoginAsync([FromBody] LoginRequest request) 
+        public async Task<IActionResult> TryLoginAsync([FromBody] UserLoginRequest request) 
         {
             if (string.IsNullOrWhiteSpace(request.Username))
                 return NotFound();

@@ -1,4 +1,5 @@
 ﻿using Cody.Contexts;
+using Cody.Controllers.Requests;
 using Cody.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace Cody.Controllers
 {
     [ApiController]
     [Route("school")]
+    [Authorize]
     public class SchoolController : ControllerBase
     {
         private readonly ILogger<SchoolController> _logger;
@@ -27,21 +29,13 @@ namespace Cody.Controllers
         [HttpPost]
         [Route("create_new")]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateNew([FromBody] SchoolAccount school)
+        public async Task<IActionResult> CreateNew([FromBody] SchoolCreationRequest request)
         {
-            var maybeExisting =
-                from s in _context.Schools
-                where
-                    s.Name == school.Name &&
-                    s.City == school.City &&
-                    s.Country == school.Country
-                select s;
+            if (TryGetSchool(request, out var existingSchool))
+                return BadRequest(existingSchool.Id);
 
-            if (maybeExisting.Any()) {
-                _logger.LogInformation("School creation - {School} already exists", school);
-                return BadRequest(maybeExisting.First().Id);
-            }
-            
+
+            SchoolAccount school = request;
             school.State = new SchoolAccountState {
                 HasBeenVerified = false,
             };
@@ -54,9 +48,25 @@ namespace Cody.Controllers
         }
 
 
+        private bool TryGetSchool(SchoolCreationRequest request, out SchoolAccount school)
+        {
+            var maybeExisting =
+                from s in _context.Schools
+                where
+                    s.Name == request.Name &&
+                    s.City == request.City &&
+                    s.Country == request.Country
+                select s;
+
+            school = maybeExisting.SingleOrDefault();
+            return !maybeExisting.Any();
+        }
+
+
         /// <response code="200">The list of school accounts</response>
         [HttpGet]
         [Route("get_all")]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
             var schools = 
