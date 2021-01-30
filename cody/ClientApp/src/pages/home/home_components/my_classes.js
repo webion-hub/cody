@@ -155,6 +155,7 @@ export function MyClasses(props){
                           }
                         >
                           <ClassCard
+                            loading={false}
                             image={data.image}
                             title={data.title}
                             languageIcon={data.icon}

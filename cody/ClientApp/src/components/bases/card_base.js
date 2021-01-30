@@ -4,15 +4,15 @@ import { Card } from '@material-ui/core';
 import { CardActions } from '@material-ui/core';
 import { CardContent } from '@material-ui/core';
 import { CardMedia } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 350,
-    width: "100%",
+    width: 350,
     [theme.breakpoints.down('xs')]: {
-      maxWidth: "90vw",
+      width: "90vw",
     },
   },
   media: {
@@ -39,16 +39,29 @@ export function CardBase(props){
           background: props.background
         }}
       >
-        <CardMedia       
-          className={classes.media} 
-          image={props.image}
-          title={props.title}
-        />
+        {
+          props.loading ? (
+            <Skeleton variant="rect" animation="wave" height={140}/>
+          ) : (
+            <CardMedia       
+              className={classes.media} 
+              image={props.image}
+              title={props.title}
+            />
+          )
+        }
+
         <CardContent className={classes.cardContent}>
 					{props.children}
         </CardContent>
         <CardActions className={classes.buttons}>
-					{props.button}											
+          {
+            props.loading ? (
+              <Skeleton animation="wave" width={75} height={30}/>
+            ):(
+              props.button
+            )
+          }											
         </CardActions>
       </Card>
     );

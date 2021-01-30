@@ -9,6 +9,7 @@ import { Tooltip } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
 import { Box } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 
@@ -35,6 +36,7 @@ export function ClassCard(props){
       background="rgba(0,0,0, 0.3)"
       image={props.image}
       title={props.title}
+      loading={props.loading}
       button={
         <Button
           size="small" 
@@ -52,99 +54,120 @@ export function ClassCard(props){
         direction="row"
         alignItems="center"
       >
-        <Box pr={2}>
-          <Grid
-            container
-            direction="row"
-            spacing={1}
-            style={{
-              background: "rgba(0,0,0,0.2)",
-              borderRadius: 28,
-            }}
-          >
-            <Grid item>
-              <IconButton
+        {
+          props.loading ? (
+            <Skeleton animation="wave" width={96} height={48}/>
+          ) : (
+            <Box pr={2}>
+              <Grid
+                container
+                direction="row"
+                spacing={1}
                 style={{
-                  width: 40,
-                  height: 40,
+                  background: "rgba(0,0,0,0.2)",
+                  borderRadius: 28,
                 }}
               >
-                {props.languageIcon}
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <Tooltip
-                arrow
-                placement="left"
-                disableFocusListener 
-                title={ userNumber > 0 ? (
-                  <Grid
-                    container
-                    direction="column"
+                <Grid item>
+                  <IconButton
+                    style={{
+                      width: 40,
+                      height: 40,
+                    }}
                   >
-                    {
-                      props.users.map((data, index) => {
-                        return <Grid
-                          key={index}
-                          container
-                          direction="row"
-                          alignItems="center"
-                          spacing={1}
-                          className={classes.tooltipUsers}
-                        > 
-                          <Grid item>
-                            <Avatar 
-                              alt={data.username} 
-                              src={data.profilePic} 
-                              className={classes.smallAvatar}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <div>{data.username}</div>
-                          </Grid>
-                        </Grid>
-                      })
+                    {props.languageIcon}
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <Tooltip
+                    arrow
+                    placement="left"
+                    disableFocusListener 
+                    title={ userNumber > 0 ? (
+                      <Grid
+                        container
+                        direction="column"
+                      >
+                        {
+                          props.users.map((data, index) => {
+                            return <Grid
+                              key={index}
+                              container
+                              direction="row"
+                              alignItems="center"
+                              spacing={1}
+                              className={classes.tooltipUsers}
+                            > 
+                              <Grid item>
+                                <Avatar 
+                                  alt={data.username} 
+                                  src={data.profilePic} 
+                                  className={classes.smallAvatar}
+                                />
+                              </Grid>
+                              <Grid item>
+                                <div>{data.username}</div>
+                              </Grid>
+                            </Grid>
+                          })
+                        }
+                      </Grid>
+                    ) : (
+                      "Non ci sono altri studenti"
+                    )
                     }
-                  </Grid>
-                ) : (
-                  "Non ci sono altri studenti"
-                )
-                }
-              >
-                <Badge
-                  overlap="circle"
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  badgeContent={userNumber > 0 ? "+" + userNumber : null}
-                  color="secondary"
-                >
-                  <Avatar 
-                    alt={props.admin.username} 
-                    src={props.admin.profilePic} 
-                  />
-                </Badge>
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Box>
+                  >
+                    <Badge
+                      overlap="circle"
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                      }}
+                      badgeContent={userNumber > 0 ? "+" + userNumber : null}
+                      color="secondary"
+                    >
+                      <Avatar 
+                        alt={props.admin.username} 
+                        src={props.admin.profilePic} 
+                      />
+                    </Badge>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+            </Box>
+          )
+        }
         <div>
-          <Typography variant="h5" component="h2">
-            {props.title}
-          </Typography>
-          <Typography variant="caption">
-            Admin <Link href="" color="inherit">{props.admin.username}</Link>
-          </Typography>
+          {
+            props.loading ? (
+              null
+            ) : (
+              <div>
+                <Typography variant="h5" component="h2">
+                  {props.title}
+                </Typography>
+                <Typography variant="caption">
+                  Admin <Link href="" color="inherit">{props.admin.username}</Link>
+                </Typography>
+              </div>
+            )
+          }
+
         </div>
       </Grid>
       <Box mt={1}>
-        <ScrollableChipsArray
-          list={languages}
-          clickables
-          color="secondary"
-          emptyMessage="Non hai linguaggi preferiti"
-        />
+        {
+          props.loading ? (
+            <Skeleton animation="wave" width="100%" height={44}/>
+          ) : (
+            <ScrollableChipsArray
+              list={languages}
+              clickables
+              color="secondary"
+              emptyMessage="Non hai linguaggi preferiti"
+            />
+          )
+        }
       </Box>
     </CardBase>
   );
