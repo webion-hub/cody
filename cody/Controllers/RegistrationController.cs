@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Controllers.Requests;
+using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -58,8 +59,8 @@ namespace Cody.Controllers
                 return BadRequest(new[] { "server_error" });
             }
 
-            _logger.LogInformation("Registered user -> {Account}", user);
-            return Ok(user.AccountDetail.Id);
+            await HttpContext.SignInAsync(user);
+            return Ok(user.Id);
         }
 
 
