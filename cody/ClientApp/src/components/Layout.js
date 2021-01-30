@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CustomizableMenu } from './nav_menu/customizable_menu';
+import { CustomizableMenu } from 'src/components/nav_menu/customizable_menu';
 
 export class Layout extends Component {
   static displayName = Layout.name;

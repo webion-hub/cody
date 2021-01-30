@@ -8,12 +8,12 @@ import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 
-import { BasePhotoText } from '../bases/base_photo_text'
-import { DialogBase } from '../bases/dialog_base';
+import { BasePhotoText } from 'src/components/bases/base_photo_text'
+import { DialogBase } from 'src/components/bases/dialog_base';
 
-import { Error } from '../illustrations/error';
+import { Error } from 'src/components/illustrations/error';
 
-import { Form } from '../../lib/default_values/sizes/form_size';
+import { Form } from 'src/lib/default_values/sizes/form_size';
 
 export class AlertDialog extends Component {
   constructor(props){

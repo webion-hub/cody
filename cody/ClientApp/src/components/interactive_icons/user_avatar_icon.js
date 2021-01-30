@@ -14,8 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
-import { UserContext } from '../user_controller_context';
-import { User } from '../../lib/user';
+import { UserContext } from 'src/components/user_controller_context';
+import { User } from 'src/lib/user';
 
 const useStyles = makeStyles((theme) => ({
   avatarButton: {

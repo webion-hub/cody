@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
-import { CustomizableMenuContext } from '../../../components/nav_menu/customizable_menu';
-import { SearchBar } from '../../../components/pickers/search_bar/search_bar';
+import { CustomizableMenuContext } from 'src/components/nav_menu/customizable_menu';
+import { SearchBar } from 'src/components/pickers/search_bar/search_bar';
 
 import { makeStyles } from '@material-ui/core/styles';
 

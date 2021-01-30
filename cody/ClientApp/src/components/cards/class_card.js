@@ -12,9 +12,9 @@ import { Box } from '@material-ui/core';
 
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 
-import { CardBase } from '../bases/card_base';
-import { ScrollableChipsArray } from '../scrollable_chips_array';
-import { languages } from '../../lib/default_values/lists/coding_languages'
+import { CardBase } from 'src/components/bases/card_base';
+import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
+import { languages } from 'src/lib/default_values/lists/coding_languages'
 
 const useStyles = makeStyles((theme) => ({
   tooltipUsers: {

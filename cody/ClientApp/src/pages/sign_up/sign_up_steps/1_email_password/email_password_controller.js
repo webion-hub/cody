@@ -1,5 +1,5 @@
-import { PasswordController } from '../../../../lib/format_controller/password_controller';
-import { EmailController } from '../../../../lib/format_controller/email_controller';
+import { PasswordController } from 'src/lib/format_controller/password_controller';
+import { EmailController } from 'src/lib/format_controller/email_controller';
 
 export class EmailPasswordController{
 

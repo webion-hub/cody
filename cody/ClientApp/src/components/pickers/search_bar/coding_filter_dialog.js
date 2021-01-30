@@ -7,11 +7,11 @@ import { Autocomplete } from '@material-ui/lab';
 import { Grid } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { DialogBase } from '../../bases/dialog_base';
-import { Form } from '../../../lib/default_values/sizes/form_size';
-import { languages } from '../../../lib/default_values/lists/coding_languages';
+import { DialogBase } from 'src/components/bases/dialog_base';
+import { Form } from 'src/lib/default_values/sizes/form_size';
+import { languages } from 'src/lib/default_values/lists/coding_languages';
 
-import { Coding } from '../../illustrations/coding';
+import { Coding } from 'src/components/illustrations/coding';
 
 
 const useStyles = makeStyles((theme) => ({

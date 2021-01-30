@@ -1,14 +1,14 @@
 import React from 'react';
-import { Angular } from '../../../components/icons/angular';
-import { C } from '../../../components/icons/c';
-import { Cpp } from '../../../components/icons/cpp';
-import { CSharp } from '../../../components/icons/csharp';
-import { Css } from '../../../components/icons/css';
-import { Html } from '../../../components/icons/html';
-import { JavaScript } from '../../../components/icons/java_script';
-import { Java } from '../../../components/icons/java';
-import { Python } from '../../../components/icons/python';
-import { ReactIcon } from '../../../components/icons/react';
+import { Angular } from 'src/components/icons/angular';
+import { C } from 'src/components/icons/c';
+import { Cpp } from 'src/components/icons/cpp';
+import { CSharp } from 'src/components/icons/csharp';
+import { Css } from 'src/components/icons/css';
+import { Html } from 'src/components/icons/html';
+import { JavaScript } from 'src/components/icons/java_script';
+import { Java } from 'src/components/icons/java';
+import { Python } from 'src/components/icons/python';
+import { ReactIcon } from 'src/components/icons/react';
 
 export const languages =[
   {

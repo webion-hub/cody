@@ -8,15 +8,15 @@ import { FormControlLabel } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core/';
 
-import { Password } from '../../components/password/password_textfield';
-import { LoadingButton } from '../../components/buttons/loading_button';
-import { NextFocus } from '../../lib/next_focus';
+import { Password } from 'src/components/password/password_textfield';
+import { LoadingButton } from 'src/components/buttons/loading_button';
+import { NextFocus } from 'src/lib/next_focus';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
-import { UserContext } from '../../components/user_controller_context';
-import { User } from '../../lib/user';
+import { UserContext } from 'src/components/user_controller_context';
+import { User } from 'src/lib/user';
 
 export class LoginBoxMain extends Component{
 

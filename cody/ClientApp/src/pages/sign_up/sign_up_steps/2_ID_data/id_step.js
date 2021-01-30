@@ -8,11 +8,11 @@ import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../../components/bases/base_photo_text'
-import { DatePicker } from '../../../../components/pickers/text_fields/date_picker';
-import { NextFocus } from '../../../../lib/next_focus';
+import { BasePhotoText } from 'src/components/bases/base_photo_text'
+import { DatePicker } from 'src/components/pickers/text_fields/date_picker';
+import { NextFocus } from 'src/lib/next_focus';
 
-import { Step2 } from '../../../../components/illustrations/step2';
+import { Step2 } from 'src/components/illustrations/step2';
 
 export class IDData extends Component{
 

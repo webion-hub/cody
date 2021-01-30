@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Images } from '../../lib/default_values/images';
+import { Images } from 'src/lib/default_values/images';
 import { MainTextBox } from './home_components/main_text_box';
 import { DynamicSearchBar } from './home_components/dynamic_searchbar';
 import { MyClasses } from './home_components/my_classes';
-import { Cpp } from '../../components/icons/cpp';
+import { Cpp } from 'src/components/icons/cpp';
 
 import { makeStyles } from '@material-ui/core/styles';
 

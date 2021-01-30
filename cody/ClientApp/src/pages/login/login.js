@@ -5,14 +5,14 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { Authentication } from '../../components/illustrations/authentication';
+import { Authentication } from 'src/components/illustrations/authentication';
 import { LoginBox } from './login_box';
 
-import { Form } from '../../lib/default_values/sizes/form_size';
+import { Form } from 'src/lib/default_values/sizes/form_size';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { Images } from '../../lib/default_values/images';
+import { Images } from 'src/lib/default_values/images';
 
 export class Login extends Component {
   static displayName = Login.name;

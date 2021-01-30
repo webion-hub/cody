@@ -11,8 +11,8 @@ import { Fade } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
 
 import { CodingFilterDialog } from './coding_filter_dialog';
-import { ScrollableChipsArray } from '../../scrollable_chips_array';
-import { languages } from '../../../lib/default_values/lists/coding_languages'
+import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
+import { languages } from 'src/lib/default_values/lists/coding_languages'
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import CodeRoundedIcon from '@material-ui/icons/CodeRounded';

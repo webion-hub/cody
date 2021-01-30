@@ -1,4 +1,4 @@
-import { UsernameController, NameSurnameController } from '../../../../lib/format_controller/id_controllers';
+import { UsernameController, NameSurnameController } from 'src/lib/format_controller/id_controllers';
 
 export class IDController{
 

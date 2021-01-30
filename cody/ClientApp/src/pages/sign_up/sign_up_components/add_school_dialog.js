@@ -8,18 +8,18 @@ import { Typography } from '@material-ui/core';
 import { InputAdornment } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../components/bases/base_photo_text'
-import { DialogBase } from '../../../components/bases/dialog_base'
-import { NextFocus } from '../../../lib/next_focus';
-import { School } from '../../../lib/school';
-import { LoadingButton } from '../../../components/buttons/loading_button';
+import { BasePhotoText } from 'src/components/bases/base_photo_text'
+import { DialogBase } from 'src/components/bases/dialog_base'
+import { NextFocus } from 'src/lib/next_focus';
+import { School } from 'src/lib/school';
+import { LoadingButton } from 'src/components/buttons/loading_button';
  
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
 import PublicRoundedIcon from '@material-ui/icons/PublicRounded';
 
-import { Graduation } from '../../../components/illustrations/graduation';
-import { Form } from '../../../lib/default_values/sizes/form_size';
+import { Graduation } from 'src/components/illustrations/graduation';
+import { Form } from 'src/lib/default_values/sizes/form_size';
 
 export class AddSchoolDialog extends Component {
   constructor(props){

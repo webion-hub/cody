@@ -1,8 +1,8 @@
 import React from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
-import { ClassCard } from '../../../components/cards/class_card';
-import { School } from '../../../components/illustrations/school';
+import { ClassCard } from 'src/components/cards/class_card';
+import { School } from 'src/components/illustrations/school';
 
 import { Paper } from '@material-ui/core';
 import { Typography } from '@material-ui/core';

@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 
-import { Confirmation } from '../components/illustrations/confirmation';
+import { Confirmation } from 'src/components/illustrations/confirmation';
 
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 

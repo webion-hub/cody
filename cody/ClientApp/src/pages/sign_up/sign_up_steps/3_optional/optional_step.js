@@ -10,13 +10,13 @@ import { Link } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 
-import { BasePhotoText } from '../../../../components/bases/base_photo_text'
+import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { AddSchoolDialog } from '../../sign_up_components/add_school_dialog'
-import { AddPhoto } from '../../../../components/pickers/add_photo';
-import { NextFocus } from '../../../../lib/next_focus';
-import { School } from '../../../../lib/school';
+import { AddPhoto } from 'src/components/pickers/add_photo';
+import { NextFocus } from 'src/lib/next_focus';
+import { School } from 'src/lib/school';
 
-import { Step3 } from '../../../../components/illustrations/step3';
+import { Step3 } from 'src/components/illustrations/step3';
 
 export class OptionalData extends Component{
   constructor(props){

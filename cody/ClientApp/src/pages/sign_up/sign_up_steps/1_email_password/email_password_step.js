@@ -7,12 +7,12 @@ import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 
-import { Password } from '../../../../components/password/password_textfield';
-import { PwStrengthProgress } from '../../../../components/password/password_strenght_progress';
-import { BasePhotoText } from '../../../../components/bases/base_photo_text';
-import { NextFocus } from '../../../../lib/next_focus';
+import { Password } from 'src/components/password/password_textfield';
+import { PwStrengthProgress } from 'src/components/password/password_strenght_progress';
+import { BasePhotoText } from 'src/components/bases/base_photo_text';
+import { NextFocus } from 'src/lib/next_focus';
 
-import { Step1 } from '../../../../components/illustrations/step1';
+import { Step1 } from 'src/components/illustrations/step1';
 
 export class EmailPassword extends Component{
 

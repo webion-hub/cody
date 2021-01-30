@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { User } from '../lib/user';
+import { User } from 'src/lib/user';
 
 export const UserContext = React.createContext({
   logged: false,
