@@ -1,4 +1,5 @@
-﻿using Cody.Models;
+﻿using Cody.Contexts;
+using Cody.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +19,7 @@ namespace Cody.Extensions
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email),
             };
@@ -37,6 +39,19 @@ namespace Cody.Extensions
                 claimsPrincipal,
                 props
             );
+        }
+
+
+        public static UserAccount GetLoggedUserFrom(this HttpContext context, CodyContext dbContext)
+        {
+            var rawId = context
+                .User
+                .FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userId = int.Parse(rawId);
+            return dbContext
+                .UserAccounts
+                .Find(userId);
         }
     }
 }
