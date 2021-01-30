@@ -83,7 +83,7 @@ namespace Cody.Controllers
             if (_dbContext.UserExists(username))
                 yield return "username_exists";
 
-            else if (_dbContext.UserExists(email))
+            if (_dbContext.UserExists(email))
                 yield return "email_exists";
         }
     }

@@ -31,11 +31,10 @@ namespace Cody.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CreateNew([FromBody] SchoolCreationRequest request)
         {
-            if (TryGetSchool(request, out var existingSchool))
+            SchoolAccount school = request;
+            if (SchoolExists(school, out var existingSchool))
                 return BadRequest(existingSchool.Id);
 
-
-            SchoolAccount school = request;
             school.State = new SchoolAccountState {
                 HasBeenVerified = false,
             };
@@ -48,18 +47,18 @@ namespace Cody.Controllers
         }
 
 
-        private bool TryGetSchool(SchoolCreationRequest request, out SchoolAccount school)
+        private bool SchoolExists(SchoolAccount school, out SchoolAccount existingSchool)
         {
             var maybeExisting =
                 from s in _context.Schools
                 where
-                    s.Name == request.Name &&
-                    s.City == request.City &&
-                    s.Country == request.Country
+                    s.Name == school.Name &&
+                    s.City == school.City &&
+                    s.Country == school.Country
                 select s;
 
-            school = maybeExisting.SingleOrDefault();
-            return !maybeExisting.Any();
+            existingSchool = maybeExisting.FirstOrDefault();
+            return maybeExisting.Any();
         }
 
 
