@@ -40,14 +40,8 @@ namespace Cody.Controllers
         [Obsolete]
         internal async Task<IActionResult> TryRememberMe()
         {
-            var usernameClaim = HttpContext
-                .User
-                .Claims
-                .First(c => c.Type == ClaimTypes.Name);
-
-            var user = _dbContext
-                .MaybeGetUserBy(usernameClaim.Value)
-                .Single();
+            var user = 
+                HttpContext.GetLoggedUserFrom(_dbContext);
 
             await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
             return Ok();

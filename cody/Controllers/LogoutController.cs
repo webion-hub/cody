@@ -29,9 +29,15 @@ namespace Cody.Controllers
         public async Task<IActionResult> LogoutAsync()
         {
             await HttpContext.SignOutAsync();
+            await MaybeDeleteCookiesAsync();
+            return Ok();
+        }
 
+
+        private async Task MaybeDeleteCookiesAsync()
+        {
             if (!Request.TryGetLoginCookies(out var id, out var _))
-                return Ok();
+                return;
 
             var cookie = _dbContext
                 .LoginCookies
@@ -41,7 +47,6 @@ namespace Cody.Controllers
             await _dbContext.SaveChangesAsync();
 
             Response.DeleteLoginCookies();
-            return Ok();
         }
     }
 }
