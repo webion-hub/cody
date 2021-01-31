@@ -21,6 +21,15 @@ import { SignUpStepper } from './sign_up_components/signup_stepper';
 import { Form } from '../../lib/default_values/sizes/form_size';
 import { Images } from '../../lib/default_values/images';
 
+const CustomPaper = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 56,
+    },
+  },
+}))(Paper);
+
 export class SignUp extends Component {
   static displayName = SignUp.name;
   constructor() {
@@ -194,30 +203,26 @@ export class SignUp extends Component {
         justify="center"
         alignItems="center"
       >        
-        <Paper elevation={3}>
-          <Box 
-            p={3}
-          >
-            <SignUpStepper
-              steps={elementsNumber}
-              onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
-              optionalSteps={[3]}
-              element={this.state.currentStep > elementsNumber ? null : elements[this.state.currentStep].element}
-              currentStep={this.handleChange("currentStep")}
-              newStep={this.state.newStep}
-              user={this.setUser()}
-              profileImage={this.state.profileImage}
-              termsAndService={true}
-              loading={this.state.loading}
-              completed={
-                <SignUpCompleted
-                  imageWidth = {Form.imageWidth}
-                  formWidth = {Form.width}
-                />
-              }
-            />
-          </Box>
-        </Paper>
+        <CustomPaper elevation={3}>
+          <SignUpStepper
+            steps={elementsNumber}
+            onClick={() => {this.onClick(elements[this.state.currentStep].controller)}}
+            optionalSteps={[3]}
+            element={this.state.currentStep > elementsNumber ? null : elements[this.state.currentStep].element}
+            currentStep={this.handleChange("currentStep")}
+            newStep={this.state.newStep}
+            user={this.setUser()}
+            profileImage={this.state.profileImage}
+            termsAndService={true}
+            loading={this.state.loading}
+            completed={
+              <SignUpCompleted
+                imageWidth = {Form.imageWidth}
+                formWidth = {Form.width}
+              />
+            }
+          />
+        </CustomPaper>
         <div>
           <Grid
             container
