@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -30,7 +32,34 @@ namespace Cody.Controllers
         }
 
 
-        /// <response code="200">The id of the created or updated picture</response>
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var picture = await GetUserProfilePictureAsync();
+            if (picture is null)
+                return NoContent();
+
+            var fileStream = 
+                await _sftp.DownloadFileAsync(picture.FilePath);
+
+            var extension = picture.Extension;
+            var contentType = $"image/{extension}";
+
+            return File(fileStream, contentType);
+        }
+
+        private async Task<UserProfilePicture> GetUserProfilePictureAsync()
+        {
+            var user =
+                await HttpContext.GetLoggedUserFromAsync(_dbContext);
+
+            var picture =
+                from p in _dbContext.ProfilePictures
+                where p.AccountDetailId == user.AccountDetail.Id
+                select p;
+
+            return picture.SingleOrDefault();
+        }
         [HttpPut]
         [Route("create_or_update")]
         [Authorize]
