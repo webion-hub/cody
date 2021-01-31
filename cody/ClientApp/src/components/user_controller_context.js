@@ -22,6 +22,7 @@ export function UserControllerContext(props){
   }
 
   useEffect(() => {
+
     User.tryLoginWithCookie({
       onSuccess: () => setLogged(true),
     })
