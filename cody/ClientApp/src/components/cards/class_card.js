@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
+
 import { Grid, IconButton } from '@material-ui/core';
 import { Avatar } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -25,15 +27,24 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
+  codingLanguageButton: {
+    width: 40,
+    height: 40,
+  },
+  avatarCodingLanguageBox: {
+    background: theme.palette.background.paperSecondary,
+    borderRadius: 28,
+  }
 }));
 
 export function ClassCard(props){ 
+  const theme = useTheme();
   const classes = useStyles();
   const userNumber = props.users.length;
 
   return (
     <CardBase
-      background="rgba(0,0,0, 0.3)"
+      background={theme.palette.background.paperSecondary}
       image={props.image}
       title={props.title}
       loading={props.loading}
@@ -63,18 +74,10 @@ export function ClassCard(props){
                 container
                 direction="row"
                 spacing={1}
-                style={{
-                  background: "rgba(0,0,0,0.2)",
-                  borderRadius: 28,
-                }}
+                className={classes.avatarCodingLanguageBox}
               >
                 <Grid item>
-                  <IconButton
-                    style={{
-                      width: 40,
-                      height: 40,
-                    }}
-                  >
+                  <IconButton className={classes.codingLanguageButton}>
                     {props.languageIcon}
                   </IconButton>
                 </Grid>
@@ -146,7 +149,7 @@ export function ClassCard(props){
                 <Typography variant="h5" component="h2">
                   {props.title}
                 </Typography>
-                <Typography variant="caption">
+                <Typography variant="caption" color="textSecondary">
                   Admin <Link href="" color="inherit">{props.admin.username}</Link>
                 </Typography>
               </div>
