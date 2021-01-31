@@ -4,69 +4,6 @@ import axios from 'axios';
 import './cody_types';
 import { ProfilePicture } from './profile_picture';
 
-
-/**
- * @typedef {(
- *  'username' | 
- *  'password' | 
- *  'email' | 
- *  'name' | 
- *  'surname' | 
- *  'user_exists' | 
- *  'email_exists' | 
- *  'server_error'
- * )} RegisterErrorReasons
- */
-
-
-/**
- * @typedef {object} ExistsWithOptions
- * @property {string} usernameOrEmail
- * @property {AxiosRequestConfig} [axiosConfig]
- */
-
-/**
- * @typedef {object} LoginRequest
- * @property {string} username
- * @property {string} password
- * @property {bool} rememberMe
- */
-
-/**
- * @typedef {object} LogoutOptions
- * @property {() => void} [onSuccess]
- * @property {() => void} [onError]
- * @property {AxiosRequestConfig} [axiosConfig]
- */
-
-/**
- * @typedef {object} TryLoginOptions
- * @property {LoginRequest} userInfo
- * @property {AxiosRequestConfig} [axiosConfig]
- * @property {() => void} [onSuccess]
- * @property {() => void} [onUserNotFound]
- * @property {() => void} [onPasswordMismatch]
- */
-
-/**
- * @typedef {object} CookieLoginOptions
- * @property {() => void} [onSuccess]
- * @property {() => void} [onError] 
- * @property {AxiosRequestConfig} [axiosConfig]
- */
-
-/**
- * @typedef {object} TryRegisterOptions
- * @property {UserAccount} user
- * @property {File} [profilePicture]
- * @property {AxiosRequestConfig} [axiosConfig]
- * @property {(accountDetailId: number) => void} [onSuccess]
- * @property {(fields: string[]) => void} [onMissingFields]
- * @property {() => void} [onImageUploadError]
- * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
- */
-
-
 export class User {
   /**
    * @param {ExistsWithOptions} options
@@ -208,3 +145,65 @@ export class User {
       });
   }
 }
+
+
+/**
+ * @typedef {(
+  *  'username' | 
+  *  'password' | 
+  *  'email' | 
+  *  'name' | 
+  *  'surname' | 
+  *  'user_exists' | 
+  *  'email_exists' | 
+  *  'server_error'
+  * )} RegisterErrorReasons
+  */
+ 
+ 
+ /**
+  * @typedef {object} ExistsWithOptions
+  * @property {string} usernameOrEmail
+  * @property {AxiosRequestConfig} [axiosConfig]
+  */
+ 
+ /**
+  * @typedef {object} LoginRequest
+  * @property {string} username
+  * @property {string} password
+  * @property {bool} rememberMe
+  */
+ 
+ /**
+  * @typedef {object} LogoutOptions
+  * @property {() => void} [onSuccess]
+  * @property {() => void} [onError]
+  * @property {AxiosRequestConfig} [axiosConfig]
+  */
+ 
+ /**
+  * @typedef {object} TryLoginOptions
+  * @property {LoginRequest} userInfo
+  * @property {AxiosRequestConfig} [axiosConfig]
+  * @property {() => void} [onSuccess]
+  * @property {() => void} [onUserNotFound]
+  * @property {() => void} [onPasswordMismatch]
+  */
+ 
+ /**
+  * @typedef {object} CookieLoginOptions
+  * @property {() => void} [onSuccess]
+  * @property {() => void} [onError] 
+  * @property {AxiosRequestConfig} [axiosConfig]
+  */
+ 
+ /**
+  * @typedef {object} TryRegisterOptions
+  * @property {UserAccount} user
+  * @property {File} [profilePicture]
+  * @property {AxiosRequestConfig} [axiosConfig]
+  * @property {(accountDetailId: number) => void} [onSuccess]
+  * @property {(fields: string[]) => void} [onMissingFields]
+  * @property {() => void} [onImageUploadError]
+  * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
+  */

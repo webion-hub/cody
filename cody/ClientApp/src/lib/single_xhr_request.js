@@ -1,13 +1,6 @@
 import { AxiosResponse, CancelTokenSource } from 'axios';
 import axios from 'axios';
 
-/**
- * @callback SingleRequestCallback 
- * @param {CancelTokenSource} tokenSource 
- * @returns {Promise<AxiosResponse<any>>}
- */
-
-
 export default class SingleXHRRequest {
   constructor() {
     this.timeout = 300;
@@ -68,3 +61,10 @@ export default class SingleXHRRequest {
     catch {}
   }
 }
+
+
+/**
+ * @callback SingleRequestCallback 
+ * @param {CancelTokenSource} tokenSource 
+ * @returns {Promise<AxiosResponse<any>>}
+ */

@@ -3,22 +3,6 @@ import { AxiosResponse, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import './cody_types';
 
-
-/**
- * @callback SchoolCreationCallback
- * @param {number} schoolId
- * @returns {void}
- */
-
-/**
- * @typedef {object} CreateNewOptions
- * @property {SchoolAccount} school
- * @property {SchoolCreationCallback} [onSuccess]
- * @property {SchoolCreationCallback} [onError]
- * @property {AxiosRequestConfig} [axiosConfig]
- */
-
-
 export class School {
   /**
    * @param {CreateNewOptions} options
@@ -70,3 +54,18 @@ export class School {
       .then(response => response.data);
   }
 }
+
+
+/**
+ * @callback SchoolCreationCallback
+ * @param {number} schoolId
+ * @returns {void}
+ */
+
+/**
+ * @typedef {object} CreateNewOptions
+ * @property {SchoolAccount} school
+ * @property {SchoolCreationCallback} [onSuccess]
+ * @property {SchoolCreationCallback} [onError]
+ * @property {AxiosRequestConfig} [axiosConfig]
+ */
