@@ -1,4 +1,5 @@
 ﻿using Cody.Contexts;
+using Cody.Controllers.Helpers;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
@@ -60,25 +61,26 @@ namespace Cody.Controllers
 
             return picture.SingleOrDefault();
         }
+
+
         [HttpPut]
-        [Route("create_or_update")]
         [Authorize]
         public async Task<IActionResult> CreateOrReplace([FromForm] IFormFile picture) 
         {
-            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
-            var accountDetailId = user.AccountDetail.Id;
-
-            var basePath = @$"/cody_files/users/profile_pictures/{accountDetailId}/";
-            var fileName = picture.FileName;
+            var info = await UserPictureInfo.GetFrom(
+                httpContext: HttpContext,
+                dbContext: _dbContext,
+                formFile: picture
+            );
 
             var profilePicture = new UserProfilePicture {
-                AccountDetailId = accountDetailId,
-                FilePath = basePath + fileName,
+                AccountDetailId = info.AccountDetailId,
+                FilePath = info.FullPath,
                 Picture = picture,
             };
 
             var wasUploaded = 
-                await TryUploadPictureAsync(profilePicture, basePath);
+                await TryUploadPictureAsync(profilePicture, info.BasePath);
 
             if (!wasUploaded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -87,7 +89,6 @@ namespace Cody.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok(profilePicture.Id);
         }
-
 
         private async Task<bool> TryUploadPictureAsync(UserProfilePicture profilePicture, string basePath)
         {

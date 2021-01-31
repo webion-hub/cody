@@ -38,7 +38,6 @@ namespace Cody.Controllers
             var exists =
                 _dbContext.UserExists(usernameOrEmail);
 
-            _logger.LogInformation($"UserExists - {usernameOrEmail} -> {exists}");
             return Ok(exists);
         }
     }
