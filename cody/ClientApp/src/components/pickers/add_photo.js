@@ -65,6 +65,10 @@ export class AddPhoto extends Component{
               <Fab 
                 color="primary"
                 onClick={this.deleteImage}
+                style={{
+                  width: this.props.iconSize,
+                  height: this.props.iconSize
+                }}
               >
                 <DeleteRoundedIcon />
               </Fab>
@@ -72,6 +76,10 @@ export class AddPhoto extends Component{
               <Fab 
                 component="label"
                 color="primary"
+                style={{
+                  width: this.props.iconSize,
+                  height: this.props.iconSize
+                }}
               >
                 <AddRoundedIcon />
                 <input
@@ -84,7 +92,14 @@ export class AddPhoto extends Component{
             )
           }
         >
-          <LargeAvatar alt="add profile image" src={this.state.image}/>
+          <Avatar 
+            alt="add profile image" 
+            src={this.state.image}
+            style={{
+              width: this.props.size,
+              height: this.props.size
+            }}
+          />
         </Badge>
       </Box>
     )
