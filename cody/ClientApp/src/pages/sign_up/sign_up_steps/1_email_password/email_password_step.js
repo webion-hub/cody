@@ -63,9 +63,7 @@ export class EmailPassword extends Component{
             Email &amp; Password
           </Typography>,
           <Box>
-            <form
-              autoComplete="off"
-            >
+            <form>
               <TextField
                 id="registration_email"
                 label="Email"
