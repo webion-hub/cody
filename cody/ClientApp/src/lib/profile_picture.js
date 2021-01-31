@@ -2,13 +2,6 @@ import axios, { AxiosRequestConfig } from 'axios';
 import './cody_types';
 import 'axios';
 
-/**
- * @typedef {object} CreateOrUpdateOptions
- * @property {File} picture
- * @property {AxiosRequestConfig} axiosConfig
- */
-
-
 export class ProfilePicture {
   /**
    * @param {CreateOrUpdateOptions} options
@@ -25,7 +18,7 @@ export class ProfilePicture {
 
     return axios
       .request({
-        url: 'profile_picture/create_or_update',
+        url: 'profile_picture',
         method: 'PUT',
         data: formData,
         headers: {
@@ -35,4 +28,27 @@ export class ProfilePicture {
       })
       .then(response => response.data);
   }
+
+
+  /**
+   * @param {DownloadOptions} options 
+   */
+  static async download(options) 
+  {
+    const {axiosConfig} = options;
+
+    return axios.get('profile_picture', axiosConfig);
+  }
 }
+
+
+/**
+ * @typedef {object} CreateOrUpdateOptions
+ * @property {File} picture
+ * @property {AxiosRequestConfig} axiosConfig
+ */
+
+/**
+ * @typedef {object} DownloadOptions
+ * @property {AxiosRequestConfig} axiosConfig
+ */
