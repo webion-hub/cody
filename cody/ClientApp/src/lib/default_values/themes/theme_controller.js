@@ -35,7 +35,7 @@ export class ThemeController {
         },
         secondary: {
           main: this.color.secondary,
-          contrastText: '#101917',
+          contrastText: '#fff',
         },
         tertiary: {
           main: this.color.tertiary,
@@ -50,6 +50,10 @@ export class ThemeController {
         drawer: {
           default: this.color.backgroundDark,
         },
+        text: {
+          primary: 'rgba(255,255,255,0.95)',
+          secondary: 'rgba(255,255,255,0.85)'
+        }
       },
       overrides: {
         MuiCssBaseline: {

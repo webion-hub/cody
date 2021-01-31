@@ -1,6 +1,6 @@
 <svg id="bg-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 590.65">
     <defs>
-        <style>.cls-1,.cls-2,.cls-3{fill:#1f282e;}.cls-1{opacity:0.33;}.cls-2{opacity:0.66;}</style>
+        <style>.cls-1,.cls-2,.cls-3{fill:#193F8A;}.cls-1{opacity:0.33;}.cls-2{opacity:0.66;}</style>
     </defs>
     <path class="cls-1" d="M1440,0V525c-79.58,41-159.16,82-232,59s-138.94-110.13-197-122-108.09,51.47-164,75-117.72,7.23-204-9-197-32.41-265-36-93.13,5.4-149,13S86.57,518.8,0,525V0Z" transform="translate(0)"/>
     <path class="cls-2" d="M1440,0V350c-55.29,14.06-110.58,28.13-186,48s-171,45.55-249,16S866.51,299.68,799,286s-142,43.74-214,61-141.33-5.62-205-20-121.62-20.25-184-15S66.81,333.63,0,350V0Z" transform="translate(0)"/>
