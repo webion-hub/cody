@@ -3,9 +3,9 @@ import { Colors } from "./main_colors"
 export const darkColors = {
   primary: Colors.primary,
   secondary: Colors.secondary,
-  tertiary: '#eeeeee',
-  backgroundLight: '#2a313c', 
-  background: '#222831', 
-  backgroundDark: '#15191e', 
-  appBar: '#30475e',  
+  tertiary: '#435055',
+  backgroundLight: '#1b2228', 
+  background: '#27323a', 
+  backgroundDark: '#0b0f11', 
+  appBar: '#435055',  
 } 

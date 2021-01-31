@@ -35,7 +35,7 @@ export class ThemeController {
         },
         secondary: {
           main: this.color.secondary,
-          contrastText: '#fff',
+          contrastText: '#101917',
         },
         tertiary: {
           main: this.color.tertiary,
@@ -68,7 +68,7 @@ export class ThemeController {
         },
         MuiStepIcon: {
           root: {
-            color: this.color.secondary,
+            color: this.color.tertiary,
           },
           completed: {
             color: `${this.color.secondary} !important` 
