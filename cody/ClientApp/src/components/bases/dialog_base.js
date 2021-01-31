@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dialog } from '@material-ui/core';
+import { Dialog, Typography } from '@material-ui/core';
 import { DialogActions } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import { DialogTitle } from '@material-ui/core';
@@ -27,7 +27,9 @@ export function DialogBase(props){
       aria-describedby="alert-dialog-description"
       classes={{paper: classes.dialog,}}
     >
-      <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title">{props.title}</DialogTitle>
+      <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title">
+        <Typography variant="h6" color="textSecondary">{props.title}</Typography>
+      </DialogTitle>
       <DialogContent>
         {props.children}
       </DialogContent>
