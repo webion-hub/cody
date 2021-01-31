@@ -62,23 +62,22 @@ namespace Cody.Services
         }
 
 
-        public IFormFile DownloadFile(string remoteFilePath)
+        public async Task<Stream> DownloadFileAsync(string remoteFilePath)
         {
-            using var stream = new MemoryStream();
-            SftpFile fileInfo;
+            var stream = new MemoryStream();
             try {
-                fileInfo = _client.Get(remoteFilePath);
+                var fileInfo = _client.Get(remoteFilePath);
                 stream.SetLength(fileInfo.Attributes.Size);
                 
-                _client.DownloadFile(remoteFilePath, stream);
-                _logger.LogInformation($"Stfp service - downloaded -> {remoteFilePath}");
+                await _client.DownloadAsync(remoteFilePath, stream);
             }
             catch (Exception e) {
                 _logger.LogError(e, $"Stfp service - download error -> {remoteFilePath}");
                 return null;
             }
 
-            return new FormFile(stream, 0, fileInfo.Attributes.Size, fileInfo.Name, fileInfo.FullName);
+            stream.Seek(0, SeekOrigin.Begin);
+            return stream;
         }
 
 
