@@ -41,7 +41,7 @@ export function ScrollableChipsArray(props){
   }
 
   return(
-    <div className="scrollableChipsArray">
+    <div className="noScroll">
       <ScrollContainer>
         <ul 
           className={classes.root}

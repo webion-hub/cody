@@ -55,6 +55,7 @@ export function ClassCard(props){
           color="primary"
           endIcon={<KeyboardArrowRightRoundedIcon/>}
           href={props.href}
+          className="noScroll"
         >
           Apri
         </Button>
@@ -77,13 +78,14 @@ export function ClassCard(props){
                 className={classes.avatarCodingLanguageBox}
               >
                 <Grid item>
-                  <IconButton className={classes.codingLanguageButton}>
+                  <IconButton className={`${classes.codingLanguageButton} noScroll`}>
                     {props.languageIcon}
                   </IconButton>
                 </Grid>
                 <Grid item>
                   <Tooltip
                     arrow
+                    interactive
                     placement="left"
                     disableFocusListener 
                     title={ userNumber > 0 ? (
@@ -150,7 +152,7 @@ export function ClassCard(props){
                   {props.title}
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
-                  Admin <Link href="" color="inherit">{props.admin.username}</Link>
+                  Admin <Link href="" color="inherit" className="noScroll">{props.admin.username}</Link>
                 </Typography>
               </div>
             )

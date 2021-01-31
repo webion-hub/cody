@@ -142,7 +142,7 @@ export function MyClasses(props){
             ):(
               <ScrollContainer
                 hideScrollbars={false}
-                ignoreElements=".scrollableChipsArray"
+                ignoreElements=".noScroll"
               >
                 <ul className={classes.classesListStyle}>
                   {
