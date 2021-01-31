@@ -71,6 +71,11 @@ const classesStyles = makeStyles((theme) => ({
     },
     display: "flex",
     margin:"0 auto"
+  },
+  titleIcon: {
+    marginRight: 15,
+    height: 30,
+    width: 30
   }
 }));
 
@@ -89,8 +94,8 @@ export function MyClasses(props){
           classesNumber === 0 ? (
             null
           ):(
-            <Typography variant="h4">
-              <SchoolRoundedIcon style={{marginRight: 15, height: 30, width: 30}}/>
+            <Typography variant="h4" color="textSecondary">
+              <SchoolRoundedIcon className={classes.titleIcon}/>
                 Le classi a cui sei iscritto
             </Typography>
           )
