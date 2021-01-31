@@ -72,6 +72,7 @@ export class ForgotPasswordDialog extends Component {
       <DialogBase
         open={this.props.open}
         title="Password dimenticata?"
+        onClose={this.handleClose}
         firstButton={
           <Fade
             in={!this.state.success}

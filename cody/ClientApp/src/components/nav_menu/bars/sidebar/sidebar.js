@@ -78,6 +78,7 @@ export function SideBar(props) {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             onOpen={handleDrawerToggle}
+            className={classes.scrollableDrawer}
             classes={{
               paper: classes.fullDrawerPaper,
             }}

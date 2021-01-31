@@ -4,6 +4,9 @@ export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;
 
 export const sidebarStyles = makeStyles((theme) => ({
+  scrollableDrawer: {
+    zIndex: "900 !important"
+  },
   fullDrawerPaper: {
     width: fullDrawerWidth,
     overflowX: "hidden",
@@ -37,7 +40,7 @@ export const sidebarStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   drawer: {
-    zIndex: 100000,
+    zIndex: 1200,
     [theme.breakpoints.up('sm')]: {
       flexShrink: 0,
     },
