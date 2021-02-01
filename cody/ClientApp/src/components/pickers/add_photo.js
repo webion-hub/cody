@@ -9,20 +9,13 @@ import { Badge } from '@material-ui/core';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 
-const LargeAvatar = withStyles({
-  root: {
-    width: 120,
-    height: 120,
-  },
-})(Avatar);
-
 export class AddPhoto extends Component{
 
   constructor(props){
     super(props);
     
     this.state = {
-      image: null,
+      image: this.props.value,
     }
   }
 

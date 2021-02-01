@@ -67,6 +67,7 @@ export function Account(props){
 							size={100}
 							iconSize={40}
 							image={getImage}
+							value="profile_picture"
 						/>
 						<Box pl={4}>
 
