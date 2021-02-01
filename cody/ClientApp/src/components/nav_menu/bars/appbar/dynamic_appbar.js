@@ -19,10 +19,12 @@ import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 const dynamicAppbarStyles = makeStyles((theme) => ({
   rightSection: {
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    alignItems: "center"
   },
   leftSection: {
     display: "flex",
+    alignItems: "center"
   },
   toolbar: {
     paddingLeft: 0

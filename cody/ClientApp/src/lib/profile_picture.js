@@ -35,9 +35,7 @@ export class ProfilePicture {
    */
   static async download(options) 
   {
-    const {axiosConfig} = options;
-
-    return axios.get('profile_picture', axiosConfig);
+    return axios.get('profile_picture');
   }
 }
 
