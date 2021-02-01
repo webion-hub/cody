@@ -19,18 +19,16 @@ import { User } from 'src/lib/user';
 
 const useStyles = makeStyles((theme) => ({
   avatarButton: {
-    padding: 3,
+    width: 40,
+    height: 40,
+    margin: 4,
   },
-  avatar: {
-    width: 48,
-    height: 48,
+  skeleton: {
+    margin: 4,
   },
   loginButton: {
     marginTop: 7
   },
-  skeleton: {
-    margin: 3
-  }
 }));
 
 export function UserAvatarIcon(){  
@@ -39,7 +37,8 @@ export function UserAvatarIcon(){
   const { loading } = React.useContext(UserContext);
 
   const [openMenu, setOpenMenu] = React.useState(null);
-
+  const [loadingAvatar, setLoadingAvatar] = React.useState(true);
+  
   const handleClick = (event) => {
     setOpenMenu(event.currentTarget);
   };
@@ -47,79 +46,91 @@ export function UserAvatarIcon(){
   const handleClose = () => {
     setOpenMenu(null);
   };
-
   return (    
     <div>
+      <Skeleton
+        variant="circle" 
+        animation="wave"
+        width={40} 
+        height={40} 
+        className={classes.skeleton}
+        style={{
+          display: (logged && loadingAvatar) || loading ? "block" : "none"  
+        }}
+      />
       {
-        loading ? (
-          <Skeleton
-            variant="circle" 
-            width={45} 
-            height={45} 
-            className={classes.skeleton}
-          />
-        ):(
+        logged ? (
           <div>
-            {
-              logged ? (
-                <div>
-                  <Tooltip
-                    arrow
-                    title="Account"
-                  >
-                    <IconButton
-                      className={classes.avatarButton}
-                      onClick={handleClick}
-                    >
-                      <Avatar alt="Avatar" src="/images/bulb.jpeg" />
-                    </IconButton>
-                  </Tooltip>
-      
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={openMenu}
-                    keepMounted
-                    open={Boolean(openMenu)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={() => {}}>
-                      <ListItemIcon>
-                        <AccountCircleRoundedIcon fontSize="small"/>
-                      </ListItemIcon>
-                      <Typography variant="inherit" noWrap>
-                        Account
-                      </Typography>
-                    </MenuItem>
-                    <MenuItem onClick={() => {
-                      handleClose();
-                      User.logout({
-                        onSuccess: () => {setLogged(false)},
-                        onError: () => {},
-                      });
-                    }}>
-                      <ListItemIcon>
-                        <ExitToAppRoundedIcon fontSize="small" />
-                      </ListItemIcon>
-                      <Typography variant="inherit" noWrap>
-                        Logout
-                      </Typography>
-                    </MenuItem>
-                  </Menu>
-                </div>
-              ):(
-                <Tooltip
-                  arrow
-                  title="Accedi"
+            <div
+              style={{
+                display: loadingAvatar ? "none" : "block"
+              }}
+            >
+              <Tooltip
+                arrow
+                title="Account"
+              >
+                <IconButton
+                  className={classes.avatarButton}
+                  onClick={handleClick}
                 >
-                  <Button
-                    className={classes.loginButton}
-                    href="/login"
-                  >
-                    Login
-                  </Button>
-                </Tooltip>
-              )
-            }
+                  <Avatar 
+                    alt="Avatar" 
+                    src="profile_picture" 
+                    onLoad={() => setLoadingAvatar(false)}
+                    onError={() => setLoadingAvatar(false)}
+                  />
+                </IconButton>
+              </Tooltip>
+            </div>  
+            <Menu
+              id="simple-menu"
+              anchorEl={openMenu}
+              keepMounted
+              open={Boolean(openMenu)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => {}}>
+                <ListItemIcon>
+                  <AccountCircleRoundedIcon fontSize="small"/>
+                </ListItemIcon>
+                <Typography variant="inherit" noWrap>
+                  Account
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={() => {
+                handleClose();
+                User.logout({
+                  onSuccess: () => {setLogged(false)},
+                  onError: () => {},
+                });
+              }}>
+                <ListItemIcon>
+                  <ExitToAppRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <Typography variant="inherit" noWrap>
+                  Logout
+                </Typography>
+              </MenuItem>
+            </Menu>
+          </div>
+        ):(
+          <div
+            style={{
+              display: loading ? "none" : "block" 
+            }}
+          >
+            <Tooltip
+              arrow
+              title="Accedi"
+            >
+              <Button
+                className={classes.loginButton}
+                href="/login"
+              >
+                Login
+              </Button>
+            </Tooltip>
           </div>
         )
       }
