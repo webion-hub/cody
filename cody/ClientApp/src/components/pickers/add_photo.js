@@ -15,7 +15,7 @@ export class AddPhoto extends Component{
     super(props);
     
     this.state = {
-      image: this.props.value,
+      image: this.props.value? this.props.value : null,
     }
   }
 
