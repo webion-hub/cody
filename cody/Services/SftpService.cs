@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -48,15 +49,29 @@ namespace Cody.Services
 
         public async Task<bool> TryUploadFileAsync(IFormFile file, string remoteFilePath)
         {
+            using var fileStream = 
+                file.OpenReadStream();
+
+            return await TryUploadFileAsync(fileStream, remoteFilePath);
+        }
+
+        public async Task<bool> TryUploadFileAsync(string contents, string remoteFilePath)
+        {
+            var rawBytes = Encoding.UTF8.GetBytes(contents);
+            var stream = new MemoryStream(rawBytes);
+
+            return await TryUploadFileAsync(stream, remoteFilePath);
+        }
+
+        public async Task<bool> TryUploadFileAsync(Stream stream, string remoteFilePath)
+        {
             try {
-                using var fileStream = file.OpenReadStream();
-                await _client.UploadAsync(fileStream, remoteFilePath);
-                
-                _logger.LogInformation($"Stfp service - uploaded -> {file.FileName} to {remoteFilePath}");
+                MaybeCreateDirectiories(remoteFilePath);
+                await _client.UploadAsync(stream, remoteFilePath);
                 return true;
             }
             catch (Exception e) {
-                _logger.LogError(e, $"Stfp service - upload failed -> {file.FileName} to {remoteFilePath}");
+                _logger.LogError(e, $"Stfp service - upload failed -> {remoteFilePath}");
                 return false;
             }
         }
