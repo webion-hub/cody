@@ -9,6 +9,8 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
+import { ProfilePicture } from 'src/lib/profile_picture'
+
 const useStyles = makeStyles((theme) => ({
 	box: {
 		maxWidth: 450,
@@ -68,6 +70,7 @@ export function Account(props){
 							iconSize={40}
 							image={getImage}
 							value="profile_picture"
+							accountEdit
 						/>
 						<Box pl={4}>
 
