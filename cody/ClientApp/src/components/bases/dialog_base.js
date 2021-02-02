@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       transform: "translate(24px, 0px)"
     },
+  },
+  title: {
+    color: theme.palette.text.secondary,
   }
 }));
 
@@ -27,8 +30,8 @@ export function DialogBase(props){
       aria-describedby="alert-dialog-description"
       classes={{paper: classes.dialog,}}
     >
-      <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title">
-        <Typography variant="h6" color="textSecondary">{props.title}</Typography>
+      <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title" className={classes.title}>
+        {props.title}
       </DialogTitle>
       <DialogContent>
         {props.children}
