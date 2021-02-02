@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import { Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
 import { Login } from './pages/login/login';
@@ -16,6 +16,7 @@ import { useMediaQuery } from '@material-ui/core';
 import { ThemeController } from "./lib/default_values/themes/theme_controller";
 import { UserControllerContext } from "./components/user_controller_context";
 import { UserContext } from "./components/user_controller_context";
+import history from 'src/history'
 
 import './custom.css';
 
@@ -41,7 +42,7 @@ function Routes(){
   const { logged, setLogged } = React.useContext(UserContext);
 
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <CustomRoute exact path='/' component={Home} />
         <CustomRoute path='/login' component={Login} to='/' redirect={logged}/>
@@ -51,7 +52,7 @@ function Routes(){
 
         <CustomRoute component={Error404Page} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
