@@ -28,25 +28,11 @@ export class ProfilePicture {
       })
       .then(response => response.data);
   }
-
-
-  /**
-   * @param {DownloadOptions} options 
-   */
-  static async download(options) 
-  {
-    return axios.get('profile_picture');
-  }
 }
 
 
 /**
  * @typedef {object} CreateOrUpdateOptions
  * @property {File} picture
- * @property {AxiosRequestConfig} axiosConfig
- */
-
-/**
- * @typedef {object} DownloadOptions
  * @property {AxiosRequestConfig} axiosConfig
  */
