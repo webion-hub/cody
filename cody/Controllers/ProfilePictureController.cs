@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -34,6 +36,7 @@ namespace Cody.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             var picture = await GetUserProfilePictureAsync();
@@ -43,56 +46,82 @@ namespace Cody.Controllers
             var fileStream = 
                 await _sftp.DownloadFileAsync(picture.FilePath);
 
-            var extension = picture.Extension;
-            var contentType = $"image/{extension}";
-
-            return File(fileStream, contentType);
+            return File(fileStream, picture.ContentType);
         }
+
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update(string base64Image)
+        {
+            var picture = await GetUserProfilePictureAsync();
+            picture ??= await CreateNewUserPictureAsync();
+            picture.Extension = ".base64";
+
+            var uploaded = 
+                await _sftp.TryUploadFileAsync(base64Image, picture.FilePath);
+
+            if (!uploaded)
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            await _sftp.DeleteAllExceptAsync(
+                picture.BasePath,
+                picture.FileName
+            );
+
+            await _dbContext.ProfilePictures.AddAsync(picture);
+            await _dbContext.SaveChangesAsync();
+            return Ok(picture.Id);
+        }
+
 
         private async Task<UserProfilePicture> GetUserProfilePictureAsync()
         {
             var user =
                 await HttpContext.GetLoggedUserFromAsync(_dbContext);
 
-            var picture =
-                from p in _dbContext.ProfilePictures
-                where p.AccountDetailId == user.AccountDetail.Id
-                select p;
+            var picture = _dbContext
+                .ProfilePictures
+                .Where(p => p.AccountDetailId == user.AccountDetail.Id);
 
             return picture.SingleOrDefault();
         }
 
-
-        [HttpPut]
-        [Authorize]
-        public async Task<IActionResult> CreateOrReplace([FromForm] IFormFile picture) 
+        private async Task<UserProfilePicture> CreateNewUserPictureAsync()
         {
-            var info = await UserPictureInfo.GetFrom(
-                httpContext: HttpContext,
-                dbContext: _dbContext,
-                formFile: picture
-            );
+            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var accountDetailId = user.AccountDetail.Id;
 
-            var profilePicture = new UserProfilePicture {
-                AccountDetailId = info.AccountDetailId,
-                FilePath = info.FullPath,
-                Picture = picture,
+            return new UserProfilePicture()
+            {
+                AccountDetailId = accountDetailId,
             };
+        }
 
-            var wasUploaded = 
-                await TryUploadPictureAsync(profilePicture, info.BasePath);
+
+        [Obsolete("Images are now uploaded in base64 only")]
+        [Authorize]
+        public async Task<IActionResult> CreateOrReplace([FromForm] IFormFile submitted)
+        {
+            var picture = await GetUserProfilePictureAsync();
+            picture ??= await CreateNewUserPictureAsync();
+            picture.FilePath = submitted.FileName;
+            picture.Picture = submitted;
+
+            var wasUploaded =
+                await TryUploadPictureAsync(picture, picture.FilePath);
 
             if (!wasUploaded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
-            await _dbContext.ProfilePictures.AddAsync(profilePicture);
+            await _dbContext.ProfilePictures.AddAsync(picture);
             await _dbContext.SaveChangesAsync();
-            return Ok(profilePicture.Id);
+            return Ok(picture.Id);
         }
 
+        [Obsolete]
         private async Task<bool> TryUploadPictureAsync(UserProfilePicture profilePicture, string basePath)
         {
-            _sftp.MaybeCreateDirectiories(profilePicture.FilePath);
             var wasUploaded = await _sftp.TryUploadFileAsync(
                 profilePicture.Picture,
                 profilePicture.FilePath
