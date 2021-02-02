@@ -23,16 +23,43 @@ namespace Cody.Models
 
         public UserAccountDetail AccountDetail { get; set; }
 
+
         [NotMapped]
         public IFormFile Picture { get; set; }
 
         [NotMapped]
-        public string Extension 
+        public string ContentType => $"image/{Extension}";
+
+        [NotMapped]
+        public string Extension
         {
-            get => Regex
-                .Match(FilePath, @"^.+\.(.+)$")
-                .Groups[1]
-                .Value;
+            get => Path.GetExtension(FilePath);
+            set => FilePath = CreateNewFilePathFor(AccountDetailId, value);
+        }
+
+        [NotMapped] public string BasePath => GetBasePathFor(AccountDetailId);
+        [NotMapped] public string FileName => GetFilePathFor(Extension);
+
+
+        public static string CreateNewFilePathFor(int accountDetailId, string fileNameOrExtension)
+        {
+            var basePath = GetBasePathFor(accountDetailId);
+            var filePath = GetFilePathFor(fileNameOrExtension);
+
+            return $@"{basePath}/{filePath}";
+        }
+
+        public static string GetBasePathFor(int accoundDetailId)
+        {
+            return @$"/cody_files/users/profile_pictures/{accoundDetailId}";
+        }
+
+        public static string GetFilePathFor(string fileNameOrExtension)
+        {
+            var extension = Path.GetExtension(fileNameOrExtension);
+            var filePath = $@"profile_picture{extension}";
+
+            return filePath;
         }
     }
 }
