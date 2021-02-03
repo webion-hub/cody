@@ -16,9 +16,10 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { UserContext } from 'src/components/user_controller_context';
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base';
-import history from 'src/history'
 
 import { User } from 'src/lib/user';
+
+import history from 'src/history'
 
 const useStyles = makeStyles((theme) => ({
   avatarButton: {
@@ -73,7 +74,10 @@ export function UserAvatarIcon(){
         onClose={handleClose}
       >
         <MenuItem
-          onClick={() => history.push('/account')}
+          onClick={() => {
+            history.push('/account');
+            handleClose();
+          }}
         >
           <ListItemIcon>
             <AccountCircleRoundedIcon fontSize="small"/>
@@ -84,11 +88,15 @@ export function UserAvatarIcon(){
         </MenuItem>
         <MenuItem
           onClick={() => {
-            history.push('/');
-            handleClose();
+            //sessionStorage.setItem('logged', false);
             User.logout({
-              onSuccess: () => {setLogged(false)},
-              onError: () => {},
+              onSuccess: () => setLogged(false),
+              onError: () => setLogged(false),
+            })
+            .then(() => {
+              handleClose();
+              history.push('/');
+              history.go(0);
             });
           }}
         >
@@ -115,7 +123,7 @@ export function UserAvatarIcon(){
         >
           <Button
             className={classes.loginButton}
-            href="/login"
+            onClick={() => history.push('/login')}
           >
             Login
           </Button>

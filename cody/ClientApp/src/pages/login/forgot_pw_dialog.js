@@ -89,7 +89,6 @@ export class ForgotPasswordDialog extends Component {
           <LoadingButton
             loading={this.state.loading}
             onClick={this.state.success ? this.handleClose : this.tryEmail}
-            href="/"
             label={this.state.success ? "Chiudi" : "Conferma"}
           />
         }

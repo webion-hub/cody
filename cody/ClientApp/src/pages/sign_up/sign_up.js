@@ -21,6 +21,8 @@ import { SignUpStepper } from './sign_up_components/signup_stepper';
 import { Form } from '../../lib/default_values/sizes/form_size';
 import { Images } from '../../lib/default_values/images';
 
+import history from 'src/history';
+
 const CustomPaper = withStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -242,7 +244,7 @@ export class SignUp extends Component {
             <Link
               component="button"
               variant="caption"
-              href="/terms_and_services"
+              onClick={() => history.push('/terms_and_services')}
               style={{
                 fontWeight: "bold",
                 color: "#d0d0d0"

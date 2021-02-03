@@ -18,6 +18,7 @@ import { User } from 'src/lib/user';
 import { ProfilePicture } from 'src/lib/profile_picture';
 import { UserContext } from 'src/components/user_controller_context';
 
+import history from 'src/history'
 
 const StyledStepper = withStyles({
   root: {
@@ -179,8 +180,10 @@ export class SignUpStepperMain extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => this.props.setLogged(true)}
-                  href="/"
+                  onClick={() => {
+                    this.props.setLogged(true)
+                    history.push('/');                
+                  }}
                   endIcon={<HomeRoundedIcon/>}
                 >
                   Vai alla home
@@ -197,8 +200,10 @@ export class SignUpStepperMain extends Component {
                   justify="space-between"
                 >
                   <Button 
-                    onClick={this.state.activeStep === 0 ? function() { return undefined; } : this.handleBack} 
-                    href={this.state.activeStep === 0 ? "/login" : ""}
+                    onClick={this.state.activeStep === 0 ? 
+                        () => history.push('/login') : 
+                        this.handleBack
+                    } 
                     disabled={this.state.loading}
                   >
                     {this.state.activeStep === 0 ? "Vai al login" : "Indietro"}

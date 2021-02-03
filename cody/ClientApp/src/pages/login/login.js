@@ -14,6 +14,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { Images } from 'src/lib/default_values/images';
 
+import history from 'src/history'
+
 export class Login extends Component {
   static displayName = Login.name;
   render () {
@@ -58,7 +60,7 @@ export class Login extends Component {
               color: "rgba(255,255,255,0.9)",
             }}
             endIcon={<ArrowForwardIcon/>}
-            href="/sign-up"
+            onClick={() => history.push('/sign-up')}
           >
             Crea un account
           </Button>

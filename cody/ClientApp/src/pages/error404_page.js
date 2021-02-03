@@ -8,6 +8,8 @@ import { Paper } from '@material-ui/core';
 
 import { Error404 } from 'src/components/illustrations/error404';
 
+import history from 'src/history'
+
 export class Error404Page extends Component {
   static displayName = Error.name; 
   render () {
@@ -50,7 +52,7 @@ export class Error404Page extends Component {
               <Button
                 color="primary"
                 variant="contained"
-                href="/"
+                onClick={() => history.push('/')}
                 fullWidth={true}
               >
                 Torna alla home

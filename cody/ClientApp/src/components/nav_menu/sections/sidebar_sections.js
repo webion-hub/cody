@@ -3,12 +3,14 @@ import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 
+import history from 'src/history'
+
 export const sideBarSections = [
     [
       {
         label: 'Home',
-        icon: (<HomeRoundedIcon />),
-        href: "/"
+        icon: (<HomeRoundedIcon />),              
+        onClick: () => history.push('/'),
       },
       {
         label: 'Classi',
@@ -19,7 +21,7 @@ export const sideBarSections = [
       {
         label: 'Esci',
         icon: (<ExitToAppRoundedIcon />),
-        href: "/login"
+        onClick: () => history.push('/login'),
       },
     ],    
   ]

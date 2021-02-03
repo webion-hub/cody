@@ -10,6 +10,8 @@ import { Confirmation } from 'src/components/illustrations/confirmation';
 
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
+import history from 'src/history'
+
 export class EmailValid extends Component {
   static displayName = Error.name; 
   render () {
@@ -70,7 +72,7 @@ export class EmailValid extends Component {
               <Button
                 color="primary"
                 variant="contained"
-                href="/"
+                onClick={() => history.push('/')}
                 fullWidth={true}
               >
                 Vai alla home

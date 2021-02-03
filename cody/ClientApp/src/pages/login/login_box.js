@@ -18,6 +18,8 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import { UserContext } from 'src/components/user_controller_context';
 import { User } from 'src/lib/user';
 
+import history from 'src/history'
+
 export class LoginBoxMain extends Component{
 
   constructor(props){
@@ -33,7 +35,6 @@ export class LoginBoxMain extends Component{
       wrongUsername: false,
       wrongPassword: false,
       loading: false,
-      navigateToHome: false,
       focusPw: false,
 
       openForgotPw: false,
@@ -61,7 +62,6 @@ export class LoginBoxMain extends Component{
 
 
   async _tryLogin() {
-    let success = false;
     await User.tryLogin({
       userInfo: {
         username: this.state.username,
@@ -69,18 +69,16 @@ export class LoginBoxMain extends Component{
         rememberMe: this.state.rememberMe,
       },
       
-      onSuccess: _ => success = true,
+      onSuccess: _ => {
+        this.props.setLogged(true);
+        history.push('/');
+      },
       onUserNotFound: _ => this.setState({wrongUsername: true}),
       onPasswordMismatch: _ => this.setState({wrongPassword: true}),
     })
     .then(_=> {
       this.setState({loading: false});
     });
-
-    if(success){
-      this.setState({navigateToHome: true});
-      this.props.context(true);
-    }
   }
 
   _updateUsername = e => {
@@ -187,10 +185,10 @@ export class LoginBoxMain extends Component{
               loading={this.state.loading}
               fullWidth={true}
               endIcon={<AccountCircleRoundedIcon/>}
-              onClick={_ => this._maybeLogin()}
-              href="/"
+              onClick={_ => {
+                this._maybeLogin()
+              }}
               label="Accedi"
-              navigateToHome={this.state.navigateToHome}
             />
             <Box mt={1}>
               <Link
@@ -222,7 +220,7 @@ export function LoginBox(props){
   return(
     <LoginBoxMain
       size={props.size}
-      context={setLogged}
+      setLogged={setLogged}
     />
   );
 }
