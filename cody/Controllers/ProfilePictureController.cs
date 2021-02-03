@@ -58,18 +58,11 @@ namespace Cody.Controllers
             picture ??= await CreateNewUserPictureAsync();
             picture.Extension = ".base64";
 
-            var uploaded = 
-                await _sftp.TryUploadFileAsync(base64Image, picture.FilePath);
-
+            var uploaded = await TryUploadAsync(base64Image, picture);
             if (!uploaded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
-
-            await _sftp.DeleteAllExceptAsync(
-                picture.BasePath,
-                picture.FileName
-            );
-
-            await _dbContext.ProfilePictures.AddAsync(picture);
+            
+            _dbContext.ProfilePictures.Add(picture);
             await _dbContext.SaveChangesAsync();
             return Ok(picture.Id);
         }
@@ -98,41 +91,17 @@ namespace Cody.Controllers
             };
         }
 
-
-        [Obsolete("Images are now uploaded in base64 only")]
-        [Authorize]
-        public async Task<IActionResult> CreateOrReplace([FromForm] IFormFile submitted)
+        private async Task<bool> TryUploadAsync(string contents, UserProfilePicture picture)
         {
-            var picture = await GetUserProfilePictureAsync();
-            picture ??= await CreateNewUserPictureAsync();
-            picture.FilePath = submitted.FileName;
-            picture.Picture = submitted;
+            var uploaded =
+                await _sftp.TryUploadFileAsync(contents, picture.FilePath);
 
-            var wasUploaded =
-                await TryUploadPictureAsync(picture, picture.FilePath);
-
-            if (!wasUploaded)
-                return StatusCode(StatusCodes.Status500InternalServerError);
-
-            await _dbContext.ProfilePictures.AddAsync(picture);
-            await _dbContext.SaveChangesAsync();
-            return Ok(picture.Id);
-        }
-
-        [Obsolete]
-        private async Task<bool> TryUploadPictureAsync(UserProfilePicture profilePicture, string basePath)
-        {
-            var wasUploaded = await _sftp.TryUploadFileAsync(
-                profilePicture.Picture,
-                profilePicture.FilePath
-            );
-
-            if (!wasUploaded)
+            if (!uploaded)
                 return false;
 
             await _sftp.DeleteAllExceptAsync(
-                basePath, 
-                profilePicture.Picture.FileName
+                picture.BasePath,
+                picture.FileName
             );
 
             return true;
