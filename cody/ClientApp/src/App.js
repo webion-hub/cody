@@ -7,7 +7,7 @@ import { SignUp } from './pages/sign_up/sign_up';
 import { Error404Page } from './pages/error404_page';
 import { EmailValid } from './pages/email_valid';
 import { Home } from './pages/home/home';
-import { Account } from './pages/account';
+import { Account } from './pages/account/account';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';  
 import { CssBaseline } from "@material-ui/core";
