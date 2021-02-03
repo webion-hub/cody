@@ -23,7 +23,7 @@ export class IDController{
   
         Promise.all([
           usernameController
-            .checkUsername(username)
+            .checkUsername(username, false)
             .then(
               result => {
                 if(result !== "correctUsername") {
@@ -34,7 +34,7 @@ export class IDController{
             ),
     
           nameSurnameController
-            .checkNameSurname(name)
+            .checkNameSurname(name, false)
             .then(
               result => {
                 if(result) {
@@ -45,7 +45,7 @@ export class IDController{
             ),
     
           nameSurnameController
-            .checkNameSurname(surname)
+            .checkNameSurname(surname, false)
             .then(
               result => {
                 if(result) {

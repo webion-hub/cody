@@ -24,7 +24,7 @@ export class EmailPasswordController{
         let errorsList = ["noError"];
   
         Promise.all([
-          emailController.checkEmail(email)
+          emailController.checkEmail(email, false)
           .then(
             result => {
               if(result !== "correctEmail") {
@@ -33,7 +33,7 @@ export class EmailPasswordController{
               }
             },
           ),
-          passwordController.checkPassword(password, confirmPassword)
+          passwordController.checkPassword(password, confirmPassword, false)
           .then(
             result => {
               if(result) {
