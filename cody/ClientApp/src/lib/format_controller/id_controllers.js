@@ -16,7 +16,10 @@ export class UsernameController{
     return !(username.length >= 4 && username.length <= 28);
   }
 
-  checkUsername(username){
+  checkUsername(username, skip){
+    if(skip)
+      return new Promise(resolve => {resolve('noError')});
+
     return new Promise(resolve => {
       const wrongLenght = this.wrongLength(username);
       const wrongFormat = this.wrongFormat(username);
@@ -40,7 +43,9 @@ export class UsernameController{
 }
 
 export class NameSurnameController{
-  checkNameSurname(val){
+  checkNameSurname(val, skip){
+    if(skip)
+      return new Promise(resolve => {resolve(null)});
     return new Promise(resolve => {
       let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
       const wrongId = val.length === 0 || !re.test(val)

@@ -13,7 +13,10 @@ export class PasswordController{
     return wrongPw;
   }
   
-  checkPassword(password, confirmPassword){
+  checkPassword(password, confirmPassword, skip){
+    if(skip)
+      return new Promise(resolve => {resolve('noError')});
+
     return new Promise(resolve => {
       const pwError = this.arePwWrong(password, confirmPassword)
       resolve(pwError);

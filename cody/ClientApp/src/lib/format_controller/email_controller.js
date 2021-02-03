@@ -14,7 +14,9 @@ export class EmailController{
     return !re.test(email);
   }
 
-  checkEmail(email){
+  checkEmail(email, skip){
+    if(skip)
+      return new Promise(resolve => {resolve('noError')});
     return new Promise(resolve => {
 
       if(this.wrongFormat(email))
