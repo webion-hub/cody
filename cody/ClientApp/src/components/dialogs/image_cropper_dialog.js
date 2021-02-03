@@ -3,8 +3,34 @@ import Cropper from 'react-easy-crop'
 
 import { Box } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import { Slider } from '@material-ui/core';
+
+import { withStyles } from '@material-ui/styles';
 
 import { DialogBase } from 'src/components/bases/dialog_base';
+
+const ResponsiveBox = withStyles((theme) => ({
+  root: {
+    width: 500,
+    height: 500,
+    [theme.breakpoints.down('lg')]: {
+      width: "30vw",
+      height: "30vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      width: "35vw",
+      height: "35vw",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: "40vw",
+      height: "40vw",
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: "60vw",
+      height: "60vw",
+    },
+  },
+}))(Box);
 
 export class ImageCropperDialog extends Component {
     constructor(props){
@@ -71,8 +97,11 @@ export class ImageCropperDialog extends Component {
     }
    
     onZoomChange = (zoom) => {
-      this.setState({ zoom })
+      this.setState({ zoom });
     }
+    handleSliderChange = (event, newValue) => {
+      this.setState({ zoom: (newValue/100)*2 + 1 });
+    };
    
     render() {
       return (
@@ -98,7 +127,7 @@ export class ImageCropperDialog extends Component {
             </Button>
           }
         >
-          <Box
+          <ResponsiveBox
             width={500}
             height={500}
             position="relative"
@@ -113,6 +142,19 @@ export class ImageCropperDialog extends Component {
               onCropChange={this.onCropChange}
               onCropComplete={this.onCropComplete}
               onZoomChange={this.onZoomChange}
+              style={{
+                containerStyle: {
+                  borderRadius: 25,
+                },
+              }}
+            />
+          </ResponsiveBox>
+          <Box mt={2}>
+            <Slider 
+              value={100*(this.state.zoom - 1)/2}
+              onChange={this.handleSliderChange}
+              color="secondary"
+              aria-labelledby="zoom"
             />
           </Box>
         </DialogBase>
