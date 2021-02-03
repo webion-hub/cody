@@ -26,7 +26,6 @@ export function DataForms(props){
 				value={props.oldData.username} 
 				getValue={getValue("username")}
 				valueIsEdited={props.handleAValueIsEdited}
-				resetIsEdited={props.resetAValueIsEdited}
 				error={
 					props.errors.usernameExist ||
 					props.errors.usernameError
@@ -53,7 +52,6 @@ export function DataForms(props){
 				value={props.oldData.name} 
 				getValue={getValue("name")}
 				valueIsEdited={props.handleAValueIsEdited}
-				resetIsEdited={props.resetAValueIsEdited}
 				error={props.errors.nameError}
 				mb={1}
 				mt={1}
@@ -63,7 +61,6 @@ export function DataForms(props){
 				value={props.oldData.surname} 
 				getValue={getValue("surname")}
 				valueIsEdited={props.handleAValueIsEdited}
-				resetIsEdited={props.resetAValueIsEdited}
 				error={props.errors.surnameError}
 				mb={1}
 			/>
@@ -72,7 +69,6 @@ export function DataForms(props){
 				value={props.oldData.email} 
 				getValue={getValue("email")}
 				valueIsEdited={props.handleAValueIsEdited}
-				resetIsEdited={props.resetAValueIsEdited}
 				error={
 					props.errors.emailExist ||
 					props.errors.emailError
@@ -99,7 +95,6 @@ export function DataForms(props){
 				value={props.oldData.school} 
 				getValue={getValue("school")}
 				valueIsEdited={props.handleAValueIsEdited}
-				resetIsEdited={props.resetAValueIsEdited}
 				error={props.errors.school}
 				mb={1}
 				mt={1}
@@ -109,7 +104,6 @@ export function DataForms(props){
 				value={props.oldData.birthDate} 
 				getValue={getValue("birthDate")}
 				valueIsEdited={props.handleAValueIsEdited}
-				resetIsEdited={props.resetAValueIsEdited}
 				error={props.errors.birthDate}
 			/>
 		</Box>

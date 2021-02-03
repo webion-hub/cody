@@ -63,9 +63,6 @@ export function Account(){
   const handleAValueIsEdited = (value) => {
     setAValueIsEdited(aValueIsEdited || value);
   }
-  const resetAValueIsEdited = () => {
-    setAValueIsEdited(false);
-  }
 
   const handleTrySave = () => {
     const errorsController = new ErrorsController;
@@ -118,7 +115,6 @@ export function Account(){
             data={data}
             oldData={oldData}
             handleAValueIsEdited={handleAValueIsEdited}
-            resetAValueIsEdited={resetAValueIsEdited}
             onDataChange={getData}
             errors={errors}
           />

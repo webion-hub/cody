@@ -10,7 +10,6 @@ export function EditableCustomTextField(props){
     const [edit, setEdit] = React.useState(false);
     const [value, setValue] = React.useState(props.value);
 		const {valueIsEdited} = props;
-		const {resetIsEdited} = props;
   
     const handleEdit = () => {
 			setEdit(true);
@@ -19,7 +18,7 @@ export function EditableCustomTextField(props){
     const handleUndo = () => {
       setEdit(false);
 			setValue(props.value);
-      resetIsEdited(); 
+			valueIsEdited(false); 
     }
     const handleChange = (event) => {
       setValue(event.target.value);
@@ -34,7 +33,7 @@ export function EditableCustomTextField(props){
       
       return;
     }
-    resetIsEdited(); 
+    valueIsEdited(false); 
   }
   
       return (
