@@ -16,9 +16,9 @@ export function UserControllerContext(props){
   const [logged, setLoggedState] = React.useState(JSON.parse(state));
   const [loading, setLoading] = React.useState(true);
 
-  const setLogged = (state) => {
-    sessionStorage.setItem('logged', state);
-    setLoggedState(state);
+  const setLogged = (loggedState) => {
+    sessionStorage.setItem('logged', loggedState);
+    setLoggedState(loggedState);
   }
 
   useEffect(() => {
