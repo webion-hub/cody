@@ -12,8 +12,6 @@ export class LoadingButton extends Component{
       this.props.fullWidth ? (
         <Box width={1}>
           <MainButton
-            variant="contained"
-            color="primary"
             props={this.props}
           />
           {
@@ -23,8 +21,6 @@ export class LoadingButton extends Component{
       ) : (
         <span>
           <MainButton
-            variant="contained"
-            color="primary"
             props={this.props}
           />
           {
