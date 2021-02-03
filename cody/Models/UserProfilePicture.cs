@@ -28,7 +28,7 @@ namespace Cody.Models
         public IFormFile Picture { get; set; }
 
         [NotMapped]
-        public string ContentType => $"image/{Extension}";
+        public string ContentType => $"image/*";
 
         [NotMapped]
         public string Extension
