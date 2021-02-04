@@ -18,8 +18,6 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import { UserContext } from 'src/components/user_controller_context';
 import { User } from 'src/lib/user';
 
-import history from 'src/history'
-
 export class LoginBoxMain extends Component{
 
   constructor(props){
@@ -78,11 +76,10 @@ export class LoginBoxMain extends Component{
     })
     .then(_=> {
       this.setState({loading: false});
+      if(this.state.loginSuccess){
+        this.props.setLogged(true);
+      }
     });
-
-    if(this.state.loginSuccess){
-      this.props.setLogged(true);
-    }
   }
 
   _updateUsername = e => {
