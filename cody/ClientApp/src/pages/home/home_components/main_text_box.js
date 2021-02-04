@@ -15,7 +15,7 @@ const mainTextStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       alignItems: "left !important",
       maxWidth: "500px",
-      margin: "25vh auto 30px auto",
+      margin: "25vh auto 5px auto",
     },
   },
   title: {

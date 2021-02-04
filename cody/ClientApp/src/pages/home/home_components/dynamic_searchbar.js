@@ -11,18 +11,17 @@ export const restrictedWidth = 48;
 
 const searchbarStyles = makeStyles((theme) => ({
   searchBar: {    
-    display: "flex",
-    justifyContent: "center",
-    transform: "translate(0%, -50%)",
     [theme.breakpoints.up('sm')]: {
       position: "sticky",
       top: "32px",
       padding: "8px",
       zIndex: "1200",
+      maxWidth: 500,
+      marginLeft: "50%",
+      transform: "translate(-50%, -50%)",
     },
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: "20px",
-      marginRight: "20px"
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1)
     },
   },
 }));
