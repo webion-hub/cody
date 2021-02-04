@@ -60,7 +60,7 @@ export function InfoBox(props){
           <Typography
             variant="subtitle1"
           >
-            {props.school}
+            {props.school.name}
           </Typography>	
         </Grid>
       </Box>

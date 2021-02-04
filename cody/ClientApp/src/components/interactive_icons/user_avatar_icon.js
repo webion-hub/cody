@@ -88,7 +88,6 @@ export function UserAvatarIcon(){
         </MenuItem>
         <MenuItem
           onClick={() => {
-            //sessionStorage.setItem('logged', false);
             User.logout({
               onSuccess: () => setLogged(false),
               onError: () => setLogged(false),

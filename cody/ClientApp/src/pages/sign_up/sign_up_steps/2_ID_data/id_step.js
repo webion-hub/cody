@@ -149,6 +149,7 @@ export class IDData extends Component{
           />,
           <Box m={1}/>,
           <DatePicker
+            variant="outlined"
             value={this.props.values.birthDate}
             onChange={this.getDate}
           />

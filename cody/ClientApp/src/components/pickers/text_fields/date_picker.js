@@ -26,7 +26,7 @@ export class DatePicker extends Component{
     return(
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={itLocale}>
         <KeyboardDatePicker
-          inputVariant="outlined"
+          inputVariant={this.props.variant}
           variant="inline"
           color="secondary"
           format="MM/dd/yyyy"
