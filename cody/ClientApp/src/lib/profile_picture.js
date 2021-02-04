@@ -9,12 +9,17 @@ export class ProfilePicture {
    */
   static async createOrUpdate(options) {
     const {
-      picture,
+      base64,
+      formFile,
       axiosConfig,
     } = options;
 
     const formData = new FormData();
-    formData.append('picture', picture, picture.name);
+    if (base64)
+      formData.append('base64', base64);
+
+    else if (formFile)
+      formData.append('formFile', formFile, formFile.name);
 
     return axios
       .request({
@@ -33,6 +38,7 @@ export class ProfilePicture {
 
 /**
  * @typedef {object} CreateOrUpdateOptions
- * @property {File} picture
+ * @property {string} [base64]
+ * @property {File} [formFile]
  * @property {AxiosRequestConfig} axiosConfig
  */

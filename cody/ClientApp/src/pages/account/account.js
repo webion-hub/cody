@@ -84,17 +84,20 @@ export function Account(){
           if (result === 'noError') {
             if(image !== "profile_picture"){
               ProfilePicture
-                .createOrUpdate(image)
+                .createOrUpdate({
+                  base64: image,
+                })
                 .then(() => {
                   setEdited(false);
                   setLoadingSave(false);
-                })
+                });
             }
             setOldData(data);
             setEdited(false);
           }
           errors[result] = true;
-        })
+        });
+        
         setErrors(errors);
         setLoadingSave(false);
       })

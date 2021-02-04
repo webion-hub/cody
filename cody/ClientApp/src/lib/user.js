@@ -38,6 +38,7 @@ export class User {
       .request({
         url: 'user/logout',
         method: 'POST',
+        validateStatus: false,
         ...axiosConfig,
       })
       .then(response => {

@@ -120,7 +120,7 @@ export class SignUpStepperMain extends Component {
       return;
 
     return ProfilePicture.createOrUpdate({
-      picture: this.props.profileImage,
+      base64: this.props.profileImage,
     })
     .catch(_ => {
       this.setState({
