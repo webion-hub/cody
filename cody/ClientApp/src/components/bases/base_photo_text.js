@@ -25,7 +25,7 @@ export function BasePhotoText(props) {
   );
   
   return (
-    <Box mb={props.bottomMargin}>
+    <Box mb={props.bottomMargin?props.bottomMargin : 0}>
       <Grid
         container
         direction={props.reverse ? "row-reverse" : "row"}
