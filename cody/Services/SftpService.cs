@@ -113,14 +113,15 @@ namespace Cody.Services
             }
         }
 
-        public void DeleteFile(string remoteFilePath)
+        public bool TryDeleteFile(string remoteFilePath)
         {
             try {
                 _client.DeleteFile(remoteFilePath);
-                _logger.LogInformation($"Stfp service - deleted -> {remoteFilePath}");
+                return true;
             }
             catch (Exception e) {
                 _logger.LogError(e, $"Stfp service - delete error -> {remoteFilePath}");
+                return false;
             }
         }
 
