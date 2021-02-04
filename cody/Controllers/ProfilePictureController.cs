@@ -61,7 +61,7 @@ namespace Cody.Controllers
 
             var deleted = _sftp.TryDeleteFile(picture.FilePath);
             if (!deleted)
-                StatusCode(500);
+                return StatusCode(500);
 
             _dbContext.Remove(picture);
             await _dbContext.SaveChangesAsync();
