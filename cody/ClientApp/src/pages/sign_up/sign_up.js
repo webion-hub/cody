@@ -17,8 +17,8 @@ import { OptionalData } from './sign_up_steps/3_optional/optional_step';
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
 import { SignUpStepper } from './sign_up_components/signup_stepper';
 
-import { Form } from '../../lib/default_values/sizes/form_size';
-import { Images } from '../../lib/default_values/images';
+import { Form } from 'src/lib/default_values/sizes/form_size';
+import { Images } from 'src/lib/default_values/images';
 
 import history from 'src/history';
 
