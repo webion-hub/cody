@@ -51,8 +51,8 @@ export const sidebarStyles = makeStyles((theme) => ({
   },
 
   listItem: {
-    paddingLeft: 12,
-    paddingRight: 12,
+    paddingLeft: "12px !important",
+    paddingRight: "12px !important",
   },
 
   content: {

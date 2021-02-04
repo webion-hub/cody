@@ -38,6 +38,8 @@ export class LoginBoxMain extends Component{
       focusPw: false,
 
       openForgotPw: false,
+
+      loginSuccess: false,
     }
 
     this.nextFocus = new NextFocus(["username","password"]);
@@ -62,6 +64,7 @@ export class LoginBoxMain extends Component{
 
 
   async _tryLogin() {
+    this.setState({loginSuccess: false});
     await User.tryLogin({
       userInfo: {
         username: this.state.username,
@@ -69,16 +72,17 @@ export class LoginBoxMain extends Component{
         rememberMe: this.state.rememberMe,
       },
       
-      onSuccess: _ => {
-        this.props.setLogged(true);
-        history.push('/');
-      },
+      onSuccess: _ => this.setState({loginSuccess: true}),
       onUserNotFound: _ => this.setState({wrongUsername: true}),
       onPasswordMismatch: _ => this.setState({wrongPassword: true}),
     })
     .then(_=> {
       this.setState({loading: false});
     });
+
+    if(this.state.loginSuccess){
+      this.props.setLogged(true);
+    }
   }
 
   _updateUsername = e => {
