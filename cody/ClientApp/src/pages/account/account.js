@@ -84,7 +84,7 @@ export function Account(){
         let errors = {};
         results.forEach(result => {
           if (result === 'noError') {
-            if(image !== "profile_picture"){
+            if(image !== "profile_picture" && image !== null){
               ProfilePicture
                 .createOrUpdate({
                   base64: image,
@@ -94,6 +94,15 @@ export function Account(){
                   setLoadingSave(false);
                   history.go(0);
                 });
+            }
+            else if(image === null){
+              ProfilePicture
+                .delete()
+                .then(() => {
+                  setEdited(false);
+                  setLoadingSave(false);
+                  history.go(0);
+                })
             }
             else{
               history.go(0);  

@@ -1,28 +1,34 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { AddPhoto } from 'src/components/pickers/add_photo'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 const useStyles = makeStyles((theme) => ({
 	iconMargin: {
 		marginRight: theme.spacing(1)
-	},
+  },
 }));
 
 export function InfoBox(props){
 	const classes = useStyles();
   const [image, setImage] = React.useState("profile_picture");
+  const {onImageChange} = props;
 	
   const getImage = (value) => {
     if(value !== "profile_picture"){
       setImage(value);
-      const {onImageChange} = props;
       onImageChange(value); 
     }
+  }
+
+  const handleDelete = () => {
+    setImage(null);
+    onImageChange(null);
   }
   
 	return (
@@ -32,8 +38,6 @@ export function InfoBox(props){
       alignItems="center"
     >
       <AddPhoto
-        size={100}
-        iconSize={40}
         image={getImage}
         value={image}
         accountEdit
@@ -63,6 +67,22 @@ export function InfoBox(props){
             {props.school.name}
           </Typography>	
         </Grid>
+        <Typography variant="caption">
+          <Link 
+            color="textSecondary"
+            component="button"
+            onClick={handleDelete}
+          >
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+            >
+              <HighlightOffRoundedIcon className={classes.iconMargin}/>
+              Elimina immagine profilo.
+            </Grid>
+          </Link>
+        </Typography>
       </Box>
     </Grid>
 	);

@@ -20,7 +20,13 @@ export class AddPhoto extends Component{
       image: null,
 
       openEditDialog: false,
-      croppedImage: this.props.value? this.props.value : null,
+      croppedImage: this.props.value,
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({croppedImage: this.props.value})
     }
   }
 
@@ -69,6 +75,9 @@ export class AddPhoto extends Component{
   }
 
   render(){
+    const iconSize = 40;
+    const imageSize = 100;
+
     const badgeContent = (
       <div>
         {
@@ -77,8 +86,8 @@ export class AddPhoto extends Component{
               color="primary"
               onClick={this.deleteImage}
               style={{
-                width: this.props.iconSize,
-                height: this.props.iconSize
+                width: iconSize,
+                height: iconSize
               }}
             >
               <DeleteRoundedIcon />
@@ -88,8 +97,8 @@ export class AddPhoto extends Component{
               component="label"
               color="primary"
               style={{
-                width: this.props.iconSize,
-                height: this.props.iconSize
+                width: iconSize,
+                height: iconSize
               }}
             >
               <AddRoundedIcon />
@@ -111,8 +120,8 @@ export class AddPhoto extends Component{
           component="label"
           color="primary"
           style={{
-            width: this.props.iconSize,
-            height: this.props.iconSize
+            width: iconSize,
+            height: iconSize
           }}
         >
           <EditRoundedIcon />
@@ -140,8 +149,8 @@ export class AddPhoto extends Component{
             alt="add profile image" 
             src={this.state.croppedImage}
             style={{
-              width: this.props.size,
-              height: this.props.size
+              width: imageSize,
+              height: imageSize
             }}
           />
         </Badge>
