@@ -21,20 +21,25 @@ const useStyles = makeStyles((theme) => ({
 
 export function Account(){
 	const classes = useStyles();
-  const [image, setImage] = React.useState("profile_picture");
-  const [aValueIsEdited, setAValueIsEdited] = React.useState(false);
   const [loadingSave, setLoadingSave] = React.useState(false);
+  const [edited, setEdited] = React.useState(false);
 
   const oldDataValues = {
     username: "Matteo2437",
     name: "Matteo",
     surname: "Budriesi",
     email: "matteo.budriesi@gmail.com",
-    school: "ITIS Fermi",
+    school: {
+      name: "ITIS Fermi",
+      city: "Modena",
+      country: "Italia"
+    },
+    isAddedSchool: false,
     birthDate: "01/09/00",
   }
   const [oldData, setOldData] = React.useState(oldDataValues);
   const [data, setData] = React.useState(oldDataValues);
+  const [image, setImage] = React.useState("profile_picture");
 
   const noErrors = {
 		usernameError: false,
@@ -48,26 +53,29 @@ export function Account(){
   }
   const [errors, setErrors] = React.useState(noErrors);
   
-
   const getImage = (value) => {
     if(value !== "profile_picture"){
       setImage(value);
-      setAValueIsEdited(aValueIsEdited || value);
+      setEdited(true);
     }
   }
   
   const getData = (data) => {
-    setData(data);
-  }
-
-  const handleAValueIsEdited = (value) => {
-    setAValueIsEdited(aValueIsEdited || value);
+    if(JSON.stringify(data) === JSON.stringify(oldData)){
+      setEdited(false)
+    }
+    else{
+      setData(data);
+      setEdited(true);
+    }
   }
 
   const handleTrySave = () => {
     const errorsController = new ErrorsController;
+    
     setLoadingSave(true);
     setErrors(noErrors);
+
     errorsController
       .checkAll(data, oldDataValues)
       .then(results => {
@@ -78,12 +86,12 @@ export function Account(){
               ProfilePicture
                 .createOrUpdate(image)
                 .then(() => {
-                  setAValueIsEdited(false);
+                  setEdited(false);
                   setLoadingSave(false);
                 })
             }
             setOldData(data);
-            setAValueIsEdited(false);
+            setEdited(false);
           }
           errors[result] = true;
         })
@@ -107,23 +115,22 @@ export function Account(){
 					className={classes.mainPaper}
 				>
 					<InfoBox
-            username={data.username}
-            school={data.school}
+            username={oldData.username}
+            school={oldData.school}
             onImageChange={getImage}
           />
           <DataForms
             data={data}
             oldData={oldData}
-            handleAValueIsEdited={handleAValueIsEdited}
             onDataChange={getData}
             errors={errors}
           />
           <Box 
-            pt={2}
+            pt={1}
             textAlign="end"
           > 
             <LoadingButton
-              disabled={!aValueIsEdited}
+              disabled={!edited}
               onClick={handleTrySave}
               loading={loadingSave}
               label="Salva"

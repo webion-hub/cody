@@ -2,21 +2,24 @@ import React from 'react';
 import { Box, Grid, Typography, Fade } from '@material-ui/core';
 
 import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_custom_textfield'
+import { DatePicker } from 'src/components/pickers/text_fields/date_picker';
+import { SchoolPicker } from 'src/components/pickers/school_picker';
 
+import { Form } from 'src/lib/default_values/sizes/form_size';
 
 export function DataForms(props){
   const [data, setData] = React.useState(props.data);
   
   const getValue = (dataName) => (value) => {
-		const dataUpdated = {
+		const updateData = {
 			...data,
 			[dataName]: value,
 		}
 
-    setData(dataUpdated);
+    setData(updateData);
 		
 		const {onDataChange} = props;
-		onDataChange(dataUpdated); 
+		onDataChange(updateData); 
   }
 
 	return (
@@ -24,8 +27,7 @@ export function DataForms(props){
 			<EditableCustomTextField 
 				title="Username" 
 				value={props.oldData.username} 
-				getValue={getValue("username")}
-				valueIsEdited={props.handleAValueIsEdited}
+				onChange={getValue("username")}
 				error={
 					props.errors.usernameExist ||
 					props.errors.usernameError
@@ -50,8 +52,7 @@ export function DataForms(props){
 			<EditableCustomTextField 
 				title="Nome" 
 				value={props.oldData.name} 
-				getValue={getValue("name")}
-				valueIsEdited={props.handleAValueIsEdited}
+				onChange={getValue("name")}
 				error={props.errors.nameError}
 				mb={1}
 				mt={1}
@@ -59,16 +60,14 @@ export function DataForms(props){
 			<EditableCustomTextField 
 				title="Cognome" 
 				value={props.oldData.surname} 
-				getValue={getValue("surname")}
-				valueIsEdited={props.handleAValueIsEdited}
+				onChange={getValue("surname")}
 				error={props.errors.surnameError}
 				mb={1}
 			/>
 			<EditableCustomTextField 
 				title="Email" 
 				value={props.oldData.email} 
-				getValue={getValue("email")}
-				valueIsEdited={props.handleAValueIsEdited}
+				onChange={getValue("email")}
 				error={
 					props.errors.emailExist ||
 					props.errors.emailError
@@ -90,22 +89,24 @@ export function DataForms(props){
 					</Typography>
 				</Fade>
 			</Grid>
-			<EditableCustomTextField 
-				title="Istituto" 
-				value={props.oldData.school} 
-				getValue={getValue("school")}
-				valueIsEdited={props.handleAValueIsEdited}
-				error={props.errors.school}
-				mb={1}
-				mt={1}
+			<DatePicker
+				variant="filled"
+				value={props.oldData.birthDate}
+				onChange={getValue("birthDate")}
 			/>
-			<EditableCustomTextField 
-				title="Data di nascita" 
-				value={props.oldData.birthDate} 
-				getValue={getValue("birthDate")}
-				valueIsEdited={props.handleAValueIsEdited}
-				error={props.errors.birthDate}
-			/>
+			<Box mt={1}>
+				<SchoolPicker
+					variant="filled"
+					imageWidth = {Form.imageWidth}
+					formWidth = {Form.width}
+					values={{
+						school: props.oldData.school,
+						isAddedSchool: props.oldData.isAddedSchool
+					}}
+					school={getValue("school")}
+					isAddedSchool={getValue("isAddedSchool")}
+				/>
+			</Box>
 		</Box>
 	);
 }
