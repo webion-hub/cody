@@ -7,68 +7,68 @@ import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
 export function EditableCustomTextField(props){
-    const [edit, setEdit] = React.useState(false);
-    const [value, setValue] = React.useState(props.value);
-		const {valueIsEdited} = props;
-  
-    const handleEdit = () => {
-			setEdit(true);
-      valueIsEdited(true); 
-    }
-    const handleUndo = () => {
-      setEdit(false);
-			setValue(props.value);
-			valueIsEdited(false); 
-    }
-    const handleChange = (event) => {
-      setValue(event.target.value);
-    }
-    const handleSubmit = () => {
-      setEdit(false);
+	const [editMode, setEditMode] = React.useState(false);
+	const [value, setValue] = React.useState(props.value);
+	const {onChange} = props;
 
-      if(value !== props.value){
-          const {getValue} = props;
-      getValue(value); 
-      valueIsEdited(true); 
-      
-      return;
-    }
-    valueIsEdited(false); 
-  }
-  
-      return (
-        <Box mb={props.mb} mt={props.mt}>
-					<TextField
-						label={props.title}
-						value={value}
-						color="secondary"
-						variant="filled"
-						error={props.error}
-						fullWidth
-						onChange={handleChange}
-						InputProps={{
-							readOnly: !edit,
-							endAdornment: (
-								<InputAdornment position="end">
-									{
-										edit ? 
-											<IconButton
-												onClick={handleUndo}                    
-											>
-												<UndoRoundedIcon /> 
-											</IconButton>
-										:
-											null
-									}
-									<IconButton
-										onClick={edit ? handleSubmit : handleEdit}
-									>
-										{edit ? <CheckRoundedIcon/> : <EditRoundedIcon />}                  
-									</IconButton>
-								</InputAdornment>
-							),
-						}}
-					/>
-          </Box>
-      );
+	const handleEdit = () => {
+		setEditMode(true);
+	}
+	
+	const handleUndo = () => {
+		setEditMode(false);
+		setValue(props.value);
+		onChange(props.value);
+	}
+	
+	const handleChange = (event) => {
+		setValue(event.target.value);
+	}
+	
+	const handleSubmit = () => {
+		setEditMode(false);
+		onChange(value);
+	}
+
+		return (
+			<Box mb={props.mb?props.mb : 0} mt={props.mt?props.mt : 0}>
+				<TextField
+					label={props.title}
+					value={value}
+					color="secondary"
+					variant="filled"
+					error={props.error}
+					fullWidth
+					focused={editMode}
+					onChange={handleChange}
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							handleSubmit();
+						}
+					}}
+					InputProps={{
+						readOnly: !editMode,
+						endAdornment: (
+							<InputAdornment position="end">
+								{
+									editMode ? 
+										<IconButton
+											onClick={handleUndo}                    
+										>
+											<UndoRoundedIcon /> 
+										</IconButton>
+									:
+										null
+								}
+								<IconButton
+									onClick={editMode ? handleSubmit : handleEdit}
+								>
+									{editMode ? <CheckRoundedIcon/> : <EditRoundedIcon />}                  
+								</IconButton>
+							</InputAdornment>
+						),
+					}}
+				/>
+				</Box>
+		);
   }
