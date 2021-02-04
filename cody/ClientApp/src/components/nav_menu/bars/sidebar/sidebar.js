@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Drawer  } from '@material-ui/core';
 import { SwipeableDrawer  } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
+import { Backdrop } from '@material-ui/core';
+
 import { useMediaQuery } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
@@ -15,11 +17,18 @@ import { DynamicAppbar } from '../appbar/dynamic_appbar'
 export function SideBar(props) {
   const classes = sidebarStyles();
   const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('sm'));
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(false);
 
+  useEffect(() => {
+    if(mobileView)
+      setFullWidth(false);
+    else 
+      setMobileOpen(false);
+  });
+  
   const getAppBarSections = () => {
     const leftIsNull = props.appBarSections.left === null;
     const rightIsNull = props.appBarSections.right === null;
@@ -56,7 +65,9 @@ export function SideBar(props) {
   return (
     <div className={classes.root}>
       <DynamicAppbar
-        menuOnClick={mobileView ? handleDrawerToggle : handleFullWidth}
+        menuOnClick={() => {
+          mobileView ? handleDrawerToggle() : handleFullWidth()
+        }}
         appBarPosition={props.appBarPosition}
         leftAppBar={props.appBarSections.left}
         centerAppBar={props.appBarSections.center}

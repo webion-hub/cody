@@ -9,6 +9,8 @@ import { ErrorsController } from './errors_controller';
 
 import { ProfilePicture } from 'src/lib/profile_picture'
 
+import history from 'src/history'
+
 const useStyles = makeStyles((theme) => ({
 	box: {
 		maxWidth: 450,
@@ -90,10 +92,14 @@ export function Account(){
                 .then(() => {
                   setEdited(false);
                   setLoadingSave(false);
+                  history.go(0);
                 });
             }
+            else{
+              history.go(0);  
+              setEdited(false);
+            }
             setOldData(data);
-            setEdited(false);
           }
           errors[result] = true;
         });

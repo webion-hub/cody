@@ -40,7 +40,7 @@ export const sidebarStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   drawer: {
-    zIndex: 1200,
+    zIndex: 1300,
     [theme.breakpoints.up('sm')]: {
       flexShrink: 0,
     },
