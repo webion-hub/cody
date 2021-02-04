@@ -67,8 +67,6 @@ export class OptionalData extends Component{
               justify="center"
             >
               <AddPhoto
-                size={120}
-                iconSize={60}
                 image={this.getImage}
               />
               <Box

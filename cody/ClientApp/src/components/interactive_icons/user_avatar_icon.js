@@ -61,8 +61,10 @@ export function UserAvatarIcon(){
           <Avatar 
             alt="Avatar" 
             src="profile_picture" 
-            onLoad={() => setLoadingAvatar(false)}
-            onError={() => setLoadingAvatar(false)}
+            imgProps={{
+              onLoad: () => setLoadingAvatar(false),
+              onError: () => setLoadingAvatar(false)
+            }}
           />
         </IconButton>
       </Tooltip>
@@ -94,7 +96,6 @@ export function UserAvatarIcon(){
             })
             .then(() => {
               handleClose();
-              history.push('/');
               history.go(0);
             });
           }}
