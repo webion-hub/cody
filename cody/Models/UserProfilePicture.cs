@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,10 +26,9 @@ namespace Cody.Models
 
 
         [NotMapped]
-        public IFormFile Picture { get; set; }
-
-        [NotMapped]
-        public string ContentType => $"image/*";
+        public string ContentType => new FileExtensionContentTypeProvider().TryGetContentType(FilePath, out var contentType)
+            ? contentType
+            : "image/*";
 
         [NotMapped]
         public string Extension
@@ -38,15 +38,15 @@ namespace Cody.Models
         }
 
         [NotMapped] public string BasePath => GetBasePathFor(AccountDetailId);
-        [NotMapped] public string FileName => GetFilePathFor(Extension);
+        [NotMapped] public string FileName => GetFileNameFor(Extension);
 
 
         public static string CreateNewFilePathFor(int accountDetailId, string fileNameOrExtension)
         {
             var basePath = GetBasePathFor(accountDetailId);
-            var filePath = GetFilePathFor(fileNameOrExtension);
+            var fileName = GetFileNameFor(fileNameOrExtension);
 
-            return $@"{basePath}/{filePath}";
+            return $@"{basePath}/{fileName}";
         }
 
         public static string GetBasePathFor(int accoundDetailId)
@@ -54,12 +54,12 @@ namespace Cody.Models
             return @$"/cody_files/users/profile_pictures/{accoundDetailId}";
         }
 
-        public static string GetFilePathFor(string fileNameOrExtension)
+        public static string GetFileNameFor(string fileNameOrExtension)
         {
             var extension = Path.GetExtension(fileNameOrExtension);
-            var filePath = $@"profile_picture{extension}";
+            var fileName = $@"profile_picture{extension}";
 
-            return filePath;
+            return fileName;
         }
     }
 }
