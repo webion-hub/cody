@@ -51,16 +51,34 @@ namespace Cody.Controllers
         }
 
 
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete()
+        {
+            var picture = await GetUserProfilePictureAsync();
+            if (picture is null)
+                return BadRequest();
+
+            var deleted = _sftp.TryDeleteFile(picture.FilePath);
+            if (!deleted)
+                StatusCode(500);
+
+            _dbContext.Remove(picture);
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Update([FromForm] ProfilePicturePutRequest request)
+        public async Task<IActionResult> Put([FromForm] ProfilePicturePutRequest request)
         {
             var picture = await GetUserProfilePictureAsync();
             picture ??= await CreateNewUserPictureAsync();
 
             var uploaded = await TryUploadAsync(request, picture);
             if (!uploaded)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(500);
             
             await _dbContext.SaveChangesAsync();
             return Ok(picture.Id);
