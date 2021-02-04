@@ -32,10 +32,10 @@ namespace Cody.Extensions
             var props = new AuthenticationProperties
             {
                 AllowRefresh = true,
-                IsPersistent = false,
+                IsPersistent = true,
                 ExpiresUtc = DateTime.Now.AddMinutes(20),
             };
-
+            
             await context.SignInAsync(
                 DEFAULT_SCHEME,
                 claimsPrincipal,
