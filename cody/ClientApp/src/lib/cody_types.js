@@ -30,3 +30,9 @@
  * @property {number} [id] 
  * @property {File} picture
  */
+
+/**
+ * @typedef {object} StandardRequestOptions
+ * @property {() => void} [onSuccess]
+ * @property {() => void} [onError]
+ */

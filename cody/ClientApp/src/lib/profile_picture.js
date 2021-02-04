@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import './cody_types';
 import 'axios';
 
@@ -11,7 +11,6 @@ export class ProfilePicture {
     const {
       base64,
       formFile,
-      axiosConfig,
     } = options;
 
     const formData = new FormData();
@@ -29,9 +28,15 @@ export class ProfilePicture {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-        ...axiosConfig,
       })
       .then(response => response.data);
+  }
+
+  /**
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async delete() {
+    return axios.delete('profile_picture');
   }
 }
 
@@ -40,5 +45,4 @@ export class ProfilePicture {
  * @typedef {object} CreateOrUpdateOptions
  * @property {string} [base64]
  * @property {File} [formFile]
- * @property {AxiosRequestConfig} axiosConfig
  */

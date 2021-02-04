@@ -11,27 +11,24 @@ export class User {
   static async existsWith(options) {
     const {
       usernameOrEmail,
-      axiosConfig,
     } = options;
 
     return axios
       .request({
         url: `user/exists/${usernameOrEmail}/`,
         method: 'GET',
-        ...axiosConfig,
       })
       .then(resp => resp.data);
   }
 
 
   /**
-   * @param {LogoutOptions} options 
+   * @param {StandardRequestOptions} options 
    */
   static async logout(options) {
     const {
       onSuccess,
       onError,
-      axiosConfig,
     } = options;
 
     return axios
@@ -39,7 +36,6 @@ export class User {
         url: 'user/logout',
         method: 'POST',
         validateStatus: false,
-        ...axiosConfig,
       })
       .then(response => {
         invokeCallback(response.status, {
@@ -57,7 +53,6 @@ export class User {
   static async tryLogin(options) {
     const {
       userInfo,
-      axiosConfig,
       onSuccess,
       onUserNotFound,
       onPasswordMismatch,
@@ -69,7 +64,6 @@ export class User {
         method: 'POST',
         validateStatus: false,
         data: userInfo,
-        ...axiosConfig,
       })
       .then(response => {
         invokeCallback(response.status, {
@@ -82,14 +76,13 @@ export class User {
 
 
   /**
-   * @param {CookieLoginOptions} options 
+   * @param {StandardRequestOptions} options 
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async tryLoginWithCookie(options) {
     const {
       onSuccess,
       onError,
-      axiosConfig,
     } = options;
 
     return axios
@@ -97,7 +90,6 @@ export class User {
         url: 'user/login_with_cookie',
         method: 'POST',
         validateStatus: false,
-        ...axiosConfig,
       })
       .then(response => {
         invokeCallback(response.status, {
@@ -115,7 +107,6 @@ export class User {
   static async tryRegister(options) {
     const {
       user,
-      axiosConfig,
       onSuccess,
       onError,
       onMissingFields,
@@ -128,7 +119,6 @@ export class User {
         responseType: 'json',
         validateStatus: false,
         data: user,
-        ...axiosConfig,
       })
       .then(response => {
         const data = response.data;
@@ -162,7 +152,6 @@ export class User {
 /**
 * @typedef {object} ExistsWithOptions
 * @property {string} usernameOrEmail
-* @property {AxiosRequestConfig} [axiosConfig]
 */
 
 /**
@@ -173,33 +162,17 @@ export class User {
  */
 
 /**
- * @typedef {object} LogoutOptions
- * @property {() => void} [onSuccess]
- * @property {() => void} [onError]
- * @property {AxiosRequestConfig} [axiosConfig]
- */
-
-/**
  * @typedef {object} TryLoginOptions
  * @property {LoginRequest} userInfo
- * @property {AxiosRequestConfig} [axiosConfig]
  * @property {() => void} [onSuccess]
  * @property {() => void} [onUserNotFound]
  * @property {() => void} [onPasswordMismatch]
  */
 
 /**
- * @typedef {object} CookieLoginOptions
- * @property {() => void} [onSuccess]
- * @property {() => void} [onError] 
- * @property {AxiosRequestConfig} [axiosConfig]
- */
-
-/**
  * @typedef {object} TryRegisterOptions
  * @property {UserAccount} user
  * @property {File} [profilePicture]
- * @property {AxiosRequestConfig} [axiosConfig]
  * @property {(accountDetailId: number) => void} [onSuccess]
  * @property {(fields: string[]) => void} [onMissingFields]
  * @property {() => void} [onImageUploadError]

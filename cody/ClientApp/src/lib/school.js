@@ -11,7 +11,6 @@ export class School {
   static async createNew(options) {
     const {
       school,
-      axiosConfig,
       onSuccess,
       onError,
     } = options;
@@ -22,7 +21,6 @@ export class School {
         method: 'POST',
         data: school,
         validateStatus: false,
-        ...axiosConfig,
       })
       .then(response => {
         const schoolId = response.data;
@@ -35,21 +33,13 @@ export class School {
 
 
   /**
-   * @param {{axiosConfig?: AxiosRequestConfig}} options
    * @returns {Promise<SchoolAccount[]>}
    */
-  static async getAll(options) {
-    const getConfig = () => {
-      return !!options
-        ? options.axiosConfig
-        : {};
-    };
-    
+  static async getAll() {
     return axios
       .request({
         url: 'school/get_all',
         method: 'GET',
-        ...getConfig(),
       })
       .then(response => response.data);
   }
@@ -67,5 +57,4 @@ export class School {
  * @property {SchoolAccount} school
  * @property {SchoolCreationCallback} [onSuccess]
  * @property {SchoolCreationCallback} [onError]
- * @property {AxiosRequestConfig} [axiosConfig]
  */
