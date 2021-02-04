@@ -1,16 +1,17 @@
 ﻿using Cody.Contexts;
-using Cody.Controllers.Helpers;
+using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
+using ImageProcessor;
+using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
-using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -52,17 +53,15 @@ namespace Cody.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Update(string base64Image)
+        public async Task<IActionResult> Update([FromForm] ProfilePicturePutRequest request)
         {
             var picture = await GetUserProfilePictureAsync();
             picture ??= await CreateNewUserPictureAsync();
-            picture.Extension = ".base64";
 
-            var uploaded = await TryUploadAsync(base64Image, picture);
+            var uploaded = await TryUploadAsync(request, picture);
             if (!uploaded)
                 return StatusCode(StatusCodes.Status500InternalServerError);
             
-            _dbContext.ProfilePictures.Add(picture);
             await _dbContext.SaveChangesAsync();
             return Ok(picture.Id);
         }
@@ -85,26 +84,26 @@ namespace Cody.Controllers
             var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
             var accountDetailId = user.AccountDetail.Id;
 
-            return new UserProfilePicture()
+            var picture = new UserProfilePicture()
             {
                 AccountDetailId = accountDetailId,
             };
+
+            _dbContext.ProfilePictures.Add(picture);
+            return picture;
         }
 
-        private async Task<bool> TryUploadAsync(string contents, UserProfilePicture picture)
-        {
+        private async Task<bool> TryUploadAsync(
+            ProfilePicturePutRequest request,
+            UserProfilePicture picture
+        ) {
+            using var webpStream = request.AsWebPImageStream();
+            picture.Extension = ".webp";
+
             var uploaded =
-                await _sftp.TryUploadFileAsync(contents, picture.FilePath);
+                await _sftp.TryUploadFileAsync(webpStream, picture.FilePath);
 
-            if (!uploaded)
-                return false;
-
-            await _sftp.DeleteAllExceptAsync(
-                picture.BasePath,
-                picture.FileName
-            );
-
-            return true;
+            return uploaded;
         }
     }
 }
