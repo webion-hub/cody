@@ -2,10 +2,8 @@ import React from 'react';
 import { Box, Grid, Typography, Fade } from '@material-ui/core';
 
 import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_custom_textfield'
-import { DatePicker } from 'src/components/pickers/text_fields/date_picker';
-import { SchoolPicker } from 'src/components/pickers/school_picker';
-
-import { Form } from 'src/lib/default_values/sizes/form_size';
+import { EditableDatePicker } from './editable_date_picker';
+import { EditableSchoolPicker } from './editable_school_picker';
 
 export function DataForms(props){
   const [data, setData] = React.useState(props.data);
@@ -15,7 +13,6 @@ export function DataForms(props){
 			...data,
 			[dataName]: value,
 		}
-
     setData(updateData);
 		
 		const {onDataChange} = props;
@@ -89,24 +86,23 @@ export function DataForms(props){
 					</Typography>
 				</Fade>
 			</Grid>
-			<DatePicker
-				variant="filled"
+			<EditableDatePicker
+				title="Data di nascita"
+				dialogTitle="Cambia la tua data di nascita"
 				value={props.oldData.birthDate}
 				onChange={getValue("birthDate")}
+				error={props.errors.birthDateError}
+				mt={1}
+				mb={1}
 			/>
-			<Box mt={1}>
-				<SchoolPicker
-					variant="filled"
-					imageWidth = {Form.imageWidth}
-					formWidth = {Form.width}
-					values={{
-						school: props.oldData.school,
-						isAddedSchool: props.oldData.isAddedSchool
-					}}
-					school={getValue("school")}
-					isAddedSchool={getValue("isAddedSchool")}
-				/>
-			</Box>
+			<EditableSchoolPicker
+				title="Istituto"
+				dialogTitle="Cambia il tuo istituto"
+				value={props.oldData.school}
+				onChange={getValue("school")}
+				mt={2}
+				mb={1}
+			/>
 		</Box>
 	);
 }
