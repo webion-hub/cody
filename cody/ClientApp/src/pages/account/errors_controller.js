@@ -1,5 +1,5 @@
 import { EmailController } from 'src/lib/format_controller/email_controller'
-import { UsernameController, NameSurnameController } from 'src/lib/format_controller/id_controllers'
+import { UsernameController, NameSurnameController, BirthDateController } from 'src/lib/format_controller/id_controllers'
 
 export class ErrorsController{
 
@@ -17,16 +17,19 @@ export class ErrorsController{
         const emailController = new EmailController();
         const usernameController = new UsernameController();
         const nameSurnameController = new NameSurnameController();
+        const birthDateController = new BirthDateController();
   
         const email = values.email;
         const username = values.username;
         const name = values.name;
         const surname = values.surname;
+        const birthDate = values.birthDate;
 
         const skipEmail = oldValues.email === email;
         const skipUsername = oldValues.username === username;
         const skipName = oldValues.name === name;
         const skipSurname = oldValues.surname === surname;
+        const skipBirthDate = oldValues.birthDateError === birthDate;
 
         let errorsList = ["noError"];  
         Promise.all([
@@ -70,6 +73,16 @@ export class ErrorsController{
                 }
               },
             ),
+          birthDateController
+            .checkBirthDate(birthDate, skipBirthDate)
+            .then(
+              result => {
+                if(result) {
+                  errorsList.push("birthDateError");
+                  errorsList = this.removeNoError(errorsList);
+                }
+              },
+            )
         ])
         .then(_ => {
           resolve(errorsList);
