@@ -62,6 +62,7 @@ export class SignUp extends Component {
       usernameExist: false,
       nameError: false,
       surnameError: false,
+      birthDateError: false,
     }
   }
 
@@ -119,6 +120,7 @@ export class SignUp extends Component {
       usernameExist: false,
       nameError: false,
       surnameError: false,
+      birthDateError: false,
     });
   }
 
@@ -169,6 +171,7 @@ export class SignUp extends Component {
             usernameExist: this.state.usernameExist,
             name: this.state.nameError,
             surname: this.state.surnameError,
+            birthDate: this.state.birthDateError
           }}
         />
       },  
