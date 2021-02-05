@@ -12,6 +12,8 @@ import { AddSchoolDialog } from 'src/components/dialogs/add_school_dialog'
 import { NextFocus } from 'src/lib/next_focus';
 import { School } from 'src/lib/school';
 
+import { Form } from 'src/lib/default_values/sizes/form_size';
+
 
 export class SchoolPicker extends Component{
   constructor(props){
@@ -79,6 +81,10 @@ export class SchoolPicker extends Component{
 					onKeyDown={this.props.onKeyDown}
 					options={this.state.schoolsList}
 					getOptionLabel={(option) => (option.name + " - " + option.city)}
+					style={{ 
+            maxWidth: Form.width,
+            width: "100%"
+          }}
 					renderOption={(option) => (
 						<Grid
 							container
