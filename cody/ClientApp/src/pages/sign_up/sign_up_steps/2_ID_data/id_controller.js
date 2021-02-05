@@ -1,4 +1,4 @@
-import { UsernameController, NameSurnameController } from 'src/lib/format_controller/id_controllers';
+import { UsernameController, NameSurnameController, BirthDateController } from 'src/lib/format_controller/id_controllers';
 
 export class IDController{
 
@@ -14,10 +14,12 @@ export class IDController{
       return new Promise(resolve => {
         const usernameController = new UsernameController();
         const nameSurnameController = new NameSurnameController();
+        const birthDateController = new BirthDateController();
   
         const username = values.username;
         const name = values.name;
         const surname = values.surname;
+        const birthDate = values.birthDate;
   
         let errorsList = ["noError"];
   
@@ -54,6 +56,17 @@ export class IDController{
                 }
               },
             ),
+
+          birthDateController
+            .checkBirthDate(birthDate, false)
+            .then(
+              result => {
+                if(result) {
+                  errorsList.push("birthDateError");
+                  errorsList = this.removeNoError(errorsList);
+                }
+              }
+            )
         ])
         .then(_ => {
           resolve(errorsList);
