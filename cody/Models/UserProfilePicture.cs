@@ -26,9 +26,12 @@ namespace Cody.Models
 
 
         [NotMapped]
-        public string ContentType => new FileExtensionContentTypeProvider().TryGetContentType(FilePath, out var contentType)
-            ? contentType
-            : "image/*";
+        public string ContentType
+        {
+            get => MimeTypes.TryGetMimeType(FileName, out var contentType)
+                ? contentType
+                : "image/*";
+        }
 
         [NotMapped]
         public string Extension
