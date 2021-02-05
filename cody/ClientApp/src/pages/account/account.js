@@ -32,12 +32,12 @@ export function Account(){
     surname: "Budriesi",
     email: "matteo.budriesi@gmail.com",
     school: {
+      id: 1,
       name: "ITIS Fermi",
       city: "Modena",
       country: "Italia"
     },
-    isAddedSchool: false,
-    birthDate: "01/09/00",
+    birthDate: new Date("09/01/2000"),
   }
   const [oldData, setOldData] = React.useState(oldDataValues);
   const [data, setData] = React.useState(oldDataValues);
@@ -52,6 +52,8 @@ export function Account(){
 		
 		emailError: false,
 		emailExist: false,
+
+    birthDateError: false,
   }
   const [errors, setErrors] = React.useState(noErrors);
   
