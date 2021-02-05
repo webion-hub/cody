@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dialog, Typography } from '@material-ui/core';
+import { Dialog } from '@material-ui/core';
 import { DialogActions } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import { DialogTitle } from '@material-ui/core';
@@ -28,7 +28,7 @@ export function DialogBase(props){
       onClose={props.onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      classes={{paper: classes.dialog,}}
+      classes={{paper: classes.dialog}}
     >
       <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title" className={classes.title}>
         {props.title}
