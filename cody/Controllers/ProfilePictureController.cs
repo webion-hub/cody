@@ -3,8 +3,6 @@ using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
-using ImageProcessor;
-using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
