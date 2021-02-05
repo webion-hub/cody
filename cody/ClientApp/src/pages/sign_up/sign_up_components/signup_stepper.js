@@ -99,13 +99,20 @@ export class SignUpStepperMain extends Component {
       },
       onError: reasons => {
         this.setState({
-          registerErrors: reasons,
+          registerErrors: [reasons.map(e => ({
+            username: <Typography variant="body2">errore inserimento username</Typography>,
+            name: <Typography variant="body2">errore inserimento nome</Typography>, 
+            surname: <Typography variant="body2">errore inserimento cognome</Typography>, 
+            email: <Typography variant="body2">errore inserimento email</Typography>,
+            password: <Typography variant="body2">errore inserimento password</Typography>,
+            birthDate: <Typography variant="body2">errore inserimento data nascita</Typography>,
+          }[e]))],
           openAlert: true,
         });
       },
       onMissingFields: reasons => {
         this.setState({
-          missingFields: "Manca " + reasons,
+          missingFields: <Typography variant="body2">Manca data di nascita</Typography>,  
           openAlert: true,
         });
       },
@@ -116,7 +123,7 @@ export class SignUpStepperMain extends Component {
   }
 
   _maybeUploadImage = async () => {
-    if (!this.props.profileImage)
+    if (this.props.profileImage == null)
       return;
 
     return ProfilePicture.createOrUpdate({
@@ -124,7 +131,7 @@ export class SignUpStepperMain extends Component {
     })
     .catch(_ => {
       this.setState({
-        imageUploadError: "Prova a ricaricare l'immagine più tardi.",
+        imageUploadError: <Typography variant="body2">Prova a ricaricare l'immagine più tardi.</Typography>,
         openAlert: true,
       });
     });
@@ -221,11 +228,14 @@ export class SignUpStepperMain extends Component {
                           open={this.state.openAlert}
                           onClose={this.handleAlertClose}
                           items={[
-                            this.state.registerErrors,
-                            this.state.onMissingFields,
+                            <Grid
+                              container
+                              direction="column"
+                            >
+                              {this.state.registerErrors}
+                            </Grid>,
+                            this.state.missingFields,
                             this.state.imageUploadError,
-                            "Prova a ricaricare l'immagine più tardi.",
-                            "serverError",
                           ]}
                         />
                       </div>
