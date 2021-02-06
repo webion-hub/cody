@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Grid, Typography, Link } from '@material-ui/core';
+import { Grid, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AddPhoto } from 'src/components/pickers/add_photo'
 
@@ -12,9 +14,24 @@ const useStyles = makeStyles((theme) => ({
 	iconMargin: {
 		marginRight: theme.spacing(1)
   },
+  info: {
+    marginLeft: theme.spacing(4),
+    [theme.breakpoints.down(400)]: {
+      marginLeft: theme.spacing(0),
+      marginTop: theme.spacing(1),
+    },
+  },
+  truncateText: {
+    maxWidth: 200,
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  }
 }));
 
 export function InfoBox(props){
+  const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down(400));
 	const classes = useStyles();
   const [image, setImage] = React.useState("profile_picture");
   const {onImageChange} = props;
@@ -34,15 +51,16 @@ export function InfoBox(props){
 	return (
     <Grid
       container
-      direction="row"
+      direction={mobileView ? "column" : "row"}
       alignItems="center"
+      justify="center"
     >
       <AddPhoto
         image={getImage}
         value={image}
         accountEdit
       />
-      <Box pl={4}>
+      <div className={classes.info}>
         <Grid
           container
           direction="row"
@@ -51,6 +69,7 @@ export function InfoBox(props){
           <AccountCircleRoundedIcon className={classes.iconMargin}/>
           <Typography
             variant="h5"
+            className={classes.truncateText}
           >
             {props.username}
           </Typography>	
@@ -63,11 +82,15 @@ export function InfoBox(props){
           <SchoolRoundedIcon className={classes.iconMargin}/>
           <Typography
             variant="subtitle1"
+            className={classes.truncateText}
           >
-            {props.school.name}
+            {`${props.school.name} - ${props.school.city}`}
           </Typography>	
         </Grid>
-        <Typography variant="caption">
+        <Typography 
+          variant="caption"
+          className={classes.truncateText}
+        >
           <Link 
             color="textSecondary"
             component="button"
@@ -83,7 +106,7 @@ export function InfoBox(props){
             </Grid>
           </Link>
         </Typography>
-      </Box>
+      </div>
     </Grid>
 	);
 }
