@@ -39,11 +39,15 @@ const useStyles = makeStyles((theme) => ({
   },
   chipsBox: {
     maxWidth: 500,
+    padding: 8,
+    top: 50,
     [theme.breakpoints.down('sm')]: {
       maxWidth: "50vw",
     },
     [theme.breakpoints.down('xs')]: {
       maxWidth: 500,
+      transform: "translate(0, 50px)",
+      top: "auto",
     },
   },
   input: {
@@ -137,8 +141,7 @@ export function SearchBar(props) {
           />
         </Paper>
         <Box 
-          position="absolute"
-          top={60}
+          position="absolute"          
           width={1}
           className={classes.chipsBox}
         >
