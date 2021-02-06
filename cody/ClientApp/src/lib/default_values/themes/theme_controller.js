@@ -55,6 +55,10 @@ export class ThemeController {
           secondary: 'rgba(255,255,255,0.85)'
         }
       },
+      appBar: {
+        fullHeight: 64,
+        mobileHeight: 56,
+      },
       overrides: {
         MuiCssBaseline: {
           '@global': {

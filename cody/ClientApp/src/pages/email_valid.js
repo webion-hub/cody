@@ -5,12 +5,23 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 import { Confirmation } from 'src/components/illustrations/confirmation';
 
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
 import history from 'src/history'
+
+
+const CustomPaper = withStyles((theme) => ({
+  root: {
+    marginTop: theme.appBar.fullHeight,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.appBar.mobileHeight,
+    },
+  },
+}))(Paper);
 
 export class EmailValid extends Component {
   static displayName = Error.name; 
@@ -24,7 +35,7 @@ export class EmailValid extends Component {
         justify="center"
         alignItems="center"
       >
-        <Paper>
+        <CustomPaper>
           <Box
             p={3}
           >
@@ -79,7 +90,7 @@ export class EmailValid extends Component {
               </Button>
             </Box>
           </Box>
-        </Paper>
+        </CustomPaper>
       </Grid>
     );
   }

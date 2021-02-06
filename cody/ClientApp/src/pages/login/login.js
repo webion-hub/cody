@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Box } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 import { Authentication } from 'src/components/illustrations/authentication';
 import { LoginBox } from './login_box';
@@ -15,6 +16,15 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Images } from 'src/lib/default_values/images';
 
 import history from 'src/history'
+
+const CustomGrid = withStyles((theme) => ({
+  root: {
+    marginTop: theme.appBar.fullHeight,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.appBar.mobileHeight,
+    },
+  },
+}))(Grid);
 
 export class Login extends Component {
   static displayName = Login.name;
@@ -31,7 +41,7 @@ export class Login extends Component {
         justify="center"
         alignItems="center"
       >
-        <Grid
+        <CustomGrid
           container
           direction="column"
           justify="center"
@@ -64,7 +74,7 @@ export class Login extends Component {
           >
             Crea un account
           </Button>
-        </Grid>
+        </CustomGrid>
       </Grid>
     );
   }

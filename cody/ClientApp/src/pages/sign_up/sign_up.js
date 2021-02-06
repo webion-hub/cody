@@ -25,8 +25,9 @@ import history from 'src/history';
 const CustomPaper = withStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
-      marginTop: 56,
+    marginTop: theme.appBar.fullHeight,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.appBar.mobileHeight,
     },
   },
 }))(Paper);

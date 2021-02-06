@@ -5,10 +5,21 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { Paper } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 import { Error404 } from 'src/components/illustrations/error404';
 
 import history from 'src/history'
+
+
+const CustomPaper = withStyles((theme) => ({
+  root: {
+    marginTop: theme.appBar.fullHeight,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.appBar.mobileHeight,
+    },
+  },
+}))(Paper);
 
 export class Error404Page extends Component {
   static displayName = Error.name; 
@@ -22,7 +33,7 @@ export class Error404Page extends Component {
         justify="center"
         alignItems="center"
       >
-        <Paper>
+        <CustomPaper>
           <Box
             p={3}
           >
@@ -59,7 +70,7 @@ export class Error404Page extends Component {
               </Button>
             </Box>
           </Box>
-        </Paper>
+        </CustomPaper>
       </Grid>
     );
   }

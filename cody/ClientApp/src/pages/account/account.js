@@ -14,11 +14,20 @@ import history from 'src/history'
 const useStyles = makeStyles((theme) => ({
 	box: {
 		maxWidth: 450,
-		width: "100%"
+		width: "100%",
+    marginTop: theme.appBar.fullHeight,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.appBar.mobileHeight,
+    },
 	},
 	mainPaper: {
 		padding: theme.spacing(2),
 	},
+  title: {
+    [theme.breakpoints.down('xs')]: {
+      textAlign: "center",
+    },
+  }
 }));
 
 export function Account(){
@@ -130,7 +139,13 @@ export function Account(){
 			alignItems="center"
 		>
 			<div className={classes.box}>
-				<Typography color="textSecondary" variant="h5">Il tuo Account</Typography>
+				<Typography 
+          color="textSecondary" 
+          variant="h5" 
+          className={classes.title}
+        >
+          Il tuo Account
+        </Typography>
 				<Paper 
 					className={classes.mainPaper}
 				>
