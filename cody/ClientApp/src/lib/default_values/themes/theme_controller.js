@@ -43,7 +43,8 @@ export class ThemeController {
         background: {
           default: this.color.background,
           paper: this.color.backgroundLight,
-          paperSecondary: "rgba(0,0,0,0.3)",
+          paperSecondary: this.color.paperSecondary,
+          paperTransparent: this.color.paperTransparent,
           dark: this.color.backgroundDark,
           contrastText: '#fff',
         },
