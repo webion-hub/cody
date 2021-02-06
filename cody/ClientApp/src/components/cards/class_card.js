@@ -12,12 +12,14 @@ import { Button } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import { useMediaQuery } from '@material-ui/core';
 
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 
 import { CardBase } from 'src/components/bases/card_base';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
 import { languages } from 'src/lib/default_values/lists/coding_languages'
+import { FlowingText } from 'src/components/typography/flowing_text'
 
 const useStyles = makeStyles((theme) => ({
   tooltipUsers: {
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     height: 40,
   },
   avatarCodingLanguageBox: {
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background.paperTransparent,
     borderRadius: 28,
   }
 }));
@@ -41,6 +43,7 @@ export function ClassCard(props){
   const theme = useTheme();
   const classes = useStyles();
   const userNumber = props.users.length;
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <CardBase
@@ -151,9 +154,15 @@ export function ClassCard(props){
                 <Typography variant="h5" component="h2">
                   {props.title}
                 </Typography>
-                <Typography variant="caption" color="textSecondary">
-                  Admin <Link href="" color="inherit" className="noScroll">{props.admin.username}</Link>
-                </Typography>
+                <Link href="" color="textSecondary" className="noScroll">
+                  <FlowingText
+                    containerWidth={mobileView ? "40vw" : 210}
+                    background="#111a25"
+                    variant="caption"
+                  >
+                    Admin {props.admin.username}
+                  </FlowingText>
+                </Link>
               </div>
             )
           }
