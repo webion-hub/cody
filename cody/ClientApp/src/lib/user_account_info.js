@@ -5,7 +5,7 @@ import axios from 'axios';
 export class UserAccountInfo {
   constructor() {
     this._getters = [];
-    this._setters = [];
+    this._setters = {};
   }
   
   static createRequest() {
@@ -87,8 +87,8 @@ export class UserAccountInfo {
    * @param {AxiosRequestConfig} config
    * @returns {Promise<AxiosResponse<any>>}
    */
-  _requestBase = async (config, defaultResult) => {
-    if (config.data.length == 0)
+  _requestBase = async (defaultResult, config) => {
+    if (Object.keys(config.data).length == 0)
       return Promise.resolve(defaultResult);
 
     return axios.request({
