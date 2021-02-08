@@ -14,7 +14,7 @@ namespace Cody.Utility
             base.RefreshContentTypeAndData();
 
             if (!ContentType.StartsWith("image"))
-                throw new FormatException("The provided data url does not represent an image.");
+                throw new FormatException("The provided data url does not represent an image");
         }
     }
 }

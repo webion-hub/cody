@@ -41,12 +41,17 @@ namespace Cody.Utility
 
         private GroupCollection MatchContentTypeAndData()
         {
-            return Regex.Match(
+            var matchedGroups = Regex.Match(
                 input: Base64Url, 
                 pattern: @"data:(?<content_type>.+);base64,(?<data>.+)", 
                 options: RegexOptions.None,
                 matchTimeout: TimeSpan.FromMilliseconds(250)
             ).Groups;
+
+            if (matchedGroups.Count == 0)
+                throw new FormatException("The provided string is not a data url");
+
+            return matchedGroups;
         }
     }
 }
