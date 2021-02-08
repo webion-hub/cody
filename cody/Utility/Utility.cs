@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Cody
+namespace Cody.Utility
 {
-    public static class Utility
+    public static class Misc
     {
         public static void TrimAll<T>(T target, params Expression<Func<T, string>>[] expressions)
         {
