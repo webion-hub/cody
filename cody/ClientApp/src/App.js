@@ -8,6 +8,7 @@ import { Error404Page } from './pages/error404_page';
 import { EmailValid } from './pages/email_valid';
 import { Home } from './pages/home/home';
 import { Account } from './pages/account/account';
+import { Test } from './pages/test';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';  
 import { CssBaseline } from "@material-ui/core";
@@ -49,6 +50,7 @@ function Routes(){
         <CustomRoute path='/sign-up' component={SignUp} to='/' redirect={logged}/>
         <CustomRoute path='/email-valid' component={EmailValid} />
         <CustomRoute path='/account' component={Account} to='/' redirect={!logged}/>
+        <CustomRoute path='/test' component={Test} to='/'/>
 
         <CustomRoute component={Error404Page} />
       </Switch>
