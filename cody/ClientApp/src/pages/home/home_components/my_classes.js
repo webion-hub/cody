@@ -100,7 +100,7 @@ export function MyClasses(props){
             </Typography>
           )
         }
-        <Paper>
+        <>
           {
             classesNumber === 0 ? (
               <Grid
@@ -175,7 +175,7 @@ export function MyClasses(props){
               </ScrollContainer>
             )
           }
-        </Paper>
+        </>
       </div>
     </div>
   );

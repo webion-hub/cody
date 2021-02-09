@@ -69,6 +69,6 @@ export function EditableCustomTextField(props){
 						),
 					}}
 				/>
-				</Box>
+			</Box>
 		);
   }

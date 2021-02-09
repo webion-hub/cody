@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Paper, Typography, Fade } from '@material-ui/core';
+import { Box, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { LoadingButton } from 'src/components/buttons/loading_button'
