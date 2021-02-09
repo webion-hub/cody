@@ -26,7 +26,7 @@ export function FlowingText(props){
 	const [textWidth, setTextWidth] = React.useState(null);
 	const [textHeight, setTextHeight] = React.useState(null);
 
-	const speed = 1 / 100;
+	const speed = 3 / 100;
 
 	const ref = createRef();
 	
@@ -77,8 +77,9 @@ export function FlowingText(props){
 				style={{
 					transform: flow ? `translate(-${textWidth}px, 0)` : null,
 					animationDuration: `${(textWidth + props.containerWidth)*speed}s`,
-					animationDelay: `-${textWidth*speed}s`,
-					animationPlayState: flow ? "running" : "paused"
+					animationDelay: `-${props.containerWidth*speed}s`,
+					animationPlayState: flow ? "running" : "paused",
+					animationDirection: "reverse"
 				}}
 			>
 				<Typography 
