@@ -143,6 +143,8 @@ export function MyClasses(props){
               <ScrollContainer
                 hideScrollbars={false}
                 ignoreElements=".noScroll"
+                activationDistance={10}
+                nativeMobileScroll
               >
                 <ul className={classes.classesListStyle}>
                   {
