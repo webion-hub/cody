@@ -10,11 +10,10 @@ export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;
 
 const searchbarStyles = makeStyles((theme) => ({
-  searchBar: {    
+  searchBar: {  
     [theme.breakpoints.up('sm')]: {
       position: "sticky",
       top: "32px",
-      padding: "8px",
       zIndex: "1200",
       maxWidth: 500,
       marginLeft: "50%",

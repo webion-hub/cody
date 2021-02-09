@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const homeStyles = makeStyles((theme) => ({
   background: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(4),
     margin: "0 auto",
     width: "38%",
     maxWidth: 700,

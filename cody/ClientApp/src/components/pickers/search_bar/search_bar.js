@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
   chipsBox: {
     maxWidth: 500,
-    padding: 8,
     top: 50,
     [theme.breakpoints.down('sm')]: {
       maxWidth: "50vw",
