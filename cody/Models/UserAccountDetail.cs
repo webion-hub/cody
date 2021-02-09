@@ -1,4 +1,5 @@
 ﻿using Cody.Security;
+using Cody.Security.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,10 +35,10 @@ namespace Cody.Models
 
         public IEnumerable<string> GetRejectReasons()
         { 
-            if (!Validation.IsValidNameOrSurname(Name))
+            if (!FieldValidation.IsValidNameOrSurname(Name))
                 yield return "name";
 
-            if (!Validation.IsValidNameOrSurname(Surname))
+            if (!FieldValidation.IsValidNameOrSurname(Surname))
                 yield return "surname";
         }
     }

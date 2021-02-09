@@ -1,4 +1,5 @@
 ﻿using Cody.Security;
+using Cody.Security.Validation;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,7 +39,7 @@ namespace Cody.Models
             if (Username.Length is < 4 or > 28)
                 yield return "username";
 
-            if (!Validation.IsValidEmail(Email))
+            if (!FieldValidation.IsValidEmail(Email))
                 yield return "email";
         }
     }
