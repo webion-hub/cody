@@ -16,25 +16,19 @@ const classesStyles = makeStyles((theme) => ({
   classesListStyle: {
     display: "flex",
     padding: 0,
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
-      marginTop: "5vw",
-      marginBottom: "5vw",
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
   },
   class: {
     display: "inline-block",
-    paddingLeft: 20,
-    [theme.breakpoints.down('xs')]: {
-      paddingLeft: "5vw",
-    },
+    paddingLeft: theme.spacing(2),
   },
   rightPadding: {
-    paddingRight: 20,
-    [theme.breakpoints.down('xs')]: {
-      paddingRight: "5vw",
-    },
+    paddingRight: theme.spacing(2),
   },
 }));
 
