@@ -14,14 +14,14 @@ const homeStyles = makeStyles((theme) => ({
   background: {
     marginTop: theme.spacing(4),
     margin: "0 auto",
-    width: "38%",
+    width: "33%",
     maxWidth: 700,
     [theme.breakpoints.down('md')]: {
-      width: "50%",
+      width: "44%",
     },
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(6),
-      width: "70%",
+      width: "55%",
     },
     [theme.breakpoints.down('xs')]: {
       width: "90%",
