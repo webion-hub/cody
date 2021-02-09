@@ -2,9 +2,12 @@
 using Cody.Controllers.Helpers;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.Security;
+using Cody.Security.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -49,16 +52,19 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Put([FromBody] Dictionary<string, string> setters)
         {
-            var user = 
-                await HttpContext.GetLoggedUserFromAsync(_dbContext);
-            
+            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var validator = new UserUpdateValidator(_dbContext);
+           
             foreach (var (prop, value) in setters)
             {
                 UserAccountInfoProps.SetPropFor(prop, value, user);
             }
 
+            if (validator.Validate(user).WasRejected)
+                return validator.StatusCode;
+
             await _dbContext.SaveChangesAsync();
-            return Ok(true);
+            return Ok();
         }
     }
 }

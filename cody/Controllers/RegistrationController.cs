@@ -2,6 +2,8 @@
 using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.Security;
+using Cody.Security.Validation;
 using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,9 +45,9 @@ namespace Cody.Controllers
         {
             UserAccount user = request;
 
-            var rejectReasons = MaybeReject(user);
-            if (rejectReasons.Any())
-                return BadRequest(rejectReasons);
+            var validator = new UserCreationValidator(_dbContext);
+            if (!validator.Validate(user).WasRejected)
+                return validator.StatusCode;
 
             try
             {
@@ -61,31 +63,6 @@ namespace Cody.Controllers
 
             await HttpContext.SignInAsync(user);
             return Ok(user.Id);
-        }
-
-
-        private List<string> MaybeReject(UserAccount account)
-        {
-            var rejectReasons = new List<string>();
-            rejectReasons.AddRange(account.GetRejectReasons());
-            rejectReasons.AddRange(account.AccountDetail?.GetRejectReasons());
-
-            if (!rejectReasons.Any())
-            {
-                rejectReasons.AddRange(
-                    MaybeUserExists(account.Username, account.Email));
-            }
-
-            return rejectReasons;
-        }
-
-        private IEnumerable<string> MaybeUserExists(string username, string email)
-        {
-            if (_dbContext.UserExists(username))
-                yield return "username_exists";
-
-            if (_dbContext.UserExists(email))
-                yield return "email_exists";
         }
     }
 }
