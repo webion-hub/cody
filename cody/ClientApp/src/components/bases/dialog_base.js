@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   dialog: {
     [theme.breakpoints.up('sm')]: {
-      transform: "translate(24px, 0px)"
+      transform: `translate(${theme.drawer.width / 2}px, 0px)`
     },
   },
   title: {
