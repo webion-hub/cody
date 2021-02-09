@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     maxWidth: 500,
     width: "100%",
+    background: theme.palette.background.paperDark
   },
   searchBarBox: {
     maxWidth: 500,

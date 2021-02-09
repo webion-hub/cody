@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     height: 40,
   },
   avatarCodingLanguageBox: {
-    background: theme.palette.background.paperTransparent,
+    background: theme.palette.background.backgroundTransparent,
     borderRadius: 28,
   }
 }));
@@ -47,7 +47,7 @@ export function ClassCard(props){
 
   return (
     <CardBase
-      background={theme.palette.background.paperSecondary}
+      background={theme.palette.background.paperDark}
       image={props.image}
       title={props.title}
       loading={props.loading}
@@ -157,7 +157,7 @@ export function ClassCard(props){
                 <Link href="" color="textSecondary" className="noScroll">
                   <FlowingText
                     containerWidth={mobileView ? "40vw" : 210}
-                    background="#111a25"
+                    background={theme.palette.background.paperDark}
                     variant="caption"
                   >
                     Admin {props.admin.username}

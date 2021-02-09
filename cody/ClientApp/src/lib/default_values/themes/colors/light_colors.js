@@ -7,7 +7,7 @@ export const lightColors = {
   backgroundLight: 'rgb(250, 250, 250)', 
   background: 'rgb(245, 245, 245)', 
   backgroundDark: 'rgb(230, 230, 230)', 
-  paperSecondary: 'rgb(247, 247, 247)',
-  paperTransparent: "rgba(0,0,0,0.3)",
+  backgroundDarkest: '#0D131C',
+  backgroundTransparent: "rgba(0,0,0,0.3)",
   appBar: 'rgb(245, 245, 245)',  
 }

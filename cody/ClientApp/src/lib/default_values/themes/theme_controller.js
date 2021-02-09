@@ -43,8 +43,8 @@ export class ThemeController {
         background: {
           default: this.color.background,
           paper: this.color.backgroundLight,
-          paperSecondary: this.color.paperSecondary,
-          paperTransparent: this.color.paperTransparent,
+          paperDark: this.color.backgroundDarkest,
+          backgroundTransparent: this.color.backgroundTransparent,
           dark: this.color.backgroundDark,
           contrastText: '#fff',
         },
@@ -59,6 +59,13 @@ export class ThemeController {
       appBar: {
         fullHeight: 64,
         mobileHeight: 56,
+        color: this.color.appBar,
+      },
+      typography: {
+        fontFamily: [
+          'Rubik',
+          'sans-serif'
+        ] 
       },
       overrides: {
         MuiCssBaseline: {
