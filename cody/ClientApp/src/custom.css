@@ -10,11 +10,9 @@ code {
 body {
   overflow: overlay;
   position: relative;
-}
-
-html, body {
   overflow-x: hidden;
 }
+
 
 .btn-primary {
   color: #fff;

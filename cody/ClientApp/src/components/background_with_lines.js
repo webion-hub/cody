@@ -9,10 +9,12 @@ const useStyles = makeStyles((theme) => ({
 		background: "rgba(0,0,0,0.1)",
 		margin: 10,
 	},
-	lines: {
-		[theme.breakpoints.up('sm')]: {
-			paddingRight: 48,
-    },
+	linesBox: {
+		position: "absolute",
+		top: 0,
+		zIndex: -2,
+		width: "100%",
+		background: "linear-gradient(180deg, rgb(26 42 79 / 85%) 0%, rgb(23 36 63 / 45%) 50%, rgba(17, 26, 37, 0) 100%)"
 	}
 }));
 
@@ -27,7 +29,6 @@ export function BackgroundWithLines(props){
 				container
 				direction="row"
 				justify="space-between"
-				className={classes.lines}
 			>
 				<Line/>
 				<Line/>
@@ -36,15 +37,7 @@ export function BackgroundWithLines(props){
 	}
 
   return(
-		<div
-			style={{
-				position: "absolute",
-				top: 0,
-				zIndex: -2,
-				width: "100%",
-				background: "linear-gradient(180deg, rgb(26 42 79 / 85%) 0%, rgb(23 36 63 / 45%) 50%, rgba(17, 26, 37, 0) 100%)"
-			}}
-		>
+		<div className={classes.linesBox}>
 			{
 				lines.map(line => line)
 			}
