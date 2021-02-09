@@ -36,3 +36,16 @@
  * @property {() => void} [onSuccess]
  * @property {() => void} [onError]
  */
+
+/**
+ * @typedef {(
+ *  'username' | 
+ *  'password' | 
+ *  'email' | 
+ *  'name' | 
+ *  'surname' | 
+ *  'user_exists' | 
+ *  'email_exists' | 
+ *  'server_error'
+ * )} UserRejectReasons
+ */

@@ -124,29 +124,12 @@ export class User {
         const data = response.data;
         invokeCallback(response.status, {
           200: _ => onSuccess(data),
-          400: _ => {
-            return data.errors !== undefined
-              ? _ => onMissingFields(data.errors)
-              : _=> onError(data);
-          },
+          409: _ => onError(data),
+          400: _ => onMissingFields(data.errors),
         });
       });
   }
 }
-
-
-/**
- * @typedef {(
- *  'username' | 
- *  'password' | 
- *  'email' | 
- *  'name' | 
- *  'surname' | 
- *  'user_exists' | 
- *  'email_exists' | 
- *  'server_error'
- * )} RegisterErrorReasons
- */
 
 
 /**
@@ -176,5 +159,5 @@ export class User {
  * @property {(accountDetailId: number) => void} [onSuccess]
  * @property {(fields: string[]) => void} [onMissingFields]
  * @property {() => void} [onImageUploadError]
- * @property {(reasons: RegisterErrorReasons[]) => void} [onError]
+ * @property {(reasons: UserRejectReasons[]) => void} [onError]
  */
