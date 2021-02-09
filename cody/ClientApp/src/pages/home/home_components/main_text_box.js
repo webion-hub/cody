@@ -15,10 +15,9 @@ const mainTextStyles = makeStyles((theme) => ({
     marginBottom: 30,
 
     [theme.breakpoints.down('xs')]: {
-      alignItems: "left !important",
       maxWidth: "500px",
       margin: "0 auto",
-      paddingTop: "25vh",
+      paddingTop: "18vh",
       paddingBottom: "5px"
     },
   },
