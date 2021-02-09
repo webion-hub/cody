@@ -7,12 +7,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const mainTextStyles = makeStyles((theme) => ({ 
   box: {
-    marginTop: "25vh",
-    marginBottom: 30,
     [theme.breakpoints.up('sm')]: {
       alignItems: "center !important",
     },
+
+    paddingTop: theme.spacing(18),
+    marginBottom: 30,
+
     [theme.breakpoints.down('xs')]: {
+      paddingTop: theme.spacing(0),
       alignItems: "left !important",
       maxWidth: "500px",
       margin: "25vh auto 5px auto",
