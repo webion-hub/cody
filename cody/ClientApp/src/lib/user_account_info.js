@@ -43,58 +43,53 @@ export class UserAccountInfo {
       .all([getRequest, setRequest])
       .then(response => {
         return {
-          got: response[0].data,
-          set: response[1].data,
+          got: response[0],
+          set: response[1],
         };
       });
   }
 
   /**
-   * @returns {Promise<AxiosResponse<UserAccountInfoGetResponse>>}
+   * @returns {Promise<UserAccountInfoGetResponse>}
    */
   _maybeGet = async () => {
-    return this._requestBase([], {
-      url: 'user/info',
-      method: 'POST',
-      data: this._getters,
-    })
-    .then(resp => {
-      const data = resp.data;
-      const mappedValues = Object
-        .keys(data)
-        .map(key => [key, data[key]]);
+    if (this._getters.length == 0)
+      return Promise.resolve(new Map([]));
 
-      return new Map(mappedValues);
-    });
+    return axios
+      .request({
+        url: 'user/info',
+        method: 'POST',
+        data: this._getters,
+      })
+      .then(resp => {
+        const data = resp.data;
+        const mappedValues = Object
+          .keys(data)
+          .map(key => [key, data[key]]);
+
+        return new Map(mappedValues);
+      });
   }
 
   /**
-   * @returns {Promise<AxiosResponse<boolean?>>} 
+   * @returns {Promise<UserRejectReasons[]>} 
    */
   _maybeSet = async () => {
-    return this._requestBase(null, {
-      url: 'user/info',
-      method: 'PUT',
-      data: this._setters,
-    })
-    .then(resp => {
-      return resp.status == 200;
-    });
-  }
+    if (Object.keys(this._setters).length == 0)
+      return Promise.resolve(null);
 
-  /**
-   * @param {any} defaultResult
-   * @param {AxiosRequestConfig} config
-   * @returns {Promise<AxiosResponse<any>>}
-   */
-  _requestBase = async (defaultResult, config) => {
-    if (Object.keys(config.data).length == 0)
-      return Promise.resolve(defaultResult);
-
-    return axios.request({
-      validateStatus: false,
-      ...config,
-    });
+    return axios
+      .request({
+        url: 'user/info',
+        method: 'PUT',
+        validateStatus: false,
+        data: this._setters,
+      })
+      .then(resp => resp.status == 200
+        ? []
+        : resp.data
+      );
   }
 }
 
@@ -116,5 +111,5 @@ export class UserAccountInfo {
 /**
  * @typedef {object} SendResult
  * @property {UserAccountInfoGetResponse} got
- * @property {boolean?} set
+ * @property {UserRejectReasons[]} set
  */
