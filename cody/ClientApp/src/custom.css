@@ -8,7 +8,12 @@ code {
 }
 
 body {
-  overflow: overlay
+  overflow: overlay;
+  position: relative;
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 .btn-primary {
