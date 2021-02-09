@@ -48,9 +48,6 @@ export class ThemeController {
           dark: this.color.backgroundDark,
           contrastText: '#fff',
         },
-        drawer: {
-          default: this.color.backgroundDark,
-        },
         text: {
           primary: 'rgba(255,255,255,0.95)',
           secondary: 'rgba(255,255,255,0.85)'
@@ -60,6 +57,10 @@ export class ThemeController {
         fullHeight: 64,
         mobileHeight: 56,
         color: this.color.appBar,
+      },
+      drawer: {
+        default: this.color.backgroundDark,
+        width: 48,
       },
       typography: {
         fontFamily: [

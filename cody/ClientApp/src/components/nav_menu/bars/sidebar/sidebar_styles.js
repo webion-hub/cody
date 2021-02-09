@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const fullDrawerWidth = 240;
-export const restrictedWidth = 48;
 
 export const sidebarStyles = makeStyles((theme) => ({
   scrollableDrawer: {
@@ -11,17 +10,17 @@ export const sidebarStyles = makeStyles((theme) => ({
     width: fullDrawerWidth,
     overflowX: "hidden",
     transition: "width 0.25s",
-    backgroundColor: theme.palette.drawer.default,
+    backgroundColor: theme.drawer.default,
     marginTop: 64,
     [theme.breakpoints.down('xs')]: {
       marginTop: 56,
     },
   },
   restrictedDrawerPaper: {
-    width: restrictedWidth,
+    width: theme.drawer.width,
     overflowX: "hidden",
     transition: "width 0.25s",
-    backgroundColor: theme.palette.drawer.default,
+    backgroundColor: theme.drawer.default,
     marginTop: 64,
     [theme.breakpoints.down('xs')]: {
       marginTop: 56,
@@ -30,7 +29,7 @@ export const sidebarStyles = makeStyles((theme) => ({
 
   children: {
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: restrictedWidth,
+      paddingLeft: theme.drawer.width,
       transition: "all 0.25s",
     },
   },
