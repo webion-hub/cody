@@ -26,12 +26,14 @@ export function FlowingText(props){
 	const [textWidth, setTextWidth] = React.useState(null);
 	const [textHeight, setTextHeight] = React.useState(null);
 
+	const longText = textWidth > props.containerWidth
+
 	const speed = 3 / 100;
 
 	const ref = createRef();
 	
 	const handleMouseEnter = () => {
-		if(textWidth > props.containerWidth)
+		if(longText)
 			setFlow(true);
 	}
 	
@@ -47,13 +49,13 @@ export function FlowingText(props){
 	return (
 		<Box
 			position="relative"
-			width={props.containerWidth}
+			width={longText ? props.containerWidth : undefined}
 			className={classes.container}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 		>
 			<Box
-				width={props.containerWidth}
+				width={longText ? props.containerWidth : undefined}
 				height={textHeight}
 				position="absolute"
 				zIndex={1}
@@ -86,6 +88,7 @@ export function FlowingText(props){
 					innerRef={ref}
 					variant={props.variant} 
 					color={props.color}
+					component="span"
 				>
 					{props.children}
 				</Typography>
