@@ -73,12 +73,14 @@ export function MainTextBox(props){
     >
       <Typography
         variant="h1"
+        color="textPrimary"
         className={classes.title}
       >
         Cerca una classe
       </Typography>
       <Typography
         variant="h4"
+        color="textSecondary"
         className={classes.subtitle}
       >
         e impara a programmare

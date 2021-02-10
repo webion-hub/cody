@@ -50,7 +50,7 @@ export class ThemeController {
         },
         text: {
           primary: 'rgba(255,255,255,0.95)',
-          secondary: 'rgba(255,255,255,0.85)'
+          secondary: 'rgba(255,255,255,0.75)'
         }
       },
       appBar: {
