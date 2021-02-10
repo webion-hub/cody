@@ -130,7 +130,7 @@ export function Account(){
               .set('surname', data.surname)
               .set('email', data.email)
               .set('birthDate', data.birthDate)
-              .set('schoolId', data.school.id)
+              .set('schoolId', data.school)
             .send()
             .then(res => {
               if(res.set.length != 0){
