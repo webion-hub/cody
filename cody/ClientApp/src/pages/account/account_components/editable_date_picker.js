@@ -62,7 +62,7 @@ export function EditableDatePicker(props){
 		<Box mb={props.mb?props.mb : 0} mt={props.mt?props.mt : 0}>
 			{
 				props.loading ? 
-					<Skeleton variant="rect" height={56}/>
+					<Skeleton variant="rect" height={56} animation="wave"/>
 					:
 					<>
 						<TextField
