@@ -1,21 +1,12 @@
 import React from 'react';
-import ScrollContainer from 'react-indiana-drag-scroll';
 
-import { ClassCard } from 'src/components/cards/class_card';
-import { School } from 'src/components/illustrations/school';
 import { ThereAreClasses } from './thereAreClasses';
 import { NoClasses } from './noClasses';
 
 import { Typography } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
-import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 
 
 const classesStyles = makeStyles((theme) => ({
