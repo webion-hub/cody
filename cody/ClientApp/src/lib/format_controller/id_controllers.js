@@ -67,10 +67,13 @@ export class BirthDateController{
       const minDate = new Date('01/01/1920');
       const maxDate = new Date();
       const outOfRange = val > maxDate || val < minDate;
-      const date = val.toLocaleDateString();
+      const date = val? val.toLocaleDateString() : "";
       const invalidFormat = !re.test(date);
+      const empty = val === null;
 
-      resolve(outOfRange || invalidFormat);
+      const areErrors = outOfRange || invalidFormat || empty
+
+      resolve(areErrors);
     })
   }
 }
