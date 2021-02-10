@@ -23,6 +23,7 @@ export function Account(){
 
   //A value has been edited
   const [edited, setEdited] = React.useState(false);
+  const [editedImage, setEditedImage] = React.useState(false);
 
   //Data & image
   const [oldData, setOldData] = React.useState(nullData);
@@ -70,9 +71,10 @@ export function Account(){
   const getImage = (value) => {
     if(value !== "profile_picture"){
       setImage(value);
-      setEdited(true);
+      setEditedImage(true);
     }
-  }  
+  }
+
   const getData = (data) => {
     if(JSON.stringify(data) === JSON.stringify(oldData)){
       setEdited(false)
@@ -180,6 +182,7 @@ export function Account(){
 					className={classes.mainPaper}
 				>
 					<InfoBox
+            loading={loadingLoad}
             username={oldData.username}
             school={oldData.school}
             onImageChange={getImage}
@@ -196,7 +199,7 @@ export function Account(){
             textAlign="end"
           > 
             <LoadingButton
-              disabled={!edited}
+              disabled={!(edited || editedImage)}
               onClick={handleTrySave}
               loading={loadingSave}
               label="Salva"
