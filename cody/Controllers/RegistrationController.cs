@@ -46,7 +46,7 @@ namespace Cody.Controllers
             UserAccount user = request;
 
             var validator = new UserCreationValidator(_dbContext);
-            if (!validator.Validate(user).WasRejected)
+            if (validator.Validate(user).WasRejected)
                 return validator.StatusCode;
 
             try
