@@ -1,16 +1,21 @@
 import React from 'react';
-import { Grid, Typography, Link } from '@material-ui/core';
+import { Grid, Typography, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AddPhoto } from 'src/components/pickers/add_photo'
+import { FlowingText } from 'src/components/typography/flowing_text'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: `${theme.spacing(2)}px 0px`,
+    background: theme.palette.background.paperDark
+  },
 	iconMargin: {
 		marginRight: theme.spacing(1)
   },
@@ -21,11 +26,8 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1),
     },
   },
-  truncateText: {
+  deleteProfilePic: {
     maxWidth: 200,
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
   }
 }));
 
@@ -49,64 +51,76 @@ export function InfoBox(props){
   }
   
 	return (
-    <Grid
-      container
-      direction={mobileView ? "column" : "row"}
-      alignItems="center"
-      justify="center"
-    >
-      <AddPhoto
-        image={getImage}
-        value={image}
-        accountEdit
-      />
-      <div className={classes.info}>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-        >
-          <AccountCircleRoundedIcon className={classes.iconMargin}/>
-          <Typography
-            variant="h5"
-            className={classes.truncateText}
+    <Paper className={classes.paper}>
+      <Grid
+        container
+        direction={mobileView ? "column" : "row"}
+        alignItems="center"
+        justify="center"
+      >
+        <AddPhoto
+          image={getImage}
+          value={image}
+          accountEdit
+        />
+        <div className={classes.info}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify={mobileView ? "center" : null}
           >
-            {props.username}
-          </Typography>	
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-        >
-          <SchoolRoundedIcon className={classes.iconMargin}/>
-          <Typography
-            variant="subtitle1"
-            className={classes.truncateText}
-          >
-            {`${props.school.name} - ${props.school.city}`}
-          </Typography>	
-        </Grid>
-        <Typography 
-          variant="caption"
-          className={classes.truncateText}
-        >
-          <Link 
-            color="textSecondary"
-            component="button"
-            onClick={handleDelete}
-          >
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
+            <AccountCircleRoundedIcon className={classes.iconMargin}/>
+            <FlowingText
+              containerWidth={200}
+              background={theme.palette.background.paperDark}
+              variant="h5"
             >
-              <HighlightOffRoundedIcon className={classes.iconMargin}/>
-              Elimina immagine profilo.
-            </Grid>
-          </Link>
-        </Typography>
-      </div>
-    </Grid>
+              {props.username}
+            </FlowingText>
+          </Grid>
+          {
+            props.school?
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify={mobileView ? "center" : null}
+              >
+                <SchoolRoundedIcon className={classes.iconMargin}/>
+                <FlowingText
+                  containerWidth={200}
+                  background={theme.palette.background.paperDark}
+                  variant="h5"
+                >
+                  {`${props.school.name} - ${props.school.city}`}
+                </FlowingText>
+              </Grid>
+              :
+              null
+          }
+          <Typography 
+            variant="caption"
+            className={classes.deleteProfilePic}
+          >
+            <Link 
+              color="textSecondary"
+              component="button"
+              onClick={handleDelete}
+            >
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify={mobileView ? "center" : null}
+              >
+                <HighlightOffRoundedIcon className={classes.iconMargin}/>
+                Elimina immagine profilo.
+              </Grid>
+            </Link>
+          </Typography>
+        </div>
+      </Grid>
+    </Paper>
 	);
 }

@@ -1,78 +1,78 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, Paper, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { LoadingButton } from 'src/components/buttons/loading_button'
 import { InfoBox } from './account_components/info_box';
 import { DataForms } from './account_components/data_forms';
 import { ErrorsController } from './errors_controller';
+import { accountStyles } from './account_styles';
+import { nullData, noErrors } from './default_states';
 
 import { ProfilePicture } from 'src/lib/profile_picture'
+import { UserAccountInfo } from 'src/lib/user_account_info'
+import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 
 import history from 'src/history'
 
-const useStyles = makeStyles((theme) => ({
-	box: {
-		maxWidth: 450,
-		width: "100%",
-    marginTop: theme.appBar.fullHeight,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.appBar.mobileHeight,
-    },
-	},
-	mainPaper: {
-		padding: theme.spacing(2),
-	},
-  title: {
-    [theme.breakpoints.down('xs')]: {
-      textAlign: "center",
-    },
-  }
-}));
-
 export function Account(){
-	const classes = useStyles();
+	const classes = accountStyles();
+
+  //Loadings
   const [loadingSave, setLoadingSave] = React.useState(false);
+  const [loadingLoad, setLoadingLoad] = React.useState(true);
+
+  //A value has been edited
   const [edited, setEdited] = React.useState(false);
 
-  const oldDataValues = {
-    username: "Matteo2437",
-    name: "Matteo",
-    surname: "Budriesi",
-    email: "matteo.budriesi@gmail.com",
-    school: {
-      id: 1,
-      name: "ITIS Fermi",
-      city: "Modena",
-      country: "Italia"
-    },
-    birthDate: new Date("09/01/2000"),
-  }
-  const [oldData, setOldData] = React.useState(oldDataValues);
-  const [data, setData] = React.useState(oldDataValues);
+  //Data & image
+  const [oldData, setOldData] = React.useState(nullData);
+  const [data, setData] = React.useState(nullData);
   const [image, setImage] = React.useState("profile_picture");
 
-  const noErrors = {
-		usernameError: false,
-		usernameExist: false,
-
-    nameError: false,
-		surnameError: false,
-		
-		emailError: false,
-		emailExist: false,
-
-    birthDateError: false,
-  }
+  //Errors
   const [errors, setErrors] = React.useState(noErrors);
+  const [duringSavingErrors, setDuringSavingErrors] = React.useState([]);
+  const [openAlert, setOpenAlert] = React.useState(false);
   
+  //Data init
+  useEffect(() => {
+    UserAccountInfo
+      .createRequest()
+        .get('username')
+        .get('name')
+        .get('surname')
+        .get('email')
+        .get('birthDate')
+        .get('school')
+      .send()
+      .then(resp => {
+        const got = resp.got;
+        const actualData = {
+          username: got.get('username'),
+          name: got.get('name'),
+          surname: got.get('surname'),
+          email: got.get('email'),
+          birthDate: new Date(got.get('birthDate')),
+          school: got.get('school'),
+        }
+        
+        setData(actualData);        
+        setOldData(actualData);
+        setLoadingLoad(false);
+      })
+  }, [])
+
+
+  /**
+   * Get values
+   */
+
   const getImage = (value) => {
     if(value !== "profile_picture"){
       setImage(value);
       setEdited(true);
     }
-  }
-  
+  }  
   const getData = (data) => {
     if(JSON.stringify(data) === JSON.stringify(oldData)){
       setEdited(false)
@@ -83,49 +83,79 @@ export function Account(){
     }
   }
 
+
+  /**
+   * Try save
+   */
+
+  const refresh = () => {
+    setLoadingSave(false)
+    history.go(0)
+  }
+
+  const updateProfilePic  = () => {
+    ProfilePicture
+      .createOrUpdate({
+        base64: image,
+      })
+      .then(() => refresh());
+  }
+
+  const deleteProfilePic  = () => {
+    ProfilePicture
+      .delete()
+      .then(() => refresh())
+  }
+
   const handleTrySave = () => {
     const errorsController = new ErrorsController;
     
     setLoadingSave(true);
     setErrors(noErrors);
+    setOpenAlert(false);
 
     errorsController
-      .checkAll(data, oldDataValues)
+      .checkAll(data, oldData)
       .then(results => {
         let errors = {};
         results.forEach(result => {
-          if (result === 'noError') {
-            if(image !== "profile_picture" && image !== null){
-              ProfilePicture
-                .createOrUpdate({
-                  base64: image,
-                })
-                .then(() => {
-                  setEdited(false);
-                  setLoadingSave(false);
-                  history.go(0);
-                });
-            }
-            else if(image === null){
-              ProfilePicture
-                .delete()
-                .then(() => {
-                  setEdited(false);
-                  setLoadingSave(false);
-                  history.go(0);
-                })
-            }
-            else{
-              history.go(0);  
-              setEdited(false);
-            }
-            setOldData(data);
-          }
           errors[result] = true;
         });
         
-        setErrors(errors);
-        setLoadingSave(false);
+        if(errors.noError){
+          UserAccountInfo
+            .createRequest()
+              .set('username', data.username)
+              .set('name', data.name)
+              .set('surname', data.surname)
+              .set('email', data.email)
+              .set('birthDate', data.birthDate)
+              .set('schoolId', data.school.id)
+            .send()
+            .then(res => {
+              if(res.set.length != 0){
+                //Are errors during saving
+                setLoadingSave(false);
+                setOpenAlert(true)
+                setDuringSavingErrors(res.set)
+              }
+              else {
+                //No errors during saving
+                if(image !== "profile_picture" && image !== null)
+                  updateProfilePic()
+                else if(image === null)
+                  deleteProfilePic()
+                else
+                  refresh()
+              }
+            })           
+        }
+        else
+        {
+          //Are errors
+          setErrors(errors);
+          setLoadingSave(false);
+        }
       })
   }
   
@@ -155,6 +185,7 @@ export function Account(){
             onImageChange={getImage}
           />
           <DataForms
+            loading={loadingLoad}
             data={data}
             oldData={oldData}
             onDataChange={getData}
@@ -173,7 +204,25 @@ export function Account(){
           </Box>
 				</Paper>
 			</div>
+      <AlertDialog
+        open={openAlert}
+        onClose={() => setOpenAlert(false)}
+        items={[
+          <Grid
+            container
+            direction="column"
+          >
+            {
+              Array.isArray(duringSavingErrors)?
+                duringSavingErrors.map((err, i) => 
+                  <div key={i}>{err}</div>
+                )
+                :
+                null
+            }
+          </Grid>,
+        ]}
+      />
 		</Grid>
 	);
 }
-

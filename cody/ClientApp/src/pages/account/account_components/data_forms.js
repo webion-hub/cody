@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, Typography, Fade } from '@material-ui/core';
 
 import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_custom_textfield'
@@ -6,13 +6,19 @@ import { EditableDatePicker } from './editable_date_picker';
 import { EditableSchoolPicker } from './editable_school_picker';
 
 export function DataForms(props){
-  const [data, setData] = React.useState(props.data);
-  
+  const [data, setData] = React.useState(undefined);
+
+	useEffect(() => {
+		if(!props.loading && data === undefined)
+			setData(props.data)
+	})
+
   const getValue = (dataName) => (value) => {
 		const updateData = {
 			...data,
 			[dataName]: value,
 		}
+		
     setData(updateData);
 		
 		const {onDataChange} = props;
@@ -21,7 +27,8 @@ export function DataForms(props){
 
 	return (
 		<Box mt={4}>
-			<EditableCustomTextField 
+			<EditableCustomTextField
+				loading={props.loading}
 				title="Username" 
 				value={props.oldData.username} 
 				onChange={getValue("username")}
@@ -47,6 +54,7 @@ export function DataForms(props){
 				</Fade>
 			</Grid>
 			<EditableCustomTextField 
+				loading={props.loading}
 				title="Nome" 
 				value={props.oldData.name} 
 				onChange={getValue("name")}
@@ -55,6 +63,7 @@ export function DataForms(props){
 				mt={1}
 			/>
 			<EditableCustomTextField 
+				loading={props.loading}
 				title="Cognome" 
 				value={props.oldData.surname} 
 				onChange={getValue("surname")}
@@ -62,6 +71,7 @@ export function DataForms(props){
 				mb={1}
 			/>
 			<EditableCustomTextField 
+				loading={props.loading}
 				title="Email" 
 				value={props.oldData.email} 
 				onChange={getValue("email")}
@@ -87,6 +97,7 @@ export function DataForms(props){
 				</Fade>
 			</Grid>
 			<EditableDatePicker
+				loading={props.loading}
 				title="Data di nascita"
 				dialogTitle="Cambia la tua data di nascita"
 				value={props.oldData.birthDate}
@@ -96,6 +107,7 @@ export function DataForms(props){
 				mb={1}
 			/>
 			<EditableSchoolPicker
+				loading={props.loading}
 				title="Istituto"
 				dialogTitle="Cambia il tuo istituto"
 				value={props.oldData.school}
