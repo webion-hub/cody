@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Avatar } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
@@ -16,6 +16,8 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { UserContext } from 'src/components/user_controller_context';
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base';
+import { CustomAvatar } from 'src/components/custom_avatar';
+import { UserAccountInfo } from 'src/lib/user_account_info'
 
 import { User } from 'src/lib/user';
 
@@ -38,8 +40,20 @@ export function UserAvatarIcon(){
   const { logged, setLogged } = React.useContext(UserContext);
 
   const [openMenu, setOpenMenu] = React.useState(null);
+  const [username, setUsername] = React.useState(null);
   const [loadingAvatar, setLoadingAvatar] = React.useState(true);
   
+  useEffect(() => {
+    UserAccountInfo
+      .createRequest()
+        .get('username')
+      .send()
+      .then(resp => {
+        const got = resp.got;
+        setUsername(got.get('username'));
+      })
+  }, [])
+
   const handleClick = (event) => {
     setOpenMenu(event.currentTarget);
   };
@@ -58,13 +72,11 @@ export function UserAvatarIcon(){
           className={classes.avatarButton}
           onClick={handleClick}
         >
-          <Avatar 
-            alt="Avatar" 
+          <CustomAvatar
+            alt={username}
             src="profile_picture" 
-            imgProps={{
-              onLoad: () => setLoadingAvatar(false),
-              onError: () => setLoadingAvatar(false)
-            }}
+            onLoad={() => setLoadingAvatar(false)} 
+            onError={() => setLoadingAvatar(false)}
           />
         </IconButton>
       </Tooltip>

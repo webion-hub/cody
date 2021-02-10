@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 
 import { Box } from '@material-ui/core';
 import { Fab } from '@material-ui/core';
-import { Avatar } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog';
 
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import { CustomAvatar } from '../custom_avatar';
 
 export class AddPhoto extends Component{
 
@@ -18,7 +19,8 @@ export class AddPhoto extends Component{
     
     this.state = {
       image: null,
-
+      loading: true,
+      
       openEditDialog: false,
       croppedImage: this.props.value,
     }
@@ -137,23 +139,35 @@ export class AddPhoto extends Component{
 
     return (
       <Box>
-        <Badge
-          overlap="circle"
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          badgeContent={this.props.accountEdit ? editableBadgeContent : badgeContent}
-        >
-          <Avatar 
-            alt="add profile image" 
-            src={this.state.croppedImage}
-            style={{
-              width: imageSize,
-              height: imageSize
-            }}
-          />
-        </Badge>
+        {
+          this.state.loading ? 
+            <Skeleton
+              variant="circle"
+              animation="wave"
+              width={imageSize}
+              height={imageSize}
+            />
+            :
+            <Badge
+              overlap="circle"
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              badgeContent={this.props.accountEdit ? editableBadgeContent : badgeContent}
+            >
+              <CustomAvatar
+                alt={this.props.alt}
+                src={this.state.croppedImage}
+                style={{
+                  width: imageSize,
+                  height: imageSize
+                }}
+                onLoad={() => this.setState({loading: false})} 
+                onError={() => this.setState({loading: false})}
+              />
+            </Badge>
+        }
         <ImageCropperDialog
           open={this.state.openEditDialog}
           handleClose={this.handleCloseEditDialog}
