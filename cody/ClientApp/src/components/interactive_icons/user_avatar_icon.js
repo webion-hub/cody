@@ -92,11 +92,10 @@ export function UserAvatarIcon(){
           onClick={() => {
             User.logout({
               onSuccess: () => setLogged(false),
-              onError: () => setLogged(false),
+              onError: () => console.log("Error"),
             })
             .then(() => {
               handleClose();
-              history.go(0);
             });
           }}
         >
