@@ -57,7 +57,7 @@ export function Home(){
        className={classes.myClasses}
        classesList={[
          {
-            image: "images/bulb.jpeg",
+            image: "images/pattern.svg",
             title: "Classe 1",
             icon: (<Cpp/>),
             admin: {
@@ -76,7 +76,7 @@ export function Home(){
             ]
          },
          {
-            image: "images/bulb.jpeg",
+            image: "images/pattern.svg",
             title: "Classe 1",
             icon: (<Cpp/>),
             admin: {
@@ -86,7 +86,7 @@ export function Home(){
             users: []
           },
           {
-             image: "images/bulb.jpeg",
+             image: "images/pattern.svg",
              title: "Classe 1",
              icon: (<Cpp/>),
              admin: {
@@ -96,7 +96,7 @@ export function Home(){
              users: []
            },
            {
-            image: "images/bulb.jpeg",
+            image: "images/pattern.svg",
             title: "Classe 1",
             icon: (<Cpp/>),
             admin: {
