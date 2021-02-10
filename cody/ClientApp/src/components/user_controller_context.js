@@ -22,12 +22,19 @@ export function UserControllerContext(props){
   }
 
   useEffect(() => {
-    User.tryLoginWithCookie({
-      onSuccess: () => setLogged(true),
-    })
-    .then(() => setLoading(false)
-    );
-  });
+    if(logged)
+      setLoading(false);    
+
+    if(!logged){
+      User
+        .tryLoginWithCookie({
+          onSuccess: () => setLogged(true),
+        })
+        .then(() => setLoading(false)
+        );
+    }
+
+  }, []);
     
   const value = { 
     logged,
