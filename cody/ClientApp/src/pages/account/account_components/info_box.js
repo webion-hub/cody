@@ -10,6 +10,7 @@ import { FlowingText } from 'src/components/typography/flowing_text'
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
+import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -59,6 +60,7 @@ export function InfoBox(props){
         justify="center"
       >
         <AddPhoto
+          alt={props.username}
           image={getImage}
           value={image}
           accountEdit
@@ -70,15 +72,22 @@ export function InfoBox(props){
             alignItems="center"
             justify={mobileView ? "center" : null}
           >
-            <AccountCircleRoundedIcon className={classes.iconMargin}/>
-            <FlowingText
-              containerWidth={200}
-              background={theme.palette.background.paperDark}
-              variant="h5"
-            >
-              {props.username}
-            </FlowingText>
-          </Grid>
+            {
+              props.loading ? 
+                <Skeleton width={200} animation="wave"/>
+                :
+                <>
+                  <AccountCircleRoundedIcon className={classes.iconMargin}/>
+                  <FlowingText
+                    containerWidth={200}
+                    background={theme.palette.background.paperDark}
+                    variant="h5"
+                  >
+                    {props.username}
+                  </FlowingText>
+                </>
+            }
+          </Grid>          
           {
             props.school?
               <Grid
@@ -87,14 +96,21 @@ export function InfoBox(props){
                 alignItems="center"
                 justify={mobileView ? "center" : null}
               >
-                <SchoolRoundedIcon className={classes.iconMargin}/>
-                <FlowingText
-                  containerWidth={200}
-                  background={theme.palette.background.paperDark}
-                  variant="h5"
-                >
-                  {`${props.school.name} - ${props.school.city}`}
-                </FlowingText>
+                {
+                  props.loading ? 
+                    <Skeleton width={200} animation="wave"/>
+                    :
+                    <>
+                      <SchoolRoundedIcon className={classes.iconMargin}/>
+                      <FlowingText
+                        containerWidth={200}
+                        background={theme.palette.background.paperDark}
+                        variant="h5"
+                      >
+                        {`${props.school.name} - ${props.school.city}`}
+                      </FlowingText>
+                    </>
+                }
               </Grid>
               :
               null
@@ -114,8 +130,15 @@ export function InfoBox(props){
                 alignItems="center"
                 justify={mobileView ? "center" : null}
               >
-                <HighlightOffRoundedIcon className={classes.iconMargin}/>
-                Elimina immagine profilo.
+                {
+                  props.loading ? 
+                    <Skeleton width={200} animation="wave"/>
+                    :
+                    <>
+                      <HighlightOffRoundedIcon className={classes.iconMargin}/>
+                      Elimina immagine profilo.
+                    </>
+                }
               </Grid>
             </Link>
           </Typography>
