@@ -23,6 +23,7 @@ namespace Cody.Controllers.Helpers
         public UserAccountInfoProps(CodyContext dbContext, UserAccount user)
         {
             _dbContext = dbContext;
+            _user = user;
         }
 
 
