@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import history from 'src/history';
 import { User } from 'src/lib/user';
 
 export const UserContext = React.createContext({
   logged: false,
   setLogged: () => {},
-
+  setLoggedWithoutRefresh: () =>{},
+  
   loading: true,
   setLoading: () => {},
 });
@@ -16,9 +18,13 @@ export function UserControllerContext(props){
   const [logged, setLoggedState] = React.useState(JSON.parse(state));
   const [loading, setLoading] = React.useState(true);
 
-  const setLogged = (loggedState) => {
+  const setLoggedWithoutRefresh = (loggedState) => {
     sessionStorage.setItem('logged', loggedState);
-    setLoggedState(loggedState);
+  }
+
+  const setLogged = (loggedState) => {
+    history.go(0)
+    sessionStorage.setItem('logged', loggedState);
   }
 
   useEffect(() => {
@@ -39,6 +45,7 @@ export function UserControllerContext(props){
   const value = { 
     logged,
     setLogged,
+    setLoggedWithoutRefresh,
 
     loading,
     setLoading,
