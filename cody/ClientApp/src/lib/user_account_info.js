@@ -28,7 +28,10 @@ export class UserAccountInfo {
    * @returns {UserAccountInfo}
    */
   set = (prop, value) => {
-    this._setters[prop] = value;
+    this._setters[prop] = value === null
+      ? null
+      : String(value);
+      
     return this;
   }
 
