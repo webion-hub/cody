@@ -105,7 +105,7 @@ export function InfoBox(props){
                       <FlowingText
                         containerWidth={200}
                         background={theme.palette.background.paperDark}
-                        variant="h5"
+                        variant="h6"
                       >
                         {`${props.school.name} - ${props.school.city}`}
                       </FlowingText>
