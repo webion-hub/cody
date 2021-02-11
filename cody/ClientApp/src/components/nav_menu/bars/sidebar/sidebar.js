@@ -56,6 +56,9 @@ export function SideBar(props) {
 
   const drawerList = (
     <GetDrawerList
+      onSidebarClose={() => {
+        mobileView ? setMobileOpen(false) : setFullWidth(false)
+      }}
       classes={classes}
       sections={props.sideBarSections}
       appBarSections={getAppBarSections()}

@@ -23,7 +23,10 @@ export function GetDrawerList(props){
                     padding={element.padding}
                     href={element.href}
                     className={props.classes.listItem}
-                    onClick={element.onClick}
+                    onClick={() => {
+                      element.onClick()
+                      props.onSidebarClose()
+                    }}
                   >    
                     {
                       element.avatar? 
