@@ -7,6 +7,9 @@ namespace Cody.Utility
 {
     public class Base64Image: Base64DataUrl
     {
+        public string FileExtension => "." + ContentType.Split('/')[1];
+
+
         public Base64Image(string base64Url): base(base64Url) { }
 
         protected override void RefreshContentTypeAndData()

@@ -96,7 +96,7 @@ namespace Cody.Services
         }
 
 
-        public async Task DeleteAllExceptAsync(string path, string exception)
+        public async Task DeleteAllFilesAsync(string path)
         {
             var directory =
                 await _client.ListDirectoryAsync(path);
@@ -106,7 +106,22 @@ namespace Cody.Services
                 if (file.IsDirectory)
                     continue;
 
-                if (file.Name == exception)
+                file.Delete();
+            }
+        }
+
+
+        public async Task DeleteAllFilesExceptAsync(string path, string exceptionFileName)
+        {
+            var directory =
+                await _client.ListDirectoryAsync(path);
+
+            foreach (var file in directory)
+            {
+                if (file.IsDirectory)
+                    continue;
+
+                if (file.Name == exceptionFileName)
                     continue;
 
                 file.Delete();

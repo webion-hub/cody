@@ -3,6 +3,7 @@ using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
+using Cody.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -114,8 +115,9 @@ namespace Cody.Controllers
             UserProfilePicture picture
         ) {
             using var webpStream = request.AsReadableStream();
-            picture.Extension = ".base64";
+            picture.Extension = request.FileExtension;
 
+            await _sftp.DeleteAllFilesAsync(picture.BasePath);
             var uploaded =
                 await _sftp.TryUploadFileAsync(webpStream, picture.FilePath);
 

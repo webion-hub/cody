@@ -15,6 +15,15 @@ namespace Cody.Controllers.Requests
         public IFormFile FormFile { get; set; }
 
 
+        public string FileExtension => this switch
+        {
+            { Base64: not null } => new Base64Image(Base64).FileExtension,
+            { FormFile: not null } => Path.GetExtension(FormFile.FileName),
+
+            _ => ".img",
+        };
+
+
         public async Task<Stream> AsWebPImageStreamAsync()
         {
             using var requestStream = AsReadableStream();
@@ -26,16 +35,13 @@ namespace Cody.Controllers.Requests
         }
 
 
-        public Stream AsReadableStream()
+        public Stream AsReadableStream()=> this switch
         {
-            return this switch
-            {
-                { Base64: not null } => GetBase64Stream(),
-                { FormFile: not null } => FormFile.OpenReadStream(),
+            { Base64: not null } => GetBase64Stream(),
+            { FormFile: not null } => FormFile.OpenReadStream(),
 
-                _ => throw new Exception(),
-            };
-        }
+            _ => throw new Exception(),
+        };
 
         private Stream GetBase64Stream()
         {
