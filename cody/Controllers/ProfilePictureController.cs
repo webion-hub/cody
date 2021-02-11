@@ -59,7 +59,7 @@ namespace Cody.Controllers
 
             var deleted = _sftp.TryDeleteFile(picture.FilePath);
             if (!deleted)
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
 
             _dbContext.Remove(picture);
             await _dbContext.SaveChangesAsync();
@@ -76,7 +76,7 @@ namespace Cody.Controllers
 
             var uploaded = await TryUploadAsync(request, picture);
             if (!uploaded)
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             
             await _dbContext.SaveChangesAsync();
             return Ok(picture.Id);
@@ -113,8 +113,8 @@ namespace Cody.Controllers
             ProfilePicturePutRequest request,
             UserProfilePicture picture
         ) {
-            using var webpStream = request.AsWebPImageStream();
-            picture.Extension = ".webp";
+            using var webpStream = request.AsReadableStream();
+            picture.Extension = ".base64";
 
             var uploaded =
                 await _sftp.TryUploadFileAsync(webpStream, picture.FilePath);

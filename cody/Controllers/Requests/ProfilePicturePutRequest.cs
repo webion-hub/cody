@@ -1,10 +1,11 @@
 ﻿using Cody.Utility;
-using ImageProcessor;
-using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
+using Shorthand.ImageSharp.WebP;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Cody.Controllers.Requests
 {
@@ -14,17 +15,13 @@ namespace Cody.Controllers.Requests
         public IFormFile FormFile { get; set; }
 
 
-        public Stream AsWebPImageStream()
+        public async Task<Stream> AsWebPImageStreamAsync()
         {
             using var requestStream = AsReadableStream();
-            using var imageFactory = new ImageFactory(true);
-            
+            using var img = await Image.LoadAsync(requestStream);
             var webpStream = new MemoryStream();
-            imageFactory
-                .Load(requestStream)
-                .Format(new WebPFormat())
-                .Save(webpStream);
 
+            await img.SaveAsync(webpStream, new WebPEncoder());
             return webpStream;
         }
 
