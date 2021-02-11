@@ -40,13 +40,22 @@ const useStyles = makeStyles((theme) => ({
   },
   chipsBox: {
     maxWidth: 500,
-    top: 50,
+    opacity: 0,
+    top: 0,
+    transition: "0.2s all",
     [theme.breakpoints.down('sm')]: {
       maxWidth: "50vw",
     },
     [theme.breakpoints.down('xs')]: {
       maxWidth: 500,
       transform: "translate(0, 50px)",
+      top: "auto",
+    },
+  },
+  chipsBoxAnimate: {
+    top: 50,
+    opacity: 1,
+    [theme.breakpoints.down('xs')]: {
       top: "auto",
     },
   },
@@ -143,23 +152,24 @@ export function SearchBar(props) {
         <Box 
           position="absolute"          
           width={1}
-          className={classes.chipsBox}
+          className={`
+            ${classes.chipsBox}
+            ${showFavorite || props.showFavoriteAlways ?
+               classes.chipsBoxAnimate 
+               : null
+              }
+          `}
+          zIndex={-1}
         >
-          <Fade
-            in={showFavorite || props.showFavoriteAlways}
-          >
-            <div>
-              <ScrollableChipsArray
-                value={getLanguage}
-                list={languages}
-                clickables
-                delete
-                getValue
-                color="secondary"
-                emptyMessage="Non hai linguaggi preferiti"
-              />
-            </div>
-          </Fade>        
+          <ScrollableChipsArray
+            value={getLanguage}
+            list={languages}
+            clickables
+            delete
+            getValue
+            color="secondary"
+            emptyMessage="Non hai linguaggi preferiti"
+          />  
         </Box>
       </Grid>
     </ClickAwayListener>
