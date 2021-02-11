@@ -45,6 +45,9 @@ namespace Cody.Controllers.Helpers
                 .Schools
                 .Find(_user.AccountDetail.SchoolId);
 
+            if (school is null)
+                return null;
+
             return new {
                 school.Id,
                 school.Name,
@@ -63,8 +66,15 @@ namespace Cody.Controllers.Helpers
                 case Name:      _user.AccountDetail.Name = value;                        break;
                 case Surname:   _user.AccountDetail.Surname = value;                     break;
                 case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
-                case School:    _user.AccountDetail.SchoolId = int.Parse(value);         break;
+                case School:    _user.AccountDetail.SchoolId = GetNewSchoolValue(value); break;
             }
+        }
+
+        public int? GetNewSchoolValue(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) 
+                ? null 
+                : int.Parse(value);
         }
     }
 }
