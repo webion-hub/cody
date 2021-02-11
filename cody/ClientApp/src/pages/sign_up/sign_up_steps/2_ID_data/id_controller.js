@@ -58,7 +58,7 @@ export class IDController{
             ),
 
           birthDateController
-            .checkBirthDate(birthDate, false, "date")
+            .checkBirthDate(birthDate, false)
             .then(
               result => {
                 if(result) {

@@ -74,7 +74,7 @@ export class ErrorsController{
               },
             ),
           birthDateController
-            .checkBirthDate(birthDate, skipBirthDate, "text")
+            .checkBirthDate(birthDate, skipBirthDate)
             .then(
               result => {
                 if(result) {

@@ -53,10 +53,10 @@ export function Account(){
           name: got.get('name'),
           surname: got.get('surname'),
           email: got.get('email'),
-          birthDate: got.get('birthDate'),
+          birthDate: new Date(got.get('birthDate')),
           school: got.get('school'),
         }
-        
+
         setData(actualData);        
         setOldData(actualData);
         setLoadingLoad(false);
@@ -132,7 +132,7 @@ export function Account(){
               .set('surname', data.surname)
               .set('email', data.email)
               .set('birthDate', data.birthDate)
-              .set('schoolId', data.school)
+              .set('school', data.school? data.school.id : null)
             .send()
             .then(res => {
               if(res.set.length != 0){

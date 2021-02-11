@@ -57,7 +57,7 @@ export class NameSurnameController{
 }
 
 export class BirthDateController{
-  checkBirthDate(val, skip, format){
+  checkBirthDate(val, skip){
     if(skip)
       return new Promise(resolve => {resolve(null)});
 
@@ -68,11 +68,7 @@ export class BirthDateController{
       const maxDate = new Date();
       const outOfRange = val > maxDate || val < minDate;
 
-      let date;
-      if(format == "text")
-        date = val? val.split(' ')[0] : "";
-      if(format == "date")
-        date = val? val.toLocaleDateString() : "";
+      const date = val? val.toLocaleDateString() : "";       
 
       const invalidFormat = !re.test(date);
       const empty = val === null;
