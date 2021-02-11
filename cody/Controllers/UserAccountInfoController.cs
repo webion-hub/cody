@@ -52,8 +52,13 @@ namespace Cody.Controllers
             var userProps = new UserAccountInfoProps(_dbContext, user);
             var validator = new UserUpdateValidator(_dbContext);
 
-            foreach (var (prop, value) in setters)
-                userProps.Set(prop, value);
+            try {
+                foreach (var (prop, value) in setters)
+                    userProps.Set(prop, value);
+            }
+            catch {
+                return BadRequest();
+            }
 
             if (validator.Validate(user).WasRejected)
                 return validator.StatusCode;
