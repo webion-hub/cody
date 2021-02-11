@@ -75,9 +75,11 @@ export class LoginBoxMain extends Component{
       onPasswordMismatch: _ => this.setState({wrongPassword: true}),
     })
     .then(_=> {
-      this.setState({loading: false});
       if(this.state.loginSuccess){
         this.props.setLogged(true);
+      }
+      else{
+        this.setState({loading: false});
       }
     });
   }
