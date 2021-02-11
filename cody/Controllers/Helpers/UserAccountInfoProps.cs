@@ -13,6 +13,7 @@ namespace Cody.Controllers.Helpers
         public const string Name = "name";
         public const string Surname = "surname";
         public const string BirthDate = "birthDate";
+        public const string School = "school";
 
 
         public static string GetPropFor(string prop, UserAccount user) => prop switch
@@ -22,6 +23,7 @@ namespace Cody.Controllers.Helpers
             Name      => user.AccountDetail.Name,
             Surname   => user.AccountDetail.Surname,
             BirthDate => user.AccountDetail.BirthDate.ToString(),
+            School    => user.AccountDetail.SchoolId.ToString(),
 
             _ => null,
         };
@@ -35,6 +37,7 @@ namespace Cody.Controllers.Helpers
                 case Name:      user.AccountDetail.Name = value;                        break;
                 case Surname:   user.AccountDetail.Surname = value;                     break;
                 case BirthDate: user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
+                case School:    user.AccountDetail.SchoolId = int.Parse(value);         break;
             }
         }
     }
