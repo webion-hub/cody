@@ -57,8 +57,9 @@ namespace Cody.Controllers.Helpers
         }
 
 
-        public void Set(string prop, string value)
+        public void Set(string prop, object val)
         {
+            var value = val?.ToString();
             switch (prop)
             {
                 case Username:  _user.Username = value;                                  break;

@@ -46,7 +46,7 @@ namespace Cody.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Put([FromBody] Dictionary<string, string> setters)
+        public async Task<IActionResult> Put([FromBody] Dictionary<string, object> setters)
         {
             var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
             var userProps = new UserAccountInfoProps(_dbContext, user);
