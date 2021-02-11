@@ -20,6 +20,7 @@ import { CardBase } from 'src/components/bases/card_base';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
 import { languages } from 'src/lib/default_values/lists/coding_languages'
 import { FlowingText } from 'src/components/typography/flowing_text'
+import { getWindowDimensions } from 'src/lib/window_dimensions'
 
 const useStyles = makeStyles((theme) => ({
   tooltipUsers: {
@@ -156,7 +157,10 @@ export function ClassCard(props){
                 </Typography>
                 <Link href="" color="textSecondary" className="noScroll">
                   <FlowingText
-                    containerWidth={mobileView ? "40vw" : 210}
+                    containerWidth={mobileView ? 
+                      (getWindowDimensions().width / 100) * 40
+                      : 210
+                    }
                     background={theme.palette.background.paperDark}
                     variant="caption"
                   >
