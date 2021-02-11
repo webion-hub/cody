@@ -42,7 +42,9 @@ export function ScrollableChipsArray(props){
 
   return(
     <div className="noScroll">
-      <ScrollContainer>
+      <ScrollContainer
+        nativeMobileScroll
+      >
         <ul 
           className={classes.root}
         >
