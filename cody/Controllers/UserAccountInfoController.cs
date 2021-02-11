@@ -1,19 +1,13 @@
 ﻿using Cody.Contexts;
 using Cody.Controllers.Helpers;
 using Cody.Extensions;
-using Cody.Models;
-using Cody.Security;
 using Cody.Security.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -54,7 +48,7 @@ namespace Cody.Controllers
         {
             var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
             var validator = new UserUpdateValidator(_dbContext);
-           
+
             foreach (var (prop, value) in setters)
             {
                 UserAccountInfoProps.SetPropFor(prop, value, user);

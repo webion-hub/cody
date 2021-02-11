@@ -24,8 +24,6 @@ namespace Cody.Controllers
         }
 
 
-        /// <response code="200">The id of the newly created school</response>
-        /// <response code="400">The id of the existing school</response>
         [HttpPost]
         [Route("create_new")]
         [AllowAnonymous]
@@ -62,7 +60,6 @@ namespace Cody.Controllers
         }
 
 
-        /// <response code="200">The list of school accounts</response>
         [HttpGet]
         [Route("get_all")]
         [AllowAnonymous]

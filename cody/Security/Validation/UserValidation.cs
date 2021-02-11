@@ -27,7 +27,6 @@ namespace Cody.Security.Validation
         }
 
 
-
         public UserValidation Validate(UserAccount user)
         {
             MaybeReject(user);
