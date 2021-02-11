@@ -19,7 +19,7 @@ export class AddPhoto extends Component{
     
     this.state = {
       image: null,
-      loading: true,
+      loading: this.props.accountEdit ? true : false,
       
       openEditDialog: false,
       croppedImage: this.props.value,
@@ -139,35 +139,39 @@ export class AddPhoto extends Component{
 
     return (
       <Box>
-        {
-          this.state.loading ? 
-            <Skeleton
-              variant="circle"
-              animation="wave"
-              width={imageSize}
-              height={imageSize}
-            />
-            :
-            <Badge
-              overlap="circle"
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              badgeContent={this.props.accountEdit ? editableBadgeContent : badgeContent}
-            >
-              <CustomAvatar
-                alt={this.props.alt}
-                src={this.state.croppedImage}
-                style={{
-                  width: imageSize,
-                  height: imageSize
-                }}
-                onLoad={() => this.setState({loading: false})} 
-                onError={() => this.setState({loading: false})}
-              />
-            </Badge>
-        }
+        <Skeleton
+          variant="circle"
+          animation="wave"
+          width={imageSize}
+          height={imageSize}
+          style={{
+            display: this.state.loading ? "block" : "none"
+          }}
+        />        
+        <Badge
+          overlap="circle"
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          badgeContent={this.props.accountEdit ? editableBadgeContent : badgeContent}
+          style={{
+            display: this.state.loading ? "none" : "block"
+          }}
+        >
+          <CustomAvatar
+            alt={this.props.alt}
+            src={this.state.croppedImage}
+            width={imageSize}
+            height={imageSize}
+            onLoad={
+              this.props.accountEdit ? () => this.setState({loading: false}) : () => {}
+            } 
+            onError={
+              this.props.accountEdit ? () => this.setState({loading: false}) : () => {}
+            }
+          />
+        </Badge>
         <ImageCropperDialog
           open={this.state.openEditDialog}
           handleClose={this.handleCloseEditDialog}
