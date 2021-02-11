@@ -33,9 +33,11 @@ namespace Cody.Controllers
         public async Task<IActionResult> Post([FromBody] List<string> getters)
         {
             var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var userProps = new UserAccountInfoProps(_dbContext, user);
+
             var result = getters.ToDictionary(
                 prop => prop,
-                prop => UserAccountInfoProps.GetPropFor(prop, user)
+                prop => userProps.Get(prop)
             );
 
             return Ok(result);
@@ -47,12 +49,11 @@ namespace Cody.Controllers
         public async Task<IActionResult> Put([FromBody] Dictionary<string, string> setters)
         {
             var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var userProps = new UserAccountInfoProps(_dbContext, user);
             var validator = new UserUpdateValidator(_dbContext);
 
             foreach (var (prop, value) in setters)
-            {
-                UserAccountInfoProps.SetPropFor(prop, value, user);
-            }
+                userProps.Set(prop, value);
 
             if (validator.Validate(user).WasRejected)
                 return validator.StatusCode;

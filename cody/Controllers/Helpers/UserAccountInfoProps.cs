@@ -1,4 +1,5 @@
-﻿using Cody.Models;
+﻿using Cody.Contexts;
+using Cody.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,28 +17,52 @@ namespace Cody.Controllers.Helpers
         public const string School = "school";
 
 
-        public static string GetPropFor(string prop, UserAccount user) => prop switch
+        private readonly CodyContext _dbContext;
+        private readonly UserAccount _user;
+
+        public UserAccountInfoProps(CodyContext dbContext, UserAccount user)
         {
-            Username  => user.Username,
-            Email     => user.Email,
-            Name      => user.AccountDetail.Name,
-            Surname   => user.AccountDetail.Surname,
-            BirthDate => user.AccountDetail.BirthDate.ToString(),
-            School    => user.AccountDetail.SchoolId.ToString(),
+            _dbContext = dbContext;
+        }
+
+
+        public object Get(string prop) => prop switch
+        {
+            Username  => _user.Username,
+            Email     => _user.Email,
+            Name      => _user.AccountDetail.Name,
+            Surname   => _user.AccountDetail.Surname,
+            BirthDate => _user.AccountDetail.BirthDate,
+            School    => GetSchool(),
 
             _ => null,
         };
 
-        public static void SetPropFor(string prop, string value, UserAccount user)
+        private object GetSchool()
+        {
+            var school =_dbContext
+                .Schools
+                .Find(_user.AccountDetail.SchoolId);
+
+            return new {
+                school.Id,
+                school.Name,
+                school.City,
+                school.Country,
+            };
+        }
+
+
+        public void Set(string prop, string value)
         {
             switch (prop)
             {
-                case Username:  user.Username = value;                                  break;
-                case Email:     user.Email = value;                                     break;
-                case Name:      user.AccountDetail.Name = value;                        break;
-                case Surname:   user.AccountDetail.Surname = value;                     break;
-                case BirthDate: user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
-                case School:    user.AccountDetail.SchoolId = int.Parse(value);         break;
+                case Username:  _user.Username = value;                                  break;
+                case Email:     _user.Email = value;                                     break;
+                case Name:      _user.AccountDetail.Name = value;                        break;
+                case Surname:   _user.AccountDetail.Surname = value;                     break;
+                case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
+                case School:    _user.AccountDetail.SchoolId = int.Parse(value);         break;
             }
         }
     }
