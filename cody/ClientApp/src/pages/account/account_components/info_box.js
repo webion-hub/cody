@@ -74,7 +74,7 @@ export function InfoBox(props){
           >
             {
               props.loading ? 
-                <Skeleton width={200} animation="wave"/>
+                <Skeleton width={180} animation="wave" variant="rect"/>
                 :
                 <>
                   <AccountCircleRoundedIcon className={classes.iconMargin}/>
@@ -98,7 +98,7 @@ export function InfoBox(props){
               >
                 {
                   props.loading ? 
-                    <Skeleton width={200} animation="wave"/>
+                    <Skeleton width={180} animation="wave" variant="rect"/>
                     :
                     <>
                       <SchoolRoundedIcon className={classes.iconMargin}/>
@@ -132,7 +132,7 @@ export function InfoBox(props){
               >
                 {
                   props.loading ? 
-                    <Skeleton width={200} animation="wave"/>
+                    <Skeleton width={180} animation="wave" variant="rect"/>
                     :
                     <>
                       <HighlightOffRoundedIcon className={classes.iconMargin}/>
