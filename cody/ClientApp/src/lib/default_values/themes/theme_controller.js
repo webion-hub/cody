@@ -109,6 +109,11 @@ export class ThemeController {
           arrow: {
             color: this.color.tertiary
           },
+        },
+        MuiAvatar: {
+          img: {
+            imageOrientation: "from-image"
+          }
         }
       },
     }, itIT)
