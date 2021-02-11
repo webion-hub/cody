@@ -53,7 +53,7 @@ export function Account(){
           name: got.get('name'),
           surname: got.get('surname'),
           email: got.get('email'),
-          birthDate: new Date(got.get('birthDate')),
+          birthDate: got.get('birthDate'),
           school: got.get('school'),
         }
         
