@@ -12,11 +12,10 @@ export function CustomAvatar(props){
 
   useEffect(() => {
     checkImage();
-  })
+  }, [])
 
   return (    
 		<Avatar 
-			alt={props.alt}
 			classes={props.classes}
 			component={props.component}
 			imgProps={props.imgProps}
@@ -24,6 +23,16 @@ export function CustomAvatar(props){
 			srcSet={props.srcSet}
 			variant={props.variant}
 			src={props.src}
-		/>
+      style={props.style}
+      onLoad={props.onLoad}
+      onError={props.onError}
+      style={{
+        width: props.width,
+        height: props.height,
+        fontSize: `${1.25 * (props.width / 40)}rem`
+      }}
+		>
+      {props.alt? props.alt.charAt(0) : null}
+    </Avatar>
   );
 }
