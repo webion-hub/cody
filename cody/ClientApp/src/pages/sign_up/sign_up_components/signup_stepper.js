@@ -91,14 +91,18 @@ export class SignUpStepperMain extends Component {
   
   _registerUser = async () => {
     this.setState({loading: true});
+
     await User.tryRegister({
       user: this.props.user,
 
       onSuccess: uid => {
         this.handleNext();
+        this.props.setLoggedWithoutRefresh(true);
+        this.setState({loading: false});
       },
       onError: reasons => {
         this.setState({
+          loading: false,
           registerErrors: [reasons.map(e => ({
             username: <Typography variant="body2">errore inserimento username</Typography>,
             name: <Typography variant="body2">errore inserimento nome</Typography>, 
@@ -114,12 +118,12 @@ export class SignUpStepperMain extends Component {
         this.setState({
           missingFields: <Typography variant="body2">Manca data di nascita</Typography>,  
           openAlert: true,
+          loading: false,
         });
       },
     });
 
     await this._maybeUploadImage();
-    this.setState({loading: false});
   }
 
   _maybeUploadImage = async () => {
@@ -188,8 +192,7 @@ export class SignUpStepperMain extends Component {
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    this.props.setLogged(true)
-                    history.push('/');                
+                    history.go(0)
                   }}
                   endIcon={<HomeRoundedIcon/>}
                 >
@@ -267,7 +270,7 @@ export class SignUpStepperMain extends Component {
   
 
 export function SignUpStepper(props){
-  const { setLogged } = React.useContext(UserContext);
+  const { setLoggedWithoutRefresh } = React.useContext(UserContext);
 
   return (
     <SignUpStepperMain
@@ -283,7 +286,7 @@ export function SignUpStepper(props){
       loading={props.loading}
       completed={props.completed}
 
-      setLogged={setLogged}
+      setLoggedWithoutRefresh={setLoggedWithoutRefresh}
     />
   );
 }
