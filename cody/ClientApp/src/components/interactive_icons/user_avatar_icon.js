@@ -104,7 +104,7 @@ export function UserAvatarIcon(){
           onClick={() => {
             User.logout({
               onSuccess: () => setLogged(false),
-              onError: () => console.log("Error"),
+              onError: () => setLogged(false),
             })
             .then(() => {
               handleClose();

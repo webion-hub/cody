@@ -67,7 +67,7 @@ export function EditableDatePicker(props){
 					<>
 						<TextField
 							label={props.title}
-							value={value? value.toLocaleDateString() : ""}
+							value={value? value.split(' ')[0] : ""}
 							color="secondary"
 							variant="filled"
 							error={props.error}
