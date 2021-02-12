@@ -127,7 +127,19 @@ export function UserAvatarIcon(){
       extraLoadingCondition={logged && loadingAvatar}
       customChildrenLoading={loadingAvatar}
       loggedChildren={loggedChildren}
-
+      notLoggedChildren={
+        <Tooltip
+          arrow
+          title="Accedi"
+        >
+          <Button
+            className={classes.loginButton}
+            onClick={() => history.push('/login')}
+          >
+            Login
+          </Button>
+        </Tooltip>      
+      }
     />
   );
 }
