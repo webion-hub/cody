@@ -31,12 +31,13 @@ export function UserControllerContext(props){
     if(logged)
       setLoading(false);    
 
-    User
-      .tryLoginWithCookie({
-        onSuccess: () => setLogged(true),
-      })
-      .then(() => setLoading(false)
-      );
+    if(!logged)
+      User
+        .tryLoginWithCookie({
+          onSuccess: () => setLogged(true),
+        })
+        .then(() => setLoading(false)
+        );
   }, []);
     
   const value = { 
