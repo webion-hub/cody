@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
   loginButton: {
-    marginTop: 7
+    margin: 6
   },
 }));
 
