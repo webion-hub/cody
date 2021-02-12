@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
   searchBar: {
-    margin: "20px",
+    margin: "0 auto",
+    marginTop: 20,
     top: 0,
     position: "absolute",
     width: "90%",
