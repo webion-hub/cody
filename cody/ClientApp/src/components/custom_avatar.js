@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Avatar } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    transform: "translate(0px, 0px) !important"
+  },
+}));
+
 export function CustomAvatar(props){   
+  const classes = useStyles();
   const checkImage = () => {
     var img = new Image();
     img.onload = props.onLoad; 
@@ -15,7 +23,8 @@ export function CustomAvatar(props){
   }, [])
 
   return (    
-		<Avatar 
+		<Avatar
+      className={classes.avatar}
 			classes={props.classes}
 			component={props.component}
 			imgProps={props.imgProps}
@@ -29,7 +38,7 @@ export function CustomAvatar(props){
       style={{
         width: props.width,
         height: props.height,
-        fontSize: `${1.25 * (props.width / 40)}rem`
+        fontSize: `${1.25 * (props.width / 40)}rem`,
       }}
 		>
       {props.alt? props.alt.charAt(0) : null}
