@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cody.Extensions;
 
 namespace Cody.Controllers.Requests
 {
@@ -15,27 +16,16 @@ namespace Cody.Controllers.Requests
         public IFormFile FormFile { get; set; }
 
 
-        public string FileExtension => this switch
-        {
-            { Base64: not null } => new Base64Image(Base64).FileExtension,
-            { FormFile: not null } => Path.GetExtension(FormFile.FileName),
-
-            _ => ".img",
-        };
-
-
-        public async Task<Stream> AsWebPImageStreamAsync()
+        public async Task<Stream> AsJpegImageStreamAsync()
         {
             using var requestStream = AsReadableStream();
             using var img = await Image.LoadAsync(requestStream);
-            var webpStream = new MemoryStream();
 
-            await img.SaveAsync(webpStream, new WebPEncoder());
-            return webpStream;
+            return await img.SaveAsJpegAsync();
         }
 
 
-        public Stream AsReadableStream()=> this switch
+        public Stream AsReadableStream() => this switch
         {
             { Base64: not null } => GetBase64Stream(),
             { FormFile: not null } => FormFile.OpenReadStream(),

@@ -114,10 +114,9 @@ namespace Cody.Controllers
             ProfilePicturePutRequest request,
             UserProfilePicture picture
         ) {
-            using var webpStream = request.AsReadableStream();
-            picture.Extension = request.FileExtension;
+            using var webpStream = await request.AsJpegImageStreamAsync();
+            picture.Extension = ".jpeg";
 
-            await _sftp.DeleteAllFilesAsync(picture.BasePath);
             var uploaded =
                 await _sftp.TryUploadFileAsync(webpStream, picture.FilePath);
 
