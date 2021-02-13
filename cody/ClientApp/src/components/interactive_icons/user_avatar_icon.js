@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Avatar } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
@@ -8,6 +7,7 @@ import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -130,7 +130,31 @@ export function UserAvatarIcon(){
       notLoggedChildren={
         <Tooltip
           arrow
-          title="Accedi"
+          disableFocusListener 
+          interactive
+          title={
+            <Typography 
+              variant="caption"
+            >
+              <Link
+                component="button"
+                variant="caption"
+                color="inherit"
+                onClick={() => history.push("/login")}
+              >
+                Accedi
+              </Link>
+              {" o "}
+              <Link
+                component="button"
+                variant="caption"
+                color="inherit"
+                onClick={() => history.push("/sign-up")}
+              >
+                Registrati
+              </Link>
+            </Typography>
+          }
         >
           <Button
             className={classes.loginButton}
