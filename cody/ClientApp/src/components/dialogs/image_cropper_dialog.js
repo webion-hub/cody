@@ -70,7 +70,7 @@ export class ImageCropperDialog extends Component {
   
       const image = new Image();
       image.src = this.props.image;
-  
+
       ctx.drawImage(
         image, 
         this.state.croppedAreaPixels.x,

@@ -55,8 +55,10 @@ const useStyles = makeStyles((theme) => ({
   chipsBoxAnimate: {
     top: 50,
     opacity: 1,
+    zIndex: -1,
     [theme.breakpoints.down('xs')]: {
       top: "auto",
+      zIndex: "auto"
     },
   },
   input: {
@@ -159,7 +161,6 @@ export function SearchBar(props) {
                : null
               }
           `}
-          zIndex={-1}
         >
           <ScrollableChipsArray
             value={getLanguage}

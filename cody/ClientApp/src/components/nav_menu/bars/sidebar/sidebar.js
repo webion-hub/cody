@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Drawer  } from '@material-ui/core';
 import { SwipeableDrawer  } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
-import { Backdrop } from '@material-ui/core';
 
 import { useMediaQuery } from '@material-ui/core';
 
