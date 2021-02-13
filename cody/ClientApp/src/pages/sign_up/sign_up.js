@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { Link } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -27,10 +28,23 @@ const CustomPaper = withStyles((theme) => ({
     padding: theme.spacing(3),
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
-      marginTop: theme.appBar.mobileHeight,
+      marginTop: theme.appBar.mobileHeight + theme.spacing(4),
     },
   },
+  bottomLabel: {
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: theme.spacing(8),
+    },
+  }
 }))(Paper);
+
+const CustomBox = withStyles((theme) => ({
+  root: {
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: theme.spacing(8),
+    },
+  }
+}))(Box);
 
 export class SignUp extends Component {
   static displayName = SignUp.name;
@@ -228,7 +242,7 @@ export class SignUp extends Component {
             }
           />
         </CustomPaper>
-        <div>
+        <CustomBox>
           <Grid
             container
             direction="row"
@@ -256,7 +270,7 @@ export class SignUp extends Component {
               termini di servizio.
             </Link>
           </Grid>
-        </div>
+        </CustomBox>
       </Grid>
     );
   }
