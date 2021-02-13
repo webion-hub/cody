@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Cody.Security.Authorization;
 
 namespace Cody
 {
@@ -55,6 +57,7 @@ namespace Cody
                 });
 
 
+            services.AddScoped<IAuthorizationHandler, UserAuthorizationHandler>();
             services
                 .AddLogging()
                 .AddCodyContext(Configuration)

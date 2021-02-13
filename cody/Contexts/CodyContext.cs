@@ -12,9 +12,10 @@ namespace Cody.Contexts
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
-        public DbSet<UserAccountDetail> UserDatails { get; set; }
+        public DbSet<UserAccountDetail> UserDetails { get; set; }
         public DbSet<SchoolAccount> Schools { get; set; }
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
+        public DbSet<UserAccountRole> Roles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -28,6 +28,7 @@ namespace Cody.Models
 
         public UserAccountDetail AccountDetail { get; set; }
         public UserAccountState AccountState { get; set; }
+        public UserAccountRole AccountRole { get; set; }
         public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
 
 
