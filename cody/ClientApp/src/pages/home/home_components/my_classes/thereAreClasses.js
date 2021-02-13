@@ -1,7 +1,7 @@
 import React from 'react';
-import ScrollContainer from 'react-indiana-drag-scroll';
 
 import { ClassCard } from 'src/components/cards/class_card';
+import { CustomScrollContainer } from 'src/components/custom_scroll_container';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -38,42 +38,40 @@ export function ThereAreClasses(props){
   const classesList = props.classesList;
   const classesNumber = classesList.length; 
 
+	const content = <ul className={classes.classesListStyle}>
+		{
+			classesList.map((data, index) => {
+				return (
+					<li 
+						key={index}
+						className={
+							`${classes.class} +
+							${
+								index === classesNumber - 1 ?
+								classes.rightPadding :
+								null
+								}`
+						}
+					>
+						<ClassCard
+							loading={false}
+							image={data.image}
+							title={data.title}
+							languageIcon={data.icon}
+							admin={data.admin}
+							users={data.users}
+						/>
+					</li>
+				)
+			})
+		}
+	</ul>
+
   return (
 		<div className={classes.classesBox}>
-			<ScrollContainer
-				hideScrollbars={false}
-				ignoreElements=".noScroll"
-				nativeMobileScroll
-			>
-				<ul className={classes.classesListStyle}>
-					{
-						classesList.map((data, index) => {
-							return (
-								<li 
-									key={index}
-									className={
-										`${classes.class} +
-										${
-											index === classesNumber - 1 ?
-											classes.rightPadding :
-											null
-											}`
-									}
-								>
-									<ClassCard
-										loading={false}
-										image={data.image}
-										title={data.title}
-										languageIcon={data.icon}
-										admin={data.admin}
-										users={data.users}
-									/>
-								</li>
-							)
-						})
-					}
-				</ul>
-			</ScrollContainer>
+			<CustomScrollContainer>
+				{content}
+			</CustomScrollContainer>
 		</div>
   );
 
