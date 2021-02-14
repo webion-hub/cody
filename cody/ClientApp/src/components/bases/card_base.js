@@ -9,12 +9,6 @@ import { Skeleton } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 350,
-    [theme.breakpoints.down('xs')]: {
-      width: `calc(100vw - 96px)`,
-    },
-  },
   media: {
     height: 140,
 	},
@@ -34,10 +28,7 @@ export function CardBase(props){
   
     return (
       <Card 
-        className={classes.root}
-        style={{
-          background: props.background
-        }}
+        className={props.className}
       >
         {
           props.loading ? (

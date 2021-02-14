@@ -22,6 +22,12 @@ import { languages } from 'src/lib/default_values/lists/coding_languages'
 import { FlowingText } from 'src/components/typography/flowing_text'
 
 const useStyles = makeStyles((theme) => ({
+  cardBase: {
+    width: 350,
+    [theme.breakpoints.down('xs')]: {
+      width: `calc(100vw - 96px)`,
+    },
+  },
   tooltipUsers: {
     padding: "2px 0"
   },
@@ -44,8 +50,8 @@ export function ClassCard(props){
   const classes = useStyles();
   const userNumber = props.users.length;
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-  
   const [screenWidth, setScreenWidth] = React.useState(0);
+
   useLayoutEffect(() => {
 
     const updateWidth = () => {
@@ -60,7 +66,7 @@ export function ClassCard(props){
 
   return (
     <CardBase
-      background={theme.palette.background.paperDark}
+      className={classes.cardBase}
       image={props.image}
       title={props.title}
       loading={props.loading}
@@ -169,7 +175,7 @@ export function ClassCard(props){
                       screenWidth - 234 //234 is the sum of all elements in the row
                       : 210
                     }
-                    background={theme.palette.background.paperDark}
+                    background={theme.palette.background.paper}
                     variant="h5"
                   >
                     {props.title}
@@ -180,7 +186,7 @@ export function ClassCard(props){
                       screenWidth - 234 //234 is the sum of all elements in the row
                       : 210
                     }
-                    background={theme.palette.background.paperDark}
+                    background={theme.palette.background.paper}
                     variant="caption"
                   >
                     Admin {props.admin.username}
