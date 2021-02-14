@@ -114,6 +114,11 @@ export class ThemeController {
           img: {
             imageOrientation: "from-image"
           }
+        },
+        MuiButtonBase: {
+          root: {
+            display: "-webkit-inline-flex",
+          }
         }
       },
     }, itIT)
