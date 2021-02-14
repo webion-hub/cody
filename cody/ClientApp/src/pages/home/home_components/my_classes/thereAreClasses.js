@@ -51,8 +51,7 @@ export function ThereAreClasses(props){
 				return (
 					<li 
 						key={index}
-						className={
-							`${classes.class} +
+						className={`${classes.class}
 							${
 								index === classesNumber - 1 ?
 									classes.rightPadding : null										
@@ -61,8 +60,7 @@ export function ThereAreClasses(props){
 								index === 0 ?
 									null : classes.leftPadding										
 							}
-							`
-						}
+						`}
 					>
 						<ClassCard
 							loading={false}
@@ -83,6 +81,7 @@ export function ThereAreClasses(props){
 			<CustomScrollContainer
 				arrows
 				elementsPadding={16}
+				hideScrollbars={false}
 			>
 				{content}
 			</CustomScrollContainer>
