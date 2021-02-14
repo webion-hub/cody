@@ -77,7 +77,7 @@ export function Home(){
          },
          {
             image: "images/pattern.svg",
-            title: "Classe 1",
+            title: "Classe 2",
             icon: (<Cpp/>),
             admin: {
               username: "Matteo2437",
@@ -87,7 +87,7 @@ export function Home(){
           },
           {
              image: "images/pattern.svg",
-             title: "Classe 1",
+             title: "Classe 3",
              icon: (<Cpp/>),
              admin: {
                username: "Matteo2437",
@@ -97,7 +97,7 @@ export function Home(){
            },
            {
             image: "images/pattern.svg",
-            title: "Classe 1",
+            title: "Classe 4",
             icon: (<Cpp/>),
             admin: {
               username: "Matteo2437",

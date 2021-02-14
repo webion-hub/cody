@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
@@ -20,7 +20,6 @@ import { CardBase } from 'src/components/bases/card_base';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
 import { languages } from 'src/lib/default_values/lists/coding_languages'
 import { FlowingText } from 'src/components/typography/flowing_text'
-import { getWindowDimensions } from 'src/lib/window_dimensions'
 
 const useStyles = makeStyles((theme) => ({
   tooltipUsers: {
@@ -45,6 +44,19 @@ export function ClassCard(props){
   const classes = useStyles();
   const userNumber = props.users.length;
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  
+  const [screenWidth, setScreenWidth] = React.useState(0);
+  useLayoutEffect(() => {
+
+    const updateWidth = () => {
+      setScreenWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', updateWidth);
+    updateWidth();
+    return () => window.removeEventListener('resize', updateWidth);
+
+  }, []);
 
   return (
     <CardBase
@@ -152,13 +164,20 @@ export function ClassCard(props){
               null
             ) : (
               <div>
-                <Typography variant="h5" component="h2">
-                  {props.title}
-                </Typography>
+                <FlowingText
+                    containerWidth={mobileView ? 
+                      screenWidth - 234 //234 is the sum of all elements in the row
+                      : 210
+                    }
+                    background={theme.palette.background.paperDark}
+                    variant="h5"
+                  >
+                    {props.title}
+                  </FlowingText>
                 <Link href="" color="textSecondary" className="noScroll">
                   <FlowingText
                     containerWidth={mobileView ? 
-                      (getWindowDimensions().width / 100) * 40
+                      screenWidth - 234 //234 is the sum of all elements in the row
                       : 210
                     }
                     background={theme.palette.background.paperDark}

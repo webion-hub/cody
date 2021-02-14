@@ -25,10 +25,17 @@ const classesStyles = makeStyles((theme) => ({
   },
   class: {
     display: "inline-block",
-    paddingLeft: theme.spacing(2),
+		[theme.breakpoints.up('sm')]: {
+			paddingLeft: theme.spacing(2),
+    },
   },
   rightPadding: {
-    paddingRight: theme.spacing(2),
+		[theme.breakpoints.up('sm')]: {
+			paddingRight: theme.spacing(2),
+    },
+  },
+	leftPadding: {
+    paddingLeft: theme.spacing(2),
   },
 }));
 
@@ -48,9 +55,13 @@ export function ThereAreClasses(props){
 							`${classes.class} +
 							${
 								index === classesNumber - 1 ?
-								classes.rightPadding :
-								null
-								}`
+									classes.rightPadding : null										
+							}
+							${
+								index === 0 ?
+									null : classes.leftPadding										
+							}
+							`
 						}
 					>
 						<ClassCard
@@ -69,7 +80,10 @@ export function ThereAreClasses(props){
 
   return (
 		<div className={classes.classesBox}>
-			<CustomScrollContainer>
+			<CustomScrollContainer
+				arrows
+				elementsPadding={16}
+			>
 				{content}
 			</CustomScrollContainer>
 		</div>

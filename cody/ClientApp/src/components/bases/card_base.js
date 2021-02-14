@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 350,
     [theme.breakpoints.down('xs')]: {
-      width: `calc(100vw - ${theme.spacing(2)*2}px)`,
+      width: `calc(100vw - 96px)`,
     },
   },
   media: {
