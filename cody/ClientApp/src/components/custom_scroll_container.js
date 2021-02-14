@@ -1,23 +1,77 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
+import { Box, Grid, IconButton } from '@material-ui/core'
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
+
+import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
+import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
+
+import { getWindowDimensions } from 'src/lib/window_dimensions'
 
 export function CustomScrollContainer(props){
 	const theme = useTheme();
 	const content = useRef();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+
 	const [height, setHeight] = React.useState(0);
+	const arrowWidth = 48;
 
-	useEffect(() => {		
-		setHeight(
-			content.current ? 
-				content.current.offsetHeight : 0
-		);
-	}, [content.current])
+  useLayoutEffect(() => {
 
-	const contentWithScrollBar = 
+    const updateHeight = () => {
+			if(getContentExist()){
+				setHeight(content.current? content.current.offsetHeight : 0);
+			}
+    }
+
+    window.addEventListener('resize', updateHeight);
+    updateHeight();
+    return () => window.removeEventListener('resize', updateHeight);
+
+  }, [content.current]);
+
+	const getContentExist = () => {
+		return content.current !== null 
+			&& content.current !== undefined
+	}
+
+	const getScrollStep = () => { 
+		const arrowsWidth = arrowWidth*2;
+		const elementsPadding = props.elementsPadding? props.elementsPadding : 0
+		return getWindowDimensions().width - arrowsWidth + elementsPadding;
+	}
+	
+	const scrollTo = (direction) => {
+		if(getContentExist()){
+			const position = content.current.scrollLeft/getScrollStep();
+			const relativePosition = position - Math.floor(position)
+
+			if(direction === "next"){
+				content.current.scrollTo({
+					left: Math.floor(position + 1) * getScrollStep(),
+					behavior: 'smooth'
+				})
+			}
+			if(direction === "back"){
+				if(relativePosition === 0)
+					content.current.scrollTo({
+						left: Math.floor(position - 1) * getScrollStep(),
+						behavior: 'smooth'
+					})			
+				else
+					content.current.scrollTo({
+						left: Math.floor(position) * getScrollStep(),
+						behavior: 'smooth'
+					})	
+			}
+		}
+	}
+
+
+
+	const contentWithoutScrollBar = 
 		<div
 			style={{
 				overflow: "hidden",
@@ -27,7 +81,7 @@ export function CustomScrollContainer(props){
 			<div
 				style={{
 					overflow: "scroll",
-					height: height + 5,
+					height: height + 4,
 				}}
 			>
 				<div
@@ -38,22 +92,48 @@ export function CustomScrollContainer(props){
 			</div>
 		</div>
 
-	const contentWithoutScrollBar = 
-		<div style={{overflow: "auto"}}>
+	const contentWithScrollBar = 
+		<div 
+			ref={content}
+			style={{overflow: "auto"}}
+		>
 			{props.children}
 		</div>
 		
 	const mobileContent = 
 		props.hideScrollbars ? 
-			contentWithScrollBar
-			:
 			contentWithoutScrollBar
+			:
+			contentWithScrollBar
 
-  return (
+	const mobileContentWithArrows = 
+		<Grid
+			container
+			direction="row"
+			justify="space-evenly"
+			alignItems="center"
+		>
+			<IconButton
+				onClick={() => scrollTo("back")}
+			>
+				<ArrowBackIosRoundedIcon/>
+			</IconButton>
+			<Box width="calc(100vw - 96px)">
+				{mobileContent}
+			</Box>
+			<IconButton
+				onClick={() => scrollTo("next")}
+				>
+				<ArrowForwardIosRoundedIcon/>
+			</IconButton>
+		</Grid>
+
+	return (
 		<>
 			{
-				mobileView ?				
-					mobileContent
+				mobileView ?
+					props.arrows ? 
+						mobileContentWithArrows : mobileContent		
 				:
 				<ScrollContainer
 					hideScrollbars={props.hideScrollbars}
