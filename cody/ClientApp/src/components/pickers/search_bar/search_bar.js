@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 500,
     opacity: 0,
     top: 0,
+    zIndex: -1,
     transition: "0.2s all",
     [theme.breakpoints.down('sm')]: {
       maxWidth: "50vw",
