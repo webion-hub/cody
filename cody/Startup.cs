@@ -57,7 +57,7 @@ namespace Cody
                 });
 
 
-            services.AddScoped<IAuthorizationHandler, UserAuthorizationHandler>();
+            services.AddScoped<IAuthorizationHandler, UserRolesAuthorizationHandler>();
             services
                 .AddLogging()
                 .AddCodyContext(Configuration)
