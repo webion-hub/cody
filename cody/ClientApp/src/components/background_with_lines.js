@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
@@ -14,15 +15,44 @@ const useStyles = makeStyles((theme) => ({
 		top: 0,
 		zIndex: -2,
 		width: "100%",
+		height: "100%",
+		overflow: "hidden",
+    whiteSpace: "nowrap",
 		background: "linear-gradient(180deg, rgb(26 42 79 / 85%) 0%, rgb(23 36 63 / 45%) 50%, rgba(17, 26, 37, 0) 100%)"
-	}
+	},
 }));
 
 export function BackgroundWithLines(props){
   const classes = useStyles();
+	const box = useRef();
+
+  const [elementsNumber, setElementsNumber] = React.useState(0);
+  useLayoutEffect(() => {
+
+    const updateElementsNumber = () => {
+			const elementsFromBox = box.current? 
+				Math.round(box.current.offsetHeight/100) : 0
+
+			const height = props.height === 1 ? window.innerHeight : props.height;
+			const elementsFromHeight = Math.round(height/100)
+
+			const extraLine = props.extraLine ? 1 : 0
+			const removeLine = props.removeLine ? -1 : 0
+
+			const elements = props.height? 
+				elementsFromHeight : elementsFromBox
+
+      setElementsNumber(elements + extraLine + removeLine);
+    }
+
+    window.addEventListener('resize', updateElementsNumber);
+    updateElementsNumber();
+    return () => window.removeEventListener('resize', updateElementsNumber);
+
+  }, []);
 
 	const lines = [];
-	for(var i=0; i < 10; i++){
+	for(var i=0; i < elementsNumber; i++){
 		lines.push(
 			<Grid
 				key={i}
@@ -37,7 +67,10 @@ export function BackgroundWithLines(props){
 	}
 
   return(
-		<div className={classes.linesBox}>
+		<div
+			ref={box}
+			className={classes.linesBox}
+		>
 			{
 				lines.map(line => line)
 			}
@@ -46,7 +79,7 @@ export function BackgroundWithLines(props){
 }
 
 
-function Line(props){
+function Line(){
   const classes = useStyles();
 
 	const randomValue = (min, max) => {	
@@ -58,7 +91,9 @@ function Line(props){
 			className={classes.line} 
 			style={{
 				maxWidth: `${randomValue(10, 45)}vw`,
-				width: "100%"
+				width: "100%",
+				transition: "5s all",
+				transitionDelay: "0.5s",
 			}}
 		/>
 	);
