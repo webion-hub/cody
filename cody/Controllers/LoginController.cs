@@ -7,6 +7,7 @@ using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,10 +48,9 @@ namespace Cody.Controllers
 
             
             var isPasswordCorrect =
-                await Password.AreEqualAsync(request.Password, user.Password.Hash);
+                await Password.AreEqualAsync(request.Password, user.Password);
 
-            if (!isPasswordCorrect)
-            {
+            if (!isPasswordCorrect) {
                 _logger.LogWarning($"User {request.Username} -> incorrect password");
                 return BadRequest();
             }
@@ -67,8 +67,10 @@ namespace Cody.Controllers
         private bool TryGetUser(string username, out UserAccount user)
         {
             user = null;
-            var maybeUser =
-                _dbContext.MaybeGetUserBy(username);
+            var maybeUser = _dbContext
+                .MaybeGetUserBy(username)
+                .Include(u => u.Password)
+                    .ThenInclude(p => p.Metadata);
 
             var userExists = maybeUser.Any();
             if (!userExists)

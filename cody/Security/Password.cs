@@ -8,51 +8,51 @@ namespace Cody.Security
 {
     public class Password
     {
-        public const int DegreeOfParallelism = 1;
-        public const int Iterations = 4;
-        public const int MemorySize = 256;
-        public const int DigestLength = 256;
-
-
         public static async Task<UserAccountPassword> CreateAsync(string plainText)
         {
             var password = Encoding.UTF8.GetBytes(plainText);
             var salt = Cryptography.GetRandomKey();
-            var hash = await HashAsync(password, salt);
+            var opts = new Argon2Options();
 
-            return new UserAccountPassword
+            var hash = 
+                await HashAsync(password, salt, opts);
+
+            return new UserAccountPassword 
             {
                 Hash = hash,
                 Salt = salt,
-                Metadata = new Argon2PasswordMetadata 
-                {
-                    DegreeOfParallelism = DegreeOfParallelism,
-                    Iterations = Iterations,
-                    MemorySize = MemorySize,
-                }
+                Metadata = opts.ToMetadata(),
             };
         }
 
-        private static async Task<byte[]> HashAsync(byte[] password, byte[] salt)
+        public static async Task<bool> AreEqualAsync(string plainTextPassword, UserAccountPassword password)
         {
-            using var argon2 = new Argon2id(password)
+            var rawPw = Encoding.UTF8.GetBytes(plainTextPassword);
+            var opts = Argon2Options.From(password.Metadata);
+
+            var maybePassword = 
+                await HashAsync(rawPw, password.Salt, opts);
+
+            return password
+                .Hash
+                .SequenceEqual(maybePassword);
+        }
+
+
+        private static async Task<byte[]> HashAsync(
+            byte[] password, 
+            byte[] salt, 
+            Argon2Options options
+        ) {
+            using var argon2 = new Argon2id(password) 
             {
                 Salt = salt,
-                DegreeOfParallelism = DegreeOfParallelism,
-                Iterations = Iterations,
-                MemorySize = MemorySize,
+                DegreeOfParallelism = options.DegreeOfParallelism,
+                Iterations = options.Iterations,
+                MemorySize = options.MemorySize,
             };
 
-            return await argon2.GetBytesAsync(DigestLength);
-        }
-
-
-        public static async Task<bool> AreEqualAsync(string plainTextPassword, byte[] hashedPassword)
-        {
-            var maybePassword = await CreateAsync(plainTextPassword);
-            return maybePassword
-                .Hash
-                .SequenceEqual(hashedPassword);
+            return await argon2.GetBytesAsync(options.DigestLength);
         }
     }
 }
