@@ -218,7 +218,7 @@ export class LoginBoxMain extends Component{
 }
 
 export function LoginBox(props){
-  const { logged, setLogged } = React.useContext(UserContext);
+  const { setLogged } = React.useContext(UserContext);
 
   return(
     <LoginBoxMain
