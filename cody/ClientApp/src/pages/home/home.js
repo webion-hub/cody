@@ -11,6 +11,9 @@ import { BackgroundWithLines } from 'src/components/background_with_lines';
 import { makeStyles } from '@material-ui/core/styles';
 
 const homeStyles = makeStyles((theme) => ({
+  firstAreaBox: {
+    position: "relative",
+  },
   background: {
     marginTop: theme.spacing(4),
     margin: "0 auto",
@@ -28,8 +31,8 @@ const homeStyles = makeStyles((theme) => ({
     },
   },
   myClasses: {
-    paddingTop: 25,
-    background: theme.appBar.color,
+    paddingTop: theme.spacing(2),
+    background: theme.palette.background.paperDark,
   }
 }));
 
@@ -45,7 +48,6 @@ export function Home(){
   return(
     <div
       style={{
-        minHeight: "200vh",
         position: "relative"
       }}
       onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
@@ -103,11 +105,13 @@ export function Home(){
               username: "Matteo2437",
               profilePic: "images/forest.jpg"
             },
-            users: []
+           users: []
           }
        ]}
       />
-      <BackgroundWithLines/>
+      <BackgroundWithLines 
+        height={1}
+      /> 
     </div>
   );
 }
