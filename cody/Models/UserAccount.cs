@@ -37,7 +37,7 @@ namespace Cody.Models
 
         public IEnumerable<string> GetRejectReasons()
         {
-            if (PlainPassword.Length is < 8 or > 128)
+            if (PlainPassword?.Length is < 8 or > 128)
                 yield return "password";
 
             if (Username.Length is < 4 or > 28)
