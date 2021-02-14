@@ -34,6 +34,7 @@ export function UserControllerContext(props){
     User
       .tryLoginWithCookie({
         onSuccess: () => setLoggedWithoutRefresh(true),
+        onError: () => setLoggedWithoutRefresh(false)
       })
       .then(() => setLoading(false)
       );
