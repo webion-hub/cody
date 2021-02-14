@@ -22,8 +22,11 @@ namespace Cody.Models
         [StringLength(28, MinimumLength = 4)]
         public string Username { get; set; }
 
-        [Required]
-        public string Password { get; set; }
+
+        public UserAccountPassword Password { get; set; }
+
+        [NotMapped]
+        public string PlainPassword { get; set; }
 
 
         public UserAccountDetail AccountDetail { get; set; }
@@ -34,7 +37,7 @@ namespace Cody.Models
 
         public IEnumerable<string> GetRejectReasons()
         {
-            if (Password.Length is < 8 or > 128)
+            if (PlainPassword.Length is < 8 or > 128)
                 yield return "password";
 
             if (Username.Length is < 4 or > 28)

@@ -37,8 +37,6 @@ namespace Cody.Controllers
         }
 
 
-        /// <response code="200">Returns the id of the new user</response>
-        /// <response code="400">Registration error, along with the reject reasons</response>
         [HttpPost("register")]
         [AllowAnonymous]
         public async Task<IActionResult> TryRegisterUser([FromBody] UserRegistrationRequest request)
@@ -48,6 +46,9 @@ namespace Cody.Controllers
             var validator = new UserCreationValidator(_dbContext);
             if (validator.Validate(user).WasRejected)
                 return validator.StatusCode;
+
+            user.Password =
+                await Password.CreateAsync(user.PlainPassword);
 
             try
             {

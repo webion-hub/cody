@@ -20,19 +20,7 @@ namespace Cody.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ConfigurePasswordHashing(modelBuilder);
             ConfigureDefaultValues(modelBuilder);
-        }
-
-        private static void ConfigurePasswordHashing(ModelBuilder modelBuilder)
-        {
-            modelBuilder
-                .Entity<UserAccount>()
-                .Property(u => u.Password)
-                .HasConversion(
-                    pw => Password.CreateFrom(pw),
-                    pw => pw
-                );
         }
 
         private static void ConfigureDefaultValues(ModelBuilder modelBuilder)

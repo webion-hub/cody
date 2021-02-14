@@ -18,7 +18,7 @@ namespace Cody.Controllers.Requests
             {
                 Username = self.Username.Trim(),
                 Email = self.Email.Trim(),
-                Password = self.Password,
+                PlainPassword = self.Password,
                 AccountDetail = self.AccountDetail,
             };
         }

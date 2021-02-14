@@ -32,9 +32,6 @@ namespace Cody.Controllers
         }
 
 
-        /// <response code="200">The login was successfull</response>
-        /// <response code="404">The username wasn't found</response>
-        /// <response code="400">The passwords didn't match</response>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> TryLoginAsync([FromBody] UserLoginRequest request) 
@@ -50,9 +47,9 @@ namespace Cody.Controllers
 
             
             var isPasswordCorrect =
-                Password.AreEqual(request.Password, user.Password);
+                await Password.AreEqualAsync(request.Password, user.Password.Hash);
 
-            if (!isPasswordCorrect) 
+            if (!isPasswordCorrect)
             {
                 _logger.LogWarning($"User {request.Username} -> incorrect password");
                 return BadRequest();
