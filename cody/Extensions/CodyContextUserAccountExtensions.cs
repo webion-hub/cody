@@ -1,10 +1,11 @@
-﻿using Cody.Models;
+﻿using Cody.Contexts;
+using Cody.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cody.Contexts
+namespace Cody.Extensions
 {
     public static class CodyContextUserAccountExtensions
     {

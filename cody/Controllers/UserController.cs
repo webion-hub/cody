@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Cody.Services;
 using Cody.Security;
 using Microsoft.AspNetCore.Authorization;
+using Cody.Extensions;
 
 namespace Cody.Controllers
 {
