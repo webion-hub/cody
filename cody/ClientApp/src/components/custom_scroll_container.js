@@ -13,6 +13,7 @@ import { getWindowDimensions } from 'src/lib/window_dimensions'
 export function CustomScrollContainer(props){
 	const theme = useTheme();
 	const content = useRef();
+	const scroll = useRef();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
 	const [height, setHeight] = React.useState(0);
@@ -22,14 +23,16 @@ export function CustomScrollContainer(props){
 
     const updateHeight = () => {
 			if(getContentExist()){
-				setHeight(content.current? content.current.offsetHeight : 0);
+				if(!props.height)
+					setHeight(content.current? content.current.offsetHeight : 0);
+				else
+					setHeight(props.height);
 			}
     }
 
     window.addEventListener('resize', updateHeight);
     updateHeight();
     return () => window.removeEventListener('resize', updateHeight);
-
   }, [content.current]);
 
 	const getContentExist = () => {
@@ -45,23 +48,23 @@ export function CustomScrollContainer(props){
 	
 	const scrollTo = (direction) => {
 		if(getContentExist()){
-			const position = content.current.scrollLeft/getScrollStep();
+			const position = scroll.current.scrollLeft/getScrollStep();
 			const relativePosition = position - Math.floor(position)
 
 			if(direction === "next"){
-				content.current.scrollTo({
+					scroll.current.scrollTo({
 					left: Math.floor(position + 1) * getScrollStep(),
 					behavior: 'smooth'
 				})
 			}
 			if(direction === "back"){
 				if(relativePosition === 0)
-					content.current.scrollTo({
+					scroll.current.scrollTo({
 						left: Math.floor(position - 1) * getScrollStep(),
 						behavior: 'smooth'
 					})			
 				else
-					content.current.scrollTo({
+					scroll.current.scrollTo({
 						left: Math.floor(position) * getScrollStep(),
 						behavior: 'smooth'
 					})	
@@ -79,9 +82,11 @@ export function CustomScrollContainer(props){
 			}}
 		>
 			<div
+				ref={scroll}
 				style={{
 					overflow: "scroll",
-					height: height + 4,
+					overflowY: "hidden",
+					height: height + 5,
 				}}
 			>
 				<div
@@ -94,7 +99,7 @@ export function CustomScrollContainer(props){
 
 	const contentWithScrollBar = 
 		<div 
-			ref={content}
+			ref={scroll}
 			style={{overflow: "auto"}}
 		>
 			{props.children}

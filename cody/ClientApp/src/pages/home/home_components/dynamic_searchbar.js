@@ -62,6 +62,11 @@ export function DynamicSearchBar(){
     window.addEventListener("scroll", scrollHandler, true);
     return () => {
       window.removeEventListener("scroll", scrollHandler, true);
+      setFadeAppBarSection({
+        left: true,
+        center: true,
+        right: true,
+      });
     };
   }, []);
 

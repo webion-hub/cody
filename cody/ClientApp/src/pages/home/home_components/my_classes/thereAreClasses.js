@@ -81,7 +81,8 @@ export function ThereAreClasses(props){
 			<CustomScrollContainer
 				arrows
 				elementsPadding={16}
-				hideScrollbars={false}
+				hideScrollbars
+				height={350}
 			>
 				{content}
 			</CustomScrollContainer>
