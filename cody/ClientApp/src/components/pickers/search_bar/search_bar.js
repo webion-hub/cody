@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Paper } from '@material-ui/core';
+import { Link, Paper } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { InputBase } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
@@ -104,24 +104,20 @@ export function SearchBar(props) {
       >
         <Paper component="form" className={classes.root}>
           {
-            props.showFavoriteAlways ? (
-              null
-            ):(
-              <Tooltip 
-                title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
-                aria-label="filter"
-                placement="left"
-                arrow
+            <Tooltip 
+              title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
+              aria-label="filter"
+              placement="left"
+              arrow
+            >
+              <IconButton 
+                className={classes.iconButton}
+                onClick={handleShowFavorite}
+                aria-label="favorite"
               >
-                <IconButton 
-                  className={classes.iconButton}
-                  onClick={handleShowFavorite}
-                  aria-label="favorite"
-                >
-                  {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
-                </IconButton>
-              </Tooltip>
-            )
+                {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
+              </IconButton>
+            </Tooltip>
           }
           <InputBase
             className={classes.input}
@@ -157,7 +153,7 @@ export function SearchBar(props) {
           width={1}
           className={`
             ${classes.chipsBox}
-            ${showFavorite || props.showFavoriteAlways ?
+            ${showFavorite ?
                classes.chipsBoxAnimate 
                : null
               }

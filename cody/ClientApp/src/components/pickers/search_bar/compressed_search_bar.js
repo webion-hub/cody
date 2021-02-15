@@ -60,7 +60,7 @@ export function CompressedSearchBar() {
             >
               <div className={classes.searchBar}>
                 <SearchBar
-                  showFavoriteAlways
+                  showFavoriteLinkButton
                 />
               </div>
             </ClickAwayListener>
