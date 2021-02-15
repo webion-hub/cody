@@ -81,7 +81,7 @@ function Theme(props){
   const theme = prefersDarkMode ? "dark" : "light";
 
   return (
-    <MuiThemeProvider theme = {themeController.getTheme("dark")}>
+    <MuiThemeProvider theme = {themeController.getTheme(theme)}>
       <CssBaseline />
       {props.children}
     </MuiThemeProvider>

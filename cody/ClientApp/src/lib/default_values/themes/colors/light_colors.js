@@ -3,11 +3,14 @@ import { Colors } from "./main_colors"
 export const lightColors = {
   primary: Colors.primary,
   secondary: Colors.secondary,
-  tertiary: 'rgb(170, 170, 170)',
-  backgroundLight: 'rgb(250, 250, 250)', 
-  background: 'rgb(245, 245, 245)', 
-  backgroundDark: 'rgb(230, 230, 230)', 
-  backgroundDarkest: '#0D131C',
-  backgroundTransparent: "rgba(0,0,0,0.3)",
-  appBar: 'rgb(245, 245, 245)',  
+  tertiary: Colors.tertiary,
+  backgroundLight: '#f3f3f3', 
+  background: '#f7f7f8', 
+  backgroundDark: '#efeff1', 
+  backgroundDarkest: '#e5e5e5',
+  backgroundTransparent: "rgba(0,0,0,0.04)",
+  backgroundGradient: "linear-gradient(180deg, rgb(26 42 79 / 27%) 0%, rgb(255 255 255 / 45%) 50%, rgb(255 255 255 / 0%) 100%)",
+  appBar: '#fff',
+  textPrimary: 'rgba(0,0,0,0.95)',
+  textSecondary: 'rgba(0,0,0,0.75)'
 }

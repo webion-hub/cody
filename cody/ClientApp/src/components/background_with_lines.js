@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
 	line: {
 		height: 80,
 		borderRadius: 40,
-		background: "rgba(0,0,0,0.1)",
+		background: theme.palette.background.backgroundTransparent,
 		margin: 10,
 	},
 	linesBox: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		height: "100%",
 		overflow: "hidden",
     whiteSpace: "nowrap",
-		background: "linear-gradient(180deg, rgb(26 42 79 / 85%) 0%, rgb(23 36 63 / 45%) 50%, rgba(17, 26, 37, 0) 100%)"
+		background: theme.palette.background.backgroundGradient
 	},
 }));
 

@@ -45,12 +45,13 @@ export class ThemeController {
           paper: this.color.backgroundLight,
           paperDark: this.color.backgroundDarkest,
           backgroundTransparent: this.color.backgroundTransparent,
+          backgroundGradient: this.color.backgroundGradient,
           dark: this.color.backgroundDark,
           contrastText: '#fff',
         },
         text: {
-          primary: 'rgba(255,255,255,0.95)',
-          secondary: 'rgba(255,255,255,0.75)'
+          primary: this.color.textPrimary,
+          secondary: this.color.textSecondary
         }
       },
       appBar: {
@@ -113,11 +114,6 @@ export class ThemeController {
         MuiAvatar: {
           img: {
             imageOrientation: "from-image"
-          }
-        },
-        MuiButtonBase: {
-          root: {
-            display: "inline-flex !important",
           }
         }
       },
