@@ -32,7 +32,7 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Post([FromBody] List<string> getters)
         {
-            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var user = await HttpContext.GetLoggedUserFromAsync();
             var userProps = new UserAccountInfoProps(_dbContext, user);
 
             var result = getters.ToDictionary(
@@ -48,7 +48,7 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Put([FromBody] Dictionary<string, object> setters)
         {
-            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var user = await HttpContext.GetLoggedUserFromAsync();
             var userProps = new UserAccountInfoProps(_dbContext, user);
             var validator = new UserUpdateValidator(_dbContext);
 

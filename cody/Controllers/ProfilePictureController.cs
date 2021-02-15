@@ -87,7 +87,7 @@ namespace Cody.Controllers
         private async Task<UserProfilePicture> GetUserProfilePictureAsync()
         {
             var user =
-                await HttpContext.GetLoggedUserFromAsync(_dbContext);
+                await HttpContext.GetLoggedUserFromAsync();
 
             var picture = _dbContext
                 .ProfilePictures
@@ -98,7 +98,7 @@ namespace Cody.Controllers
 
         private async Task<UserProfilePicture> CreateNewUserPictureAsync()
         {
-            var user = await HttpContext.GetLoggedUserFromAsync(_dbContext);
+            var user = await HttpContext.GetLoggedUserFromAsync();
             var accountDetailId = user.AccountDetail.Id;
 
             var picture = new UserProfilePicture()
