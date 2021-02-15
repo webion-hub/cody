@@ -11,6 +11,7 @@ import { nullData, noErrors } from './default_states';
 import { ProfilePicture } from 'src/lib/profile_picture'
 import { UserAccountInfo } from 'src/lib/user_account_info'
 import { AlertDialog } from 'src/components/dialogs/alert_dialog';
+import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import history from 'src/history'
 
@@ -163,9 +164,7 @@ export function Account(){
   
 	return (
 		<Grid
-			style={{
-				minHeight: "100vh"
-			}}
+			className={classes.container}
 			container
 			justify="center"
 			alignItems="center"
@@ -226,6 +225,7 @@ export function Account(){
           </Grid>,
         ]}
       />
+      <BackgroundWithLines/>
 		</Grid>
 	);
 }

@@ -44,7 +44,8 @@ export function UserAvatarIcon(){
   const [loadingAvatar, setLoadingAvatar] = React.useState(true);
   
   useEffect(() => {
-    UserAccountInfo
+    if(logged){
+      UserAccountInfo
       .createRequest()
         .get('username')
       .send()
@@ -52,7 +53,8 @@ export function UserAvatarIcon(){
         const got = resp.got;
         setUsername(got.get('username'));
       })
-  }, [])
+    }
+  }, [logged])
 
   const handleClick = (event) => {
     setOpenMenu(event.currentTarget);

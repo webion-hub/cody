@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Img from 'react-fix-image-orientation'
+import { ExifOrientationImg } from 'react-fix-image-orientation';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
@@ -76,7 +76,7 @@ export function CustomAvatar(props){
             </div>
           </Box>
           :
-          <Img
+          <ExifOrientationImg
             className={classes.avatar}
             src={props.src}
             onLoad={() => {
@@ -92,48 +92,3 @@ export function CustomAvatar(props){
     </Box>
   );
 }
-
-/*
-
-*/
-
-/*
-image
-
-    color: transparent;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    text-align: center;
-    text-indent: 10000px;
-    image-orientation: from-image;
-*/
-
-/*
-container
-
-
-
-*/
-
-/*
-		<Avatar
-			classes={props.classes}
-			component={props.component}
-			imgProps={props.imgProps}
-			sizes={props.sizes}
-			srcSet={props.srcSet}
-			variant={props.variant}
-			src={props.src}
-      style={props.style}
-      onLoad={props.onLoad}
-      onError={props.onError}
-      style={{
-        width: props.width,
-        height: props.height,
-        fontSize: `${1.25 * (props.width / 40)}rem`,
-      }}
-		>
-      {props.alt? props.alt.charAt(0) : null}
-    </Avatar>
-*/
