@@ -35,19 +35,6 @@ namespace Cody.Controllers
         }
 
 
-        [HttpPost("remember_me")]
-        [Authorize]
-        [Obsolete]
-        internal async Task<IActionResult> TryRememberMe()
-        {
-            var user = 
-                await HttpContext.GetLoggedUserFromAsync(_dbContext);
-
-            await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
-            return Ok();
-        }
-
-
         [HttpPost("login_with_cookie")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithCookie()
