@@ -117,7 +117,7 @@ export class ThemeController {
         },
         MuiButtonBase: {
           root: {
-            display: "-webkit-inline-flex",
+            display: "inline-flex !important",
           }
         }
       },
