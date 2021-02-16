@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
   avatarCodingLanguageBox: {
     background: theme.palette.background.backgroundTransparent,
     borderRadius: 28,
-  }
+  },
+	iconButton: {
+		padding: 8
+	}
 }));
 
 export function AvatarLanguageBox(props){ 
@@ -100,7 +103,12 @@ export function AvatarLanguageBox(props){
 							className={classes.avatarCodingLanguageBox}
 						>
 							<Grid item>
-								<IconButton className={`${classes.codingLanguageButton} noScroll`}>
+								<IconButton 
+									className={`${classes.codingLanguageButton} noScroll`}
+									classes={{
+										root: classes.iconButton
+									}}
+								>
 									{props.languageIcon}
 								</IconButton>
 							</Grid>

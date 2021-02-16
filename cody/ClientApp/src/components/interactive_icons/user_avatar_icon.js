@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   loginButton: {
     margin: 6
   },
+  iconButton: {
+    padding: 0,
+  }
 }));
 
 export function UserAvatarIcon(){  
@@ -74,6 +77,9 @@ export function UserAvatarIcon(){
         <IconButton
           className={classes.avatarButton}
           onClick={handleClick}
+          classes={{
+            root: classes.iconButton
+          }}
         >
           <CustomAvatar
             alt={username}
