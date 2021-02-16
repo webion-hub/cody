@@ -4,7 +4,6 @@ import { AppBar } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
-import { Tooltip } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
 import { useScrollTrigger } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
@@ -15,6 +14,8 @@ import { useTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
+
+import { TouchableTooltip } from 'src/components/touchable_tooltip';
 
 const dynamicAppbarStyles = makeStyles((theme) => ({
   rightSection: {
@@ -73,13 +74,13 @@ export function DynamicAppbar(props) {
           element.tooltip ? (
             getMainContent(element)
           ):(
-            <Tooltip
+            <TouchableTooltip
               title={element.label?element.label : ""}
               placement="bottom"
               arrow
             >
               {getMainContent(element)}               
-            </Tooltip>
+            </TouchableTooltip>
           )
         }
       </Hidden>

@@ -5,13 +5,14 @@ import { Link, Paper } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { InputBase } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
-import { Tooltip } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
 
-import { CodingFilterDialog } from './coding_filter_dialog';
+import { CodingFilterDialog } from 'src/components/pickers/search_bar/coding_filter_dialog';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
+import { TouchableTooltip } from 'src/components/touchable_tooltip'
+
 import { languages } from 'src/lib/default_values/lists/coding_languages'
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
@@ -104,7 +105,7 @@ export function SearchBar(props) {
       >
         <Paper component="form" className={classes.root}>
           {
-            <Tooltip 
+            <TouchableTooltip 
               title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
               aria-label="filter"
               placement="left"
@@ -117,7 +118,7 @@ export function SearchBar(props) {
               >
                 {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
               </IconButton>
-            </Tooltip>
+            </TouchableTooltip>
           }
           <InputBase
             className={classes.input}
@@ -127,7 +128,7 @@ export function SearchBar(props) {
           <IconButton type="submit" className={classes.iconButton} aria-label="search">
             <SearchRoundedIcon />
           </IconButton>
-          <Tooltip 
+          <TouchableTooltip 
             title="Seleziona il linguaggio di programmazione." 
             aria-label="filter"
             placement="right"
@@ -140,7 +141,7 @@ export function SearchBar(props) {
             >
               {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
             </IconButton>
-          </Tooltip>
+          </TouchableTooltip>
           <CodingFilterDialog
             open={open}
             onClose={handleClose}

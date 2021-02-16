@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { IconButton } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { Tooltip } from '@material-ui/core';
 import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -17,6 +16,8 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import { UserContext } from 'src/components/user_controller_context';
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base';
 import { CustomAvatar } from 'src/components/custom_avatar';
+import { TouchableTooltip } from 'src/components/touchable_tooltip'
+
 import { UserAccountInfo } from 'src/lib/user_account_info'
 
 import { User } from 'src/lib/user';
@@ -66,7 +67,7 @@ export function UserAvatarIcon(){
   
   const loggedChildren = (
     <> 
-      <Tooltip
+      <TouchableTooltip
         arrow
         title="Account"
       >
@@ -81,7 +82,7 @@ export function UserAvatarIcon(){
             onError={() => setLoadingAvatar(false)}
           />
         </IconButton>
-      </Tooltip>
+      </TouchableTooltip>
       <Menu
         id="simple-menu"
         anchorEl={openMenu}
@@ -130,31 +131,14 @@ export function UserAvatarIcon(){
       customChildrenLoading={loadingAvatar}
       loggedChildren={loggedChildren}
       notLoggedChildren={
-        <Tooltip
+        <TouchableTooltip
           arrow
-          disableFocusListener 
           interactive
           title={
             <Typography 
               variant="caption"
             >
-              <Link
-                component="button"
-                variant="caption"
-                color="inherit"
-                onClick={() => history.push("/login")}
-              >
-                Accedi
-              </Link>
-              {" o "}
-              <Link
-                component="button"
-                variant="caption"
-                color="inherit"
-                onClick={() => history.push("/sign-up")}
-              >
-                Registrati
-              </Link>
+              Accedi o registrati
             </Typography>
           }
         >
@@ -164,7 +148,7 @@ export function UserAvatarIcon(){
           >
             Login
           </Button>
-        </Tooltip>      
+        </TouchableTooltip>      
       }
     />
   );
