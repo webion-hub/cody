@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
 import { Box, Grid, IconButton } from '@material-ui/core'
@@ -15,21 +15,24 @@ export function CustomScrollContainer(props){
 	const content = useRef();
 	const scroll = useRef();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-
-	const [height, setHeight] = React.useState(0);
 	const arrowWidth = 48;
 
+	const [height, setHeight] = React.useState(props.height? props.height : 0);
+
+	useEffect(() => {
+		updateHeight()
+	})
+
+	const updateHeight = () => {
+		if(getContentExist()){
+			if(!props.height)
+				setHeight(content.current? content.current.offsetHeight : 0);
+			else
+				setHeight(props.height);
+		}
+	}
+
   useLayoutEffect(() => {
-
-    const updateHeight = () => {
-			if(getContentExist()){
-				if(!props.height)
-					setHeight(content.current? content.current.offsetHeight : 0);
-				else
-					setHeight(props.height);
-			}
-    }
-
     window.addEventListener('resize', updateHeight);
     updateHeight();
     return () => window.removeEventListener('resize', updateHeight);
