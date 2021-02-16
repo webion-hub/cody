@@ -19,6 +19,7 @@ namespace Cody.Models
         [Required] public string Name { get; set; }
         [Required] public string Surname { get; set; }
         [Required] public DateTime BirthDate { get; set; }
+        [Required] public DateTime RegistrationDate { get; set; }
 
 
         [Required]
@@ -30,6 +31,7 @@ namespace Cody.Models
         public SchoolAccount School { get; set; }
 
 
+        public UserBiography Biography { get; set; }
         public UserProfilePicture ProfilePicture { get; set; }
 
 
