@@ -100,7 +100,8 @@ export class UserAccountInfo {
  *  'email' |
  *  'name' |
  *  'surname' |
- *  'birthDate'
+ *  'birthDate' |
+ *  'role'
  * )} UserAccountProp
  */
 

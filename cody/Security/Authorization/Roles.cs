@@ -7,8 +7,17 @@ namespace Cody.Security.Authorization
 {
     public static class Roles
     {
-        public const string User = "User";
         public const string Admin = "Admin";
-        public const string UserAndAdmin = "User,Admin";
+
+        private static readonly HashSet<string> _hashedRoles = new()
+        {
+            Admin,
+        };
+
+
+        public static bool Exists(string role)
+        {
+            return _hashedRoles.Contains(role);
+        }
     }
 }

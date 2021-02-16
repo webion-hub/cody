@@ -49,3 +49,9 @@
  *  'server_error'
  * )} UserRejectReasons
  */
+
+/**
+ * @typedef {(
+ *  'Admin'
+ * )} UserAccountRole
+ */
