@@ -3,6 +3,7 @@ import React, { createRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core';
+import { Colors } from 'src/lib/default_values/themes/colors/main_colors';
 
 const flowingTextStyles = makeStyles((theme) => ({
 	container: {
@@ -27,7 +28,6 @@ export function FlowingText(props){
 	const [textHeight, setTextHeight] = React.useState(null);
 
 	const longText = textWidth > props.containerWidth
-
 	const speed = 3 / 100;
 
 	const ref = createRef();
@@ -41,11 +41,57 @@ export function FlowingText(props){
 		setFlow(false);
 	}
 
+	function hexToRgb(hex) {
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+		const r = result ? parseInt(result[1], 16) : null;
+		const g = result ? parseInt(result[2], 16) : null;
+		const b = result ? parseInt(result[3], 16) : null;
+
+		return result ? `rgb(${r}, ${g}, ${b})` : null;
+	}
+
+	const setOpacityColor = (color) => {
+		let newColor = ""
+
+		if(color.charAt(0) === '#'){
+			const rgbColor = hexToRgb(color)
+
+			newColor = "rgba"
+			for(var i = 3; i < rgbColor.length - 1; i++){
+				newColor += rgbColor[i];
+			}
+
+			newColor += ", 0)"
+		}
+		else if(color.substring(0,4) === "rgb(")
+		{
+			newColor = "rgba"
+			for(var i = 3; i < color.length - 1; i++){
+				newColor += color[i];
+			}
+
+			newColor += ", 0)"			
+		}
+		else if(color.substring(0,4) === "rgba")
+		{
+			newColor = "rgba"
+			for(var i = 4; i < color.length - 2; i++){
+				newColor += color[i];
+			}
+
+			newColor += "0)"			
+		}
+
+		return newColor;
+	}
+
 	useEffect(() => {
 		setTextWidth(ref.current.offsetWidth);
 		setTextHeight(ref.current.offsetHeight);
 	}, []);
 	
+	const colorTransparent = setOpacityColor(props.background);
 	return (
 		<Box
 			position="relative"
@@ -65,14 +111,14 @@ export function FlowingText(props){
 					background: flow ? 
 						`linear-gradient(90deg,
 							${props.background} 0%,
-							transparent 5%,
-							transparent 95%,
+							${colorTransparent} 5%,
+							${colorTransparent} 95%,
 							${props.background} 100%)`
 						:
 						`linear-gradient(90deg,
-							transparent 0%,
-							transparent 5%,
-							transparent 95%,
+							${colorTransparent} 0%,
+							${colorTransparent} 5%,
+							${colorTransparent} 95%,
 							${props.background} 100%)`
 				}}
 			/>
