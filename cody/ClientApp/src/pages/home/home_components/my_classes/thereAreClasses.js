@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ClassCard } from 'src/components/cards/class_card';
+import { ClassCard } from 'src/components/cards/class_card/class_card';
 import { CustomScrollContainer } from 'src/components/custom_scroll_container';
 
 import { makeStyles } from '@material-ui/core/styles';
