@@ -101,6 +101,7 @@ export function FlowingText(props){
 			onMouseLeave={handleMouseLeave}
 			onTouchStart={handleMouseEnter}
 			onTouchEnd={handleMouseLeave}
+			onTouchMove={handleMouseLeave}
 		>
 			<Box
 				width={longText ? props.containerWidth : undefined}
