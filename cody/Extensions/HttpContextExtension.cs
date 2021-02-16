@@ -18,7 +18,7 @@ namespace Cody.Extensions
 
         public static async Task SignInAsync(this HttpContext context, UserAccount user)
         {
-            var claims = new List<Claim>
+            var claims = new[] 
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),

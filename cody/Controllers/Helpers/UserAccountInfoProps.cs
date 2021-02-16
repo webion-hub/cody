@@ -18,6 +18,7 @@ namespace Cody.Controllers.Helpers
         public const string BirthDate = "birthDate";
         public const string School = "school";
         public const string Role = "role";
+        public const string RegistrationDate = "registrationDate";
 
 
         private readonly CodyContext _dbContext;
@@ -32,13 +33,14 @@ namespace Cody.Controllers.Helpers
 
         public object Get(string prop) => prop switch
         {
-            Username  => _user.Username,
-            Email     => _user.Email,
-            Name      => _user.AccountDetail.Name,
-            Surname   => _user.AccountDetail.Surname,
-            BirthDate => _user.AccountDetail.BirthDate,
-            Role      => _user.AccountRole?.Name, 
-            School    => GetSchool(),
+            Username         => _user.Username,
+            Email            => _user.Email,
+            Name             => _user.AccountDetail.Name,
+            Surname          => _user.AccountDetail.Surname,
+            BirthDate        => _user.AccountDetail.BirthDate,
+            Role             => _user.AccountRole?.Name,
+            School           => GetSchool(),
+            RegistrationDate => _user.AccountDetail.RegistrationDate,
 
             _ => null,
         };
@@ -71,8 +73,8 @@ namespace Cody.Controllers.Helpers
                 case Name:      _user.AccountDetail.Name = value;                        break;
                 case Surname:   _user.AccountDetail.Surname = value;                     break;
                 case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
-                case Role:      SetRole(value);                                       break;
                 case School:    _user.AccountDetail.SchoolId = GetNewSchoolValue(value); break;
+                case Role:      SetRole(value);                                          break;
             }
         }
 

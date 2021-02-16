@@ -39,6 +39,7 @@ namespace Cody.Controllers.Requests
                 Surname = self.Surname.Trim(),
                 BirthDate = self.BirthDate,
                 SchoolId = self.SchoolId,
+                RegistrationDate = DateTime.Now,
             };
         }
     }
