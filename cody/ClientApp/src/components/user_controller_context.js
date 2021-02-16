@@ -17,6 +17,7 @@ export function UserControllerContext(props){
   const state = sessionStorage.getItem('logged');
   const logged = JSON.parse(state);
   const [loading, setLoading] = React.useState(true);
+  const [loggedWithCookie, setLoggedWithCookie] = React.useState(false);
 
   const setLoggedWithoutRefresh = (loggedState) => {
     sessionStorage.setItem('logged', loggedState);
@@ -33,8 +34,16 @@ export function UserControllerContext(props){
 
     User
       .tryLoginWithCookie({
-        onSuccess: () => setLoggedWithoutRefresh(true),
-        onError: () => setLoggedWithoutRefresh(false)
+        onSuccess: () => {
+          setLoggedWithoutRefresh(true)
+          setLoggedWithCookie(true)
+        },
+        onError: () => {
+          if(loggedWithCookie){
+            setLoggedWithoutRefresh(false)
+            setLoggedWithCookie(false)
+          }
+        }
       })
       .then(() => setLoading(false)
       );
