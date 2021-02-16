@@ -42,7 +42,7 @@ namespace Cody.Security.Authorization
         ) {
             if (!IsUserAuthenticated(context))
                 return false;
-
+            
             var user = await context
                 .User
                 .FetchFromDbAsync(_dbContext);

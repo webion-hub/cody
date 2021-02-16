@@ -71,12 +71,12 @@ namespace Cody.Controllers.Helpers
                 case Name:      _user.AccountDetail.Name = value;                        break;
                 case Surname:   _user.AccountDetail.Surname = value;                     break;
                 case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
-                case Role:      AssignRole(value);                                       break;
+                case Role:      SetRole(value);                                       break;
                 case School:    _user.AccountDetail.SchoolId = GetNewSchoolValue(value); break;
             }
         }
 
-        private void AssignRole(string value)
+        private void SetRole(string value)
         {
             if (value is null) {
                 MaybeRemoveRole();

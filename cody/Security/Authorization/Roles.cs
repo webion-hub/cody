@@ -7,12 +7,12 @@ namespace Cody.Security.Authorization
 {
     public static class Roles
     {
-        public const string Admin = "Admin";
-
         private static readonly HashSet<string> _hashedRoles = new()
         {
             Admin,
         };
+
+        public const string Admin = "Admin";
 
 
         public static bool Exists(string role)

@@ -43,7 +43,7 @@ namespace Cody.Extensions
         }
 
 
-        public static Task<UserAccount> GetLoggedUserFromAsync(this HttpContext context)
+        public static Task<UserAccount> GetLoggedUserAsync(this HttpContext context)
         {
             var dbContext = context
                 .RequestServices
