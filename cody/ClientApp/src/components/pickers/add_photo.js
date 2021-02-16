@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import exif from 'exif-js';
 
 import { Box } from '@material-ui/core';
 import { Fab } from '@material-ui/core';
@@ -6,6 +7,7 @@ import { Badge } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
 import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog';
+import { ImageOrientation } from 'src/lib/image_orientation';
 
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
@@ -61,16 +63,16 @@ export class AddPhoto extends Component{
   fileSelectedHandler = (event) => {
     let file = event.target.files[0];
     if(event.target.files[0] !== null){ 
-      let reader = new FileReader();
-  
-      reader.onloadend = () => {
-        this.setState({
-          image: reader.result,
-          openEditDialog: true
-        });
-      }
-  
-      reader.readAsDataURL(file);
+      const imageOrientation = new ImageOrientation()
+
+      imageOrientation.
+        fixOrientation(file)
+        .then(blob => {
+          this.setState({
+            image: blob,
+            openEditDialog: true
+          });
+        })
     }
 
     event.target.value = null; //reset input file
