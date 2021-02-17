@@ -90,26 +90,12 @@ namespace Cody.Controllers.Helpers
         }
 
 
-        private void SetRole(string value)
+        private void SetRole(string role)
         {
-            if (value is null) {
-                MaybeRemoveRole();
-                return;
-            }
-
-            if (!Roles.Exists(value))
-                throw new ArgumentException($"Inexistent role: {value}");
-
-            _user.AccountRole ??= new();
-            _user.AccountRole.Name = value;
+            RolesManager
+                .Using(_dbContext)
+                .AssignOrRevokeIfNull(_user, role);
         }
-
-        private void MaybeRemoveRole()
-        {
-            if (_user.AccountRole is not null)
-                _dbContext.Roles.Remove(_user.AccountRole);
-        }
-
 
         private async Task SetBiographyAsync(string value)
         {
