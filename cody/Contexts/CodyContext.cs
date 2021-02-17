@@ -16,6 +16,7 @@ namespace Cody.Contexts
         public DbSet<SchoolAccount> Schools { get; set; }
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
         public DbSet<UserAccountRole> Roles { get; set; }
+        public DbSet<UserBiography> Biographies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

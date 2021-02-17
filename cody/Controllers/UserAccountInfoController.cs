@@ -37,7 +37,7 @@ namespace Cody.Controllers
 
             var result = getters.ToDictionary(
                 prop => prop,
-                prop => userProps.Get(prop)
+                prop => userProps.GetAsync(prop).Result
             );
 
             return Ok(result);
@@ -54,7 +54,7 @@ namespace Cody.Controllers
 
             try {
                 foreach (var (prop, value) in setters)
-                    userProps.Set(prop, value);
+                    await userProps.SetAsync(prop, value);
             }
             catch {
                 return BadRequest();

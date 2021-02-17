@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
 using Cody.Security.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Cody.Controllers.Helpers
         public const string School = "school";
         public const string Role = "role";
         public const string RegistrationDate = "registrationDate";
+        public const string Biography = "biography";
 
 
         private readonly CodyContext _dbContext;
@@ -31,7 +33,7 @@ namespace Cody.Controllers.Helpers
         }
 
 
-        public object Get(string prop) => prop switch
+        public async Task<object> GetAsync(string prop) => prop switch
         {
             Username         => _user.Username,
             Email            => _user.Email,
@@ -39,17 +41,18 @@ namespace Cody.Controllers.Helpers
             Surname          => _user.AccountDetail.Surname,
             BirthDate        => _user.AccountDetail.BirthDate,
             Role             => _user.AccountRole?.Name,
-            School           => GetSchool(),
             RegistrationDate => _user.AccountDetail.RegistrationDate,
+            School           => await GetSchoolAsync(),
+            Biography        => await GetBiographyAsync().ContinueWith(b => b.Result?.Contents),
 
             _ => null,
         };
 
-        private object GetSchool()
+        private async Task<object> GetSchoolAsync()
         {
-            var school =_dbContext
+            var school = await _dbContext
                 .Schools
-                .Find(_user.AccountDetail.SchoolId);
+                .FindAsync(_user.AccountDetail.SchoolId);
 
             if (school is null)
                 return null;
@@ -63,20 +66,29 @@ namespace Cody.Controllers.Helpers
         }
 
 
-        public void Set(string prop, object val)
+        public async Task SetAsync(string prop, object val)
         {
             var value = val?.ToString();
             switch (prop)
             {
-                case Username:  _user.Username = value;                                  break;
-                case Email:     _user.Email = value;                                     break;
-                case Name:      _user.AccountDetail.Name = value;                        break;
-                case Surname:   _user.AccountDetail.Surname = value;                     break;
-                case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);   break;
-                case School:    _user.AccountDetail.SchoolId = GetNewSchoolValue(value); break;
-                case Role:      SetRole(value);                                          break;
+                case Username:  _user.Username = value;                                     break;
+                case Email:     _user.Email = value;                                        break;
+                case Name:      _user.AccountDetail.Name = value;                           break;
+                case Surname:   _user.AccountDetail.Surname = value;                        break;
+                case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);      break;
+                case School:    _user.AccountDetail.SchoolId = GetNewSchoolValue(value);    break;
+                case Role:      SetRole(value);                                             break;
+                case Biography: await SetBiographyAsync(value);                             break;
             }
         }
+
+        private static int? GetNewSchoolValue(string value)
+        {
+            return string.IsNullOrWhiteSpace(value)
+                ? null
+                : int.Parse(value);
+        }
+
 
         private void SetRole(string value)
         {
@@ -98,11 +110,33 @@ namespace Cody.Controllers.Helpers
                 _dbContext.Roles.Remove(_user.AccountRole);
         }
 
-        private static int? GetNewSchoolValue(string value)
+
+        private async Task SetBiographyAsync(string value)
         {
-            return string.IsNullOrWhiteSpace(value) 
-                ? null 
-                : int.Parse(value);
+            if (value is null) {
+                await MaybeRemoveBiographyAsync();
+                return;
+            }
+
+            var biography = await GetBiographyAsync();
+            _user.AccountDetail.Biography = biography ?? new();
+            _user.AccountDetail.Biography.Contents = value;
+        }
+
+        private async Task MaybeRemoveBiographyAsync()
+        {
+            var biography = await GetBiographyAsync();
+            if (biography is not null)
+                _dbContext.Biographies.Remove(biography);
+        }
+
+        private async Task<UserBiography> GetBiographyAsync()
+        {
+            var biography = await _dbContext
+                .Biographies
+                .SingleOrDefaultAsync(b => b.AccountDetailId == _user.AccountDetail.Id);
+
+            return biography;
         }
     }
 }
