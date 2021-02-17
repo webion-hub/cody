@@ -49,7 +49,7 @@ function Routes(){
         <CustomRoute path='/login' component={Login} to='/' redirect={logged}/>
         <CustomRoute path='/sign-up' component={SignUp} to='/' redirect={logged}/>
         <CustomRoute path='/email-valid' component={EmailValid} />
-        <CustomRoute path='/account' component={Account} to='/' redirect={logged}/>
+        <CustomRoute path='/account' component={Account} to='/' redirect={!logged}/>
         <CustomRoute path='/test' component={Test} to='/'/>
 
         <CustomRoute component={Error404Page} />
