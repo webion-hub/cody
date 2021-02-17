@@ -1,5 +1,4 @@
 import exif from 'exif-js';
-import loadImage from 'blueimp-load-image';
 
 export class ImageOrientation {
 
@@ -8,10 +7,7 @@ export class ImageOrientation {
       const reader = new FileReader();
 
       reader.onloadend = (event) => {
-        loadImage(event.target.result, { orientation: true })
-        .then(data => {
-          resolve(data.image.src);
-        })
+        resolve(event.target.result)
       }
 
       reader.readAsDataURL(file);
@@ -88,8 +84,20 @@ export class ImageOrientation {
 
   fixOrientation = (file) => {
     return new Promise(resolve => {
-      this.readFile(file)
+      const isBrowserSupportingImageOrientation = 
+        CSS.supports("image-orientation","from-image") 
+
+      if(isBrowserSupportingImageOrientation){
+        this.readFile(file)
+          .then(img => resolve(img))        
+      }
+      else
+      {
+        this.readFile(file)
+        .then(this.createImage)
+        .then(res => this.rotate(res))
         .then(blob => resolve(blob))
+      }
     })
   }
 }

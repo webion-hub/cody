@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import exif from 'exif-js';
 
 import { Box } from '@material-ui/core';
 import { Fab } from '@material-ui/core';
