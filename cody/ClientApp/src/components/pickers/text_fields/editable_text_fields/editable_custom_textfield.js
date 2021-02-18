@@ -23,6 +23,8 @@ export function EditableCustomTextField(props){
 	}
 	
 	const handleUndo = () => {
+		console.log("undo")
+
 		setEditMode(false);
 		setValue(props.value);
 		onChange(props.value);
@@ -38,7 +40,7 @@ export function EditableCustomTextField(props){
 	}
 
 	return (
-		<ClickAwayListener onClickAway={handleSubmit}>
+		<ClickAwayListener onClickAway={editMode ? handleSubmit() : () => {}}>
 			<Box mb={props.mb?props.mb : 0} mt={props.mt?props.mt : 0}>
 				{
 					props.loading ? 
@@ -47,14 +49,15 @@ export function EditableCustomTextField(props){
 						<TextField
 							label={props.title}
 							value={value? value : ""}
+							multiline={props.multiline}
 							color="secondary"
 							variant="filled"
 							error={props.error}
 							fullWidth
 							focused={editMode}
 							onChange={handleChange}
-							onKeyDown={(e) => {
-								if (e.key === "Enter") {
+							onKeyDown={(e) => {								
+								if (e.key === "Enter" && !props.disableEnterSubmit) {
 									handleSubmit();
 								}
 							}}
