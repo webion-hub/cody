@@ -78,8 +78,8 @@ export class AddPhoto extends Component{
   }
 
   render(){
-    const iconSize = 40;
-    const imageSize = 100;
+    const iconSize = this.props.iconSize? this.props.iconSize : 40;
+    const imageSize = this.props.imageSize? this.props.imageSize : 100;
 
     const badgeContent = (
       <div>
