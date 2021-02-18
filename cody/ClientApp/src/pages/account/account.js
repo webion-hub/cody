@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Grid, Paper, Typography } from '@material-ui/core';
+import { Box, Grid, Paper } from '@material-ui/core';
 
 import { LoadingButton } from 'src/components/buttons/loading_button'
 import { InfoBox } from './account_components/info_box';
@@ -46,6 +46,8 @@ export function Account(){
         .get('email')
         .get('birthDate')
         .get('school')
+        .get('role')
+        .get('biography')
       .send()
       .then(resp => {
         const got = resp.got;
@@ -56,6 +58,8 @@ export function Account(){
           email: got.get('email'),
           birthDate: new Date(got.get('birthDate')),
           school: got.get('school'),
+          role: got.get('role'),
+          biography: got.get('biography'),
         }
 
         setData(actualData);        
@@ -134,6 +138,7 @@ export function Account(){
               .set('email', data.email)
               .set('birthDate', data.birthDate)
               .set('school', data.school? data.school.id : null)
+              .set('biography', data.biography)
             .send()
             .then(res => {
               if(res.set.length != 0){
@@ -169,43 +174,45 @@ export function Account(){
 			justify="center"
 			alignItems="center"
 		>
-			<div className={classes.box}>
-				<Typography 
-          color="textSecondary" 
-          variant="h5" 
-          className={classes.title}
+      <Paper className={classes.box}>
+        <Grid
+          container
+          direction="row"
+          alignContent="center"
+          justify="center"
+          spacing={2}
         >
-          Il tuo Account
-        </Typography>
-				<Paper 
-					className={classes.mainPaper}
-				>
-					<InfoBox
-            loading={loadingLoad}
-            username={oldData.username}
-            school={oldData.school}
-            onImageChange={getImage}
-          />
-          <DataForms
-            loading={loadingLoad}
-            data={data}
-            oldData={oldData}
-            onDataChange={getData}
-            errors={errors}
-          />
-          <Box 
-            pt={1}
-            textAlign="end"
-          > 
-            <LoadingButton
-              disabled={!(edited || editedImage)}
-              onClick={handleTrySave}
-              loading={loadingSave}
-              label="Salva"
+          <Grid item>
+            <InfoBox
+              loading={loadingLoad}
+              onImageChange={getImage}
+              data={data}
+              oldData={oldData}
+              onDataChange={getData}
             />
-          </Box>
-				</Paper>
-			</div>
+          </Grid>
+          <Grid item>
+            <DataForms
+              loading={loadingLoad}
+              data={data}
+              oldData={oldData}
+              onDataChange={getData}
+              errors={errors}
+            />
+          </Grid>
+        </Grid>
+        <Box 
+          pt={1}
+          textAlign="end"
+        > 
+          <LoadingButton
+            disabled={!(edited || editedImage)}
+            onClick={handleTrySave}
+            loading={loadingSave}
+            label="Salva"
+          />
+        </Box>
+      </Paper>
       <AlertDialog
         open={openAlert}
         onClose={() => setOpenAlert(false)}

@@ -1,12 +1,24 @@
 import React, { useEffect } from 'react';
-import { Box, Grid, Typography, Fade } from '@material-ui/core';
+import { Grid, Typography, Fade } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_custom_textfield'
-import { EditableDatePicker } from './editable_date_picker';
-import { EditableSchoolPicker } from './editable_school_picker';
+import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_text_fields/editable_custom_textfield'
+import { EditableDatePicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_date_picker';
+import { EditableSchoolPicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_school_picker';
+
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+		width: 370,
+		[theme.breakpoints.down('xs')]: {
+			width: `calc(100vw - ${theme.spacing(2)}px)`
+		},
+  },
+}));
 
 export function DataForms(props){
   const [data, setData] = React.useState(undefined);
+	const classes = useStyles();
 
 	useEffect(() => {
 		if(!props.loading && data === undefined)
@@ -26,7 +38,7 @@ export function DataForms(props){
   }
 
 	return (
-		<Box mt={4}>
+		<div className={classes.container}>
 			<EditableCustomTextField
 				loading={props.loading}
 				title="Username" 
@@ -113,9 +125,15 @@ export function DataForms(props){
 				value={props.oldData.school}
 				onChange={getValue("school")}
 				mt={2}
-				mb={1}
 			/>
-		</Box>
+			<EditableCustomTextField 
+				loading={props.loading}
+				title="Ruolo" 
+				value={props.oldData.role} 
+				onChange={getValue("role")}
+				mt={1}
+			/>
+		</div>
 	);
 }
 

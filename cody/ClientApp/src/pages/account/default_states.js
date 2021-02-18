@@ -5,6 +5,8 @@ export const nullData = {
 	email: "",
 	school: null,
 	birthDate: "",
+	role: "",
+	biography: "",
 }
 
 export const noErrors = {

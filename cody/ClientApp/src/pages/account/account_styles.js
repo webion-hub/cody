@@ -6,19 +6,10 @@ export const accountStyles = makeStyles((theme) => ({
     position: "relative"
   },
 	box: {
-		maxWidth: 450,
-		width: "100%",
+    padding: theme.spacing(2),
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
     },
 	},
-	mainPaper: {
-		padding: theme.spacing(2),
-	},
-  title: {
-    [theme.breakpoints.down('xs')]: {
-      textAlign: "center",
-    },
-  }
 }));
