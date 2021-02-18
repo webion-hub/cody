@@ -1,5 +1,4 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import ScrollContainer from 'react-indiana-drag-scroll';
 
 import { Box, Grid, IconButton } from '@material-ui/core'
 import { useTheme } from '@material-ui/core'
@@ -12,35 +11,73 @@ import { getWindowDimensions } from 'src/lib/window_dimensions'
 
 export function CustomScrollContainer(props){
 	const theme = useTheme();
-	const content = useRef();
-	const scroll = useRef();
+	const contentRef = useRef();
+	const scrollRef = useRef();
+
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 	const arrowWidth = 48;
 
-	const [height, setHeight] = React.useState(props.height? props.height : 0);
+	const [childrenHeight, setChildrenHeight] = React.useState(props.height? props.height : 0);
+	const [activeDrag, setActiveDrag] = React.useState(false);
+	const [usingAnotherOne, setUsingAnotherOne] = React.useState(false);
 
+	//on each render
 	useEffect(() => {
-		updateHeight()
+		const noScrollElements = scrollRef.current.querySelectorAll('.noScroll');
+		noScrollElements.forEach.call(noScrollElements, (element) => {
+			element.addEventListener('mousedown', () => {
+				setUsingAnotherOne(true)
+			})
+		})
+		
 	})
+
+	//handle scrollable container reset
+	useEffect(() => {
+		window.addEventListener('mouseup', resetScrollableContainer)
+
+    return () => window.removeEventListener("mouseup", resetScrollableContainer);
+	}, [scrollRef.current])
+
+	//handle scrollable container drag
+	useEffect(() => {
+    if (activeDrag) 
+			window.addEventListener("mousemove", handleDrag);
+
+    return () => window.removeEventListener("mousemove", handleDrag);
+	}, [activeDrag])
+
+	//handle resize
+  useLayoutEffect(() => {
+    window.addEventListener('resize', updateHeight);
+		
+    updateHeight();
+    return () => window.removeEventListener('resize', updateHeight);
+  }, [contentRef.current]);
+
+
+
+	const resetScrollableContainer = () => {
+		setActiveDrag(false)
+		setUsingAnotherOne(false)
+		scrollRef.current.style.cursor = "auto"
+		scrollRef.current.style.userSelect = "auto"
+	}
 
 	const updateHeight = () => {
 		if(getContentExist()){
 			if(!props.height)
-				setHeight(content.current? content.current.offsetHeight : 0);
+				setChildrenHeight(contentRef.current? contentRef.current.offsetHeight : 0);
 			else
-				setHeight(props.height);
+				setChildrenHeight(props.height);
 		}
 	}
 
-  useLayoutEffect(() => {
-    window.addEventListener('resize', updateHeight);
-    updateHeight();
-    return () => window.removeEventListener('resize', updateHeight);
-  }, [content.current]);
 
+	
 	const getContentExist = () => {
-		return content.current !== null 
-			&& content.current !== undefined
+		return contentRef.current !== null 
+			&& contentRef.current !== undefined
 	}
 
 	const getScrollStep = () => { 
@@ -48,26 +85,29 @@ export function CustomScrollContainer(props){
 		const elementsPadding = props.elementsPadding? props.elementsPadding : 0
 		return getWindowDimensions().width - arrowsWidth + elementsPadding;
 	}
-	
-	const scrollTo = (direction) => {
+
+
+
+	//Handlers
+	const handleScrollTo = (direction) => {
 		if(getContentExist()){
-			const position = scroll.current.scrollLeft/getScrollStep();
+			const position = scrollRef.current.scrollLeft/getScrollStep();
 			const relativePosition = position - Math.floor(position)
 
 			if(direction === "next"){
-					scroll.current.scrollTo({
+					scrollRef.current.scrollTo({
 					left: Math.floor(position + 1) * getScrollStep(),
 					behavior: 'smooth'
 				})
 			}
 			if(direction === "back"){
 				if(relativePosition === 0)
-					scroll.current.scrollTo({
+					scrollRef.current.scrollTo({
 						left: Math.floor(position - 1) * getScrollStep(),
 						behavior: 'smooth'
 					})			
 				else
-					scroll.current.scrollTo({
+					scrollRef.current.scrollTo({
 						left: Math.floor(position) * getScrollStep(),
 						behavior: 'smooth'
 					})	
@@ -75,46 +115,49 @@ export function CustomScrollContainer(props){
 		}
 	}
 
+	let oldPosition = 0;
+	const handleDrag = (event) => {
+		if(!usingAnotherOne){
+			scrollRef.current.style.cursor = "grab"
+			scrollRef.current.style.userSelect = "none"
+	
+			if(oldPosition == 0)
+				oldPosition = event.pageX;
+			const step = event.pageX - oldPosition
+			scrollRef.current.scrollLeft -= step
+	
+			oldPosition = event.pageX
+		}
+	}
 
 
-	const contentWithoutScrollBar = 
+	//create content
+	const content = 
 		<div
 			style={{
 				overflow: "hidden",
-				height: height,
+				height: childrenHeight,
 			}}
 		>
 			<div
-				ref={scroll}
+				onMouseDown={() => setActiveDrag(true)}
+				ref={scrollRef}
+				className={"noScroll"}
 				style={{
 					overflow: "scroll",
 					overflowY: "hidden",
-					height: height + 5,
+					height: childrenHeight + 5,
 				}}
 			>
 				<div
-					ref={content}
+					ref={contentRef}
 				>
 					{props.children}
 				</div>
 			</div>
 		</div>
-
-	const contentWithScrollBar = 
-		<div 
-			ref={scroll}
-			style={{overflow: "auto"}}
-		>
-			{props.children}
-		</div>
 		
-	const mobileContent = 
-		props.hideScrollbars ? 
-			contentWithoutScrollBar
-			:
-			contentWithScrollBar
-
-	const mobileContentWithArrows = 
+	const contentWithArrows = 
 		<Grid
 			container
 			direction="row"
@@ -122,15 +165,15 @@ export function CustomScrollContainer(props){
 			alignItems="center"
 		>
 			<IconButton
-				onClick={() => scrollTo("back")}
+				onClick={() => handleScrollTo("back")}
 			>
 				<ArrowBackIosRoundedIcon/>
 			</IconButton>
 			<Box width="calc(100vw - 96px)">
-				{mobileContent}
+				{content}
 			</Box>
 			<IconButton
-				onClick={() => scrollTo("next")}
+				onClick={() => handleScrollTo("next")}
 				>
 				<ArrowForwardIosRoundedIcon/>
 			</IconButton>
@@ -139,17 +182,8 @@ export function CustomScrollContainer(props){
 	return (
 		<>
 			{
-				mobileView ?
-					props.arrows ? 
-						mobileContentWithArrows : mobileContent		
-				:
-				<ScrollContainer
-					hideScrollbars={props.hideScrollbars}
-					ignoreElements=".noScroll"
-					nativeMobileScroll
-				>
-					{props.children}
-				</ScrollContainer>
+				props.arrows && mobileView ? 
+					contentWithArrows : content	
 			}
 		</>
 
