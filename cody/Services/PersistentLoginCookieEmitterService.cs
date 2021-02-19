@@ -47,7 +47,7 @@ namespace Cody.Services
                 Salt = cookie.Salt,
             };
 
-            await _dbContext.LoginCookies.AddAsync(userCookie);
+            _dbContext.LoginCookies.Add(userCookie);
             await _dbContext.SaveChangesAsync();
 
             _logger.LogInformation("Created login cookie - {Cookie}", userCookie);
