@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Cody.Security.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -13,32 +14,12 @@ namespace Cody.Extensions
 {
     public static class HttpContextExtension
     {
-        private const string DEFAULT_SCHEME = CookieAuthenticationDefaults.AuthenticationScheme;
-
-
         public static async Task SignInAsync(this HttpContext context, UserAccount user)
         {
-            var claims = new[] 
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-            };
-
-            var claimsIdentity = new ClaimsIdentity(claims, DEFAULT_SCHEME);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-            var props = new AuthenticationProperties
-            {
-                AllowRefresh = true,
-                IsPersistent = true,
-                ExpiresUtc = DateTime.Now.AddMinutes(1),
-            };
-
             await context.SignInAsync(
-                DEFAULT_SCHEME,
-                claimsPrincipal,
-                props
+                scheme: LoginManager.DEFAULT_SCHEME,
+                principal: LoginManager.GetPrincipalFor(user),
+                properties: LoginManager.DefaultAuthProperties
             );
         }
 
