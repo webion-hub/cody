@@ -22,7 +22,7 @@ export class ProfilePicture {
 
     return axios
       .request({
-        url: 'profile_picture',
+        url: 'user/profile_picture',
         method: 'PUT',
         data: formData,
         headers: {
@@ -36,7 +36,7 @@ export class ProfilePicture {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async delete() {
-    return axios.delete('profile_picture');
+    return axios.delete('user/profile_picture');
   }
 }
 

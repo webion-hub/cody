@@ -83,7 +83,7 @@ export function UserAvatarIcon(){
         >
           <CustomAvatar
             alt={username}
-            src="profile_picture" 
+            src="user/profile_picture" 
             onLoad={() => setLoadingAvatar(false)} 
             onError={() => setLoadingAvatar(false)}
           />
