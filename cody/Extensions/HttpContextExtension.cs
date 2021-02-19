@@ -32,7 +32,7 @@ namespace Cody.Extensions
             {
                 AllowRefresh = true,
                 IsPersistent = true,
-                ExpiresUtc = DateTime.Now.AddMinutes(20),
+                ExpiresUtc = DateTime.Now.AddMinutes(1),
             };
 
             await context.SignInAsync(
