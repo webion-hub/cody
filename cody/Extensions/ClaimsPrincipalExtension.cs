@@ -14,14 +14,15 @@ namespace Cody.Extensions
         public static async Task<UserAccount> FetchFromDbAsync(this ClaimsPrincipal claim, CodyContext dbContext)
         {
             var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = int.Parse(rawId);
+            if (!int.TryParse(rawId, out int userId))
+                return null;
 
             return await dbContext
                 .UserAccounts
                 .Include(u => u.AccountDetail)
                 .Include(u => u.AccountState)
                 .Include(u => u.AccountRole)
-                .FirstAsync(u => u.Id == userId);
+                .FirstOrDefaultAsync(u => u.Id == userId);
         }
     }
 }
