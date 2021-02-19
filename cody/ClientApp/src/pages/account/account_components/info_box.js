@@ -50,7 +50,7 @@ export function InfoBox(props){
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
   const smallestView = useMediaQuery(theme.breakpoints.down(360));
 	const classes = useStyles();
-  const [image, setImage] = React.useState("profile_picture");
+  const [image, setImage] = React.useState("user/profile_picture");
   const [data, setData] = React.useState(undefined);
   const {onImageChange} = props;
 
@@ -72,7 +72,7 @@ export function InfoBox(props){
   }
 
   const getImage = (value) => {
-    if(value !== "profile_picture"){
+    if(value !== "user/profile_picture"){
       setImage(value);
       onImageChange(value); 
     }
@@ -105,7 +105,7 @@ export function InfoBox(props){
           >
             {
               props.loading ? 
-                <Skeleton width={180} animation="wave" variant="rect"/>
+                <Skeleton width={200} animation="wave" variant="rect"/>
                 :
                 <>
                   <AccountCircleRoundedIcon className={classes.iconMargin}/>
@@ -128,7 +128,7 @@ export function InfoBox(props){
               >
                 {
                   props.loading ? 
-                    <Skeleton width={180} animation="wave" variant="rect"/>
+                    <Skeleton width={200} animation="wave" variant="rect"/>
                     :
                     <>
                       <SchoolRoundedIcon className={classes.iconMargin}/>
@@ -161,7 +161,7 @@ export function InfoBox(props){
               >
                 {
                   props.loading ? 
-                    <Skeleton width={180} animation="wave" variant="rect"/>
+                    <Skeleton width={200} animation="wave" variant="rect"/>
                     :
                     <>
                       <HighlightOffRoundedIcon className={classes.iconMargin}/>

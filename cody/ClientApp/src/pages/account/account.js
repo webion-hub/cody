@@ -29,7 +29,7 @@ export function Account(){
   //Data & image
   const [oldData, setOldData] = React.useState(nullData);
   const [data, setData] = React.useState(nullData);
-  const [image, setImage] = React.useState("profile_picture");
+  const [image, setImage] = React.useState("user/profile_picture");
 
   //Errors
   const [errors, setErrors] = React.useState(noErrors);
@@ -74,7 +74,7 @@ export function Account(){
    */
 
   const getImage = (value) => {
-    if(value !== "profile_picture"){
+    if(value !== "user/profile_picture"){
       setImage(value);
       setEditedImage(true);
     }
@@ -149,7 +149,7 @@ export function Account(){
               }
               else {
                 //No errors during saving
-                if(image !== "profile_picture" && image !== null)
+                if(image !== "user/profile_picture" && image !== null)
                   updateProfilePic()
                 else if(image === null)
                   deleteProfilePic()
