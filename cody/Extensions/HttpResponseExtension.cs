@@ -22,8 +22,9 @@ namespace Cody.Extensions
 
         public static void DeleteLoginCookies(this HttpResponse response)
         {
-            response.Cookies.Delete(PersistentLoginCookies.ID);
-            response.Cookies.Delete(PersistentLoginCookies.TOKEN);
+            new PersistentLoginCookies {
+                Response = response
+            }.Delete();
         }
     }
 }

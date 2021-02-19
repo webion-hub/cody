@@ -14,9 +14,7 @@ namespace Cody.Extensions
             token = cookies.Token;
             cookieId = cookies.Id ?? 0;
 
-            return
-                cookies.IsIdValid &&
-                cookies.IsTokenValid;
+            return cookies.AreValid;
         }
     }
 }
