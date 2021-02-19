@@ -8,8 +8,8 @@ namespace Cody.Security
 {
     public abstract class InDbAuthCookies
     {
-        public string IdName { get; init; }
-        public string TokenName { get; init; }
+        protected readonly string _idName;
+        protected readonly string _tokenName;
 
         public HttpRequest Request { get; set; }
         public HttpResponse Response { get; set; }
@@ -17,27 +17,27 @@ namespace Cody.Security
 
         protected InDbAuthCookies(string idName, string tokenName)
         {
-            IdName = idName;
-            TokenName = tokenName;
+            _idName = idName;
+            _tokenName = tokenName;
         }
 
 
         public int? Id
         {
-            get => int.TryParse(Request.Cookies[IdName], out var cookieId)
+            get => int.TryParse(Request.Cookies[_idName], out var cookieId)
                 ? cookieId
                 : null;
 
             set => Response
                 .Cookies
-                .Append(IdName, value.ToString());
+                .Append(_idName, value.ToString());
         }
 
 
         public string Token
         {
-            get => Request.Cookies[TokenName];
-            set => Response.Cookies.Append(TokenName, value, new()
+            get => Request.Cookies[_tokenName];
+            set => Response.Cookies.Append(_tokenName, value, new()
             {
                 HttpOnly = true,
                 Secure = true,
@@ -48,8 +48,8 @@ namespace Cody.Security
 
         public void Delete()
         {
-            Response.Cookies.Delete(IdName);
-            Response.Cookies.Delete(TokenName);
+            Response.Cookies.Delete(_idName);
+            Response.Cookies.Delete(_tokenName);
         }
 
 

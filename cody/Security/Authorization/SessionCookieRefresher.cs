@@ -12,6 +12,8 @@ namespace Cody.Security.Authorization
     public class SessionCookieRefresher
     {
         private readonly CookieValidatePrincipalContext _cookieContext;
+        private readonly SessionRefreshCookies _cookies;
+        
         private HttpRequest Request => _cookieContext.Request;
         private HttpResponse Response => _cookieContext.Response;
 
@@ -24,6 +26,10 @@ namespace Cody.Security.Authorization
         public SessionCookieRefresher(CookieValidatePrincipalContext cookieContext)
         {
             _cookieContext = cookieContext;
+            _cookies = new SessionRefreshCookies {
+                Request = Request,
+                Response = Response,
+            };
         }
 
 
@@ -50,25 +56,18 @@ namespace Cody.Security.Authorization
 
             if (user is not null)
                 return;
-
-            if (Request.Cookies.ContainsKey("refresh_token"))
-                ;
         }
 
         private void MaybeGenerateRefreshToken()
         {
-            if (Request.Cookies.ContainsKey("refresh_token"))
+            if (_cookies.Id is not null)
                 return;
 
             var token = UniqueToken.Create();
-            var plain = Convert.ToBase64String(token.PlainTextToken);
+            var plain = token.Base64PlainTextToken;
 
-            Response.Cookies.Append("refresh_token", plain, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
-            });
+            _cookies.Id = 0x000000!;
+            _cookies.Token = plain;
         }
     }
 }

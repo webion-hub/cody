@@ -8,6 +8,7 @@ namespace Cody.Security
 {
     public class UniqueToken
     {
+        public string Base64PlainTextToken => Convert.ToBase64String(PlainTextToken);
         public byte[] PlainTextToken { get; init; }
         public byte[] HashedToken { get; init; }
         public byte[] Salt { get; init; }
