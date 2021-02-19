@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
 {
-    [Route("Admin/Users")]
+    [Route("admin/users")]
     [ApiController]
     [Authorize(Roles = Roles.Admin)]
     public class UsersController : ControllerBase
