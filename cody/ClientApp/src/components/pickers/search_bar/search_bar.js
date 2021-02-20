@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Link, Paper } from '@material-ui/core';
@@ -40,22 +40,16 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto"
   },
   chipsBox: {
-    maxWidth: 500,
     opacity: 0,
-    top: 0,
     zIndex: -1,
     transition: "0.2s all",
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: "50vw",
-    },
     [theme.breakpoints.down('xs')]: {
-      maxWidth: 500,
       transform: "translate(0, 50px)",
       top: "auto",
     },
   },
   chipsBoxAnimate: {
-    top: 50,
+    transform: "translate(0, 50px)",
     opacity: 1,
     zIndex: -1,
     [theme.breakpoints.down('xs')]: {
@@ -74,9 +68,24 @@ const useStyles = makeStyles((theme) => ({
 
 export function SearchBar(props) {
   const classes = useStyles();
+	const searchBarRef = useRef();
+
   const [open, setOpen] = React.useState(false);
   const [languageSelected, setLanguageSelected] = React.useState(null);
   const [showFavorite, setShowFavorite] = React.useState(false);
+  const [searchBarWidth, setSearchBarWidth] = React.useState(0);
+
+  useLayoutEffect(() => {
+    window.addEventListener('resize', updateWidth);
+		
+    updateWidth();
+    return () => window.removeEventListener('resize', updateWidth);
+  }, [searchBarRef.current]);
+
+  const updateWidth = () => {
+    if(searchBarRef.current !== undefined)
+      setSearchBarWidth(searchBarRef.current.offsetWidth)
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -103,7 +112,11 @@ export function SearchBar(props) {
         alignItems="center"
         className={classes.searchBarBox}
       >
-        <Paper component="form" className={classes.root}>
+        <Paper 
+          ref={searchBarRef}
+          component="form"
+          className={classes.root}
+        >
           {
             <TouchableTooltip 
               title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
@@ -151,7 +164,7 @@ export function SearchBar(props) {
         </Paper>
         <Box 
           position="absolute"          
-          width={1}
+          width={searchBarWidth}
           className={`
             ${classes.chipsBox}
             ${showFavorite ?
