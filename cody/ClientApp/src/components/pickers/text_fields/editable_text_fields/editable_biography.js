@@ -10,7 +10,7 @@ export function EditableBiography(props){
 
 	const [value, setValue] = React.useState(props.value);
 	const [tempValue, setTempValue] = React.useState(props.value);
-  const maxCharacters = 75;
+  const maxCharacters = 64;
   const error = tempValue.length > maxCharacters;
 
 	const {onChange} = props;
