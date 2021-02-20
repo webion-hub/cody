@@ -11,5 +11,5 @@ CREATE TABLE user_biography
 	
 	contents text 
 		CONSTRAINT contents_length 
-		CHECK (char_length(contents) <= 128)
+		CHECK (char_length(contents) <= 64)
 )
