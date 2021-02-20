@@ -13,7 +13,7 @@ namespace Cody.Models
         public int AccountDetailId { get; set; }
         public UserAccountDetail AccountDetail { get; set; }
 
-        [MaxLength(128)]
+        [MaxLength(64)]
         public string Contents { get; set; }
     }
 }
