@@ -21,7 +21,7 @@ export function NotificationsIcon(){
   
   return (
     <InteractiveIconBase
-      loggedChildren={
+      loggedContent={
         <TouchableTooltip
           arrow
           title="Notifiche"

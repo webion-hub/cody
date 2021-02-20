@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, Link, Button, TextField } from '@material-ui/core';
+import { Grid, Typography, Link, Button, TextField, Paper } from '@material-ui/core';
 import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { Reading } from 'src/components/illustrations/reading'
@@ -11,7 +11,9 @@ export function EditableBiography(props){
 	const [value, setValue] = React.useState(props.value);
 	const [tempValue, setTempValue] = React.useState(props.value);
   const maxCharacters = 64;
-  const error = tempValue.length > maxCharacters;
+  const currentCharacters = tempValue? tempValue.length : 0;
+  const noBiography = currentCharacters === 0;
+  const error = currentCharacters > maxCharacters;
 
 	const {onChange} = props;
 	
@@ -48,14 +50,14 @@ export function EditableBiography(props){
       <Typography
         variant="caption"
       >
-        {"Descrizione - "}
+        {noBiography ? "Nessuna Biografia - " : "Biografia - "}
         <Link
           color="secondary"
           component="button"
           variant="caption"
           onClick={handleEdit}
         >
-          Modifica
+          {noBiography ? "Aggiungi" : "Modifica"}
         </Link>
       </Typography>
       <Typography
@@ -109,7 +111,7 @@ export function EditableBiography(props){
           variant="caption"
           color={error ? "error" : "textSecondary"}
         >
-          {tempValue.length}/{maxCharacters}
+          {currentCharacters}/{maxCharacters}
         </Typography>
       </DialogBase>
     </div>

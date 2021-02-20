@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Grid, Typography, Link, Paper } from '@material-ui/core';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { Grid, Typography, Link, Paper, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -17,10 +17,10 @@ import { EditableBiography } from 'src/components/pickers/text_fields/editable_t
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
-    background: theme.palette.background.paperDark,
+    background: theme.palette.background.paper,
     height: "100%",
     [theme.breakpoints.down('xs')]: {
-      width: `calc(100vw - ${theme.spacing(2)}px)`,
+      width: `calc(100vw - ${theme.spacing(4)}px)`,
     },
   },
 	iconMargin: {
@@ -31,32 +31,48 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginLeft: theme.spacing(2),
     },
-    [theme.breakpoints.down(360)]: {
-      marginLeft: 0,
-      marginTop: theme.spacing(2)
-    },
   },
   deleteProfilePic: {
     maxWidth: 200,
   },
   biography: {
     paddingTop: theme.spacing(4),
-    maxWidth: 340,
+    width: "100%"
+    //maxWidth: 340,
+  },
+  biographyPaper: {
+    padding: theme.spacing(1),
+    background: theme.palette.background.backgroundTransparent,
   }
 }));
 
 export function InfoBox(props){
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-  const smallestView = useMediaQuery(theme.breakpoints.down(360));
+
 	const classes = useStyles();
-  const [image, setImage] = React.useState("user/profile_picture");
+  const [image, setImage] = React.useState(props.defaultImage);
   const [data, setData] = React.useState(undefined);
+  const [screenWidth, setScreenWidth] = React.useState(0);
+
   const {onImageChange} = props;
+
+  const flowingTextMobileMaxWidth = screenWidth - 196
+  
+  useLayoutEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    updateWidth();
+    return () => window.removeEventListener('resize', updateWidth);
+
+  }, []);
+	
+  const updateWidth = () => {
+		setScreenWidth(window.innerWidth);
+	}
 
 	useEffect(() => {
 		if(!props.loading && data === undefined)
-    setData(props.data)
+      setData(props.data)
 	})
 
   const getValue = (dataName) => (value) => {	
@@ -72,10 +88,8 @@ export function InfoBox(props){
   }
 
   const getImage = (value) => {
-    if(value !== "user/profile_picture"){
-      setImage(value);
-      onImageChange(value); 
-    }
+    setImage(value);
+    onImageChange(value); 
   }
 
   const handleDelete = () => {
@@ -87,8 +101,8 @@ export function InfoBox(props){
     <Paper className={classes.paper}>
       <Grid
         container
-        direction={smallestView ? "column" : "row"}
-        alignItems={mobileView ? "flex-start" : "center"}
+        direction={"row"}
+        alignItems={"center"}
       >
         <AddPhoto
           alt={props.oldData.username}
@@ -105,13 +119,17 @@ export function InfoBox(props){
           >
             {
               props.loading ? 
-                <Skeleton width={200} animation="wave" variant="rect"/>
+                <Skeleton 
+                  width={mobileView? flowingTextMobileMaxWidth: 200} animation="wave" variant="rect"
+                />
                 :
                 <>
                   <AccountCircleRoundedIcon className={classes.iconMargin}/>
                   <FlowingText
-                    containerWidth={200}
-                    background={theme.palette.background.paperDark}
+                    containerWidth={
+                      mobileView? flowingTextMobileMaxWidth: 200
+                    }
+                    background={theme.palette.background.paper}
                     variant="h5"
                   >
                     {props.oldData.username}
@@ -128,13 +146,17 @@ export function InfoBox(props){
               >
                 {
                   props.loading ? 
-                    <Skeleton width={200} animation="wave" variant="rect"/>
+                    <Skeleton 
+                      width={mobileView? flowingTextMobileMaxWidth: 200} animation="wave" variant="rect"
+                    />
                     :
                     <>
                       <SchoolRoundedIcon className={classes.iconMargin}/>
                       <FlowingText
-                        containerWidth={200}
-                        background={theme.palette.background.paperDark}
+                        containerWidth={
+                          mobileView? flowingTextMobileMaxWidth: 200
+                        }
+                        background={theme.palette.background.paper}
                         variant="h6"
                       >
                         {`${props.oldData.school.name} - ${props.oldData.school.city}`}
@@ -161,11 +183,22 @@ export function InfoBox(props){
               >
                 {
                   props.loading ? 
-                    <Skeleton width={200} animation="wave" variant="rect"/>
+                    <Skeleton 
+                      width={mobileView? flowingTextMobileMaxWidth: 200} animation="wave" variant="rect"
+                    />
                     :
                     <>
-                      <HighlightOffRoundedIcon className={classes.iconMargin}/>
-                      Elimina immagine profilo.
+
+                      <HighlightOffRoundedIcon className={classes.iconMargin}/>                      
+                      <FlowingText
+                        containerWidth={
+                          mobileView? flowingTextMobileMaxWidth: 200
+                        }
+                        background={theme.palette.background.paper}
+                        variant="caption"
+                      >
+                        Elimina immagine profilo.
+                      </FlowingText>
                     </>
                 }
               </Grid>
@@ -174,20 +207,22 @@ export function InfoBox(props){
         </div>
       </Grid>
       <div className={classes.biography}>
-        {
-          props.loading? 
-            <>
-              <Skeleton width="100%" animation="wave"/>
-              <Skeleton width="100%" animation="wave"/>
-              <Skeleton width="100%" animation="wave"/>
-            </>
-            :
-            <EditableBiography
-              title="Cambia biografia"
-              value={props.oldData.biography}
-              onChange={getValue("biography")}
-            />
-        }
+        <Paper className={classes.biographyPaper}>
+          {
+            props.loading? 
+              <>
+                <Skeleton width="100%" animation="wave"/>
+                <Skeleton width="100%" animation="wave"/>
+                <Skeleton width="100%" animation="wave"/>
+              </>
+              :
+              <EditableBiography
+                title="Cambia biografia"
+                value={props.oldData.biography}
+                onChange={getValue("biography")}
+              />
+          }
+        </Paper>
       </div>
     </Paper>
 	);

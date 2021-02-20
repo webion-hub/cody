@@ -75,7 +75,9 @@ export function DynamicSearchBar(){
       className={classes.searchBar} 
       ref={searchBarRef}
     >
-      <SearchBar/>
+      <SearchBar
+        disableTooltipsOnMobile
+      />
     </div>
   );
 }

@@ -46,11 +46,17 @@ export function CustomizableMenu(props){
     setFadeAppBarSection
   };
   
-  const leftAppbar = customMenuSection.appBar.left ? customMenuSection.appBar.left : appBarSections.left;
-  const centerAppbar = customMenuSection.appBar.center ? customMenuSection.appBar.center : appBarSections.center;
-  const rightAppbar = customMenuSection.appBar.right ? customMenuSection.appBar.right : appBarSections.right;
+  const leftAppbar = customMenuSection.appBar.left ? 
+    customMenuSection.appBar.left : appBarSections.left;
 
-  const sideBar = customMenuSection.sideBar ? customMenuSection.sideBar : sideBarSections;
+  const centerAppbar = customMenuSection.appBar.center ? 
+    customMenuSection.appBar.center : appBarSections.center;
+
+  const rightAppbar = customMenuSection.appBar.right ? 
+    customMenuSection.appBar.right : appBarSections.right;
+
+  const sideBar = customMenuSection.sideBar ? 
+    customMenuSection.sideBar : sideBarSections;
 
   return (
     <CustomizableMenuContext.Provider value={value}>

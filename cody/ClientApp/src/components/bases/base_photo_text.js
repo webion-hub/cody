@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  flip: {
+  flipImage: {
     transform: "scaleX(-1)",
   },
 }));
@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
 export function BasePhotoText(props) {
   const classes = useStyles();
 
-  const items = props.items;
-  const getItems = items.map((item, index) => 
+  const propsItems = props.items;
+  const items = propsItems.map((item, index) => 
     <Box 
       key={index}
       mb={props.margin}
@@ -32,7 +32,7 @@ export function BasePhotoText(props) {
         justify="center"
         alignItems="center"
       >
-        <div className={props.flipImage ? classes.flip : null}>
+        <div className={props.flipImage ? classes.flipImage : null}>
           {props.image}
         </div>        
         <Box maxWidth={props.formWidth}>
@@ -45,7 +45,7 @@ export function BasePhotoText(props) {
             <Box
               maxWidth={props.formWidth}
             >
-              {getItems}
+              {items}
             </Box>
           </Grid>
         </Box>

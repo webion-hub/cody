@@ -8,7 +8,7 @@ import { DialogTitle } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  dialog: {
+  dialogContainer: {
     [theme.breakpoints.up('sm')]: {
       transform: `translate(${theme.drawer.width / 2}px, 0px)`
     },
@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
 export function DialogBase(props){
   const classes = useStyles();
 
+  const buttons = 
+    <>
+      {props.firstButton}
+      {props.secondButton}
+    </>
+
   return(
     <Dialog
       maxWidth="xl"
@@ -28,17 +34,22 @@ export function DialogBase(props){
       onClose={props.onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      classes={{paper: classes.dialog}}
+      classes={{paper: classes.dialogContainer}}
     >
-      <DialogTitle style={{textAlign: props.titleAlign}} id="alert-dialog-title" className={classes.title}>
+      <DialogTitle
+        style={{
+          textAlign: props.titleAlign
+        }} 
+        id="alert-dialog-title" 
+        className={classes.title}
+      >
         {props.title}
       </DialogTitle>
       <DialogContent>
         {props.children}
       </DialogContent>
       <DialogActions>
-        {props.firstButton}
-        {props.secondButton}
+        {buttons}
       </DialogActions>
     </Dialog>
   );

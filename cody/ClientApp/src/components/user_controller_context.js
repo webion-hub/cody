@@ -15,7 +15,7 @@ export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
   const state = sessionStorage.getItem('logged');
-  const logged = JSON.parse(state);
+  const logged = JSON.parse(state)? JSON.parse(state) : false;
   const [loading, setLoading] = React.useState(true);
   const [loggedWithCookie, setLoggedWithCookie] = React.useState(false);
 

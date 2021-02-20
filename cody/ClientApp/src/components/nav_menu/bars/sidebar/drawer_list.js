@@ -9,16 +9,19 @@ import { ListItemAvatar } from '@material-ui/core';
 
 export function GetDrawerList(props){
   
-  function createListItems(sections){
+  const createListItems = (sections) => {
     if(sections === null)
       return null;
+      
     return sections.map((elements, index) => (
       <div key={index}>
         <List>
           {elements.map((element, innerIndex) => (
             <div key={index * 10 + innerIndex}>
               {
-                element.showAlways ? null : (
+                element.showAlways ? 
+                  null
+                  :
                   <CustomListItem                   
                     padding={element.padding}
                     href={element.href}
@@ -50,8 +53,7 @@ export function GetDrawerList(props){
                       primary={element.label} 
                       className={props.classes.listText}
                     />
-                  </CustomListItem>
-                )
+                  </CustomListItem>                
               }
             </div>
           ))}

@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Button } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
@@ -21,192 +21,180 @@ import PublicRoundedIcon from '@material-ui/icons/PublicRounded';
 import { Graduation } from 'src/components/illustrations/graduation';
 import { Form } from 'src/lib/default_values/sizes/form_size';
 
-export class AddSchoolDialog extends Component {
-  constructor(props){
-    super(props);
-    this.handleClose = this.handleClose.bind(this);
-    this.passSchool = this.passSchool.bind(this);
+export function AddSchoolDialog(props){
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false); 
+  const [school, setSchool] = React.useState({
+    id: null,
+    name: "",
+    city: "",
+    country: "",
+  });
 
-    this.state = {
-      id: null,
-      name: "",
-      city: "",
-      country: "",
+  const nextFocus = new NextFocus(["name","city","country"]);
 
-      loading: false,
-      error: false,
-    }    
-
-    this.nextFocus = new NextFocus(["name","city","country"]);
-  }
-
-  disableButton(){
-    const emptyName = this.state.name === ""
-    const emptyCity = this.state.city === ""
-    const emptyCountry = this.state.country === ""
+  const isDisabledButton = () => {
+    const emptyName = school.name === ""
+    const emptyCity = school.city === ""
+    const emptyCountry = school.country === ""
 
     return emptyName || emptyCity || emptyCountry;
   }
   
-  handleClose(){
-    const {onClose} = this.props;
+  const handleClose = () => {
+    const {onClose} = props;
     onClose(false);
   }
 
-  handleChange = (prop) => (event) => {
-    this.setState({[prop]: event.target.value});
+  const handleChange = (dataName) => (event) => {
+    setSchool({
+      ...school,
+      [dataName]: event.target.value
+    });
   }  
 
-  tryAddSchool(){
-    this.setState({
-      error: false,
-      loading: true,
-    })
+  const tryAddSchool = () => {
+    setError(false);
+    setLoading(true);
+
     School.createNew({
       school: {
-        name: this.state.name,
-        city: this.state.city,
-        country: this.state.country,
+        name: school.name,
+        city: school.city,
+        country: school.country,
       },
       onError: existingId => {
-        this.setState({
-          error: true,
-          loading: false,
-        })
+        setError(true);
+        setLoading(false);
       },
       onSuccess: newId => {
-        this.setState({
-          loading: false,
-          id: newId,
-        });
-        this.passSchool();
-        this.handleClose();
+        setLoading(false);
+        setSchool({
+          ...school,
+          id: newId
+        })
+
+        submitSchool();
+        handleClose();
       },
     })
   }
 
-  passSchool(){
-    const {school} = this.props;
-    school({
-      id: this.state.id,
-      name: this.state.name,
-      city: this.state.city,
-      country: this.state.country,
-    }); 
+  const submitSchool = () => {
+    const {onSchoolChange} = props;
+    onSchoolChange(school); 
   }
 
-  render(){
-    return(
-      <DialogBase
-        open={this.props.open}
-        onClose={this.handleClose}
-        title="Aggiungi il tuo istituto"
-        firstButton={
-          <Button
-            onClick={this.handleClose}
-            color="secondary"
-            disabled={this.state.loading}
-          >
-            Chiudi
-          </Button>
-        }
-        secondButton={
-          <LoadingButton
-            loading={this.state.loading}
-            label="Aggiungi"
-            disabled={this.disableButton()}
-            onClick={_ => {
-              this.tryAddSchool();
-            }}
-          />
-        }
-      >
-        <BasePhotoText
-          image={<Graduation size={Form.imageWidth}/>}
-          formWidth={Form.width}
-          margin={1}
-          items={[
-            <TextField
-              id="school_name"
-              label="Nome Istituto"
-              variant="outlined"
-              color="secondary"
-              inputRef={this.nextFocus.getInput("name")} 
-              fullWidth={true}   
-              error={this.state.error}
-              onChange={this.handleChange('name')}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  this.nextFocus.focusOn("city");
-                }
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SchoolRoundedIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />,
-            <TextField
-              id="school_city"
-              label="Città"
-              variant="outlined"
-              color="secondary"
-              inputRef={this.nextFocus.getInput("city")} 
-              fullWidth={true}   
-              error={this.state.error} 
-              onChange={this.handleChange('city')}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  this.nextFocus.focusOn("country");
-                }
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LocationCityRoundedIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />,
-            <Box>
-              <TextField
-                id="school_county"
-                label="Stato"
-                variant="outlined"
-                color="secondary"
-                inputRef={this.nextFocus.getInput("country")}
-                fullWidth={true}
-                error={this.state.error}
-                onChange={this.handleChange('country')}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    this.nextFocus.removeFocus();
-                  }
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PublicRoundedIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Fade
-                in={this.state.error}
-              >
-                <Typography
-                  variant="caption"
-                  color="error"
-                >
-                  Scuola già inserita!
-                </Typography>
-              </Fade>
-            </Box>
-          ]}
+  return(
+    <DialogBase
+      open={props.open}
+      onClose={handleClose}
+      title="Aggiungi il tuo istituto"
+      firstButton={
+        <Button
+          onClick={handleClose}
+          color="secondary"
+          disabled={loading}
+        >
+          Chiudi
+        </Button>
+      }
+      secondButton={
+        <LoadingButton
+          loading={loading}
+          label="Aggiungi"
+          disabled={isDisabledButton()}
+          onClick={_ => {
+            tryAddSchool();
+          }}
         />
-      </DialogBase>
-    )
-  }
+      }
+    >
+      <BasePhotoText
+        image={<Graduation size={Form.imageWidth}/>}
+        formWidth={Form.width}
+        margin={1}
+        items={[
+          <TextField
+            id="school_name"
+            label="Nome Istituto"
+            variant="outlined"
+            color="secondary"
+            inputRef={nextFocus.getInput("name")} 
+            fullWidth={true}   
+            error={error}
+            onChange={handleChange('name')}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                nextFocus.focusOn("city");
+              }
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SchoolRoundedIcon />
+                </InputAdornment>
+              ),
+            }}
+          />,
+          <TextField
+            id="school_city"
+            label="Città"
+            variant="outlined"
+            color="secondary"
+            inputRef={nextFocus.getInput("city")} 
+            fullWidth={true}   
+            error={error} 
+            onChange={handleChange('city')}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                nextFocus.focusOn("country");
+              }
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationCityRoundedIcon />
+                </InputAdornment>
+              ),
+            }}
+          />,
+          <Box>
+            <TextField
+              id="school_county"
+              label="Stato"
+              variant="outlined"
+              color="secondary"
+              inputRef={nextFocus.getInput("country")}
+              fullWidth={true}
+              error={error}
+              onChange={handleChange('country')}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  nextFocus.removeFocus();
+                }
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PublicRoundedIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Fade
+              in={error}
+            >
+              <Typography
+                variant="caption"
+                color="error"
+              >
+                Scuola già inserita!
+              </Typography>
+            </Fade>
+          </Box>
+        ]}
+      />
+    </DialogBase>
+  )
 }

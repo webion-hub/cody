@@ -132,7 +132,7 @@ export class SchoolPicker extends Component{
 					onClose = {this.handleOpen}
 					imageWidth = {this.props.imageWidth} 
 					formWidth={this.props.formWidth}
-					school={this.getSchoolFromDialog}
+					onSchoolChange={this.getSchoolFromDialog}
 				/>        
 			</>
     );

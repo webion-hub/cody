@@ -6,6 +6,7 @@ export const accountStyles = makeStyles((theme) => ({
     position: "relative"
   },
 	box: {
+    background: theme.palette.background.paperDark,
     padding: theme.spacing(2),
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {

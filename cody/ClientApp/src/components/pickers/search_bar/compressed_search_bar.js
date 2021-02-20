@@ -32,20 +32,12 @@ const useStyles = makeStyles((theme) => ({
 export function CompressedSearchBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = (event) => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  
   return (
     <div>
       <IconButton
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={() => setOpen(true)}
       >
         <SearchRoundedIcon/>
       </IconButton>
@@ -54,19 +46,18 @@ export function CompressedSearchBar() {
         open={open} 
       >
         {
-          open ? (
+          open ? 
             <ClickAwayListener 
-              onClickAway={handleClose}
+              onClickAway={() => setOpen(false)}
             >
               <div className={classes.searchBar}>
                 <SearchBar
+                  disableTooltips
                   showFavoriteLinkButton
                 />
               </div>
             </ClickAwayListener>
-          ):(
-            null
-          )
+          : null          
         }
       </Backdrop>
     </div>

@@ -31,18 +31,21 @@ const useStyles = makeStyles({
     },
       backgroundColor: progressBarColors.green.secondary,
   },
+
   strong: {
     "& .MuiLinearProgress-barColorPrimary": {
       backgroundColor: progressBarColors.yellow.primary,
     },
       backgroundColor: progressBarColors.yellow.secondary,
   },
+
   medium: {
     "& .MuiLinearProgress-barColorPrimary": {
       backgroundColor: progressBarColors.orange.primary,
     },
       backgroundColor: progressBarColors.orange.secondary,
   },  
+  
   weak: {
     "& .MuiLinearProgress-barColorPrimary": {
       backgroundColor: progressBarColors.red.primary,

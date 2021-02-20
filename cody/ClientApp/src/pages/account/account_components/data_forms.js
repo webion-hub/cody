@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
 		width: 370,
 		[theme.breakpoints.down('xs')]: {
-			width: `calc(100vw - ${theme.spacing(2)}px)`
+			width: `calc(100vw - ${theme.spacing(4)}px)`
 		},
   },
 }));

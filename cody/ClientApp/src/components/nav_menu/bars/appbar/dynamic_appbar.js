@@ -40,8 +40,12 @@ const dynamicAppbarStyles = makeStyles((theme) => ({
 
 export function DynamicAppbar(props) {
   const classes = dynamicAppbarStyles();
+  
+  const trigger = useScrollTrigger({ target: props.window ? window() : undefined }); //hide on scroll
+  const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
-  function getMainContent(element){
+  const getSectionMainContent = (element) => {
     return <div>
       {
         element.element? (
@@ -61,7 +65,7 @@ export function DynamicAppbar(props) {
     </div>
   }
   
-  function getSection(section){
+  const getSection = (section) => {
     if(section === null)
       return null;
     return section.map((element, index) => (
@@ -71,25 +75,20 @@ export function DynamicAppbar(props) {
         implementation="css"
       >
         {
-          element.tooltip ? (
-            getMainContent(element)
-          ):(
+          element.tooltip ? 
             <TouchableTooltip
               title={element.label?element.label : ""}
               placement="bottom"
               arrow
             >
-              {getMainContent(element)}               
+              {getSectionMainContent(element)}               
             </TouchableTooltip>
-          )
+            :
+            getSectionMainContent(element)                     
         }
       </Hidden>
     ))
   }
-
-  const trigger = useScrollTrigger({ target: props.window ? window() : undefined }); //hide on scroll
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Slide appear={false} direction="down" in={mobileView ? !trigger : true}>
@@ -109,23 +108,23 @@ export function DynamicAppbar(props) {
             className={classes.toolbarGrid}
           >
             <Grid item xs={3} className={classes.leftSection}>
-              <Fade in={props.fadeLeft}>
+              <Fade in={props.fadeSections.left}>
                 <div>
-                  {getSection(props.leftAppBar)}
+                  {getSection(props.sections.left)}
                 </div>
               </Fade>
             </Grid>
             <Grid item xs={6}>
-              <Fade in={props.fadeCenter}>
+              <Fade in={props.fadeSections.center}>
                 <div>
-                  {props.centerAppBar}
+                  {props.sections.center}
                 </div>
               </Fade>              
             </Grid>
             <Grid item xs={3}>
-              <Fade in={props.fadeRight}>
+              <Fade in={props.fadeSections.right}>
                 <div className={classes.rightSection}>
-                  {getSection(props.rightAppBar)}
+                  {getSection(props.sections.right)}
                 </div>
               </Fade>
             </Grid>

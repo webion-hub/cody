@@ -20,7 +20,6 @@ export class AddPhoto extends Component{
     
     this.state = {
       image: null,
-      loading: this.props.accountEdit ? true : false,
       
       openEditDialog: false,
       croppedImage: this.props.value,
@@ -139,16 +138,7 @@ export class AddPhoto extends Component{
     )
 
     return (
-      <Box>
-        <Skeleton
-          variant="circle"
-          animation="wave"
-          width={imageSize}
-          height={imageSize}
-          style={{
-            display: this.state.loading ? "block" : "none"
-          }}
-        />        
+      <Box>    
         <Badge
           overlap="circle"
           anchorOrigin={{
@@ -156,21 +146,13 @@ export class AddPhoto extends Component{
             horizontal: 'right',
           }}
           badgeContent={this.props.accountEdit ? editableBadgeContent : badgeContent}
-          style={{
-            display: this.state.loading ? "none" : "block"
-          }}
         >
           <CustomAvatar
+            disableLoading={this.props.disableLoading}
             alt={this.props.alt}
             src={this.state.croppedImage}
             width={imageSize}
             height={imageSize}
-            onLoad={
-              this.props.accountEdit ? () => this.setState({loading: false}) : () => {}
-            } 
-            onError={
-              this.props.accountEdit ? () => this.setState({loading: false}) : () => {}
-            }
           />
         </Badge>
         <ImageCropperDialog

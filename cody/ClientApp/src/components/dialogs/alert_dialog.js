@@ -15,19 +15,15 @@ import { Error } from 'src/components/illustrations/error';
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
 
-export class AlertDialog extends Component {
-  constructor(props){
-    super(props);
-    this.handleClose = this.handleClose.bind(this);
-  }
-  
-  handleClose(){
-    const {onClose} = this.props;
+export function AlertDialog(props){
+ 
+  const handleClose = () => {
+    const {onClose} = props;
     onClose(false);
   }
 
-  getItems(){
-    const items = this.props.items;
+  const getItems = () => {
+    const items = props.items;
     const cleanItems = items.filter(item => item !== undefined && item !== null)
     const getItems = cleanItems.map((item, index) => 
       <div key={item}>
@@ -41,37 +37,35 @@ export class AlertDialog extends Component {
     return getItems;
   }
 
-  render(){
-    return(
-      <DialogBase
-        title="C'è stato un errore"
-        open={this.props.open}
-        onClose={this.handleClose}
-        firstButton={
-          <Button 
-            onClick={this.handleClose}
-            color="primary"
-            variant="contained"
-          >
-            Chiudi
-          </Button>
-        }
-      >
-        <BasePhotoText
-          image={<Error size={Form.imageWidth}/>}
-          formWidth={Form.width}
-          margin={1}
-          items={[
-            <Typography variant="h6">
-              Ci sono i seguenti errori:
-            </Typography>,
-            <List component="nav">
-              <Divider />
-              {this.getItems()}
-            </List>
-          ]}
-        />
-      </DialogBase>
-    )
-  }
+  return(
+    <DialogBase
+      title="C'è stato un errore"
+      open={props.open}
+      onClose={handleClose}
+      firstButton={
+        <Button 
+          onClick={handleClose}
+          color="primary"
+          variant="contained"
+        >
+          Chiudi
+        </Button>
+      }
+    >
+      <BasePhotoText
+        image={<Error size={Form.imageWidth}/>}
+        formWidth={Form.width}
+        margin={1}
+        items={[
+          <Typography variant="h6">
+            Ci sono i seguenti errori:
+          </Typography>,
+          <List component="nav">
+            <Divider />
+            {getItems()}
+          </List>
+        ]}
+      />
+    </DialogBase>
+  )
 }

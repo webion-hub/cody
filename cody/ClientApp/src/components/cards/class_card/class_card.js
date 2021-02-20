@@ -11,7 +11,7 @@ import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRight
 import { CardBase } from 'src/components/bases/card_base';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
 import { languages } from 'src/lib/default_values/lists/coding_languages'
-import { AvatarLanguageBox } from 'src/components/cards/class_card/avatar_language_box'
+import { InfoBoxClassCard } from 'src/components/cards/class_card/info_box_class_card'
 
 const useStyles = makeStyles((theme) => ({
   cardBase: {
@@ -44,7 +44,7 @@ export function ClassCard(props){
         </Button>
       }
     >
-      <AvatarLanguageBox
+      <InfoBoxClassCard
         title={props.title}
         users={props.users}
         admin={props.admin}
@@ -53,16 +53,15 @@ export function ClassCard(props){
       />
       <Box mt={1}>
         {
-          props.loading ? (
+          props.loading ? 
             <Skeleton animation="wave" width="100%" height={44}/>
-          ) : (
+            : 
             <ScrollableChipsArray
               list={languages}
               clickables
               color="secondary"
               emptyMessage="Non hai linguaggi preferiti"
-            />
-          )
+            />          
         }
       </Box>
     </CardBase>

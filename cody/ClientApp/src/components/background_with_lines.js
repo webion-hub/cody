@@ -28,28 +28,27 @@ export function BackgroundWithLines(props){
 
   const [elementsNumber, setElementsNumber] = React.useState(0);
   useLayoutEffect(() => {
-
-    const updateElementsNumber = () => {
-			const elementsFromBox = box.current? 
-				Math.round(box.current.offsetHeight/100) : 0
-
-			const height = props.height === 1 ? window.innerHeight : props.height;
-			const elementsFromHeight = Math.round(height/100)
-
-			const extraLine = props.extraLine ? 1 : 0
-			const removeLine = props.removeLine ? -1 : 0
-
-			const elements = props.height? 
-				elementsFromHeight : elementsFromBox
-
-      setElementsNumber(elements + extraLine + removeLine);
-    }
-
     window.addEventListener('resize', updateElementsNumber);
     updateElementsNumber();
     return () => window.removeEventListener('resize', updateElementsNumber);
 
   }, []);
+
+	const updateElementsNumber = () => {
+		const elementsFromBox = box.current? 
+			Math.round(box.current.offsetHeight/100) : 0
+
+		const height = props.height === 1 ? window.innerHeight : props.height;
+		const elementsFromHeight = Math.round(height/100)
+
+		const extraLine = props.extraLine ? 1 : 0
+		const removeLine = props.removeLine ? -1 : 0
+
+		const elements = props.height? 
+			elementsFromHeight : elementsFromBox
+
+		setElementsNumber(elements + extraLine + removeLine);
+	}
 
 	const lines = [];
 	for(var i=0; i < elementsNumber; i++){

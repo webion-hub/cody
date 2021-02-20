@@ -27,9 +27,10 @@ export function Account(){
   const [editedImage, setEditedImage] = React.useState(false);
 
   //Data & image
+  const defaultImage = "user/profile_picture"
   const [oldData, setOldData] = React.useState(nullData);
   const [data, setData] = React.useState(nullData);
-  const [image, setImage] = React.useState("user/profile_picture");
+  const [image, setImage] = React.useState(defaultImage);
 
   //Errors
   const [errors, setErrors] = React.useState(noErrors);
@@ -74,10 +75,8 @@ export function Account(){
    */
 
   const getImage = (value) => {
-    if(value !== "user/profile_picture"){
-      setImage(value);
-      setEditedImage(true);
-    }
+    setImage(value);
+    setEditedImage(true);
   }
 
   const getData = (data) => {
@@ -189,6 +188,7 @@ export function Account(){
               data={data}
               oldData={oldData}
               onDataChange={getData}
+              defaultImage={defaultImage}
             />
           </Grid>
           <Grid item>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-import { useMediaQuery } from '@material-ui/core';
 import { Chip } from '@material-ui/core';
 
 import { CustomScrollContainer } from 'src/components/custom_scroll_container';
@@ -32,8 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function ScrollableChipsArray(props){
   const classes = useStyles();
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
   const [chipData, setChipData] = React.useState(props.list);
 
   const handleDelete = (chipToDelete) => () => {

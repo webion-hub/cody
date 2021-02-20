@@ -10,6 +10,7 @@ import { NotificationsIcon } from '../../interactive_icons/notifications_icon';
 const leftAppBar = [
   {  
     label: "Cerca",
+    tooltip: false,
     element: (
       <Box width={1}>
         <Hidden //Smartphone
@@ -29,7 +30,9 @@ const centerAppBar =  (
     <Hidden //PC
       xsDown 
     >
-      <SearchBar />
+      <SearchBar
+        disableTooltipsOnMobile
+      />
     </Hidden>
   </Box>
 ); 

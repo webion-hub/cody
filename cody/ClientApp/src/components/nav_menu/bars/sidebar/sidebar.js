@@ -64,75 +64,69 @@ export function SideBar(props) {
     />
   )
 
+  const mobileContent =         
+    <Hidden
+      smUp 
+      implementation="css"
+    >
+      <SwipeableDrawer
+        variant="temporary"
+        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        onOpen={handleDrawerToggle}
+        className={classes.scrollableDrawer}
+        classes={{
+          paper: classes.fullDrawerPaper,
+        }}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+      >
+        {drawerList}
+      </SwipeableDrawer>
+    </Hidden>
+
+  const pcContent =
+    <Hidden
+      xsDown 
+      implementation="css"
+    >
+      <Drawer
+        classes={{
+          paper: fullWidth ? classes.fullDrawerPaper : classes.restrictedDrawerPaper,
+        }}            
+        variant="permanent"
+        open
+      >
+        {drawerList}
+      </Drawer>
+    </Hidden>
+
   return (
     <div className={classes.root}>
+
       <DynamicAppbar
         menuOnClick={() => {
-          mobileView ? handleDrawerToggle() : handleFullWidth()
+          mobileView ? 
+            handleDrawerToggle() : handleFullWidth()
         }}
         appBarPosition={props.appBarPosition}
-        leftAppBar={props.appBarSections.left}
-        centerAppBar={props.appBarSections.center}
-        rightAppBar={props.appBarSections.right}
-        fadeLeft={props.fadeSections.left}
-        fadeCenter={props.fadeSections.center}
-        fadeRight={props.fadeSections.right}
-        sections={props.sideBarSections}
+        sections={props.appBarSections}
+        fadeSections={props.fadeSections}
       />
+
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* Drawer section */}
-        <Hidden //Smartphone
-          smUp 
-          implementation="css"
-        >
-          <SwipeableDrawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            onOpen={handleDrawerToggle}
-            className={classes.scrollableDrawer}
-            classes={{
-              paper: classes.fullDrawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawerList}
-          </SwipeableDrawer>
-        </Hidden>
-
-
-        <Hidden //PC
-          xsDown 
-          implementation="css"
-        >
-          <Drawer
-            classes={{
-              paper: fullWidth ? classes.fullDrawerPaper : classes.restrictedDrawerPaper,
-            }}            
-            variant="permanent"
-            open
-          >
-            {drawerList}
-          </Drawer>
-        </Hidden>
+        {mobileContent}
+        {pcContent}
       </nav>
-      <main className={classes.content}>
 
-        {/* Content section */}
+      <main className={classes.content}>
         <div className={classes.children}>
           {props.children}  
-        </div>   
-                     
+        </div> 
       </main>
+
     </div>
   );
 }
-
-SideBar.propTypes = {
-  window: PropTypes.func,
-};
-
-export default SideBar;

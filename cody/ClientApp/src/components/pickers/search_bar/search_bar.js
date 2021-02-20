@@ -8,6 +8,8 @@ import { IconButton } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core'
+import { useTheme } from '@material-ui/core'
 
 import { CodingFilterDialog } from 'src/components/pickers/search_bar/coding_filter_dialog';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
@@ -43,19 +45,11 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0,
     zIndex: -1,
     transition: "0.2s all",
-    [theme.breakpoints.down('xs')]: {
-      transform: "translate(0, 50px)",
-      top: "auto",
-    },
   },
   chipsBoxAnimate: {
     transform: "translate(0, 50px)",
     opacity: 1,
     zIndex: -1,
-    [theme.breakpoints.down('xs')]: {
-      top: "auto",
-      zIndex: "auto"
-    },
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -69,11 +63,17 @@ const useStyles = makeStyles((theme) => ({
 export function SearchBar(props) {
   const classes = useStyles();
 	const searchBarRef = useRef();
+	const theme = useTheme();
+
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [open, setOpen] = React.useState(false);
   const [languageSelected, setLanguageSelected] = React.useState(null);
   const [showFavorite, setShowFavorite] = React.useState(false);
   const [searchBarWidth, setSearchBarWidth] = React.useState(0);
+
+  const disableTooltipsOnMobile = props.disableTooltipsOnMobile ? mobileView : false;
+  const disableTooltip = props.disableTooltips || disableTooltipsOnMobile;
 
   useLayoutEffect(() => {
     window.addEventListener('resize', updateWidth);
@@ -87,13 +87,6 @@ export function SearchBar(props) {
       setSearchBarWidth(searchBarRef.current.offsetWidth)
   }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleShowFavorite = () => {
     setShowFavorite(!showFavorite);
@@ -119,9 +112,13 @@ export function SearchBar(props) {
         >
           {
             <TouchableTooltip 
-              title={showFavorite ? "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"} 
+              title={
+                showFavorite ? 
+                  "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"
+              } 
               aria-label="filter"
               placement="left"
+              disabled={disableTooltip}
               arrow
             >
               <IconButton 
@@ -129,7 +126,10 @@ export function SearchBar(props) {
                 onClick={handleShowFavorite}
                 aria-label="favorite"
               >
-                {showFavorite ? <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />}          
+                {
+                  showFavorite ? 
+                    <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />
+                }          
               </IconButton>
             </TouchableTooltip>
           }
@@ -145,23 +145,26 @@ export function SearchBar(props) {
             title="Seleziona il linguaggio di programmazione." 
             aria-label="filter"
             placement="right"
+            disabled={disableTooltip}
             arrow
           >
             <IconButton 
               className={classes.iconButton} 
               aria-label="filter"
-              onClick={handleClickOpen}
+              onClick={() => setOpen(true)}
             >
               {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
             </IconButton>
           </TouchableTooltip>
           <CodingFilterDialog
             open={open}
-            onClose={handleClose}
+            onClose={() => setOpen(false)}
             language={getLanguage}
             defaultValue={languageSelected}
+            disabled={disableTooltip}
           />
         </Paper>
+        
         <Box 
           position="absolute"          
           width={searchBarWidth}

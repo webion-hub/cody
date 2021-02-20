@@ -6,7 +6,6 @@ import { Menu } from '@material-ui/core';
 import { MenuItem } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
-import { Link } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -45,7 +44,6 @@ export function UserAvatarIcon(){
 
   const [openMenu, setOpenMenu] = React.useState(null);
   const [username, setUsername] = React.useState(null);
-  const [loadingAvatar, setLoadingAvatar] = React.useState(true);
   
   useEffect(() => {
     if(logged){
@@ -84,8 +82,6 @@ export function UserAvatarIcon(){
           <CustomAvatar
             alt={username}
             src="user/profile_picture" 
-            onLoad={() => setLoadingAvatar(false)} 
-            onError={() => setLoadingAvatar(false)}
           />
         </IconButton>
       </TouchableTooltip>
@@ -133,10 +129,8 @@ export function UserAvatarIcon(){
 
   return (    
     <InteractiveIconBase 
-      extraLoadingCondition={logged && loadingAvatar}
-      customChildrenLoading={loadingAvatar}
-      loggedChildren={loggedChildren}
-      notLoggedChildren={
+      loggedContent={loggedChildren}
+      notLoggedContent={
         <TouchableTooltip
           arrow
           interactive

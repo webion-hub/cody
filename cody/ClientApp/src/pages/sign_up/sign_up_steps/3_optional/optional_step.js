@@ -68,6 +68,7 @@ export class OptionalData extends Component{
             >
               <AddPhoto
                 image={this.getImage}
+                disableLoading
               />
               <Box
                 mt={2}

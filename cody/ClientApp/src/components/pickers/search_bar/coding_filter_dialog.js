@@ -26,16 +26,15 @@ export function CodingFilterDialog(props) {
   const [defaultLanguage, setDefaultLanguage] = React.useState(null);
 
   useEffect(() => {
-    //execute before render
     setDefaultLanguage(props.defaultValue);
   }, []);
 
-  function handleChange(value){
+  const handleChange = (value) => {
     setLanguageValue(value);
     setDefaultLanguage(value);
   }
 
-  function handleSubmit(){
+  const handleSubmit = () => {
     const {language} = props;
     language(languageValue); 
     props.onClose();
