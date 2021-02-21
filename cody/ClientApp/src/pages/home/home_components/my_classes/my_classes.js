@@ -34,30 +34,28 @@ export function MyClasses(props){
   const classesList = props.classesList;
   const classesNumber = classesList.length; 
 
+  const areClasses = classesNumber !== 0;
+
+  const title = areClasses ?
+    <Typography variant="h4" color="textSecondary" className={classes.title}>
+      <SchoolRoundedIcon className={classes.titleIcon}/>
+        Le classi a cui sei iscritto
+    </Typography>
+    : 
+    null
+
+  const content = areClasses ?
+    <ThereAreClasses
+      classesList={props.classesList}
+    /> 
+    : 
+    <NoClasses/>
+
   return (
     <div className={props.className}>
-      <div className={classesNumber === 0 ? classes.emptyBox : classes.classesBox}>
-        {
-          classesNumber === 0 ? (
-            null
-          ):(
-            <Typography variant="h4" color="textSecondary" className={classes.title}>
-              <SchoolRoundedIcon className={classes.titleIcon}/>
-                Le classi a cui sei iscritto
-            </Typography>
-          )
-        }
-        <>
-          {
-            classesNumber === 0 ? (
-              <NoClasses/>
-            ):(
-              <ThereAreClasses
-                classesList={props.classesList}
-              />
-            )
-          }
-        </>
+      <div className={areClasses ? classes.classesBox : classes.emptyBox}>
+        {title}
+        {content}
       </div>
     </div>
   );

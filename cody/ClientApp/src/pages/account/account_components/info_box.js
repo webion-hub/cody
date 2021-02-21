@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   biography: {
     paddingTop: theme.spacing(4),
     width: "100%"
-    //maxWidth: 340,
   },
   biographyPaper: {
     padding: theme.spacing(1),
@@ -47,10 +46,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function InfoBox(props){
+	const classes = useStyles();
   const theme = useTheme();
+  
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
-	const classes = useStyles();
   const [image, setImage] = React.useState(props.defaultImage);
   const [data, setData] = React.useState(undefined);
   const [screenWidth, setScreenWidth] = React.useState(0);

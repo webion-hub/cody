@@ -34,18 +34,20 @@ export function DynamicSearchBar(){
   let media = theme.breakpoints.up('sm');
   media = media.replace('@media ','');
 
-  const defaultHomeAppBar = () => {
+  const setHomeAppBar = () => {
     setFadeAppBarSection({
       left: false,
       center: false,
       right: true,
     });
   }
+
   const scrollHandler = _ => {
     const searchBarYPosition = searchBarRef.current.getBoundingClientRect().y;
     const notFadeOnBigScreen = !window.matchMedia(media).matches;
+    const showAppBarSearchBar = searchBarYPosition < 5 && notFadeOnBigScreen;
 
-    if(searchBarYPosition < 5 && notFadeOnBigScreen){
+    if(showAppBarSearchBar){
       setFadeAppBarSection({
         left: true,
         center: true,
@@ -53,11 +55,11 @@ export function DynamicSearchBar(){
       });
     }
     else
-      defaultHomeAppBar();
+      setHomeAppBar();
   };
 
   useEffect(() => {
-    defaultHomeAppBar();
+    setHomeAppBar();
 
     window.addEventListener("scroll", scrollHandler, true);
     return () => {

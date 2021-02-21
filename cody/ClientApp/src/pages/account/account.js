@@ -23,18 +23,19 @@ export function Account(){
   const [loadingLoad, setLoadingLoad] = React.useState(true);
 
   //A value has been edited
-  const [edited, setEdited] = React.useState(false);
-  const [editedImage, setEditedImage] = React.useState(false);
+  const [isEdited, setIsEdited] = React.useState(false);
+  const [isEditedImage, setIsEditedImage] = React.useState(false);
+  const accountIsEdited = isEdited || isEditedImage;
 
   //Data & image
   const defaultImage = "user/profile_picture"
+  const [image, setImage] = React.useState(defaultImage);
   const [oldData, setOldData] = React.useState(nullData);
   const [data, setData] = React.useState(nullData);
-  const [image, setImage] = React.useState(defaultImage);
 
   //Errors
   const [errors, setErrors] = React.useState(noErrors);
-  const [duringSavingErrors, setDuringSavingErrors] = React.useState([]);
+  const [errorsDuringSaving, setErrorsDuringSaving] = React.useState([]);
   const [openAlert, setOpenAlert] = React.useState(false);
   
   //Data init
@@ -76,16 +77,18 @@ export function Account(){
 
   const getImage = (value) => {
     setImage(value);
-    setEditedImage(true);
+    setIsEditedImage(true);
   }
 
   const getData = (data) => {
-    if(JSON.stringify(data) === JSON.stringify(oldData)){
-      setEdited(false)
+    const areDataChange = JSON.stringify(data) !== JSON.stringify(oldData)
+
+    if(areDataChange){
+      setData(data);
+      setIsEdited(true);
     }
     else{
-      setData(data);
-      setEdited(true);
+      setIsEdited(false)
     }
   }
 
@@ -94,7 +97,7 @@ export function Account(){
    * Try save
    */
 
-  const refresh = () => {
+  const refreshPage = () => {
     setLoadingSave(false)
     history.go(0)
   }
@@ -104,13 +107,13 @@ export function Account(){
       .createOrUpdate({
         base64: image,
       })
-      .then(() => refresh());
+      .then(() => refreshPage());
   }
 
   const deleteProfilePic  = () => {
     ProfilePicture
       .delete()
-      .then(() => refresh())
+      .then(() => refreshPage())
   }
 
   const handleTrySave = () => {
@@ -141,19 +144,23 @@ export function Account(){
             .send()
             .then(res => {
               if(res.set.length != 0){
-                //Are errors during saving
+                //Are errors during saving data
                 setLoadingSave(false);
                 setOpenAlert(true)
-                setDuringSavingErrors(res.set)
+                setErrorsDuringSaving(res.set)
               }
               else {
-                //No errors during saving
-                if(image !== "user/profile_picture" && image !== null)
+                //No errors during saving data
+                const isImageChanged = image !== defaultImage;
+                const isImageDeleted = image === null;
+                const isImageChangeButNotDeleted =  isImageChanged && !isImageDeleted;
+
+                if(isImageChangeButNotDeleted)
                   updateProfilePic()
-                else if(image === null)
+                else if(isImageDeleted)
                   deleteProfilePic()
                 else
-                  refresh()
+                  refreshPage()
               }
             })           
         }
@@ -165,7 +172,21 @@ export function Account(){
         }
       })
   }
-  
+
+  const errorsList = 
+    <Grid
+      container
+      direction="column"
+    >
+      {
+        Array.isArray(errorsDuringSaving)?
+          errorsDuringSaving.map((err, i) => 
+            <div key={i}>{err}</div>
+          )
+          : null
+      }
+    </Grid>
+
 	return (
 		<Grid
 			className={classes.container}
@@ -206,7 +227,7 @@ export function Account(){
           textAlign="end"
         > 
           <LoadingButton
-            disabled={!(edited || editedImage)}
+            disabled={!accountIsEdited}
             onClick={handleTrySave}
             loading={loadingSave}
             label="Salva"
@@ -216,21 +237,7 @@ export function Account(){
       <AlertDialog
         open={openAlert}
         onClose={() => setOpenAlert(false)}
-        items={[
-          <Grid
-            container
-            direction="column"
-          >
-            {
-              Array.isArray(duringSavingErrors)?
-                duringSavingErrors.map((err, i) => 
-                  <div key={i}>{err}</div>
-                )
-                :
-                null
-            }
-          </Grid>,
-        ]}
+        items={[errorsList]}
       />
       <BackgroundWithLines/>
 		</Grid>
