@@ -28,49 +28,81 @@ namespace Cody.Controllers.Admin
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int? limit, int? offset)
         {
-            var detailedUsersQuery =
+            var areQueryValuesNegative =
+                limit.HasValue && limit.Value is < 0 ||
+                offset.HasValue && offset.Value is < 0;
+
+            if (areQueryValuesNegative)
+                return BadRequest();
+
+            var users = GetUsers(limit, offset);
+            var detailedUsers = await users.ToListAsync();
+
+            return new JsonResult(detailedUsers, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            });
+        }
+
+
+        private IQueryable<object> GetUsers(int? limit, int? offset)
+        {
+            var detailedUsersQuery = GetDetailedUsersQuery();
+            var users = detailedUsersQuery;
+
+            if (limit is not null) {
+                users = detailedUsersQuery
+                    .Skip(offset ?? 0)
+                    .Take(limit.Value);
+            }
+
+            return users;
+        }
+
+        private IQueryable<object> GetDetailedUsersQuery()
+        {
+            return
                 from userAccount in _dbContext.UserAccounts
-                
-                join accountDetail in _dbContext.UserDetails 
+
+                join accountDetail in _dbContext.UserDetails
                 on userAccount.Id equals accountDetail.UserAccountId
-                
+
                 join profilePicture in _dbContext.ProfilePictures
-                on accountDetail.Id equals profilePicture.AccountDetailId 
+                on accountDetail.Id equals profilePicture.AccountDetailId
                 into profilePics
                 from upp in profilePics.DefaultIfEmpty()
 
                 join school in _dbContext.Schools
-                on accountDetail.SchoolId equals school.Id 
+                on accountDetail.SchoolId equals school.Id
                 into schools
                 from sa in schools.DefaultIfEmpty()
 
-                select new {
+                orderby userAccount.Id ascending
+                select new
+                {
                     userAccount.Id,
                     userAccount.Username,
                     userAccount.Email,
-                    Detail = new {
+                    Detail = new
+                    {
                         accountDetail.Name,
                         accountDetail.Surname,
                         accountDetail.BirthDate,
                     },
-                    ProfilePicture = upp == null ? null : new {
+                    ProfilePicture = upp == null ? null : new
+                    {
                         upp.FilePath,
                     },
-                    School = sa == null ? null : new {
+                    School = sa == null ? null : new
+                    {
                         sa.Id,
                         sa.Name,
                         sa.City,
                         sa.Country,
                     },
                 };
-
-            var detailedUsers = await detailedUsersQuery.ToListAsync();
-            return new JsonResult(detailedUsers, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-            });
         }
     }
 }
