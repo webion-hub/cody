@@ -1,5 +1,4 @@
 import './cody_types';
-import { AxiosResponse, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 export class UserAccountInfo {
