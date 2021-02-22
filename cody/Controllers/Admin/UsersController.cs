@@ -51,11 +51,11 @@ namespace Cody.Controllers.Admin
 
         private IQueryable<object> GetUsers(int? limit, int? offset)
         {
-            var detailedUsersQuery = GetDetailedUsersQuery();
-            var users = detailedUsersQuery.Skip(offset ?? 0);
+            var usersQuery = GetDetailedUsersQuery();
+            var users = usersQuery.Skip(offset ?? 0);
 
             if (limit is not null)
-                users = detailedUsersQuery.Take(limit.Value);
+                users = usersQuery.Take(limit.Value);
 
             return users;
         }
