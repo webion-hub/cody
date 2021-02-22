@@ -28,8 +28,10 @@ namespace Cody.Controllers.Admin
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get([FromQuery] int? limit, int? offset)
-        {
+        public async Task<IActionResult> Get(
+            [FromQuery] int? limit, 
+            [FromQuery] int? offset
+        ) {
             var areQueryValuesNegative =
                 limit.HasValue && limit.Value is < 0 ||
                 offset.HasValue && offset.Value is < 0;
@@ -50,13 +52,10 @@ namespace Cody.Controllers.Admin
         private IQueryable<object> GetUsers(int? limit, int? offset)
         {
             var detailedUsersQuery = GetDetailedUsersQuery();
-            var users = detailedUsersQuery;
+            var users = detailedUsersQuery.Skip(offset ?? 0);
 
-            if (limit is not null) {
-                users = detailedUsersQuery
-                    .Skip(offset ?? 0)
-                    .Take(limit.Value);
-            }
+            if (limit is not null)
+                users = detailedUsersQuery.Take(limit.Value);
 
             return users;
         }
