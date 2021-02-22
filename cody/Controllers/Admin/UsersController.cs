@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using Cody.Extensions;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
@@ -32,35 +33,19 @@ namespace Cody.Controllers.Admin
             [FromQuery] int? limit, 
             [FromQuery] int? offset
         ) {
-            var areQueryValuesNegative =
-                limit.HasValue && limit.Value is < 0 ||
-                offset.HasValue && offset.Value is < 0;
-
-            if (areQueryValuesNegative)
+            if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var users = GetUsers(limit, offset);
-            var detailedUsers = await users.ToListAsync();
+            var users = await GetUsers()
+                .Skip(offset ?? 0)
+                .MaybeTake(limit)
+                .ToListAsync();
 
-            return new JsonResult(detailedUsers, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-            });
+            return Ok(users);
         }
 
 
-        private IQueryable<object> GetUsers(int? limit, int? offset)
-        {
-            var usersQuery = GetDetailedUsersQuery();
-            var users = usersQuery.Skip(offset ?? 0);
-
-            if (limit is not null)
-                users = usersQuery.Take(limit.Value);
-
-            return users;
-        }
-
-        private IQueryable<object> GetDetailedUsersQuery()
+        private IQueryable<object> GetUsers()
         {
             return
                 from userAccount in _dbContext.UserAccounts
