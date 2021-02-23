@@ -23,8 +23,6 @@ export function EditableCustomTextField(props){
 	}
 	
 	const handleUndo = () => {
-		console.log("undo")
-
 		setEditMode(false);
 		setValue(props.value);
 		onChange(props.value);
@@ -40,7 +38,7 @@ export function EditableCustomTextField(props){
 	}
 
 	return (
-		<ClickAwayListener onClickAway={editMode ? handleSubmit() : () => {}}>
+		<ClickAwayListener onClickAway={editMode ? () => handleSubmit : () => {}}>
 			<Box mb={props.mb?props.mb : 0} mt={props.mt?props.mt : 0}>
 				{
 					props.loading ? 
