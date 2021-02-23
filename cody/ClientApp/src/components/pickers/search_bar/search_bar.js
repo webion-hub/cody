@@ -1,12 +1,11 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Link, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { InputBase } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { Box } from '@material-ui/core';
-import { Fade } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
 import { useMediaQuery } from '@material-ui/core'
 import { useTheme } from '@material-ui/core'
@@ -14,6 +13,7 @@ import { useTheme } from '@material-ui/core'
 import { CodingFilterDialog } from 'src/components/pickers/search_bar/coding_filter_dialog';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
 import { TouchableTooltip } from 'src/components/touchable_tooltip'
+import { GenericSearchBar } from 'src/components/pickers/search_bar/generic_search_bar'
 
 import { languages } from 'src/lib/default_values/lists/coding_languages'
 
@@ -105,12 +105,9 @@ export function SearchBar(props) {
         alignItems="center"
         className={classes.searchBarBox}
       >
-        <Paper 
-          ref={searchBarRef}
-          component="form"
-          className={classes.root}
-        >
-          {
+        <GenericSearchBar
+          searchBarRef={searchBarRef}
+          startIcon={
             <TouchableTooltip 
               title={
                 showFavorite ? 
@@ -128,43 +125,38 @@ export function SearchBar(props) {
               >
                 {
                   showFavorite ? 
-                    <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon />
+                    <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon/>
                 }          
               </IconButton>
             </TouchableTooltip>
           }
-          <InputBase
-            className={classes.input}
-            placeholder="Cerca"
-            inputProps={{ 'aria-label': 'Cerca' }}
-          />
-          <IconButton type="submit" className={classes.iconButton} aria-label="search">
-            <SearchRoundedIcon />
-          </IconButton>
-          <TouchableTooltip 
-            title="Seleziona il linguaggio di programmazione." 
-            aria-label="filter"
-            placement="right"
-            disabled={disableTooltip}
-            arrow
-          >
-            <IconButton 
-              className={classes.iconButton} 
-              aria-label="filter"
-              onClick={() => setOpen(true)}
-            >
-              {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
-            </IconButton>
-          </TouchableTooltip>
-          <CodingFilterDialog
-            open={open}
-            onClose={() => setOpen(false)}
-            language={getLanguage}
-            defaultValue={languageSelected}
-            disabled={disableTooltip}
-          />
-        </Paper>
-        
+          endIcon={
+            <>
+              <TouchableTooltip 
+                title="Seleziona il linguaggio di programmazione." 
+                aria-label="filter"
+                placement="right"
+                disabled={disableTooltip}
+                arrow
+              >
+                <IconButton 
+                  className={classes.iconButton} 
+                  aria-label="filter"
+                  onClick={() => setOpen(true)}
+                >
+                  {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
+                </IconButton>
+              </TouchableTooltip>
+              <CodingFilterDialog
+                open={open}
+                onClose={() => setOpen(false)}
+                language={getLanguage}
+                defaultValue={languageSelected}
+                disabled={disableTooltip}
+              />
+            </>
+          }
+        />        
         <Box 
           position="absolute"          
           width={searchBarWidth}
