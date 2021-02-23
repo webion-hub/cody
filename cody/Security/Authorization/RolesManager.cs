@@ -22,7 +22,7 @@ namespace Cody.Security.Authorization
 
         public void AssignOrRevokeIfNull(UserAccount user, string role)
         {
-            if (user.AccountRole is not null)
+            if (role is not null)
                 AssignTo(user, role);
 
             else RevokeFrom(user);
