@@ -99,30 +99,35 @@ namespace Cody.Controllers.Helpers
 
         private async Task SetBiographyAsync(string value)
         {
-            if (value is null) {
-                await MaybeRemoveBiographyAsync();
-                return;
-            }
+            await LoadUserBiographyAsync();
 
-            var biography = await GetBiographyAsync();
-            _user.AccountDetail.Biography = biography ?? new();
-            _user.AccountDetail.Biography.Contents = value;
+            if (value is null) {
+                MaybeRemoveBiography();
+            }
+            else {
+                _user.AccountDetail.Biography ??= new();
+                _user.AccountDetail.Biography.Contents = value;
+            }
         }
 
-        private async Task MaybeRemoveBiographyAsync()
+        private void MaybeRemoveBiography()
         {
-            var biography = await GetBiographyAsync();
-            if (biography is not null)
-                _dbContext.Biographies.Remove(biography);
+            if (_user.AccountDetail.Biography is not null)
+                _dbContext.Biographies.Remove(_user.AccountDetail.Biography);
         }
 
         private async Task<UserBiography> GetBiographyAsync()
         {
-            var biography = await _dbContext
-                .Biographies
-                .SingleOrDefaultAsync(b => b.AccountDetailId == _user.AccountDetail.Id);
+            await LoadUserBiographyAsync();
+            return _user.AccountDetail.Biography;
+        }
 
-            return biography;
+        private async Task LoadUserBiographyAsync()
+        {
+            await _dbContext
+                .Entry(_user.AccountDetail)
+                .Reference(ad => ad.Biography)
+                .LoadAsync();
         }
     }
 }
