@@ -11,22 +11,12 @@ using System.Linq;
 using System.Text.Json;
 using Cody.Extensions;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Cody.Controllers.Admin
 {
-    [Route("admin/users")]
-    [ApiController]
-    [Authorize(Roles = Roles.Admin)]
     public partial class UsersController : ControllerBase
     {
-        private readonly CodyContext _dbContext;
-
-        public UsersController(CodyContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
-
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Get(
@@ -45,7 +35,7 @@ namespace Cody.Controllers.Admin
         }
 
 
-        private IQueryable<object> GetUsers()
+        private IQueryable<dynamic> GetUsers()
         {
             return
                 from userAccount in _dbContext.UserAccounts
