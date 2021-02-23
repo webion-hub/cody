@@ -118,7 +118,7 @@ export function Account(){
 
   const handleTrySave = () => {
     const errorsController = new ErrorsController;
-    
+
     setLoadingSave(true);
     setErrors(noErrors);
     setOpenAlert(false);
@@ -140,6 +140,7 @@ export function Account(){
               .set('email', data.email)
               .set('birthDate', data.birthDate)
               .set('school', data.school? data.school.id : null)
+              .set('role', data.role)
               .set('biography', data.biography)
             .send()
             .then(res => {
