@@ -37,11 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
   biography: {
     paddingTop: theme.spacing(4),
-    width: "100%"
+    width: "100%",
   },
   biographyPaper: {
     padding: theme.spacing(1),
     background: theme.palette.background.backgroundTransparent,
+    maxWidth: 340
   }
 }));
 
