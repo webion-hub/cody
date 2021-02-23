@@ -17,7 +17,7 @@ namespace Cody.Controllers.Admin
     [Route("admin/users")]
     [ApiController]
     [Authorize(Roles = Roles.Admin)]
-    public class UsersController : ControllerBase
+    public partial class UsersController : ControllerBase
     {
         private readonly CodyContext _dbContext;
 
