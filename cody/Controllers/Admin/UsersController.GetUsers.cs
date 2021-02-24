@@ -35,9 +35,9 @@ namespace Cody.Controllers.Admin
         }
 
 
-        private IQueryable<dynamic> GetUsers()
+        private IQueryable<object> GetUsers(UserFilter filter = null)
         {
-            return
+            var query =
                 from userAccount in _dbContext.UserAccounts
 
                 join accountDetail in _dbContext.UserDetails
@@ -77,6 +77,16 @@ namespace Cody.Controllers.Admin
                         sa.Country,
                     },
                 };
+
+            if (filter is null)
+                return query;
+
+            return query.Where(u => 
+                Regex.IsMatch(u.Username, filter.Username ?? "", RegexOptions.IgnoreCase) &&
+                Regex.IsMatch(u.Email, filter.Email ?? "", RegexOptions.IgnoreCase) &&
+                Regex.IsMatch(u.Detail.Name, filter.Detail.Name ?? "", RegexOptions.IgnoreCase) &&
+                Regex.IsMatch(u.Detail.Surname, filter.Detail.Surname ?? "", RegexOptions.IgnoreCase)
+            );
         }
     }
 }

@@ -7,8 +7,8 @@ namespace Cody.Controllers.Admin
 {
     public partial class UsersController
     {
-        private record DetailedUser(
-            int Id,
+        public record UserFilter(
+            int? Id,
             string Username,
             string Email,
             UserDetail Detail,
@@ -16,18 +16,18 @@ namespace Cody.Controllers.Admin
             UserSchool School
         );
 
-        private record UserDetail(
+        public record UserDetail(
             string Name,
             string Surname,
-            DateTime BirthDate
+            DateTime? BirthDate
         );
 
-        private record UserPicture(
+        public record UserPicture(
             string FilePath  
         );
 
-        private record UserSchool(
-            int Id,
+        public record UserSchool(
+            int? Id,
             string Name,
             string City,
             string Country

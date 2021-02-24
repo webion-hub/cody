@@ -15,10 +15,10 @@ namespace Cody.Controllers.Admin
     {
         [HttpPost("filter")]
         [Authorize]
-        public async Task<IActionResult> FilterUsers([FromBody] List<string> filters)
+        public async Task<IActionResult> FilterUsers([FromBody] UserFilter filter)
         {
-            var users = await GetUsers()
-                .ToListAsync();
+            var users = 
+                await GetUsers(filter).ToListAsync();
 
             return Ok(users);
         }
