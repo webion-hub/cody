@@ -8,27 +8,30 @@ namespace Cody.Security
 {
     public class Cryptography
     {
+        public const int DEFAULT_KEY_SIZE = 256;
+
+
         public static byte[] GetRandomKey()
         {
-            return GetRandomKeys(256).First();
+            return GetRandomKeys(DEFAULT_KEY_SIZE).First();
         }
 
         public static (byte[], byte[]) GetRandomPair()
         {
-            var keys = GetRandomKeys(256)
+            var keys = GetRandomKeys(DEFAULT_KEY_SIZE)
                 .Take(2)
                 .ToArray();
             
             return (keys[0], keys[1]);
         }
 
-        public static IEnumerable<byte[]> GetRandomKeys(uint length)
+        public static IEnumerable<byte[]> GetRandomKeys(uint keySize)
         {
             using var generator = RandomNumberGenerator.Create();
 
             while (true)
             {
-                var result = new byte[length];
+                var result = new byte[keySize];
                 generator.GetBytes(result);
                 
                 yield return result;
