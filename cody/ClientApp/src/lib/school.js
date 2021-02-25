@@ -6,7 +6,7 @@ import './cody_types';
 export class School {
   /**
    * @param {CreateNewOptions} options
-   * @returns {Promise<AxiosResponse<number>>}
+   * @returns {Promise<number>}
    */
   static async createNew(options) {
     const {
@@ -33,13 +33,15 @@ export class School {
 
 
   /**
+   * @param {CommonFilterOptions} options
    * @returns {Promise<SchoolAccount[]>}
    */
-  static async getAll() {
+  static async getAll(options) {
     return axios
       .request({
-        url: 'school/get_all',
+        url: 'school/get',
         method: 'GET',
+        params: options,
       })
       .then(response => response.data);
   }
