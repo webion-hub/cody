@@ -2,7 +2,7 @@ import React from 'react';
 import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base';
 import { Admin } from 'src/lib/admin';
 
-export function UserList(props){
+export function UsersList(props){
 	const associateUsers = (list, data, index) => {
 		const birthDate = new Date(data.detail.birthDate)
 		list.push({

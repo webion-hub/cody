@@ -2,7 +2,7 @@ import React from 'react';
 import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base';
 import { School } from 'src/lib/school';
 
-export function SchoolList(props){
+export function SchoolsList(props){
 	const associateUsers = (list, data, index) => {
 		list.push({
 			id: index,
