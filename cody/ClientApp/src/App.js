@@ -9,7 +9,7 @@ import { EmailValid } from './pages/email_valid';
 import { Home } from './pages/home/home';
 import { Account } from './pages/account/account';
 import { Test } from './pages/test';
-import { UserList } from './pages/admin_pages/user_list';
+import { AdminPage } from './pages/admin_pages/admin_page';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';  
 import { CssBaseline } from "@material-ui/core";
@@ -42,6 +42,7 @@ export default class App extends Component {
 
 function Routes(){
   const { logged } = React.useContext(UserContext);
+  const { role } = React.useContext(UserContext);
 
   return (
     <Router history={history}>
@@ -53,7 +54,7 @@ function Routes(){
         <CustomRoute path='/account' component={Account} to='/' redirect={!logged}/>
         <CustomRoute path='/test' component={Test}/>
         
-        <CustomRoute path='/admin' component={UserList}/>
+        <CustomRoute path='/admin' component={AdminPage} to='/' redirect={!role}/>
 
         <CustomRoute component={Error404Page} />
       </Switch>
