@@ -27,12 +27,17 @@ const useStyles = makeStyles((theme) => ({
 
 export function GenericSearchBar(props){
   const classes = useStyles();
+  const onSubmit = props.onSubmit ? props.onSubmit : () => {}
 
   return (
     <Paper 
       ref={props.searchBarRef}
       component="form"
-      className={classes.root}
+      onSubmit={(event) => {
+        onSubmit()
+        event.preventDefault()
+      }}
+      className={`${classes.root} ${props.className}`}
       style={{
         background: props.background
       }}
@@ -43,11 +48,15 @@ export function GenericSearchBar(props){
         placeholder={props.label? props.label : "Cerca"}
         inputProps={{ 'aria-label': 'Cerca' }}
         onChange={props.onChange}
+        onSubmit={e => {
+          e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation()
+        }}
       />
       <IconButton 
         className={classes.iconButton} 
         aria-label="search"
-        onClick={props.onSubmit}
+        onClick={onSubmit}
       >
         <SearchRoundedIcon />
       </IconButton>
