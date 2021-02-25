@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
 
 import { UserContext } from 'src/components/user_controller_context';
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base';
@@ -41,10 +42,15 @@ export function UserAvatarIcon(){
   const classes = useStyles();
 
   const { logged, setLogged } = React.useContext(UserContext);
+  
+  const { role } = React.useContext(UserContext);
+  const isAdmin = role === "Admin"
 
   const [openMenu, setOpenMenu] = React.useState(null);
+
   const [username, setUsername] = React.useState(null);
   
+
   useEffect(() => {
     if(logged){
       UserAccountInfo
@@ -105,6 +111,23 @@ export function UserAvatarIcon(){
             Account
           </Typography>
         </MenuItem>
+        {
+          isAdmin ? 
+            <MenuItem
+              onClick={() => {
+                history.push('/admin');
+                handleClose();
+              }}
+            >
+              <ListItemIcon>
+                <SupervisorAccountRoundedIcon fontSize="small"/>
+              </ListItemIcon>
+              <Typography variant="inherit" noWrap>
+                Admin
+              </Typography>
+            </MenuItem>
+            : null
+        }
         <MenuItem
           onClick={() => {
             User.logout({
