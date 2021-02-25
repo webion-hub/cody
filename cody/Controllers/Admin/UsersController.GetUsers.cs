@@ -96,24 +96,13 @@ namespace Cody.Controllers.Admin
 
         private IQueryable<UserAccount> GetAllUsers()
         {
-            return
-                from userAccount in _dbContext.UserAccounts
-
-                join accountDetail in _dbContext.UserDetails
-                on userAccount.Id equals accountDetail.UserAccountId
-
-                join profilePicture in _dbContext.ProfilePictures
-                on accountDetail.Id equals profilePicture.AccountDetailId
-                into profilePics
-                from upp in profilePics.DefaultIfEmpty()
-
-                join school in _dbContext.Schools
-                on accountDetail.SchoolId equals school.Id
-                into schools
-                from sa in schools.DefaultIfEmpty()
-
-                orderby userAccount.Id ascending
-                select userAccount;
+            return _dbContext
+                .UserAccounts
+                .Include(u => u.AccountDetail)
+                    .ThenInclude(ad => ad.ProfilePicture)
+                .Include(u => u.AccountDetail)
+                    .ThenInclude(ad => ad.School)
+                .OrderBy(u => u.Id);
         }
     }
 }
