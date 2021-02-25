@@ -7,18 +7,17 @@ export class Admin {
    * @returns {Promise<Admin.UserResult[]>}
    */
   static async getUsers(options) {
-    let {limit, offset} = options;
-    limit = limit ? `limit=${limit}` : '';
-    offset = `offset=${offset ?? 0}`;
-
     return axios
-      .get(`admin/users?${offset}&${limit}`)
+      .get(`admin/users`, {
+        params: options,
+      })
       .then(resp => resp.data);
   }
 }
 
 /**
  * @typedef {object} Admin.GetUsersOptions
+ * @property {string} [filter]
  * @property {number} [limit]
  * @property {number} [offset]
  */
