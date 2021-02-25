@@ -15,12 +15,12 @@ namespace Cody.Controllers
     public partial class SchoolController : ControllerBase
     {
         private readonly ILogger<SchoolController> _logger;
-        private readonly CodyContext _context;
+        private readonly CodyContext _dbContext;
 
         public SchoolController(ILogger<SchoolController> logger, CodyContext context)
         {
             _logger = logger;
-            _context = context;
+            _dbContext = context;
         }
     }
 }

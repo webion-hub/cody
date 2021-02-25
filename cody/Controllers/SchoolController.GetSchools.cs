@@ -17,8 +17,8 @@ namespace Cody.Controllers
         [HttpGet("get")]
         [AllowAnonymous]
         public IActionResult Get(
-            [FromQuery] string filter,  
-            [FromQuery] int? limit, 
+            [FromQuery] string filter,
+            [FromQuery] int? limit,
             [FromQuery] int? offset
         ) {
             if (limit is < 0 || offset is < 0)
@@ -48,14 +48,14 @@ namespace Cody.Controllers
 
         private IQueryable<SchoolAccount> GetAll()
         {
-            return _context
+            return _dbContext
                 .Schools
                 .Include(s => s.State)
                 .Where(s => s.State.HasBeenVerified);
         }
 
         private static IQueryable<SchoolAccount> FilterSchools(
-            IQueryable<SchoolAccount> schools, 
+            IQueryable<SchoolAccount> schools,
             string filter
         ) {
             if (string.IsNullOrWhiteSpace(filter))

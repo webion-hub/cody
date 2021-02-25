@@ -25,8 +25,8 @@ namespace Cody.Controllers
                 HasBeenVerified = false,
             };
 
-            await _context.Schools.AddAsync(school);
-            await _context.SaveChangesAsync();
+            _dbContext.Schools.Add(school);
+            await _dbContext.SaveChangesAsync();
 
             _logger.LogInformation("School created - {School}", school);
             return Ok(school.Id);
@@ -36,7 +36,7 @@ namespace Cody.Controllers
         private bool SchoolExists(SchoolAccount school, out SchoolAccount existingSchool)
         {
             var maybeExisting =
-                from s in _context.Schools
+                from s in _dbContext.Schools
                 where
                     s.Name == school.Name &&
                     s.City == school.City &&
