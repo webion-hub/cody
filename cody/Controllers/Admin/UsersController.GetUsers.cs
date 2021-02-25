@@ -85,10 +85,9 @@ namespace Cody.Controllers.Admin
             var isFilterADate = 
                 DateTime.TryParse(filter, out var dateFilter);
 
-            if (isFilterADate)
-                return query.Where(u => u.Detail.BirthDate == dateFilter);
-
             return query.Where(u =>
+                isFilterADate ? u.Detail.BirthDate == dateFilter : false ||
+
                 Regex.IsMatch(u.Id.ToString(), filter) ||
                 Regex.IsMatch(u.Username, filter, RegexOptions.IgnoreCase) ||
                 Regex.IsMatch(u.Email, filter, RegexOptions.IgnoreCase) ||
