@@ -20,13 +20,14 @@ namespace Cody.Controllers.Admin
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Get(
+            [FromQuery] string filter,
             [FromQuery] int? limit, 
             [FromQuery] int? offset
         ) {
             if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var users = await GetUsers()
+            var users = await GetUsers(filter)
                 .Skip(offset ?? 0)
                 .MaybeTake(limit)
                 .ToListAsync();
@@ -35,7 +36,7 @@ namespace Cody.Controllers.Admin
         }
 
 
-        private IQueryable<object> GetUsers(UserFilter filter = null)
+        private IQueryable<object> GetUsers(string filter)
         {
             var query =
                 from userAccount in _dbContext.UserAccounts
@@ -81,11 +82,18 @@ namespace Cody.Controllers.Admin
             if (filter is null)
                 return query;
 
-            return query.Where(u => 
-                Regex.IsMatch(u.Username, filter.Username ?? "", RegexOptions.IgnoreCase) &&
-                Regex.IsMatch(u.Email, filter.Email ?? "", RegexOptions.IgnoreCase) &&
-                Regex.IsMatch(u.Detail.Name, filter.Detail.Name ?? "", RegexOptions.IgnoreCase) &&
-                Regex.IsMatch(u.Detail.Surname, filter.Detail.Surname ?? "", RegexOptions.IgnoreCase)
+            var isFilterADate = 
+                DateTime.TryParse(filter, out var dateFilter);
+
+            if (isFilterADate)
+                return query.Where(u => u.Detail.BirthDate == dateFilter);
+
+            return query.Where(u =>
+                Regex.IsMatch(u.Id.ToString(), filter) ||
+                Regex.IsMatch(u.Username, filter, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(u.Email, filter, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(u.Detail.Name, filter, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(u.Detail.Surname, filter, RegexOptions.IgnoreCase)
             );
         }
     }
