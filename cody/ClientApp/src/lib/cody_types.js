@@ -55,3 +55,10 @@
  *  'Admin'
  * )} UserAccountRole
  */
+
+/**
+ * @typedef {object} CommonFilterOptions
+ * @property {string} [filter]
+ * @property {number} [limit]
+ * @property {number} [offset]
+ */

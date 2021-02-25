@@ -3,7 +3,7 @@ import './cody_types';
 
 export class Admin {
   /**
-   * @param {Admin.GetUsersOptions} options
+   * @param {CommonFilterOptions} options
    * @returns {Promise<Admin.UserResult[]>}
    */
   static async getUsers(options) {
@@ -14,13 +14,6 @@ export class Admin {
       .then(resp => resp.data);
   }
 }
-
-/**
- * @typedef {object} Admin.GetUsersOptions
- * @property {string} [filter]
- * @property {number} [limit]
- * @property {number} [offset]
- */
 
 /**
  * @typedef {{
