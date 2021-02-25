@@ -12,6 +12,7 @@ using System.Text.Json;
 using Cody.Extensions;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Cody.Models;
 
 namespace Cody.Controllers.Admin
 {
@@ -27,7 +28,7 @@ namespace Cody.Controllers.Admin
             if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var users = await GetUsers(filter)
+            var users = await GetFilteredUsers(filter)
                 .Skip(offset ?? 0)
                 .MaybeTake(limit)
                 .ToListAsync();
@@ -36,9 +37,66 @@ namespace Cody.Controllers.Admin
         }
 
 
-        private IQueryable<object> GetUsers(string filter)
+        private IQueryable<object> GetFilteredUsers(string filter)
         {
-            var query =
+            var users = GetAllUsers();
+            var filteredUsers = FilterUsers(users, filter);
+
+            return
+                from u in filteredUsers
+                let ad = u.AccountDetail
+                let pp = u.AccountDetail.ProfilePicture
+                let s = u.AccountDetail.School
+
+                select new
+                {
+                    u.Id,
+                    u.Username,
+                    u.Email,
+                    Detail = new
+                    {
+                        ad.Name,
+                        ad.Surname,
+                        ad.BirthDate,
+                    },
+                    ProfilePicture = pp == null ? null : new
+                    {
+                        pp.FilePath,
+                    },
+                    School = s == null ? null : new
+                    {
+                        s.Id,
+                        s.Name,
+                        s.City,
+                        s.Country,
+                    },
+                };
+        }
+
+
+        private static IQueryable<UserAccount> FilterUsers(IQueryable<UserAccount> users, string filter)
+        {
+            if (filter is null)
+                return users;
+
+            var isFilterADate =
+                DateTime.TryParse(filter, out var dateFilter);
+
+            return users.Where(u =>
+                isFilterADate ? u.AccountDetail.BirthDate == dateFilter : false ||
+
+                Regex.IsMatch(u.Id.ToString(), filter) ||
+                Regex.IsMatch(u.Username, filter, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(u.Email, filter, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(u.AccountDetail.Name, filter, RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(u.AccountDetail.Surname, filter, RegexOptions.IgnoreCase)
+            );
+        }
+
+
+        private IQueryable<UserAccount> GetAllUsers()
+        {
+            return
                 from userAccount in _dbContext.UserAccounts
 
                 join accountDetail in _dbContext.UserDetails
@@ -55,45 +113,7 @@ namespace Cody.Controllers.Admin
                 from sa in schools.DefaultIfEmpty()
 
                 orderby userAccount.Id ascending
-                select new
-                {
-                    userAccount.Id,
-                    userAccount.Username,
-                    userAccount.Email,
-                    Detail = new
-                    {
-                        accountDetail.Name,
-                        accountDetail.Surname,
-                        accountDetail.BirthDate,
-                    },
-                    ProfilePicture = upp == null ? null : new
-                    {
-                        upp.FilePath,
-                    },
-                    School = sa == null ? null : new
-                    {
-                        sa.Id,
-                        sa.Name,
-                        sa.City,
-                        sa.Country,
-                    },
-                };
-
-            if (filter is null)
-                return query;
-
-            var isFilterADate = 
-                DateTime.TryParse(filter, out var dateFilter);
-
-            return query.Where(u =>
-                isFilterADate ? u.Detail.BirthDate == dateFilter : false ||
-
-                Regex.IsMatch(u.Id.ToString(), filter) ||
-                Regex.IsMatch(u.Username, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(u.Email, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(u.Detail.Name, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(u.Detail.Surname, filter, RegexOptions.IgnoreCase)
-            );
+                select userAccount;
         }
     }
 }
