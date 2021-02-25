@@ -20,7 +20,7 @@ namespace Cody.Controllers.Admin
     {
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get(
+        public IActionResult Get(
             [FromQuery] string filter,
             [FromQuery] int? limit, 
             [FromQuery] int? offset
@@ -28,10 +28,9 @@ namespace Cody.Controllers.Admin
             if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var users = await GetFilteredUsers(filter)
+            var users = GetFilteredUsers(filter)
                 .Skip(offset ?? 0)
-                .MaybeTake(limit)
-                .ToListAsync();
+                .MaybeTake(limit);
 
             return Ok(users);
         }
@@ -45,8 +44,8 @@ namespace Cody.Controllers.Admin
             return
                 from u in filteredUsers
                 let ad = u.AccountDetail
-                let pp = u.AccountDetail.ProfilePicture
-                let s = u.AccountDetail.School
+                let pp = ad.ProfilePicture
+                let s = ad.School
 
                 select new
                 {
@@ -74,9 +73,21 @@ namespace Cody.Controllers.Admin
         }
 
 
+        private IQueryable<UserAccount> GetAllUsers()
+        {
+            return _dbContext
+                .UserAccounts
+                .Include(u => u.AccountDetail)
+                    .ThenInclude(ad => ad.ProfilePicture)
+                .Include(u => u.AccountDetail)
+                    .ThenInclude(ad => ad.School)
+                .OrderBy(u => u.Id);
+        }
+
+
         private static IQueryable<UserAccount> FilterUsers(IQueryable<UserAccount> users, string filter)
         {
-            if (filter is null)
+            if (string.IsNullOrWhiteSpace(filter))
                 return users;
 
             var isFilterADate =
@@ -91,18 +102,6 @@ namespace Cody.Controllers.Admin
                 Regex.IsMatch(u.AccountDetail.Name, filter, RegexOptions.IgnoreCase) ||
                 Regex.IsMatch(u.AccountDetail.Surname, filter, RegexOptions.IgnoreCase)
             );
-        }
-
-
-        private IQueryable<UserAccount> GetAllUsers()
-        {
-            return _dbContext
-                .UserAccounts
-                .Include(u => u.AccountDetail)
-                    .ThenInclude(ad => ad.ProfilePicture)
-                .Include(u => u.AccountDetail)
-                    .ThenInclude(ad => ad.School)
-                .OrderBy(u => u.Id);
         }
     }
 }
