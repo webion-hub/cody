@@ -41,12 +41,15 @@ export class ThemeController {
           main: this.color.tertiary,
         },
         background: {
+          paper: this.color.paper,
+          paperSecondary: this.color.paperSecondary,
+
           default: this.color.background,
-          paper: this.color.backgroundLight,
-          paperDark: this.color.backgroundDarkest,
+          defaultSecondary: this.color.backgroundSecondary,
+
           backgroundTransparent: this.color.backgroundTransparent,
           backgroundGradient: this.color.backgroundGradient,
-          dark: this.color.backgroundDark,
+
           contrastText: '#fff',
         },
         text: {
@@ -60,7 +63,7 @@ export class ThemeController {
         color: this.color.appBar,
       },
       drawer: {
-        default: this.color.backgroundDark,
+        default: this.color.backgroundSecondary,
         width: 48,
       },
       typography: {
@@ -80,7 +83,8 @@ export class ThemeController {
               height: '4px',
             },
             '*::-webkit-scrollbar-thumb': {
-              background: this.color.tertiary
+              background: this.color.tertiary,
+              borderRadius: '2px',
             },
           }
         },
@@ -104,7 +108,7 @@ export class ThemeController {
         },
         MuiTooltip: {
           tooltip: {
-            color: this.color.backgroundDark,
+            color: this.color.backgroundSecondary,
             backgroundColor: this.color.tertiary
           },
           arrow: {

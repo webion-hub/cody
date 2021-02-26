@@ -32,7 +32,7 @@ const homeStyles = makeStyles((theme) => ({
   },
   myClasses: {
     paddingTop: theme.spacing(2),
-    background: theme.palette.background.paperDark,
+    background: theme.palette.background.paperSecondary,
   }
 }));
 
