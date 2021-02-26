@@ -18,7 +18,7 @@ namespace Cody.Security.Authentication
         {
             AllowRefresh = true,
             IsPersistent = true,
-            ExpiresUtc = DateTime.Now.AddMinutes(1),
+            ExpiresUtc = DateTime.Now.AddDays(1),
         };
 
 
