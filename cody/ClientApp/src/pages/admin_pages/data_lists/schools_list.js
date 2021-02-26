@@ -3,7 +3,11 @@ import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base'
 import { School } from 'src/lib/school';
 
 export function SchoolsList(props){
-	const associateUsers = (list, data, index) => {
+	const associateSchools = (settings) => {
+		const list = settings.list;
+		const data = settings.data;
+		const index = settings.index;
+
 		list.push({
 			id: index,
 			Id: data.id,
@@ -23,10 +27,10 @@ export function SchoolsList(props){
 	return (
 		<DataTableBase
 			getData={School.getAll}
-			associateData={associateUsers}
+			associateData={associateSchools}
 			columns={usersColumns}
 			title="Scuole"
-			pageElements={props.pageElements}
+			maxPageElements={props.maxPageElements}
 		/>
 	);
 }

@@ -2,18 +2,24 @@ export const dataTableStyles = (theme) => {
   return {
     rows: {
       style: {
-        background: theme.palette.background.paperDark,
+        background: theme.palette.background.paperSecondary,
       }
     },
     header: {
       style: {
-        background: theme.palette.background.paperDark,
+        background: theme.palette.background.paperSecondary,
         color: theme.palette.text.primary
       },
     },
+    progress: {
+      style: {
+        backgroundColor: theme.palette.background.default,
+        width: "100%"
+      }
+    },
     headCells: {
       style: {
-        background: theme.palette.background.paperDark,
+        background: theme.palette.background.paperSecondary,
         color: theme.palette.text.primary,
       },
       activeSortStyle: {

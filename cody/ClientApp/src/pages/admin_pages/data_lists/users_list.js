@@ -3,7 +3,11 @@ import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base'
 import { Admin } from 'src/lib/admin';
 
 export function UsersList(props){
-	const associateUsers = (list, data, index) => {
+	const associateUsers = (settings) => {
+		const list = settings.list;
+		const data = settings.data;
+		const index = settings.index;
+		
 		const birthDate = new Date(data.detail.birthDate)
 		list.push({
 			id: index,
@@ -33,7 +37,7 @@ export function UsersList(props){
 			associateData={associateUsers}
 			columns={usersColumns}
 			title="Users"
-			pageElements={props.pageElements}
+			maxPageElements={props.maxPageElements}
 		/>
 	);
 }

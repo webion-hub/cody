@@ -1,107 +1,164 @@
 import React, { useEffect } from 'react';
-import { useTheme } from '@material-ui/core/styles';
-
 import DataTable from 'react-data-table-component';
-import { DataTableTitleWithSearchBar } from 'src/pages/admin_pages/components/data_table_title_with_search_bar';
+
+import { useTheme } from '@material-ui/core/styles';
+import { LinearProgress } from '@material-ui/core';
+
+import { DataTableTitleControllers } from 'src/pages/admin_pages/components/data_table_title_controllers';
 import { dataTableStyles } from 'src/pages/admin_pages/components/data_table_styles';
 
 export function DataTableBase(props){
 	const theme = useTheme();
+
   const [dataList, setDataList] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
   const [searchValue, setSearchValue] = React.useState("");
-  const [disableNext, setDisableNext] = React.useState(false);
-  const [disableBack, setDisableBack] = React.useState(true);
   const [filterValue, setFilterValue] = React.useState("");
 
-	const pageElements = props.pageElements;
+  const [disableNext, setDisableNext] = React.useState(false);
+  const [disableBack, setDisableBack] = React.useState(true);
+
+	const maxPageElements = props.maxPageElements;
   const [page, setPage] = React.useState(1);
 
-  const getData = props.getData
+	//getData function from props
+  const getData = props.getData;
 
 	useEffect(() => {
 		getData({
-			limit: pageElements,
+			limit: maxPageElements,
 			offset: 0,
 		})
 		.then(list => {
+			setLoading(false)
 			setDataListState(list)
 		});
 	}, [])
 
 	const setDataListState = (list) => {
 		const finalList = []
+
 		list.forEach((data, index) => {
-			props.associateData(finalList, data, index)
+			props.associateData({
+				list: finalList,
+				data: data,
+				index: index,
+			})
 		});
-		if(list.length !== pageElements)
-			setDisableNext(true)
+
 		setDataList(finalList)
+
+		const isNextPageEmpty = list.length !== maxPageElements;
+		if(isNextPageEmpty)
+			setDisableNext(true)
 	}
+
+
+	/**
+	 * Handlers 
+	 */
 
 	const handleChange = (event) => {
 		setSearchValue(event.target.value)
 	}
 
-	const handleNext = () => {
-		if(dataList.length === pageElements){
-			setDisableBack(false)
-			setDisableNext(false)
-			getData({
-				filter: filterValue,
-				limit: pageElements,
-				offset: page*pageElements,
-			})
-			.then(list => {
-				if(list.length !== 0){
-					setDataListState(list)
-					setPage(page + 1)
-				}
-				else{
-					setDisableNext(true)
-				}
-			});
-		}
-		else{
-			setDisableNext(true)
-		}
-	}
-
-	const handleBack = () => {
-		if(page !== 1){
-			setDisableBack(false)
-			setDisableNext(false)
-			setPage(page - 1)
-			getData({
-				filter: filterValue,
-				limit: pageElements,
-				offset: (page - 2)*pageElements,
-			})
-			.then(list => {
-				setDataListState(list)
-			});
-		}
-		else{
-			setDisableBack(true)
-		}
-	}
-
 	const handleSubmit = () => {
 		setFilterValue(searchValue)
 		setPage(1)
+		
 		setDisableBack(true)
 		setDisableNext(false)
+		setLoading(true)
+
 		getData({
 			filter: searchValue,
-			limit: pageElements,
+			limit: maxPageElements,
 			offset: 0,
 		})
-		.then(list => setDataListState(list));
+		.then(list => {
+			setLoading(false)
+			setDataListState(list)
+		});
 	}
 
+	/**
+	 * Handle pages
+	 */
+	
+	const handleNext = () => {
+		const thereIsntDataInTheNextPage = 
+			dataList.length !== maxPageElements;
+		
+		if(thereIsntDataInTheNextPage){
+			setDisableNext(true)
+			return;
+		}
+			
+		setDisableBack(false)
+		setDisableNext(false)
+		setLoading(true)
+
+		const dataOffset = page*maxPageElements;
+
+		getData({
+			filter: filterValue,
+			limit: maxPageElements,
+			offset: dataOffset,
+		})
+		.then(list => {
+			setLoading(false)
+			const isListEmpty = list.length !== 0;
+
+			if(isListEmpty){
+				setDataListState(list)
+				setPage(page + 1)
+			}
+			else{
+				setDisableNext(true)
+			}
+
+		});
+	}
+
+	const handleBack = () => {
+		const isAtFirstPage = page === 1
+		if(isAtFirstPage){
+			setDisableBack(true)
+			return;
+		}
+
+		setDisableBack(false)
+		setDisableNext(false)
+		setLoading(true)
+
+		const dataOffset = (page - 2)*maxPageElements;
+
+		getData({
+			filter: filterValue,
+			limit: maxPageElements,
+			offset: dataOffset,
+		})
+		.then(list => {
+			setLoading(false)
+			setDataListState(list)
+			setPage(page - 1)
+		});
+	}
+
+
+
 	return (
-		<DataTable					
+		<DataTable
+			progressPending={loading}
+			progressComponent={
+				<LinearProgress 
+					color="secondary"
+					style={{width: "100%"}}
+				/>
+			}
 			title={
-				<DataTableTitleWithSearchBar
+				<DataTableTitleControllers
 					onSubmit={handleSubmit}
 					onChange={handleChange}
 					onBack={handleBack}

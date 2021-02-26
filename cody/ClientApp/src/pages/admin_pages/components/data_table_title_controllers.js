@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function DataTableTitleWithSearchBar(props){
+export function DataTableTitleControllers(props){
 	const theme = useTheme();
   const classes = useStyles();
 
