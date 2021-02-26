@@ -22,7 +22,7 @@ namespace Cody.Controllers
             [FromQuery] int? offset
         ) {
             if (limit is < 0 || offset is < 0)
-                return BadRequest();
+                return BadRequest(); 
 
             var schools = GetFilteredSchools(filter)
                 .Skip(offset ?? 0)
@@ -51,7 +51,8 @@ namespace Cody.Controllers
             return _dbContext
                 .Schools
                 .Include(s => s.State)
-                .Where(s => s.State.HasBeenVerified);
+                .Where(s => s.State.HasBeenVerified)
+                .OrderBy(s => s.Id);
         }
 
         private static IQueryable<SchoolAccount> FilterSchools(
