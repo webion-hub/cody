@@ -5,7 +5,7 @@ import { MessagePageBase } from 'src/components/bases/message_page_base';
 
 import history from 'src/history'
 
-export function EmailValid() {
+export function EmailValidPage() {
   return (
     <MessagePageBase
       image={Confirmation}

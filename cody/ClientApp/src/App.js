@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
 import { Login } from './pages/login/login';
 import { SignUp } from './pages/sign_up/sign_up';
 import { Error404Page } from './pages/error404_page';
-import { EmailValid } from './pages/email_valid';
+import { EmailValidPage } from './pages/email_valid_page';
 import { Home } from './pages/home/home';
 import { Account } from './pages/account/account';
 import { Test } from './pages/test';
@@ -42,7 +42,6 @@ export default class App extends Component {
 
 function Routes(){
   const { logged } = React.useContext(UserContext);
-  const { role } = React.useContext(UserContext);
 
   return (
     <Router history={history}>
@@ -50,11 +49,11 @@ function Routes(){
         <CustomRoute exact path='/' component={Home} />
         <CustomRoute path='/login' component={Login} to='/' redirect={logged}/>
         <CustomRoute path='/sign-up' component={SignUp} to='/' redirect={logged}/>
-        <CustomRoute path='/email-valid' component={EmailValid} />
+        <CustomRoute path='/email-valid' component={EmailValidPage} />
         <CustomRoute path='/account' component={Account} to='/' redirect={!logged}/>
         <CustomRoute path='/test' component={Test}/>
         
-        <CustomRoute path='/admin' component={AdminPage} to='/' redirect={!role}/>
+        <CustomRoute path='/admin' component={AdminPage}/>
 
         <CustomRoute component={Error404Page} />
       </Switch>
