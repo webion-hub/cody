@@ -31,8 +31,9 @@ const homeStyles = makeStyles((theme) => ({
     },
   },
   myClasses: {
-    paddingTop: theme.spacing(2),
     background: theme.palette.background.paperSecondary,
+    paddingBottom: theme.spacing(8),
+    position: "relative",
   }
 }));
 
