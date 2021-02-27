@@ -16,12 +16,8 @@ const classesStyles = makeStyles((theme) => ({
   classesListStyle: {
     display: "flex",
     padding: 0,
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-    },
+    marginTop: 0,
+    marginBottom: 0,
   },
   class: {
     display: "inline-block",
@@ -82,7 +78,7 @@ export function ThereAreClasses(props){
 				arrows
 				elementsPadding={16}
 				hideScrollbars
-				height={350}
+				height={310}
 			>
 				{content}
 			</CustomScrollContainer>
