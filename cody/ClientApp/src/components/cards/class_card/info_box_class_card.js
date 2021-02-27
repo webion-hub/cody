@@ -129,7 +129,7 @@ export function InfoBoxClassCard(props){
 						{props.languageIcon}
 					</IconButton>
 				</Grid>
-				<Grid item>
+				<Grid item className="noScroll">
 					<TouchableTooltip
 						arrow
 						keepOpenOnClick

@@ -16,6 +16,7 @@ import { InfoBoxClassCard } from 'src/components/cards/class_card/info_box_class
 const useStyles = makeStyles((theme) => ({
   cardBase: {
     width: 350,
+    userSelect: "none",
     [theme.breakpoints.down('xs')]: {
       width: `calc(100vw - 96px)`,
     },
