@@ -4,7 +4,7 @@ export const darkColors = {
   primary: Colors.primary,
   secondary: Colors.secondary,
   tertiary: Colors.tertiary,
-  paper: '#1B2737', 
+  paper: '#141D29', 
   paperSecondary: '#0D131C',
 
   background: '#172230', 
