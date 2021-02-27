@@ -1,9 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Paper } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import { InputBase } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
