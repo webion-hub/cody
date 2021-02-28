@@ -14,7 +14,7 @@ export function CustomScrollContainer(props){
 	const contentRef = useRef();
 	const scrollRef = useRef();
 
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 	const arrowWidth = 48;
 
 	const [childrenHeight, setChildrenHeight] = React.useState(props.height? props.height : 0);
@@ -29,7 +29,6 @@ export function CustomScrollContainer(props){
 				setUsingAnotherOne(true)
 			})
 		})
-		
 	})
 
 	//handle scrollable container reset

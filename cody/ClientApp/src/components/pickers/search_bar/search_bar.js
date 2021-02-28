@@ -78,7 +78,7 @@ export function SearchBar(props) {
 		
     updateWidth();
     return () => window.removeEventListener('resize', updateWidth);
-  }, [searchBarRef.current]);
+  });
 
   const updateWidth = () => {
     if(searchBarRef.current !== undefined)

@@ -12,6 +12,11 @@ export function CustomAvatar(props){
   const propsOnError = props.onError? 
     props.onError() : () => {}
 
+  const handleLoading = () => {
+    if(!props.disableLoading)
+      checkImage()
+  }
+
   const checkImage = () => {
     var img = new Image();
     img.onload = () => {
@@ -26,7 +31,7 @@ export function CustomAvatar(props){
   }
 
   useEffect(() => {
-    checkImage();
+    handleLoading();
   }, [])
 
   const finalLoading = loading && !props.disableLoading
