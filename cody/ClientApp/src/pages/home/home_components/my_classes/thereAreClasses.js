@@ -9,9 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 const classesStyles = makeStyles((theme) => ({
 	classesBox: {
 		position: "relative",
-		[theme.breakpoints.up('sm')]: {
-			width: `calc(100vw - ${theme.drawer.width}px)`
-    },
 	},
   classesListStyle: {
     display: "flex",

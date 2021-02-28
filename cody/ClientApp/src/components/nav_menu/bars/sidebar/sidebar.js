@@ -122,7 +122,9 @@ export function SideBar(props) {
       </nav>
 
       <main className={classes.content}>
-        <div className={classes.children}>
+        <div 
+          className={classes.childrenRestrictedWidth}
+        >
           {props.children}  
         </div> 
       </main>

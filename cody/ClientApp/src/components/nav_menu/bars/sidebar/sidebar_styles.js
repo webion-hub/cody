@@ -27,13 +27,13 @@ export const sidebarStyles = makeStyles((theme) => ({
     },
   },
 
-  children: {
+  childrenRestrictedWidth: {
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.drawer.width,
+      marginLeft: theme.drawer.width,
+      width: `calc(100vw - ${theme.drawer.width}px)`,
       transition: "all 0.25s",
-    },
+    },    
   },
-
   
   root: {
     display: 'flex',

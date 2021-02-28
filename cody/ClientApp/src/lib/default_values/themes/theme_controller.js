@@ -65,6 +65,7 @@ export class ThemeController {
       drawer: {
         default: this.color.backgroundSecondary,
         width: 48,
+        fullWidth: 240,
       },
       typography: {
         fontFamily: [
