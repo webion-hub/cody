@@ -94,8 +94,8 @@ namespace Cody.Controllers.Admin
                 DateTime.TryParse(filter, out var dateFilter);
 
             return users
-                .BeginSplitSearch(filter)
-                .ExecuteWith(st => u => 
+                .SplitFilter(filter)
+                .FilterUsing(st => u => 
                     isFilterADate ? u.AccountDetail.BirthDate == dateFilter : false ||
 
                     Regex.IsMatch(u.Id.ToString(), st) ||

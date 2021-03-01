@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public class SplitSearch<T>
+    public class SplitFilter<T>
     {
         private readonly IQueryable<T> _query;
         private readonly IEnumerable<string> _searchTerms;
 
-        public SplitSearch(IQueryable<T> query, IEnumerable<string> searchTerms)
+        public SplitFilter(IQueryable<T> query, IEnumerable<string> searchTerms)
         {
             _query = query;
             _searchTerms = searchTerms;
@@ -20,7 +20,7 @@ namespace Cody.Extensions
 
         public delegate Expression<Func<T, bool>> FilterGenerator(string searchTerm);
 
-        public IQueryable<T> ExecuteWith(FilterGenerator filterGenerator)
+        public IQueryable<T> FilterUsing(FilterGenerator filterGenerator)
         {
             IQueryable<T> result = _query;
             foreach (var st in _searchTerms)

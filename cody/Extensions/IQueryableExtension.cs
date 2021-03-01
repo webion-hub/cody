@@ -16,16 +16,16 @@ namespace Cody.Extensions
         }
 
 
-        public static SplitSearch<T> BeginSplitSearch<T>(
+        public static SplitFilter<T> SplitFilter<T>(
             this IQueryable<T> self, 
             string filter
-        ) => BeginSplitSearch(self, filter.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+        ) => SplitFilter(self, filter.Split(' ', StringSplitOptions.RemoveEmptyEntries));
 
-        public static SplitSearch<T> BeginSplitSearch<T>(
+        public static SplitFilter<T> SplitFilter<T>(
             this IQueryable<T> self, 
             IEnumerable<string> searchTerms
         ) {
-            return new SplitSearch<T>(self, searchTerms);
+            return new SplitFilter<T>(self, searchTerms);
         }
     }
 }

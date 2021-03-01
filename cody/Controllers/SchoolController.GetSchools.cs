@@ -64,8 +64,8 @@ namespace Cody.Controllers
                 return schools;
             
             return schools
-                .BeginSplitSearch(filter)
-                .ExecuteWith(st => s =>
+                .SplitFilter(filter)
+                .FilterUsing(st => s =>
                     Regex.IsMatch(s.Id.ToString(), st) ||
                     Regex.IsMatch(s.Name, st, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(s.City, st, RegexOptions.IgnoreCase) ||
