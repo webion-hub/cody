@@ -93,15 +93,17 @@ namespace Cody.Controllers.Admin
             var isFilterADate =
                 DateTime.TryParse(filter, out var dateFilter);
 
-            return users.Where(u =>
-                isFilterADate ? u.AccountDetail.BirthDate == dateFilter : false ||
+            return users
+                .BeginSplitSearch(filter)
+                .ExecuteWith(st => u => 
+                    isFilterADate ? u.AccountDetail.BirthDate == dateFilter : false ||
 
-                Regex.IsMatch(u.Id.ToString(), filter) ||
-                Regex.IsMatch(u.Username, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(u.Email, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(u.AccountDetail.Name, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(u.AccountDetail.Surname, filter, RegexOptions.IgnoreCase)
-            );
+                    Regex.IsMatch(u.Id.ToString(), st) ||
+                    Regex.IsMatch(u.Username, st, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.Email, st, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.AccountDetail.Name, st, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.AccountDetail.Surname, st, RegexOptions.IgnoreCase)
+                );
         }
     }
 }

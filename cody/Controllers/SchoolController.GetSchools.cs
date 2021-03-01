@@ -1,5 +1,6 @@
 ﻿using Cody.Extensions;
 using Cody.Models;
+using Cody.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -61,13 +62,15 @@ namespace Cody.Controllers
         ) {
             if (string.IsNullOrWhiteSpace(filter))
                 return schools;
-
-            return schools.Where(s =>
-                Regex.IsMatch(s.Id.ToString(), filter) ||
-                Regex.IsMatch(s.Name, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(s.City, filter, RegexOptions.IgnoreCase) ||
-                Regex.IsMatch(s.Country, filter, RegexOptions.IgnoreCase)
-            );
+            
+            return schools
+                .BeginSplitSearch(filter)
+                .ExecuteWith(st => s =>
+                    Regex.IsMatch(s.Id.ToString(), st) ||
+                    Regex.IsMatch(s.Name, st, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(s.City, st, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(s.Country, st, RegexOptions.IgnoreCase)
+                );
         }
     }
 }
