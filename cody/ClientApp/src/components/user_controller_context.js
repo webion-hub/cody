@@ -57,6 +57,7 @@ export function UserControllerContext(props){
         onSuccess: () => {
           setLoggedWithoutRefresh(true)
           setLoggedWithCookie(true)
+          setRoleState()
         },
         onError: () => {
           if(loggedWithCookie){
