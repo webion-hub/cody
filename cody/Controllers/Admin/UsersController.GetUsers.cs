@@ -58,6 +58,7 @@ namespace Cody.Controllers.Admin
                         ad.Name,
                         ad.Surname,
                         ad.BirthDate,
+                        ad.RegistrationDate,
                     },
                     ProfilePicture = pp == null ? null : new
                     {
@@ -95,6 +96,7 @@ namespace Cody.Controllers.Admin
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .FilterUsing(st => u => 
                     u.AccountDetail.BirthDate == st ||
+                    u.AccountDetail.RegistrationDate == st ||
 
                     Regex.IsMatch(u.Id.ToString(), st) ||
                     Regex.IsMatch(u.Username, st, RegexOptions.IgnoreCase) ||
