@@ -13,6 +13,7 @@ using Cody.Extensions;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Cody.Models;
+using Cody.Utility.QueryFilters;
 
 namespace Cody.Controllers.Admin
 {
@@ -94,7 +95,7 @@ namespace Cody.Controllers.Admin
                 DateTime.TryParse(filter, out var dateFilter);
 
             return users
-                .SplitFilter(filter)
+                .CreateFilter(filter, FilterKind.SplitWords)
                 .FilterUsing(st => u => 
                     isFilterADate ? u.AccountDetail.BirthDate == dateFilter : false ||
 

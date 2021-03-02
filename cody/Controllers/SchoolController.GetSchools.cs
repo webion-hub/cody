@@ -1,6 +1,7 @@
 ﻿using Cody.Extensions;
 using Cody.Models;
 using Cody.Utility;
+using Cody.Utility.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +65,7 @@ namespace Cody.Controllers
                 return schools;
             
             return schools
-                .SplitFilter(filter)
+                .CreateFilter(filter, FilterKind.SplitWords)
                 .FilterUsing(st => s =>
                     Regex.IsMatch(s.Id.ToString(), st) ||
                     Regex.IsMatch(s.Name, st, RegexOptions.IgnoreCase) ||

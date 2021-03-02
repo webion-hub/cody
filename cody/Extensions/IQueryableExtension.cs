@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cody.Utility.QueryFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,16 +17,9 @@ namespace Cody.Extensions
         }
 
 
-        public static SplitFilter<T> SplitFilter<T>(
-            this IQueryable<T> self, 
-            string filter
-        ) => SplitFilter(self, filter.Split(' ', StringSplitOptions.RemoveEmptyEntries));
-
-        public static SplitFilter<T> SplitFilter<T>(
-            this IQueryable<T> self, 
-            IEnumerable<string> searchTerms
-        ) {
-            return new SplitFilter<T>(self, searchTerms);
+        public static IQueryFilter<T> CreateFilter<T>(this IQueryable<T> self, string filter, FilterKind kind) 
+        {
+            return QueryFilterFactory.CreateNew(self, filter, kind);
         }
     }
 }
