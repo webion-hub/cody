@@ -16,10 +16,10 @@ namespace Cody.Utility.QueryFilters
             : this(query, filter.Split(' ', StringSplitOptions.RemoveEmptyEntries))
         { }
 
-        public SplitWordsFilter(IQueryable<T> query, IEnumerable<string> filter)
+        public SplitWordsFilter(IQueryable<T> query, IEnumerable<string> filters)
         {
             _query = query;
-            _searchTerms = filter.Select(f => SearchTerm.From(f));
+            _searchTerms = filters.Select(f => SearchTerm.From(f));
         }
 
 
