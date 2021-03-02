@@ -91,13 +91,10 @@ namespace Cody.Controllers.Admin
             if (string.IsNullOrWhiteSpace(filter))
                 return users;
 
-            var isFilterADate =
-                DateTime.TryParse(filter, out var dateFilter);
-
             return users
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .FilterUsing(st => u => 
-                    isFilterADate ? u.AccountDetail.BirthDate == dateFilter : false ||
+                    u.AccountDetail.BirthDate == st ||
 
                     Regex.IsMatch(u.Id.ToString(), st) ||
                     Regex.IsMatch(u.Username, st, RegexOptions.IgnoreCase) ||

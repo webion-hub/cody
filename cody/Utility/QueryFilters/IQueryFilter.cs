@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Utility.QueryFilters
 {
-    public delegate Expression<Func<T, bool>> FilterGenerator<T>(string searchTerm);
+    public delegate Expression<Func<T, bool>> FilterGenerator<T>(SearchTerm searchTerm);
 
 
     public interface IQueryFilter<T>

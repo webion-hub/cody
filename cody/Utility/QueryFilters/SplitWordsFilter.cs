@@ -9,23 +9,23 @@ namespace Cody.Utility.QueryFilters
     public class SplitWordsFilter<T> : IQueryFilter<T>
     {
         private readonly IQueryable<T> _query;
-        private readonly IEnumerable<string> _searchTerms;
+        private readonly IEnumerable<SearchTerm> _searchTerms;
 
 
-        public SplitWordsFilter(IQueryable<T> query, string searchTerms)
-            : this(query, searchTerms.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+        public SplitWordsFilter(IQueryable<T> query, string filter)
+            : this(query, filter.Split(' ', StringSplitOptions.RemoveEmptyEntries))
         { }
 
-        public SplitWordsFilter(IQueryable<T> query, IEnumerable<string> searchTerms)
+        public SplitWordsFilter(IQueryable<T> query, IEnumerable<string> filter)
         {
             _query = query;
-            _searchTerms = searchTerms;
+            _searchTerms = filter.Select(f => SearchTerm.From(f));
         }
 
 
         public IQueryable<T> FilterUsing(FilterGenerator<T> filterGenerator)
         {
-            IQueryable<T> result = _query;
+            var result = _query;
             foreach (var st in _searchTerms)
                 result = result.Where(filterGenerator(st));
 
