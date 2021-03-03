@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Grid, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,18 +11,17 @@ const useStyles = makeStyles((theme) => ({
     },
     padding: theme.spacing(2),
     margin: theme.spacing(1),
-    background: theme.palette.background.paperSecondary
   },
   imageContainer: {
     width: "100%"
   }
 }));
 
-export function CardImageButtonBase(props){
+export function OrganizationAction(props){
   const classes = useStyles();
 
   return(
-    <Card className={classes.card}>
+    <div className={classes.card}>
       <Grid
         container
         direction="column"
@@ -40,6 +39,6 @@ export function CardImageButtonBase(props){
           {props.buttonLabel}
         </Button>
       </Grid>
-    </Card>
+    </div>
   )
 }
