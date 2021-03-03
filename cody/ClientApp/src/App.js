@@ -10,6 +10,7 @@ import { Home } from './pages/home/home';
 import { Account } from './pages/account/account';
 import { Test } from './pages/test';
 import { AdminPage } from './pages/admin_pages/admin_page';
+import { CreateOrJoinOrganization } from './pages/create_or_join_organization/create_or_join_organization_page';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';  
 import { CssBaseline } from "@material-ui/core";
@@ -51,10 +52,12 @@ function Routes(){
         <CustomRoute path='/sign-up' component={SignUp} to='/' redirect={logged}/>
         <CustomRoute path='/email-valid' component={EmailValidPage} />
         <CustomRoute path='/account' component={Account} to='/' redirect={!logged}/>
-        <CustomRoute path='/test' component={Test}/>
         
         <CustomRoute path='/admin' component={AdminPage}/>
+        <CustomRoute path='/create_join_organization' component={CreateOrJoinOrganization}/>
 
+
+        <CustomRoute path='/test' component={Test}/>
         <CustomRoute component={Error404Page} />
       </Switch>
     </Router>
