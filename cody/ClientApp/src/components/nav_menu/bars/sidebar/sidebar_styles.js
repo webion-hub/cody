@@ -27,12 +27,12 @@ export const sidebarStyles = makeStyles((theme) => ({
     },
   },
 
-  childrenRestrictedWidth: {
+  children: {
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.drawer.width,
       width: `calc(100vw - ${theme.drawer.width}px)`,
       transition: "all 0.25s",
-    },    
+    },
   },
   
   root: {
@@ -50,8 +50,8 @@ export const sidebarStyles = makeStyles((theme) => ({
   },
 
   listItem: {
-    paddingLeft: "12px !important",
-    paddingRight: "12px !important",
+    paddingLeft: "12px",
+    paddingRight: "12px",
   },
 
   content: {

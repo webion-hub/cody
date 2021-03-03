@@ -1,65 +1,55 @@
 import React from 'react';
-import { Hidden } from '@material-ui/core';
+import { Divider, Hidden } from '@material-ui/core';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 import { ButtonBase } from '@material-ui/core';
-import { ListItemAvatar } from '@material-ui/core';
 
 export function GetDrawerList(props){
   
-  const createListItems = (sections) => {
-    if(sections === null)
+  const createListItems = (elements) => {
+    if(elements === null)
       return null;
       
-    return sections.map((elements, index) => (
-      <div key={index}>
-        <List>
-          {elements.map((element, innerIndex) => (
-            <div key={index * 10 + innerIndex}>
-              {
-                element.showAlways ? 
-                  null
-                  :
-                  <CustomListItem                   
-                    padding={element.padding}
-                    href={element.href}
-                    className={props.classes.listItem}
-                    onClick={() => {
-                      element.onClick()
-                      props.onSidebarClose()
-                    }}
-                  >    
-                    {
-                      element.avatar? 
-                        <ListItemAvatar 
-                          style={{minWidth: 56 + element.padding}}
-                        >
-                          {element.avatar}
-                        </ListItemAvatar> 
-                      : 
-                        null
-                    }
-                    {
-                      element.icon? 
-                        <ListItemIcon>
-                          {element.icon}
-                        </ListItemIcon> 
-                      : 
-                        null
-                    }
-                    <ListItemText 
-                      primary={element.label} 
-                      className={props.classes.listText}
-                    />
-                  </CustomListItem>                
-              }
-            </div>
-          ))}
-        </List>
-      </div>
-    ))
+    return <List>
+      {elements.map((element, index) => (
+        <div key={index}>
+          {
+            element.divider ? 
+              <Divider/> : null
+          }
+          {
+            element.showAlways ? 
+              null
+              :
+              <CustomListItem             
+                padding={element.padding}
+                href={element.href}
+                className={props.classes.listItem}
+                onClick={() => {
+                  element.onClick()
+                  props.onSidebarClose()
+                }}
+              > 
+                {
+                  element.icon? 
+                    <ListItemIcon>
+                      {element.icon}
+                    </ListItemIcon> 
+                  : 
+                    null
+                }
+                <ListItemText           
+                  style={{paddingLeft: element.padding? element.padding*2 : "auto"}}
+                  primary={element.label} 
+                  className={props.classes.listText}
+                />
+              </CustomListItem>                
+          }
+        </div>
+      ))}
+    </List>
   }
 
   return (
@@ -87,7 +77,7 @@ function CustomListItem(props){
     >
       <ListItem 
         style={{
-          paddingLeft: props.padding 
+          paddingLeft: props.padding,
         }}
         className={props.className}
       >  
