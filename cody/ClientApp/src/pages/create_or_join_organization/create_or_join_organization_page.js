@@ -9,8 +9,9 @@ import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
 import { TeamMeeting } from 'src/components/illustrations/team_meeting';
 import { NewOrganization } from 'src/components/illustrations/new_oraganization';
-import { CardImageButtonBase } from 'src/components/bases/card_image_button_base';
-import { OrganizationInfo } from 'src/pages/create_or_join_organization/organization_info';
+import { OrganizationAction } from 'src/pages/create_or_join_organization/organization_action';
+import { OrganizationsInfo } from 'src/pages/create_or_join_organization/organizations_info';
+import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import InfoRounded from '@material-ui/icons/InfoRounded';
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     maxWidth: 750,
     width: "100%",
-    background: theme.palette.background.paper,
+    background: theme.palette.background.paperSecondary,
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
@@ -98,13 +99,13 @@ export function CreateOrJoinOrganization(){
               direction="row"
               className={classes.cardContainer}
             >
-              <CardImageButtonBase
+              <OrganizationAction
                 image={NewOrganization}
                 buttonLabel="Crea"
                 endIcon={<ArrowForwardRoundedIcon/>}
                 onClick={() => {}}
               />
-              <CardImageButtonBase
+              <OrganizationAction
                 image={TeamMeeting}
                 buttonLabel="Unisciti"
                 endIcon={<ArrowForwardRoundedIcon/>}
@@ -114,9 +115,12 @@ export function CreateOrJoinOrganization(){
           </Grid>
         </Paper>
       </Grid>
-      <OrganizationInfo
+      <OrganizationsInfo
         innerRef={infoRef}
       />
+      <BackgroundWithLines 
+        height={1}
+      /> 
     </>
 
   );
