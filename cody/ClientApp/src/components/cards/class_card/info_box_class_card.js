@@ -150,7 +150,7 @@ export function InfoBoxClassCard(props){
 						>
 							<CustomAvatar
 								alt={props.admin.username} 
-								src={props.admin.profilePic} 
+								src={props.admin.profilePic}
 							/>
 						</Badge>
 					</TouchableTooltip>

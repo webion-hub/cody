@@ -89,7 +89,7 @@ function Line(){
 		<div 
 			className={classes.line} 
 			style={{
-				maxWidth: `${randomValue(10, 45)}vw`,
+				maxWidth: `${randomValue(10, 45)}%`,
 				width: "100%",
 				transition: "5s all",
 				transitionDelay: "0.5s",
