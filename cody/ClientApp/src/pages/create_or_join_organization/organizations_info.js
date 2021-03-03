@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function OrganizationInfo(props){
+export function OrganizationsInfo(props){
   const classes = useStyles();
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
@@ -107,7 +107,9 @@ export function OrganizationInfo(props){
           variant="body1"
           color="textSecondary"
         >
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          Le organizzazioni si dividono in Istituti, Teams e Aziende ognuna di esse può ospitare al loro interno studenti o gruppi di lavoro.<br/>
+          Ogni membro dell'organizzazione può unirsi ai corsi all'interno dell'organizzazione in modo da completare lezioni, fare domande sfruttando i threads sul codice, allenarsi con esercizi o pubblicare frammenti di codice.<br/>
+          Hai la possibilità di creare una tuo team oppure richiedere l'aggiunta di un istituto scolastico o di un'azienda altrimenti puoi unirti ad una organizzazione già creata. 
         </Typography>
         <ul className={classes.list}>
           <li>
@@ -115,7 +117,7 @@ export function OrganizationInfo(props){
               title="Istituti"
               icon={SchoolRoundedIcon}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit vulputate varius. Integer ornare placerat enim eget tincidunt.
+              Se sei un professore e vuoi creare un ambiente per i tuoi studenti dove possono allenarsi e interagire sul codice gli istuti sono la scelta migliore.
             </TitleDescription>
           </li>
           <li>
@@ -123,7 +125,7 @@ export function OrganizationInfo(props){
               title="Teams"
               icon={GroupRoundedIcon}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit vulputate varius. Integer ornare placerat enim eget tincidunt.
+              Pensati per semplici gruppi di persone non associate ad istituti o aziende.
             </TitleDescription>
           </li>
           <li>
@@ -131,7 +133,7 @@ export function OrganizationInfo(props){
               title="Aziende"
               icon={BusinessCenterRoundedIcon}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit vulputate varius. Integer ornare placerat enim eget tincidunt.
+              Per compagnie con intenti di divulgazione o commerciali.
             </TitleDescription>
           </li>
         </ul>
