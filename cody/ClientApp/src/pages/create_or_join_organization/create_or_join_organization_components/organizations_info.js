@@ -107,25 +107,25 @@ export function OrganizationsInfo(props){
           variant="body1"
           color="textSecondary"
         >
-          Le organizzazioni si dividono in Istituti, Teams e Aziende ognuna di esse può ospitare al loro interno studenti o gruppi di lavoro.<br/>
+          Le organizzazioni si dividono in Teams, Istituti ed Aziende ognuna di esse può ospitare al loro interno studenti o gruppi di lavoro.<br/>
           Ogni membro dell'organizzazione può unirsi ai corsi all'interno dell'organizzazione in modo da completare lezioni, fare domande sfruttando i threads sul codice, allenarsi con esercizi o pubblicare frammenti di codice.<br/>
           Hai la possibilità di creare una tuo team oppure richiedere l'aggiunta di un istituto scolastico o di un'azienda altrimenti puoi unirti ad una organizzazione già creata. 
         </Typography>
         <ul className={classes.list}>
           <li>
             <TitleDescription
-              title="Istituti"
-              icon={SchoolRoundedIcon}
-            >
-              Se sei un professore e vuoi creare un ambiente per i tuoi studenti dove possono allenarsi e interagire sul codice gli istuti sono la scelta migliore.
-            </TitleDescription>
-          </li>
-          <li>
-            <TitleDescription
               title="Teams"
               icon={GroupRoundedIcon}
             >
               Pensati per semplici gruppi di persone non associate ad istituti o aziende.
+            </TitleDescription>
+          </li>
+          <li>
+            <TitleDescription
+              title="Istituti"
+              icon={SchoolRoundedIcon}
+            >
+              Se sei un professore e vuoi creare un ambiente per i tuoi studenti dove possono allenarsi e interagire sul codice gli istuti sono la scelta migliore.
             </TitleDescription>
           </li>
           <li>
