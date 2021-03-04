@@ -43,24 +43,25 @@ namespace Cody.Controllers
             {
                 s.Id,
                 s.Name,
-                s.City,
-                s.Country,
+                s.Detail.City,
+                s.Detail.Country,
             });
         }
 
-        private IQueryable<SchoolAccount> GetAll()
+        private IQueryable<Organization> GetAll()
         {
             return _dbContext
-                .Schools
+                .Organizations
                 .Include(s => s.State)
-                .Where(s => s.State.HasBeenVerified)
+                .Where(s => 
+                    s.Kind == OrganizationKind.School &&
+                    s.State.HasBeenVerified
+                )
                 .OrderBy(s => s.Id);
         }
 
-        private static IQueryable<SchoolAccount> FilterSchools(
-            IQueryable<SchoolAccount> schools,
-            string filter
-        ) {
+        private static IQueryable<Organization> FilterSchools(IQueryable<Organization> schools, string filter) 
+        {
             if (string.IsNullOrWhiteSpace(filter))
                 return schools;
             
@@ -69,8 +70,8 @@ namespace Cody.Controllers
                 .FilterUsing(st => s =>
                     Regex.IsMatch(s.Id.ToString(), st) ||
                     Regex.IsMatch(s.Name, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(s.City, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(s.Country, st, RegexOptions.IgnoreCase)
+                    Regex.IsMatch(s.Detail.City, st, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(s.Detail.Country, st, RegexOptions.IgnoreCase)
                 );
         }
     }

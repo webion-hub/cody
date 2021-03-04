@@ -2,6 +2,7 @@
 using Cody.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,19 @@ namespace Cody.Controllers
     public partial class SchoolController : ControllerBase
     {
         [HttpPost("create_new")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> CreateNew([FromBody] SchoolCreationRequest request)
         {
-            SchoolAccount school = request;
+            Organization school = request;
             if (SchoolExists(school, out var existingSchool))
                 return BadRequest(existingSchool.Id);
 
-            school.State = new SchoolAccountState
+            school.State = new OrganizationState
             {
                 HasBeenVerified = false,
             };
 
-            _dbContext.Schools.Add(school);
+            _dbContext.Organizations.Add(school);
             await _dbContext.SaveChangesAsync();
 
             _logger.LogInformation("School created - {School}", school);
@@ -33,15 +34,17 @@ namespace Cody.Controllers
         }
 
 
-        private bool SchoolExists(SchoolAccount school, out SchoolAccount existingSchool)
+        private bool SchoolExists(Organization school, out Organization existingSchool)
         {
-            var maybeExisting =
-                from s in _dbContext.Schools
-                where
-                    s.Name == school.Name &&
-                    s.City == school.City &&
-                    s.Country == school.Country
-                select s;
+            var maybeExisting = _dbContext
+                .Organizations
+                .Include(o => o.Detail)
+                .Where(o =>
+                    o.Kind == OrganizationKind.School &&
+                    o.Name == school.Name &&
+                    o.Detail.City == school.Detail.City &&
+                    o.Detail.Country == school.Detail.Country
+                );
 
             existingSchool = maybeExisting.FirstOrDefault();
             return maybeExisting.Any();

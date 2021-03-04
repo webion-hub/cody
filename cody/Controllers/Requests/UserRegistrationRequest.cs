@@ -28,8 +28,7 @@ namespace Cody.Controllers.Requests
     public record RegistrationRequestDetails (
         string Name,
         string Surname,
-        DateTime BirthDate,
-        int? SchoolId
+        DateTime BirthDate
     ) {
         public static implicit operator UserAccountDetail(RegistrationRequestDetails self)
         {
@@ -38,7 +37,6 @@ namespace Cody.Controllers.Requests
                 Name = self.Name.Trim(),
                 Surname = self.Surname.Trim(),
                 BirthDate = self.BirthDate,
-                SchoolId = self.SchoolId,
                 RegistrationDate = DateTime.Now,
             };
         }

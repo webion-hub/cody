@@ -17,7 +17,6 @@ namespace Cody.Controllers.Helpers
         public const string Name = "name";
         public const string Surname = "surname";
         public const string BirthDate = "birthDate";
-        public const string School = "school";
         public const string Role = "role";
         public const string RegistrationDate = "registrationDate";
         public const string Biography = "biography";
@@ -42,28 +41,10 @@ namespace Cody.Controllers.Helpers
             BirthDate        => _user.AccountDetail.BirthDate,
             Role             => _user.AccountRole?.Name,
             RegistrationDate => _user.AccountDetail.RegistrationDate,
-            School           => await GetSchoolAsync(),
             Biography        => await GetBiographyAsync().ContinueWith(b => b.Result?.Contents),
 
             _ => null,
         };
-
-        private async Task<object> GetSchoolAsync()
-        {
-            var school = await _dbContext
-                .Schools
-                .FindAsync(_user.AccountDetail.SchoolId);
-
-            if (school is null)
-                return null;
-
-            return new {
-                school.Id,
-                school.Name,
-                school.City,
-                school.Country,
-            };
-        }
 
 
         public async Task SetAsync(string prop, object val)
@@ -76,17 +57,9 @@ namespace Cody.Controllers.Helpers
                 case Name:      _user.AccountDetail.Name = value;                           break;
                 case Surname:   _user.AccountDetail.Surname = value;                        break;
                 case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);      break;
-                case School:    _user.AccountDetail.SchoolId = GetNewSchoolValue(value);    break;
                 case Role:      SetRole(value);                                             break;
                 case Biography: await SetBiographyAsync(value);                             break;
             }
-        }
-
-        private static int? GetNewSchoolValue(string value)
-        {
-            return string.IsNullOrWhiteSpace(value)
-                ? null
-                : int.Parse(value);
         }
 
 

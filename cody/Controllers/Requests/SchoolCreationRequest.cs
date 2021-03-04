@@ -11,13 +11,15 @@ namespace Cody.Controllers.Requests
         string City,
         string Country
     ) {
-        public static implicit operator SchoolAccount(SchoolCreationRequest self)
+        public static implicit operator Organization(SchoolCreationRequest self)
         {
-            return new SchoolAccount
+            return new Organization
             {
                 Name = self.Name.Trim(),
-                City = self.City.Trim(),
-                Country = self.City.Trim(),
+                Detail = new (){
+                    City = self.City.Trim(),
+                    Country = self.City.Trim(),
+                },
             };
         }
     }

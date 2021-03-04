@@ -45,14 +45,15 @@ namespace Cody.Controllers.Admin
             return
                 from u in filteredUsers
                 let ad = u.AccountDetail
+                let o = u.Organizations
                 let pp = ad.ProfilePicture
-                let s = ad.School
 
                 select new
                 {
                     u.Id,
                     u.Username,
                     u.Email,
+                    Organizations = o,
                     Detail = new
                     {
                         ad.Name,
@@ -64,13 +65,6 @@ namespace Cody.Controllers.Admin
                     {
                         pp.FilePath,
                     },
-                    School = s == null ? null : new
-                    {
-                        s.Id,
-                        s.Name,
-                        s.City,
-                        s.Country,
-                    },
                 };
         }
 
@@ -81,8 +75,7 @@ namespace Cody.Controllers.Admin
                 .UserAccounts
                 .Include(u => u.AccountDetail)
                     .ThenInclude(ad => ad.ProfilePicture)
-                .Include(u => u.AccountDetail)
-                    .ThenInclude(ad => ad.School)
+                .Include(u => u.Organizations)
                 .OrderBy(u => u.Id);
         }
 
