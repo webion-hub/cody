@@ -22,8 +22,12 @@ namespace Cody.Models
         public int Id { get; set; }
 
 
-        [Required] public string Name { get; set; }
-        [Required] public OrganizationKind Kind { get; set; }
+        [Required] 
+        public string Name { get; set; }
+        
+        [Required]
+        [Column(TypeName = "text")]
+        public OrganizationKind Kind { get; set; }
         
 
         public OrganizationState State { get; set; }
