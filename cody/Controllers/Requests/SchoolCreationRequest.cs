@@ -16,6 +16,7 @@ namespace Cody.Controllers.Requests
             return new Organization
             {
                 Name = self.Name.Trim(),
+                Kind = OrganizationKind.School,
                 Detail = new (){
                     City = self.City.Trim(),
                     Country = self.City.Trim(),

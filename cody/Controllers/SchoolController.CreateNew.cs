@@ -1,4 +1,5 @@
 ﻿using Cody.Controllers.Requests;
+using Cody.Extensions;
 using Cody.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,13 @@ namespace Cody.Controllers
             school.State = new OrganizationState
             {
                 HasBeenVerified = false,
+            };
+
+            school.Members = new() {
+                new() {
+                    Role = OrganizationRole.Owner,
+                    UserAccount = await HttpContext.GetLoggedUserAsync(),
+                }
             };
 
             _dbContext.Organizations.Add(school);
