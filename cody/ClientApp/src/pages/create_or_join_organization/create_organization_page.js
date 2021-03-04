@@ -7,7 +7,7 @@ import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
 import { Teacher } from 'src/components/illustrations/teacher';
-import { TeamMeeting } from 'src/components/illustrations/team_meeting';
+import { TeamWork } from 'src/components/illustrations/team_work';
 import { Career } from 'src/components/illustrations/career';
 
 export function CreateOrganization(props){
@@ -21,24 +21,21 @@ export function CreateOrganization(props){
     >
       <OrganizationAction
         width="33%"
-        image={TeamMeeting}
+        image={TeamWork}
         buttonLabel="Crea un team"
         endIcon={<ArrowForwardRoundedIcon/>}
-        onClick={props.onCreate}
       />
       <OrganizationAction
         width="33%"
         image={Teacher}
         buttonLabel="Aggiungi Istituto"
         endIcon={<AddRoundedIcon/>}
-        onClick={props.onCreate}
       />
       <OrganizationAction
         width="33%"
         image={Career}
         buttonLabel="Aggiungi un'azienda"
         endIcon={<AddRoundedIcon/>}
-        onClick={props.onCreate}
       />
     </TitleInfoContentBase>
   );

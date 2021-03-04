@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base';
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
 import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
 import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization_page';
-import history from 'src/history';
 
 export function CreateOrJoinOrganization(){
   const [content, setContent] = React.useState("selectAction");
