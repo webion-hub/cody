@@ -7,7 +7,5 @@ CREATE TABLE organization
 	name text NOT NULL,
 	kind text NOT NULL,
 	
-	owner_id int NOT NULL REFERENCES user_account(id),
-	
 	UNIQUE (name, kind)
 );
