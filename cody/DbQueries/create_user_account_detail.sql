@@ -9,6 +9,5 @@ CREATE TABLE user_account_detail
 	birth_date 		  date NOT NULL,
 	registration_date date NOT NULL,
 	
-	user_account_id   int UNIQUE NOT NULL REFERENCES user_account(id),
-	school_id  	      int REFERENCES school_account(id),
+	user_account_id int UNIQUE NOT NULL REFERENCES user_account(id)
 );
