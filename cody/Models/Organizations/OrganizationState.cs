@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Cody.Models
 {
-    [Table("school_account_state")]
-    public class SchoolAccountState
+    [Table("organization_state")]
+    public class OrganizationState
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,7 +19,7 @@ namespace Cody.Models
 
 
         [Required]
-        public int SchoolId { get; set; }
-        public SchoolAccount School { get; set; }
+        public int OrganizationId { get; set; }
+        public Organization Organization { get; set; }
     }
 }

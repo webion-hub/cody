@@ -1,6 +1,7 @@
 ﻿using Cody.Models;
 using Cody.Security;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Cody.Contexts
 {
@@ -13,7 +14,7 @@ namespace Cody.Contexts
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public DbSet<UserAccountDetail> UserDetails { get; set; }
-        public DbSet<SchoolAccount> Schools { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
         public DbSet<UserAccountRole> Roles { get; set; }
         public DbSet<UserBiography> Biographies { get; set; }
@@ -22,7 +23,9 @@ namespace Cody.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureDefaultValues(modelBuilder);
+            ConfigureOrganizationMembership(modelBuilder);
         }
+
 
         private static void ConfigureDefaultValues(ModelBuilder modelBuilder)
         {
@@ -30,6 +33,25 @@ namespace Cody.Contexts
                 .Entity<UserAccountState>()
                 .Property(b => b.IsEmailValid)
                 .HasDefaultValue(false);
+        }
+
+        private static void ConfigureOrganizationMembership(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<OrganizationMembership>()
+                .HasKey(om => new { om.OrganizationId, om.UserAccountId });
+
+            modelBuilder
+                .Entity<OrganizationMembership>()
+                .HasOne(om => om.Organization)
+                .WithMany(o => o.Members)
+                .HasForeignKey(om => om.OrganizationId);
+
+            modelBuilder
+                .Entity<OrganizationMembership>()
+                .HasOne(om => om.UserAccount)
+                .WithMany(u => u.Organizations)
+                .HasForeignKey(om => om.UserAccountId);
         }
     }
 }
