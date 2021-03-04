@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export function BasePhotoText(props) {
   const classes = useStyles();
 
-  const propsItems = props.items;
+  const propsItems = props.items? props.items : [];
   const items = propsItems.map((item, index) => 
     <Box 
       key={index}
@@ -46,6 +46,7 @@ export function BasePhotoText(props) {
               maxWidth={props.formWidth}
             >
               {items}
+              {props.children}
             </Box>
           </Grid>
         </Box>
