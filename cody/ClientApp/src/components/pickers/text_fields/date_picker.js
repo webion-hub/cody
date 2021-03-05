@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import itLocale from "date-fns/locale/it";
 
@@ -11,7 +11,7 @@ export function DatePicker(props){
   const handleDateChange = (date) => {
     setSelectedDate(date);
 
-    const {onChange} = this.props;
+    const {onChange} = props;
     onChange(date);
   };
 
