@@ -16,7 +16,7 @@ namespace Cody.Controllers
     {
         [HttpPost("create_new")]
         [Authorize]
-        public async Task<IActionResult> CreateNew([FromBody] SchoolCreationRequest request)
+        public async Task<IActionResult> CreateNew([FromBody] OrganizationCreationRequest request)
         {
             Organization school = request;
             if (SchoolExists(school, out var existingSchool))

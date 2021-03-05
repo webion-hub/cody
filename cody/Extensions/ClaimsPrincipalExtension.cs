@@ -24,5 +24,14 @@ namespace Cody.Extensions
                 .Include(u => u.AccountRole)
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
+
+
+        public static int GetId(this ClaimsPrincipal claim)
+        {
+            var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.TryParse(rawId, out int userId)
+                ? userId
+                : throw new Exception("Cannot retrieve the user's id");
+        }
     }
 }
