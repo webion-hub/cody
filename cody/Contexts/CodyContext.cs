@@ -38,17 +38,17 @@ namespace Cody.Contexts
         private static void ConfigureOrganizationMembership(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<OrganizationMembership>()
+                .Entity<OrganizationMember>()
                 .HasKey(om => new { om.OrganizationId, om.UserAccountId });
 
             modelBuilder
-                .Entity<OrganizationMembership>()
+                .Entity<OrganizationMember>()
                 .HasOne(om => om.Organization)
                 .WithMany(o => o.Members)
                 .HasForeignKey(om => om.OrganizationId);
 
             modelBuilder
-                .Entity<OrganizationMembership>()
+                .Entity<OrganizationMember>()
                 .HasOne(om => om.UserAccount)
                 .WithMany(u => u.Organizations)
                 .HasForeignKey(om => om.UserAccountId);

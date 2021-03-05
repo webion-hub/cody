@@ -16,7 +16,7 @@ namespace Cody.Models
 
 
     [Table("organization_member")]
-    public class OrganizationMembership
+    public class OrganizationMember
     {
         [Required] public int OrganizationId { get; set; }
         [Required] public int UserAccountId { get; set; }

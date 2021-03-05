@@ -34,6 +34,15 @@ namespace Cody.Models
         public OrganizationDetail Detail { get; set; }
 
 
-        public List<OrganizationMembership> Members { get; set; }
+        public List<OrganizationMember> Members { get; set; }
+
+
+        [NotMapped]
+        public OrganizationMember Owner 
+        {
+            get => Members
+                .Where(m => m.Role == OrganizationRole.Owner)
+                .SingleOrDefault();
+        }
     }
 }
