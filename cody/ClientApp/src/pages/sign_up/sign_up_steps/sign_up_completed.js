@@ -11,8 +11,7 @@ import { RocketLaunch } from 'src/components/illustrations/rocket_launch';
 export function SignUpCompleted(props){
   return (
     <BasePhotoText
-      image={<RocketLaunch size={props.imageWidth}/>}
-      formWidth={props.formWidth}
+      image={RocketLaunch}
       margin={0.5}
       bottomMargin={2}
       items={[

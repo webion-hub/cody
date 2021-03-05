@@ -1,11 +1,11 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import { Box } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Password } from 'src/components/password/password_textfield';
 import { PwStrengthProgress } from 'src/components/password/password_strenght_progress';
@@ -14,141 +14,129 @@ import { NextFocus } from 'src/lib/next_focus';
 
 import { Step1 } from 'src/components/illustrations/step1';
 
-export class EmailPassword extends Component{
 
-  constructor(props) {
-    super(props);
-    this.getPassword = this.getPassword.bind(this);
-    this.getConfirmPassword = this.getConfirmPassword.bind(this);
-
-    this.state = {
-      email: this.props.values.email,
-      password: this.props.values.password,
-      confirmPassword: this.props.values.confirmPassword,
-    };
-
-    this.nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
+export const useStyles = makeStyles((theme) => ({
+  form: {
+    width: "100%"
+  },
+  password: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(0.5)
   }
+}));
 
-  getEmail = (event) => {
-    this.setState({email: event.target.value });
-    const {email} = this.props;
-    email(event.target.value); 
-  }
+export function EmailPassword(props){
+	const classes = useStyles();
 
-  getPassword(value){
-    this.setState({password: value });
-    const {password} = this.props;
-    password(value);
-  }
+  const [password, setPassword] = React.useState(props.values.password);
+  const nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
+  
+  console.log()
+  const emailError = props.errors.emailError || props.errors.emailExist
+  const passwordError = props.errors.passwordError
 
-  getConfirmPassword(value){
-    this.setState({confirmPassword: value});
-    const {confirmPassword} = this.props;
-    confirmPassword(value);
+  const getPassword = (value) => {
+    setPassword(value);
+
+    const {onPasswordChange} = props;
+    onPasswordChange(value);
   }
   
-  render(){
-    return (
-      <BasePhotoText
-        image={<Step1 size={this.props.imageWidth}/>}
-        formWidth={this.props.formWidth}
-        bottomMargin={1}
-        margin={1}
-        items={[
-          <Typography
-            variant="body2"
-            color="secondary"
-          >
-            Email &amp; Password
-          </Typography>,
-          <Box>
-            <form>
-              <TextField
-                id="registration_email"
-                label="Email"
-                variant="outlined"
-                color="secondary"
-                value={this.state.email}
-                fullWidth={true}
-                required={true}
-                onChange={this.getEmail}
-                inputRef={this.nextFocus.getInput("email")} 
-                error={
-                  this.props.errors.email 
-                  || this.props.errors.emailExist
+  return (
+    <BasePhotoText
+      image={Step1}
+      bottomMargin={1}
+      margin={1}
+      items={[
+        <Typography
+          variant="body2"
+          color="secondary"
+        >
+          Email &amp; Password
+        </Typography>,
+        <>
+          <form className={classes.form}>
+            <TextField
+              id="registration_email"
+              label="Email"
+              variant="outlined"
+              color="secondary"
+              defaultValue={props.values.email}
+              fullWidth
+              required
+              onChange={e => props.onEmailChange(e.target.value)}
+              inputRef={nextFocus.getInput("email")} 
+              error={emailError}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  nextFocus.focusOn("password");
                 }
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    this.nextFocus.focusOn("password");
-                  }
-                }}
-              />
-            </form>
-            <Grid
-                container
-                direction="row"
-                justify="flex-end"
+              }}
+            />
+          </form>
+          <Grid
+            container
+            direction="row"
+            justify="flex-end"
+          >
+            <Fade
+              in={props.errors.emailExist}
             >
-              <Fade
-                in={this.props.errors.emailExist}
+              <Typography
+                variant="caption"
+                color="error"
               >
-                <Typography
-                  variant="caption"
-                  color="error"
-                >
-                  Email già usata!
-                </Typography>
-              </Fade>
-            </Grid>
-          </Box>,
-          <Box m={1.5}/>,
-          <Box>
+                Email già usata!
+              </Typography>
+            </Fade>
+          </Grid>
+        </>,
+        <>
+          <div className={classes.password}>
             <Password
               label="Password"
               name="new_password"
               labelWidth={85}
-              required={true}
-              value={this.state.password}
-              onChange={this.getPassword}
-              inputRef={this.nextFocus.getInput("password")} 
-              error={this.props.errors.password}
+              required
+              defaultValue={props.values.password}
+              onChange={getPassword}
+              inputRef={nextFocus.getInput("password")} 
+              error={passwordError}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  this.nextFocus.focusOn("confirmPassword");
+                  nextFocus.focusOn("confirmPassword");
                 }
-             }}
-            />
-            <Box m={0.5}/>
-            <PwStrengthProgress
-              password={this.state.password}
-            />
-            <Typography
-              variant="caption"
-              color="textSecondary"
-            >
-              Tra 8 e 128 caratteri
-            </Typography>
-          </Box>,
-          <Password
-            label="Conferma Password"
-            labelWidth= {163}
-            required={true}
-            value={this.state.confirmPassword}
-            onChange={this.getConfirmPassword}
-            error={this.props.errors.password}
-            inputRef={this.nextFocus.getInput("confirmPassword")} 
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                this.nextFocus.removeFocus()
-              }
             }}
+            />
+          </div>
+          <PwStrengthProgress
+            password={password}
           />
-          ,
-        ]}
-      />
-    );
-  }
+          <Typography
+            variant="caption"
+            color="textSecondary"
+          >
+            Tra 8 e 128 caratteri
+          </Typography>
+        </>,
+        <Password
+          label="Conferma Password"
+          labelWidth= {163}
+          required
+          defaultValue={props.values.confirmPassword}
+          onChange={props.onConfirmPasswordChange}
+          error={passwordError}
+          inputRef={nextFocus.getInput("confirmPassword")} 
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              nextFocus.removeFocus()
+            }
+          }}
+        />
+        ,
+      ]}
+    />
+  );
 }
 
 

@@ -1,1 +1,0 @@
-Se in futuro ci sono problemi in cui il browser riempie i textfield con i salvataggi, la soluzione è wrappare il textfield con un <form autoComplete="off">...</form>

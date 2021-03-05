@@ -49,6 +49,7 @@ export class SignUpStepperMain extends Component {
   }
   
   componentDidUpdate(prevProps, prevState){
+    console.log(this.props.newStep)
     if(prevProps.newStep < this.props.newStep)
     {
       this.handleNext();
@@ -86,8 +87,6 @@ export class SignUpStepperMain extends Component {
     this.setState({openAlert: false})
   }
 
-
-  
   
   _registerUser = async () => {
     this.setState({loading: true});
@@ -174,12 +173,12 @@ export class SignUpStepperMain extends Component {
             );
           })}
         </StyledStepper>
-        <div>
+        <>
           {this.state.activeStep === this.state.steps.length ? (
-            <div>
-              <div>
+            <>
+              <>
                 {this.state.finalStep}
-              </div>
+              </>
               <Grid
                 container
                 direction="row"
@@ -199,11 +198,11 @@ export class SignUpStepperMain extends Component {
                   Vai alla home
                 </Button> 
               </Grid>
-            </div>
+            </>
           ) : (
-            <div>
+            <>
               {this.props.element}
-              <div>
+              <>
                 <Grid
                   container
                   direction="row"
@@ -218,51 +217,51 @@ export class SignUpStepperMain extends Component {
                   >
                     {this.state.activeStep === 0 ? "Vai al login" : "Indietro"}
                   </Button>
-                  <div>
-                  {this.state.activeStep === this.state.steps.length - 1 ?  
-                    (
-                      <div>
-                        <LoadingButton
-                          loading={this.state.loading}
-                          label="Finisci"
-                          onClick={this._registerUser}
+                  <>
+                    {this.state.activeStep === this.state.steps.length - 1 ?  
+                      (
+                        <>
+                          <LoadingButton
+                            loading={this.state.loading}
+                            label="Finisci"
+                            onClick={this._registerUser}
+                          />
+                          <AlertDialog
+                            open={this.state.openAlert}
+                            onClose={this.handleAlertClose}
+                            items={[
+                              <Grid
+                                container
+                                direction="column"
+                              >
+                                {this.state.registerErrors}
+                              </Grid>,
+                              this.state.missingFields,
+                              this.state.imageUploadError,
+                            ]}
+                          />
+                        </>
+                      )
+                      : 
+                      (
+                        <LoadingButton 
+                          loading={this.props.loading}
+                          label="Avanti"
+                          onClick={() => {
+                            if(this.isStepOptional(this.state.activeStep))
+                              this.handleNext()  
+                            else
+                              this.props.onClick()
+                          }}
                         />
-                        <AlertDialog
-                          open={this.state.openAlert}
-                          onClose={this.handleAlertClose}
-                          items={[
-                            <Grid
-                              container
-                              direction="column"
-                            >
-                              {this.state.registerErrors}
-                            </Grid>,
-                            this.state.missingFields,
-                            this.state.imageUploadError,
-                          ]}
-                        />
-                      </div>
-                    )
-                    : 
-                    (
-                      <LoadingButton 
-                        loading={this.props.loading}
-                        label="Avanti"
-                        onClick={() => {
-                          if(this.isStepOptional(this.state.activeStep))
-                            this.handleNext()  
-                          else
-                            this.props.onClick()
-                        }}
-                      />
-                    )
-                  }
-                  </div>
+                      )
+                    }
+                  </>
                 </Grid>
-              </div>
-            </div>
+              </>
+            </>
           )}
-        </div>
+        </>
       </Box>
     );
   }
