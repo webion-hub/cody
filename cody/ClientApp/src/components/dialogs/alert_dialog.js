@@ -13,8 +13,6 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { Error } from 'src/components/illustrations/error';
 
-import { Form } from 'src/lib/default_values/sizes/form_size';
-
 export function AlertDialog(props){
  
   const handleClose = () => {
@@ -53,8 +51,7 @@ export function AlertDialog(props){
       }
     >
       <BasePhotoText
-        image={<Error size={Form.imageWidth}/>}
-        formWidth={Form.width}
+        image={Error}
         margin={1}
         items={[
           <Typography variant="h6">

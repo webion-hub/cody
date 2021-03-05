@@ -19,7 +19,6 @@ import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
 import PublicRoundedIcon from '@material-ui/icons/PublicRounded';
 
 import { Graduation } from 'src/components/illustrations/graduation';
-import { Form } from 'src/lib/default_values/sizes/form_size';
 
 export function AddSchoolDialog(props){
   const [loading, setLoading] = React.useState(false);
@@ -111,8 +110,7 @@ export function AddSchoolDialog(props){
       }
     >
       <BasePhotoText
-        image={<Graduation size={Form.imageWidth}/>}
-        formWidth={Form.width}
+        image={Graduation}
         margin={1}
         items={[
           <TextField
