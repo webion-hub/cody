@@ -3,8 +3,10 @@ import React from 'react';
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
+
 import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
-import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization_page';
+import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization';
+import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization';
 
 export function CreateOrJoinOrganization(){
   const [content, setContent] = React.useState("selectAction");
@@ -22,12 +24,18 @@ export function CreateOrJoinOrganization(){
       info={<OrganizationsInfo/>}    
     />
 
+  const joinOrganization = 
+    <JoinOrganization
+      onBack={() => setContent("selectAction")}
+      info={<OrganizationsInfo/>}    
+    />
+
   const getContent = () => {
     switch(content){
       case "create":
         return createOrganization;
       case "join":
-        return selectAction;
+        return joinOrganization;
       case "selectAction":
       default:
         return selectAction;

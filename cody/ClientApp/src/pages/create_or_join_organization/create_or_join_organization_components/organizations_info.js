@@ -7,8 +7,8 @@ import { useMediaQuery } from '@material-ui/core'
 
 import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
 
-import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
+import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 
 import { Question } from 'src/components/illustrations/question';
