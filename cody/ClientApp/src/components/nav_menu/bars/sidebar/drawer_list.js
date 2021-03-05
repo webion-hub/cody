@@ -77,7 +77,8 @@ function CustomListItem(props){
     >
       <ListItem 
         style={{
-          paddingLeft: props.padding,
+          paddingLeft: props.padding? props.padding : 12,
+          paddingRight: 12,
         }}
         className={props.className}
       >  

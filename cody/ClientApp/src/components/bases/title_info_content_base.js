@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }),
   title: {
     textAlign: "center",
+    width: "calc(100% - 96px)"
   },
   titleContainer: {
     width: "100%",

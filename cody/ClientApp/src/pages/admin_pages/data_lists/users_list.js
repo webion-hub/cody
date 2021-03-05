@@ -17,7 +17,7 @@ export function UsersList(props){
 			name: data.detail.name,
 			surname: data.detail.surname,
 			birthDate: birthDate.toLocaleDateString(),
-			schoolId: data.school.id,
+			schoolId: data.school? data.school.id : "",
 		})
 	}
 
