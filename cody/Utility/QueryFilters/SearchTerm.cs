@@ -8,7 +8,7 @@ namespace Cody.Utility.QueryFilters
     public struct SearchTerm
     {
         public string Value { get; init; }
-
+        public bool IsExcluded { get; init; }
 
         private readonly DateTime _dateValue;
         public DateTime DateValue => _dateValue;
@@ -19,7 +19,8 @@ namespace Cody.Utility.QueryFilters
 
         public SearchTerm(string rawValue)
         {
-            Value = rawValue;
+            IsExcluded = rawValue.StartsWith('-');
+            Value = IsExcluded ? rawValue[1..] : rawValue;
             IsDate = DateTime.TryParse(rawValue, out _dateValue);
         }
 

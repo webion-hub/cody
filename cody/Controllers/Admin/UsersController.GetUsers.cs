@@ -87,7 +87,7 @@ namespace Cody.Controllers.Admin
 
             return users
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .FilterUsing(st => u => 
+                .Where(st => u => 
                     u.AccountDetail.BirthDate == st ||
                     u.AccountDetail.RegistrationDate == st ||
 

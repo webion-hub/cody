@@ -67,7 +67,7 @@ namespace Cody.Controllers
             
             return schools
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .FilterUsing(st => s =>
+                .Where(st => s =>
                     Regex.IsMatch(s.Id.ToString(), st) ||
                     Regex.IsMatch(s.Name, st, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(s.Detail.City, st, RegexOptions.IgnoreCase) ||

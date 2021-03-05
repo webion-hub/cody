@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cody.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Utility.QueryFilters
 {
-    public class SplitWordsFilter<T> : IQueryFilter<T>
+    public class SplitWordsFilter<T> : QueryFilter<T>
     {
         private readonly IQueryable<T> _query;
         private readonly IEnumerable<SearchTerm> _searchTerms;
@@ -21,13 +22,18 @@ namespace Cody.Utility.QueryFilters
             _query = query;
             _searchTerms = filters.Select(f => SearchTerm.From(f));
         }
+        
 
-
-        public IQueryable<T> FilterUsing(FilterGenerator<T> filterGenerator)
+        public override IQueryable<T> Where(FilterGenerator<T> filterGenerator)
         {
             var result = _query;
             foreach (var st in _searchTerms)
-                result = result.Where(filterGenerator(st));
+            {
+                var filter = 
+                    GenerateFilter(filterGenerator, st);
+
+                result = result.Where(filter);
+            }
 
             return result;
         }

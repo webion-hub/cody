@@ -12,7 +12,7 @@ namespace Cody.Utility.QueryFilters
 
     public static class QueryFilterFactory
     {
-        public static IQueryFilter<T> CreateNew<T>(IQueryable<T> query, string filter, FilterKind kind) => kind switch
+        public static QueryFilter<T> CreateNew<T>(IQueryable<T> query, string filter, FilterKind kind) => kind switch
         {
             FilterKind.SplitWords => new SplitWordsFilter<T>(query, filter),
 

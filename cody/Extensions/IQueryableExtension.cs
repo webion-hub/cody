@@ -17,7 +17,7 @@ namespace Cody.Extensions
         }
 
 
-        public static IQueryFilter<T> CreateFilter<T>(this IQueryable<T> self, string filter, FilterKind kind) 
+        public static QueryFilter<T> CreateFilter<T>(this IQueryable<T> self, string filter, FilterKind kind) 
         {
             return QueryFilterFactory.CreateNew(self, filter, kind);
         }
