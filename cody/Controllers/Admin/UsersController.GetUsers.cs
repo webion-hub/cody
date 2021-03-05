@@ -53,7 +53,12 @@ namespace Cody.Controllers.Admin
                     u.Id,
                     u.Username,
                     u.Email,
-                    Organizations = o,
+                    Organizations = o.Select(o => new
+                    {
+                        o.Organization.Id,
+                        o.Organization.Name,
+                        Kind = o.Organization.Kind.ToString(),
+                    }),
                     Detail = new
                     {
                         ad.Name,
