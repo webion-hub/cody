@@ -46,6 +46,7 @@ export function Password(props){
         color="secondary"
         type={showPassword ? 'text' : 'password'}
         value={props.value === "" ? password : props.value}
+        defaultValue={props.defaultValue === "" ? password : props.defaultValue}
         onChange={handleChange}
         onKeyDown={props.onKeyDown}
         error={props.error}
