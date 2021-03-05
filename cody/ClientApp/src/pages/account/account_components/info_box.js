@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import { Grid, Typography, Link, Paper, Divider } from '@material-ui/core';
+import { Grid, Typography, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -16,6 +16,7 @@ import { EditableBiography } from 'src/components/pickers/text_fields/editable_t
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    width: 364,
     padding: theme.spacing(2),
     background: theme.palette.background.paper,
     height: "100%",

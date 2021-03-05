@@ -49,7 +49,6 @@ export class SignUpStepperMain extends Component {
   }
   
   componentDidUpdate(prevProps, prevState){
-    console.log(this.props.newStep)
     if(prevProps.newStep < this.props.newStep)
     {
       this.handleNext();

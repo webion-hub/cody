@@ -23,10 +23,10 @@ export const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center center",
   },
   paper: {
-    padding: theme.spacing(1),
-    marginTop: theme.appBar.fullHeight,
-    maxWidth: 616,
+    padding: theme.spacing(2),
+    maxWidth: 632,
     width: "100%",
+    marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight + theme.spacing(4),
     },
@@ -130,7 +130,7 @@ export function SignUp(){
         <SignUpStepper
           steps={elementsNumber}
           onClick={() => handleOnNext(elementsList[stepInfo.currentStep].controller)}
-          optionalSteps={[3]}
+          optionalSteps={[1,2,3]}
           element={stepInfo.currentStep > elementsNumber ? null : elementsList[stepInfo.currentStep].element}
           currentStep={step => setStepInfo({
             ...stepInfo,

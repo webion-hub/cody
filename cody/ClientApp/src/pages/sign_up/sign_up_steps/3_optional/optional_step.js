@@ -20,6 +20,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   addPhotoLabel: {
     marginTop: theme.spacing(2)
+  },
+  schoolPickerLabel: {
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -51,6 +54,7 @@ export function OptionalData(props){
         </Grid>,
         <>
           <Grid
+            className={classes.schoolPickerLabel}
             container
             direction="row"              
           >
