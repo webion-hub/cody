@@ -35,7 +35,7 @@ namespace Cody.Utilities.QueryFilters
         }
 
 
-        public T? AsEnum<T>() where T: struct => Misc.MaybeGetEnumFrom<T>(Value);
+        public T? AsEnum<T>() where T: struct => Utility.MaybeGetEnumFrom<T>(Value);
 
 
         public static implicit operator string (Keyword self) => self.Value;

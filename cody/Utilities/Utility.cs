@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Utilities
 {
-    public static class Misc
+    public static class Utility
     {
         public static void TrimAll<T>(T target, params Expression<Func<T, string>>[] expressions)
         {
