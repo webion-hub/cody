@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { Avatar } from '@material-ui/core';
+import { Avatar, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
-export function CustomAvatar(props){   
+export function CustomAvatar(props){
+  const theme = useTheme()
   const [loading, setLoading] = React.useState(true);
 
   const propsOnLoad = props.onLoad? 
@@ -62,7 +63,8 @@ export function CustomAvatar(props){
           width: props.width,
           height: props.height,
           fontSize: `${1.25 * (props.width / 40)}rem`,
-          display: finalLoading ? "none" : "flex"
+          display: finalLoading ? "none" : "flex",
+          boxShadow: props.shadow ? `2px 2px 6px 2px ${theme.palette.background.paperSecondary}` : null,
         }}
       />
     </> 
