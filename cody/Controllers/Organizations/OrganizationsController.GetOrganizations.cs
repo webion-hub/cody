@@ -76,9 +76,7 @@ namespace Cody.Controllers.Organizations
             return organizations
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .Where(k => o =>
-                    (k == "School"  && o.Kind == OrganizationKind.School) ||
-                    (k == "Company" && o.Kind == OrganizationKind.Company) ||
-                    (k == "Team"    && o.Kind == OrganizationKind.Team) ||
+                    k.AsEnum<OrganizationKind>() == o.Kind ||
 
                     Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(o.Detail.City, k.Pattern, RegexOptions.IgnoreCase) ||
