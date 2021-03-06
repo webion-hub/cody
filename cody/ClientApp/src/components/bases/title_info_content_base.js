@@ -8,11 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import InfoRounded from '@material-ui/icons/InfoRounded';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 
+
 const useStyles = makeStyles((theme) => ({
-  pageContainer: {
-    minHeight: "100vh",
-    position: "relative",
-  },
   paperBox: props => ({
     position: "relative",
     maxWidth: props.width,
@@ -51,76 +48,64 @@ const useStyles = makeStyles((theme) => ({
 export function TitleInfoContentBase(props){
   const width = props.width? props.width : 750;
   const classes = useStyles({width});
-  const infoRef = React.createRef();
+  const infoRef = props.infoRef;
 
   const scrollToInfo = () => {
     infoRef.current.scrollIntoView({ block: 'start',  behavior: 'smooth' });
   }
 
   return(
-    <>
+    <Paper className={classes.paperBox}>
       <Grid
-        className={classes.pageContainer}
         container
-        justify="center"
+        direction="column"
         alignItems="center"
       >
-        <Paper className={classes.paperBox}>
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
+        <Grid
+          className={classes.titleContainer}
+          container
+          direction="row"
+          alignItems="center"
+          justify="center"
+        >
+          <Typography
+            className={classes.title}
+            variant="h5"
+            component="h1"
           >
-            <Grid
-              className={classes.titleContainer}
-              container
-              direction="row"
-              alignItems="center"
-              justify="center"
-            >
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="h1"
+            {props.title}
+          </Typography>
+          {
+            props.onBack?
+              <IconButton 
+                className={classes.backButton}
+                onClick={props.onBack}
               >
-                {props.title}
-              </Typography>
-              {
-                props.onBack?
-                  <IconButton 
-                    className={classes.backButton}
-                    onClick={props.onBack}
-                  >
-                    <ArrowBackRoundedIcon/>
-                  </IconButton>
-                  :
-                  null
-              }
-              {
-                props.info?
-                  <IconButton 
-                    className={classes.infoButton}
-                    onClick={scrollToInfo}
-                  >
-                    <InfoRounded/>
-                  </IconButton>
-                  :
-                  null
-              }
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              className={classes.cardContainer}
-            >
-              {props.children}
-            </Grid>
-          </Grid>
-        </Paper>
+                <ArrowBackRoundedIcon/>
+              </IconButton>
+              :
+              null
+          }
+          {
+            props.infoRef?
+              <IconButton 
+                className={classes.infoButton}
+                onClick={scrollToInfo}
+              >
+                <InfoRounded/>
+              </IconButton>
+              :
+              null
+          }
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          className={classes.cardContainer}
+        >
+          {props.children}
+        </Grid>
       </Grid>
-      <div ref={infoRef}>
-        {props.info}
-      </div>
-    </>
+    </Paper>
   );
 }
