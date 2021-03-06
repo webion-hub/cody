@@ -35,12 +35,12 @@ export function LoginBox(){
   const [data, setData] = React.useState({
     username: '',
     password: '',
+    rememberMe: false,
   });
   const [errors, setErrors] = React.useState({
     wrongUsername: false,
     wrongPassword: false,
   });   
-  const [rememberMe, setRememberMe] = React.useState(false);   
   const [loading, setLoading] = React.useState(false);   
   const [openForgotPw, setOpenForgotPw] = React.useState(false);   
 
@@ -103,7 +103,10 @@ export function LoginBox(){
   }
 
   const _updateRememberMe = () =>  {
-    setRememberMe(!rememberMe)
+    setData({
+      ...data,
+      rememberMe: !data.rememberMe
+    })
   }
 
   return(
