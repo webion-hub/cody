@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
-import { TouchableTooltip } from 'src/components/touchable_tooltip';
+import { getSection } from 'src/components/nav_menu/bars/appbar/getSection';
 
 const dynamicAppbarStyles = makeStyles((theme) => ({
   rightSection: {
@@ -45,53 +45,12 @@ export function DynamicAppbar(props) {
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
-  const getSectionMainContent = (element) => {
-    return <div>
-      {
-        element.element? (
-          element.element
-        ):(
-          <IconButton
-            href={element.href}
-            style={{
-              padding: element.padding
-            }}
-          >
-            {element.icon? element.icon : null}
-            {element.avatar? element.avatar : null}
-          </IconButton>    
-        )
-      }  
-    </div>
-  }
-  
-  const getSection = (section) => {
-    if(section === null)
-      return null;
-    return section.map((element, index) => (
-      <Hidden //Pc
-        key={index}
-        xsDown={!element.showAlways}
-        implementation="css"
-      >
-        {
-          element.tooltip ? 
-            <TouchableTooltip
-              title={element.label?element.label : ""}
-              placement="bottom"
-              arrow
-            >
-              {getSectionMainContent(element)}               
-            </TouchableTooltip>
-            :
-            getSectionMainContent(element)                     
-        }
-      </Hidden>
-    ))
-  }
-
   return (
-    <Slide appear={false} direction="down" in={mobileView ? !trigger : true}>
+    <Slide 
+      appear={false} 
+      direction="down" 
+      in={mobileView ? !trigger : true}
+    >
       <AppBar 
         position={props.appBarPosition}
       >
