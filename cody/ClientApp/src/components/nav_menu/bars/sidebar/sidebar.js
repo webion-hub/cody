@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 
-import { Drawer  } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { SwipeableDrawer  } from '@material-ui/core';
 import { Hidden } from '@material-ui/core';
 
@@ -10,7 +9,7 @@ import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
 import { sidebarStyles } from './sidebar_styles'
-import { GetDrawerList } from './drawer_list'
+import { DrawerList } from './drawer_list/drawer_list'
 import { DynamicAppbar } from '../appbar/dynamic_appbar'
 
 export function SideBar(props) {
@@ -34,10 +33,13 @@ export function SideBar(props) {
 
     if(leftIsNull && !rightIsNull)
       return [props.appBarSections.right]
+
     if(rightIsNull && !leftIsNull)
       return [props.appBarSections.left]
+
     if(leftIsNull && rightIsNull)
       return [];  
+
     if(!leftIsNull && !rightIsNull)
       return [
         props.appBarSections.left,
@@ -53,16 +55,14 @@ export function SideBar(props) {
     setFullWidth(!fullWidth);
   };
 
-  const drawerList = (
-    <GetDrawerList
+  const drawerList =
+    <DrawerList
       onSidebarClose={() => {
         mobileView ? setMobileOpen(false) : setFullWidth(false)
       }}
-      classes={classes}
       sections={props.sideBarSections}
       appBarSections={getAppBarSections()}
     />
-  )
 
   const mobileContent =         
     <Hidden
