@@ -43,6 +43,9 @@ namespace Cody.Controllers
                 .LoginCookies
                 .Find(id);
 
+            if (cookie is null)
+                return;
+
             _dbContext.LoginCookies.Remove(cookie);
             await _dbContext.SaveChangesAsync();
 
