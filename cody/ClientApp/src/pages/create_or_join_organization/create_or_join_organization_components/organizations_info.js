@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "100vh",
     position: "relative",
     background: theme.palette.background.backgroundTransparent,
-    minHeight: `calc(100vh - ${theme.appBar.fullHeight}px)`,
+    paddingTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
-      minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px)`,
+      paddingTop: 0,
     },
   },
   scrollTop: {

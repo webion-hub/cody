@@ -12,7 +12,7 @@ export function SelectAction(props){
   return(
     <TitleInfoContentBase
       title="Unisciti o crea un'organizzazione"
-      info={props.info}
+      infoRef={props.infoRef}
     >
       <OrganizationAction
         image={NewOrganization}

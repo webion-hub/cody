@@ -16,7 +16,7 @@ export function CreateOrganization(props){
     <TitleInfoContentBase
       width={1125}
       title="Crea un'organizzazione"
-      info={props.info}
+      infoRef={props.infoRef}
       onBack={props.onBack}
     >
       <OrganizationAction

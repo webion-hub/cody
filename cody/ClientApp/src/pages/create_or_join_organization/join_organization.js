@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import { useTheme, Grid, ListItemText, List, ListItem, ListItemIcon, ListItemSecondaryAction, IconButton, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -27,17 +27,42 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     height: 300,
     overflow: "auto"
+  },
+  searchBar: {
+    width: "calc(100% - 174px)",
+    [theme.breakpoints.down('xs')]: {
+      width: "100%",
+      maxWidth: "calc(100vw - 16px)"
+    },
   }
 }));
 
 export function JoinOrganization(props){
 	const theme = useTheme();
   const classes = useStyles();
+  const listRef = useRef();
+  const [maxListItemWidth, setMaxListItemWidth] = React.useState(0);
   const [filterStatus, setFilterStatus] = React.useState({
     teams: true,
     schools: true,
     companies: true,
   });
+
+  useLayoutEffect(() => {
+    window.addEventListener('resize', updateWidth);
+    updateWidth();
+    return () => window.removeEventListener('resize', updateWidth);
+
+  }, []);
+	
+  const updateWidth = () => {
+    if(listRef !== null){
+      setMaxListItemWidth(
+        listRef.current.offsetWidth - 220
+      );
+    }
+
+	}
 
   const handleFilter = (filter) => {
     setFilterStatus({
@@ -50,7 +75,7 @@ export function JoinOrganization(props){
     <TitleInfoContentBase
       width={690}
       title="Unisciti ad un'organizzazione"
-      info={props.info}
+      infoRef={props.infoRef}
       onBack={props.onBack}
     >
       <Grid
@@ -63,6 +88,7 @@ export function JoinOrganization(props){
           alignContent="center"
         >
           <GenericSearchBar
+            className={classes.searchBar}
             background={theme.palette.background.paper}
           />
           <ButtonGroup 
@@ -90,25 +116,34 @@ export function JoinOrganization(props){
           </ButtonGroup>
         </Grid>
         <Paper className={classes.listContainer}>
-          <List>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
-            <OrganizationsListItem/>
+          <List ref={listRef}>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
+            <OrganizationsListItem maxListItemWidth={maxListItemWidth}/>
           </List>
         </Paper>
       </Grid>
@@ -116,17 +151,19 @@ export function JoinOrganization(props){
   );
 }
 
-function OrganizationsListItem(){
+function OrganizationsListItem(props){
 	const theme = useTheme();
+  console.log(props.maxListItemWidth)
 
   return(
-    <ListItem>
+    <ListItem>  
       <ListItemIcon>
         <SchoolRounded/>
       </ListItemIcon>
       <ListItemText
         primary={
           <FlowingText
+            containerWidth={props.maxListItemWidth}
             background={theme.palette.background.paper}          
           >
             Itis Fermi Modena
