@@ -8,23 +8,23 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 export const sideBarSections = [
     {
       label: 'Home',
-      icon: (<HomeRoundedIcon />),
+      icon: <HomeRoundedIcon />,
       href: '/',
     },
     {
       label: 'Classi',
-      icon: (<SchoolRoundedIcon />),
+      icon: <SchoolRoundedIcon />,
       href: '/class',
     },
     {
       divider: true,
       label: 'Crea o unisciti',
-      icon: (<AddRoundedIcon />),
+      icon: <AddRoundedIcon />,
       href: '/create_join_organization',
     },
     {
       padding: 4,
       label: 'ITIS Fermi',
-      icon: (<CustomAvatar src="images/bulb.jpeg"/>),
+      icon: <CustomAvatar src="images/bulb.jpeg" shadow/>,
     }, 
   ]
