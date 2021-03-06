@@ -31,15 +31,14 @@ export function CardBase(props){
         className={props.className}
       >
         {
-          props.loading ? (
+          props.loading ? 
             <Skeleton variant="rect" animation="wave" height={140}/>
-          ) : (
+            : 
             <CardMedia       
               className={classes.media} 
               image={props.image}
               title={props.title}
-            />
-          )
+            />          
         }
 
         <CardContent className={classes.cardContent}>
@@ -47,11 +46,10 @@ export function CardBase(props){
         </CardContent>
         <CardActions className={classes.buttons}>
           {
-            props.loading ? (
+            props.loading ?
               <Skeleton animation="wave" width={75} height={30}/>
-            ):(
-              props.button
-            )
+              :
+              props.button            
           }											
         </CardActions>
       </Card>

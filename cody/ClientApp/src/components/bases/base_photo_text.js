@@ -28,32 +28,33 @@ export function BasePhotoText(props) {
   );
   
   return (
-    <Box mb={props.bottomMargin?props.bottomMargin : 0}>
+    <Grid
+      container
+      direction={props.reverse ? "row-reverse" : "row"}
+      justify="center"
+      alignItems="center"
+      style={{
+        marginBottom: props.bottomMargin
+      }}
+    >
+      {
+        props.flipImage ? 
+          <div className={classes.flipImage}>
+            <props.image size={Form.width}/>
+          </div>
+          :
+          <props.image size={Form.width}/>
+        }        
       <Grid
         container
-        direction={props.reverse ? "row-reverse" : "row"}
-        justify="center"
+        direction="column"
         alignItems="center"
+        justify="center"
+        style={{maxWidth: Form.width}}
       >
-        {
-          props.flipImage ? 
-            <div className={classes.flipImage}>
-              <props.image size={Form.width}/>
-            </div>
-            :
-            <props.image size={Form.width}/>
-          }        
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{maxWidth: Form.width}}
-        >
-          {items}
-          {props.children}
-        </Grid>
+        {items}
+        {props.children}
       </Grid>
-    </Box>
+    </Grid>
   );
 }

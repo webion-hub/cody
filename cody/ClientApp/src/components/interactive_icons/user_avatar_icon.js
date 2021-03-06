@@ -71,7 +71,7 @@ export function UserAvatarIcon(){
     setOpenMenu(null);
   };
   
-  const loggedChildren = (
+  const loggedChildren = 
     <> 
       <TouchableTooltip
         arrow
@@ -151,32 +151,32 @@ export function UserAvatarIcon(){
         </MenuItem>
       </Menu>
     </>
-  )
+  
+  const notLoggedChildren = 
+    <TouchableTooltip
+      arrow
+      interactive
+      title={
+        <Typography 
+          variant="caption"
+        >
+          Accedi o registrati
+        </Typography>
+      }
+    >
+      <Button
+        href="/login"
+        className={classes.loginButton}
+        onClick={(e) => PageController.push('/login', e)}
+      >
+        Login
+      </Button>
+    </TouchableTooltip> 
 
   return (    
     <InteractiveIconBase 
       loggedContent={loggedChildren}
-      notLoggedContent={
-        <TouchableTooltip
-          arrow
-          interactive
-          title={
-            <Typography 
-              variant="caption"
-            >
-              Accedi o registrati
-            </Typography>
-          }
-        >
-          <Button
-            href="/login"
-            className={classes.loginButton}
-            onClick={(e) => PageController.push('/login', e)}
-          >
-            Login
-          </Button>
-        </TouchableTooltip>      
-      }
+      notLoggedContent={notLoggedChildren}
     />
   );
 }

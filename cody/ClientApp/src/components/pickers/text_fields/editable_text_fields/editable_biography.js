@@ -23,7 +23,6 @@ export function EditableBiography(props){
 	}, [props.value])
 
 	const handleEdit = () => {
-
 		setEditMode(true);
 	}
 	

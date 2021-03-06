@@ -32,15 +32,14 @@ export function DialogBase(props){
       maxWidth="xl"
       open={props.open}
       onClose={props.onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      classes={{paper: classes.dialogContainer}}
+      classes={{
+        paper: classes.dialogContainer
+      }}
     >
       <DialogTitle
         style={{
           textAlign: props.titleAlign
         }} 
-        id="alert-dialog-title" 
         className={classes.title}
       >
         {props.title}

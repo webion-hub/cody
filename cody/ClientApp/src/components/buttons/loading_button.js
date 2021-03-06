@@ -13,17 +13,15 @@ export function LoadingButton(props){
     />
 
   return (
-    props.fullWidth ? (
+    props.fullWidth ? 
       <Box width={1}>
         {mainButton}
       </Box>
-    ) : (
+      : 
       <span>
         {mainButton}
-      </span>
-    )
-
-  )
+      </span>   
+  ) 
 }
 
 
