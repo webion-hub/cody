@@ -29,8 +29,8 @@ export const sidebarStyles = makeStyles((theme) => ({
 
   children: {
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.drawer.width,
-      width: `calc(100vw - ${theme.drawer.width}px)`,
+      paddingLeft: theme.drawer.width,
+      width: "100%",
       transition: "all 0.25s",
     },
   },

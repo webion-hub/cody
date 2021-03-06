@@ -14,8 +14,11 @@ const classesStyles = makeStyles((theme) => ({
     margin: "0 auto",
   },
   areClassesBox: {
-    maxWidth: "100vw",
     margin: "0 auto",
+    maxWidth: "calc(100vw - 48px)",
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: "100vw",
+    },
   },
   noClassesBox: {
     maxWidth: 900,
