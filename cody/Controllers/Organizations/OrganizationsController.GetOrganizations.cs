@@ -44,6 +44,13 @@ namespace Cody.Controllers.Organizations
                 o.Name,
                 o.State.HasBeenVerified,
                 Kind = o.Kind.ToString(),
+                Detail = new
+                {
+                    o.Detail.City,
+                    o.Detail.Country,
+                    o.Detail.Description,
+                    o.Detail.Website,
+                },
                 Members = o.Members.Select(m => new
                 {
                     m.UserAccount.Username,
