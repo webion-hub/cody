@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import history from 'src/history';
+import { PageController } from 'src/lib/page_controller';
 import { User } from 'src/lib/user';
 import { UserAccountInfo } from 'src/lib/user_account_info'
 
@@ -30,7 +30,7 @@ export function UserControllerContext(props){
   }
 
   const setLogged = (loggedState) => {
-    history.go(0)
+    PageController.refresh()
     sessionStorage.setItem('logged', loggedState);
   }
 

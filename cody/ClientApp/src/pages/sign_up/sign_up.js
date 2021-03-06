@@ -13,7 +13,7 @@ import { dataDefault, noErrors } from './sign_up_components/default_values';
 
 import { Images } from 'src/lib/default_values/images';
 
-import history from 'src/history';
+import { PageController } from 'src/lib/page_controller';
 
 export const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -163,7 +163,8 @@ export function SignUp(){
             className={classes.termsAndServiceLink}
             component="button"
             variant="caption"
-            onClick={() => history.push('/terms_and_services')}
+            href="/terms_and_services"
+            onClick={(e) => PageController.push('/terms_and_services', e)}
           >
             termini di servizio.
           </Link>

@@ -21,8 +21,7 @@ import { TouchableTooltip } from 'src/components/touchable_tooltip'
 import { UserAccountInfo } from 'src/lib/user_account_info'
 
 import { User } from 'src/lib/user';
-
-import history from 'src/history'
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
   avatarButton: {
@@ -99,8 +98,10 @@ export function UserAvatarIcon(){
         onClose={handleClose}
       >
         <MenuItem
-          onClick={() => {
-            history.push('/account');
+          component="a"
+          href="/account"
+          onClick={(e) => {
+            PageController.push('/account', e)
             handleClose();
           }}
         >
@@ -114,8 +115,10 @@ export function UserAvatarIcon(){
         {
           isAdmin ? 
             <MenuItem
-              onClick={() => {
-                history.push('/admin');
+              component="a"
+              href="/admin"
+              onClick={(e) => {
+                PageController.push('/admin', e)
                 handleClose();
               }}
             >
@@ -166,8 +169,9 @@ export function UserAvatarIcon(){
           }
         >
           <Button
+            href="/login"
             className={classes.loginButton}
-            onClick={() => history.push('/login')}
+            onClick={(e) => PageController.push('/login', e)}
           >
             Login
           </Button>

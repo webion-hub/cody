@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -59,7 +60,8 @@ export function MessagePageBase(props) {
           className={classes.button}
           color="primary"
           variant="contained"
-          onClick={props.onClick}
+          href={props.href}
+          onClick={(e) => PageController.push(props.href, e)}
           fullWidth={true}
         >
           {props.buttonLabel}

@@ -13,7 +13,7 @@ import { UserAccountInfo } from 'src/lib/user_account_info'
 import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
-import history from 'src/history'
+import { PageController } from 'src/lib/page_controller';
 
 export function Account(){
 	const classes = accountStyles();
@@ -99,7 +99,7 @@ export function Account(){
 
   const refreshPage = () => {
     setLoadingSave(false)
-    history.go(0)
+    PageController.refresh()
   }
 
   const updateProfilePic  = () => {

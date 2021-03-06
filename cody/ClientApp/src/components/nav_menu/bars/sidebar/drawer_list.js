@@ -5,6 +5,7 @@ import { ListItem } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
 import { ButtonBase } from '@material-ui/core';
+import { PageController } from 'src/lib/page_controller';
 
 export function GetDrawerList(props){
   
@@ -27,8 +28,8 @@ export function GetDrawerList(props){
                 padding={element.padding}
                 href={element.href}
                 className={props.classes.listItem}
-                onClick={() => {
-                  element.onClick()
+                onClick={(e) => {
+                  PageController.push(element.href, e)
                   props.onSidebarClose()
                 }}
               > 

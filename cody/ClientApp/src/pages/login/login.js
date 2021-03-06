@@ -12,8 +12,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { Images } from 'src/lib/default_values/images';
 
-import history from 'src/history'
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
+import { PageController } from 'src/lib/page_controller';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
@@ -65,7 +65,8 @@ export function Login(){
         <Button
           className={classes.createAccount}
           endIcon={<ArrowForwardIcon/>}
-          onClick={() => history.push('/sign-up')}
+          href='/sign-up'
+          onClick={(e) => PageController.push('/sign-up', e)}
         >
           Crea un account
         </Button>
