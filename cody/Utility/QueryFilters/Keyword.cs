@@ -5,19 +5,20 @@ using System.Threading.Tasks;
 
 namespace Cody.Utility.QueryFilters
 {
-    public struct SearchTerm
+    public struct Keyword
     {
         public string Value { get; init; }
         public bool IsExcluded { get; init; }
+
 
         private readonly DateTime _dateValue;
         public DateTime DateValue => _dateValue;
         public bool IsDate { get; init; }
 
 
-        public static SearchTerm From(string rawValue) => new(rawValue);
+        public static Keyword From(string rawValue) => new(rawValue);
 
-        public SearchTerm(string rawValue)
+        public Keyword(string rawValue)
         {
             IsExcluded = rawValue.StartsWith('-');
             Value = IsExcluded ? rawValue[1..] : rawValue;
@@ -25,7 +26,7 @@ namespace Cody.Utility.QueryFilters
         }
 
 
-        public static implicit operator string (SearchTerm self) => self.Value;
-        public static implicit operator DateTime (SearchTerm self) => self.DateValue;
+        public static implicit operator string (Keyword self) => self.Value;
+        public static implicit operator DateTime (Keyword self) => self.DateValue;
     }
 }

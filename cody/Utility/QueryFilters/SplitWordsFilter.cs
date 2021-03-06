@@ -10,7 +10,7 @@ namespace Cody.Utility.QueryFilters
     public class SplitWordsFilter<T> : QueryFilter<T>
     {
         private readonly IQueryable<T> _query;
-        private readonly IEnumerable<SearchTerm> _searchTerms;
+        private readonly IEnumerable<Keyword> _keywords;
 
 
         public SplitWordsFilter(IQueryable<T> query, string filter)
@@ -20,17 +20,17 @@ namespace Cody.Utility.QueryFilters
         public SplitWordsFilter(IQueryable<T> query, IEnumerable<string> filters)
         {
             _query = query;
-            _searchTerms = filters.Select(f => SearchTerm.From(f));
+            _keywords = filters.Select(f => Keyword.From(f));
         }
         
 
         public override IQueryable<T> Where(FilterGenerator<T> filterGenerator)
         {
             var result = _query;
-            foreach (var st in _searchTerms)
+            foreach (var k in _keywords)
             {
                 var filter = 
-                    GenerateFilter(filterGenerator, st);
+                    GenerateFilter(filterGenerator, k);
 
                 result = result.Where(filter);
             }

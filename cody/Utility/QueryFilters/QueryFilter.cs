@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Utility.QueryFilters
 {
-    public delegate Expression<Func<T, bool>> FilterGenerator<T>(SearchTerm searchTerm);
+    public delegate Expression<Func<T, bool>> FilterGenerator<T>(Keyword keyword);
 
 
     public abstract class QueryFilter<T>
@@ -16,10 +16,10 @@ namespace Cody.Utility.QueryFilters
 
         protected static Expression<Func<T, bool>> GenerateFilter(
             FilterGenerator<T> generator, 
-            SearchTerm searchTerm
+            Keyword keyword
         ) {
-            var filter = generator(searchTerm);
-            return searchTerm.IsExcluded
+            var filter = generator(keyword);
+            return keyword.IsExcluded
                 ? filter.Negate()
                 : filter;
         }

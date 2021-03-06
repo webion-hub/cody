@@ -92,15 +92,15 @@ namespace Cody.Controllers.Admin
 
             return users
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .Where(st => u => 
-                    u.AccountDetail.BirthDate == st ||
-                    u.AccountDetail.RegistrationDate == st ||
+                .Where(k => u => 
+                    u.AccountDetail.BirthDate == k ||
+                    u.AccountDetail.RegistrationDate == k ||
 
-                    Regex.IsMatch(u.Id.ToString(), st) ||
-                    Regex.IsMatch(u.Username, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.Email, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.AccountDetail.Name, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.AccountDetail.Surname, st, RegexOptions.IgnoreCase)
+                    Regex.IsMatch(u.Id.ToString(), k) ||
+                    Regex.IsMatch(u.Username, k, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.Email, k, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.AccountDetail.Name, k, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.AccountDetail.Surname, k, RegexOptions.IgnoreCase)
                 );
         }
     }

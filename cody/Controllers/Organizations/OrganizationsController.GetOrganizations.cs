@@ -75,14 +75,14 @@ namespace Cody.Controllers.Organizations
 
             return organizations
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .Where(st => o =>
-                    (st == "School"  && o.Kind == OrganizationKind.School) ||
-                    (st == "Company" && o.Kind == OrganizationKind.Company) ||
-                    (st == "Team"    && o.Kind == OrganizationKind.Team) ||
+                .Where(k => o =>
+                    (k == "School"  && o.Kind == OrganizationKind.School) ||
+                    (k == "Company" && o.Kind == OrganizationKind.Company) ||
+                    (k == "Team"    && o.Kind == OrganizationKind.Team) ||
 
-                    Regex.IsMatch(o.Name, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.City, st, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Country, st, RegexOptions.IgnoreCase)
+                    Regex.IsMatch(o.Name, k, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.City, k, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.Country, k, RegexOptions.IgnoreCase)
                 );
         }
     }
