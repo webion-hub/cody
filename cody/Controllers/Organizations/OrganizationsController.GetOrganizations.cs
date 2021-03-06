@@ -80,9 +80,10 @@ namespace Cody.Controllers.Organizations
                     (k == "Company" && o.Kind == OrganizationKind.Company) ||
                     (k == "Team"    && o.Kind == OrganizationKind.Team) ||
 
-                    Regex.IsMatch(o.Name, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.City, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Country, k, RegexOptions.IgnoreCase)
+                    Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.City, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.Country, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
                 );
         }
     }

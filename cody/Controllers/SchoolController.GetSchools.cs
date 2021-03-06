@@ -68,10 +68,10 @@ namespace Cody.Controllers
             return schools
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .Where(k => s =>
-                    Regex.IsMatch(s.Id.ToString(), k) ||
-                    Regex.IsMatch(s.Name, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(s.Detail.City, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(s.Detail.Country, k, RegexOptions.IgnoreCase)
+                    Regex.IsMatch(s.Id.ToString(), k.Pattern) ||
+                    Regex.IsMatch(s.Name, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(s.Detail.City, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(s.Detail.Country, k.Pattern, RegexOptions.IgnoreCase)
                 );
         }
     }

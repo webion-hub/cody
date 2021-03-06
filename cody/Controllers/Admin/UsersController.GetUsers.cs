@@ -96,11 +96,11 @@ namespace Cody.Controllers.Admin
                     u.AccountDetail.BirthDate == k ||
                     u.AccountDetail.RegistrationDate == k ||
 
-                    Regex.IsMatch(u.Id.ToString(), k) ||
-                    Regex.IsMatch(u.Username, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.Email, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.AccountDetail.Name, k, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.AccountDetail.Surname, k, RegexOptions.IgnoreCase)
+                    Regex.IsMatch(u.Id.ToString(), k.Pattern) ||
+                    Regex.IsMatch(u.Username, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.Email, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.AccountDetail.Name, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(u.AccountDetail.Surname, k.Pattern, RegexOptions.IgnoreCase)
                 );
         }
     }

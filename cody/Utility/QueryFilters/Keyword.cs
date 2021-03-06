@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cody.Utility.QueryFilters
@@ -8,6 +9,7 @@ namespace Cody.Utility.QueryFilters
     public struct Keyword
     {
         public string Value { get; init; }
+        public string Pattern { get; init; }
         public bool IsExcluded { get; init; }
 
 
@@ -22,6 +24,7 @@ namespace Cody.Utility.QueryFilters
         {
             IsExcluded = rawValue.StartsWith('-');
             Value = IsExcluded ? rawValue[1..] : rawValue;
+            Pattern = Regex.Escape(Value);
             IsDate = DateTime.TryParse(rawValue, out _dateValue);
         }
 
