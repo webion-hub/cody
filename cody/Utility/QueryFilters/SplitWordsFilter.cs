@@ -29,10 +29,10 @@ namespace Cody.Utility.QueryFilters
             var result = _query;
             foreach (var k in _keywords)
             {
-                var filter = 
-                    GenerateFilter(filterGenerator, k);
-
-                result = result.Where(filter);
+                var filter = filterGenerator(k);
+                result = k.ExcludeFromSearch
+                    ? result.Except(result.Where(filter))
+                    : result.Where(filter);
             }
 
             return result;

@@ -13,15 +13,5 @@ namespace Cody.Utility.QueryFilters
     public abstract class QueryFilter<T>
     {
         public abstract IQueryable<T> Where(FilterGenerator<T> generator);
-
-        protected static Expression<Func<T, bool>> GenerateFilter(
-            FilterGenerator<T> generator, 
-            Keyword keyword
-        ) {
-            var filter = generator(keyword);
-            return keyword.IsExcluded
-                ? filter.Negate()
-                : filter;
-        }
     }
 }
