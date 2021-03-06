@@ -1,4 +1,4 @@
-﻿using Cody.Utility;
+﻿using Cody.Utilities;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using Shorthand.ImageSharp.WebP;

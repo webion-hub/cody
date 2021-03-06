@@ -1,6 +1,6 @@
 ﻿using Cody.Extensions;
 using Cody.Models;
-using Cody.Utility.QueryFilters;
+using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -3,7 +3,7 @@ using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Services;
-using Cody.Utility;
+using Cody.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

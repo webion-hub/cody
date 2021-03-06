@@ -13,7 +13,7 @@ using Cody.Extensions;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Cody.Models;
-using Cody.Utility.QueryFilters;
+using Cody.Utilities.QueryFilters;
 
 namespace Cody.Controllers.Admin
 {

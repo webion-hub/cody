@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Cody.Utility
+namespace Cody.Utilities
 {
     public static class Misc
     {
@@ -24,6 +24,17 @@ namespace Cody.Utility
 
                 prop.SetValue(target, trimmedValue);
             }
+        }
+
+
+        public static T? MaybeGetEnumFrom<T>(string value) where T : struct
+        {
+            if (typeof(T).IsEnum is not true)
+                throw new ArgumentException($"{nameof(T)} must be an enum");
+
+            return Enum.TryParse(typeof(T), value, out var result)
+                ? (T)result
+                : null;
         }
     }
 }

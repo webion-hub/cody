@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Cody.Utility.QueryFilters
+namespace Cody.Utilities.QueryFilters
 {
     public class SplitWordsFilter<T> : QueryFilter<T>
     {
