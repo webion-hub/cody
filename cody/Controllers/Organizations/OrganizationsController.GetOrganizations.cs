@@ -38,25 +38,31 @@ namespace Cody.Controllers.Organizations
             var organizations = GetAllOrganizations();
             var filtered = FilterOrganizations(organizations, filter);
 
-            return filtered.Select(o => new
-            {
-                o.Id,
-                o.Name,
-                State = new 
+            return
+                from o in filtered
+                let s = o.State
+                let d = o.Detail
+                let m = o.Members
+
+                orderby o.Id ascending
+                select new
                 {
-                    o.State.HasBeenVerified,
-                },
-                Kind = o.Kind.ToString(),
-                Detail = new
-                {
-                    o.Detail.City,
-                    o.Detail.Country,
-                    o.Detail.Description,
-                    o.Detail.Website,
-                },
-                MembersCount = o.Members.Count,
-            })
-            .OrderBy(o => o.Id);
+                    o.Id,
+                    o.Name,
+                    State = new
+                    {
+                        s.HasBeenVerified,
+                    },
+                    Kind = o.Kind.ToString(),
+                    Detail = new
+                    {
+                        d.City,
+                        d.Country,
+                        d.Description,
+                        d.Website,
+                    },
+                    MembersCount = m.Count,
+                };
         }
 
         public IQueryable<Organization> GetAllOrganizations()
