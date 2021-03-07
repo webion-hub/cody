@@ -42,7 +42,10 @@ namespace Cody.Controllers.Organizations
             {
                 o.Id,
                 o.Name,
-                o.State.HasBeenVerified,
+                State = new 
+                {
+                    o.State.HasBeenVerified,
+                },
                 Kind = o.Kind.ToString(),
                 Detail = new
                 {
@@ -51,11 +54,7 @@ namespace Cody.Controllers.Organizations
                     o.Detail.Description,
                     o.Detail.Website,
                 },
-                Members = o.Members.Select(m => new
-                {
-                    m.UserAccount.Username,
-                    Role = m.Role.ToString(),
-                }),
+                MembersCount = o.Members.Count,
             });
         }
 
