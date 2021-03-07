@@ -18,20 +18,27 @@ namespace Cody.Controllers.Organizations
         [Authorize]
         public async Task<IActionResult> CreateNew([FromBody] OrganizationCreationRequest request)
         {
-            Organization organization = request;
-            if (await OrganizationExists(organization))
-                return Conflict();
-                        
-            SetOwner(organization);
+            if (!request.IsValid())
+                return BadRequest();
+
+            var organization = (Organization)request;
+            var existingOrg = 
+                await MaybeGetExistingOrganizationAsync(organization);
+            
+            if (existingOrg is not null)
+                return Conflict(existingOrg.Id);
+
+            
+            SetCurrentUserAsOwnerFor(organization);
 
             _dbContext.Organizations.Add(organization);
             await _dbContext.SaveChangesAsync();
-            
-            return Ok(organization.Id);
+
+            return Created($"organization/{organization.Id}", organization.Id);
         }
 
 
-        private async Task<bool> OrganizationExists(Organization organization)
+        private async Task<Organization> MaybeGetExistingOrganizationAsync(Organization organization)
         {
             return await _dbContext
                 .Organizations
@@ -39,10 +46,10 @@ namespace Cody.Controllers.Organizations
                     o.Kind == organization.Kind &&
                     o.Name == organization.Name
                 )
-                .AnyAsync();
+                .SingleOrDefaultAsync();
         }
 
-        private void SetOwner(Organization organization)
+        private void SetCurrentUserAsOwnerFor(Organization organization)
         {
             organization.Members = new() {
                 new OrganizationMember {
