@@ -12,8 +12,8 @@ import { getElements } from './sign_up_components/getElements';
 import { dataDefault, noErrors } from './sign_up_components/default_values';
 
 import { Images } from 'src/lib/default_values/images';
-
 import { PageController } from 'src/lib/page_controller';
+import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 export const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -119,18 +119,15 @@ export function SignUp(){
   const elementsNumber = elementsList.length;
 
   return (
-    <Grid
+    <CenterComponentPageBase
       className={classes.pageContainer}
-      container
       direction="column"
-      justify="center"
-      alignItems="center"
     >        
       <Paper className={classes.paper}>
         <SignUpStepper
           steps={elementsNumber}
           onClick={() => handleOnNext(elementsList[stepInfo.currentStep].controller)}
-          optionalSteps={[1,2,3]}
+          optionalSteps={[3]}
           element={stepInfo.currentStep > elementsNumber ? null : elementsList[stepInfo.currentStep].element}
           currentStep={step => setStepInfo({
             ...stepInfo,
@@ -170,6 +167,6 @@ export function SignUp(){
           </Link>
         </Grid>
       </div>
-    </Grid>
+    </CenterComponentPageBase>
   );
 }

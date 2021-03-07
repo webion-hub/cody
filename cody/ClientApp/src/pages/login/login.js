@@ -13,6 +13,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Images } from 'src/lib/default_values/images';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
+import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
 
 export const useStyles = makeStyles((theme) => ({
@@ -30,6 +31,11 @@ export const useStyles = makeStyles((theme) => ({
     backdropFilter: "blur(10px)",
     background: theme.palette.background.backgroundTransparent,
     color: "rgba(255,255,255,0.9)",
+  },
+  pageBackground: {
+    backgroundImage: `url(${Images.forestImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center center"
   }
 }));
 
@@ -37,16 +43,8 @@ export function Login(){
 	const classes = useStyles();
 
   return (
-    <Grid
-      style={{
-        minHeight: "100vh",
-        backgroundImage: `url(${Images.forestImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center"
-      }}
-      container
-      justify="center"
-      alignItems="center"
+    <CenterComponentPageBase
+      className={classes.pageBackground}
     >
       <Grid
         container
@@ -71,6 +69,6 @@ export function Login(){
           Crea un account
         </Button>
       </Grid>
-    </Grid>
+    </CenterComponentPageBase>
   );
 }

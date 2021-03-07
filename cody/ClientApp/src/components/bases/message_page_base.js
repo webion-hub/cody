@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
+import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -21,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     width: 200,
     margin: "0 auto",
-    display: "block"
+    display: "block",
+    textAlign: "center"
   }
 }));
 
@@ -29,14 +31,7 @@ export function MessagePageBase(props) {
 	const classes = useStyles();
 
   return (
-    <Grid
-      style={{
-        minHeight: "100vh"
-      }}
-      container
-      justify="center"
-      alignItems="center"
-    >
+    <CenterComponentPageBase>
       <Paper className={classes.paper}>
         <props.image 
           maxWidth={500}
@@ -62,11 +57,11 @@ export function MessagePageBase(props) {
           variant="contained"
           href={props.href}
           onClick={(e) => PageController.push(props.href, e)}
-          fullWidth={true}
+          fullWidth
         >
           {props.buttonLabel}
         </Button>
       </Paper>
-    </Grid>
+    </CenterComponentPageBase>
   );
 }
