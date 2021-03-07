@@ -37,16 +37,13 @@ namespace Cody.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TryLoginAsync([FromBody] UserLoginRequest request) 
         {
-            if (string.IsNullOrWhiteSpace(request.Username))
-                return NotFound();
-
-            if (string.IsNullOrWhiteSpace(request.Password))
+            if (!request.IsValid())
                 return BadRequest();
 
             if (!TryGetUser(request.Username, out var user))
                 return NotFound();
 
-            
+
             var isPasswordCorrect =
                 await Password.AreEqualAsync(request.Password, user.Password);
 

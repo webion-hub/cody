@@ -9,5 +9,9 @@ namespace Cody.Controllers.Requests
         string Username,
         string Password,
         bool RememberMe
-    );
+    ) {
+        public bool IsValid() =>
+            !string.IsNullOrWhiteSpace(Username) &&
+            !string.IsNullOrWhiteSpace(Password);
+    }
 }
