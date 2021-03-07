@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     "& li": {
       marginTop: theme.spacing(2),
-      "& .description": {
-        marginLeft: theme.spacing(6)
-      }
     }
   },
   image: {
@@ -162,7 +159,6 @@ function TitleDescription(props){
         direction="row"
         alignItems="center"
       >
-        <props.icon fontSize="large" style={{marginRight: 8}}/>
         <Typography
           variant={mobileView ? "h5" : "h4"}
           component="h3"
@@ -171,7 +167,6 @@ function TitleDescription(props){
         </Typography>
       </Grid>      
       <Typography
-        className="description"
         variant="body1"
         color="textSecondary"
       >
