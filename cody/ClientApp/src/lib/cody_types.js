@@ -18,14 +18,6 @@
  */
 
 /**
- * @typedef {object} SchoolAccount
- * @property {number} [id]
- * @property {string} name
- * @property {string} city
- * @property {string} country
- */
-
-/**
  * @typedef {object} UserProfilePicture
  * @property {number} [id] 
  * @property {File} picture

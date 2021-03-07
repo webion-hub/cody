@@ -3,6 +3,9 @@ import { AxiosResponse, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import './cody_types';
 
+/**
+ * @deprecated
+ */
 export class School {
   /**
    * @param {CreateNewOptions} options
