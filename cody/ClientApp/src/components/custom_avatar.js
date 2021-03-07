@@ -64,7 +64,7 @@ export function CustomAvatar(props){
           height: props.height,
           fontSize: `${1.25 * (props.width / 40)}rem`,
           display: finalLoading ? "none" : "flex",
-          boxShadow: props.shadow ? `2px 2px 6px 2px ${theme.palette.background.paperSecondary}` : null,
+          boxShadow: props.shadow ? `2px 2px 6px 0px ${theme.palette.background.paperSecondary}` : null,
         }}
       />
     </> 
