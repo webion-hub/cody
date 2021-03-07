@@ -12,13 +12,17 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 const useStyles = makeStyles((theme) => ({
   paperBox: props => ({
     position: "relative",
-    maxWidth: props.width,
-    width: "100%",
     background: theme.palette.background.paperSecondary,
+    width: "100%",
+    maxWidth: props.width,
+    minHeight: props.height,
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
+      width: "100vw",
+      minHeight: "calc(100vh - 56px)",
       marginTop: theme.appBar.mobileHeight,
     },
+    transition: "max-width 1s, min-height 1s",
   }),
   title: {
     textAlign: "center",
@@ -47,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
 
 export function TitleInfoContentBase(props){
   const width = props.width? props.width : 750;
-  const classes = useStyles({width});
+  const height = props.height? props.height : "auto";
+  const classes = useStyles({width, height});
   const infoRef = props.infoRef;
 
   const scrollToInfo = () => {
