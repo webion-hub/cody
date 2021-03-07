@@ -55,7 +55,8 @@ namespace Cody.Controllers.Organizations
                     o.Detail.Website,
                 },
                 MembersCount = o.Members.Count,
-            });
+            })
+            .OrderBy(o => o.Id);
         }
 
         public IQueryable<Organization> GetAllOrganizations()
@@ -63,8 +64,7 @@ namespace Cody.Controllers.Organizations
             return _dbContext
                 .Organizations
                 .Include(o => o.Members)
-                .Include(o => o.Detail)
-                .OrderBy(o => o.Id);
+                .Include(o => o.Detail);
         }
 
         private static IQueryable<Organization> FilterOrganizations(IQueryable<Organization> organizations, string filter)

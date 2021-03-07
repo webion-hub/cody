@@ -48,6 +48,7 @@ namespace Cody.Controllers.Admin
                 let o = u.Organizations
                 let pp = ad.ProfilePicture
 
+                orderby u.Id ascending
                 select new
                 {
                     u.Id,
@@ -80,8 +81,7 @@ namespace Cody.Controllers.Admin
                 .UserAccounts
                 .Include(u => u.AccountDetail)
                     .ThenInclude(ad => ad.ProfilePicture)
-                .Include(u => u.Organizations)
-                .OrderBy(u => u.Id);
+                .Include(u => u.Organizations);
         }
 
 
