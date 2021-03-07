@@ -223,7 +223,7 @@ export function Account(){
             />
           </Grid>
         </Grid>
-        <Box 
+        <Box
           pt={1}
           textAlign="end"
         > 
