@@ -25,8 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
   listContainer: {
     marginTop: theme.spacing(1),
-    height: 300,
-    overflow: "auto"
+    overflow: "auto",
+    height: 280,
+    [theme.breakpoints.down('xs')]: {
+      height: "calc(100vh - 220px)",
+    },
   },
   searchBar: {
     width: "calc(100% - 174px)",
@@ -72,12 +75,7 @@ export function JoinOrganization(props){
   }
 
   return(
-    <TitleInfoContentBase
-      width={690}
-      title="Unisciti ad un'organizzazione"
-      infoRef={props.infoRef}
-      onBack={props.onBack}
-    >
+    <>
       <Grid
         container
         direction="column"
@@ -147,7 +145,7 @@ export function JoinOrganization(props){
           </List>
         </Paper>
       </Grid>
-    </TitleInfoContentBase>
+    </>
   );
 }
 

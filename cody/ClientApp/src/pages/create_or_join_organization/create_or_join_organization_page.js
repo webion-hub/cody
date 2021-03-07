@@ -1,99 +1,121 @@
 import React, { useEffect } from 'react';
 
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
 
 import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
-import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization';
+import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization/create_organization';
+import { CreateTeam } from 'src/pages/create_or_join_organization/create_organization/create_team';
 import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization';
+import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
-const useStyles = makeStyles((theme) => ({
-  pageContainer: {
-    minHeight: "100vh",
-    position: "relative",
-  }
-}));
+import { PageController } from 'src/lib/page_controller';
+import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base';
 
 export function CreateOrJoinOrganization(){
-  const classes = useStyles();
   const infoRef = React.createRef();
 
-  const [content, setContent] = React.useState("selectAction");
+  const [contentSetting, setContentSetting] = React.useState({
+    component: "selectAction",
+    title: "Unisciti o crea un'organizzazione",
+    width: 750,
+    height: 400,
+    onBack: null
+  });
 
   useEffect(() => {
-    switch(window.location.hash){
-      case "#create":
-        return setContent("create");
-      case "#join":
-        return setContent("join");
-      case "#":
-      default:
-        return setContent("selectAction");
-    }
-  })
+    const hash = window.location.hash
+    const value = hash.replace('#', '')
 
-  const selectAction = 
-    <SelectAction
-      onCreate={() => {
-        setContent("create")
-        window.location.hash = "create";
-      }}
-      onJoin={() => {
-        setContent("join")
-        window.location.hash = "join";
-      }}
-      infoRef={infoRef}
-    />
-  
-  const createOrganization = 
-    <CreateOrganization
-      onBack={() => {
-        setContent("selectAction")
-        window.location.hash = "";
-        window.location.hash.replace("#", "");
-      }}
-      infoRef={infoRef}    
-    />
+    setContent(value)
+  }, [window.location.hash])
 
-  const joinOrganization = 
-    <JoinOrganization
-      onBack={() => {
-        setContent("selectAction")
-        window.location.hash = "";
-        window.location.hash.replace("#", "");
-      }}
-      infoRef={infoRef}    
-    />
 
-  const getContent = () => {
-    switch(content){
+  const components = {
+    createOrganization:
+      <CreateOrganization/>
+    , 
+    createTeam:
+      <CreateTeam/>  
+    ,
+    joinOrganization:
+      <JoinOrganization
+        onBack={() => PageController.updateHash("")}
+        infoRef={infoRef}    
+      />
+    ,
+    selectAction:
+      <SelectAction
+        onCreate={() => PageController.updateHash("create")}
+        onJoin={() => PageController.updateHash("join")}
+        infoRef={infoRef}
+      />
+  }
+
+
+
+
+  const setContent = (hash) => {
+    switch(hash){
       case "create":
-        return createOrganization;
+        setContentSetting({
+          component: "createOrganization",
+          title: "Crea un'organizzazione",
+          width: 1125,
+          height: 400,
+          onBack: () => PageController.updateHash("")
+        })
+        break;
+      case "createTeam":
+        setContentSetting({
+          component: "createTeam",
+          title: "Crea un team",
+          width: 750,
+          height: 400,
+          onBack: () => PageController.updateHash("create")
+        })
+        break;
+      case "createSchool":
+        break;
+      case "createCompany":
+        break;
       case "join":
-        return joinOrganization;
-      case "selectAction":
+        setContentSetting({
+          component: "joinOrganization",
+          title: "Crea un'organizzazione",
+          width: 690,
+          height: 400,
+          onBack: () => PageController.updateHash("")
+        })
+        break;
       default:
-        return selectAction;
+        setContentSetting({
+          component: "selectAction",
+          title: "Unisciti o crea un'organizzazione",
+          width: 750,
+          height: 400,
+          onBack: null
+        })
     }  
   }
 
   return(
     <>
-      <Grid
-        className={classes.pageContainer}
-        container
-        justify="center"
-        alignItems="center"
-      >
-        {getContent()}
+      <CenterComponentPageBase>
+        <TitleInfoContentBase
+          title={contentSetting.title}
+          width={contentSetting.width}
+          height={contentSetting.height}
+          onBack={contentSetting.onBack}
+          infoRef={infoRef}
+        >
+          {components[contentSetting.component]}
+        </TitleInfoContentBase>
         <BackgroundWithLines 
           height={1}
         /> 
-      </Grid>
+      </CenterComponentPageBase>
       <div ref={infoRef}>
         <OrganizationsInfo/>
       </div>

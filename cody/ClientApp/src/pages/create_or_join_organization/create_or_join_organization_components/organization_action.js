@@ -4,22 +4,29 @@ import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    width: 200
+  },
   card: props => ({
     width: `calc(${props.width} - ${theme.spacing(2)}px)`,
+    maxWidth: props.maxWidth,
     [theme.breakpoints.down('xs')]: {
+      maxWidth: props.maxWidth,
       width: `calc(100% - ${theme.spacing(2)}px)`,
     },
     padding: theme.spacing(2),
     margin: theme.spacing(1),
   }),
   imageContainer: {
-    width: "100%"
+    width: "100%",
+    maxWidth: 300
   }
 }));
 
 export function OrganizationAction(props){
   const width = props.width? props.width : "50%"
-  const classes = useStyles({width});
+  const maxWidth = props.maxWidth? props.maxWidth : "auto"
+  const classes = useStyles({width, maxWidth});
 
   return(
     <div className={classes.card}>
@@ -32,6 +39,7 @@ export function OrganizationAction(props){
           <props.image size="100%"/>
         </div>
         <Button
+          className={classes.button}
           variant="outlined"
           color="secondary"
           endIcon={props.endIcon}
