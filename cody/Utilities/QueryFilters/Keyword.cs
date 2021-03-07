@@ -15,8 +15,7 @@ namespace Cody.Utilities.QueryFilters
         public bool ExcludeFromSearch { get; init; }
 
 
-        private readonly Lazy<DateTime> _dateValue;
-        public DateTime DateValue => _dateValue.Value;
+        public Lazy<DateTime> Date { get; init; }
         public bool IsDate { get; private set; }
 
 
@@ -27,11 +26,13 @@ namespace Cody.Utilities.QueryFilters
             ExcludeFromSearch = rawValue.StartsWith('-');
             Value = ExcludeFromSearch ? rawValue[1..] : rawValue;
             Pattern = Regex.Escape(Value);
+            Date = new(LoadDate);
+        }
 
-            _dateValue = new(() => {
-                IsDate = DateTime.TryParse(rawValue, out var result);
-                return result;
-            });
+        private DateTime LoadDate()
+        {
+            IsDate = DateTime.TryParse(Value, out var result);
+            return result;
         }
 
 
@@ -39,6 +40,6 @@ namespace Cody.Utilities.QueryFilters
 
 
         public static implicit operator string (Keyword self) => self.Value;
-        public static implicit operator DateTime (Keyword self) => self.DateValue;
+        public static implicit operator DateTime (Keyword self) => self.Date.Value;
     }
 }
