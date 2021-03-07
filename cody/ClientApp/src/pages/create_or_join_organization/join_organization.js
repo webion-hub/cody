@@ -153,7 +153,6 @@ export function JoinOrganization(props){
 
 function OrganizationsListItem(props){
 	const theme = useTheme();
-  console.log(props.maxListItemWidth)
 
   return(
     <ListItem>  

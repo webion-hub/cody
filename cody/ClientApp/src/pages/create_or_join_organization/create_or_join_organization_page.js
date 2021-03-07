@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,22 +24,48 @@ export function CreateOrJoinOrganization(){
 
   const [content, setContent] = React.useState("selectAction");
 
+  useEffect(() => {
+    switch(window.location.hash){
+      case "#create":
+        return setContent("create");
+      case "#join":
+        return setContent("join");
+      case "#":
+      default:
+        return setContent("selectAction");
+    }
+  })
+
   const selectAction = 
     <SelectAction
-      onCreate={() => setContent("create")}
-      onJoin={() => setContent("join")}
+      onCreate={() => {
+        setContent("create")
+        window.location.hash = "create";
+      }}
+      onJoin={() => {
+        setContent("join")
+        window.location.hash = "join";
+      }}
       infoRef={infoRef}
     />
   
   const createOrganization = 
     <CreateOrganization
-      onBack={() => setContent("selectAction")}
+      onBack={() => {
+        setContent("selectAction")
+        window.location.hash = "";
+        window.location.hash.replace("#", "");
+      }}
       infoRef={infoRef}    
     />
 
   const joinOrganization = 
     <JoinOrganization
-      onBack={() => setContent("selectAction")}
+      onBack={() => {
+        setContent("selectAction")
+        window.location.hash = "";
+        window.location.hash.replace("#", "");
+      }}
       infoRef={infoRef}    
     />
 

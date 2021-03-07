@@ -20,7 +20,7 @@ export const sideBarSections = [
       divider: true,
       label: 'Crea o unisciti',
       icon: <AddRoundedIcon />,
-      href: '/create_join_organization',
+      href: '/organization',
     },
     {
       padding: 4,

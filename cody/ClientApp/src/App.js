@@ -48,13 +48,13 @@ function Routes(){
     <Router history={history}>
       <Switch>
         <CustomRoute exact path='/' component={Home} />
-        <CustomRoute path='/login' component={Login} to='/' redirect={logged}/>
-        <CustomRoute path='/sign-up' component={SignUp} to='/' redirect={logged}/>
+        <CustomRoute path='/login' component={Login} redirect={logged}/>
+        <CustomRoute path='/sign-up' component={SignUp} redirect={logged}/>
         <CustomRoute path='/email-valid' component={EmailValidPage} />
-        <CustomRoute path='/account' component={Account} to='/' redirect={!logged}/>
+        <CustomRoute path='/account' component={Account} redirect={!logged}/>
         
         <CustomRoute path='/admin' component={AdminPage}/>
-        <CustomRoute path='/create_join_organization' component={CreateOrJoinOrganization}/>
+        <CustomRoute path='/organization' component={CreateOrJoinOrganization}/>
 
 
         <CustomRoute path='/test' component={Test}/>
