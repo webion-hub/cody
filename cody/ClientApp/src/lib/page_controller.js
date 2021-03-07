@@ -21,4 +21,8 @@ export class PageController {
     history.go(0)
   }
 
+  static updateHash = (hash) => {
+    window.location.hash = hash;
+  }
+
 }
