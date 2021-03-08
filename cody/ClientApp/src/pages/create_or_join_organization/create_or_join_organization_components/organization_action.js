@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    width: 200
+    width: "100%",
+    maxWidth: 200
   },
   card: props => ({
     width: `calc(${props.width} - ${theme.spacing(2)}px)`,
