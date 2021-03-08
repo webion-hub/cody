@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Typography, Link, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
@@ -13,6 +13,7 @@ import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { Skeleton } from '@material-ui/lab';
 
 import { EditableBiography } from 'src/components/pickers/text_fields/editable_text_fields/editable_biography';
+import { useGetSize } from 'src/lib/hooks/use_get_size';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -55,22 +56,12 @@ export function InfoBox(props){
 
   const [image, setImage] = React.useState(props.defaultImage);
   const [data, setData] = React.useState(undefined);
-  const [screenWidth, setScreenWidth] = React.useState(0);
+
+  const screenWidth = useGetSize(window).width;
+  const flowingTextMobileMaxWidth = screenWidth - 196
 
   const {onImageChange} = props;
-
-  const flowingTextMobileMaxWidth = screenWidth - 196
   
-  useLayoutEffect(() => {
-    window.addEventListener('resize', updateWidth);
-    updateWidth();
-    return () => window.removeEventListener('resize', updateWidth);
-
-  }, []);
-	
-  const updateWidth = () => {
-		setScreenWidth(window.innerWidth);
-	}
 
 	useEffect(() => {
 		if(!props.loading && data === undefined)
