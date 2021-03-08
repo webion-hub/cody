@@ -18,7 +18,7 @@ export function CreateOrganization(props){
       <OrganizationAction
         width="33%"
         image={TeamWork}
-        buttonLabel="Crea un team"
+        buttonLabel="Crea Team"
         endIcon={<ArrowForwardRoundedIcon/>}
         onClick={() => PageController.updateHash("createTeam")}
       />
@@ -32,7 +32,7 @@ export function CreateOrganization(props){
       <OrganizationAction
         width="33%"
         image={Career}
-        buttonLabel="Aggiungi un'azienda"
+        buttonLabel="Aggiungi Azienda"
         endIcon={<AddRoundedIcon/>}
         onClick={() => PageController.updateHash("createCompany")}
       />
