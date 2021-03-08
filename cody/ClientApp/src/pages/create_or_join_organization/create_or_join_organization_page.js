@@ -7,7 +7,7 @@ import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_
 import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
 import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization/create_organization';
 import { CreateTeam } from 'src/pages/create_or_join_organization/create_organization/create_team';
-import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization';
+import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization/join_organization';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 import { PageController } from 'src/lib/page_controller';
@@ -84,7 +84,7 @@ export function CreateOrJoinOrganization(){
         setContentSetting({
           component: "joinOrganization",
           title: "Crea un'organizzazione",
-          width: 690,
+          width: 750,
           height: 400,
           onBack: () => PageController.updateHash("")
         })
