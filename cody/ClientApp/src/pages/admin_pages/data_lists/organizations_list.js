@@ -1,9 +1,9 @@
 import React from 'react';
 import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base';
-import { School } from 'src/lib/school';
+import { Organizations } from 'src/lib/organizations';
 
-export function SchoolsList(props){
-	const associateSchools = (settings) => {
+export function OrganizationsList(props){
+	const associateOrganizations = (settings) => {
 		const list = settings.list;
 		const data = settings.data;
 		const index = settings.index;
@@ -11,14 +11,16 @@ export function SchoolsList(props){
 		list.push({
 			id: index,
 			Id: data.id,
+			kind: data.kind,
 			name: data.name,
-			city: data.city,
-			country: data.country,
+			city: data.detail.city,
+			country: data.detail.country,
 		})
 	}
 
 	const usersColumns = [
 		{	selector: 'Id', name: 'ID', sortable: true },
+		{	selector: 'kind', name: 'Kind', sortable: true },
 		{	selector: 'name', name: 'Nome', sortable: true },
 		{	selector: 'city', name: 'Città', sortable: true },
 		{ selector: 'country', name: 'Paese', sortable: true },
@@ -26,10 +28,10 @@ export function SchoolsList(props){
 
 	return (
 		<DataTableBase
-			getData={School.getAll}
-			associateData={associateSchools}
+			getData={Organizations.listAll}
+			associateData={associateOrganizations}
 			columns={usersColumns}
-			title="Scuole"
+			title="Organizzazioni"
 			maxPageElements={props.maxPageElements}
 		/>
 	);

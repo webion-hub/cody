@@ -4,7 +4,7 @@ import { Tabs } from '@material-ui/core';
 import { Tab } from '@material-ui/core';
 
 import { UsersList } from 'src/pages/admin_pages/data_lists/users_list';
-import { SchoolsList } from 'src/pages/admin_pages/data_lists/schools_list';
+import { OrganizationsList } from 'src/pages/admin_pages/data_lists/organizations_list';
 import { UserContext } from "src/components/user_controller_context";
 import { UnauthorizedPage } from "src/pages/unauthorized_page";
 
@@ -45,13 +45,13 @@ export function AdminPage(){
 					<div className={classes.dataGrid}>
 						<Tabs value={value} onChange={handleChangeTab}>
 							<Tab label="Users"/>
-							<Tab label="Schools"/>
+							<Tab label="Organizations"/>
 						</Tabs>
 						<DataTab tabValue={value} index={0}>
 							<UsersList maxPageElements={maxPageElements}/>
 						</DataTab>
 						<DataTab tabValue={value} index={1}>
-							<SchoolsList maxPageElements={maxPageElements}/>
+							<OrganizationsList maxPageElements={maxPageElements}/>
 						</DataTab>
 					</div>
 					:
