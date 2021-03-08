@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { Grid, IconButton } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import InfoRounded from '@material-ui/icons/InfoRounded';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import { FlowingText } from '../typography/flowing_text';
+
+import { useGetSize } from 'src/lib/hooks/use_get_size';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
       minHeight: "calc(100vh - 56px)",
       marginTop: theme.appBar.mobileHeight,
     },
-    transition: "max-width 1s, min-height 1s",
+    transition: "max-width 0.25s, min-height 0.25s",
   }),
   title: {
     textAlign: "center",
@@ -33,9 +35,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     background: theme.palette.background.backgroundTransparent,
   },
-  cardContainer: {
+  cardContainer: props => ({
     padding: theme.spacing(1),
-  },
+    [theme.breakpoints.up('sm')]: {
+      height: props.height - 48,
+    },
+  }),
   infoButton: {
     position: "absolute",
     right: 0
@@ -53,7 +58,12 @@ export function TitleInfoContentBase(props){
   const width = props.width? props.width : 750;
   const height = props.height? props.height : "auto";
   const classes = useStyles({width, height});
+
   const infoRef = props.infoRef;
+  const titleContainerRef = useRef();
+
+  const theme = useTheme();
+  const titleContainerSize = useGetSize(titleContainerRef);
 
   const scrollToInfo = () => {
     infoRef.current.scrollIntoView({ block: 'start',  behavior: 'smooth' });
@@ -67,19 +77,20 @@ export function TitleInfoContentBase(props){
         alignItems="center"
       >
         <Grid
+          ref={titleContainerRef}
           className={classes.titleContainer}
           container
           direction="row"
           alignItems="center"
           justify="center"
         >
-          <Typography
-            className={classes.title}
+          <FlowingText
+            containerWidth={titleContainerSize.width - 96}
             variant="h5"
-            component="h1"
+            background={theme.palette.background.paperSecondary}
           >
             {props.title}
-          </Typography>
+          </FlowingText>
           {
             props.onBack?
               <IconButton 
@@ -104,9 +115,10 @@ export function TitleInfoContentBase(props){
           }
         </Grid>
         <Grid
+          className={classes.cardContainer}
           container
           direction="row"
-          className={classes.cardContainer}
+          alignItems="center"
         >
           {props.children}
         </Grid>
@@ -114,3 +126,4 @@ export function TitleInfoContentBase(props){
     </Paper>
   );
 }
+
