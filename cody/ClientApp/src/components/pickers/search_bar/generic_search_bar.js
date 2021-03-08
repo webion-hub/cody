@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Paper } from '@material-ui/core';
+import { Fade, Paper } from '@material-ui/core';
 import { InputBase } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,11 +24,23 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     padding: 10,
   },
+  iconDeleteButton: {
+    padding: 10,
+    color: theme.palette.text.secondary
+  }
 }));
 
 export function GenericSearchBar(props){
   const classes = useStyles();
+  const inputBaseRef = useRef();
+  const [showDelete, setShowDelete] = React.useState(false);
   const onSubmit = props.onSubmit ? props.onSubmit : () => {}
+  const onChange = props.onChange ? props.onChange : () => {}
+
+  const handleDelete = () => {
+    inputBaseRef.current.value = ""
+    setShowDelete(false)
+  }
 
   return (
     <Paper 
@@ -44,21 +57,37 @@ export function GenericSearchBar(props){
     >
       {props.startIcon}
       <InputBase
+        inputRef={inputBaseRef}
         className={classes.input}
         placeholder={props.label? props.label : "Cerca"}
         inputProps={{ 'aria-label': 'Cerca' }}
-        onChange={props.onChange}
+        onChange={(event) => {
+          onChange(event)
+          const showDelete = event.target.value !== ""
+          setShowDelete(showDelete)
+        }}
         onSubmit={e => {
           e.stopPropagation();
           e.nativeEvent.stopImmediatePropagation()
         }}
       />
+      <Fade
+        in={showDelete}
+      >
+        <IconButton 
+          className={classes.iconDeleteButton} 
+          aria-label="delete"
+          onClick={handleDelete}
+        >
+          <ClearRoundedIcon/>
+        </IconButton>
+      </Fade>  
       <IconButton 
         className={classes.iconButton} 
         aria-label="search"
         onClick={onSubmit}
       >
-        <SearchRoundedIcon />
+        <SearchRoundedIcon/>
       </IconButton>
       {props.endIcon}
     </Paper>
