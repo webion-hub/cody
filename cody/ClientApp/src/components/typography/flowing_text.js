@@ -11,6 +11,9 @@ const flowingTextStyles = makeStyles((theme) => ({
 		whiteSpace: "nowrap",
 		overflow: "hidden",
 	},
+	typography: {
+		userSelect: "none"
+	},
 	flowingText: {
 		animation: "$flow linear",
 		animationIterationCount: "infinite",
@@ -96,6 +99,7 @@ export function FlowingText(props){
 				}}
 			>
 				<Typography 
+					className={classes.typography}
 					innerRef={ref}
 					variant={props.variant} 
 					color={props.color}
