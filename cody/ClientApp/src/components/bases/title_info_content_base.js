@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Grid, IconButton } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
@@ -10,13 +10,13 @@ import { FlowingText } from '../typography/flowing_text';
 
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 
-
 const useStyles = makeStyles((theme) => ({
   paperBox: props => ({
     position: "relative",
     background: theme.palette.background.paperSecondary,
     width: "100%",
     maxWidth: props.width,
+    maxHeight: props.height,
     minHeight: props.height,
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
       minHeight: "calc(100vh - 56px)",
       marginTop: theme.appBar.mobileHeight,
     },
-    transition: "max-width 0.25s, min-height 0.25s",
+    transition: "max-width 0.25s, max-height 0.25s, min-height 0.25s",
   }),
   title: {
     textAlign: "center",
@@ -35,12 +35,20 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     background: theme.palette.background.backgroundTransparent,
   },
-  cardContainer: props => ({
+  cardContainer: {
     padding: theme.spacing(1),
-    [theme.breakpoints.up('sm')]: {
-      height: props.height - 48,
+    "& > *": {
+      animation: `$myEffect 0.5s linear`,
+    }
+  },
+  "@keyframes myEffect": {
+    "0%": {
+      opacity: 0,
     },
-  }),
+    "100%": {
+      opacity: 1,
+    }
+  },
   infoButton: {
     position: "absolute",
     right: 0
@@ -95,6 +103,7 @@ export function TitleInfoContentBase(props){
             props.onBack?
               <IconButton 
                 className={classes.backButton}
+                href={props.href}
                 onClick={props.onBack}
               >
                 <ArrowBackRoundedIcon/>
