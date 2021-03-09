@@ -6,6 +6,7 @@ import { TeamMeeting } from 'src/components/illustrations/team_meeting';
 import { NewOrganization } from 'src/components/illustrations/new_oraganization';
 
 import { OrganizationAction } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organization_action';
+import { PageController } from 'src/lib/page_controller';
 
 export function SelectAction(props){
   return(
@@ -14,13 +15,15 @@ export function SelectAction(props){
         image={NewOrganization}
         buttonLabel="Crea"
         endIcon={<ArrowForwardRoundedIcon/>}
-        onClick={props.onCreate}
+        href="/organization#create"
+        onClick={(e) => PageController.updateHash("create", e)}
       />
       <OrganizationAction
         image={TeamMeeting}
         buttonLabel="Unisciti"
         endIcon={<ArrowForwardRoundedIcon/>}
-        onClick={props.onJoin}
+        href="/organization#join"
+        onClick={(e) => PageController.updateHash("join", e)}
       />
     </>
   );
