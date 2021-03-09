@@ -31,7 +31,6 @@ export function EmailPassword(props){
   const [password, setPassword] = React.useState(props.values.password);
   const nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
   
-  console.log()
   const emailError = props.errors.emailError || props.errors.emailExist
   const passwordError = props.errors.passwordError
 
