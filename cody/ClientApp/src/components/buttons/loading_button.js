@@ -33,6 +33,7 @@ function MainButton(props){
       variant="contained"
       color="primary"
       disabled={disabledButton}
+      className={props.props.className}
       fullWidth={props.props.fullWidth}
       endIcon={props.props.endIcon}
       startIcon={props.props.startIcon}
