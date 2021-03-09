@@ -4,10 +4,9 @@ CREATE TABLE organization_detail
 (
 	id int NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	
-	city 	text NOT NULL,
-	country text NOT NULL,
-	
-	description text,
+	city 		text,
+	country 	text,
+	description text CHECK (length(description) <= 512),
 	website		text,
 	
 	organization_id int UNIQUE NOT NULL REFERENCES organization(id)
