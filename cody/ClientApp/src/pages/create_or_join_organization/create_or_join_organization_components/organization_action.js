@@ -44,6 +44,7 @@ export function OrganizationAction(props){
           variant="outlined"
           color="secondary"
           endIcon={props.endIcon}
+          href={props.href}
           onClick={props.onClick}
         >
           {props.buttonLabel}
