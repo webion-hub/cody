@@ -7,6 +7,8 @@ import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_
 import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
 import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization/create_organization';
 import { CreateTeam } from 'src/pages/create_or_join_organization/create_organization/create_team';
+import { CreateSchool } from 'src/pages/create_or_join_organization/create_organization/create_school';
+import { CreateCompany } from 'src/pages/create_or_join_organization/create_organization/create_company';
 import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization/join_organization';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
@@ -17,7 +19,7 @@ export function CreateOrJoinOrganization(){
   const infoRef = React.createRef();
 
   const [contentSetting, setContentSetting] = React.useState({
-    component: "selectAction",
+    component: SelectAction,
     title: "Unisciti o crea un'organizzazione",
     width: 750,
     height: 400,
@@ -31,67 +33,61 @@ export function CreateOrJoinOrganization(){
     setContent(value)
   }, [window.location.hash])
 
-
-  const components = {
-    createOrganization:
-      <CreateOrganization/>
-    , 
-    createTeam:
-      <CreateTeam/>  
-    ,
-    joinOrganization:
-      <JoinOrganization
-        onBack={() => PageController.updateHash("")}
-        infoRef={infoRef}    
-      />
-    ,
-    selectAction:
-      <SelectAction
-        onCreate={() => PageController.updateHash("create")}
-        onJoin={() => PageController.updateHash("join")}
-        infoRef={infoRef}
-      />
-  }
-
-
-
-
   const setContent = (hash) => {
     switch(hash){
       case "create":
         setContentSetting({
-          component: "createOrganization",
+          component: CreateOrganization,
           title: "Crea un'organizzazione",
-          width: 1125,
-          height: 400,
-          onBack: () => PageController.updateHash("")
+          width: 450,
+          height: 468,
+          href: "/organization",
+          onBack: (e) => PageController.updateHash("", e)
         })
         break;
-      case "createTeam":
+      case "createteam":
         setContentSetting({
-          component: "createTeam",
+          component: CreateTeam,
           title: "Crea un team",
-          width: 750,
-          height: 400,
-          onBack: () => PageController.updateHash("create")
+          width: 450,
+          height: 468,
+          href: "/organization#create",
+          onBack: (e) => PageController.updateHash("create", e)
         })
         break;
-      case "createSchool":
+      case "createschool":
+        setContentSetting({
+          component: CreateSchool,
+          title: "Aggiungi un Istituto",
+          width: 450,
+          height: 603,
+          href: "/organization#create",
+          onBack: (e) => PageController.updateHash("create", e)
+        })
         break;
-      case "createCompany":
+      case "createcompany":
+        setContentSetting({
+          component: CreateCompany,
+          title: "Aggiungi un' Azienda",
+          width: 450,
+          height: 603,
+          href: "/organization#create",
+          onBack: (e) => PageController.updateHash("create", e)
+        })
         break;
       case "join":
         setContentSetting({
-          component: "joinOrganization",
-          title: "Crea un'organizzazione",
+          component: JoinOrganization,
+          title: "Unisciti ad un'organizzazione",
           width: 750,
           height: 400,
-          onBack: () => PageController.updateHash("")
+          href: "/organization",
+          onBack: (e) => PageController.updateHash("", e)
         })
         break;
       default:
         setContentSetting({
-          component: "selectAction",
+          component: SelectAction,
           title: "Unisciti o crea un'organizzazione",
           width: 750,
           height: 400,
@@ -107,10 +103,11 @@ export function CreateOrJoinOrganization(){
           title={contentSetting.title}
           width={contentSetting.width}
           height={contentSetting.height}
+          href={contentSetting.href}
           onBack={contentSetting.onBack}
           infoRef={infoRef}
         >
-          {components[contentSetting.component]}
+          <contentSetting.component/>
         </TitleInfoContentBase>
         <BackgroundWithLines 
           height={1}
