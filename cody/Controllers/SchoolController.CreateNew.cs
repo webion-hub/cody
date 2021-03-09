@@ -18,7 +18,7 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> CreateNew([FromBody] OrganizationCreationRequest request)
         {
-            Organization school = request;
+            var school = request.AsOrganization();
             if (SchoolExists(school, out var existingSchool))
                 return BadRequest(existingSchool.Id);
 
