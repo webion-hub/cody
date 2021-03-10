@@ -84,7 +84,7 @@ export function CreateTeam(props){
           variant="caption"
           color="error"
         >
-          Errore, organizzazione già esistente!
+          Errore, team già esistente!
         </Typography>
       </Fade>
     </CreateOrganizationBase>

@@ -100,7 +100,7 @@ export function CreateCompany(props){
             variant="caption"
             color="error"
           >
-            Errore, organizzazione già esistente!
+            Errore, azienda già esistente!
           </Typography>
         </Fade>
         <TextField

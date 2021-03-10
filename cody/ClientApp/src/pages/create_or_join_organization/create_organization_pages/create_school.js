@@ -100,7 +100,7 @@ export function CreateSchool(props){
             variant="caption"
             color="error"
           >
-            Errore, organizzazione già esistente!
+            Errore, scuola già esistente!
           </Typography>
         </Fade>
         <TextField
