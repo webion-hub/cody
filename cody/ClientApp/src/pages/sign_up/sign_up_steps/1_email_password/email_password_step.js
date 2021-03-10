@@ -115,7 +115,7 @@ export function EmailPassword(props){
             variant="caption"
             color="textSecondary"
           >
-            Tra 8 e 128 caratteri
+            Tra 8 e 256 caratteri
           </Typography>
         </>,
         <Password

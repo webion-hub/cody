@@ -13,7 +13,7 @@ export class UsernameController{
   } 
 
   wrongLength(username){
-    return !(username.length >= 4 && username.length <= 28);
+    return !(username.length >= 4 && username.length <= 256);
   }
 
   checkUsername(username, skip){
@@ -48,6 +48,9 @@ export class NameSurnameController{
       return new Promise(resolve => {resolve(null)});
 
     return new Promise(resolve => {
+      if(val > 256)
+        resolve(true)
+
       let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
       const wrongId = val.length === 0 || !re.test(val)
       

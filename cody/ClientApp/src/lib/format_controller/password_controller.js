@@ -2,7 +2,7 @@ import zxcvbn from 'zxcvbn';
 
 export class PasswordController{
   isPasswordWrongLength(password){
-    return !(password.length >= 8 && password.length <= 128);
+    return !(password.length >= 8 && password.length <= 256);
   }
   
   arePwWrong(password, confirmPassword){
