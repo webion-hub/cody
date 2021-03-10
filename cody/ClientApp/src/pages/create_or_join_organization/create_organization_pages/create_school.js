@@ -1,17 +1,24 @@
 import React from 'react';
 
-import { TextField, Grid } from '@material-ui/core';
+import { TextField, Grid, Typography, Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CreateOrganizationBase } from './create_organization_base';
-import { Organizations } from 'src/lib/organizations';
+import { CreateOrganizationBase } from 
+  'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_base';
+import { tryCreateOrganization } from 
+  'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/try_create_organization';
+
 import { NextFocus } from 'src/lib/next_focus';
 
 const useStyles = makeStyles((theme) => ({
-  schoolName: {
+  schoolFields: {
     maxWidth: 300,
     marginBottom: theme.spacing(2)
   },
+  fieldWithText: {
+    maxWidth: 300,
+    width: "100%"
+  }
 }));
 
 export function CreateSchool(props){
@@ -25,13 +32,15 @@ export function CreateSchool(props){
     website: "",
     description: "",
   })
-  const [error, setError] = React.useState({
-    name: "",
-    city: "",
-    country: "",
-    website: "",
-    description: "",
-  })
+  const noErrors = {
+    organizationNameError: false,
+    cityError: false,
+    countryError: false,
+    websiteError: false,
+    descriptionError: false,
+  }
+  const [errors, setErrors] = React.useState(noErrors)
+  const [existingOrganization, setExistingOrganization] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
 
   const handleData = (dataName) => (event) => {
@@ -43,23 +52,18 @@ export function CreateSchool(props){
 
   const handleSubmit = () => {
     setLoading(true)
-    setError("")
-    Organizations.createNew({
-      organization: {
-        name: data.name,
-        city: data.city,
-        country: data.country,
-        website: data.website,
-        description: data.description,
-        kind: 'School',
-      },
-      onSuccess: newOrgId => {
-        // Organization created
-      },
-      onConflict: () => setError("Errore, organizzazione già esistente"),
-      onError: () => setError("Errore"),
+    setErrors(noErrors)
+    setExistingOrganization(false)
+
+    tryCreateOrganization({
+      data: data,
+      kind: "School",
+      onSuccess: () => alert("bravo"),
+      onConflict: () => setExistingOrganization(true),
+      onError: (err) => {},
+      onFormatError: (err) => setErrors(err)
     })
-    .then(() => setLoading(false))    
+    .then(() => setLoading(false))
   }
 
   return(
@@ -74,13 +78,13 @@ export function CreateSchool(props){
         alignItems="center"
       >
         <TextField
-          className={classes.schoolName}
+          className={classes.fieldWithText}
           color="secondary"
           label="Nome Scuola"
           required
           fullWidth
           variant="filled"
-          error={error.name !== ""}
+          error={errors.organizationNameError || existingOrganization}
           onChange={handleData("name")}
           inputRef={nextFocus.getInput("name")}
           onKeyDown={(e) => {
@@ -89,14 +93,24 @@ export function CreateSchool(props){
             }
           }}
         />
+        <Fade
+          in={existingOrganization}
+        >
+          <Typography
+            variant="caption"
+            color="error"
+          >
+            Errore, organizzazione già esistente!
+          </Typography>
+        </Fade>
         <TextField
-          className={classes.schoolName}
+          className={classes.schoolFields}
           color="secondary"
           label="Città"
           required
           fullWidth
           variant="filled"
-          error={error.city !== ""}
+          error={errors.cityError}
           onChange={handleData("city")}
           inputRef={nextFocus.getInput("city")}
           onKeyDown={(e) => {
@@ -106,13 +120,13 @@ export function CreateSchool(props){
           }}
         />
         <TextField
-          className={classes.schoolName}
+          className={classes.schoolFields}
           color="secondary"
           label="Stato"
           required
           fullWidth
           variant="filled"
-          error={error.country !== ""}
+          error={errors.countryError}
           onChange={handleData("country")}
           inputRef={nextFocus.getInput("country")}
           onKeyDown={(e) => {
@@ -122,12 +136,12 @@ export function CreateSchool(props){
           }}
         />
         <TextField
-          className={classes.schoolName}
+          className={classes.schoolFields}
           color="secondary"
           label="Sito web"
           fullWidth
           variant="filled"
-          error={error.website !== ""}
+          error={errors.websiteError}
           onChange={handleData("website")}
           inputRef={nextFocus.getInput("website")}
           onKeyDown={(e) => {
@@ -136,23 +150,32 @@ export function CreateSchool(props){
             }
           }}
         />
-        <TextField
-          className={classes.schoolName}
-          color="secondary"
-          label="Descrizione"
-          multiline
-          fullWidth
-          rows={6}
-          variant="filled"
-          error={error.description !== ""}
-          onChange={handleData("description")}
-          inputRef={nextFocus.getInput("description")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSubmit()
-            }
-          }}
-        />
+        <div
+          className={classes.fieldWithText}
+        >
+          <TextField
+            color="secondary"
+            label="Descrizione"
+            multiline
+            fullWidth
+            rows={6}
+            variant="filled"
+            error={errors.descriptionError}
+            onChange={handleData("description")}
+            inputRef={nextFocus.getInput("description")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit()
+              }
+            }}
+          />
+          <Typography
+            variant="caption"
+            color={errors.descriptionError ? "error" : "textSecondary"}
+          >
+            {data.description.length}/512
+          </Typography>
+        </div>
       </Grid>
     </CreateOrganizationBase>
   );

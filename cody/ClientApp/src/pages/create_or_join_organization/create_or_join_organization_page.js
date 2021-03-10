@@ -5,11 +5,13 @@ import { BackgroundWithLines } from 'src/components/background_with_lines';
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
 
 import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
-import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization/create_organization';
-import { CreateTeam } from 'src/pages/create_or_join_organization/create_organization/create_team';
-import { CreateSchool } from 'src/pages/create_or_join_organization/create_organization/create_school';
-import { CreateCompany } from 'src/pages/create_or_join_organization/create_organization/create_company';
-import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization/join_organization';
+
+import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization_pages/create_organization';
+import { CreateTeam } from 'src/pages/create_or_join_organization/create_organization_pages/create_team';
+import { CreateSchool } from 'src/pages/create_or_join_organization/create_organization_pages/create_school';
+import { CreateCompany } from 'src/pages/create_or_join_organization/create_organization_pages/create_company';
+
+import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 import { PageController } from 'src/lib/page_controller';

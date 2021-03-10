@@ -8,7 +8,7 @@ import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 
 import { TeamWork } from 'src/components/illustrations/team_work';
-import { CreateOrganizationBase } from './create_organization_base';
+import { CreateOrganizationBase } from 'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_base';
 
 import { PageController } from 'src/lib/page_controller';
 

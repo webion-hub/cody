@@ -4,11 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { GenericSearchBar } from 'src/components/pickers/search_bar/generic_search_bar';
 
-import { OrganizationsListItem } from './organization_list_item';
-import { FilterComponent } from './filter_components';
+import { OrganizationsListItem } from './create_or_join_organization_components/join_organization/organization_list_item';
+import { FilterComponent } from './create_or_join_organization_components/join_organization/filter_components';
 
 import { useGetSize } from 'src/lib/hooks/use_get_size';
-import { useSetOrganizationsValue } from './use_set_organizations_value';
+import { useSetOrganizationsValue } from './create_or_join_organization_components/join_organization/use_set_organizations_value';
 
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
