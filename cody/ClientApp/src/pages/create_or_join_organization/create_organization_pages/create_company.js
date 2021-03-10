@@ -163,11 +163,6 @@ export function CreateCompany(props){
             error={errors.descriptionError}
             onChange={handleData("description")}
             inputRef={nextFocus.getInput("description")}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit()
-              }
-            }}
           />
           <Typography
             variant="caption"

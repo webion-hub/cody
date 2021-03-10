@@ -68,9 +68,14 @@ export function CreateTeam(props){
         color="secondary"
         label="Nome team"
         fullWidth
-        error={error}
+        error={error || existingOrganization}
         onChange={handleValue}
         variant="filled"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSubmit()
+          }
+        }}
       />
       <Fade
         in={existingOrganization}
