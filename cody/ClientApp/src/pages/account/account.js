@@ -4,7 +4,7 @@ import { Box, Grid, Paper } from '@material-ui/core';
 import { LoadingButton } from 'src/components/buttons/loading_button'
 import { InfoBox } from './account_components/info_box';
 import { DataForms } from './account_components/data_forms';
-import { ErrorsController } from './errors_controller';
+import { AccountErrorsController } from './account_errors_controller';
 import { accountStyles } from './account_styles';
 import { nullData, noErrors } from './default_states';
 
@@ -117,7 +117,7 @@ export function Account(){
   }
 
   const handleTrySave = () => {
-    const errorsController = new ErrorsController;
+    const errorsController = new AccountErrorsController;
 
     setLoadingSave(true);
     setErrors(noErrors);

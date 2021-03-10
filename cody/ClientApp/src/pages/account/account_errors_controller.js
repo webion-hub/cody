@@ -1,7 +1,7 @@
 import { EmailController } from 'src/lib/format_controller/email_controller'
 import { UsernameController, NameSurnameController, BirthDateController } from 'src/lib/format_controller/id_controllers'
 
-export class ErrorsController{
+export class AccountErrorsController{
 
     removeNoError(array){
       const index = array.indexOf("noError");
