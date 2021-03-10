@@ -38,10 +38,10 @@ namespace Cody.Controllers.Requests
                 Name = Name.Trim(),
                 Kind = _organizationKind,
                 Detail = new (){
-                    City = City.Trim(),
-                    Country = Country.Trim(),
-                    Description = Description.Trim(),
-                    Website = Website.Trim(),
+                    City = City?.Trim(),
+                    Country = Country?.Trim(),
+                    Description = Description?.Trim(),
+                    Website = Website?.Trim(),
                 },
                 State = new (){
                     HasBeenVerified = false,
