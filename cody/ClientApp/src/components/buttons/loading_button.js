@@ -6,11 +6,33 @@ import { CircularProgress } from '@material-ui/core';
 
 
 export function LoadingButton(props){
+  const disabledButton = props.loading || props.disabled
 
   const mainButton = 
-    <MainButton
-      props={props}
-    />
+    <Button
+      variant="contained"
+      color="primary"
+      disabled={disabledButton}
+      className={props.className}
+      fullWidth={props.fullWidth}
+      endIcon={props.endIcon}
+      startIcon={props.startIcon}
+      onClick={props.onClick}
+    >
+      {
+        props.loading ? 
+        (
+          <CircularProgress
+            color="secondary"
+            size={25}
+            style={{
+              position: "absolute" 
+            }}
+          />
+        ): null
+      }
+      {props.label}
+    </Button>
 
   return (
     props.fullWidth ? 
@@ -22,36 +44,4 @@ export function LoadingButton(props){
         {mainButton}
       </span>   
   ) 
-}
-
-
-function MainButton(props){
-  const disabledButton = props.props.loading || props.props.disabled
-
-  return(
-    <Button
-      variant="contained"
-      color="primary"
-      disabled={disabledButton}
-      className={props.props.className}
-      fullWidth={props.props.fullWidth}
-      endIcon={props.props.endIcon}
-      startIcon={props.props.startIcon}
-      onClick={props.props.onClick}
-    >
-      {
-        props.props.loading ? 
-        (
-          <CircularProgress
-            color="secondary"
-            size={25}
-            style={{
-              position: "absolute" 
-            }}
-          />
-        ): null
-      }
-      {props.props.label}
-    </Button>
-  );
 }
