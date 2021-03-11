@@ -10,14 +10,15 @@ export function LoadingButton(props){
 
   const mainButton = 
     <Button
-      variant="contained"
-      color="primary"
+      variant={props.variant ? props.variant : "contained"}
+      color={props.color ? props.color : "primary"}
       disabled={disabledButton}
       className={props.className}
       fullWidth={props.fullWidth}
       endIcon={props.endIcon}
       startIcon={props.startIcon}
       onClick={props.onClick}
+      href={props.href}
     >
       {
         props.loading ? 
