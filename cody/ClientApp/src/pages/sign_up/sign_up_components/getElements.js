@@ -14,6 +14,7 @@ export const getElements = ({
   return [
     {
       controller: new EmailPasswordController(),
+      optional: false,
       element: <EmailPassword
         onEmailChange = {handleDataChange("email")}
         onPasswordChange = {handleDataChange("password")}
@@ -24,6 +25,7 @@ export const getElements = ({
     },
     {
       controller: new IDController(),
+      optional: false,
       element: <IDData
         onUsernameChange = {handleDataChange("username")}
         onNameChange = {handleDataChange("name")}
@@ -35,10 +37,9 @@ export const getElements = ({
     },  
     {
       controller: null,
+      optional: true,
       element: <OptionalData
         onSchoolChange = {handleDataChange("school")}
-        onIsAddedSchoolChange = {handleDataChange("isAddedSchool")}
-        onProfileImageChange = {handleDataChange("profileImage")}
         values = {data}
       />, 
     },
