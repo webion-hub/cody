@@ -70,7 +70,7 @@ export function IDData(props){
                 variant="caption"
                 color="textSecondary"
               >
-                Tra 4 e 256 caratteri
+                Tra 2 e 256 caratteri
               </Typography>
               <Fade
                 in={props.errors.usernameExist}

@@ -7,13 +7,18 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
-import { SignUpStepper } from './sign_up_components/signup_stepper';
+import { CustomStepper } from 'src/components/stepper/custom_stepper';
 import { getElements } from './sign_up_components/getElements';
 import { dataDefault, noErrors } from './sign_up_components/default_values';
 
+import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
+import { UserContext } from 'src/components/user_controller_context';
+import { AlertDialog } from 'src/components/dialogs/alert_dialog';
+
+import { User } from 'src/lib/user';
+import { ProfilePicture } from 'src/lib/profile_picture';
 import { Images } from 'src/lib/default_values/images';
 import { PageController } from 'src/lib/page_controller';
-import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 export const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -48,16 +53,17 @@ export const useStyles = makeStyles((theme) => ({
 
 export function SignUp(){
 	const classes = useStyles();
-
-  const [stepInfo, setStepInfo] = React.useState({
-    currentStep: 0,
-    newStep: 0,
-  });
-
-  const [loading, setLoading] = React.useState(false);  
   const [data, setData] = React.useState(dataDefault); 
 
-  const [errors, setErrors] = React.useState(noErrors);  
+  const [errors, setErrors] = React.useState(noErrors);
+  const [registrationErrors, setRegistrationErrors] = React.useState({
+    registerError: null,
+    missingFields: null,
+    imageUploadError: null,
+  });
+
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const { setLoggedWithoutRefresh } = React.useContext(UserContext);
 
   const handleDataChange = (prop) => (value) => {
     setData({
@@ -66,7 +72,7 @@ export function SignUp(){
     });
   }
 
-  const setUser = () => {
+  const setUser = (data) => {
     return {
       username: data.username,
       password: data.password,
@@ -75,40 +81,60 @@ export function SignUp(){
         name: data.name,
         surname: data.surname,
         birthDate: data.birthDate,
-        schoolId: data.school ? data.school.id : null,
       }
     } 
   }
 
-  const handleOnNext = (controller) => {   
-    if(controller != null)
-    {
-      setErrors(noErrors);
-      setLoading(true);
-      setStepInfo({
-        ...stepInfo,
-        newStep: stepInfo.currentStep
+  const tryRegister = () => {
+    setRegistrationErrors({
+      registerError: null,
+      missingFields: null,
+      imageUploadError: null,  
+    })
+
+    return new Promise(resolve => {
+      User.tryRegister({
+        user: setUser(data),
+  
+        onSuccess: _ => {
+          setLoggedWithoutRefresh(true)
+          if (data.profileImage == null){            
+            resolve(true)
+          }
+          else{
+            ProfilePicture
+              .createOrUpdate({
+                base64: data.profileImage,
+              })
+              .then(_ => resolve(true))
+              .catch(_ => {
+                setOpenAlert(true)
+                setRegistrationErrors({
+                  ...registrationErrors,
+                  imageUploadError: "Prova a ricaricare l'immagine più tardi."
+                })
+                resolve(false)
+              });
+          }
+        },
+        onError: reasons => {
+          setOpenAlert(true)  
+          setRegistrationErrors({
+            ...registrationErrors,
+            registerErrors: reasons
+          })
+          resolve(false)
+        },
+        onMissingFields: reasons => {
+          setOpenAlert(true)  
+          setRegistrationErrors({
+            ...registrationErrors,
+            missingFields: "Manca data di nascita"
+          })
+          resolve(false)
+        },
       })
-      controller
-        .checkAll(data)
-        .then(results => {
-          let errors = {};
-          results.forEach(result => {
-            if (result === 'noError') {
-              setStepInfo({
-                ...stepInfo,
-                newStep: stepInfo.currentStep + 1
-              })              
-              return;
-            }
-
-            errors[result] = true;
-          });
-
-          setErrors(errors);
-          setLoading(false);
-        });
-    }
+    })
   }
 
   const elementsList = getElements({
@@ -116,7 +142,6 @@ export function SignUp(){
     data: data,
     errors: errors
   })
-  const elementsNumber = elementsList.length;
 
   return (
     <CenterComponentPageBase
@@ -124,23 +149,12 @@ export function SignUp(){
       direction="column"
     >        
       <Paper className={classes.paper}>
-        <SignUpStepper
-          steps={elementsNumber}
-          onClick={() => handleOnNext(elementsList[stepInfo.currentStep].controller)}
-          optionalSteps={[3]}
-          element={stepInfo.currentStep > elementsNumber ? null : elementsList[stepInfo.currentStep].element}
-          currentStep={step => setStepInfo({
-            ...stepInfo,
-            currentStep: step,
-          })}
-          newStep={stepInfo.newStep}
-          user={setUser()}
-          profileImage={data.profileImage}
-          termsAndService
-          loading={loading}
-          completed={
-            <SignUpCompleted/>
-          }
+        <CustomStepper
+          data={data}
+          setErrors={setErrors}
+          elements={elementsList}
+          formCompleted={<SignUpCompleted/>}
+          onFormCompleted={tryRegister}
         />
       </Paper>
       <div className={classes.termsAndService}>
@@ -167,6 +181,39 @@ export function SignUp(){
           </Link>
         </Grid>
       </div>
+      <AlertDialog
+        open={openAlert}
+        onClose={() => setOpenAlert(false)}
+        items={[
+          <Grid
+            container
+            direction="column"
+          >
+            {
+              registrationErrors.registerError ? 
+                [
+                  registrationErrors
+                    .registerErrors.map(e => ({
+                      username: <Typography variant="body2">errore inserimento username</Typography>,
+                      name: <Typography variant="body2">errore inserimento nome</Typography>, 
+                      surname: <Typography variant="body2">errore inserimento cognome</Typography>, 
+                      email: <Typography variant="body2">errore inserimento email</Typography>,
+                      password: <Typography variant="body2">errore inserimento password</Typography>,
+                      birthDate: <Typography variant="body2">errore inserimento data nascita</Typography>,
+                    }[e]))
+                ]
+                :
+                null
+            }
+          </Grid>,
+          <Typography variant="body2">
+            {registrationErrors.missingFields}
+          </Typography>,
+          <Typography variant="body2">
+            {registrationErrors.imageUploadError}
+          </Typography>,
+        ]}
+      />
     </CenterComponentPageBase>
   );
 }

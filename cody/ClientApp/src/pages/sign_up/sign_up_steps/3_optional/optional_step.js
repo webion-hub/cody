@@ -7,9 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { AddPhoto } from 'src/components/pickers/add_photo';
-import { SchoolPicker } from 'src/components/pickers/school_picker';
-
-import { NextFocus } from 'src/lib/next_focus';
 
 import { Step3 } from 'src/components/illustrations/step3';
 
@@ -28,7 +25,6 @@ export const useStyles = makeStyles((theme) => ({
 
 export function OptionalData(props){
 	const classes = useStyles();
-  const nextFocus = new NextFocus(["school"]);
 
   return (
     <BasePhotoText
@@ -43,6 +39,7 @@ export function OptionalData(props){
         >
           <AddPhoto
             image={image => props.onProfileImageChange(image)}
+            alt={props.values.username}
             disableLoading
           />
           <Typography
@@ -51,34 +48,7 @@ export function OptionalData(props){
           >
             Aggiungi un'immagine profilo
           </Typography>
-        </Grid>,
-        <>
-          <Grid
-            className={classes.schoolPickerLabel}
-            container
-            direction="row"              
-          >
-            <Typography
-              variant="body2"
-              color="secondary"
-            >
-              Sei uno studente?
-            </Typography>
-          </Grid>
-          <SchoolPicker
-            variant="outlined"
-            imageWidth = {props.imageWidth} 
-            formWidth={props.formWidth}
-            values={props.values}
-            school={props.onSchoolChange}
-            isAddedSchool={props.onIsAddedSchoolChange}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                nextFocus.removeFocus();
-              }
-            }}
-          />
-        </>,
+        </Grid>
       ]}
     />
   );
