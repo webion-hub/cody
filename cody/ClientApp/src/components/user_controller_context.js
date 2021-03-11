@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom'
+import history from 'src/history';
+
 import { PageController } from 'src/lib/page_controller';
 import { User } from 'src/lib/user';
 import { UserAccountInfo } from 'src/lib/user_account_info'
@@ -66,8 +69,7 @@ export function UserControllerContext(props){
           }
         }
       })
-      .then(() => setLoading(false)
-      );
+      .then(() => setLoading(false));
   }, []);
     
   const value = { 

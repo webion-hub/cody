@@ -10,6 +10,7 @@ export class PageController {
     if(event !== undefined)
       event.preventDefault()
     history.push(url)
+    window.scrollTo(0, 0)
   }
 
   static pushAndRefresh = (url, event) => {
@@ -25,6 +26,7 @@ export class PageController {
     if(event !== undefined)
       event.preventDefault()
     window.location.hash = hash;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
 }

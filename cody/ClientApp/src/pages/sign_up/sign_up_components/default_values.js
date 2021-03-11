@@ -20,6 +20,4 @@ export const dataDefault = {
   birthDate: new Date(),
 
   profileImage: null,
-  school: null,
-  isAddedSchool: false,
 }
