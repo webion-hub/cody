@@ -76,6 +76,9 @@ export class ThemeController {
       overrides: {
         MuiCssBaseline: {
           '@global': {
+            ':root': {
+              scrollbarWidth: 'thin !important',
+            },
             '*::-webkit-scrollbar': {
               width: '4px',
               height: '4px',
