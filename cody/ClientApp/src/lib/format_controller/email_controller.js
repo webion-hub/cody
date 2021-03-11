@@ -26,14 +26,14 @@ export class EmailController{
         resolve("emailError");
       }
       else {
-        this.emailExist(email).then(
-          result => {
+        this
+          .emailExist(email)
+          .then(result => {
             if(result)
               resolve("emailExist")
             else
               resolve("correctEmail")
-          }
-        )
+          });
       }
     })
   }

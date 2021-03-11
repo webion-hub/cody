@@ -13,7 +13,7 @@ export class UsernameController{
   } 
 
   wrongLength(username){
-    return !(username.length >= 4 && username.length <= 256);
+    return username.length < 2 || username.length > 256;
   }
 
   checkUsername(username, skip){
@@ -29,14 +29,14 @@ export class UsernameController{
         resolve("usernameError");
       }
       else {
-        this.usernameExist(username).then(
-          result => {
+        this
+          .usernameExist(username)
+          .then(result => {
             if(result) 
               resolve("usernameExist")
             else
               resolve("correctUsername")
-          }
-        )
+          })
       }
     })
   }

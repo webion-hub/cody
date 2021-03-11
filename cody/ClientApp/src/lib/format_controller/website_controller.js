@@ -27,9 +27,8 @@ export class WebsiteController{
           url = `https://${website}`
 
           fetch(url, {mode: "no-cors"})
-          .then(r => {resolve("correctWebsite")
-        })
-          .catch(_=> resolve("websiteError"))
+            .then(r => resolve("correctWebsite"))
+            .catch(_=> resolve("websiteError"))
       }
     })
   }

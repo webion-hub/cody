@@ -1,7 +1,7 @@
 export class OrganizationNameController{
 
   wrongFormat(name){
-    return name.length > 256 || name.length === 0;
+    return name.length < 4 || name.length > 256;
   }
 
   checkOrganizationName(name, skip){
