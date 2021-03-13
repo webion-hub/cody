@@ -25,19 +25,7 @@ export function StepperRightButton(props){
       label={props.lastPageLabel}
     />
 
-  const formCompletedRightButton = 
-    <LoadingButton
-      onClick={props.onNextFormCompletedPage}
-      variant="contained"
-      color="primary"
-      loading={loading}
-      label={props.formCompletedLabel}
-      href={props.hrefFormCompleted}
-    />
-
-  if(props.formCompleted)  
-    return formCompletedRightButton
-  else if(activeStep === totalStep - 1) 
+  if(activeStep === totalStep - 1) 
     return lastPageRightButton
   else  
     return otherPagesRightButton

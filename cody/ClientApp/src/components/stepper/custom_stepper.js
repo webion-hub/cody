@@ -1,29 +1,48 @@
 import React from 'react';
 
 import { Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { PageController } from 'src/lib/page_controller';
 import { StepperTopArea } from './stepper_top_area';
 import { useStepper } from './use_stepper';
 import { StepperLeftButton } from './stepper_left_button';
 import { StepperRightButton } from './stepper_right_button';
+import { DialogBase } from '../bases/dialog_base';
+
+
+const useStyles = makeStyles((theme) => ({
+  formCompletedButton: {
+    marginTop: theme.spacing(2),
+  },
+  formCompletedDialog: {
+    [theme.breakpoints.up('sm')]: {
+      padding: `${theme.spacing(8)}px !important`
+    },
+  }
+}));
 
 export function CustomStepper(props){
+  const classes = useStyles();
+
   const elements = props.elements;
   const totalStep = elements.length;
 
   const [activeStep, stepperHandlers] = useStepper(totalStep);
-  const [formCompleted, setFormCompleted] = React.useState(false);
+  const [openFormCompleted, setOpenFormCompleted] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const content = formCompleted ?
-    props.formCompleted
-    :
-    props.elements[activeStep].element
+  const content = props.elements[activeStep].element
 
   const handleNextWithFormControl = () => {
+    setLoading(true);
     const controller = props.elements[activeStep].controller;
     const data = props.data;
+    if(controller === null){
+      stepperHandlers.handleNext()
+      return;
+    }
 
     controller
       .checkAll(data)
@@ -31,7 +50,7 @@ export function CustomStepper(props){
         let errors = {};
         results.forEach(result => {
           if (result === 'noError') {
-            stepperHandlers.handleNext()             
+            stepperHandlers.handleNext()
             return;
           }
 
@@ -50,7 +69,7 @@ export function CustomStepper(props){
       .onFormCompleted()
       .then((state) => {
         setLoading(false)
-        setFormCompleted(state)
+        setOpenFormCompleted(state)
       })
   }
 
@@ -77,7 +96,7 @@ export function CustomStepper(props){
             hrefFirstPage='/login'
             onBackFirstPage={(e) => PageController.push('/login', e)}
             firstPageLabel="Vai al login"
-            disabled={formCompleted || loading}
+            disabled={loading}
           />
           <StepperRightButton 
             activeStep={activeStep}
@@ -86,13 +105,31 @@ export function CustomStepper(props){
             onNextLastPage={handlNextFormCompleted}
             lastPageLabel="Finisci"
             loading={loading}
-            formCompleted={formCompleted}
-            formCompletedLabel="Vai alla home"
-            hrefFormCompleted='/'
-            onNextFormCompletedPage={() => PageController.refresh()}
           />
         </Grid>
       </Grid>
+      <DialogBase
+        className={classes.formCompletedDialog}
+        open={openFormCompleted}
+        onClose={() => PageController.refresh()}
+      >
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+        >
+          {props.formCompleted}
+          <Button
+            className={classes.formCompletedButton}
+            variant="contained"
+            color="primary"
+            onClick={() => PageController.refresh()}
+          >
+            Vai alla home
+          </Button>
+        </Grid>
+      </DialogBase>
     </>
   );
 }
