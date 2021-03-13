@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation
 {
-    public class FieldValidation
+    public static class FieldValidation
     {
         public static bool IsValidNameOrSurname(string name)
         {
@@ -19,6 +19,7 @@ namespace Cody.Security.Validation
                 matchTimeout: TimeSpan.FromMilliseconds(250)
             );
         }
+
 
         public static bool IsValidEmail(string email)
         {

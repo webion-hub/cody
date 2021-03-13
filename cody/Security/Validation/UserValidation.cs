@@ -36,11 +36,7 @@ namespace Cody.Security.Validation
 
         protected virtual void MaybeReject(UserAccount user)
         {
-            var rejectReasons = new List<string>();
-            rejectReasons.AddRange(user.GetRejectReasons());
-            rejectReasons.AddRange(user.AccountDetail?.GetRejectReasons());
-
-            _rejectReasons = rejectReasons;
+            _rejectReasons = user.MaybeReject().ToList();
         }
     }
 }
