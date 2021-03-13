@@ -1,5 +1,6 @@
 ﻿using Cody.Security;
 using Cody.Security.Validation;
+using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;
 using Cody.Security.Validation.Rejection;
 using System.Collections.Generic;
