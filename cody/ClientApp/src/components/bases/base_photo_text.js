@@ -40,10 +40,10 @@ export function BasePhotoText(props) {
       {
         props.flipImage ? 
           <div className={classes.flipImage}>
-            <props.image size={Form.width}/>
+            <props.image maxWidth={Form.width} size="100%"/>
           </div>
           :
-          <props.image size={Form.width}/>
+          <props.image maxWidth={Form.width} size="100%"/>
         }        
       <Grid
         container
