@@ -1,4 +1,5 @@
-﻿using Cody.Extensions;
+﻿using Cody.Controllers.Responses;
+using Cody.Extensions;
 using Cody.Models;
 using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +18,7 @@ namespace Cody.Controllers.Organizations
     {
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get(
+        public IActionResult GetOrganizations(
             [FromQuery] string filter,
             [FromQuery] int? limit,
             [FromQuery] int? offset
@@ -38,31 +39,7 @@ namespace Cody.Controllers.Organizations
             var organizations = GetAllOrganizations();
             var filtered = FilterOrganizations(organizations, filter);
 
-            return
-                from o in filtered
-                let s = o.State
-                let d = o.Detail
-                let m = o.Members
-
-                orderby o.Id ascending
-                select new
-                {
-                    o.Id,
-                    o.Name,
-                    State = new
-                    {
-                        s.HasBeenVerified,
-                    },
-                    Kind = o.Kind.ToString(),
-                    Detail = new
-                    {
-                        d.City,
-                        d.Country,
-                        d.Description,
-                        d.Website,
-                    },
-                    MembersCount = m.Count,
-                };
+            return filtered.AsResponse();
         }
 
         public IQueryable<Organization> GetAllOrganizations()

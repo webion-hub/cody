@@ -5,6 +5,21 @@ import { invokeCallback } from './utility';
 
 export class Organizations {
   /**
+   * @param {number} id 
+   * @returns {Promise<Organization>}
+   */
+  static async getById(id) {
+    return axios
+      .request({
+        url: `organizations/${id}`,
+        method: 'GET',
+        validateStatus: false,
+      })
+      .then(response => response.data);
+  }
+
+
+  /**
    * @param {Organizations.CreateNewOptions} options
    * @returns {Promise<AxiosResponse>}
    */
