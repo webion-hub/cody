@@ -1,5 +1,6 @@
 ﻿using Cody.Security;
 using Cody.Security.Validation;
+using Cody.Security.Validation.Rejection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace Cody.Models
 {
     [Table("user_account_detail")]
-    public class UserAccountDetail
+    public class UserAccountDetail : IRejectable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -31,13 +32,17 @@ namespace Cody.Models
         public UserProfilePicture ProfilePicture { get; set; }
 
 
-        public IEnumerable<string> GetRejectReasons()
-        { 
-            if (!FieldValidation.IsValidNameOrSurname(Name))
-                yield return "name";
-
-            if (!FieldValidation.IsValidNameOrSurname(Surname))
-                yield return "surname";
+        public RejectionResult MaybeReject()
+        {
+            return Rejector.MaybeReject(new()
+            {
+                { "name", Name, FieldValidation.IsValidNameOrSurname },
+                { "name", Name, FieldLength.IsBelowDefaultMax },
+                
+                { "surname", Surname, FieldValidation.IsValidNameOrSurname },
+                { "surname", Surname, FieldLength.IsBelowDefaultMax },
+            })
+            .AlongWith(Biography);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Cody.Security;
 using Cody.Security.Validation;
+using Cody.Security.Validation.PropertyValidators;
+using Cody.Security.Validation.Rejection;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cody.Models
 {
     [Table("user_account")]
-    public class UserAccount
+    public class UserAccount : IRejectable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,10 +21,11 @@ namespace Cody.Models
 
 
         [Required]
-        [StringLength(28, MinimumLength = 4)]
+        [DefaultUsernameLength]
         public string Username { get; set; }
 
 
+        [DefaultPasswordLength]
         public UserAccountPassword Password { get; set; }
 
         [NotMapped]
@@ -36,16 +39,15 @@ namespace Cody.Models
         public List<OrganizationMember> Organizations { get; set; }
 
 
-        public IEnumerable<string> GetRejectReasons()
+        public RejectionResult MaybeReject()
         {
-            if (PlainPassword?.Length is < 8 or > 128)
-                yield return "password";
-
-            if (Username.Length is < 4 or > 28)
-                yield return "username";
-
-            if (!FieldValidation.IsValidEmail(Email))
-                yield return "email";
+            return Rejector.MaybeReject(new()
+            {
+                { "email", Email, FieldValidation.IsValidEmail },
+                { "password", PlainPassword, FieldLength.IsValidPasswordLength },
+                { "username", Username, FieldLength.IsValidUsernameLength, ValidationOptions.NotNull },
+            })
+            .AlongWith(AccountDetail);
         }
     }
 }

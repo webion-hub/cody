@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Cody.Security.Validation;
+using Cody.Security.Validation.Attributes;
+using Cody.Security.Validation.PropertyValidators;
+using Cody.Security.Validation.Rejection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,14 +19,15 @@ namespace Cody.Models
     }
 
     [Table("organization")]
-    public class Organization
+    public class Organization : IRejectable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
 
-        [Required] 
+        [Required]
+        [DefaultMinMaxLength]
         public string Name { get; set; }
         
         [Required]
@@ -43,6 +48,18 @@ namespace Cody.Models
             get => Members
                 .Where(m => m.Role == OrganizationRole.Owner)
                 .SingleOrDefault();
+        }
+
+
+        public RejectionResult MaybeReject()
+        {
+            return Rejector.MaybeReject(new() {{ 
+                "name", 
+                Name, 
+                FieldLength.IsWithinDefaultMinMax, 
+                ValidationOptions.NotNull 
+            }})
+            .AlongWith(Detail);
         }
     }
 }
