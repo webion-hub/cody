@@ -17,7 +17,7 @@ namespace Cody.Models
         public int Id { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = "Invalid email")]
+        [EmailAddress]
         public string Email { get; set; }
 
 

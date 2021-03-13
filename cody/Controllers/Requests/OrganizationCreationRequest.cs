@@ -1,8 +1,10 @@
 ﻿using Cody.Models;
 using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
+using Cody.Security.Validation.PropertyValidators;
 using Cody.Security.Validation.Rejection;
 using Cody.Utilities;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,25 +23,11 @@ namespace Cody.Controllers.Requests
 
         [DefaultMaxLength] string City,
         [DefaultMaxLength] string Country,
-        [DefaultMaxLength] string Description,
+        [DefaultDescriptionLength] string Description,
 
         [Url, DefaultMaxLength]
         string Website
-    ) : IRejectable 
-    {
-        public RejectionResult MaybeReject()
-        {
-            var kind = 
-                Utility.MaybeGetEnumFrom<OrganizationKind>(Kind);
-
-            return Rejector.MaybeReject(new()
-            {
-                { "kind", Kind, () => kind.HasValue }
-            })
-            .IfNoneThenAlongWith(new(() => AsOrganization()));
-        }
-
-
+    ) {
         public Organization AsOrganization()
         {
             return new Organization
