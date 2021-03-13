@@ -11,6 +11,7 @@ import { Password } from 'src/components/password/password_textfield';
 import { PwStrengthProgress } from 'src/components/password/password_strenght_progress';
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
 import { NextFocus } from 'src/lib/next_focus';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
 
 import { Step1 } from 'src/components/illustrations/step1';
 
@@ -115,7 +116,7 @@ export function EmailPassword(props){
             variant="caption"
             color="textSecondary"
           >
-            Tra 8 e 256 caratteri
+            {`Tra ${FormatLengthController.set('password').min} e ${FormatLengthController.set('password').max} caratteri`}
           </Typography>
         </>,
         <Password

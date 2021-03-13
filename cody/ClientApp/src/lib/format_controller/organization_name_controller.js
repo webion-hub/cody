@@ -1,7 +1,11 @@
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
+
 export class OrganizationNameController{
 
   wrongFormat(name){
-    return name.length < 4 || name.length > 256;
+    return FormatLengthController
+      .set('organizationName')
+      .wrongFormat(name);
   }
 
   checkOrganizationName(name, skip){

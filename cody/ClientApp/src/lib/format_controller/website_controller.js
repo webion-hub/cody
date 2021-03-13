@@ -1,9 +1,13 @@
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
+
 export class WebsiteController{
 
   wrongFormat(website){
-
+    const wrongLength = FormatLengthController
+      .set('website')
+      .wrongFormat(website);
       
-    if(website.length > 256)
+    if(wrongLength)
       return true;
 
     const re = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;

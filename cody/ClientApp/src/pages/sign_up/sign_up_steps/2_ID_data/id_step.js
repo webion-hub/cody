@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { DatePicker } from 'src/components/pickers/text_fields/date_picker';
 import { NextFocus } from 'src/lib/next_focus';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
 
 import { Step2 } from 'src/components/illustrations/step2';
 
@@ -43,47 +44,47 @@ export function IDData(props){
         >
           Come ti chiami?
         </Typography>,
-          <>
-            <TextField
-                id="username"
-                label="Username"
-                variant="outlined"
-                color="secondary"
-                inputRef={nextFocus.getInput("username")}
-                fullWidth
-                required
-                defaultValue={props.values.username}
-                onChange={e => props.onUsernameChange(e.target.value)}
-                error={usernameError}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    nextFocus.focusOn("name");
-                  }
-               }}  
-            />
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
+        <>
+          <TextField
+              id="username"
+              label="Username"
+              variant="outlined"
+              color="secondary"
+              inputRef={nextFocus.getInput("username")}
+              fullWidth
+              required
+              defaultValue={props.values.username}
+              onChange={e => props.onUsernameChange(e.target.value)}
+              error={usernameError}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  nextFocus.focusOn("name");
+                }
+              }}  
+          />
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+          >
+            <Typography
+              variant="caption"
+              color="textSecondary"
+            >
+              {`Tra ${FormatLengthController.set('username').min} e ${FormatLengthController.set('username').max} caratteri`}
+            </Typography>
+            <Fade
+              in={props.errors.usernameExist}
             >
               <Typography
                 variant="caption"
-                color="textSecondary"
+                color="error"
               >
-                Tra 2 e 256 caratteri
+                Username già usato!
               </Typography>
-              <Fade
-                in={props.errors.usernameExist}
-              >
-                <Typography
-                  variant="caption"
-                  color="error"
-                >
-                  Username già usato!
-                </Typography>
-              </Fade>
-            </Grid>
-          </>,
+            </Fade>
+          </Grid>
+        </>,
         <TextField
           className={classes.textFieldName}
           id="name"

@@ -1,7 +1,11 @@
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
+
 export class LocationController{
 
   wrongFormat(location){
-    return location.length > 256 || location.length === 0;
+    return FormatLengthController
+      .set('location')
+      .wrongFormat(location);
   }
 
   checkLocation(location, skip){

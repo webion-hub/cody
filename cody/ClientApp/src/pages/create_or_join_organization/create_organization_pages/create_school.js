@@ -9,6 +9,7 @@ import { tryCreateOrganization } from
   'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/try_create_organization';
 
 import { NextFocus } from 'src/lib/next_focus';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller';
 
 const useStyles = makeStyles((theme) => ({
   schoolFields: {
@@ -168,7 +169,7 @@ export function CreateSchool(props){
             variant="caption"
             color={errors.descriptionError ? "error" : "textSecondary"}
           >
-            {data.description.length}/512
+            {data.description.length}/{`${FormatLengthController.set('description').max}`}
           </Typography>
         </div>
       </Grid>

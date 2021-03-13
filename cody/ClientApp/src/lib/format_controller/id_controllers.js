@@ -1,4 +1,5 @@
 import { User } from 'src/lib/user';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
 
 
 export class UsernameController{
@@ -13,7 +14,9 @@ export class UsernameController{
   } 
 
   wrongLength(username){
-    return username.length < 2 || username.length > 256;
+    return FormatLengthController
+      .set('username')
+      .wrongFormat(username);
   }
 
   checkUsername(username, skip){
@@ -48,7 +51,11 @@ export class NameSurnameController{
       return new Promise(resolve => {resolve(null)});
 
     return new Promise(resolve => {
-      if(val > 256)
+      const wrongLength = FormatLengthController
+        .set('std')
+        .wrongFormat(val);
+
+      if(wrongLength)
         resolve(true)
 
       let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;

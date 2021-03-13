@@ -1,4 +1,5 @@
 import { User } from 'src/lib/user';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
 
 export class EmailController{
 
@@ -9,7 +10,11 @@ export class EmailController{
   }
   
   wrongFormat(email){
-    if(email.length > 256)
+    const wrongLength = FormatLengthController
+      .set('email')
+      .wrongFormat(email)
+
+    if(wrongLength)
       return true;
       
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

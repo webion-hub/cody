@@ -1,10 +1,14 @@
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
+
 export class DescriptionController{
 
   wrongFormat(description){
     if(description.length === 0)
       return false;
 
-    return description.length > 512;
+    return FormatLengthController
+      .set('description')
+      .wrongFormat(description);
   }
 
   checkDescription(description, skip){

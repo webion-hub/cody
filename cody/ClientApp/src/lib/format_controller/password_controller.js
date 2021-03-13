@@ -1,12 +1,15 @@
 import zxcvbn from 'zxcvbn';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
 
 export class PasswordController{
-  isPasswordWrongLength(password){
-    return !(password.length >= 8 && password.length <= 256);
+  wrongFormat(password){
+    return FormatLengthController
+      .set('password')
+      .wrongFormat(password);
   }
   
   arePwWrong(password, confirmPassword){
-    const isWrongLength = this.isPasswordWrongLength(password);
+    const isWrongLength = this.wrongFormat(password);
     const areDifferent = !(password === confirmPassword);
     const wrongPw = isWrongLength || areDifferent;
 
@@ -15,7 +18,7 @@ export class PasswordController{
   
   checkPassword(password, confirmPassword, skip){
     if(skip)
-      return new Promise(resolve => {resolve('noError')});
+      return new Promise(resolve => resolve('noError'));
 
     return new Promise(resolve => {
       const pwError = this.arePwWrong(password, confirmPassword)
