@@ -4,13 +4,14 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { Reading } from 'src/components/illustrations/reading'
 import { Form } from 'src/lib/default_values/sizes/form_size';
+import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
 
 export function EditableBiography(props){
 	const [editMode, setEditMode] = React.useState(false);
 
 	const [value, setValue] = React.useState(props.value);
 	const [tempValue, setTempValue] = React.useState(props.value);
-  const maxCharacters = 64;
+  const maxCharacters = FormatLengthController.set('description').max;
   const currentCharacters = tempValue? tempValue.length : 0;
   const noBiography = currentCharacters === 0;
   const error = currentCharacters > maxCharacters;

@@ -14,6 +14,7 @@ import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { PageController } from 'src/lib/page_controller';
+import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
 
 export function Account(){
 	const classes = accountStyles();
@@ -28,7 +29,7 @@ export function Account(){
   const accountIsEdited = isEdited || isEditedImage;
 
   //Data & image
-  const defaultImage = "user/profile_picture"
+  const defaultImage = profileImage;
   const [image, setImage] = React.useState(defaultImage);
   const [oldData, setOldData] = React.useState(nullData);
   const [data, setData] = React.useState(nullData);
