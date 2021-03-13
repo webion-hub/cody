@@ -18,8 +18,10 @@ namespace Cody.Controllers.Organizations
         [Authorize]
         public async Task<IActionResult> CreateNew([FromBody] OrganizationCreationRequest request)
         {
-            if (!request.Validate())
-                return BadRequest();
+            var validationErrors = request.MaybeReject();
+            if (validationErrors.Any())
+                return BadRequest(validationErrors);
+
 
             var organization = request.AsOrganization();
             var existingOrg = 

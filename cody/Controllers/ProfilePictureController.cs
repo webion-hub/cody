@@ -60,7 +60,7 @@ namespace Cody.Controllers
 
             var deleted = _sftp.TryDeleteFile(picture.FilePath);
             if (!deleted)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return Problem();
 
             _dbContext.Remove(picture);
             await _dbContext.SaveChangesAsync();
@@ -77,7 +77,7 @@ namespace Cody.Controllers
 
             var uploaded = await TryUploadAsync(request, picture);
             if (!uploaded)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return Problem();
             
             await _dbContext.SaveChangesAsync();
             return Ok(picture.Id);

@@ -37,24 +37,18 @@ namespace Cody.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TryLoginAsync([FromBody] UserLoginRequest request) 
         {
-            if (!request.IsValid())
-                return BadRequest();
-
             if (!TryGetUser(request.Username, out var user))
                 return NotFound();
 
-
             var isPasswordCorrect =
                 await Password.AreEqualAsync(request.Password, user.Password);
-
-            if (!isPasswordCorrect) {
-                _logger.LogWarning($"User {request.Username} -> incorrect password");
+            
+            if (!isPasswordCorrect)
                 return BadRequest();
-            }
 
             await HttpContext.SignInAsync(user);
 
-            if (request.RememberMe)
+            if (request.RememberMe is true)
                 await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
 
             return Ok();

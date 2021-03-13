@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cody.Contexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -32,7 +33,14 @@ namespace Cody.Utilities
             if (typeof(T).IsEnum is not true)
                 throw new ArgumentException($"{nameof(T)} must be an enum");
 
-            return Enum.TryParse(typeof(T), value, out var result)
+            var wasParsed = Enum.TryParse(
+                enumType: typeof(T),
+                value: value,
+                ignoreCase: true,
+                result: out var result
+            );
+
+            return wasParsed
                 ? (T)result
                 : null;
         }
