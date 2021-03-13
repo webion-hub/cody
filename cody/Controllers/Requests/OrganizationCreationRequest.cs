@@ -28,22 +28,19 @@ namespace Cody.Controllers.Requests
         [Url, DefaultMaxLength]
         string Website
     ) {
-        public Organization AsOrganization()
+        public Organization AsOrganization() => new Organization
         {
-            return new Organization
-            {
-                Name = Name.Trim(),
-                Kind = Utility.MaybeGetEnumFrom<OrganizationKind>(Kind).Value,
-                Detail = new (){
-                    City = City?.Trim(),
-                    Country = Country?.Trim(),
-                    Description = Description?.Trim(),
-                    Website = Website?.Trim(),
-                },
-                State = new (){
-                    HasBeenVerified = false,
-                },
-            };
-        }
+            Name = Name.Trim(),
+            Kind = Utility.MaybeGetEnumFrom<OrganizationKind>(Kind).Value,
+            Detail = new (){
+                City = City?.Trim(),
+                Country = Country?.Trim(),
+                Description = Description?.Trim(),
+                Website = Website?.Trim(),
+            },
+            State = new (){
+                HasBeenVerified = false,
+            },
+        };
     }
 }
