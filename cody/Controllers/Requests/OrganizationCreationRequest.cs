@@ -1,33 +1,42 @@
 ﻿using Cody.Models;
+using Cody.Security.Validation;
+using Cody.Security.Validation.Attributes;
+using Cody.Security.Validation.Rejection;
 using Cody.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers.Requests
 {
     public record OrganizationCreationRequest (
+        [Required, DefaultUsernameLength]
         string Name,
+        
+        [Required, EnumDataType(typeof(OrganizationKind))]
         string Kind,
-        string City,
-        string Country,
-        string Description,
+
+        [DefaultMaxLength] string City,
+        [DefaultMaxLength] string Country,
+        [DefaultMaxLength] string Description,
+
+        [Url, DefaultMaxLength]
         string Website
-    ) {
-        private OrganizationKind _organizationKind;
-
-
-        public bool Validate()
+    ) : IRejectable 
+    {
+        public RejectionResult MaybeReject()
         {
-            var kind = Utility.MaybeGetEnumFrom<OrganizationKind>(Kind);
-            if (kind is null)
-                return false;
+            var kind = 
+                Utility.MaybeGetEnumFrom<OrganizationKind>(Kind);
 
-            _organizationKind = kind.Value;
-            return 
-                !string.IsNullOrWhiteSpace(Name) &&
-                Description.Length <= OrganizationDetail.MAX_DESCRIPTION_LENGTH;
+            return Rejector.MaybeReject(new()
+            {
+                { "kind", Kind, () => kind.HasValue }
+            })
+            .IfNoneThenAlongWith(new(() => AsOrganization()));
         }
 
 
@@ -36,7 +45,7 @@ namespace Cody.Controllers.Requests
             return new Organization
             {
                 Name = Name.Trim(),
-                Kind = _organizationKind,
+                Kind = Utility.MaybeGetEnumFrom<OrganizationKind>(Kind).Value,
                 Detail = new (){
                     City = City?.Trim(),
                     Country = Country?.Trim(),
