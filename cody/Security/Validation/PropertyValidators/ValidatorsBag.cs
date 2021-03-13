@@ -15,11 +15,20 @@ namespace Cody.Security.Validation.PropertyValidators
         public void Add(LengthValidator v) => Validators.Add(v);
         public void Add(StringValidator v) => Validators.Add(v);
 
+
+        public void Add(
+            string propertyName,
+            string propertyValue,
+            ValidationOptions options
+        ) {
+            Validators.Add(new(propertyName, propertyValue, () => true, options));
+        }
+
         public void Add(
             string propertyName,
             string propertyValue,
             Func<bool> predicate,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) {
             Validators.Add(new(propertyName, propertyValue, predicate, options));
         }
@@ -28,7 +37,7 @@ namespace Cody.Security.Validation.PropertyValidators
             string propertyName,
             string propertyValue,
             Predicate<int?> predicate,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) {
             Validators.Add(new LengthValidator(
                 propertyName, propertyValue, predicate, options));
@@ -39,7 +48,7 @@ namespace Cody.Security.Validation.PropertyValidators
             string propertyValue,
             int? minimumLength,
             int? maximumLength,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) {
             Validators.Add(new LengthValidator(
                 propertyName, propertyValue, minimumLength, maximumLength, options));
@@ -49,21 +58,14 @@ namespace Cody.Security.Validation.PropertyValidators
             string propertyName,
             string propertyValue,
             Predicate<string> predicate,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) {
             Validators.Add(new StringValidator(
                 propertyName, propertyValue, predicate, options));
         }
 
 
-        public IEnumerator<PropertyValidator> GetEnumerator()
-        {
-            return ((IEnumerable<PropertyValidator>)Validators).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable)Validators).GetEnumerator();
-        }
+        public IEnumerator<PropertyValidator> GetEnumerator() => ((IEnumerable<PropertyValidator>)Validators).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Validators).GetEnumerator();
     }
 }

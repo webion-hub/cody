@@ -11,14 +11,14 @@ namespace Cody.Security.Validation.PropertyValidators
         public string PropertyName { get; init; }
         public string PropertyValue { get; init; }
         public Func<bool> Predicate { get; init; }
-        public ValidationOptions? Options { get; init; }
+        public ValidationOptions Options { get; init; }
 
 
         public PropertyValidator(
             string propertyName,
             string propertyValue,
             Func<bool> predicate,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) {
             PropertyName = propertyName;
             PropertyValue = propertyValue;
@@ -30,7 +30,13 @@ namespace Cody.Security.Validation.PropertyValidators
         public bool Validate()
         {
             if (string.IsNullOrWhiteSpace(PropertyValue))
-                return Options?.CanBeNull is null or true;
+            {
+                if (Options?.ReturnTrueIfNull is not false)
+                    return true;
+
+                if (Options?.CanBeNull is false)
+                    return false;
+            }
 
             return Predicate();
         }

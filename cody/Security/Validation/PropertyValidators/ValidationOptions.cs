@@ -5,14 +5,19 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation.PropertyValidators
 {
-    public readonly struct ValidationOptions
+    public record ValidationOptions
     {
-        public static ValidationOptions NotNull => new ValidationOptions
-        {
+        public static ValidationOptions NotNull => new ValidationOptions {
             CanBeNull = false,
+            ReturnTrueIfNull = false,
         };
 
+        public static ValidationOptions SkipNullValidation => new ValidationOptions {
+            CanBeNull = true,
+            ReturnTrueIfNull = false,
+        };
 
         public bool CanBeNull { get; init; }
+        public bool ReturnTrueIfNull { get; init; }
     }
 }

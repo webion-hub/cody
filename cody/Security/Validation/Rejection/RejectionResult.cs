@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ namespace Cody.Security.Validation.Rejection
     public class RejectionResult : IEnumerable<string>
     {
         public IEnumerable<string> RejectedProperties { get; init; }
+        public static RejectionResult Empty => new(Enumerable.Empty<string>());
 
 
         public RejectionResult(IEnumerable<string> rejectedProperties)
@@ -43,14 +46,7 @@ namespace Cody.Security.Validation.Rejection
         }
 
 
-        public IEnumerator<string> GetEnumerator()
-        {
-            return RejectedProperties.GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return ((System.Collections.IEnumerable)RejectedProperties).GetEnumerator();
-        }
+        public IEnumerator<string> GetEnumerator() => RejectedProperties.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)RejectedProperties).GetEnumerator();
     }
 }

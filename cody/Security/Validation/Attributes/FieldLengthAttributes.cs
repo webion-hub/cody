@@ -42,4 +42,12 @@ namespace Cody.Security.Validation.Attributes
             : base(FieldLength.DefaultMaxLength)
         { }
     }
+
+
+    public class DefaultDescriptionLengthAttribute : MaxLengthAttribute
+    {
+        public DefaultDescriptionLengthAttribute()
+            : base(FieldLength.DefaultMaxLength)
+        { }
+    }
 }
