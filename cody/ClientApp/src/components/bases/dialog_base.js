@@ -21,11 +21,26 @@ const useStyles = makeStyles((theme) => ({
 export function DialogBase(props){
   const classes = useStyles();
 
-  const buttons = 
-    <>
+  const areButtons = props.firstButton || props.secondButton
+  const buttons = areButtons ?
+    <DialogActions>
       {props.firstButton}
       {props.secondButton}
-    </>
+    </DialogActions>
+    :
+    null
+
+  const dialogTitle = props.title? 
+    <DialogTitle
+      style={{
+        textAlign: props.titleAlign
+      }} 
+      className={classes.title}
+    >
+      {props.title}
+    </DialogTitle>
+    :
+    null
 
   return(
     <Dialog
@@ -36,20 +51,11 @@ export function DialogBase(props){
         paper: classes.dialogContainer
       }}
     >
-      <DialogTitle
-        style={{
-          textAlign: props.titleAlign
-        }} 
-        className={classes.title}
-      >
-        {props.title}
-      </DialogTitle>
-      <DialogContent>
+      {dialogTitle}
+      <DialogContent className={props.className}>
         {props.children}
       </DialogContent>
-      <DialogActions>
-        {buttons}
-      </DialogActions>
+      {buttons}
     </Dialog>
   );
 }
