@@ -64,8 +64,7 @@ export function InfoBoxClassCard(props){
 							<CustomAvatar
 								alt={data.username} 
 								src={data.profilePic} 
-								width={24}
-								height={24}
+								size={24}
 							/>
 							</Grid>
 							<Grid item>

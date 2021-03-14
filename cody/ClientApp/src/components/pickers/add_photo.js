@@ -138,8 +138,9 @@ export class AddPhoto extends Component{
     )
 
     return (
-      <Box>    
+      <>    
         <Badge
+          className={this.props.className}
           overlap="circle"
           anchorOrigin={{
             vertical: 'bottom',
@@ -151,8 +152,7 @@ export class AddPhoto extends Component{
             disableLoading={this.props.disableLoading}
             alt={this.props.alt}
             src={this.state.croppedImage}
-            width={imageSize}
-            height={imageSize}
+            size={imageSize}
           />
         </Badge>
         <ImageCropperDialog
@@ -161,7 +161,7 @@ export class AddPhoto extends Component{
           image={this.state.image}
           croppedImage={this.getCroppedImage}
         />
-      </Box>
+      </>
     )
   }
 }
