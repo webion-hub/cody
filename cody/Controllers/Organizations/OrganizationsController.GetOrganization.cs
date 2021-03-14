@@ -16,7 +16,7 @@ namespace Cody.Controllers.Organizations
         {
             var organization = GetAllOrganizations()
                 .Where(o => o.Id == id)
-                .AsResponse()
+                .AsGetOrganizationResponse()
                 .FirstOrDefault();
 
             return organization is null

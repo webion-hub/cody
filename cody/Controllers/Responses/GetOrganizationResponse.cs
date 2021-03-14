@@ -8,7 +8,7 @@ namespace Cody.Controllers.Responses
 {
     public static class GetOrganizationResponse
     {
-        public static IQueryable<object> AsResponse(this IQueryable<Organization> self)
+        public static IQueryable<object> AsGetOrganizationResponse(this IQueryable<Organization> self)
         {
             return
                 from o in self

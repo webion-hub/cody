@@ -39,7 +39,7 @@ namespace Cody.Controllers.Organizations
             var organizations = GetAllOrganizations();
             var filtered = FilterOrganizations(organizations, filter);
 
-            return filtered.AsResponse();
+            return filtered.AsGetOrganizationResponse();
         }
 
         public IQueryable<Organization> GetAllOrganizations()
