@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   paperBox: props => ({
     position: "relative",
     background: theme.palette.background.paperSecondary,
+    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
     width: "100%",
     maxWidth: props.width,
     maxHeight: props.height,
@@ -38,10 +41,10 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     padding: theme.spacing(1),
     "& > *": {
-      animation: `$myEffect 0.5s linear`,
+      animation: `$fade 0.5s linear`,
     }
   },
-  "@keyframes myEffect": {
+  "@keyframes fade": {
     "0%": {
       opacity: 0,
     },
