@@ -110,8 +110,9 @@ export class Organizations {
 
 /**
  * @typedef {object} OrganizationDetail
- * @property {string} city
- * @property {string} country
+ * @property {string} [city]
+ * @property {string} [region]
+ * @property {string} [country]
  * @property {string} [description]
  * @property {string} [website]
  */

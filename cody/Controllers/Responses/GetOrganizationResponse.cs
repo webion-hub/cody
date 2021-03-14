@@ -29,6 +29,7 @@ namespace Cody.Controllers.Responses
                     Detail = new
                     {
                         d.City,
+                        d.Region,
                         d.Country,
                         d.Description,
                         d.Website,

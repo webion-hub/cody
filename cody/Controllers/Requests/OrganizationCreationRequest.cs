@@ -22,6 +22,7 @@ namespace Cody.Controllers.Requests
         string Kind,
 
         [DefaultMaxLength] string City,
+        [DefaultMaxLength] string Region,
         [DefaultMaxLength] string Country,
         [DefaultDescriptionLength] string Description,
 
@@ -35,6 +36,7 @@ namespace Cody.Controllers.Requests
             Detail = new (){
                 City = City?.Trim(),
                 Country = Country?.Trim(),
+                Region = Region?.Trim(),
                 Description = Description?.Trim(),
                 Website = Website?.Trim(),
             },

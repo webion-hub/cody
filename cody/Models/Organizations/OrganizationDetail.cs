@@ -17,6 +17,7 @@ namespace Cody.Models
 
 
         [DefaultMaxLength] public string City { get; set; }
+        [DefaultMaxLength] public string Region { get; set; }
         [DefaultMaxLength] public string Country { get; set; }
 
 
