@@ -21,7 +21,7 @@ namespace Cody.Models
         [DefaultMaxLength] public string Country { get; set; }
 
 
-        [MaxLength(FieldLength.MaxDescriptionLength)]
+        [DefaultDescriptionLength]
         public string Description { get; set; }
         
         [Url]

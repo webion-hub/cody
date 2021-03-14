@@ -1,5 +1,6 @@
 ﻿using Cody.Security;
 using Cody.Security.Validation;
+using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.Rejection;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,8 @@ namespace Cody.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required] public string Name { get; set; }
-        [Required] public string Surname { get; set; }
+        [Required, DefaultMaxLength] public string Name { get; set; }
+        [Required, DefaultMaxLength] public string Surname { get; set; }
         [Required] public DateTime BirthDate { get; set; }
         [Required] public DateTime RegistrationDate { get; set; }
 

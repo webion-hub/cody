@@ -26,10 +26,10 @@ namespace Cody.Models
         public string Username { get; set; }
 
 
-        [DefaultPasswordLength]
         public UserAccountPassword Password { get; set; }
 
         [NotMapped]
+        [DefaultPasswordLength]
         public string PlainPassword { get; set; }
 
 

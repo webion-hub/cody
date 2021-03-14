@@ -1,4 +1,5 @@
 ﻿using Cody.Security.Validation;
+using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.Rejection;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,7 @@ namespace Cody.Models
         public UserAccountDetail AccountDetail { get; set; }
 
 
-        [MaxLength(FieldLength.MaxDescriptionLength)]
+        [DefaultDescriptionLength]
         public string Contents { get; set; }
 
 
