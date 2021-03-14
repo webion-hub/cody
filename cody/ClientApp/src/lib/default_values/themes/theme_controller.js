@@ -107,6 +107,12 @@ export class ThemeController {
             borderRight: "none",
           }
         },
+        MuiAvatar: {
+          colorDefault: {
+            backgroundColor: this.color.textSecondary,
+            color: this.color.backgroundSecondary
+          }
+        },
         MuiTooltip: {
           tooltip: {
             color: this.color.backgroundSecondary,
