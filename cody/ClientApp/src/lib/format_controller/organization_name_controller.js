@@ -5,7 +5,7 @@ export class OrganizationNameController{
   wrongFormat(name){
     return FormatLengthController
       .set('organizationName')
-      .wrongFormat(name);
+      .wrongFormat(name, {skippable: false});
   }
 
   checkOrganizationName(name, skip){

@@ -5,7 +5,7 @@ export class PasswordController{
   wrongFormat(password){
     return FormatLengthController
       .set('password')
-      .wrongFormat(password);
+      .wrongFormat(password, {skippable: false});
   }
   
   arePwWrong(password, confirmPassword){

@@ -8,7 +8,7 @@ export class DescriptionController{
 
     return FormatLengthController
       .set('description')
-      .wrongFormat(description);
+      .wrongFormat(description, {skippable: true});
   }
 
   checkDescription(description, skip){

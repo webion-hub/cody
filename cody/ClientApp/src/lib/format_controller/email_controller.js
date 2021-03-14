@@ -12,7 +12,7 @@ export class EmailController{
   wrongFormat(email){
     const wrongLength = FormatLengthController
       .set('email')
-      .wrongFormat(email)
+      .wrongFormat(email, {skippable: false})
 
     if(wrongLength)
       return true;

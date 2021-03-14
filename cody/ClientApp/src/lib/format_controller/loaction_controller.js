@@ -5,7 +5,7 @@ export class LocationController{
   wrongFormat(location){
     return FormatLengthController
       .set('location')
-      .wrongFormat(location);
+      .wrongFormat(location, {skippable: false});
   }
 
   checkLocation(location, skip){

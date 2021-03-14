@@ -16,7 +16,7 @@ export class UsernameController{
   wrongLength(username){
     return FormatLengthController
       .set('username')
-      .wrongFormat(username);
+      .wrongFormat(username, {skippable: false});
   }
 
   checkUsername(username, skip){
@@ -53,7 +53,7 @@ export class NameSurnameController{
     return new Promise(resolve => {
       const wrongLength = FormatLengthController
         .set('std')
-        .wrongFormat(val);
+        .wrongFormat(val, {skippable: false});
 
       if(wrongLength)
         resolve(true)

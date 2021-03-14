@@ -32,8 +32,13 @@ export class FormatLengthController{
     }
   }
 
-  wrongFormat(value){
+  wrongFormat(value, {skippable}){
     const valueLength = value.length;
+
+    if(!skippable){
+      if(valueLength === 0)
+        return true;
+    }
 
     return valueLength > this.max || valueLength < this.min
   }

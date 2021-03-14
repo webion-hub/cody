@@ -5,7 +5,7 @@ export class WebsiteController{
   wrongFormat(website){
     const wrongLength = FormatLengthController
       .set('website')
-      .wrongFormat(website);
+      .wrongFormat(website, {skippable: true});
       
     if(wrongLength)
       return true;
