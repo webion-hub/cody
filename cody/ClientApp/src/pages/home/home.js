@@ -56,6 +56,7 @@ export function Home(){
       <MainTextBox/>
       <DynamicSearchBar/>
       <AnimatedCoding className={classes.background} springProps={springProps}/>
+      <iframe src="http://www.staggeringbeauty.com/" style={{border: "1px inset #ddd"}} width="100%" height="598"></iframe>
       <MyClasses
        className={classes.myClasses}
        classesList={[
