@@ -47,7 +47,6 @@ export function DataTableTitleControllers(props){
       >
         <GenericSearchBar
           className={classes.searchBar}
-          onSubmit={props.onSubmit}
           background={theme.palette.background.paper}
           label="Cerca"
           onChange={props.onChange}

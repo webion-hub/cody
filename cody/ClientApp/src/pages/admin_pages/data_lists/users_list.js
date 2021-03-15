@@ -17,7 +17,6 @@ export function UsersList(props){
 			name: data.detail.name,
 			surname: data.detail.surname,
 			birthDate: birthDate.toLocaleDateString(),
-			schoolId: data.school? data.school.id : "",
 		})
 	}
 
@@ -28,7 +27,6 @@ export function UsersList(props){
 		{ selector: 'name', name: 'Nome', sortable: true },
 		{ selector: 'surname', name: 'Cognome', sortable: true },
 		{ selector: 'birthDate', name: 'Data di nascita', sortable: true },
-		{ selector: 'schoolId', name: 'Id Scuola', sortable: true },
 	]
 
 	return (

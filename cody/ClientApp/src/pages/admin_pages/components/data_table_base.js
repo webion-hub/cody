@@ -13,7 +13,6 @@ export function DataTableBase(props){
   const [dataList, setDataList] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
-  const [searchValue, setSearchValue] = React.useState("");
   const [filterValue, setFilterValue] = React.useState("");
 
   const [disableNext, setDisableNext] = React.useState(false);
@@ -59,12 +58,12 @@ export function DataTableBase(props){
 	 * Handlers 
 	 */
 
-	const handleChange = (event) => {
-		setSearchValue(event.target.value)
+	const handleChange = (value) => {
+		setFilterValue(value)
+		searchValues(value)
 	}
 
-	const handleSubmit = () => {
-		setFilterValue(searchValue)
+	const searchValues = (value) => {
 		setPage(1)
 		
 		setDisableBack(true)
@@ -72,7 +71,7 @@ export function DataTableBase(props){
 		setLoading(true)
 
 		getData({
-			filter: searchValue,
+			filter: value,
 			limit: maxPageElements,
 			offset: 0,
 		})
@@ -159,7 +158,6 @@ export function DataTableBase(props){
 			}
 			title={
 				<DataTableTitleControllers
-					onSubmit={handleSubmit}
 					onChange={handleChange}
 					onBack={handleBack}
 					onNext={handleNext}

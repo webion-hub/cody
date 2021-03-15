@@ -43,8 +43,7 @@ export function OrganizationsList(props){
 			Id: data.id,
 			kind: getKindIcon(data.kind),
 			name: data.name,
-			city: data.detail.city,
-			country: data.detail.country,
+			location: data.detail.location,
 			verified: data.state.hasBeenVerified ? 
 				<BeenhereRoundedIcon fontSize="small" className={classes.verified}/> 
 				: 
@@ -56,8 +55,7 @@ export function OrganizationsList(props){
 		{	selector: 'Id', name: 'ID', sortable: true },
 		{	selector: 'kind', name: 'Kind', sortable: true },
 		{	selector: 'name', name: 'Nome', sortable: true },
-		{	selector: 'city', name: 'Città', sortable: true },
-		{ selector: 'country', name: 'Paese', sortable: true },
+		{	selector: 'location', name: 'Luogo', sortable: true },
 		{ selector: 'verified', name: 'Verificato', sortable: true },
 	]
 
