@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     overflow: "overlay",
-    height: 272,
+    height: 472,
     [theme.breakpoints.down('xs')]: {
       height: "calc(100vh - 228px)",
     },
