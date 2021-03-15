@@ -38,7 +38,6 @@ namespace Cody.Models
             return Rejector.MaybeReject(new()
             {
                 { "city", Location, FieldLength.IsBelowDefaultMax },
-                { "country", Country, FieldLength.IsBelowDefaultMax },
                 { "website", Website, FieldLength.IsBelowDefaultMax },
                 { "description", Description, default, FieldLength.MaxDescriptionLength },
             });
