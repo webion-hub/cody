@@ -27,6 +27,7 @@ export function AddLocation(props){
   const errors = props.errors;
   const [locationSearchValue, setLocationSearchValue] = React.useState("")
   const [locationSearchResults, setLocationSearchResults] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
 
   const handleLocation = (event) => {
     const value = event.target.value;
@@ -46,9 +47,11 @@ export function AddLocation(props){
     if(locationSearchValue === "")
       return;
 
+    setLoading(true)
     Cities
       .find(locationSearchValue)
       .then(results => {
+        setLoading(false)
         setLocationSearchResults(results)
       });
   }
@@ -65,6 +68,7 @@ export function AddLocation(props){
       getOptionLabel={(option) => `${option.name} ${option.region} ${option.country}`}
       filterOptions={(x) => x}
       fullWidth
+      loading={loading}
       onChange={(event, value) => handleChange(value)}
       onInputChange={handleLocation}
       popupIcon={<LocationOnRoundedIcon/>}
