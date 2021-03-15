@@ -34,7 +34,10 @@ export function AddLocation(props){
   const [locationSearchResults, setLocationSearchResults] = React.useState([])
   const [loading, setLoading] = React.useState(false)
 
-  const handleLocation = (event) => {
+  const handleLocation = (event, reason) => {
+    if(reason !== "input")
+      return;
+
     const locationSearchValue = event.target.value;
 
     if(locationSearchValue === "")
@@ -45,16 +48,15 @@ export function AddLocation(props){
       .find(locationSearchValue)
       .then(results => {
         setLoading(false)
-        setLocationSearchResults(results)
+        setLocationSearchResults([...results])
       });
   }
 
   const handleChange = (value) => { 
     if(value !== null)
       props.onChange(value.location)
-    else {
+    else 
       setLocationSearchResults([])
-    }
   }
 
   if(props.hide)
@@ -70,10 +72,10 @@ export function AddLocation(props){
       filterOptions={(x) => x}
       fullWidth
       loading={loading}
-      onChange={(event, value) => handleChange(value)}
-      onInputChange={handleLocation}
+      onChange={(_, value) => handleChange(value)}
+      onInputChange={(event, _, reason) => handleLocation(event, reason)}
       popupIcon={<LocationOnRoundedIcon/>}
-      renderOption={(option, { selected }) => (
+      renderOption={(option) => (
         <React.Fragment>
           <Grid
             container
