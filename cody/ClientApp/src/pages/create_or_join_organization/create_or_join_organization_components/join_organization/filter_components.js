@@ -7,6 +7,8 @@ import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded'
 
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { Tooltip } from '@material-ui/core';
+import { TouchableTooltip } from 'src/components/touchable_tooltip';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,24 +31,39 @@ export function FilterComponent(props){
       color="secondary"
       className={classes.buttonGroup}
     >
-      <Button
-        onClick={() => handleFilter("teams")}
-        variant={filterStatus.teams ? "contained" : "outlined"}
+      <Tooltip
+        arrow
+        title="Filtra per teams"
       >
-        <GroupRoundedIcon/>
-      </Button>
-      <Button
-        onClick={() => handleFilter("schools")}
-        variant={filterStatus.schools ? "contained" : "outlined"}
+        <Button
+          onClick={() => handleFilter("teams")}
+          variant={filterStatus.teams ? "contained" : "outlined"}
+        >
+          <GroupRoundedIcon/>
+        </Button>
+      </Tooltip>
+      <Tooltip
+        arrow
+        title="Filtre per scuole"
       >
-        <SchoolRoundedIcon/>
-      </Button>
-      <Button
-        onClick={() => handleFilter("companies")}
-        variant={filterStatus.companies ? "contained" : "outlined"}
+        <Button
+          onClick={() => handleFilter("schools")}
+          variant={filterStatus.schools ? "contained" : "outlined"}
+        >
+          <SchoolRoundedIcon/>
+        </Button>
+      </Tooltip>
+      <Tooltip
+        arrow
+        title="Filtre per aziende"
       >
-        <BusinessCenterRoundedIcon/>
-      </Button>
+        <Button
+          onClick={() => handleFilter("companies")}
+          variant={filterStatus.companies ? "contained" : "outlined"}
+        >
+          <BusinessCenterRoundedIcon/>
+        </Button>
+      </Tooltip>
     </ButtonGroup>
   );
 }
