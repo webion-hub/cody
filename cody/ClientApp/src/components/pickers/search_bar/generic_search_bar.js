@@ -39,6 +39,8 @@ export function GenericSearchBar(props){
 
   const handleDelete = () => {
     inputBaseRef.current.value = ""
+    onChange("")
+    onSubmit()
     setShowDelete(false)
   }
 
@@ -62,8 +64,9 @@ export function GenericSearchBar(props){
         placeholder={props.label? props.label : "Cerca"}
         inputProps={{ 'aria-label': 'Cerca' }}
         onChange={(event) => {
-          onChange(event)
-          const showDelete = event.target.value !== ""
+          const value = event.target.value;
+          onChange(value)
+          const showDelete = value !== ""
           setShowDelete(showDelete)
         }}
         onSubmit={e => {
@@ -82,13 +85,18 @@ export function GenericSearchBar(props){
           <ClearRoundedIcon/>
         </IconButton>
       </Fade>  
-      <IconButton 
-        className={classes.iconButton} 
-        aria-label="search"
-        onClick={onSubmit}
-      >
-        <SearchRoundedIcon/>
-      </IconButton>
+      {
+        props.onSubmit ? 
+          <IconButton 
+            className={classes.iconButton} 
+            aria-label="search"
+            onClick={onSubmit}
+          >
+            <SearchRoundedIcon/>
+          </IconButton>
+          :
+          null
+      }
       {props.endIcon}
     </Paper>
   )
