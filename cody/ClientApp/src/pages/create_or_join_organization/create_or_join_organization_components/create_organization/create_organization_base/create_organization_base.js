@@ -34,17 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 export function CreateOrganizationBase(props){
   const classes = useStyles();
-  const nextFocus = new NextFocus(["name", "city", "website", "description"]);
+  const nextFocus = new NextFocus(["name", "location", "website", "description"]);
 
   const [data, setData] = React.useState({
     name: "",
-    city: null,
+    location: null,
     website: "",
     description: "",
   })
   const noErrors = {
     organizationNameError: false,
-    cityError: false,
+    locationError: false,
     websiteError: false,
     descriptionError: false,
   }
@@ -59,17 +59,17 @@ export function CreateOrganizationBase(props){
     })
   }
 
-  const handleCity = (value) => {
+  const handleLocation = (value) => {
     setData({
       ...data,
-      city: value
+      location: value
     })
   }
 
   const prepareData = (data) => {
     return {
       name: data.name,
-      city: data.city? data.city.name : "",
+      location: data.location? data.location : "",
       website: data.website,
       description: data.description,
     }
@@ -125,7 +125,7 @@ export function CreateOrganizationBase(props){
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              nextFocus.focusOn("city");
+              nextFocus.focusOn("location");
             }
           }}
         />
@@ -142,7 +142,7 @@ export function CreateOrganizationBase(props){
         <AddLocation
           hide={props.type === "Team"}
           className={classes.fields}
-          onChange={handleCity}
+          onChange={handleLocation}
           errors={errors}
           nextFocus={nextFocus}
         />

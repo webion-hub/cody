@@ -106,9 +106,9 @@ export function AddLocation(props){
             color="secondary"
             label="Città"
             required
-            error={errors.cityError}
+            error={errors.locationError}
             variant="filled"
-            inputRef={nextFocus.getInput("city")}
+            inputRef={nextFocus.getInput("location")}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleSubmitLocation()

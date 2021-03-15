@@ -22,7 +22,7 @@ export class CreateOrganizationErrorController{
         const descriptionController = new DescriptionController();
   
         const name = values.name;
-        const city = values.city;
+        const location = values.location;
         const website = values.website;
         const description = values.description;
 
@@ -52,11 +52,11 @@ export class CreateOrganizationErrorController{
               },
             ),
           locationController
-            .checkLocation(city, skipFields)
+            .checkLocation(location, skipFields)
             .then(
               result => {
                 if(result !== "correctLocation") {
-                  errorsList.push("cityError");
+                  errorsList.push("locationError");
                   errorsList = this.removeNoError(errorsList);
                 }
               },
