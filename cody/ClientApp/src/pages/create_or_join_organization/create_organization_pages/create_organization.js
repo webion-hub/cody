@@ -8,7 +8,8 @@ import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 
 import { TeamWork } from 'src/components/illustrations/team_work';
-import { CreateOrganizationBase } from 'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_base';
+import { CreateOrganizationContainer } from 
+  'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_base/create_organization_container';
 
 import { PageController } from 'src/lib/page_controller';
 
@@ -53,7 +54,7 @@ export function CreateOrganization(props){
   };
 
   return(
-    <CreateOrganizationBase
+    <CreateOrganizationContainer
       label="Avanti"
       href={`/organization#create${organizationKind}`}
       onClick={(e) => PageController.updateHash(`create${organizationKind}`, e)}
@@ -91,6 +92,6 @@ export function CreateOrganization(props){
           </MenuItem>
         ))}
       </TextField>
-    </CreateOrganizationBase>
+    </CreateOrganizationContainer>
   );
 }
