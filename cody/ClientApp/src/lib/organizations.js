@@ -1,6 +1,7 @@
 import axios from 'axios';
-import {AxiosResponse} from 'axios';
+import { AxiosResponse } from 'axios';
 import { invokeCallback } from './utility';
+import SingleXHRRequest from './single_xhr_request';
 
 
 export class Organizations {
@@ -54,15 +55,20 @@ export class Organizations {
    * @returns {Promise<Organization[]>}
    */
   static async listAll(options) {
-    return axios
-      .request({
-        url: 'organizations',
-        method: 'GET',
-        params: options,
-      })
-      .then(response => response.data);
+    return Organizations._listAllReq.send(tokenSource => {
+      return axios
+        .request({
+          url: 'organizations',
+          method: 'GET',
+          cancelToken: tokenSource.token,
+          params: options,
+        })
+        .then(response => response.data)
+    });
   }
 }
+
+Organizations._listAllReq = new SingleXHRRequest();
 
 
 /**
