@@ -17,8 +17,7 @@ export class Cities {
       .data
       .resourceSets[0]
       .resources
-      .filter(r => r.entityType == 'PopulatedPlace')
-      .filter(r => ['High', 'Medium'].includes(r.confidence))
+      .filter(r => ['PopulatedPlace', 'Neighborhood'].includes(r.entityType))
       .map(r => ({
         name: r.address.locality,
         country: r.address.countryRegion,
