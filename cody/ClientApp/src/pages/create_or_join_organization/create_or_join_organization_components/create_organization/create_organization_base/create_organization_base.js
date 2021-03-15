@@ -98,6 +98,7 @@ export function CreateOrganizationBase(props){
       loading={loading}
     >
       <AddPhoto
+        disableLoading
         className={classes.addPhoto}
       />
       <Grid
