@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_text_fields/editable_custom_textfield'
 import { EditableDatePicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_date_picker';
-import { EditableSchoolPicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_school_picker';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -117,14 +116,6 @@ export function DataForms(props){
 				error={props.errors.birthDateError}
 				mt={1}
 				mb={1}
-			/>
-			<EditableSchoolPicker
-				loading={props.loading}
-				title="Istituto"
-				dialogTitle="Cambia il tuo istituto"
-				value={props.oldData.school}
-				onChange={getValue("school")}
-				mt={2}
 			/>
 			<EditableCustomTextField 
 				loading={props.loading}
