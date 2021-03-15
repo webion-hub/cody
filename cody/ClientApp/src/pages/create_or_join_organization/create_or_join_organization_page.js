@@ -29,25 +29,16 @@ export function CreateOrJoinOrganization(){
   }, [window.location.hash])
 
   const setContent = (hash) => {
-    switch(hash){
-      case "create":
-        setContentSetting(createOrganizationSettings)
-        break;
-      case "createteam":
-        setContentSetting(createTeamSettings)
-        break;
-      case "createschool":
-        setContentSetting(createSchoolSettings)
-        break;
-      case "createcompany":
-        setContentSetting(createCompanySettings)
-        break;
-      case "join":
-        setContentSetting(joinOrganizationSettings)
-        break;
-      default:
-        setContentSetting(selectActionSettings)
-    }  
+    const action = {
+      'create': () => setContentSetting(createOrganizationSettings),
+      'createteam': () => setContentSetting(createTeamSettings),
+      'createschool': () => setContentSetting(createSchoolSettings),
+      'createcompany': () => setContentSetting(createCompanySettings),
+      'join': () => setContentSetting(joinOrganizationSettings),
+    }[hash];
+
+    action ? 
+      action() : setContentSetting(selectActionSettings); 
   }
 
   return(
