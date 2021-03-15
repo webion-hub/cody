@@ -11,6 +11,7 @@ export class Cities {
         key: Cities.BING_MAPS_API_KEY,
         query: name,
         maxResults: 10,
+        culture: 'it-IT',
       },
     })
     .then(resp => resp
