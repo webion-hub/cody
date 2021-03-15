@@ -20,9 +20,7 @@ export class Cities {
       .resources
       .filter(r => ['PopulatedPlace', 'Neighborhood'].includes(r.entityType))
       .map(r => ({
-        name: r.name.split(',')[0],
-        country: r.address.countryRegion,
-        region: r.address.adminDistrict,
+        location: r.name,
       }))
     );
   }
@@ -33,7 +31,5 @@ Cities.BING_MAPS_API_KEY = 'Atk8WqFahBgE88OPqmaBcGtaXp-eW-oaL3VjFrtRPscXG5sq1xwk
 
 /**
  * @typedef {object} City
- * @property {string} name
- * @property {string} country
- * @property {string} region
+ * @property {string} location
  */

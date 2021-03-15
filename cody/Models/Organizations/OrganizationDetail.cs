@@ -16,9 +16,8 @@ namespace Cody.Models
         public int Id { get; set; }
 
 
-        [DefaultMaxLength] public string City { get; set; }
-        [DefaultMaxLength] public string Region { get; set; }
-        [DefaultMaxLength] public string Country { get; set; }
+        [DefaultMaxLength] 
+        public string Location { get; set; }
 
 
         [DefaultDescriptionLength]
@@ -38,7 +37,7 @@ namespace Cody.Models
         {
             return Rejector.MaybeReject(new()
             {
-                { "city", City, FieldLength.IsBelowDefaultMax },
+                { "city", Location, FieldLength.IsBelowDefaultMax },
                 { "country", Country, FieldLength.IsBelowDefaultMax },
                 { "website", Website, FieldLength.IsBelowDefaultMax },
                 { "description", Description, default, FieldLength.MaxDescriptionLength },

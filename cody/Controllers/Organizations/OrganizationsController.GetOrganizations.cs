@@ -61,9 +61,7 @@ namespace Cody.Controllers.Organizations
                     k.AsEnum<OrganizationKind>() == o.Kind ||
 
                     Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.City, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Region, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Country, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.Location, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
                 );
         }

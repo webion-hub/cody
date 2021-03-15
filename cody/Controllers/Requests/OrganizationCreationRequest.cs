@@ -21,9 +21,7 @@ namespace Cody.Controllers.Requests
         [Required, EnumDataType(typeof(OrganizationKind))]
         string Kind,
 
-        [DefaultMaxLength] string City,
-        [DefaultMaxLength] string Region,
-        [DefaultMaxLength] string Country,
+        [DefaultMaxLength] string Location,
         [DefaultDescriptionLength] string Description,
 
         [Url, DefaultMaxLength]
@@ -34,9 +32,7 @@ namespace Cody.Controllers.Requests
             Name = Name.Trim(),
             Kind = Utility.MaybeGetEnumFrom<OrganizationKind>(Kind).Value,
             Detail = new (){
-                City = City?.Trim(),
-                Country = Country?.Trim(),
-                Region = Region?.Trim(),
+                Location = Location?.Trim(),
                 Description = Description?.Trim(),
                 Website = Website?.Trim(),
             },

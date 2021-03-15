@@ -28,9 +28,7 @@ namespace Cody.Controllers.Responses
                     Kind = o.Kind.ToString(),
                     Detail = new
                     {
-                        d.City,
-                        d.Region,
-                        d.Country,
+                        d.Location,
                         d.Description,
                         d.Website,
                     },
