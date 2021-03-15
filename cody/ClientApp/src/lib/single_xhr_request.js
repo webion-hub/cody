@@ -13,13 +13,16 @@ export default class SingleXHRRequest {
   /**
    * @param {SingleRequestCallback} request
    */
-  send(request) {
+  async send(request) {
     this._lastRequest = request;
     
     this._maybeCancelLastRequest();
     this._updateCancelToken();
     this._maybeClearLastTimeout();
-    this._scheduleCurrentRequest();
+    
+    return new Promise((resolve, reject) => 
+      this._scheduleCurrentRequest(request, resolve, reject)
+    ); 
   }
 
   
@@ -39,9 +42,9 @@ export default class SingleXHRRequest {
     }
   }
 
-  _scheduleCurrentRequest(request) {
+  _scheduleCurrentRequest(request, resolve, reject) {
     this._lastTimeout = setTimeout(
-      _ => this._sendAfterTimeout(request),
+      _ => this._sendAfterTimeout(request, resolve, reject),
       this.timeout
     );
   }
@@ -50,15 +53,17 @@ export default class SingleXHRRequest {
   /**
    * @param {SingleRequestCallback} request 
    */
-  async _sendAfterTimeout(request) {
+  async _sendAfterTimeout(request, resolve, reject) {
     if (request != this._lastRequest) {
-      return;
+      reject('Canceled');
     }
 
     try {
-      await request(this.tokenSource);
+      resolve(request(this.tokenSource));
     }
-    catch {}
+    catch {
+      reject('Canceled');
+    }
   }
 }
 
