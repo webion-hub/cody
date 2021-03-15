@@ -44,16 +44,16 @@ export default class SingleXHRRequest {
 
   _scheduleCurrentRequest(request, resolve, reject) {
     this._lastTimeout = setTimeout(
-      _ => this._sendAfterTimeout(request, resolve, reject),
+      _ => this._maybeSend(request, resolve, reject),
       this.timeout
     );
   }
 
 
   /**
-   * @param {SingleRequestCallback} request 
+   * @param {SingleRequestCallback} request
    */
-  async _sendAfterTimeout(request, resolve, reject) {
+  async _maybeSend(request, resolve, reject) {
     if (request != this._lastRequest) {
       reject('Canceled');
     }
