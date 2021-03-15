@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       width: "100vw",
       minHeight: "calc(100vh - 56px)",
+      maxHeight: "none",
       marginTop: theme.appBar.mobileHeight,
     },
     transition: "max-width 0.25s, max-height 0.25s, min-height 0.25s",

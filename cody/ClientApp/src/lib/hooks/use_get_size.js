@@ -18,15 +18,15 @@ export function useGetSize(ref){
     let height;
     if(ref !== null){
       if(ref.current !== undefined)
-        {
-          width = ref.current.offsetWidth;
-          height = ref.current.offsetHeight;
-        }
-        else
-        {
-          width = ref.innerWidth;
-          height = ref.innerHeight;
-        }
+      {
+        width = ref.current.offsetWidth;
+        height = ref.current.offsetHeight;
+      }
+      else
+      {
+        width = ref.innerWidth;
+        height = ref.innerHeight;
+      }
 
       const newSize = {
         width: width,

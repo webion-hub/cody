@@ -93,7 +93,7 @@ export function OrganizationsInfo(props){
         className={classes.infoTitle}
       >
         <Typography
-          variant={mobileView ? "h4" : "h2"}
+          variant={mobileView ? "h5" : "h2"}
           component="h2"
         >
           Cosa sono le organizzazioni?
