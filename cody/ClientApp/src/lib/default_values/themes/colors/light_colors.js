@@ -11,7 +11,7 @@ export const lightColors = {
   backgroundSecondary: '#efeff1', 
 
   backgroundTransparent: "rgba(0,0,0,0.04)",
-  backgroundGradient: "linear-gradient(180deg, rgb(26 42 79 / 27%) 0%, rgb(255 255 255 / 45%) 50%, rgb(255 255 255 / 0%) 100%)",
+  backgroundGradient: "linear-gradient(180deg, #f3f3f3 0%, #f7f7f8 100%)",
   
   appBar: '#fff',
   textPrimary: 'rgba(0,0,0,0.95)',
