@@ -6,17 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
 
-import { CreateOrganizationContainer } from 
-  'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_base/create_organization_container';
 import { tryCreateOrganization } from 
   'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/try_create_organization';
-import { AddPhoto } from 'src/components/pickers/add_photo';
 
 import { NextFocus } from 'src/lib/next_focus';
 import { FormatLengthController } from 'src/lib/format_controller/format_length_controller';
 
-
 import { AddLocation } from './add_location';
+import { prepareData } from './prepare_data';
+import { CreateOrganizationContainer } from '../create_organization_container';
+import { AddPhoto } from 'src/components/pickers/add_photo';
 
 const useStyles = makeStyles((theme) => ({
   fields: {
@@ -64,15 +63,6 @@ export function CreateOrganizationBase(props){
       ...data,
       location: value
     })
-  }
-
-  const prepareData = (data) => {
-    return {
-      name: data.name,
-      location: data.location? data.location : "",
-      website: data.website,
-      description: data.description,
-    }
   }
 
   const handleSubmit = () => {

@@ -8,7 +8,6 @@ import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded'
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Tooltip } from '@material-ui/core';
-import { TouchableTooltip } from 'src/components/touchable_tooltip';
 
 
 const useStyles = makeStyles((theme) => ({

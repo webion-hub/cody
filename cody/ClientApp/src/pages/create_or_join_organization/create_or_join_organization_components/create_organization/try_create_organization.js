@@ -20,8 +20,7 @@ export function tryCreateOrganization(settings){
             Organizations.createNew({
               organization: {
                 name: data.name,
-                city: data.city,
-                country: data.country,
+                location: data.location,
                 website: data.website,
                 description: data.description,
                 kind: kind,
