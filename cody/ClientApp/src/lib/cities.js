@@ -29,6 +29,7 @@ export class Cities {
       .resourceSets[0]
       .resources
       .filter(r => ['PopulatedPlace', 'Neighborhood'].includes(r.entityType))
+      .filter(r => ['High', 'Medium'].includes(r.confidence))
       .map(r => ({
         location: r.name,
       }));
