@@ -19,31 +19,24 @@ const useStyles = makeStyles((theme) => ({
   locationIcon: {
     marginRight: theme.spacing(2)
   },
+  locationLabel: {
+    width: "calc(100% - 42px)",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  }
 }));
 
 export function AddLocation(props){
   const classes = useStyles();
   const nextFocus = props.nextFocus;
   const errors = props.errors;
-  const [locationSearchValue, setLocationSearchValue] = React.useState("")
   const [locationSearchResults, setLocationSearchResults] = React.useState([])
   const [loading, setLoading] = React.useState(false)
 
   const handleLocation = (event) => {
-    const value = event.target.value;
-    setLocationSearchValue(value)
-  }
+    const locationSearchValue = event.target.value;
 
-  const handleChange = (value) => { 
-    props.onChange(value)
-
-    if(value === null){
-      setLocationSearchValue("")
-      setLocationSearchResults([])
-    }
-  }
-
-  const handleSubmitLocation = () => {
     if(locationSearchValue === "")
       return;
 
@@ -56,6 +49,14 @@ export function AddLocation(props){
       });
   }
 
+  const handleChange = (value) => { 
+    if(value !== null)
+      props.onChange(value.location)
+    else {
+      setLocationSearchResults([])
+    }
+  }
+
   if(props.hide)
     return <></>;
 
@@ -65,7 +66,7 @@ export function AddLocation(props){
       heightbig={45}
       heightsmall={50}
       options={locationSearchResults}
-      getOptionLabel={(option) => `${option.name} ${option.region} ${option.country}`}
+      getOptionLabel={(option) => option.location}
       filterOptions={(x) => x}
       fullWidth
       loading={loading}
@@ -82,19 +83,8 @@ export function AddLocation(props){
             <Grid item className={classes.locationIcon}>
               <LocationOnRoundedIcon/>
             </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="column"
-              >
-                {option.name}
-                <Typography                 
-                  variant="caption"
-                  color="textSecondary"
-                >
-                  {option.region} {option.country}
-                </Typography>  
-              </Grid>
+            <Grid item className={classes.locationLabel}>
+              {option.location}
             </Grid> 
           </Grid>                 
         </React.Fragment>
@@ -111,8 +101,7 @@ export function AddLocation(props){
             inputRef={nextFocus.getInput("location")}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleSubmitLocation()
-                //nextFocus.focusOn("website");
+                nextFocus.focusOn("website");
               }
             }}
           />
