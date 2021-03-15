@@ -16,7 +16,7 @@ import { EditableBiography } from 'src/components/pickers/text_fields/editable_t
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
+  container: {
     width: 364,
     padding: theme.spacing(2),
     height: "100%",
@@ -90,7 +90,7 @@ export function InfoBox(props){
   }
   
 	return (
-    <div className={classes.paper}>
+    <div className={classes.container}>
       <Grid
         container
         direction={"row"}
