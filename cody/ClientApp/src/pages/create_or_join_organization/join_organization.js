@@ -10,6 +10,8 @@ import { FilterComponent } from './create_or_join_organization_components/join_o
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 import { useSetOrganizationsValue } from './create_or_join_organization_components/join_organization/use_set_organizations_value';
 
+import { PageController } from 'src/lib/page_controller';
+
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
     marginLeft: theme.spacing(1),
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   listContainer: {
     marginTop: theme.spacing(1),
+    background: theme.palette.background.paperSecondary
   },
   list: {
     overflow: "overlay",
@@ -41,7 +44,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function JoinOrganization(props){
+export const joinOrganizationSettings = {
+  component: JoinOrganization,
+  title: "Unisciti ad un'organizzazione",
+  width: 750,
+  height: 600,
+  href: "/organization",
+  onBack: (e) => PageController.updateHash("", e)
+}
+
+function JoinOrganization(props){
 	const theme = useTheme();
   const classes = useStyles();
   const listRef = useRef();
@@ -105,7 +117,7 @@ export function JoinOrganization(props){
     const scrollPosition = 
       listRef.current.offsetHeight + listRef.current.scrollTop;
     const scrollHeight = listRef.current.scrollHeight;
-    const isScrollAtTheEnd = scrollPosition >= scrollHeight
+    const isScrollAtTheEnd = scrollPosition + 250 >= scrollHeight
 
     if(isScrollAtTheEnd){
       const areOtherElements = 
@@ -136,7 +148,7 @@ export function JoinOrganization(props){
         >
           <GenericSearchBar
             className={classes.searchBar}
-            background={theme.palette.background.paper}
+            background={theme.palette.background.paperSecondary}
             onChange={handleSearchValue}
             onSubmit={handleSubmit}
           />

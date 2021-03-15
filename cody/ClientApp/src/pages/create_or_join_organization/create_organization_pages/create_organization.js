@@ -9,7 +9,7 @@ import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded'
 
 import { TeamWork } from 'src/components/illustrations/team_work';
 import { CreateOrganizationContainer } from 
-  'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_base/create_organization_container';
+  'src/pages/create_or_join_organization/create_or_join_organization_components/create_organization/create_organization_container';
 
 import { PageController } from 'src/lib/page_controller';
 
@@ -45,7 +45,16 @@ const organizationKinds = [
   },
 ];
 
-export function CreateOrganization(props){
+export const createOrganizationSettings = {
+  component: CreateOrganization,
+  title: "Crea un'organizzazione",
+  width: 450,
+  height: 468,
+  href: "/organization",
+  onBack: (e) => PageController.updateHash("", e)
+}
+
+function CreateOrganization(props){
   const classes = useStyles();
   const [organizationKind, setOrganizationKind] = React.useState('team');
 

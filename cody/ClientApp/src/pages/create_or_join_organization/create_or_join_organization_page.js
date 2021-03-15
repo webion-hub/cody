@@ -4,29 +4,22 @@ import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
 
-import { SelectAction } from 'src/pages/create_or_join_organization/select_action';
+import { selectActionSettings } from 'src/pages/create_or_join_organization/select_action';
 
-import { CreateOrganization } from 'src/pages/create_or_join_organization/create_organization_pages/create_organization';
-import { CreateTeam } from 'src/pages/create_or_join_organization/create_organization_pages/create_team';
-import { CreateSchool } from 'src/pages/create_or_join_organization/create_organization_pages/create_school';
-import { CreateCompany } from 'src/pages/create_or_join_organization/create_organization_pages/create_company';
+import { createOrganizationSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_organization';
+import { createTeamSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_team';
+import { createSchoolSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_school';
+import { createCompanySettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_company';
 
-import { JoinOrganization } from 'src/pages/create_or_join_organization/join_organization';
+import { joinOrganizationSettings } from 'src/pages/create_or_join_organization/join_organization';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
-import { PageController } from 'src/lib/page_controller';
 import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base';
 
 export function CreateOrJoinOrganization(){
   const infoRef = React.createRef();
 
-  const [contentSetting, setContentSetting] = React.useState({
-    component: SelectAction,
-    title: "Unisciti o crea un'organizzazione",
-    width: 750,
-    height: 400,
-    onBack: null
-  });
+  const [contentSetting, setContentSetting] = React.useState(selectActionSettings);
 
   useEffect(() => {
     const hash = window.location.hash
@@ -38,63 +31,22 @@ export function CreateOrJoinOrganization(){
   const setContent = (hash) => {
     switch(hash){
       case "create":
-        setContentSetting({
-          component: CreateOrganization,
-          title: "Crea un'organizzazione",
-          width: 450,
-          height: 468,
-          href: "/organization",
-          onBack: (e) => PageController.updateHash("", e)
-        })
+        setContentSetting(createOrganizationSettings)
         break;
       case "createteam":
-        setContentSetting({
-          component: CreateTeam,
-          title: "Crea un team",
-          width: 450,
-          height: 582,
-          href: "/organization#create",
-          onBack: (e) => PageController.updateHash("create", e)
-        })
+        setContentSetting(createTeamSettings)
         break;
       case "createschool":
-        setContentSetting({
-          component: CreateSchool,
-          title: "Aggiungi un Istituto",
-          width: 450,
-          height: 654,
-          href: "/organization#create",
-          onBack: (e) => PageController.updateHash("create", e)
-        })
+        setContentSetting(createSchoolSettings)
         break;
       case "createcompany":
-        setContentSetting({
-          component: CreateCompany,
-          title: "Aggiungi un' Azienda",
-          width: 450,
-          height: 654,
-          href: "/organization#create",
-          onBack: (e) => PageController.updateHash("create", e)
-        })
+        setContentSetting(createCompanySettings)
         break;
       case "join":
-        setContentSetting({
-          component: JoinOrganization,
-          title: "Unisciti ad un'organizzazione",
-          width: 750,
-          height: 600,
-          href: "/organization",
-          onBack: (e) => PageController.updateHash("", e)
-        })
+        setContentSetting(joinOrganizationSettings)
         break;
       default:
-        setContentSetting({
-          component: SelectAction,
-          title: "Unisciti o crea un'organizzazione",
-          width: 750,
-          height: 400,
-          onBack: null
-        })
+        setContentSetting(selectActionSettings)
     }  
   }
 

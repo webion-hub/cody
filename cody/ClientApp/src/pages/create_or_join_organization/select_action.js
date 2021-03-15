@@ -8,7 +8,16 @@ import { NewOrganization } from 'src/components/illustrations/new_oraganization'
 import { OrganizationAction } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organization_action';
 import { PageController } from 'src/lib/page_controller';
 
-export function SelectAction(props){
+
+export const selectActionSettings = {
+  component: SelectAction,
+  title: "Unisciti o crea un'organizzazione",
+  width: 750,
+  height: 400,
+  onBack: null
+}
+
+function SelectAction(props){
   return(
     <>
       <OrganizationAction
