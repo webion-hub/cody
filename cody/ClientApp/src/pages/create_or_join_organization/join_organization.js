@@ -100,15 +100,12 @@ function JoinOrganization(props){
     })    
   }
 
-  const handleSearchValue = (event) => {
-    setSearchValue(event.target.value);
-  }
+  const handleSearchValue = (value) => {
+    setSearchValue(value);
 
-  const handleSubmit = () => {
-    goTop()
     setOrganizationsValue({
       filter: filterStatus,
-      value: searchValue,
+      value: value,
       offset: 0,
     })
   }
@@ -150,7 +147,6 @@ function JoinOrganization(props){
             className={classes.searchBar}
             background={theme.palette.background.paperSecondary}
             onChange={handleSearchValue}
-            onSubmit={handleSubmit}
           />
           <FilterComponent
             handleFilter={handleFilter}
@@ -178,8 +174,7 @@ function JoinOrganization(props){
                   maxListItemWidth={maxListItemWidth}
                   kind={element.kind}
                   name={element.name}
-                  city={element.detail.city}
-                  country={element.detail.country}
+                  location={element.detail.location}
                 />
               ))
             }
