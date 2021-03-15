@@ -12,7 +12,7 @@ import { UnauthorizedPage } from "src/pages/unauthorized_page";
 export const useStyles = makeStyles((theme) => ({
 	dataGrid: {
 		position: "relative",
-		maxWidth: "100vw",
+		maxWidth: `calc(100vw - ${theme.drawer.width}px)`,
 		marginTop: theme.appBar.fullHeight,
 		minHeight: `calc(100vh - ${theme.appBar.fullHeight}px)`,
     [theme.breakpoints.down('xs')]: {
