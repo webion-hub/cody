@@ -41,7 +41,8 @@ namespace Cody.Controllers.Organizations
                 .Organizations
                 .Where(o =>
                     o.Kind == organization.Kind &&
-                    o.Name == organization.Name
+                    o.Name == organization.Name &&
+                    o.Detail.Location == organization.Detail.Location
                 )
                 .SingleOrDefaultAsync();
         }
