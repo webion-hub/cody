@@ -9,7 +9,6 @@ import { AnimatedCoding } from 'src/components/illustrations/animated_coding/ani
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { makeStyles } from '@material-ui/core/styles';
-import UpechDialog from './dial';
 
 const homeStyles = makeStyles((theme) => ({
   firstAreaBox: {
@@ -54,11 +53,9 @@ export function Home(){
       }}
       onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
     >
-      <UpechDialog/>
       <MainTextBox/>
       <DynamicSearchBar/>
       <AnimatedCoding className={classes.background} springProps={springProps}/>
-      <iframe src="http://www.staggeringbeauty.com/" style={{border: "1px inset #ddd"}} width="100%" height="598"></iframe>
       <MyClasses
        className={classes.myClasses}
        classesList={[
