@@ -20,7 +20,7 @@ export class Cities {
       .resources
       .filter(r => ['PopulatedPlace', 'Neighborhood'].includes(r.entityType))
       .map(r => ({
-        name: r.address.locality,
+        name: r.name.split(',')[0],
         country: r.address.countryRegion,
         region: r.address.adminDistrict,
       }))
