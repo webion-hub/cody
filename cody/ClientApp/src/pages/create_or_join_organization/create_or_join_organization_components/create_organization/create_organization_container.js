@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       maxWidth: "100%",
       width: `calc(100% - ${theme.spacing(2)}px)`,
-      height: "calc(100vh - 104px)"
+      minHeight: "calc(100vh - 104px)"
     },
     padding: theme.spacing(2),
     margin: theme.spacing(1),

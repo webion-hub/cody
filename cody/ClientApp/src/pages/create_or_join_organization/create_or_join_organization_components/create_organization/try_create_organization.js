@@ -8,6 +8,7 @@ export function tryCreateOrganization(settings){
 
   return new Promise(resolve => {
     const errorController = new CreateOrganizationErrorController;
+
     errorController
       .checkAll(data, kind)
       .then(
@@ -21,7 +22,7 @@ export function tryCreateOrganization(settings){
               organization: {
                 name: data.name,
                 location: data.location,
-                website: data.website,
+                website: data.website === "" ? null : data.website,
                 description: data.description,
                 kind: kind,
               },

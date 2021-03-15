@@ -12,6 +12,9 @@ import Button from '@material-ui/core/Button';
 import { FlowingText } from 'src/components/typography/flowing_text';
 
 const useStyles = makeStyles((theme) => ({
+  listItem: {
+    height: 72,
+  },
   listItemIcon: {
     minWidth: 0,
     paddingRight: 16,
@@ -34,7 +37,7 @@ export function OrganizationsListItem(props){
   }
 
   return(
-    <ListItem>  
+    <ListItem className={classes.listItem}>  
       <ListItemIcon className={classes.listItemIcon}>
         {getIcon(props.kind)}
       </ListItemIcon>
@@ -43,7 +46,7 @@ export function OrganizationsListItem(props){
           <>
             <FlowingText
               containerWidth={props.maxListItemWidth}
-              background={theme.palette.background.paper}          
+              background={theme.palette.background.paperSecondary}          
             >
               {props.name}      
             </FlowingText>
@@ -56,11 +59,10 @@ export function OrganizationsListItem(props){
                 component="span"
                 color="textSecondary"
               >
-                {props.city} {props.country}
+                {props.location}
               </Typography>       
             </FlowingText>
           </>
-
         }
       />
       <ListItemSecondaryAction>

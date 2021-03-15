@@ -1,13 +1,16 @@
 export const prepareData = (data) => {
-  let websiteUrl;
+  let websiteUrl = "";
   const website = data.website;
-  if(website.startsWith('https'))
-    websiteUrl = website;
-  if(website.startsWith('http')){
-    websiteUrl = website.replace('http', 'https');
+  if(website !== ""){
+    if(website.startsWith('https'))
+      websiteUrl = website;
+    if(website.startsWith('http')){
+      websiteUrl = website.replace('http', 'https');
+    }
+    else
+      websiteUrl = `https://${website}`
   }
-  else
-    websiteUrl = `https://${website}`
+
 
   return {
     name: data.name,
