@@ -6,6 +6,7 @@ import { Skeleton } from '@material-ui/lab';
 export function CustomAvatar(props){
   const theme = useTheme()
   const [loading, setLoading] = React.useState(true);
+  const { disableLoading, shadow, size, ...other } = props;
 
   const propsOnLoad = props.onLoad? 
     props.onLoad() : () => {}
@@ -14,7 +15,7 @@ export function CustomAvatar(props){
     props.onError() : () => {}
 
   const handleLoading = () => {
-    if(!props.disableLoading)
+    if(!disableLoading)
       checkImage()
   }
 
@@ -35,11 +36,11 @@ export function CustomAvatar(props){
     handleLoading();
   }, [])
 
-  const finalLoading = loading && !props.disableLoading
-  const size = props.size? props.size : 40
+  const finalLoading = loading && !disableLoading
+  const finalSize = size? size : 40
 
-  const extraLoadingWidth = size / 5
-  const loadingSize = size + extraLoadingWidth;
+  const extraLoadingWidth = finalSize / 5
+  const loadingSize = finalSize + extraLoadingWidth;
 
   return (
     <div
@@ -50,8 +51,8 @@ export function CustomAvatar(props){
       <Skeleton
         variant="circle" 
         animation="wave"
-        width={size} 
-        height={size} 
+        width={finalSize} 
+        height={finalSize} 
         style={{
           display: finalLoading ? "block" : "none"
         }}
@@ -67,13 +68,13 @@ export function CustomAvatar(props){
         }}
       />
       <Avatar
-        {...props}
+        {...other}
         style={{
-          width: size,
-          height: size,
+          width: finalSize,
+          height: finalSize,
           fontSize: `${1.25 * (size / 40)}rem`,
           display: finalLoading ? "none" : "flex",
-          boxShadow: props.shadow ? `2px 2px 6px 0px ${theme.palette.background.paperSecondary}` : null,
+          boxShadow: shadow ? `2px 2px 6px 0px ${theme.palette.background.paperSecondary}` : null,
         }}
       />
     </div> 
