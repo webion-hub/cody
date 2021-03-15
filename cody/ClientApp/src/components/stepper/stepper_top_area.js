@@ -13,7 +13,7 @@ export function StepperTopArea(props){
         return (
           <Step key={index}>
             {
-              step.optional ? 
+              step.controller === null ? 
                 <StepLabel>Opzionale</StepLabel>
                 :
                 <StepLabel></StepLabel>
