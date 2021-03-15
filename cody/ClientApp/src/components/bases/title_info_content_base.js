@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
     width: "100%",
     maxWidth: props.width,
     maxHeight: props.height,
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   titleContainer: {
     width: "100%",
     padding: theme.spacing(1),
-    background: theme.palette.background.backgroundTransparent,
+    background: theme.palette.background.paperSecondary,
   },
   cardContainer: {
     padding: theme.spacing(1),
