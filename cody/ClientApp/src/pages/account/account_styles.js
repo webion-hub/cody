@@ -13,4 +13,12 @@ export const accountStyles = makeStyles((theme) => ({
       marginTop: theme.appBar.mobileHeight,
     },
 	},
+  submitButton: {
+    paddingTop: theme.spacing(1),
+    [theme.breakpoints.between('sm', 830)]: {
+      width: "100%",
+      maxWidth: 370,
+      margin: "0 auto"
+    },
+  }
 }));

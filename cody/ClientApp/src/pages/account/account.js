@@ -225,8 +225,8 @@ export function Account(){
           </Grid>
         </Grid>
         <Box
-          pt={1}
           textAlign="end"
+          className={classes.submitButton}
         > 
           <LoadingButton
             disabled={!accountIsEdited}
