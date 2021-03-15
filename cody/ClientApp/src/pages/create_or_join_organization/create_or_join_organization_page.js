@@ -52,7 +52,7 @@ export function CreateOrJoinOrganization(){
           component: CreateTeam,
           title: "Crea un team",
           width: 450,
-          height: 468,
+          height: 582,
           href: "/organization#create",
           onBack: (e) => PageController.updateHash("create", e)
         })
@@ -62,7 +62,7 @@ export function CreateOrJoinOrganization(){
           component: CreateSchool,
           title: "Aggiungi un Istituto",
           width: 450,
-          height: 603,
+          height: 654,
           href: "/organization#create",
           onBack: (e) => PageController.updateHash("create", e)
         })
@@ -72,7 +72,7 @@ export function CreateOrJoinOrganization(){
           component: CreateCompany,
           title: "Aggiungi un' Azienda",
           width: 450,
-          height: 603,
+          height: 654,
           href: "/organization#create",
           onBack: (e) => PageController.updateHash("create", e)
         })
@@ -82,7 +82,7 @@ export function CreateOrJoinOrganization(){
           component: JoinOrganization,
           title: "Unisciti ad un'organizzazione",
           width: 750,
-          height: 400,
+          height: 600,
           href: "/organization",
           onBack: (e) => PageController.updateHash("", e)
         })
