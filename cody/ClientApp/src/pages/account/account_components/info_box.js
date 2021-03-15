@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: 364,
     padding: theme.spacing(2),
-    background: theme.palette.background.paper,
     height: "100%",
     [theme.breakpoints.down('xs')]: {
       width: `calc(100vw - ${theme.spacing(4)}px)`,
@@ -91,7 +90,7 @@ export function InfoBox(props){
   }
   
 	return (
-    <Paper className={classes.paper}>
+    <div className={classes.paper}>
       <Grid
         container
         direction={"row"}
@@ -217,6 +216,6 @@ export function InfoBox(props){
           }
         </Paper>
       </div>
-    </Paper>
+    </div>
 	);
 }

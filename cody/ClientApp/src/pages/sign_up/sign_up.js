@@ -28,6 +28,11 @@ export const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center center",
   },
   paper: {
+    background: theme.palette.background.paperSecondary,
+    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
     padding: theme.spacing(2),
     maxWidth: 632,
     width: "100%",

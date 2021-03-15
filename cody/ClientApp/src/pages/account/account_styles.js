@@ -7,6 +7,10 @@ export const accountStyles = makeStyles((theme) => ({
   },
 	box: {
     background: theme.palette.background.paperSecondary,
+    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
     padding: theme.spacing(2),
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
