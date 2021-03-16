@@ -24,6 +24,15 @@ export class Organizations {
    * @param {number} id 
    * @returns {Promise<AxiosResponse<any>>}
    */
+   static async verify(id) {
+    return axios.patch(`organizations/verify/${id}`);
+  }
+
+
+  /**
+   * @param {number} id 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   static async delete(id) {
     return axios.delete(`organizations/${id}`);
   }

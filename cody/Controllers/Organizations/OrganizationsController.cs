@@ -39,5 +39,13 @@ namespace Cody.Controllers.Organizations
                 ? organizations
                 : organizations.Where(o => !o.State.HasBeenDeleted);
         }
+
+        private async Task<Organization> GetOrganizationByIdAsync(int id)
+        {
+            return await _dbContext
+                .Organizations
+                .Include(o => o.State)
+                .FirstOrDefaultAsync(o => o.Id == id);
+        }
     }
 }
