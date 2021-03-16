@@ -33,6 +33,16 @@ namespace Cody.Contexts
                 .Entity<UserAccountState>()
                 .Property(b => b.IsEmailValid)
                 .HasDefaultValue(false);
+
+            modelBuilder
+                .Entity<UserAccountState>()
+                .Property(b => b.HasBeenDeleted)
+                .HasDefaultValue(false);
+
+            modelBuilder
+                .Entity<OrganizationState>()
+                .Property(b => b.HasBeenDeleted)
+                .HasDefaultValue(false);
         }
 
         private static void ConfigureOrganizationMembership(ModelBuilder modelBuilder)

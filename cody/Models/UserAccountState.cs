@@ -11,9 +11,10 @@ namespace Cody.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
-
+        
         [Required] public Guid ValidationKey { get; set; }
         [Required] public bool IsEmailValid { get; set; }
+        [Required] public bool HasBeenDeleted { get; set; }
 
         
         [Required]

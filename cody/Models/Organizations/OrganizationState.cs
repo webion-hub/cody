@@ -16,6 +16,7 @@ namespace Cody.Models
         
 
         [Required] public bool HasBeenVerified { get; set; }
+        [Required] public bool HasBeenDeleted { get; set; }
 
 
         [Required]
