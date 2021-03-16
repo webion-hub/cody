@@ -34,7 +34,6 @@ Admin._getUsersReq = new SingleXHRRequest();
  *  },
  *  ProfilePicture: {
  *    FilePath: string,
- *  },
- *  School: SchoolAccount?
+ *  }
  * }} Admin.UserResult
  */

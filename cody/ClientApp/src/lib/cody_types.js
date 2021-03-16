@@ -11,8 +11,6 @@
  * @property {string} name
  * @property {string} surname
  * @property {Date} birthDate
- * @property {number} [schoolId]
- * @property {SchoolAccount} [school]
  * @property {number} [profilePictureId]
  * @property {UserProfilePicture} [profilePicture]
  */
