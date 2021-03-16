@@ -17,6 +17,7 @@ export const useStyles = makeStyles((theme) => ({
 		minHeight: `calc(100vh - ${theme.appBar.fullHeight}px)`,
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
+			maxWidth: '100vw',
 			minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px)`,
     },
 	}
