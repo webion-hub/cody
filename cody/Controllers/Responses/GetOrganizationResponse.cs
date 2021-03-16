@@ -24,6 +24,7 @@ namespace Cody.Controllers.Responses
                     State = new
                     {
                         s.HasBeenVerified,
+                        s.HasBeenDeleted,
                     },
                     Kind = o.Kind.ToString(),
                     Detail = new

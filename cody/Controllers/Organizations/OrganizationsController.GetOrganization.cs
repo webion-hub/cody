@@ -1,4 +1,5 @@
 ﻿using Cody.Controllers.Responses;
+using Cody.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,9 +13,10 @@ namespace Cody.Controllers.Organizations
     {
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public IActionResult GetOrganization(int id)
+        public async Task<IActionResult> GetOrganization(int id)
         {
-            var organization = GetAllOrganizations()
+            var organizations = await GetOrganizationsBasedOnUserRoleAync();
+            var organization = organizations
                 .Where(o => o.Id == id)
                 .AsGetOrganizationResponse()
                 .FirstOrDefault();

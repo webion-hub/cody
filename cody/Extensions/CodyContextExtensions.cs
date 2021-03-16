@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,16 @@ namespace Cody.Extensions
                 select user;
 
             return maybeUser;
+        }
+
+
+        public static IQueryable<Organization> GetAllOrganizations(this CodyContext context)
+        {
+            return context
+                .Organizations
+                .Include(o => o.Members)
+                .Include(o => o.Detail)
+                .Include(o => o.State);
         }
     }
 }

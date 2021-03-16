@@ -1,6 +1,7 @@
 ﻿using Cody.Controllers.Responses;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.Security.Authorization;
 using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +19,7 @@ namespace Cody.Controllers.Organizations
     {
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetOrganizations(
+        public async Task<IActionResult> GetOrganizations(
             [FromQuery] string filter,
             [FromQuery] int? limit,
             [FromQuery] int? offset
@@ -26,29 +27,23 @@ namespace Cody.Controllers.Organizations
             if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var organizations = GetFilteredOrganizations(filter)
+            var organizations = await GetFilteredOrganizationsAsync(filter);
+            var result = organizations
                 .Skip(offset ?? 0)
                 .MaybeTake(limit);
 
-            return Ok(organizations);
+            return Ok(result);
         }
 
 
-        private IQueryable<object> GetFilteredOrganizations(string filter)
+        private async Task<IQueryable<object>> GetFilteredOrganizationsAsync(string filter)
         {
-            var organizations = GetAllOrganizations();
+            var organizations = await GetOrganizationsBasedOnUserRoleAync();
             var filtered = FilterOrganizations(organizations, filter);
 
             return filtered.AsGetOrganizationResponse();
         }
 
-        public IQueryable<Organization> GetAllOrganizations()
-        {
-            return _dbContext
-                .Organizations
-                .Include(o => o.Members)
-                .Include(o => o.Detail);
-        }
 
         private static IQueryable<Organization> FilterOrganizations(IQueryable<Organization> organizations, string filter)
         {
