@@ -21,6 +21,24 @@ export class Organizations {
 
 
   /**
+   * @param {number} id 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async delete(id) {
+    return axios.delete(`organizations/restore/${id}`);
+  }
+
+
+  /**
+   * @param {number} id 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async restore(id) {
+    return axios.patch(`organizations/${id}`);
+  }
+
+
+  /**
    * @param {Organizations.CreateNewOptions} options
    * @returns {Promise<AxiosResponse>}
    */
