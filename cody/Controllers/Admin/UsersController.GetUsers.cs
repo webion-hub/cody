@@ -20,7 +20,7 @@ namespace Cody.Controllers.Admin
     public partial class UsersController : ControllerBase
     {
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Get(
             [FromQuery] string filter,
             [FromQuery] int? limit, 
@@ -46,6 +46,7 @@ namespace Cody.Controllers.Admin
                 from u in filteredUsers
                 let ad = u.AccountDetail
                 let o = u.Organizations
+                let s = u.AccountState
                 let pp = ad.ProfilePicture
 
                 orderby u.Id ascending
@@ -54,6 +55,11 @@ namespace Cody.Controllers.Admin
                     u.Id,
                     u.Username,
                     u.Email,
+                    State = new 
+                    {
+                        s.IsEmailValid,
+                        s.HasBeenDeleted,
+                    },
                     Organizations = o.Select(o => new
                     {
                         o.Organization.Id,
@@ -81,7 +87,8 @@ namespace Cody.Controllers.Admin
                 .UserAccounts
                 .Include(u => u.AccountDetail)
                     .ThenInclude(ad => ad.ProfilePicture)
-                .Include(u => u.Organizations);
+                .Include(u => u.Organizations)
+                .Include(u => u.AccountState);
         }
 
 

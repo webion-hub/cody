@@ -17,6 +17,23 @@ export class Admin {
         .then(resp => resp.data);
     });
   }
+
+  /**
+   * @param {number} id 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async deleteUser(id) {
+    return axios.delete(`admin/users/${id}`);
+  }
+
+
+  /**
+   * @param {number} id 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async restoreUser(id) {
+    return axios.patch(`admin/users/restore/${id}`);
+  }
 }
 
 
