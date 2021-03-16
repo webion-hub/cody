@@ -25,7 +25,7 @@ export class Organizations {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async delete(id) {
-    return axios.delete(`organizations/restore/${id}`);
+    return axios.delete(`organizations/${id}`);
   }
 
 
@@ -34,7 +34,7 @@ export class Organizations {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async restore(id) {
-    return axios.patch(`organizations/${id}`);
+    return axios.patch(`organizations/restore/${id}`);
   }
 
 
