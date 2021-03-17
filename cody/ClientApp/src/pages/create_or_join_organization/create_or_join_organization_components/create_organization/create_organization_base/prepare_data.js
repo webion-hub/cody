@@ -4,9 +4,8 @@ export const prepareData = (data) => {
   if(website !== ""){
     if(website.startsWith('https'))
       websiteUrl = website;
-    if(website.startsWith('http')){
+    else if(website.startsWith('http'))
       websiteUrl = website.replace('http', 'https');
-    }
     else
       websiteUrl = `https://${website}`
   }
