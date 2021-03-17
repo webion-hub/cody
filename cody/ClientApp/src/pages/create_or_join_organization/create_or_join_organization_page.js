@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
-
 import { selectActionSettings } from 'src/pages/create_or_join_organization/select_action';
 
 import { createOrganizationSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_organization';
@@ -16,9 +15,9 @@ import { CenterComponentPageBase } from 'src/components/bases/center_component_p
 
 import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base';
 
+
 export function CreateOrJoinOrganization(){
   const infoRef = React.createRef();
-
   const [contentSetting, setContentSetting] = React.useState(selectActionSettings);
 
   useEffect(() => {

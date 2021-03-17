@@ -17,7 +17,8 @@ export function tryCreateOrganization(settings){
           results.forEach(result => {
             errorsFromController[result] = true;
           });
-          if(errorsFromController.noError){
+          const thereAreNotFormatErrors = errorsFromController.noError;
+          if(thereAreNotFormatErrors){
             Organizations.createNew({
               organization: {
                 name: data.name,
