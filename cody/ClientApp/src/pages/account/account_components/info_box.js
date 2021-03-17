@@ -48,15 +48,17 @@ const useStyles = makeStyles((theme) => ({
 
 export function InfoBox(props){
 	const classes = useStyles();
-  const theme = useTheme();
-  
+  const theme = useTheme();  
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [image, setImage] = React.useState(props.defaultImage);
   const [data, setData] = React.useState(undefined);
 
   const screenWidth = useGetSize(window).width;
-  const flowingTextMobileMaxWidth = screenWidth - 196
+  const flowingTextMobileMaxWidth = screenWidth - 196;
+  const flowingTextBigScreenMaxWidth = 165;
+  const flowingTextMaxWidth = mobileView? 
+    flowingTextMobileMaxWidth: flowingTextBigScreenMaxWidth
 
   const {onImageChange} = props;
   
@@ -100,7 +102,6 @@ export function InfoBox(props){
           image={getImage}
           value={image}
           accountEdit
-          imageSize={mobileView ? 75 : null}
         />
         <div className={classes.info}>
           <Grid
@@ -111,15 +112,13 @@ export function InfoBox(props){
             {
               props.loading ? 
                 <Skeleton 
-                  width={mobileView? flowingTextMobileMaxWidth: 200} animation="wave" variant="rect"
+                  width={flowingTextMaxWidth} animation="wave" variant="rect"
                 />
                 :
                 <>
                   <AccountCircleRoundedIcon className={classes.iconMargin}/>
                   <FlowingText
-                    containerWidth={
-                      mobileView? flowingTextMobileMaxWidth: 200
-                    }
+                    containerWidth={flowingTextMaxWidth}
                     background={theme.palette.background.paper}
                     variant="h5"
                   >
@@ -138,15 +137,13 @@ export function InfoBox(props){
                 {
                   props.loading ? 
                     <Skeleton 
-                      width={mobileView? flowingTextMobileMaxWidth: 200} animation="wave" variant="rect"
+                      width={flowingTextMaxWidth} animation="wave" variant="rect"
                     />
                     :
                     <>
                       <SchoolRoundedIcon className={classes.iconMargin}/>
                       <FlowingText
-                        containerWidth={
-                          mobileView? flowingTextMobileMaxWidth: 200
-                        }
+                        containerWidth={flowingTextMaxWidth}
                         background={theme.palette.background.paper}
                         variant="h6"
                       >
@@ -175,16 +172,14 @@ export function InfoBox(props){
                 {
                   props.loading ? 
                     <Skeleton 
-                      width={mobileView? flowingTextMobileMaxWidth: 200} animation="wave" variant="rect"
+                      width={flowingTextMaxWidth} animation="wave" variant="rect"
                     />
                     :
                     <>
 
                       <HighlightOffRoundedIcon className={classes.iconMargin}/>                      
                       <FlowingText
-                        containerWidth={
-                          mobileView? flowingTextMobileMaxWidth: 200
-                        }
+                        containerWidth={flowingTextMaxWidth}
                         background={theme.palette.background.paper}
                         variant="caption"
                       >
