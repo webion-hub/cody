@@ -6,6 +6,7 @@ import { LinearProgress } from '@material-ui/core';
 
 import { DataTableTitleControllers } from 'src/pages/admin_pages/components/data_table_title_controllers';
 import { dataTableStyles } from 'src/pages/admin_pages/components/data_table_styles';
+import { DataTableController } from 'src/pages/admin_pages/lib/data_table_controller';
 
 
 export const DataTableContext = React.createContext({
@@ -32,6 +33,14 @@ export function DataTableBase(props){
 
 	//getData function from props
   const getData = props.getData;
+  const associateData = props.associateData;
+
+	const dataTableController = new DataTableController({
+		onPageNext: () => setPage(page + 1),
+		onPageBack: () => setPage(page - 1),
+		getData: getData,
+		associateData: associateData,
+	})
 
 	useEffect(() => {
 		refreshDataTable(dataTableSettings)
@@ -41,41 +50,13 @@ export function DataTableBase(props){
 		setLoading(true)
 		setDataTableSettings(settings)
 
-		getData(settings)
-			.then(list => {
-				const isListNotEmpty = list.length !== 0;
+		dataTableController
+			.refreshDataTable(settings, pageMove)
+			.then((list) => {
 				setLoading(false)
-
-				if(isListNotEmpty){
-					setDataListState(list)
-					if(pageMove.next)
-						setPage(page + 1)
-				}
-				else
-					setDisableNext(true)
-				
-				if(pageMove.back)
-					setPage(page - 1)
+				if(list !== [])
+					setDataList(list)
 			})
-			.catch(_ => {})
-	}
-
-	const setDataListState = (list) => {
-		const finalList = []
-
-		list.forEach((data, index) => {
-			props.associateData({
-				list: finalList,
-				data: data,
-				index: index,
-			})
-		});
-
-		setDataList(finalList)
-
-		const isNextPageEmpty = list.length !== maxPageElements;
-		if(isNextPageEmpty)
-			setDisableNext(true)
 	}
 
 	/**
