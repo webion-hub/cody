@@ -1,6 +1,6 @@
 ﻿using Renci.SshNet;
 
-namespace Cody.Services
+namespace Cody.Services.Sftp
 {
     public struct SftpConnection
     {
