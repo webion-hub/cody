@@ -10,9 +10,11 @@ namespace Cody.Security.Authorization
         private static readonly HashSet<string> _hashedRoles = new()
         {
             Admin,
+            User,
         };
 
         public const string Admin = "Admin";
+        public const string User = "User";
 
 
         public static bool Exists(string role)

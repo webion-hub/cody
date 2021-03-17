@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
 using Cody.Security.Authentication;
+using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -26,8 +27,10 @@ namespace Cody.Extensions
 
         public static async Task<bool> IsUserInRoleAsync(this HttpContext context, string role)
         {
-            var user = await context.GetLoggedUserAsync();
-            return user.AccountRole.Name == role;
+            var user = 
+                await context.GetLoggedUserAsync();
+            
+            return RolesManager.IsUserInRole(user, role);
         }
 
 

@@ -20,6 +20,15 @@ namespace Cody.Security.Authorization
         public static RolesManager Using(CodyContext dbContext) => new (dbContext);
 
 
+        public static bool IsUserInRole(UserAccount user, string role)
+        {
+            if (user.AccountRole is null)
+                return role is "" or Roles.User;
+
+            return user.AccountRole.Name == role;
+        }
+
+
         public void AssignOrRevokeIfNull(UserAccount user, string role)
         {
             if (role is not null)
