@@ -90,6 +90,7 @@ export function CreateOrganizationBase(props){
       <AddPhoto
         disableLoading
         className={classes.addPhoto}
+        imageSize={100}
       />
       <Grid
         container
