@@ -23,6 +23,10 @@ export function TouchableTooltip(props){
   const [touching, setTouching] = React.useState(false);
   const [hover, setHover] = React.useState(false);
 
+	const className = props.keepOpenOnClick ?
+		classes.keepOpenChildrenContainer : classes.childrenContainer
+	const finalClassName = `${className} ${props.className}`
+
 	const handleTouch = (value) => {
 		if(!props.keepOpenOnClick){
 			setOpenUsersList(value)
@@ -40,6 +44,7 @@ export function TouchableTooltip(props){
 		}
 	} 
 
+	
   return (
 		<ClickAwayListener 
 			onClickAway={() => setOpenUsersList(false)}
@@ -66,10 +71,7 @@ export function TouchableTooltip(props){
 
 					onClick={props.keepOpenOnClick ? () => setOpenUsersList(!openUsersList) : () => {}}
 
-					className={
-						props.keepOpenOnClick ?
-							classes.keepOpenChildrenContainer : classes.childrenContainer
-					}
+					className={finalClassName}
 				>
 					{props.children}
 				</div>
