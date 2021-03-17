@@ -25,14 +25,9 @@ export class WebsiteController{
       }
       else {
         let url;
-        if(website.startsWith('http'))
-          url = website;
-        else
-          url = `https://${website}`
-
-          fetch(url, {mode: "no-cors"})
-            .then(r => resolve("correctWebsite"))
-            .catch(_=> resolve("websiteError"))
+        fetch(url, {mode: "no-cors"})
+          .then(r => resolve("correctWebsite"))
+          .catch(_=> resolve("websiteError"))
       }
     })
   }
