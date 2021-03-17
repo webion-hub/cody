@@ -53,7 +53,7 @@ export const joinOrganizationSettings = {
   onBack: (e) => PageController.updateHash("", e)
 }
 
-function JoinOrganization(props){
+function JoinOrganization(){
 	const theme = useTheme();
   const classes = useStyles();
   const listRef = useRef();
@@ -172,9 +172,7 @@ function JoinOrganization(props){
                 <OrganizationsListItem
                   key={index}
                   maxListItemWidth={maxListItemWidth}
-                  kind={element.kind}
-                  name={element.name}
-                  location={element.detail.location}
+                  data={element}
                 />
               ))
             }

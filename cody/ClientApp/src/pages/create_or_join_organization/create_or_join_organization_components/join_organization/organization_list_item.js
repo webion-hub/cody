@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, IconButton, Typography } from '@material-ui/core'
+import { useTheme, ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, IconButton, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
@@ -10,6 +10,7 @@ import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 import Button from '@material-ui/core/Button';
 
 import { FlowingText } from 'src/components/typography/flowing_text';
+import { TouchableTooltip } from 'src/components/touchable_tooltip';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -17,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
   listItemIcon: {
     minWidth: 0,
-    paddingRight: 16,
+    paddingRight: theme.spacing(2),
   },
+  members: {
+    marginRight: theme.spacing(2),
+  }
 }));
 
 export function OrganizationsListItem(props){
@@ -36,10 +40,15 @@ export function OrganizationsListItem(props){
     }
   }
 
+  const membersCountLabel = props.data.membersCount === 1 ? 
+    `${props.data.membersCount} Utente` : `${props.data.membersCount} Utenti`
+  const locationLabel = props.data.detail.location?
+    ` - ${props.data.detail.location}` : ""
+
   return(
     <ListItem className={classes.listItem}>  
       <ListItemIcon className={classes.listItemIcon}>
-        {getIcon(props.kind)}
+        {getIcon(props.data.kind)}
       </ListItemIcon>
       <ListItemText
         primary={
@@ -48,33 +57,41 @@ export function OrganizationsListItem(props){
               containerWidth={props.maxListItemWidth}
               background={theme.palette.background.paperSecondary}          
             >
-              {props.name}      
+              {props.data.name}      
             </FlowingText>
             <FlowingText
+              variant="caption"
+              color="textSecondary"
               containerWidth={props.maxListItemWidth}
-              background={theme.palette.background.paper}          
+              background={theme.palette.background.paperSecondary}          
             >
-              <Typography
-                variant="caption"
-                component="span"
-                color="textSecondary"
-              >
-                {props.location}
-              </Typography>       
+              {membersCountLabel}{locationLabel}    
             </FlowingText>
           </>
         }
       />
       <ListItemSecondaryAction>
-        <Button
-          variant="outlined"
-          color="secondary"
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
         >
-          Unisciti
-        </Button>
-        <IconButton edge="end" aria-label="delete">
-          <OpenInNewRoundedIcon/>
-        </IconButton>
+         
+          <Button
+            variant="outlined"
+            color="secondary"
+            disabled={props.data.state.hasBeenDeleted}
+          >
+            Unisciti
+          </Button>
+          <IconButton 
+            edge="end" 
+            aria-label="delete"
+            disabled={props.data.state.hasBeenDeleted}
+          >
+            <OpenInNewRoundedIcon/>
+          </IconButton>
+        </Grid>
       </ListItemSecondaryAction>
     </ListItem>
   )
