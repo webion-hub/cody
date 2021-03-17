@@ -36,7 +36,7 @@ export const getElements = ({
     {
       controller: null,
       element: <OptionalData
-        onSchoolChange = {handleDataChange("school")}
+        onProfileImageChange = {handleDataChange("profileImage")}
         values = {data}
       />, 
     },
