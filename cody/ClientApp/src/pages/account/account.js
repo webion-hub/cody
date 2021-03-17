@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Box, Grid, Paper } from '@material-ui/core';
 
 import { LoadingButton } from 'src/components/buttons/loading_button'
-import { InfoBox } from './account_components/info_box';
-import { DataForms } from './account_components/data_forms';
-import { AccountErrorsController } from './account_errors_controller';
-import { accountStyles } from './account_styles';
-import { nullData, noErrors } from './default_states';
+import { InfoBox } from './components/info_box';
+import { DataForms } from './components/data_forms';
+import { AccountErrorsController } from './lib/account_errors_controller';
+import { accountStyles } from './styles/account_styles';
+import { nullData, noErrors } from './default_values/default_states';
 
 import { ProfilePicture } from 'src/lib/profile_picture'
 import { UserAccountInfo } from 'src/lib/user_account_info'

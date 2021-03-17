@@ -3,11 +3,10 @@ import { Box } from '@material-ui/core';
 import { animated } from 'react-spring'
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Colors } from 'src/lib/default_values/themes/colors/main_colors';
-import { P1 } from './p1';
-import { P2 } from './p2';
-import { P3 } from './p3';
-import { P4 } from './p4';
+import { P1 } from './components/p1';
+import { P2 } from './components/p2';
+import { P3 } from './components/p3';
+import { P4 } from './components/p4';
 
 
 const useStyles = makeStyles((theme) => ({

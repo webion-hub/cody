@@ -6,10 +6,10 @@ import { Link } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { SignUpCompleted } from './sign_up_steps/sign_up_completed';
-import { CustomStepper } from 'src/components/stepper/custom_stepper';
-import { getElements } from './sign_up_components/getElements';
-import { dataDefault, noErrors } from './sign_up_components/default_values';
+import { SignUpCompleted } from './steps/form_completed/sign_up_completed';
+import { CustomStepper } from 'src/components/stepper/custom_stepper/custom_stepper';
+import { getElements } from './components/getElements';
+import { dataDefault, noErrors } from './default_values/default_values';
 
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { UserContext } from 'src/components/user_controller_context';

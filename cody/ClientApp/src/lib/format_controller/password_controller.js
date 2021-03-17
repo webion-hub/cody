@@ -1,5 +1,5 @@
 import zxcvbn from 'zxcvbn';
-import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
+import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 
 export class PasswordController{
   wrongFormat(password){

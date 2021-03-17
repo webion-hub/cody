@@ -6,7 +6,7 @@ import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Authentication } from 'src/components/illustrations/authentication';
-import { LoginBox } from './login_box';
+import { LoginBox } from './components/login_box';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 

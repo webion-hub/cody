@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
 
 import { DataTableTitleControllers } from 'src/pages/admin_pages/components/data_table_title_controllers';
-import { dataTableStyles } from 'src/pages/admin_pages/components/data_table_styles';
+import { dataTableStyles } from 'src/pages/admin_pages/styles/data_table_styles';
 import { DataTableController } from 'src/pages/admin_pages/lib/data_table_controller';
 
 

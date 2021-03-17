@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AppBar } from '@material-ui/core';
-import { Hidden } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
@@ -15,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
-import { getSection } from 'src/components/nav_menu/bars/appbar/getSection';
+import { getSection } from 'src/components/nav_menu/bars/appbar/components/get_section';
 
 const dynamicAppbarStyles = makeStyles((theme) => ({
   rightSection: {

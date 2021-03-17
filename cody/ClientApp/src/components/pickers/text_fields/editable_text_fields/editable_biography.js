@@ -4,7 +4,7 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { Reading } from 'src/components/illustrations/reading'
 import { Form } from 'src/lib/default_values/sizes/form_size';
-import { FormatLengthController } from 'src/lib/format_controller/format_length_controller'
+import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 
 export function EditableBiography(props){
 	const [editMode, setEditMode] = React.useState(false);

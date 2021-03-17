@@ -3,7 +3,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { GenericSearchBar } from 'src/components/pickers/search_bar/generic_search_bar';
+import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 
 import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import NavigateBeforeRoundedIcon from '@material-ui/icons/NavigateBeforeRounded';

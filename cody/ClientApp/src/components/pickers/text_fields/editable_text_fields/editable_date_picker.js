@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Box, TextField, IconButton, InputAdornment, Button, Grid } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
-import { DatePicker } from 'src/components/pickers/text_fields/date_picker';
+import { DatePicker } from 'src/components/pickers/text_fields/others/date_picker';
 import { DialogBase } from 'src/components/bases/dialog_base';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';

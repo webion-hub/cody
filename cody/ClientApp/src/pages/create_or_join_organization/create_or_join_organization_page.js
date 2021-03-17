@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 
 import { BackgroundWithLines } from 'src/components/background_with_lines';
 
-import { OrganizationsInfo } from 'src/pages/create_or_join_organization/create_or_join_organization_components/organizations_info';
-import { selectActionSettings } from 'src/pages/create_or_join_organization/select_action';
+import { OrganizationsInfo } from 'src/pages/create_or_join_organization/components/organizations_info';
+import { selectActionSettings } from 'src/pages/create_or_join_organization/pages/select_action/select_action';
 
-import { createOrganizationSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_organization';
-import { createTeamSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_team';
-import { createSchoolSettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_school';
-import { createCompanySettings } from 'src/pages/create_or_join_organization/create_organization_pages/create_company';
+import { createOrganizationSettings } from 'src/pages/create_or_join_organization/pages/create/create_organization';
+import { createTeamSettings } from 'src/pages/create_or_join_organization/pages/create/pages/create_team';
+import { createSchoolSettings } from 'src/pages/create_or_join_organization/pages/create/pages/create_school';
+import { createCompanySettings } from 'src/pages/create_or_join_organization/pages/create/pages/create_company';
 
-import { joinOrganizationSettings } from 'src/pages/create_or_join_organization/join_organization';
+import { joinOrganizationSettings } from 'src/pages/create_or_join_organization/pages/join/join_organization';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base';

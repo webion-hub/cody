@@ -1,11 +1,11 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
 import { Login } from './pages/login/login';
 import { SignUp } from './pages/sign_up/sign_up';
-import { Error404Page } from './pages/error404_page';
-import { EmailValidPage } from './pages/email_valid_page';
+import { Error404Page } from './pages/message_pages/error404_page';
+import { EmailValidPage } from './pages/message_pages/email_valid_page';
 import { Home } from './pages/home/home';
 import { Account } from './pages/account/account';
 import { Test } from './pages/test';

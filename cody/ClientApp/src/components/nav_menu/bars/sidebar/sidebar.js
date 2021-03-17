@@ -8,8 +8,8 @@ import { useMediaQuery } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
 
-import { sidebarStyles } from './sidebar_styles'
-import { DrawerList } from './drawer_list/drawer_list'
+import { sidebarStyles } from './styles/sidebar_styles'
+import { DrawerList } from './components/drawer_list/drawer_list'
 import { DynamicAppbar } from '../appbar/dynamic_appbar'
 
 export function SideBar(props) {

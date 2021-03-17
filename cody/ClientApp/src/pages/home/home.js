@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSpring } from 'react-spring'
 
-import { MainTextBox } from './home_components/main_text_box';
-import { DynamicSearchBar } from './home_components/dynamic_searchbar';
-import { MyClasses } from './home_components/my_classes/my_classes';
+import { MainTextBox } from './components/main_text_box';
+import { DynamicSearchBar } from './components/dynamic_searchbar';
+import { MyClasses } from './components/my_classes/my_classes';
 import { Cpp } from 'src/components/icons/cpp';
 import { AnimatedCoding } from 'src/components/illustrations/animated_coding/animated_coding';
 import { BackgroundWithLines } from 'src/components/background_with_lines';
