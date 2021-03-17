@@ -22,19 +22,18 @@ export function useSetOrganizationsValue(elementLoadingLimit){
       if(settings.mergeResultWith === undefined)
         setOrganizations(organizations)
       else {
-        setOrganizations(
-          settings.mergeResultWith.concat(organizations)
-        )
+        const fullList = settings.mergeResultWith.concat(organizations)
+        setOrganizations(fullList)
       }
     });
   }
 
   const getFilter = (filter) => {
-    const schoolFilter = filter.schools ? "" : "-School"
-    const teamFilter = filter.teams ? "" : "-Team"
-    const companiesFilter = filter.companies ? "" : "-Company"
+    const schoolFilter = filter.schools ? "" : "-School "
+    const teamFilter = filter.teams ? "" : "-Team "
+    const companiesFilter = filter.companies ? "" : "-Company "
 
-    return `${schoolFilter} ${teamFilter} ${companiesFilter}`;
+    return `${schoolFilter}${teamFilter}${companiesFilter}`;
   }
   
 
