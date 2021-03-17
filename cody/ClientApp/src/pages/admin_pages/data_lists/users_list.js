@@ -3,6 +3,7 @@ import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base'
 import { RowMenu } from 'src/pages/admin_pages/components/row_menu';
 import { Admin } from 'src/lib/admin';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
+import { getEmailValidIcon } from 'src/pages/admin_pages/lib/get_email_valid_icon';
 
 export function UsersList(props){
 	const associateUsers = (settings) => {
@@ -18,6 +19,7 @@ export function UsersList(props){
 			/>
 
 		const birthDate = new Date(data.detail.birthDate)
+		const registrationDate = new Date(data.detail.registrationDate)
 		list.push({
 			menu: menu,
 			id: index,
@@ -27,7 +29,9 @@ export function UsersList(props){
 			name: data.detail.name,
 			surname: data.detail.surname,
 			birthDate: birthDate.toLocaleDateString(),
+			registrationDate: registrationDate.toLocaleDateString(),
 			deleted: getDeletedIcon(data.state.hasBeenDeleted),
+			emailValid: getEmailValidIcon(data.state.isEmailValid),
 		})
 	}
 
@@ -39,7 +43,9 @@ export function UsersList(props){
 		{ selector: 'name', name: 'Nome', sortable: true },
 		{ selector: 'surname', name: 'Cognome', sortable: true },
 		{ selector: 'birthDate', name: 'Data di nascita', sortable: true },
+		{ selector: 'registrationDate', name: 'Data di registrazione', sortable: true },
 		{ selector: 'deleted', name: 'Stato' },
+		{ selector: 'emailValid', name: 'Email verificata' },
 	]
 
 	return (

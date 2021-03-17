@@ -29,6 +29,7 @@ export function OrganizationsList(props){
 			kind: getKindIcon(data.kind),
 			name: data.name,
 			location: data.detail.location,
+			members: data.membersCount,
 			verified: getVerificationIcon(data.state.hasBeenVerified),
 			deleted: getDeletedIcon(data.state.hasBeenDeleted),
 		})
@@ -40,6 +41,7 @@ export function OrganizationsList(props){
 		{	selector: 'kind', name: 'Kind' },
 		{	selector: 'name', name: 'Nome', sortable: true },
 		{	selector: 'location', name: 'Luogo', sortable: true },
+		{	selector: 'members', name: 'Membri', sortable: true },
 		{ selector: 'verified', name: 'Verificato' },
 		{ selector: 'deleted', name: 'Stato' },
 	]
