@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   stepperTopArea: {
     background: "transparent",
+    width: "100%"
   },
 }));
 
