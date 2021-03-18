@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   termsAndService: {
     [theme.breakpoints.down('xs')]: {
-      marginBottom: theme.spacing(8),
+      marginBottom: 13,
     },
   },
   termsAndServiceTypography: {
@@ -79,10 +79,8 @@ export function SignUp(){
       data: setUser(data),
       registrationErrors: registrationErrors,
       onSuccess: () => setLoggedWithoutRefresh(true),
-      onError: (errors) => {
-        setOpenAlert(true)
-        setRegistrationErrors(errors)
-      }
+      onError: (errors) => setRegistrationErrors(errors),
+      onOpenAlert: (open) => setOpenAlert(open),
     })
   }
 
