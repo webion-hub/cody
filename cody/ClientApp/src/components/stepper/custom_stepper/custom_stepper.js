@@ -10,6 +10,7 @@ import { useStepper } from './hooks/use_stepper';
 import { StepperLeftButton } from './components/stepper_left_button';
 import { StepperRightButton } from './components/stepper_right_button';
 import { DialogBase } from 'src/components/bases/dialog_base';
+import { PaperWithTransitionBase } from 'src/components/bases//paper_with_transition_base';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,7 @@ export function CustomStepper(props){
   const [loading, setLoading] = React.useState(false);
 
   const content = props.elements[activeStep].element
+  const height = props.elements[activeStep].height
 
   const handleNextWithFormControl = () => {
     setLoading(true);
@@ -41,6 +43,7 @@ export function CustomStepper(props){
     const data = props.data;
     if(controller === null){
       stepperHandlers.handleNext()
+      setLoading(false);
       return;
     }
 
@@ -75,14 +78,17 @@ export function CustomStepper(props){
 
   return (
     <>
-      <StepperTopArea
-        activeStep={activeStep}
-        steps={props.elements}
-      />
-      <Grid
-        container
+      <PaperWithTransitionBase
+        width={616}
+        height={height}
         direction="column"
-      > 
+        title={
+          <StepperTopArea
+            activeStep={activeStep}
+            steps={props.elements}
+          />
+        }
+      >
         {content}
         <Grid
           container
@@ -107,29 +113,29 @@ export function CustomStepper(props){
             loading={loading}
           />
         </Grid>
-      </Grid>
-      <DialogBase
-        className={classes.formCompletedDialog}
-        open={openFormCompleted}
-        onClose={() => PageController.refresh()}
-      >
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
+      </PaperWithTransitionBase>
+        <DialogBase
+          className={classes.formCompletedDialog}
+          open={openFormCompleted}
+          onClose={() => PageController.refresh()}
         >
-          {props.formCompleted}
-          <Button
-            className={classes.formCompletedButton}
-            variant="contained"
-            color="primary"
-            onClick={() => PageController.refresh()}
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
           >
-            Vai alla home
-          </Button>
-        </Grid>
-      </DialogBase>
+            {props.formCompleted}
+            <Button
+              className={classes.formCompletedButton}
+              variant="contained"
+              color="primary"
+              onClick={() => PageController.refresh()}
+            >
+              Vai alla home
+            </Button>
+          </Grid>
+        </DialogBase>
     </>
   );
 }
