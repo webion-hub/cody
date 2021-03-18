@@ -1,10 +1,10 @@
-import { EmailPassword } from '../steps/1_email_password/email_password_step';
-import { EmailPasswordController } from '../steps/1_email_password/email_password_controller';
+import { EmailPassword } from './1_email_password/email_password_step';
+import { EmailPasswordController } from './1_email_password/email_password_controller';
 
-import { IDData } from '../steps/2_ID_data/id_step';
-import { IDController } from '../steps/2_ID_data/id_controller';
+import { IDData } from './2_ID_data/id_step';
+import { IDController } from './2_ID_data/id_controller';
 
-import { OptionalData } from '../steps/3_optional/optional_step';
+import { OptionalData } from './3_optional/optional_step';
 
 export const getElements = ({
   handleDataChange,
@@ -14,6 +14,7 @@ export const getElements = ({
   return [
     {
       controller: new EmailPasswordController(),
+      height: 436,
       element: <EmailPassword
         onEmailChange = {handleDataChange("email")}
         onPasswordChange = {handleDataChange("password")}
@@ -24,6 +25,7 @@ export const getElements = ({
     },
     {
       controller: new IDController(),
+      height: 505,
       element: <IDData
         onUsernameChange = {handleDataChange("username")}
         onNameChange = {handleDataChange("name")}
@@ -35,6 +37,7 @@ export const getElements = ({
     },  
     {
       controller: null,
+      height: 393,
       element: <OptionalData
         onProfileImageChange = {handleDataChange("profileImage")}
         values = {data}
