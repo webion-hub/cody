@@ -3,6 +3,8 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
 
@@ -10,11 +12,18 @@ const useStyles = makeStyles((theme) => ({
   flipImage: {
     transform: "scaleX(-1)",
   },
+  children: {
+    [theme.breakpoints.up('sm')]: {
+      width: "50%"
+    },
+  }
 }));
 
 
 export function BasePhotoText(props) {
   const classes = useStyles();
+	const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   const propsItems = props.items? props.items : [];
   const items = propsItems.map((item, index) => 
@@ -27,6 +36,8 @@ export function BasePhotoText(props) {
     </Box>
   );
   
+  const image = <props.image maxWidth={Form.width} size={mobileView ? "100%" : "50%"}/>
+
   return (
     <Grid
       container
@@ -40,16 +51,17 @@ export function BasePhotoText(props) {
       {
         props.flipImage ? 
           <div className={classes.flipImage}>
-            <props.image maxWidth={Form.width} size="100%"/>
+            {image}
           </div>
           :
-          <props.image maxWidth={Form.width} size="100%"/>
+          image
         }        
       <Grid
         container
         direction="column"
         alignItems="center"
         justify="center"
+        className={classes.children}
         style={{maxWidth: Form.width}}
       >
         {items}
