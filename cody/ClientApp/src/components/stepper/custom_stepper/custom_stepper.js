@@ -21,6 +21,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       padding: `${theme.spacing(8)}px !important`
     },
+  },
+  buttons: {
+    [theme.breakpoints.down('xs')]: {
+      position: "absolute",
+      bottom: 0,
+      padding: theme.spacing(1)
+    },
   }
 }));
 
@@ -81,6 +88,7 @@ export function CustomStepper(props){
       <PaperWithTransitionBase
         width={616}
         height={height}
+        removeHeightOnMobile={32}
         direction="column"
         title={
           <StepperTopArea
@@ -91,6 +99,7 @@ export function CustomStepper(props){
       >
         {content}
         <Grid
+          className={classes.buttons}
           container
           direction="row"
           justify="space-between"
