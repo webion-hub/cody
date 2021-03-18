@@ -1,46 +1,29 @@
 import React from 'react';
 
 import { Grid } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
 import { Link } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { SignUpCompleted } from './steps/form_completed/sign_up_completed';
 import { CustomStepper } from 'src/components/stepper/custom_stepper/custom_stepper';
-import { getElements } from './components/getElements';
-import { dataDefault, noErrors } from './default_values/default_values';
-
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { UserContext } from 'src/components/user_controller_context';
-import { AlertDialog } from 'src/components/dialogs/alert_dialog';
+import { SignUpAlertError } from './components/sign_up_alert_error';
 
-import { User } from 'src/lib/user';
-import { ProfilePicture } from 'src/lib/profile_picture';
+import { dataDefault, noErrors } from './default_values/default_values';
+
+import { SignUpCompleted } from './steps/form_completed/sign_up_completed';
+import { getElements } from './steps/getElements';
+
 import { Images } from 'src/lib/default_values/images/images';
 import { PageController } from 'src/lib/page_controller';
-import { waves } from 'src/lib/default_values/images/svg_backgrounds';
+import { tryRegister } from './lib/try_register';
 
 export const useStyles = makeStyles((theme) => ({
   pageContainer: {
-    minHeight: "100vh",
     backgroundImage: `url(${Images.forestImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center center",
-  },
-  paper: {
-    background: theme.palette.background.paperSecondary,
-    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-    padding: theme.spacing(2),
-    maxWidth: 632,
-    width: "100%",
-    marginTop: theme.appBar.fullHeight,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.appBar.mobileHeight + theme.spacing(4),
-    },
   },
   termsAndService: {
     [theme.breakpoints.down('xs')]: {
@@ -91,55 +74,15 @@ export function SignUp(){
     } 
   }
 
-  const tryRegister = () => {
-    setRegistrationErrors({
-      registerError: null,
-      missingFields: null,
-      imageUploadError: null,  
-    })
-
-    return new Promise(resolve => {
-      User.tryRegister({
-        user: setUser(data),
-  
-        onSuccess: _ => {
-          setLoggedWithoutRefresh(true)
-          if (data.profileImage == null){            
-            resolve(true)
-          }
-          else{
-            ProfilePicture
-              .createOrUpdate({
-                base64: data.profileImage,
-              })
-              .then(_ => resolve(true))
-              .catch(_ => {
-                setOpenAlert(true)
-                setRegistrationErrors({
-                  ...registrationErrors,
-                  imageUploadError: "Prova a ricaricare l'immagine più tardi."
-                })
-                resolve(false)
-              });
-          }
-        },
-        onError: reasons => {
-          setOpenAlert(true)  
-          setRegistrationErrors({
-            ...registrationErrors,
-            registerErrors: reasons
-          })
-          resolve(false)
-        },
-        onMissingFields: reasons => {
-          setOpenAlert(true)  
-          setRegistrationErrors({
-            ...registrationErrors,
-            missingFields: "Manca data di nascita"
-          })
-          resolve(false)
-        },
-      })
+  const tryRegisterPrep = () => {
+    return tryRegister({
+      data: setUser(data),
+      registrationErrors: registrationErrors,
+      onSuccess: () => setLoggedWithoutRefresh(true),
+      onError: (errors) => {
+        setOpenAlert(true)
+        setRegistrationErrors(errors)
+      }
     })
   }
 
@@ -153,16 +96,14 @@ export function SignUp(){
     <CenterComponentPageBase
       className={classes.pageContainer}
       direction="column"
-    >        
-      <Paper className={classes.paper}>
-        <CustomStepper
-          data={data}
-          setErrors={setErrors}
-          elements={elementsList}
-          formCompleted={<SignUpCompleted/>}
-          onFormCompleted={tryRegister}
-        />
-      </Paper>
+    >     
+      <CustomStepper
+        data={data}
+        setErrors={setErrors}
+        elements={elementsList}
+        formCompleted={<SignUpCompleted/>}
+        onFormCompleted={tryRegisterPrep}
+      />   
       <div className={classes.termsAndService}>
         <Grid
           container
@@ -187,38 +128,9 @@ export function SignUp(){
           </Link>
         </Grid>
       </div>
-      <AlertDialog
+      <SignUpAlertError
         open={openAlert}
-        onClose={() => setOpenAlert(false)}
-        items={[
-          <Grid
-            container
-            direction="column"
-          >
-            {
-              registrationErrors.registerError ? 
-                [
-                  registrationErrors
-                    .registerErrors.map(e => ({
-                      username: <Typography variant="body2">errore inserimento username</Typography>,
-                      name: <Typography variant="body2">errore inserimento nome</Typography>, 
-                      surname: <Typography variant="body2">errore inserimento cognome</Typography>, 
-                      email: <Typography variant="body2">errore inserimento email</Typography>,
-                      password: <Typography variant="body2">errore inserimento password</Typography>,
-                      birthDate: <Typography variant="body2">errore inserimento data nascita</Typography>,
-                    }[e]))
-                ]
-                :
-                null
-            }
-          </Grid>,
-          <Typography variant="body2">
-            {registrationErrors.missingFields}
-          </Typography>,
-          <Typography variant="body2">
-            {registrationErrors.imageUploadError}
-          </Typography>,
-        ]}
+        registrationErrors={registrationErrors}
       />
     </CenterComponentPageBase>
   );
