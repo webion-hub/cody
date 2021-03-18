@@ -4,7 +4,6 @@ import { Colors } from 'src/lib/default_values/themes/colors/main_colors';
 
 export function P2(props){
   const svgColor = Colors.primary;
-  const svgColorSecondary = Colors.secondary;
 
   return (
     <Box 

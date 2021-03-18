@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, Link, Button, TextField, Paper } from '@material-ui/core';
+import { Grid, Typography, Link, Button, TextField } from '@material-ui/core';
 import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { Reading } from 'src/components/illustrations/reading'
@@ -21,6 +21,8 @@ export function EditableBiography(props){
 	useEffect(() => {
     setValue(props.value)
     setTempValue(props.value)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.value])
 
 	const handleEdit = () => {

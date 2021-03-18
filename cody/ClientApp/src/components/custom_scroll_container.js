@@ -7,12 +7,13 @@ import { useMediaQuery } from '@material-ui/core'
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 
-import { getWindowDimensions } from 'src/lib/window_dimensions'
+import { useGetSize } from 'src/lib/hooks/use_get_size';
 
 export function CustomScrollContainer(props){
 	const theme = useTheme();
 	const contentRef = useRef();
 	const scrollRef = useRef();
+	const screenWidth = useGetSize(window).width;
 
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 	const arrowWidth = 48;
@@ -22,6 +23,7 @@ export function CustomScrollContainer(props){
 	const [usingAnotherOne, setUsingAnotherOne] = React.useState(false);
 
 	//on each render
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		const noScrollElements = scrollRef.current.querySelectorAll('.noScroll');
 		noScrollElements.forEach.call(noScrollElements, (element) => {
@@ -32,6 +34,7 @@ export function CustomScrollContainer(props){
 	})
 
 	//handle scrollable container reset
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		window.addEventListener('mouseup', resetScrollableContainer)
 
@@ -39,6 +42,7 @@ export function CustomScrollContainer(props){
 	}, [scrollRef.current])
 
 	//handle scrollable container drag
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
     if (activeDrag) 
 			window.addEventListener("mousemove", handleDrag);
@@ -47,6 +51,7 @@ export function CustomScrollContainer(props){
 	}, [activeDrag])
 
 	//handle resize
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     window.addEventListener('resize', updateHeight);
 		
@@ -82,7 +87,7 @@ export function CustomScrollContainer(props){
 	const getScrollStep = () => { 
 		const arrowsWidth = arrowWidth*2;
 		const elementsPadding = props.elementsPadding? props.elementsPadding : 0
-		return getWindowDimensions().width - arrowsWidth + elementsPadding;
+		return screenWidth - arrowsWidth + elementsPadding;
 	}
 
 

@@ -5,7 +5,7 @@ export const setOpacityColor = (color, opacity) => {
     const rgbColor = hexToRgb(color)
 
     newColor = "rgba"
-    for(var i = 3; i < rgbColor.length - 1; i++){
+    for(let i = 3; i < rgbColor.length - 1; i++){
       newColor += rgbColor[i];
     }
 
@@ -14,7 +14,7 @@ export const setOpacityColor = (color, opacity) => {
   else if(color.substring(0,4) === "rgb(")
   {
     newColor = "rgba"
-    for(var i = 3; i < color.length - 1; i++){
+    for(let i = 3; i < color.length - 1; i++){
       newColor += color[i];
     }
 
@@ -23,7 +23,7 @@ export const setOpacityColor = (color, opacity) => {
   else if(color.substring(0,4) === "rgba")
   {
     newColor = "rgba"
-    for(var i = 4; i < color.length - 2; i++){
+    for(let i = 4; i < color.length - 2; i++){
       newColor += color[i];
     }
 

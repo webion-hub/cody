@@ -12,5 +12,7 @@ export const getKindIcon = (kind) => {
       return <SchoolRoundedIcon fontSize="small"/>
     case "Company":
       return <BusinessCenterRoundedIcon fontSize="small"/>
+    default: 
+      return;
   }
 }

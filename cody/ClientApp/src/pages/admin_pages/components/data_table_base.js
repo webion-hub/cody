@@ -44,6 +44,7 @@ export function DataTableBase(props){
 
 	useEffect(() => {
 		refreshDataTable(dataTableSettings)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const refreshDataTable = (settings, pageMove) => {

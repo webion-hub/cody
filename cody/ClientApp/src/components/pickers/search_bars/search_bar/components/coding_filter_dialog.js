@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from '@material-ui/core';
@@ -23,11 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export function CodingFilterDialog(props) {
   const classes = useStyles();
   const [languageValue, setLanguageValue] = React.useState(null);
-  const [defaultLanguage, setDefaultLanguage] = React.useState(null);
-
-  useEffect(() => {
-    setDefaultLanguage(props.defaultValue);
-  }, []);
+  const [defaultLanguage, setDefaultLanguage] = React.useState(props.defaultValue);
 
   const handleChange = (value) => {
     setLanguageValue(value);

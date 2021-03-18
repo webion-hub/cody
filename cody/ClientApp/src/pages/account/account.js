@@ -118,7 +118,7 @@ export function Account(){
   }
 
   const handleTrySave = () => {
-    const errorsController = new AccountErrorsController;
+    const errorsController = new AccountErrorsController();
 
     setLoadingSave(true);
     setErrors(noErrors);
@@ -145,7 +145,7 @@ export function Account(){
               .set('biography', data.biography)
             .send()
             .then(res => {
-              if(res.set.length != 0){
+              if(res.set.length !== 0){
                 //Are errors during saving data
                 setLoadingSave(false);
                 setOpenAlert(true)

@@ -25,7 +25,9 @@ export function SideBar(props) {
       setFullWidth(false);
     else 
       setMobileOpen(false);
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mobileView]);
   
   const getAppBarSections = () => {
     const leftIsNull = props.appBarSections.left === null;

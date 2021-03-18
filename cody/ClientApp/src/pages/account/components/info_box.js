@@ -66,7 +66,9 @@ export function InfoBox(props){
 	useEffect(() => {
 		if(!props.loading && data === undefined)
       setData(props.data)
-	})
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.loading, data])
 
   const getValue = (dataName) => (value) => {	
     const updateData = {

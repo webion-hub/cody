@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Avatar, CircularProgress, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
@@ -19,6 +19,7 @@ export function CustomAvatar(props){
       checkImage()
   }
 
+
   const checkImage = () => {
     var img = new Image();
     img.onload = () => {
@@ -32,15 +33,12 @@ export function CustomAvatar(props){
     img.src = props.src;
   }
 
-  useEffect(() => {
-    handleLoading();
-  }, [])
-
   const finalLoading = loading && !disableLoading
   const finalSize = size? size : 40
 
   const extraLoadingWidth = finalSize / 5
   const loadingSize = finalSize + extraLoadingWidth;
+  handleLoading();
 
   return (
     <div

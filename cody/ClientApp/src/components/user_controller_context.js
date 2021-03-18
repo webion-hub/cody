@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom'
-import history from 'src/history';
 
 import { PageController } from 'src/lib/page_controller';
 import { User } from 'src/lib/user';
@@ -70,6 +68,8 @@ export function UserControllerContext(props){
         }
       })
       .then(() => setLoading(false));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, []);
     
   const value = { 

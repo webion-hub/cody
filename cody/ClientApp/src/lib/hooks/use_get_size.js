@@ -11,6 +11,7 @@ export function useGetSize(ref){
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref.current]);
 
   const updateSize = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
 import { CustomizableMenuContext } from 'src/components/nav_menu/customizable_menu';
@@ -58,7 +58,7 @@ export function DynamicSearchBar(){
       setHomeAppBar();
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setHomeAppBar();
 
     window.addEventListener("scroll", scrollHandler, true);
@@ -70,6 +70,7 @@ export function DynamicSearchBar(){
         right: true,
       });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return(

@@ -66,7 +66,7 @@ export function AdminPage(){
 function DataTab(props){
 	return (
 		<div
-			hidden={props.index != props.tabValue}
+			hidden={props.index !== props.tabValue}
 		>
 			{props.children}
 		</div>

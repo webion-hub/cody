@@ -31,12 +31,6 @@ export function AddPhoto(props){
     setCroppedImage(props.value)
   }, [props.value])
 
-  const resetImage = () => {
-    setImage(props.value);
-    const {image} = props;
-    image(props.value);
-  }
-
   const deleteImage = () => {
     setCroppedImage(null);
     const {image} = props;
@@ -59,7 +53,7 @@ export function AddPhoto(props){
    */
    const fileSelectedHandler = (event) => {
     let file = event.target.files[0];
-    if(event.target.files[0] !== null){ 
+    if(file !== null){ 
       const imageOrientation = new ImageOrientation()
 
       imageOrientation.

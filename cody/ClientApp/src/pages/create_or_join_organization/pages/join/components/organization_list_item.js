@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, IconButton, Typography, Grid } from '@material-ui/core'
+import { useTheme, ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, IconButton, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
@@ -36,6 +36,8 @@ export function OrganizationsListItem(props){
         return <GroupRoundedIcon/>;
       case "Company":        
         return <BusinessCenterRoundedIcon/>;
+      default:
+        return;
     }
   }
 

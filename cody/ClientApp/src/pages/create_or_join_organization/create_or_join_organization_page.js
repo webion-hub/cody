@@ -25,6 +25,7 @@ export function CreateOrJoinOrganization(){
     const value = hash.replace('#', '')
 
     setContent(value)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.hash])
 
   const setContent = (hash) => {

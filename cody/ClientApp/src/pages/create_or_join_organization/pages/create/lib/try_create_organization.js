@@ -6,7 +6,7 @@ export function tryCreateOrganization(settings){
   const kind = settings.kind;
 
   return new Promise(resolve => {
-    const errorController = new CreateOrganizationErrorController;
+    const errorController = new CreateOrganizationErrorController();
 
     errorController
       .checkAll(data, kind)

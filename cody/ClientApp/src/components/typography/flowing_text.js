@@ -49,6 +49,8 @@ export function FlowingText(props){
 	useEffect(() => {
 		setTextWidth(ref.current.offsetWidth);
 		setTextHeight(ref.current.offsetHeight*1.5);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps    
 	}, []);
 	
 	const colorTransparent = setOpacityColor(props.background, 0);

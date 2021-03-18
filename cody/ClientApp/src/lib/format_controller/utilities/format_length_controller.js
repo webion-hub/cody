@@ -29,6 +29,9 @@ export class FormatLengthController{
         return formatLengths.passwordLength;
       case "description":
         return formatLengths.descriptionLength;
+      
+      default:
+        return;
     }
   }
 

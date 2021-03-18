@@ -32,6 +32,7 @@ export function BackgroundWithLines(props){
     updateElementsNumber();
     return () => window.removeEventListener('resize', updateElementsNumber);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 	const updateElementsNumber = () => {

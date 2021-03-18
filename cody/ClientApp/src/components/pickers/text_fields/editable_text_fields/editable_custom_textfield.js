@@ -16,7 +16,9 @@ export function EditableCustomTextField(props){
 	useEffect(() => {
 		if(!props.loading && value === undefined)
 			setValue(props.value)
-	})
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.loading, value])
 
 	const handleEdit = () => {
 		setEditMode(true);

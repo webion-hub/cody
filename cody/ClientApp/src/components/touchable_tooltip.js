@@ -37,7 +37,7 @@ export function TouchableTooltip(props){
 
 	const handleHover = (value) => {
 		if(!props.keepOpenOnClick){
-			if(!touching && !hover || !value){
+			if((!touching && !hover) || !value){
 				setOpenUsersList(value)			
 			}
 			setHover(value)

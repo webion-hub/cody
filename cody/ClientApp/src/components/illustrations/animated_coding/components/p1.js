@@ -3,7 +3,6 @@ import { Box } from '@material-ui/core';
 import { Colors } from 'src/lib/default_values/themes/colors/main_colors';
 
 export function P1(props){
-  const svgColor = Colors.primary;
   const svgColorSecondary = Colors.secondary;
 
   return (
