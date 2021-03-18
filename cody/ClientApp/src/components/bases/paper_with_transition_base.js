@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
       width: "100vw",
-      minHeight: "calc(100vh - 56px)",
-      maxHeight: "none",
+      minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px${props.removeHeightOnMobile})`,
+      height: "auto",
       marginTop: theme.appBar.mobileHeight,
     },
     transition: "max-width 0.25s, height 0.25s, height 0.25s",
   }),
   childrenContainer: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     "& > *": {
       animation: `$fade 0.5s linear`,
     }
@@ -45,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
 export function PaperWithTransitionBase(props){
   const width = props.width? props.width : "auto";
   const height = props.height? props.height : "auto";
-  const classes = useStyles({width, height});
+  const removeHeightOnMobile = props.removeHeightOnMobile? ` - ${props.removeHeightOnMobile}px` : "";
+
+  const classes = useStyles({width, height, removeHeightOnMobile});
 
   return(
     <Paper className={classes.paperBox}>
