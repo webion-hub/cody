@@ -14,7 +14,7 @@ import { FormatLengthController } from 'src/lib/format_controller/utilities/form
 import { AddLocation } from './add_location';
 import { prepareData } from '../../lib/prepare_data';
 import { CreateOrganizationContainer } from '../create_organization_container';
-import { AddPhoto } from 'src/components/pickers/text_fields/others/add_photo';
+import { AddPhoto } from 'src/components/pickers/others/add_photo';
 
 const useStyles = makeStyles((theme) => ({
   fields: {

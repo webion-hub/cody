@@ -10,16 +10,17 @@ import { LoginBox } from './components/login_box';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { Images } from 'src/lib/default_values/images';
+import { Images } from 'src/lib/default_values/images/images';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
+import { waves } from 'src/lib/default_values/images/svg_backgrounds';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
     background: theme.palette.background.paperSecondary,
-    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",

@@ -11,7 +11,7 @@ import { ImageOrientation } from 'src/lib/image_orientation';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { CustomAvatar } from '../../../custom_avatar';
+import { CustomAvatar } from '../../custom_avatar';
 
 export function AddPhoto(props){
   const [image, setImage] = React.useState(null);

@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
-import { AddPhoto } from 'src/components/pickers/text_fields/others/add_photo';
+import { AddPhoto } from 'src/components/pickers/others/add_photo';
 
 import { Step3 } from 'src/components/illustrations/step3';
 

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { AddPhoto } from 'src/components/pickers/text_fields/others/add_photo'
+import { AddPhoto } from 'src/components/pickers/others/add_photo'
 import { FlowingText } from 'src/components/typography/flowing_text'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
