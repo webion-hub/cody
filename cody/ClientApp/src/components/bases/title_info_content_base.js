@@ -9,12 +9,13 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { FlowingText } from '../typography/flowing_text';
 
 import { useGetSize } from 'src/lib/hooks/use_get_size';
+import { waves } from 'src/lib/default_values/images/svg_backgrounds';
 
 const useStyles = makeStyles((theme) => ({
   paperBox: props => ({
     position: "relative",
     background: theme.palette.background.paperSecondary,
-    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",

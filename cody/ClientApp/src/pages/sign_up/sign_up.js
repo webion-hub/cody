@@ -17,8 +17,9 @@ import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 
 import { User } from 'src/lib/user';
 import { ProfilePicture } from 'src/lib/profile_picture';
-import { Images } from 'src/lib/default_values/images';
+import { Images } from 'src/lib/default_values/images/images';
 import { PageController } from 'src/lib/page_controller';
+import { waves } from 'src/lib/default_values/images/svg_backgrounds';
 
 export const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -29,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   paper: {
     background: theme.palette.background.paperSecondary,
-    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",

@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { waves } from 'src/lib/default_values/images/svg_backgrounds';
 
 export const accountStyles = makeStyles((theme) => ({
   container: {
@@ -7,7 +8,7 @@ export const accountStyles = makeStyles((theme) => ({
   },
 	box: {
     background: theme.palette.background.paperSecondary,
-    backgroundImage: theme.palette.type === "dark" ? "url(images/waves/wavesDark.svg)" : "url(images/waves/wavesLight.svg)",
+    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
