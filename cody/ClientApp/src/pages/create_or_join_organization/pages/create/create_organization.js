@@ -48,7 +48,7 @@ export const createOrganizationSettings = {
   component: CreateOrganization,
   title: "Crea un'organizzazione",
   width: 450,
-  height: 468,
+  height: 484,
   href: "/organization",
   onBack: (e) => PageController.updateHash("", e)
 }

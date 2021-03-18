@@ -8,12 +8,12 @@ export const createSchoolSettings = {
   component: CreateSchool,
   title: "Aggiungi un Istituto",
   width: 450,
-  height: 654,
+  height: 670,
   href: "/organization#create",
   onBack: (e) => PageController.updateHash("create", e)
 }
 
-function CreateSchool(props){
+function CreateSchool(){
   return(
     <CreateOrganizationBase
       type="School"

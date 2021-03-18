@@ -13,7 +13,7 @@ export const selectActionSettings = {
   component: SelectAction,
   title: "Unisciti o crea un'organizzazione",
   width: 750,
-  height: 400,
+  height: 416,
   onBack: null
 }
 

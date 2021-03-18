@@ -8,12 +8,12 @@ export const createCompanySettings = {
   component: CreateCompany,
   title: "Aggiungi un' Azienda",
   width: 450,
-  height: 654,
+  height: 670,
   href: "/organization#create",
   onBack: (e) => PageController.updateHash("create", e)
 }
 
-function CreateCompany(props){
+function CreateCompany(){
   return(
     <CreateOrganizationBase
       type="Company"

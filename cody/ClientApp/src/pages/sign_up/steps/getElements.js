@@ -14,7 +14,7 @@ export const getElements = ({
   return [
     {
       controller: new EmailPasswordController(),
-      height: 436,
+      height: 452,
       element: <EmailPassword
         onEmailChange = {handleDataChange("email")}
         onPasswordChange = {handleDataChange("password")}
@@ -25,7 +25,7 @@ export const getElements = ({
     },
     {
       controller: new IDController(),
-      height: 505,
+      height: 521,
       element: <IDData
         onUsernameChange = {handleDataChange("username")}
         onNameChange = {handleDataChange("name")}
@@ -37,7 +37,7 @@ export const getElements = ({
     },  
     {
       controller: null,
-      height: 393,
+      height: 409,
       element: <OptionalData
         onProfileImageChange = {handleDataChange("profileImage")}
         values = {data}

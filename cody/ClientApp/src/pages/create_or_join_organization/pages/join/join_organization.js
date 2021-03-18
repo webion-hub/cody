@@ -48,7 +48,7 @@ export const joinOrganizationSettings = {
   component: JoinOrganization,
   title: "Unisciti ad un'organizzazione",
   width: 750,
-  height: 600,
+  height: 616,
   href: "/organization",
   onBack: (e) => PageController.updateHash("", e)
 }
@@ -79,6 +79,7 @@ function JoinOrganization(){
       value: "",
       offset: 0,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const goTop = () => {
