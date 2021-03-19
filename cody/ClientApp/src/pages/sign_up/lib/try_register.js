@@ -10,6 +10,7 @@ export const tryRegister = (settings) => {
 
   const data = settings.data;
   const registrationErrors = settings.registrationErrors;
+  const profileImage = settings.profileImage;
 
   return new Promise(resolve => {
     User.tryRegister({
@@ -17,13 +18,15 @@ export const tryRegister = (settings) => {
 
       onSuccess: _ => {
         settings.onSuccess()
-        if (data.profileImage == null){            
+        console.log(profileImage)
+
+        if (profileImage == null){            
           resolve(true)
         }
         else{
           ProfilePicture
             .createOrUpdate({
-              base64: data.profileImage,
+              base64: profileImage,
             })
             .then(_ => resolve(true))
             .catch(_ => {

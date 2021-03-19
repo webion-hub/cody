@@ -77,6 +77,7 @@ export function SignUp(){
   const tryRegisterPrep = () => {
     return tryRegister({
       data: setUser(data),
+      profileImage: data.profileImage,
       registrationErrors: registrationErrors,
       onSuccess: () => setLoggedWithoutRefresh(true),
       onError: (errors) => setRegistrationErrors(errors),
