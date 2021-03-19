@@ -19,69 +19,17 @@ namespace Cody.Controllers
     [ApiController]
     [Route("user/profile_picture")]
     [Authorize]
-    public class ProfilePictureController : ControllerBase
+    public partial class ProfilePictureController : ControllerBase
     {
-        private readonly ILogger<ProfilePictureController> _logger;
         private readonly CodyContext _dbContext;
         private readonly SftpService _sftp;
 
         public ProfilePictureController(
-            ILogger<ProfilePictureController> logger, 
             CodyContext dbContext,
             SftpService sftp
         ) {
-            _logger = logger;
             _dbContext = dbContext;
             _sftp = sftp;
-        }
-
-
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Get()
-        {
-            var picture = await GetUserProfilePictureAsync();
-            if (picture is null)
-                return NoContent();
-
-            var fileStream = 
-                await _sftp.DownloadFileAsync(picture.FilePath);
-
-            return File(fileStream, picture.ContentType);
-        }
-
-
-        [HttpDelete]
-        [Authorize]
-        public async Task<IActionResult> Delete()
-        {
-            var picture = await GetUserProfilePictureAsync();
-            if (picture is null)
-                return BadRequest();
-
-            var deleted = _sftp.TryDeleteFile(picture.FilePath);
-            if (!deleted)
-                return Problem();
-
-            _dbContext.Remove(picture);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
-        }
-
-
-        [HttpPut]
-        [Authorize]
-        public async Task<IActionResult> Put([FromForm] ProfilePicturePutRequest request)
-        {
-            var picture = await GetUserProfilePictureAsync();
-            picture ??= await CreateNewUserPictureAsync();
-
-            var uploaded = await TryUploadAsync(request, picture);
-            if (!uploaded)
-                return Problem();
-            
-            await _dbContext.SaveChangesAsync();
-            return Ok(picture.Id);
         }
 
 
@@ -109,19 +57,6 @@ namespace Cody.Controllers
 
             _dbContext.ProfilePictures.Add(picture);
             return picture;
-        }
-
-        private async Task<bool> TryUploadAsync(
-            ProfilePicturePutRequest request,
-            UserProfilePicture picture
-        ) {
-            using var webpStream = await request.AsJpegImageStreamAsync();
-            picture.Extension = ".jpeg";
-
-            var uploaded =
-                await _sftp.TryUploadFileAsync(webpStream, picture.FilePath);
-
-            return uploaded;
         }
     }
 }
