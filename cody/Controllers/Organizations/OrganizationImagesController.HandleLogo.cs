@@ -18,8 +18,9 @@ namespace Cody.Controllers.Organizations
         ) {
             return await MaybeUploadAsync(organizationId, request, (od) =>
             {
-                od.Logo ??= new();
-                return od.Logo;
+                return od.Logo ??= new() {
+                    OrganizationDetailId = od.Id,
+                };
             });
         }
 
