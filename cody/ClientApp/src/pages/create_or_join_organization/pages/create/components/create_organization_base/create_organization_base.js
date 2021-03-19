@@ -39,6 +39,7 @@ export function CreateOrganizationBase(props){
     location: null,
     website: "",
     description: "",
+    logo: null,
   })
   const noErrors = {
     organizationNameError: false,
@@ -63,6 +64,14 @@ export function CreateOrganizationBase(props){
       location: value
     })
   }
+  
+  const handleImage = (value) => {
+    setData({
+      ...data,
+      logo: value
+    })
+  }
+
 
   const handleSubmit = () => {
     setLoading(true)
@@ -72,7 +81,7 @@ export function CreateOrganizationBase(props){
     tryCreateOrganization({
       data: prepareData(data),
       kind: props.type,
-      onSuccess: () => alert("bravo"),
+      onSuccess: (id) => alert(id),
       onConflict: () => setExistingOrganization(true),
       onError: (err) => {},
       onFormatError: (err) => setErrors(err)
@@ -90,6 +99,7 @@ export function CreateOrganizationBase(props){
         disableLoading
         className={classes.addPhoto}
         imageSize={100}
+        image={handleImage}
       />
       <Grid
         container

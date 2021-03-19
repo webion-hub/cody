@@ -16,5 +16,6 @@ export const prepareData = (data) => {
     location: data.location? data.location : "",
     website: websiteUrl,
     description: data.description,
+    logo: data.logo,
   }
 }

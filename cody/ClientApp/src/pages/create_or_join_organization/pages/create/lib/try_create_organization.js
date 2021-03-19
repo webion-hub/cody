@@ -1,4 +1,5 @@
 import { Organizations } from 'src/lib/organizations';
+import OrganizationImages from 'src/lib/organization_images';
 import { CreateOrganizationErrorController } from './create_organization_error_controller';
 
 export function tryCreateOrganization(settings){
@@ -26,7 +27,13 @@ export function tryCreateOrganization(settings){
                 description: data.description,
                 kind: kind,
               },
-              onSuccess: settings.onSuccess,
+              onSuccess: (id) => {
+                //settings.onSuccess(id)
+                console.log(data.logo)
+                OrganizationImages
+                  .of(id)
+                  .update('logo', data.logo)
+              },
               onConflict: settings.onConflict,
               onError: settings.onError
             })
