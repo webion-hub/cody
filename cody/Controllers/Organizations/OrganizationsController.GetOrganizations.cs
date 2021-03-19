@@ -1,5 +1,4 @@
-﻿using Cody.Controllers.Responses;
-using Cody.Extensions;
+﻿using Cody.Extensions;
 using Cody.Models;
 using Cody.Security.Authorization;
 using Cody.Utilities.QueryFilters;
@@ -41,7 +40,7 @@ namespace Cody.Controllers.Organizations
             var organizations = await GetOrganizationsBasedOnUserRoleAync();
             var filtered = FilterOrganizations(organizations, filter);
 
-            return filtered.AsGetOrganizationResponse();
+            return FormatAsResponse(filtered);
         }
 
 

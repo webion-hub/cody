@@ -1,5 +1,4 @@
-﻿using Cody.Controllers.Responses;
-using Cody.Extensions;
+﻿using Cody.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,14 +15,12 @@ namespace Cody.Controllers.Organizations
         public async Task<IActionResult> GetOrganization(int id)
         {
             var organizations = await GetOrganizationsBasedOnUserRoleAync();
-            var organization = organizations
-                .Where(o => o.Id == id)
-                .AsGetOrganizationResponse()
-                .FirstOrDefault();
+            var filtered = organizations.Where(o => o.Id == id);
+            var result = FormatAsResponse(filtered).FirstOrDefault();
 
-            return organization is null
+            return result is null
                 ? NotFound()
-                : Ok(organization);
+                : Ok(result);
         }
     }
 }

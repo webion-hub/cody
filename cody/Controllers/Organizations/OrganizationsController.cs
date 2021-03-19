@@ -47,5 +47,36 @@ namespace Cody.Controllers.Organizations
                 .Include(o => o.State)
                 .FirstOrDefaultAsync(o => o.Id == id);
         }
+
+        private IQueryable<object> FormatAsResponse(IQueryable<Organization> self)
+        {
+            var userId = HttpContext.User.GetId();
+            return
+                from o in self
+                let s = o.State
+                let d = o.Detail
+                let m = o.Members
+
+                orderby o.Id ascending
+                select new
+                {
+                    o.Id,
+                    o.Name,
+                    State = new
+                    {
+                        s.HasBeenVerified,
+                        s.HasBeenDeleted,
+                    },
+                    Kind = o.Kind.ToString(),
+                    Detail = new
+                    {
+                        d.Location,
+                        d.Description,
+                        d.Website,
+                    },
+                    MembersCount = m.Count,
+                    IsCallerAMember = m.Any(m => m.UserAccountId == userId)
+                };
+        }
     }
 }
