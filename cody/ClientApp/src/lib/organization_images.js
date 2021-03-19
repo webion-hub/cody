@@ -24,9 +24,15 @@ export default class OrganizationImages {
    * @returns {Promise<AxiosResponse<any>>}
    */
   async update(what, base64Image) {
-    return axios.put(`organizations/${this._organizationId}/${what}`, {
-      data: {
-        base64: base64Image, 
+    const formData = new FormData();
+    formData.append('base64', base64Image);
+    
+    return axios.request({
+      url: `organizations/${this._organizationId}/${what}`,
+      method: 'PUT',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
       },
     });
   }

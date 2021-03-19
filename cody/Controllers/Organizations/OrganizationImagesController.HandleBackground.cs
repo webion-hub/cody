@@ -17,7 +17,7 @@ namespace Cody.Controllers.Organizations
         [Authorize]
         public async Task<IActionResult> PutBackground(
             [FromRoute] int organizationId, 
-            [FromBody] ImagePutRequest request
+            [FromForm] ImagePutRequest request
         ) {
             return await MaybeUploadAsync(organizationId, request, (od) =>
             {

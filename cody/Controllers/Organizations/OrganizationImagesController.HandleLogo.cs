@@ -14,9 +14,8 @@ namespace Cody.Controllers.Organizations
         [Authorize]
         public async Task<IActionResult> PutLogo(
             [FromRoute] int organizationId,
-            [FromBody] ImagePutRequest request
-        )
-        {
+            [FromForm] ImagePutRequest request
+        ) {
             return await MaybeUploadAsync(organizationId, request, (od) =>
             {
                 od.Logo ??= new();
