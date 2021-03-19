@@ -19,6 +19,7 @@ export function LoadingButton(props){
       startIcon={props.startIcon}
       onClick={props.onClick}
       href={props.href}
+      style={props.style}
     >
       {
         props.loading ? 
