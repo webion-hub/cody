@@ -142,6 +142,36 @@ export class User {
 
 
   /**
+   * @param {User.LeaveOrganizationOptions} options
+   * @returns {Promise<AxiosResponse<any>>} 
+   */
+   static async leave(options) {
+    const {
+      organizationId,
+      onSuccess,
+      onError,
+      onForbidden,
+      onNotFound,
+    } = options;
+
+    return axios
+      .request({
+        url: `user/leave/${organizationId}`,
+        method: 'POST',
+        validateStatus: false,
+      })
+      .then(resp => {
+        invokeCallback(resp.status, {
+          200: onSuccess,
+          400: onError,
+          403: onForbidden,
+          404: onNotFound,
+        });
+      });
+  }
+
+
+  /**
    * @returns {Promise<User.JoinedOrganization[]>} 
    */
   static async getJoinedOrganizations() {
@@ -182,6 +212,15 @@ export class User {
  * @property {(fields: string[]) => void} [onMissingFields]
  * @property {() => void} [onImageUploadError]
  * @property {(reasons: UserRejectReasons[]) => void} [onError]
+ */
+
+/**
+ * @typedef {object} User.LeaveOrganizationOptions
+ * @property {number} organizationId
+ * @property {() => void} [onSuccess]
+ * @property {() => void} [onError]
+ * @property {() => void} [onForbidden]
+ * @property {() => void} [onNotFound]
  */
 
 /**
