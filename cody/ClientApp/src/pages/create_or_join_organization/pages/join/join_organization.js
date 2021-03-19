@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 
-import { OrganizationsListItem } from './components/organization_list_item';
+import { JoinOrganizationsListItem } from './components/join_organization_list_item';
 import { FilterComponent } from './components/filter_components';
 import { useSetOrganizationsValue } from './hooks/use_set_organizations_value';
 
@@ -170,7 +170,7 @@ function JoinOrganization(){
           >
             {
               organizations.map((element, index) => (
-                <OrganizationsListItem
+                <JoinOrganizationsListItem
                   key={index}
                   maxListItemWidth={maxListItemWidth}
                   data={element}
