@@ -1,7 +1,8 @@
 import { invokeCallback } from './utility';
-import { AxiosResponse, AxiosRequestConfig } from 'axios';
+import { AxiosResponse } from 'axios';
 import axios from 'axios';
 import './cody_types';
+import './organizations';
 
 export class User {
   /**
@@ -138,6 +139,18 @@ export class User {
   static async join(organizationId) {
     return axios.post(`user/join/${organizationId}`);
   }
+
+
+  /**
+   * @returns {Promise<User.JoinedOrganization[]>} 
+   */
+  static async getJoinedOrganizations() {
+    return axios
+      .get('user/joined_organizations', {
+        validateStatus: false,
+      })
+      .then(resp => resp.data);
+  }
 }
 
 
@@ -169,4 +182,12 @@ export class User {
  * @property {(fields: string[]) => void} [onMissingFields]
  * @property {() => void} [onImageUploadError]
  * @property {(reasons: UserRejectReasons[]) => void} [onError]
+ */
+
+/**
+ * @typedef {object} User.JoinedOrganization
+ * @property {number} id
+ * @property {string} name
+ * @property {OrganizationKind} kind
+ * @property {boolean} hasBeenVerified 
  */

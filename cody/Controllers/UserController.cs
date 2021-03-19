@@ -20,7 +20,7 @@ namespace Cody.Controllers
 {
     [ApiController]
     [Route("user")]
-    public class UserController : ControllerBase
+    public partial class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
         private readonly CodyContext _dbContext;
