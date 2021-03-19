@@ -22,6 +22,9 @@ namespace Cody.Security.Authorization
 
         public static bool IsUserInRole(UserAccount user, string role)
         {
+            if (user is null)
+                return false;
+
             if (user.AccountRole is null)
                 return role is "" or Roles.User;
 
