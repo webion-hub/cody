@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Cody.Storage;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
@@ -12,57 +13,22 @@ using System.Threading.Tasks;
 namespace Cody.Models
 {
     [Table("user_profile_picture")]
-    public class UserProfilePicture
+    public class UserProfilePicture : StoredFileMetadata
     {
+        public UserProfilePicture() : base(
+            basePathPrefix: "/cody_files/users/profile_pictures", 
+            fileNamePrefix: "/profile_picture"
+        ) {}
+
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required] public string FilePath { get; set; }
+        [Required] public override string FilePath { get; set; }
         [Required] public int AccountDetailId { get; set; }
-
+        [NotMapped] public override int EntityId => AccountDetailId;
 
         public UserAccountDetail AccountDetail { get; set; }
-
-
-        [NotMapped]
-        public string ContentType
-        {
-            get => MimeTypes.TryGetMimeType(FileName, out var contentType)
-                ? contentType
-                : "image/*";
-        }
-
-        [NotMapped]
-        public string Extension
-        {
-            get => Path.GetExtension(FilePath);
-            set => FilePath = CreateNewFilePathFor(AccountDetailId, value);
-        }
-
-        [NotMapped] public string BasePath => GetBasePathFor(AccountDetailId);
-        [NotMapped] public string FileName => GetFileNameFor(Extension);
-
-
-        public static string CreateNewFilePathFor(int accountDetailId, string fileNameOrExtension)
-        {
-            var basePath = GetBasePathFor(accountDetailId);
-            var fileName = GetFileNameFor(fileNameOrExtension);
-
-            return $@"{basePath}/{fileName}";
-        }
-
-        public static string GetBasePathFor(int accoundDetailId)
-        {
-            return @$"/cody_files/users/profile_pictures/{accoundDetailId}";
-        }
-
-        public static string GetFileNameFor(string fileNameOrExtension)
-        {
-            var extension = Path.GetExtension(fileNameOrExtension);
-            var fileName = $@"profile_picture{extension}";
-
-            return fileName;
-        }
     }
 }
