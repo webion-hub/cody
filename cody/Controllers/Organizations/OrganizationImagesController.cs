@@ -43,7 +43,7 @@ namespace Cody.Controllers.Organizations
                     await _sftpService.TryUploadImageAsync(request, metadata);
 
                 if (!uploaded)
-                    return Problem("Upload error");
+                    return Problem("sftp connection error");
 
                 await _dbContext.SaveChangesAsync();
                 return Ok();
