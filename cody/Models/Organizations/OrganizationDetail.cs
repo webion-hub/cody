@@ -1,4 +1,5 @@
-﻿using Cody.Security.Validation;
+﻿using Cody.Models.Organizations;
+using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;
 using Cody.Security.Validation.Rejection;
@@ -31,6 +32,10 @@ namespace Cody.Models
         [Required]
         public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
+
+
+        public OrganizationBackground Background { get; set; }
+        public OrganizationLogo Logo { get; set; }
 
 
         public RejectionResult MaybeReject()
