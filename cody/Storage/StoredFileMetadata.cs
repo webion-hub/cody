@@ -48,9 +48,9 @@ namespace Cody.Storage
         [NotMapped] public string FileName => GetFileNameFor(Extension);
 
 
-        public string CreateNewFilePathFor(int accountDetailId, string fileNameOrExtension)
+        public string CreateNewFilePathFor(int entityId, string fileNameOrExtension)
         {
-            var basePath = GetBasePathFor(accountDetailId);
+            var basePath = GetBasePathFor(entityId);
             var fileName = GetFileNameFor(fileNameOrExtension);
 
             return $@"{basePath}/{fileName}";
