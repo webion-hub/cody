@@ -129,6 +129,15 @@ export class User {
         });
       });
   }
+
+
+  /**
+   * @param {number} organizationId
+   * @returns {Promise<AxiosResponse<any>>} 
+   */
+  static async join(organizationId) {
+    return axios.post(`user/join/${organizationId}`);
+  }
 }
 
 
