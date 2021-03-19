@@ -5,6 +5,7 @@ import { Organizations } from 'src/lib/organizations';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
 import { getVerificationIcon } from 'src/pages/admin_pages/lib/get_verification_icon';
 import { getKindIcon } from 'src/pages/admin_pages/lib/get_kind_icon';
+import { CustomAvatar } from 'src/components/custom_avatar';
 
 export function OrganizationsList(props){
 
@@ -32,6 +33,7 @@ export function OrganizationsList(props){
 			members: data.membersCount,
 			verified: getVerificationIcon(data.state.hasBeenVerified),
 			deleted: getDeletedIcon(data.state.hasBeenDeleted),
+			logo: <CustomAvatar src={`organizations/${data.id}/logo`}/>
 		})
 	}
 
@@ -44,6 +46,7 @@ export function OrganizationsList(props){
 		{	selector: 'members', name: 'Membri', sortable: true },
 		{ selector: 'verified', name: 'Verificato' },
 		{ selector: 'deleted', name: 'Stato' },
+		{ selector: 'logo', name: 'Logo' },
 	]
 
 	return (

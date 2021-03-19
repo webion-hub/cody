@@ -122,29 +122,31 @@ export function DataTableBase(props){
 	}
 
 	return (
-		<DataTableContext.Provider value={{refreshDataTable: () => refreshDataTable(dataTableSettings)}}>
-			<DataTable
-				progressPending={loading}
-				progressComponent={
-					<LinearProgress 
-						color="secondary"
-						style={{width: "100%"}}
-					/>
-				}
-				title={
-					<DataTableTitleControllers
-						onChange={handleChange}
-						onBack={handleBack}
-						onNext={handleNext}
-						disableBack={disableBack}
-						disableNext={disableNext}
-						title={props.title}
-					/>
-				}
-				columns={props.columns}
-				data={dataList}
-				customStyles={dataTableStyles(theme)}
-			/>
-		</DataTableContext.Provider>
+		<div>
+			<DataTableContext.Provider value={{refreshDataTable: () => refreshDataTable(dataTableSettings)}}>
+				<DataTable
+					progressPending={loading}
+					progressComponent={
+						<LinearProgress 
+							color="secondary"
+							style={{width: "100%"}}
+						/>
+					}
+					title={
+						<DataTableTitleControllers
+							onChange={handleChange}
+							onBack={handleBack}
+							onNext={handleNext}
+							disableBack={disableBack || page === 1}
+							disableNext={disableNext}
+							title={props.title}
+						/>
+					}
+					columns={props.columns}
+					data={dataList}
+					customStyles={dataTableStyles(theme)}
+				/>
+			</DataTableContext.Provider>
+		</div>
 		);
 }
