@@ -3,14 +3,11 @@ import React from 'react';
 import { Grid, Typography, TextField, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
-import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
-import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
-
 import { TeamWork } from 'src/components/illustrations/team_work';
 import { CreateOrganizationContainer } from './components/create_organization_container';
 
 import { PageController } from 'src/lib/page_controller';
+import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
 
 const useStyles = makeStyles((theme) => ({
   imageContainer: {
@@ -30,17 +27,14 @@ const organizationKinds = [
   {
     value: 'team',
     label: 'Team',
-    icon: GroupRoundedIcon,
   },
   {
     value: 'school',
     label: 'Istituto Scolastico',
-    icon: SchoolRoundedIcon,
   },
   {
     value: 'company',
     label: 'Azienda',
-    icon: BusinessCenterRoundedIcon,
   },
 ];
 
@@ -88,7 +82,7 @@ function CreateOrganization(props){
               direction="row"
               alignItems="center"
             >
-              <option.icon fontSize="small"/>
+              {getOrganizationKindIcon(option.value, "small")}
               <Typography
                 className={classes.menuLabel}
                 variant="inherit" 

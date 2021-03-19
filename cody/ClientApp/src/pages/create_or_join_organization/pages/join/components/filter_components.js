@@ -8,6 +8,7 @@ import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded'
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Tooltip } from '@material-ui/core';
+import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +39,7 @@ export function FilterComponent(props){
           onClick={() => handleFilter("teams")}
           variant={filterStatus.teams ? "contained" : "outlined"}
         >
-          <GroupRoundedIcon/>
+          {getOrganizationKindIcon("team")}
         </Button>
       </Tooltip>
       <Tooltip
@@ -46,10 +47,10 @@ export function FilterComponent(props){
         title="Filtre per scuole"
       >
         <Button
-          onClick={() => handleFilter("schools")}
+          onClick={() => handleFilter("school")}
           variant={filterStatus.schools ? "contained" : "outlined"}
         >
-          <SchoolRoundedIcon/>
+          {getOrganizationKindIcon("school")}
         </Button>
       </Tooltip>
       <Tooltip
@@ -60,7 +61,7 @@ export function FilterComponent(props){
           onClick={() => handleFilter("companies")}
           variant={filterStatus.companies ? "contained" : "outlined"}
         >
-          <BusinessCenterRoundedIcon/>
+          {getOrganizationKindIcon("company")}
         </Button>
       </Tooltip>
     </ButtonGroup>
