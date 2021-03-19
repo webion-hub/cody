@@ -33,7 +33,7 @@ namespace Cody.Controllers.Organizations
             return await MaybeDeleteAsync(
                 organizationId, 
                 od => od.Background,
-                od => _dbContext.Remove(od.Background)
+                od => _dbContext.OrganizationBackgrounds.Remove(od.Background)
             );
         }
 
