@@ -1,4 +1,5 @@
 ﻿using Cody.Models;
+using Cody.Models.Organizations;
 using Cody.Security;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -14,10 +15,15 @@ namespace Cody.Contexts
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public DbSet<UserAccountDetail> UserDetails { get; set; }
-        public DbSet<Organization> Organizations { get; set; }
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
         public DbSet<UserAccountRole> Roles { get; set; }
         public DbSet<UserBiography> Biographies { get; set; }
+
+
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<OrganizationBackground> OrganizationBackgrounds { get; set; }
+        public DbSet<OrganizationLogo> OrganizationLogos { get; set; }
+        public DbSet<OrganizationMember> OrganizationMembers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
