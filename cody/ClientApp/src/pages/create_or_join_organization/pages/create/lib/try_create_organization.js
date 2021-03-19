@@ -28,16 +28,25 @@ export function tryCreateOrganization(settings){
                 kind: kind,
               },
               onSuccess: (id) => {
-                //settings.onSuccess(id)
-                console.log(data.logo)
-                OrganizationImages
-                  .of(id)
-                  .update('logo', data.logo)
+                if(data.logo !== null)
+                  OrganizationImages
+                    .of(id)
+                    .update('logo', data.logo)
+                    .then(() => settings.onSuccess(id))
+                else
+                  settings.onSuccess(id)
+                
+                  resolve()
               },
-              onConflict: settings.onConflict,
-              onError: settings.onError
+              onConflict: () => {
+                settings.onConflict()
+                resolve()
+              },
+              onError: () => {
+                settings.onError()
+                resolve()
+              }
             })
-            .then(() => resolve())
           }
           else{
             settings.onFormatError(errorsFromController)
