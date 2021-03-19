@@ -54,7 +54,7 @@ function Routes(){
         <CustomRoute path='/account' component={Account} redirect={!logged}/>
         
         <CustomRoute path='/admin' component={AdminPage}/>
-        <CustomRoute path='/organization' component={CreateOrJoinOrganization}/>
+        <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
 
 
         <CustomRoute path='/test' component={Test}/>
