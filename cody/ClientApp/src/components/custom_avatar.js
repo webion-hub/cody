@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Avatar, CircularProgress, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
@@ -38,7 +38,11 @@ export function CustomAvatar(props){
 
   const extraLoadingWidth = finalSize / 5
   const loadingSize = finalSize + extraLoadingWidth;
-  handleLoading();
+
+  useEffect(() => {
+    handleLoading();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div
