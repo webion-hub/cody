@@ -10,7 +10,7 @@ using Cody.Extensions;
 
 namespace Cody.Controllers.Requests
 {
-    public class ProfilePicturePutRequest
+    public class ImagePutRequest
     {
         public string Base64 { get; set; }
         public IFormFile FormFile { get; set; }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Cody.Controllers.Requests;
+using Cody.Storage;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Renci.SshNet.Async;
 using System;
@@ -12,6 +14,31 @@ namespace Cody.Services.Sftp
 {
     public sealed partial class SftpService
     {
+        public async Task<bool> TryUploadImageAsync(
+            ImagePutRequest request,
+            StoredFileMetadata metadata
+        ) {
+            using var jpegStream = await request.AsJpegImageStreamAsync();
+            metadata.Extension = ".jpeg";
+
+            var file = new StoredFile {
+                FileStream = jpegStream,
+                Metadata = metadata,
+            };
+
+            return await TryUploadFileAsync(file);
+        }
+
+
+        public async Task<bool> TryUploadFileAsync(StoredFile file)
+        {
+            return await TryUploadFileAsync(
+                file.FileStream, 
+                file.Metadata.FilePath
+            );
+        }
+
+
         public async Task<bool> TryUploadFileAsync(IFormFile file, string remoteFilePath)
         {
             using var fileStream =
@@ -20,6 +47,7 @@ namespace Cody.Services.Sftp
             return await TryUploadFileAsync(fileStream, remoteFilePath);
         }
 
+        
         public async Task<bool> TryUploadFileAsync(string contents, string remoteFilePath)
         {
             var rawBytes = Encoding.UTF8.GetBytes(contents);
@@ -27,6 +55,7 @@ namespace Cody.Services.Sftp
 
             return await TryUploadFileAsync(stream, remoteFilePath);
         }
+
 
         public async Task<bool> TryUploadFileAsync(Stream stream, string remoteFilePath)
         {
