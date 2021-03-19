@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace Cody.Storage
 {
-    public class StoredFileMetadata
+    public abstract class StoredFileMetadata
     {
         private readonly string _basePathPrefix;
         private readonly string _fileNamePrefix;
 
-
-        public virtual string FilePath { get; set; }
-        public virtual int EntityId { get; }
+        public abstract string FilePath { get; set; }
+        public abstract int EntityId { get; }
 
 
         public StoredFileMetadata(
@@ -53,7 +52,7 @@ namespace Cody.Storage
             var basePath = GetBasePathFor(entityId);
             var fileName = GetFileNameFor(fileNameOrExtension);
 
-            return $@"{basePath}/{fileName}";
+            return basePath + fileName;
         }
 
         public string GetBasePathFor(int entityId)

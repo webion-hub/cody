@@ -12,7 +12,7 @@ namespace Cody.Models.Organizations
     public class OrganizationLogo : StoredFileMetadata
     {
         public OrganizationLogo() : base(
-            basePathPrefix: "/cody_files/organizations/",
+            basePathPrefix: "/cody_files/organizations",
             fileNamePrefix: "/logo"
         ) { }
 
