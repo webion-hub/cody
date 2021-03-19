@@ -25,6 +25,19 @@ namespace Cody.Extensions
         }
 
 
+        public static async Task<bool> IsUserOwnerOfAsync(this HttpContext context, Organization organization)
+        {
+            var dbContext = context
+                .RequestServices
+                .GetCodyContext();
+
+            return await dbContext.IsUserOwnerOfAsync(
+                new() { Id = context.User.GetId() },
+                organization
+            );
+        }
+
+
         public static async Task<bool> IsUserInRoleAsync(this HttpContext context, string role)
         {
             var user = 

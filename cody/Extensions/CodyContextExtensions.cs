@@ -44,5 +44,20 @@ namespace Cody.Extensions
                 .Include(o => o.Detail)
                 .Include(o => o.State);
         }
+
+
+        public static async Task<bool> IsUserOwnerOfAsync(
+            this CodyContext context, 
+            UserAccount user, 
+            Organization organization
+        ) {
+            return await context
+                .OrganizationMembers
+                .AnyAsync(om =>
+                    om.OrganizationId == organization.Id &&
+                    om.UserAccountId == user.Id &&
+                    om.Role == OrganizationRole.Owner
+                );
+        }
     }
 }
