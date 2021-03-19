@@ -26,6 +26,14 @@ namespace Cody.Extensions
         }
 
 
+        public static int? MaybeGetId(this ClaimsPrincipal claim)
+        {
+            var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.TryParse(rawId, out int userId)
+                ? userId
+                : null;
+        }
+
         public static int GetId(this ClaimsPrincipal claim)
         {
             var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);

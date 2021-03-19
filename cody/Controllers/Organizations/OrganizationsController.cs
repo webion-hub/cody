@@ -50,7 +50,7 @@ namespace Cody.Controllers.Organizations
 
         private IQueryable<object> FormatAsResponse(IQueryable<Organization> self)
         {
-            var userId = HttpContext.User.GetId();
+            var userId = HttpContext.User.MaybeGetId();
             return
                 from o in self
                 let s = o.State
@@ -75,7 +75,9 @@ namespace Cody.Controllers.Organizations
                         d.Website,
                     },
                     MembersCount = m.Count,
-                    IsCallerAMember = m.Any(m => m.UserAccountId == userId)
+                    IsCallerAMember = userId == null 
+                        ? false
+                        : m.Any(m => m.UserAccountId == userId)
                 };
         }
     }
