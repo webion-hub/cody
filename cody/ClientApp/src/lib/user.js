@@ -228,5 +228,6 @@ export class User {
  * @property {number} id
  * @property {string} name
  * @property {OrganizationKind} kind
- * @property {boolean} hasBeenVerified 
+ * @property {boolean} hasBeenVerified
+ * @property {boolean} hasLogo 
  */

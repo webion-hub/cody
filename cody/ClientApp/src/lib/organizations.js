@@ -127,6 +127,9 @@ Organizations._listAllReq = new SingleXHRRequest();
  * @property {number} [id]
  * @property {string} name
  * @property {number} membersCount
+ * @property {boolean} isCallerAMember
+ * @property {boolean} hasLogo
+ * @property {boolean} hasCover
  * @property {OrganizationKind} kind
  * @property {OrganizationState} state
  * @property {OrganizationDetail} detail
@@ -139,6 +142,7 @@ Organizations._listAllReq = new SingleXHRRequest();
 /**
  * @typedef {object} OrganizationState
  * @property {boolean} hasBeenVerified
+ * @property {boolean} hasBeenDeleted
  */
 
 /**
