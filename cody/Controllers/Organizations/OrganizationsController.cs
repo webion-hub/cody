@@ -57,7 +57,7 @@ namespace Cody.Controllers.Organizations
                 let d = o.Detail
                 let m = o.Members
                 let l = d.Logo
-                let b = d.Background
+                let b = d.Cover
 
                 orderby o.Id ascending
                 select new
@@ -78,7 +78,7 @@ namespace Cody.Controllers.Organizations
                     },
                     MembersCount = m.Count,
                     HasLogo = l != null,
-                    HasBackground = b != null,
+                    HasCover = b != null,
 
                     IsCallerAMember = userId == null 
                         ? false

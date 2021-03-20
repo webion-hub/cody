@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Cody.Models.Organizations
 {
-    [Table("organization_background")]
-    public class OrganizationBackground : StoredFileMetadata
+    [Table("organization_cover")]
+    public class OrganizationCover : StoredFileMetadata
     {
-        public OrganizationBackground() : base(
+        public OrganizationCover() : base(
             basePathPrefix: "/cody_files/organizations",
-            fileNamePrefix: "/background"
+            fileNamePrefix: "/cover"
         ) { }
 
 

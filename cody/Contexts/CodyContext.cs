@@ -21,7 +21,7 @@ namespace Cody.Contexts
 
 
         public DbSet<Organization> Organizations { get; set; }
-        public DbSet<OrganizationBackground> OrganizationBackgrounds { get; set; }
+        public DbSet<OrganizationCover> OrganizationCovers { get; set; }
         public DbSet<OrganizationLogo> OrganizationLogos { get; set; }
         public DbSet<OrganizationMember> OrganizationMembers { get; set; }
 

@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS organization_background;
+DROP TABLE IF EXISTS organization_cover;
 
-CREATE TABLE organization_background
+CREATE TABLE organization_cover
 (
 	id 		  int  NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	file_path text NOT NULL,

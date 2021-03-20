@@ -48,5 +48,5 @@ export default class OrganizationImages {
 
 
 /**
- * @typedef {'logo' | 'background'} OrganizationImages.Kind
+ * @typedef {'logo' | 'cover'} OrganizationImages.Kind
  */

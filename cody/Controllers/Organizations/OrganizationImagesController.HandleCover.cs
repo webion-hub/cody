@@ -13,38 +13,38 @@ namespace Cody.Controllers.Organizations
 {
     public partial class OrganizationImagesController
     {
-        [HttpPut("{organizationId}/background")]
+        [HttpPut("{organizationId}/cover")]
         [Authorize]
-        public async Task<IActionResult> PutBackground(
+        public async Task<IActionResult> PutCover(
             [FromRoute] int organizationId, 
             [FromForm] ImagePutRequest request
         ) {
             return await MaybeUploadAsync(organizationId, request, (od) =>
             {
-                return od.Background ??= new() {
+                return od.Cover ??= new() {
                     OrganizationDetailId = od.Id,
                 };
             });
         }
 
-        [HttpDelete("{organizationId}/background")]
+        [HttpDelete("{organizationId}/cover")]
         [Authorize]
-        public async Task<IActionResult> DeleteBackground(int organizationId) 
+        public async Task<IActionResult> DeleteCover(int organizationId) 
         {
             return await MaybeDeleteAsync(
                 organizationId, 
-                od => od.Background,
-                od => _dbContext.OrganizationBackgrounds.Remove(od.Background)
+                od => od.Cover,
+                od => _dbContext.OrganizationCovers.Remove(od.Cover)
             );
         }
 
-        [HttpGet("{organizationId}/background")]
+        [HttpGet("{organizationId}/cover")]
         [Authorize]
-        public async Task<IActionResult> GetBackground(int organizationId)
+        public async Task<IActionResult> GetCover(int organizationId)
         {
             return await MaybeGetAsync(
                 organizationId,
-                od => od.Background
+                od => od.Cover
             );
         }
     }

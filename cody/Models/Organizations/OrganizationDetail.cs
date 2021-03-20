@@ -34,7 +34,7 @@ namespace Cody.Models
         public Organization Organization { get; set; }
 
 
-        public OrganizationBackground Background { get; set; }
+        public OrganizationCover Cover { get; set; }
         public OrganizationLogo Logo { get; set; }
 
 

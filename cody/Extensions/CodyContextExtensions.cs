@@ -45,7 +45,7 @@ namespace Cody.Extensions
                 .Include(o => o.Detail)
                     .ThenInclude(d => d.Logo)
                 .Include(o => o.Detail)
-                    .ThenInclude(d => d.Background);
+                    .ThenInclude(d => d.Cover);
         }
 
 

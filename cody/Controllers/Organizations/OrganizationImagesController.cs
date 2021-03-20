@@ -113,7 +113,7 @@ namespace Cody.Controllers.Organizations
             return await _dbContext
                 .Organizations
                 .Include(o => o.Detail)
-                    .ThenInclude(o => o.Background)
+                    .ThenInclude(o => o.Cover)
                 .Include(o => o.Detail)
                     .ThenInclude(o => o.Logo)
                 .FirstOrDefaultAsync(o => o.Id == organizationId);
