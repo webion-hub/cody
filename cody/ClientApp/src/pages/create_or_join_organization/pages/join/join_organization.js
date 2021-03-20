@@ -58,7 +58,7 @@ function JoinOrganization(){
   const classes = useStyles();
   const listRef = useRef();
   
-  const maxListItemWidth = useGetSize(listRef).width - 210;
+  const maxListItemWidth = useGetSize(listRef).width - 190;
 
   const elementLoadingLimit = 20;
   const [organizationsValues, setOrganizationsValue] = useSetOrganizationsValue(elementLoadingLimit);

@@ -10,6 +10,10 @@ import { PageController } from 'src/lib/page_controller';
 import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
+import AddRoundedIcon from '@material-ui/icons/AddRounded';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 const useStyles = makeStyles((theme) => ({
   listItem: {
     height: 72,
@@ -29,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.error.light,
     }
   },
+  verifiedOrganization: {
+    transform: "translate(0px, 4px)",
+    marginRight: theme.spacing(1),
+  }
 }));
 
 export function JoinOrganizationsListItem(props){
@@ -96,6 +104,7 @@ export function JoinOrganizationsListItem(props){
       disabled={data.state.hasBeenDeleted}
       onClick={handleJoin}
       label="Unisciti"
+      endIcon={<AddRoundedIcon/>}
     />
 
   const leaveButton = 
@@ -106,8 +115,16 @@ export function JoinOrganizationsListItem(props){
       onClick={handleOpenLeaveDialog}
       label="Lascia"
       className={classes.leaveButton}
+      endIcon={<ExitToAppRoundedIcon/>}
     />
  
+  const organizationNameLabel = data.state.hasBeenVerified ? 
+    <>
+      <CheckCircleIcon className={classes.verifiedOrganization} fontSize="small"/>{data.name}
+    </>
+    :
+    data.name
+
   return(
     <>
       <ListItem 
@@ -126,7 +143,7 @@ export function JoinOrganizationsListItem(props){
                 containerWidth={props.maxListItemWidth}
                 background={theme.palette.background.paperSecondary}          
               >
-                {data.name}      
+                {organizationNameLabel}
               </FlowingText>
               <FlowingText
                 variant="caption"
