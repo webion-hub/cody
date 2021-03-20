@@ -1,4 +1,5 @@
 ﻿using Cody.Extensions;
+using Cody.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,22 +16,35 @@ namespace Cody.Controllers
         [Authorize]
         public IActionResult GetJoinedOrganizations()
         {
-            var userId = HttpContext.User.GetId();
-            var organizations = _dbContext
-                .OrganizationMembers
-                .Include(om => om.Organization)
-                    .ThenInclude(o => o.State)
-                .Where(om => !om.Organization.State.HasBeenDeleted)
-                .Where(om => om.UserAccountId == userId)
-                .Select(om => new
+            var organizations = GetUserOrganizations()
+                .Select(om => om.Organization)
+                .OrderBy(o => o.Id)
+                .Select(o => new
                 {
-                    om.Organization.Id,
-                    om.Organization.Name,
-                    om.Organization.State.HasBeenVerified,
-                    Kind = om.Organization.Kind.ToString(),
+                    o.Id,
+                    o.Name,
+                    o.State.HasBeenVerified,
+                    Kind = o.Kind.ToString(),
+                    HasLogo = o.Detail.Logo != null,
                 });
 
             return Ok(organizations);
+        }
+
+
+        private IQueryable<OrganizationMember> GetUserOrganizations()
+        {
+            var userId = HttpContext.User.GetId();
+            return _dbContext
+                .OrganizationMembers
+                .Include(om => om.Organization)
+                    .ThenInclude(o => o.State)
+                .Include(om => om.Organization)
+                    .ThenInclude(o => o.Detail)
+                        .ThenInclude(d => d.Logo)
+
+                .Where(om => !om.Organization.State.HasBeenDeleted)
+                .Where(om => om.UserAccountId == userId);
         }
     }
 }

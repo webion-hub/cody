@@ -56,6 +56,8 @@ namespace Cody.Controllers.Organizations
                 let s = o.State
                 let d = o.Detail
                 let m = o.Members
+                let l = d.Logo
+                let b = d.Background
 
                 orderby o.Id ascending
                 select new
@@ -75,6 +77,9 @@ namespace Cody.Controllers.Organizations
                         d.Website,
                     },
                     MembersCount = m.Count,
+                    HasLogo = l != null,
+                    HasBackground = b != null,
+
                     IsCallerAMember = userId == null 
                         ? false
                         : m.Any(m => m.UserAccountId == userId)

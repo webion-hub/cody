@@ -41,8 +41,11 @@ namespace Cody.Extensions
             return context
                 .Organizations
                 .Include(o => o.Members)
+                .Include(o => o.State)
                 .Include(o => o.Detail)
-                .Include(o => o.State);
+                    .ThenInclude(d => d.Logo)
+                .Include(o => o.Detail)
+                    .ThenInclude(d => d.Background);
         }
 
 
