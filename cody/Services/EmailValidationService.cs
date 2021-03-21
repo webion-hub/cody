@@ -55,7 +55,7 @@ namespace Cody.Services
             var to = new MailAddress(user.Email);
             var accountState = user.AccountState;
             var validationUrl =
-                $"https://cody.com/user/validate/{user.Id}/{accountState.ValidationKey}";
+                $"https://localhost/user/validate/{user.Id}/{accountState.ValidationKey}";
 
             using var message = CreateMessage(to, validationUrl);
 
