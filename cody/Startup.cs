@@ -50,12 +50,9 @@ namespace Cody
                 .AddCookie(options =>
                 {
                     options.Cookie.SameSite = SameSiteMode.Strict;
-                    options.Events.OnRedirectToAccessDenied =
-                    options.Events.OnRedirectToLogin = ctx =>
-                    {
-                        ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        return Task.CompletedTask;
-                    };
+                    options.LoginPath = "/login";
+                    options.LogoutPath = "/logout";
+                    options.AccessDeniedPath = "/access-denied";
                 });
 
 
