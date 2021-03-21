@@ -21,7 +21,7 @@ namespace Cody.Controllers.Admin
     {
         [HttpGet]
         [Authorize(Roles = Roles.Admin)]
-        public IActionResult Get(
+        public async Task<IActionResult> Get(
             [FromQuery] string filter,
             [FromQuery] int? limit, 
             [FromQuery] int? offset
@@ -29,11 +29,13 @@ namespace Cody.Controllers.Admin
             if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var users = GetFilteredUsers(filter)
-                .Skip(offset ?? 0)
-                .MaybeTake(limit);
-
-            return Ok(users);
+            var response = await SearchResponse.FormatAsync(
+                results: GetFilteredUsers(filter),
+                limit: limit,
+                offset: offset
+            );
+            
+            return Ok(response);
         }
 
 
@@ -60,12 +62,7 @@ namespace Cody.Controllers.Admin
                         s.IsEmailValid,
                         s.HasBeenDeleted,
                     },
-                    Organizations = o.Select(o => new
-                    {
-                        o.Organization.Id,
-                        o.Organization.Name,
-                        Kind = o.Organization.Kind.ToString(),
-                    }),
+                    JoinedOrganizations = o.Count,
                     Detail = new
                     {
                         ad.Name,

@@ -27,11 +27,13 @@ namespace Cody.Controllers.Organizations
                 return BadRequest();
 
             var organizations = await GetFilteredOrganizationsAsync(filter);
-            var result = organizations
-                .Skip(offset ?? 0)
-                .MaybeTake(limit);
+            var response = await SearchResponse.FormatAsync(
+                results: organizations,
+                limit: limit,
+                offset: offset
+            );
 
-            return Ok(result);
+            return Ok(response);
         }
 
 
