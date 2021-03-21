@@ -31,15 +31,15 @@ namespace Cody.Controllers
         ) {
             var user = await GetUserAsync(userId);
             if (user is null)
-                return NotFound();
+                return Redirect("/validate-email#not-found");
 
             if (user.AccountState.ValidationKey != validationKey)
-                return BadRequest();
+                return Redirect("/validate-email#bad-key");
 
             user.AccountState.ValidationKey = default;
             user.AccountState.IsEmailValid = true;
             await _dbContext.SaveChangesAsync();
-            return Redirect("/email-valid");
+            return Redirect("/validate-email#ok");
         }
 
 
