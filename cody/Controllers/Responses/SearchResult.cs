@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers
 {
-    internal class SearchResponse
+    internal class SearchResult
     {
         public static async Task<object> FormatAsync(
             IQueryable<object> results,
@@ -15,11 +15,11 @@ namespace Cody.Controllers
             int? offset
         ) {
             var count = await results.CountAsync();
-            var resultsList = results
+            var values = results
                 .Skip(offset ?? 0)
                 .MaybeTake(limit);
 
-            return new { count, resultsList };
+            return new { count, values };
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Cody.Controllers.Organizations
                 return BadRequest();
 
             var organizations = await GetFilteredOrganizationsAsync(filter);
-            var response = await SearchResponse.FormatAsync(
+            var response = await SearchResult.FormatAsync(
                 results: organizations,
                 limit: limit,
                 offset: offset

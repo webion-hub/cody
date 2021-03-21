@@ -29,7 +29,7 @@ namespace Cody.Controllers.Admin
             if (limit is < 0 || offset is < 0)
                 return BadRequest();
 
-            var response = await SearchResponse.FormatAsync(
+            var response = await SearchResult.FormatAsync(
                 results: GetFilteredUsers(filter),
                 limit: limit,
                 offset: offset
