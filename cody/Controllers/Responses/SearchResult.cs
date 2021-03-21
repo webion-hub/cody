@@ -9,7 +9,12 @@ namespace Cody.Controllers
 {
     internal class SearchResult
     {
-        public static async Task<object> FormatAsync(
+        internal record Response(
+            int Count,
+            IQueryable<object> Values
+        );
+
+        public static async Task<Response> FormatAsync(
             IQueryable<object> results,
             int? limit,
             int? offset
@@ -19,7 +24,7 @@ namespace Cody.Controllers
                 .Skip(offset ?? 0)
                 .MaybeTake(limit);
 
-            return new { count, values };
+            return new Response(count, values);
         }
     }
 }
