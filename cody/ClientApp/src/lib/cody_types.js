@@ -52,3 +52,11 @@
  * @property {number} [limit]
  * @property {number} [offset]
  */
+
+
+/**
+ * @template T
+ * @typedef {object} SearchResult
+ * @property {number} count
+ * @property {T[]} values
+ */

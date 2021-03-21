@@ -79,7 +79,7 @@ export class Organizations {
 
   /**
    * @param {Organizations.ListAllOptions} options
-   * @returns {Promise<Organization[]>}
+   * @returns {Promise<SearchResult<Organization>>}
    */
   static async listAll(options) {
     return Organizations._listAllReq.send(tokenSource => {

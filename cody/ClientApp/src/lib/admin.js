@@ -5,7 +5,7 @@ import SingleXHRRequest from './single_xhr_request';
 export class Admin {
   /**
    * @param {CommonFilterOptions} options
-   * @returns {Promise<Admin.UserResult[]>}
+   * @returns {Promise<SearchResult<Admin.UserResult>>}
    */
   static async getUsers(options) {
     return Admin._getUsersReq.send(tokenSource => {
@@ -41,15 +41,20 @@ Admin._getUsersReq = new SingleXHRRequest();
 
 /**
  * @typedef {{
- *  Id: number,
- *  Username: string,
- *  Email: string,
- *  Detail: {
- *    Name: string,
- *    Surname: string,
- *    BirthDate: Date,
+ *  id: number,
+ *  username: string,
+ *  email: string,
+ *  joinedOrganizations: number,
+ *  state: {
+ *    isEmailValid: boolean,
+ *    hasBeenDeleted: boolean,
  *  },
- *  ProfilePicture: {
+ *  detail: {
+ *    name: string,
+ *    surname: string,
+ *    birthDate: Date,
+ *  },
+ *  profilePicture: {
  *    FilePath: string,
  *  }
  * }} Admin.UserResult
