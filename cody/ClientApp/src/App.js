@@ -5,7 +5,8 @@ import { Layout } from './components/Layout';
 import { Login } from './pages/login/login';
 import { SignUp } from './pages/sign_up/sign_up';
 import { Error404Page } from './pages/message_pages/error404_page';
-import { EmailValidPage } from './pages/message_pages/email_valid_page';
+import { EmailValidPage } from './pages/message_pages/email_valid_page/email_valid_page';
+import { UnauthorizedPage } from './pages/message_pages/unauthorized_page';
 import { Home } from './pages/home/home';
 import { Account } from './pages/account/account';
 import { Test } from './pages/test';
@@ -50,7 +51,8 @@ function Routes(){
         <CustomRoute exact path='/' component={Home} />
         <CustomRoute path='/login' component={Login} redirect={logged}/>
         <CustomRoute path='/sign-up' component={SignUp} redirect={logged}/>
-        <CustomRoute path='/email-valid' component={EmailValidPage} />
+        <CustomRoute path='/validate-email' component={EmailValidPage} />
+        <CustomRoute path='/access-denied' component={UnauthorizedPage} />
         <CustomRoute path='/account' component={Account} redirect={!logged}/>
         
         <CustomRoute path='/admin' component={AdminPage}/>
