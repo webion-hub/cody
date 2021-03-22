@@ -27,16 +27,14 @@ export function tryCreateOrganization(settings){
                 description: data.description,
                 kind: kind,
               },
-              onSuccess: (id) => {
+              onSuccess: async (id) => {
                 if(data.logo !== null)
-                  OrganizationImages
+                  await OrganizationImages
                     .of(id)
                     .update('logo', data.logo)
-                    .then(() => settings.onSuccess(id))
-                else
-                  settings.onSuccess(id)
-                
-                  resolve()
+
+                settings.onSuccess(id)
+                resolve()                    
               },
               onConflict: () => {
                 settings.onConflict()
