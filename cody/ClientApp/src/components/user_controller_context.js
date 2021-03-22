@@ -42,16 +42,17 @@ export function UserControllerContext(props){
     .send()
     .then(resp => {
       const got = resp.got;
-
+      setLoggedWithoutRefresh(true)
       setRole(got.get('role'));
     })
   }
 
   useEffect(() => {
     if(logged){
-      setRoleState()
       setLoading(false)
     }
+
+    setRoleState()
 
     User
       .tryLoginWithCookie({
