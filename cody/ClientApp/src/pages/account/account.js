@@ -15,9 +15,11 @@ import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { PageController } from 'src/lib/page_controller';
 import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
+import { useWaves } from 'src/lib/hooks/use_waves';
 
 export function Account(){
-	const classes = accountStyles();
+  const waves = useWaves()
+	const classes = accountStyles({waves});
 
   //Loadings
   const [loadingSave, setLoadingSave] = React.useState(false);

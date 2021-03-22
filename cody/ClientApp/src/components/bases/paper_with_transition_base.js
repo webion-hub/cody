@@ -4,13 +4,13 @@ import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { waves } from 'src/lib/default_values/images/svg_backgrounds';
+import { useWaves } from 'src/lib/hooks/use_waves';
 
 const useStyles = makeStyles((theme) => ({
   paperBox: props => ({
     position: "relative",
     background: theme.palette.background.paperSecondary,
-    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
+    backgroundImage: `url("${props.waves}")`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
@@ -46,8 +46,8 @@ export function PaperWithTransitionBase(props){
   const width = props.width? props.width : "auto";
   const height = props.height? props.height : "auto";
   const removeHeightOnMobile = props.removeHeightOnMobile? ` - ${props.removeHeightOnMobile}px` : "";
-
-  const classes = useStyles({width, height, removeHeightOnMobile});
+  const waves = useWaves()
+  const classes = useStyles({width, height, removeHeightOnMobile, waves});
 
   return(
     <Paper className={classes.paperBox}>

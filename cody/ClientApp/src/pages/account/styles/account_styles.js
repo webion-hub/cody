@@ -1,14 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { waves } from 'src/lib/default_values/images/svg_backgrounds';
 
 export const accountStyles = makeStyles((theme) => ({
   container: {
     minHeight: "100vh",
     position: "relative"
   },
-	box: {
+	box: props => ({
     background: theme.palette.background.paperSecondary,
-    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
+    backgroundImage: `url("${props.waves}")`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
@@ -17,7 +16,7 @@ export const accountStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
     },
-	},
+	}),
   submitButton: {
     paddingTop: theme.spacing(1),
     [theme.breakpoints.between('sm', 830)]: {
