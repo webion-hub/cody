@@ -6,7 +6,7 @@ import { CustomScrollContainer } from 'src/components/custom_scroll_container';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const classesStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	classesBox: {
 		position: "relative",
 	},
@@ -34,7 +34,7 @@ const classesStyles = makeStyles((theme) => ({
 
 
 export function ThereAreClasses(props){
-  const classes = classesStyles();
+  const classes = useStyles();
   const classesList = props.classesList;
   const classesNumber = classesList.length; 
 

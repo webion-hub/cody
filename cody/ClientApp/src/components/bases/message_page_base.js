@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';

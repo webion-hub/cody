@@ -10,7 +10,7 @@ import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const homeStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   firstAreaBox: {
     position: "relative",
   },
@@ -38,7 +38,7 @@ const homeStyles = makeStyles((theme) => ({
 }));
 
 export function Home(){
-  const classes = homeStyles();
+  const classes = useStyles();
 
   /**
    * Animated svg's utilities

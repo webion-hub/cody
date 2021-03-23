@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;
 
-const searchbarStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   searchBar: {  
     [theme.breakpoints.up('sm')]: {
       position: "sticky",
@@ -27,7 +27,7 @@ const searchbarStyles = makeStyles((theme) => ({
 
 export function DynamicSearchBar(){
   const { setFadeAppBarSection } = React.useContext(CustomizableMenuContext);
-  const classes = searchbarStyles();
+  const classes = useStyles();
   const searchBarRef = useRef();
   
   const theme = useTheme();

@@ -6,7 +6,7 @@ import { Box } from '@material-ui/core';
 
 import { setOpacityColor } from 'src/lib/setOpacityColor';
 
-const flowingTextStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	container: {
 		whiteSpace: "nowrap",
 		overflow: "hidden",
@@ -26,7 +26,7 @@ const flowingTextStyles = makeStyles((theme) => ({
 }));
   
 export function FlowingText(props){
-	const classes = flowingTextStyles();
+	const classes = useStyles();
 	
 	const [flow, setFlow] = React.useState(false);
 	const [textWidth, setTextWidth] = React.useState(null);

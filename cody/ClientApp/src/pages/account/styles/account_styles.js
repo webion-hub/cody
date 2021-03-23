@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const accountStyles = makeStyles((theme) => ({
+export const useAccountStyles = makeStyles((theme) => ({
   container: {
     minHeight: "100vh",
     position: "relative"

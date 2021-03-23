@@ -8,12 +8,12 @@ import { useMediaQuery } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
 
-import { sidebarStyles } from './styles/sidebar_styles'
+import { useSidebarStyles } from './styles/sidebar_styles'
 import { DrawerList } from './components/drawer_list/drawer_list'
 import { DynamicAppbar } from '../appbar/dynamic_appbar'
 
 export function SideBar(props) {
-  const classes = sidebarStyles();
+  const classes = useSidebarStyles();
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 

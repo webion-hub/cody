@@ -5,8 +5,8 @@ import { Grid } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const mainTextStyles = makeStyles((theme) => ({ 
-  box: {
+const useStyles = makeStyles((theme) => ({ 
+  container: {
     [theme.breakpoints.up('sm')]: {
       alignItems: "center !important",
     },
@@ -55,18 +55,15 @@ const mainTextStyles = makeStyles((theme) => ({
       marginLeft: "20px"
     },
   },
-  children: {
-    position: "absolute"
-  }
 }));
   
   
 export function MainTextBox(props){
-  const classes = mainTextStyles();
+  const classes = useStyles();
 
   return(
     <Grid
-      className={classes.box}
+      className={classes.container}
       container
       direction="column"
       justify="center"

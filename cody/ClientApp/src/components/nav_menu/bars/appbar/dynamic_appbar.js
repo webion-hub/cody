@@ -16,7 +16,7 @@ import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
 import { getSection } from 'src/components/nav_menu/bars/appbar/components/get_section';
 
-const dynamicAppbarStyles = makeStyles((theme) => ({
+const useDynamicAppbarStyles = makeStyles((theme) => ({
   rightSection: {
     display: "flex",
     justifyContent: "flex-end",
@@ -38,7 +38,7 @@ const dynamicAppbarStyles = makeStyles((theme) => ({
 
 
 export function DynamicAppbar(props) {
-  const classes = dynamicAppbarStyles();
+  const classes = useDynamicAppbarStyles();
   
   const trigger = useScrollTrigger({ target: props.window ? window() : undefined }); //hide on scroll
   const theme = useTheme();

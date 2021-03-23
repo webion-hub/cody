@@ -8,7 +8,7 @@ import { NoClasses } from './noClasses';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const classesStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   classesBox: {
     position: "relative",
     margin: "0 auto",
@@ -41,7 +41,7 @@ const classesStyles = makeStyles((theme) => ({
 
 
 export function MyClasses(props){
-  const classes = classesStyles();
+  const classes = useStyles();
   const theme = useTheme();
 
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
@@ -50,6 +50,8 @@ export function MyClasses(props){
   const classesNumber = classesList.length; 
 
   const areClasses = classesNumber !== 0;
+  const className = `${areClasses ? classes.areClassesBox : classes.noClassesBox} ${classes.classesBox}`
+
 
   const title = areClasses ?
     <Typography 
@@ -73,7 +75,7 @@ export function MyClasses(props){
 
   return (
     <div className={props.className}>
-      <div className={`${areClasses ? classes.areClassesBox : classes.noClassesBox} ${classes.classesBox}`}>
+      <div className={className}>
         {title}
         {content}
       </div>

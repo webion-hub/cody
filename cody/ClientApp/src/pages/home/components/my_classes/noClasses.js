@@ -13,7 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 
 
-const noClassesStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	emptyBox: {
 		maxWidth: "70vw",
 		margin: "0 auto",
@@ -38,7 +38,7 @@ const noClassesStyles = makeStyles((theme) => ({
 
 
 export function NoClasses(){
-  const classes = noClassesStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const mobileWidth = useMediaQuery(theme.breakpoints.down('sm'));
 

@@ -5,7 +5,7 @@ import { LoadingButton } from 'src/components/buttons/loading_button'
 import { InfoBox } from './components/info_box';
 import { DataForms } from './components/data_forms';
 import { AccountErrorsController } from './lib/account_errors_controller';
-import { accountStyles } from './styles/account_styles';
+import { useAccountStyles } from './styles/account_styles';
 import { nullData, noErrors } from './default_values/default_states';
 
 import { ProfilePicture } from 'src/lib/profile_picture'
@@ -18,7 +18,7 @@ import { profileImage } from 'src/lib/default_values/profile_constants/profile_i
 import { PaperWithWaves } from 'src/components/paper_with_waves';
 
 export function Account(){
-	const classes = accountStyles();
+	const classes = useAccountStyles();
 
   //Loadings
   const [loadingSave, setLoadingSave] = React.useState(false);

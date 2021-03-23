@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const fullDrawerWidth = 240;
 
-export const sidebarStyles = makeStyles((theme) => ({
+export const useSidebarStyles = makeStyles((theme) => ({
   scrollableDrawer: {
     zIndex: "900 !important"
   },
