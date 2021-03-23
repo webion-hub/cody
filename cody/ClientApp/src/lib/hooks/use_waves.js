@@ -16,7 +16,7 @@ export function useWaves(asSvg) {
   const setWavesGenerator = () => {
     return WavesGenerator
       .set({
-        color: theme.palette.background.default,
+        color: theme.palette.background.paper,
         width: 1440,
         height: 590,
         waves: 3,
