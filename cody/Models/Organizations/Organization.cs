@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Models
 {
-    public enum OrganizationKind
-    {
+    public enum OrganizationKind {
         School,
         Company,
         Team,

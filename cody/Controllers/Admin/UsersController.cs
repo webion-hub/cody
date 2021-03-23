@@ -21,6 +21,5 @@ namespace Cody.Controllers.Admin
         {
             _dbContext = dbContext;
         }
-
     }
 }

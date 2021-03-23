@@ -21,8 +21,10 @@ namespace Cody.Services
         private readonly ILogger<PersistentLoginCookieEmitterService> _logger;
         private readonly CodyContext _dbContext;
 
-        public PersistentLoginCookieEmitterService(ILogger<PersistentLoginCookieEmitterService> logger, CodyContext dbContext)
-        {
+        public PersistentLoginCookieEmitterService(
+            ILogger<PersistentLoginCookieEmitterService> logger, 
+            CodyContext dbContext
+        ) {
             _logger = logger;
             _dbContext = dbContext;
         }
