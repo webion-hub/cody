@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { Fab } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog';
-import { ImageOrientation } from 'src/lib/image_orientation';
-
-import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import { AddPhotoBadgeButton } from './components/add_photo_badge_button';
 import { CustomAvatar } from '../../custom_avatar';
+
+import { ImageOrientation } from 'src/lib/image_orientation';
 
 export function AddPhoto(props){
   const [image, setImage] = React.useState(null);
@@ -20,10 +17,7 @@ export function AddPhoto(props){
 
   const theme = useTheme();  
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-
-  const iconSize = props.iconSize? 
-    props.iconSize : 40;
-    
+   
   const responsiveDefaultImageSize = mobileView ? 75 : 100;
   const imageSize = props.imageSize? props.imageSize : responsiveDefaultImageSize;
 
@@ -67,62 +61,14 @@ export function AddPhoto(props){
     event.target.value = null; //reset input file
   }
 
-  const badgeContent = (
-    <div>
-      {
-        croppedImage? (
-          <Fab 
-            color="primary"
-            onClick={deleteImage}
-            style={{
-              width: iconSize,
-              height: iconSize
-            }}
-          >
-            <DeleteRoundedIcon />
-          </Fab>
-        ):(
-          <Fab 
-            component="label"
-            color="primary"
-            style={{
-              width: iconSize,
-              height: iconSize
-            }}
-          >
-            <AddRoundedIcon />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={fileSelectedHandler}
-              hidden
-            />
-          </Fab>
-        )
-      }
-    </div>
-  )
-
-  const editableBadgeContent = (
-    <div>
-      <Fab 
-        component="label"
-        color="primary"
-        style={{
-          width: iconSize,
-          height: iconSize
-        }}
-      >
-        <EditRoundedIcon />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={fileSelectedHandler}
-          hidden
-        />
-      </Fab>
-    </div>
-  )
+  const badgeContent = 
+    <AddPhotoBadgeButton
+      imageUnderEditing={props.accountEdit}
+      thereIsAnImage={croppedImage}
+      iconSize={props.iconSize}
+      onDelete={deleteImage}
+      onImageChange={fileSelectedHandler}
+    />
 
   return (
     <>    
@@ -133,7 +79,7 @@ export function AddPhoto(props){
           vertical: 'bottom',
           horizontal: 'right',
         }}
-        badgeContent={props.accountEdit ? editableBadgeContent : badgeContent}
+        badgeContent={badgeContent}
       >
         <CustomAvatar
           disableLoading={props.disableLoading}
