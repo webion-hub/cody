@@ -9,7 +9,7 @@ export const UserContext = React.createContext({
   setIsLogged: () => {},
   setIsLoggedWithoutRefresh: () =>{},
   
-  loading: true,
+  userLoading: true,
   setLoading: () => {},
 
   role: null,
@@ -20,8 +20,9 @@ export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
   const state = sessionStorage.getItem('logged');
-  const isLogged = JSON.parse(state)? JSON.parse(state) : false;
-  const [loading, setLoading] = React.useState(true);
+  const isLoggedValue = JSON.parse(state)? JSON.parse(state) : false;
+  const [isLogged, setIsLoggedState] = React.useState(isLoggedValue);
+  const [userLoading, setUserLoading] = React.useState(true);
   const [loggedWithCookie, setIsLoggedWithCookie] = React.useState(false);
 
   const [role, setRole] = React.useState(null);
@@ -35,20 +36,20 @@ export function UserControllerContext(props){
     sessionStorage.setItem('logged', loggedState);
   }
 
-  const setRoleState = () => {
-    setLoading(true)
+  const setRoleState = async () => {
+    setUserLoading(true)
 
-    UserAccountInfo
-    .createRequest()
-      .get('role')
-    .send()
-    .then(resp => {
-      setLoading(false)
-      const got = resp.got;
-      const role = got.get('role')
-      setRole(role);
-      setIsLoggedWithoutRefresh(true)
-    })
+    await UserAccountInfo
+      .createRequest()
+        .get('role')
+      .send()
+      .then(resp => {
+        setUserLoading(false)
+        const got = resp.got;
+        const role = got.get('role')
+        setRole(role);
+        setIsLoggedState(true)
+      })
   }
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export function UserControllerContext(props){
           }
         }
       })
-      .then(() => setLoading(false));
+      .then(() => setUserLoading(false));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, []);
@@ -78,8 +79,8 @@ export function UserControllerContext(props){
     setIsLogged,
     setIsLoggedWithoutRefresh,
 
-    loading,
-    setLoading,
+    userLoading,
+    setUserLoading,
 
     role,
     setRole,
