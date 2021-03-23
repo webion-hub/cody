@@ -6,8 +6,7 @@ import { LinearProgress } from '@material-ui/core';
 
 import { DataTableTitleControllers } from 'src/pages/admin_pages/components/data_table_title_controllers';
 import { dataTableStyles } from 'src/pages/admin_pages/styles/data_table_styles';
-import { DataTableController } from 'src/pages/admin_pages/lib/data_table_controller';
-
+import { prepareListForDataTable } from '../lib/prepare_list_for_data_table';
 
 export const DataTableContext = React.createContext({
   refreshDataTable: () => {},
@@ -16,53 +15,45 @@ export const DataTableContext = React.createContext({
 export function DataTableBase(props){
 	const theme = useTheme();
 
-  const [dataList, setDataList] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-
 	const maxPageElements = props.maxPageElements;
+  const getData = props.getData;
+  const associateData = props.associateData;
+
+  const [dataList, setDataList] = React.useState([]);
+  const [totalItems, setTotalItems] = React.useState(0);
+  const [loading, setLoading] = React.useState(true);
+  const [page, setPage] = React.useState(1);
   const [dataTableSettings, setDataTableSettings] = React.useState({
 		filter: "",
 		limit: maxPageElements,
 		offset: 0,
 	});
 
-  const [disableNext, setDisableNext] = React.useState(false);
-  const [disableBack, setDisableBack] = React.useState(true);
-
-  const [page, setPage] = React.useState(1);
-
-	//getData function from props
-  const getData = props.getData;
-  const associateData = props.associateData;
-
-	const dataTableController = new DataTableController({
-		onPageNext: () => setPage(page + 1),
-		onPageBack: () => setPage(page - 1),
-		getData: getData,
-		associateData: associateData,
-	})
+	const maxPages = totalItems / maxPageElements;
+	const disableNext = loading || page >= maxPages;
+	const disableBack = loading || page === 1;
 
 	useEffect(() => {
 		refreshDataTable(dataTableSettings)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const refreshDataTable = (settings, pageMove) => {
+	const refreshDataTable = (settings) => {
 		setLoading(true)
 		setDataTableSettings(settings)
 
-		dataTableController
-			.refreshDataTable(settings, pageMove)
-			.then((list) => {
+		getData(settings)
+			.then((searchResult) => {
+				const list = searchResult.values;
+				const total = searchResult.total;
+
+				const preparedList = prepareListForDataTable(list, associateData)
+
+				setDataList(preparedList)
+				setTotalItems(total)
 				setLoading(false)
-				if(list !== [])
-					setDataList(list)
 			})
 	}
-
-	/**
-	 * Handlers 
-	 */
 
 	const handleChange = (value) => {
 		const dataSettings = {
@@ -72,81 +63,59 @@ export function DataTableBase(props){
 		}
 		
 		setPage(1)	
-		setDisableBack(true)
-		setDisableNext(false)
-
 		refreshDataTable(dataSettings)
 	}
 
-	/**
-	 * Handle pages
-	 */
-	
 	const handleNext = () => {
-		const thereIsntDataInTheNextPage = 
-			dataList.length !== maxPageElements;		
-		if(thereIsntDataInTheNextPage){
-			setDisableNext(true)
-			return;
-		}
-			
-		setDisableBack(false)
-		setDisableNext(false)
-
 		const dataOffset = page*maxPageElements;
 		const dataSettings = {
 			...dataTableSettings,
 			offset: dataOffset,
 		}
 
-		refreshDataTable(dataSettings, {next: true})
+		setPage(page + 1)	
+		refreshDataTable(dataSettings)
 	}
 
 	const handleBack = () => {
-		const isAtFirstPage = page === 1
-		if(isAtFirstPage){
-			setDisableBack(true)
-			return;
-		}
-
-		setDisableBack(false)
-		setDisableNext(false)
-
 		const dataOffset = (page - 2)*maxPageElements;
 		const dataSettings = {
 			...dataTableSettings,
 			offset: dataOffset,
 		}
 
-		refreshDataTable(dataSettings, {back: true})
+		setPage(page - 1)	
+		refreshDataTable(dataSettings)
 	}
 
 	return (
-		<div>
-			<DataTableContext.Provider value={{refreshDataTable: () => refreshDataTable(dataTableSettings)}}>
-				<DataTable
-					progressPending={loading}
-					progressComponent={
-						<LinearProgress 
-							color="secondary"
-							style={{width: "100%"}}
-						/>
-					}
-					title={
-						<DataTableTitleControllers
-							onChange={handleChange}
-							onBack={handleBack}
-							onNext={handleNext}
-							disableBack={disableBack || page === 1}
-							disableNext={disableNext}
-							title={props.title}
-						/>
-					}
-					columns={props.columns}
-					data={dataList}
-					customStyles={dataTableStyles(theme)}
-				/>
-			</DataTableContext.Provider>
-		</div>
+		<DataTableContext.Provider 
+			value={{
+				refreshDataTable: () => refreshDataTable(dataTableSettings)
+			}}
+		>
+			<DataTable
+				progressPending={loading}
+				progressComponent={
+					<LinearProgress 
+						color="secondary"
+						style={{width: "100%"}}
+					/>
+				}
+				title={
+					<DataTableTitleControllers
+						onChange={handleChange}
+						onBack={handleBack}
+						onNext={handleNext}
+						disableBack={disableBack}
+						disableNext={disableNext}
+						title={props.title}
+					/>
+				}
+				columns={props.columns}
+				data={dataList}
+				customStyles={dataTableStyles(theme)}
+			/>
+		</DataTableContext.Provider>
 		);
 }
