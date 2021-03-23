@@ -48,12 +48,22 @@ export function UserControllerContext(props){
         const got = resp.got;
         const role = got.get('role')
         setRole(role);
-        setIsLoggedState(true)
+      })
+  }
+
+  const checkUserLogged = async () => {
+    setUserLoading(true)
+    await User
+      .isLogged()          
+      .then((resp) => {
+        setIsLoggedState(resp)
+        setUserLoading(false)
+        setRoleState()
       })
   }
 
   useEffect(() => {
-    setRoleState()
+    checkUserLogged()
 
     User
       .tryLoginWithCookie({
