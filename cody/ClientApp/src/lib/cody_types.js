@@ -57,6 +57,6 @@
 /**
  * @template T
  * @typedef {object} SearchResult
- * @property {number} count
+ * @property {number} total
  * @property {T[]} values
  */
