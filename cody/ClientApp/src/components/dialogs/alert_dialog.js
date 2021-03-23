@@ -23,14 +23,15 @@ export function AlertDialog(props){
   const getItems = () => {
     const items = props.items;
     const cleanItems = items.filter(item => item !== undefined && item !== null)
-    const getItems = cleanItems.map((item, index) => 
-      <div key={item}>
-        <ListItem>
-          <ListItemText primary={item} />
-        </ListItem>
-        <Divider />
-      </div>
-    );
+    const getItems = 
+      cleanItems.map((item, index) => 
+        <div key={item}>
+          <ListItem>
+            <ListItemText primary={item} />
+          </ListItem>
+          <Divider />
+        </div>
+      );
     
     return getItems;
   }

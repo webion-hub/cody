@@ -8,7 +8,6 @@ import { P2 } from './components/p2';
 import { P3 } from './components/p3';
 import { P4 } from './components/p4';
 
-
 const useStyles = makeStyles((theme) => ({
   absoluteSvg: {
     position: "absolute",
@@ -19,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
-
 
 export function AnimatedCoding(props){
   const classes = useStyles();

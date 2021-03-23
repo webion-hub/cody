@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 
-import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base';
+import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base/interactive_icon_base';
 import { TouchableTooltip } from 'src/components/touchable_tooltip';
 
 const useStyles = makeStyles((theme) => ({
