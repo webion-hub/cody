@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security
 {
-    public class Cryptography
+    internal class Cryptography
     {
         public const int DEFAULT_KEY_SIZE = 256;
 

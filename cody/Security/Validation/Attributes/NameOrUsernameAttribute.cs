@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation.Attributes
 {
-    public class NameOrSurnameAttribute : ValidationAttribute
+    internal class NameOrSurnameAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

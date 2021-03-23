@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security
 {
-    public record Argon2Options(
+    internal record Argon2Options(
         int DegreeOfParallelism = 1,
         int Iterations = 4,
         int MemorySize = 256,

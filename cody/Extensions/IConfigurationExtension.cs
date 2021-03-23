@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class IConfigurationExtension
+    internal static class IConfigurationExtension
     {
         public static SftpConnection GetSftpConnection(this IConfiguration configuration)
         {

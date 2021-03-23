@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class HttpResponseExtension
+    internal static class HttpResponseExtension
     {
         public static void SetLoginCookies(this HttpResponse response, int id, string token)
         {

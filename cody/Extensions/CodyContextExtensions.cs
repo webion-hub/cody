@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class CodyContextExtensions
+    internal static class CodyContextExtensions
     {
         public static bool UserExists(this CodyContext context, string usernameOrEmail)
         {

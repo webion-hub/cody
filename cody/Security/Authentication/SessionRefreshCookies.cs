@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Authorization
 {
-    public class SessionRefreshCookies : InDbAuthCookies
+    internal class SessionRefreshCookies : InDbAuthCookies
     {
         public SessionRefreshCookies() : base(
             idName: "refresh_cookie_id", 

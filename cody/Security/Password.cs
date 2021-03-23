@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security
 {
-    public class Password
+    internal class Password
     {
         public static async Task<UserAccountPassword> CreateAsync(string plainText)
         {

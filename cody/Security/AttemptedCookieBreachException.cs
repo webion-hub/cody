@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security
 {
-    public class AttemptedCookieBreachException : UnauthorizedAccessException
+    internal class AttemptedCookieBreachException : UnauthorizedAccessException
     {
         public UserAccount AffectedUser { get; init; }
 

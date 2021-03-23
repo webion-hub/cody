@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security
 {
-    public class UniqueToken
+    internal class UniqueToken
     {
         public string Base64PlainTextToken => Convert.ToBase64String(PlainTextToken);
         public byte[] PlainTextToken { get; init; }

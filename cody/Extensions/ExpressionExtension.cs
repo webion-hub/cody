@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class ExpressionExtension
+    internal static class ExpressionExtension
     {
         public static Expression<TFunc> Negate<TFunc>(this Expression<TFunc> self)
         {

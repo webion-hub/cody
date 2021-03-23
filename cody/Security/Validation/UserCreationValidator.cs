@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation
 {
-    public class UserCreationValidator: UserValidation
+    public class UserCreationValidator : UserValidation
     {
         public UserCreationValidator(CodyContext dbContext) 
             : base(dbContext)

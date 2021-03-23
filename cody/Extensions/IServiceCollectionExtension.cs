@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class IServiceCollectionExtension
+    internal static class IServiceCollectionExtension
     {
         public static IServiceCollection AddCodyContext(
             this IServiceCollection services,

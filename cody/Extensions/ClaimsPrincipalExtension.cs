@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class ClaimsPrincipalExtension
+    internal static class ClaimsPrincipalExtension
     {
         public static async Task<UserAccount> FetchFromDbAsync(this ClaimsPrincipal claim, CodyContext dbContext)
         {

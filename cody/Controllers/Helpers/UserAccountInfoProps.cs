@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Helpers
 {
-    public class UserAccountInfoProps
+    internal class UserAccountInfoProps
     {
         public const string Username = "username";
         public const string Email = "email";

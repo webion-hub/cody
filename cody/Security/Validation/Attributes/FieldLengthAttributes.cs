@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation.Attributes
 {
-    public class DefaultMinMaxLengthAttribute : StringLengthAttribute
+    internal class DefaultMinMaxLengthAttribute : StringLengthAttribute
     {
         public DefaultMinMaxLengthAttribute()
             : base(FieldLength.DefaultMaxLength)
@@ -16,7 +16,7 @@ namespace Cody.Security.Validation.Attributes
     }
 
 
-    public class DefaultUsernameLength : StringLengthAttribute
+    internal class DefaultUsernameLength : StringLengthAttribute
     {
         public DefaultUsernameLength()
             : base(FieldLength.DefaultMaxLength)
@@ -26,7 +26,7 @@ namespace Cody.Security.Validation.Attributes
     }
 
 
-    public class DefaultPasswordLength : StringLengthAttribute
+    internal class DefaultPasswordLength : StringLengthAttribute
     {
         public DefaultPasswordLength()
             : base(FieldLength.DefaultMaxLength)
@@ -36,7 +36,7 @@ namespace Cody.Security.Validation.Attributes
     }
 
 
-    public class DefaultMaxLengthAttribute : MaxLengthAttribute
+    internal class DefaultMaxLengthAttribute : MaxLengthAttribute
     {
         public DefaultMaxLengthAttribute()
             : base(FieldLength.DefaultMaxLength)
@@ -44,7 +44,7 @@ namespace Cody.Security.Validation.Attributes
     }
 
 
-    public class DefaultDescriptionLengthAttribute : MaxLengthAttribute
+    internal class DefaultDescriptionLengthAttribute : MaxLengthAttribute
     {
         public DefaultDescriptionLengthAttribute()
             : base(FieldLength.DefaultMaxLength)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation
 {
-    public static class FieldValidation
+    internal static class FieldValidation
     {
         public static bool IsValidNameOrSurname(string name)
         {

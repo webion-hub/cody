@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Validation
 {
-    public readonly struct FieldLength
+    internal readonly struct FieldLength
     {
         public const int DefaultMinLength = 4;
         public const int DefaultMaxLength = 256;

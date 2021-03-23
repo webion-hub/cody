@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Authorization
 {
-    public class UserRolesAuthorizationHandler : AuthorizationHandler<RolesAuthorizationRequirement>, IAuthorizationHandler
+    internal class UserRolesAuthorizationHandler : AuthorizationHandler<RolesAuthorizationRequirement>, IAuthorizationHandler
     {
         private readonly CodyContext _dbContext;
 

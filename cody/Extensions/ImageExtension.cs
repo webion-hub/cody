@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class ImageExtension
+    internal static class ImageExtension
     {
         public static async Task<Stream> SaveAsJpegAsync(this Image self)
         {

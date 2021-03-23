@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security
 {
-    public abstract class InDbAuthCookies
+    internal abstract class InDbAuthCookies
     {
         protected readonly string _idName;
         protected readonly string _tokenName;

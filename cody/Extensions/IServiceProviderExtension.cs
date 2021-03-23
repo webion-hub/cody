@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class IServiceProviderExtension
+    internal static class IServiceProviderExtension
     {
         public static ILogger<T> GetLogger<T>(this IServiceProvider serviceProvider)
         {

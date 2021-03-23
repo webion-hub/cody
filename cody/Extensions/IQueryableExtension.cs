@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class IQueryableExtension
+    internal static class IQueryableExtension
     {
         public static IQueryable<T> MaybeTake<T>(this IQueryable<T> self, int? amount)
         {

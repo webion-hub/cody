@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Cody.Extensions
 {
-    public static class HttpRequestExtension
+    internal static class HttpRequestExtension
     {
         public static bool TryGetLoginCookies(this HttpRequest request, out int cookieId, out string token)
         {

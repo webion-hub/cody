@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Authorization
 {
-    public class RolesManager
+    internal class RolesManager
     {
         private readonly CodyContext _dbContext;
 
@@ -40,7 +40,7 @@ namespace Cody.Security.Authorization
             else RevokeFrom(user);
         }
 
-        public void AssignTo(UserAccount user, string role)
+        public static void AssignTo(UserAccount user, string role)
         {
             if (!Roles.Exists(role))
                 throw new ArgumentException($"Inexistent role: {role}");

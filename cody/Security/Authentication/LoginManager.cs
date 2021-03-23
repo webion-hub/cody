@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Authentication
 {
-    public class LoginManager
+    internal class LoginManager
     {
         public const string DEFAULT_SCHEME = 
             CookieAuthenticationDefaults.AuthenticationScheme;

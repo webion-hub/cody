@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Authorization
 {
-    public class SessionCookieRefresher
+    internal class SessionCookieRefresher
     {
         private readonly CookieValidatePrincipalContext _cookieContext;
         private readonly SessionRefreshCookies _cookies;

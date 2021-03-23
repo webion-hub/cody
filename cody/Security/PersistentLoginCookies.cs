@@ -2,7 +2,7 @@
 
 namespace Cody.Security
 {
-    public class PersistentLoginCookies : InDbAuthCookies
+    internal class PersistentLoginCookies : InDbAuthCookies
     {
         public PersistentLoginCookies() : base(
             idName: "login_cookie_id",

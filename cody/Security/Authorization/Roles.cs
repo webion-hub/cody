@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Security.Authorization
 {
-    public static class Roles
+    internal static class Roles
     {
         private static readonly HashSet<string> _hashedRoles = new()
         {

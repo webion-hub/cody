@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
-    public static class HttpContextExtension
+    internal static class HttpContextExtension
     {
         public static async Task SignInAsync(this HttpContext context, UserAccount user)
         {
