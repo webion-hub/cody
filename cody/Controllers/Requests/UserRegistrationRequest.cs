@@ -23,14 +23,14 @@ namespace Cody.Controllers.Requests
         [Required]
         RegistrationRequestDetails AccountDetail
     ) {
-        public static implicit operator UserAccount(UserRegistrationRequest self)
+        public UserAccount AsUserAccount()
         {
             return new UserAccount
             {
-                Username = self.Username.Trim(),
-                Email = self.Email.Trim(),
-                PlainPassword = self.Password,
-                AccountDetail = self.AccountDetail,
+                Username = Username.Trim(),
+                Email = Email.Trim(),
+                PlainPassword = Password,
+                AccountDetail = AccountDetail.AsUserAccountDetail(),
             };
         }
     }
@@ -46,13 +46,13 @@ namespace Cody.Controllers.Requests
         [Required]
         DateTime BirthDate
     ) {
-        public static implicit operator UserAccountDetail(RegistrationRequestDetails self)
+        public UserAccountDetail AsUserAccountDetail()
         {
             return new UserAccountDetail
             {
-                Name = self.Name.Trim(),
-                Surname = self.Surname.Trim(),
-                BirthDate = self.BirthDate,
+                Name = Name.Trim(),
+                Surname = Surname.Trim(),
+                BirthDate = BirthDate,
                 RegistrationDate = DateTime.Now,
             };
         }

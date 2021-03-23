@@ -41,9 +41,9 @@ namespace Cody.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TryRegisterUser([FromBody] UserRegistrationRequest request)
         {
-            UserAccount user = request;
-
+            var user = request.AsUserAccount();
             var validator = new UserCreationValidator(_dbContext);
+
             if (validator.Validate(user).WasRejected)
                 return validator.StatusCode;
 
@@ -56,10 +56,8 @@ namespace Cody.Controllers
                 await _dbContext.UserAccounts.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
             }
-            catch (DbUpdateException e)
-            {
-                _logger.LogError(e, "DB Register error - {Account}", user);
-                return BadRequest(new[] { "server_error" });
+            catch {
+                return Problem();
             }
 
             await HttpContext.SignInAsync(user);
