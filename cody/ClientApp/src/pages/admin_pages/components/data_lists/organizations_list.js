@@ -27,26 +27,26 @@ export function OrganizationsList(props){
 			menu: menu,
 			id: index,
 			Id: data.id,
+			logo: data.hasLogo ? <CustomAvatar src={`organizations/${data.id}/logo`}/> : null,
 			kind: getOrganizationKindIcon(data.kind, "small"),
 			name: data.name,
 			location: data.detail.location,
 			members: data.membersCount,
 			verified: getVerificationIcon(data.state.hasBeenVerified),
 			deleted: getDeletedIcon(data.state.hasBeenDeleted),
-			logo: <CustomAvatar src={`organizations/${data.id}/logo`}/>
 		})
 	}
 
 	const usersColumns = [
 		{ selector: 'menu', name: '', sortable: true, width: "48px", compact: true },
 		{	selector: 'Id', name: 'ID', sortable: true },
+		{ selector: 'logo', name: 'Logo' },
 		{	selector: 'kind', name: 'Kind' },
 		{	selector: 'name', name: 'Nome', sortable: true },
 		{	selector: 'location', name: 'Luogo', sortable: true },
 		{	selector: 'members', name: 'Membri', sortable: true },
 		{ selector: 'verified', name: 'Verificato' },
 		{ selector: 'deleted', name: 'Stato' },
-		{ selector: 'logo', name: 'Logo' },
 	]
 
 	return (
