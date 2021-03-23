@@ -11,7 +11,7 @@ namespace Cody.Security.Validation.PropertyValidators
             string propertyName,
             string propertyValue,
             Predicate<string> predicate,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) : base(
             propertyName,
             propertyValue,

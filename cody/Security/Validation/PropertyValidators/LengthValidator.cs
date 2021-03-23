@@ -11,7 +11,7 @@ namespace Cody.Security.Validation.PropertyValidators
             string propertyName,
             string propertyValue,
             Predicate<int?> predicate,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) : base(
             propertyName,
             propertyValue,
@@ -25,7 +25,7 @@ namespace Cody.Security.Validation.PropertyValidators
             string propertyValue,
             int? minimumLength,
             int? maximumLength,
-            ValidationOptions? options = default
+            ValidationOptions options = default
         ) : base(
             propertyName, 
             propertyValue, 
