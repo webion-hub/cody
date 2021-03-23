@@ -48,7 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\validate_email_model.html">
+    <None Update="Assets\validate_email_complex_model.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\validate_email_simple_model.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="libwebp.dll">

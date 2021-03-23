@@ -5,6 +5,7 @@ using Cody.Models;
 using Cody.Security;
 using Cody.Security.Validation;
 using Cody.Services;
+using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

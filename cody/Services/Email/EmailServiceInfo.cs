@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace Cody.Services
+namespace Cody.Services.Email
 {
     public struct EmailServiceInfo
     {
