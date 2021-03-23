@@ -6,6 +6,7 @@ import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
+import { PaperWithWaves } from '../paper_with_waves';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -31,7 +32,7 @@ export function MessagePageBase(props) {
 
   return (
     <CenterComponentPageBase>
-      <Paper className={classes.paper}>
+      <PaperWithWaves className={classes.paper}>
         <props.image 
           maxWidth={500}
           size="100%"
@@ -60,7 +61,7 @@ export function MessagePageBase(props) {
         >
           {props.buttonLabel}
         </Button>
-      </Paper>
+      </PaperWithWaves>
     </CenterComponentPageBase>
   );
 }

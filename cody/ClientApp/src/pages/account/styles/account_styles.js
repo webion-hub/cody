@@ -5,18 +5,13 @@ export const accountStyles = makeStyles((theme) => ({
     minHeight: "100vh",
     position: "relative"
   },
-	box: props => ({
-    background: theme.palette.background.paperSecondary,
-    backgroundImage: `url("${props.waves}")`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
+	paperContainer: {
     padding: theme.spacing(2),
     marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
     },
-	}),
+	},
   submitButton: {
     paddingTop: theme.spacing(1),
     [theme.breakpoints.between('sm', 830)]: {

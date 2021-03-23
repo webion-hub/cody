@@ -1,19 +1,13 @@
 import React from 'react';
 
 import { Grid } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useWaves } from 'src/lib/hooks/use_waves';
+import { PaperWithWaves } from '../paper_with_waves';
 
 const useStyles = makeStyles((theme) => ({
   paperBox: props => ({
     position: "relative",
-    background: theme.palette.background.paperSecondary,
-    backgroundImage: `url("${props.waves}")`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
     width: "100%",
     maxWidth: props.width,
     height: props.height,
@@ -46,11 +40,12 @@ export function PaperWithTransitionBase(props){
   const width = props.width? props.width : "auto";
   const height = props.height? props.height : "auto";
   const removeHeightOnMobile = props.removeHeightOnMobile? ` - ${props.removeHeightOnMobile}px` : "";
-  const waves = useWaves()
-  const classes = useStyles({width, height, removeHeightOnMobile, waves});
+  const classes = useStyles({width, height, removeHeightOnMobile});
 
   return(
-    <Paper className={classes.paperBox}>
+    <PaperWithWaves
+      className={classes.paperBox}
+    >
       <Grid
         container
         direction="column"
@@ -66,7 +61,7 @@ export function PaperWithTransitionBase(props){
           {props.children}
         </Grid>
       </Grid>
-    </Paper>
+    </PaperWithWaves>
   );
 }
 

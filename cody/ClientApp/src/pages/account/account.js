@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Grid, Paper } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 
 import { LoadingButton } from 'src/components/buttons/loading_button'
 import { InfoBox } from './components/info_box';
@@ -15,11 +15,10 @@ import { BackgroundWithLines } from 'src/components/background_with_lines';
 
 import { PageController } from 'src/lib/page_controller';
 import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
-import { useWaves } from 'src/lib/hooks/use_waves';
+import { PaperWithWaves } from 'src/components/paper_with_waves';
 
 export function Account(){
-  const waves = useWaves()
-	const classes = accountStyles({waves});
+	const classes = accountStyles();
 
   //Loadings
   const [loadingSave, setLoadingSave] = React.useState(false);
@@ -198,7 +197,7 @@ export function Account(){
 			justify="center"
 			alignItems="center"
 		>
-      <Paper className={classes.box}>
+      <PaperWithWaves className={classes.paperContainer}>
         <Grid
           container
           direction="row"
@@ -237,7 +236,7 @@ export function Account(){
             label="Salva"
           />
         </Box>
-      </Paper>
+      </PaperWithWaves>
       <AlertDialog
         open={openAlert}
         onClose={() => setOpenAlert(false)}

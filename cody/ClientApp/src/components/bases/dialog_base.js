@@ -6,19 +6,15 @@ import { DialogContent } from '@material-ui/core';
 import { DialogTitle } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useWaves } from 'src/lib/hooks/use_waves';
+import { useBackgroundWaves } from 'src/lib/hooks/use_background_waves';
+
 
 const useStyles = makeStyles((theme) => ({
-  dialogContainer: props => ({
+  dialogContainer: {
     [theme.breakpoints.up('sm')]: {
       transform: `translate(${theme.drawer.width / 2}px, 0px)`
     },
-    background: theme.palette.background.paperSecondary,
-    backgroundImage: `url("${props.waves}")`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-  }),
+  },
   title: {
     color: theme.palette.text.secondary,
   },
@@ -29,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function DialogBase(props){
-  const waves = useWaves();
-  const classes = useStyles({waves});
+  const classWithWavedBackground = useBackgroundWaves();
+  const classes = useStyles();
 
   const areButtons = props.firstButton || props.secondButton
   const buttons = areButtons ?      
@@ -59,7 +55,7 @@ export function DialogBase(props){
       open={props.open}
       onClose={props.onClose}
       classes={{
-        paper: classes.dialogContainer
+        paper: `${classWithWavedBackground} ${classes.dialogContainer}`
       }}
     >
       {dialogTitle}

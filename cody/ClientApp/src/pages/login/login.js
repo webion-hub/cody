@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Button } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Authentication } from 'src/components/illustrations/authentication';
@@ -15,15 +14,10 @@ import { Images } from 'src/lib/default_values/images/images';
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
-import { useWaves } from 'src/lib/hooks/use_waves';
+import { PaperWithWaves } from 'src/components/paper_with_waves';
 
 export const useStyles = makeStyles((theme) => ({
-  paper: props => ({
-    background: theme.palette.background.paperSecondary,
-    backgroundImage: `url("${props.waves}")`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
+  paper: {
     padding: theme.spacing(2),
     maxWidth: 632,
     width: "100%",
@@ -31,14 +25,14 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
     },
-  }),
+  },
   createAccount: {
     margin: theme.spacing(1),
     backdropFilter: "blur(10px)",
     background: theme.palette.background.backgroundTransparent,
     color: "rgba(255,255,255,0.9)",
   },
-  pageBackground: {
+  pageContainer: {
     backgroundImage: `url(${Images.forestImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center center"
@@ -46,12 +40,11 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export function Login(){
-  const waves = useWaves()
-	const classes = useStyles({waves});
+	const classes = useStyles();
 
   return (
     <CenterComponentPageBase
-      className={classes.pageBackground}
+      className={classes.pageContainer}
     >
       <Grid
         container
@@ -59,14 +52,14 @@ export function Login(){
         justify="center"
         alignItems="center"
       >
-        <Paper className={classes.paper}>
+        <PaperWithWaves className={classes.paper}>
           <BasePhotoText
             image={Authentication}
             items={[
               <LoginBox/>
             ]}
           />
-        </Paper> 
+        </PaperWithWaves> 
         <Button
           className={classes.createAccount}
           endIcon={<ArrowForwardIcon/>}
