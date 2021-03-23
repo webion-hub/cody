@@ -22,11 +22,12 @@ function renderRow(props) {
 
 function useResetCache(data) {
   const ref = React.useRef(null);
-  React.useEffect(() => {
+  useEffect(() => {
     if (ref.current != null) {
       ref.current.resetAfterIndex(0, true);
     }
   }, [data]);
+  
   return ref;
 }
 
