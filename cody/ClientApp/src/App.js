@@ -53,7 +53,7 @@ function Routes(){
         <CustomRoute path='/sign-up' component={SignUp} redirect={isLogged}/>
         <CustomRoute path='/validate-email' component={EmailValidPage} />
         <CustomRoute path='/access-denied' component={UnauthorizedPage} />
-        <CustomRoute path='/account' component={Account} redirect={isLogged}/>
+        <CustomRoute path='/account' component={Account} redirect={!isLogged}/>
         
         <CustomRoute path='/admin' component={AdminPage}/>
         <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
