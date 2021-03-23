@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 export function RowMenu(props){
   const classes = useStyles();
+	const [anchorEl, setAnchorEl] = React.useState(null);
+  const { refreshDataTable } = React.useContext(DataTableContext);
+
   const onDelete = props.onDelete;
   const onRestore = props.onRestore;
   const onVerify = props.onVerify;
   const id = props.data.id;
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const { refreshDataTable } = React.useContext(DataTableContext);
   const thereIsState = props.data.state !== undefined
 
 	let disableVerifiyButton = true
@@ -34,7 +34,6 @@ export function RowMenu(props){
     disableDeleteButton = props.data.state.hasBeenDeleted 
     disableRestoreButton = !props.data.state.hasBeenDeleted 
   }
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
