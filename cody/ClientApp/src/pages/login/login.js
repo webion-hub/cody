@@ -15,12 +15,12 @@ import { Images } from 'src/lib/default_values/images/images';
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
-import { waves } from 'src/lib/default_values/images/svg_backgrounds';
+import { useWaves } from 'src/lib/hooks/use_waves';
 
 export const useStyles = makeStyles((theme) => ({
-  paper: {
+  paper: props => ({
     background: theme.palette.background.paperSecondary,
-    backgroundImage: `url(${theme.palette.type === "dark" ? waves.dark : waves.light})`,
+    backgroundImage: `url("${props.waves}")`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.appBar.mobileHeight,
     },
-  },
+  }),
   createAccount: {
     margin: theme.spacing(1),
     backdropFilter: "blur(10px)",
@@ -46,7 +46,8 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export function Login(){
-	const classes = useStyles();
+  const waves = useWaves()
+	const classes = useStyles({waves});
 
   return (
     <CenterComponentPageBase
