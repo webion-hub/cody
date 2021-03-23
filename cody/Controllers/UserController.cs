@@ -19,6 +19,7 @@ using Cody.Extensions;
 namespace Cody.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("user")]
     public partial class UserController : ControllerBase
     {
@@ -27,6 +28,14 @@ namespace Cody.Controllers
         public UserController(CodyContext dbContext) 
         {
             _dbContext = dbContext;
+        }
+
+
+        [HttpGet("is_logged")]
+        [AllowAnonymous]
+        public IActionResult IsUserLogged()
+        {
+            return Ok(HttpContext.User.Identity.IsAuthenticated);
         }
 
 

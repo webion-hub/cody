@@ -6,6 +6,16 @@ import './organizations';
 
 export class User {
   /**
+   * @returns {Promise<boolean>}
+   */
+  static async isLogged() {
+    return axios
+      .get('user/is_logged')
+      .then(resp => resp.data);
+  }
+
+
+  /**
    * @param {ExistsWithOptions} options
    * @returns {Promise<boolean>} 
    */
