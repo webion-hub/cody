@@ -24,11 +24,11 @@ export function CreateOrJoinOrganization(){
     const hash = window.location.hash
     const value = hash.replace('#', '')
 
-    setContent(value)
+    setContentByHash(value)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.hash])
 
-  const setContent = (hash) => {
+  const setContentByHash = (hash) => {
     const action = {
       'create': () => setContentSetting(createOrganizationSettings),
       'createteam': () => setContentSetting(createTeamSettings),
