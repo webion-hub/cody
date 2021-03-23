@@ -8,16 +8,16 @@ import { DialogTitle } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useBackgroundWaves } from 'src/lib/hooks/use_background_waves';
 
-
 const useStyles = makeStyles((theme) => ({
   dialogContainer: {
     [theme.breakpoints.up('sm')]: {
       transform: `translate(${theme.drawer.width / 2}px, 0px)`
     },
   },
-  title: {
+  title: props => ({
     color: theme.palette.text.secondary,
-  },
+    textAlign: props.titleAlign
+  }),
   centeredButtons: {
     display: "block",
     textAlign: "center"
@@ -26,28 +26,23 @@ const useStyles = makeStyles((theme) => ({
 
 export function DialogBase(props){
   const classWithWavedBackground = useBackgroundWaves();
-  const classes = useStyles();
+  const titleAlign = props.titleAlign
+  const classes = useStyles({titleAlign});
 
   const areButtons = props.firstButton || props.secondButton
-  const buttons = areButtons ?      
-      <DialogActions className={props.centeredButtons ? classes.centeredButtons : ""}>
+  const buttonsClassName = props.centeredButtons && classes.centeredButtons
+  const buttons = areButtons &&      
+    <DialogActions className={buttonsClassName}>
       {props.firstButton}
       {props.secondButton}
     </DialogActions>
-    :
-    null
 
-  const dialogTitle = props.title? 
+  const dialogTitle = props.title && 
     <DialogTitle
-      style={{
-        textAlign: props.titleAlign
-      }} 
       className={classes.title}
     >
       {props.title}
     </DialogTitle>
-    :
-    null
 
   return(
     <Dialog

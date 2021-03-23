@@ -40,7 +40,6 @@ export function CardBase(props){
               title={props.title}
             />          
         }
-
         <CardContent className={classes.cardContent}>
 					{props.children}
         </CardContent>

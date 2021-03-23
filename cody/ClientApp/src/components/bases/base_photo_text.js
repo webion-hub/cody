@@ -9,6 +9,9 @@ import { useMediaQuery } from '@material-ui/core'
 import { Form } from 'src/lib/default_values/sizes/form_size';
 
 const useStyles = makeStyles((theme) => ({
+  container: props => ({
+    marginBottom: props.marginBottom
+  }),
   flipImage: {
     transform: "scaleX(-1)",
   },
@@ -19,11 +22,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 export function BasePhotoText(props) {
-  const classes = useStyles();
+  const marginBottom = props.marginBottom
+  const classes = useStyles({marginBottom});
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+
+  const image = <props.image maxWidth={Form.width} size={mobileView ? "100%" : "50%"}/>
+  const flippedImage = 
+    <div className={classes.flipImage}>
+      {image}
+    </div>
 
   const propsItems = props.items? props.items : [];
   const items = propsItems.map((item, index) => 
@@ -36,7 +45,6 @@ export function BasePhotoText(props) {
     </Box>
   );
   
-  const image = <props.image maxWidth={Form.width} size={mobileView ? "100%" : "50%"}/>
 
   return (
     <Grid
@@ -44,18 +52,9 @@ export function BasePhotoText(props) {
       direction={props.reverse ? "row-reverse" : "row"}
       justify="center"
       alignItems="center"
-      style={{
-        marginBottom: props.bottomMargin
-      }}
+      className={classes.container}
     >
-      {
-        props.flipImage ? 
-          <div className={classes.flipImage}>
-            {image}
-          </div>
-          :
-          image
-        }        
+      {props.flipImage ? flippedImage : image}        
       <Grid
         container
         direction="column"

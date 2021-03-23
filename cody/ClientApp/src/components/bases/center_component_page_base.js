@@ -12,10 +12,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function CenterComponentPageBase(props){
   const classes = useStyles();
+  const className = `${classes.pageContainer} ${props.className}`
 
   return(
     <Grid
-      className={`${classes.pageContainer} ${props.className}`}
+      className={className}
       container
       direction={props.direction}
       justify="center"

@@ -46,6 +46,11 @@ export function TitleInfoContentBase(props){
     infoRef.current.scrollIntoView({ block: 'start',  behavior: 'smooth' });
   }
 
+  const showBackButton = props.onBack;
+  const showInfoArea = props.infoRef;
+
+  const titleWidth = titleContainerSize.width - 96;
+
   const titleComponent =     
     <Grid
       ref={titleContainerRef}
@@ -56,14 +61,14 @@ export function TitleInfoContentBase(props){
       justify="center"
     >
       <FlowingText
-        containerWidth={titleContainerSize.width - 96}
+        containerWidth={titleWidth}
         variant="h5"
         background={theme.palette.background.paperSecondary}
       >
         {props.title}
       </FlowingText>
       {
-        props.onBack?
+        showBackButton &&
           <IconButton 
             className={classes.backButton}
             href={props.href}
@@ -71,19 +76,15 @@ export function TitleInfoContentBase(props){
           >
             <ArrowBackRoundedIcon/>
           </IconButton>
-          :
-          null
       }
       {
-        props.infoRef?
+        showInfoArea &&
           <IconButton 
             className={classes.infoButton}
             onClick={scrollToInfo}
           >
             <InfoRounded/>
           </IconButton>
-          :
-          null
       }
     </Grid>
 
