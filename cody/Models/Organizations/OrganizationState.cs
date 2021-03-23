@@ -7,6 +7,17 @@ using System.Threading.Tasks;
 
 namespace Cody.Models
 {
+    public enum OrganizationVisibility {
+        Public,
+        Private,
+    }
+
+    public enum OrganizationAccessCriteria {
+        Open,
+        OnInvite,
+    }
+
+
     [Table("organization_state")]
     public class OrganizationState
     {
@@ -18,6 +29,16 @@ namespace Cody.Models
 
         [Required] public bool HasBeenVerified { get; set; }
         [Required] public bool HasBeenDeleted { get; set; }
+
+
+        [Required]
+        [Column(TypeName = "text")]
+        public OrganizationVisibility Visibility { get; set; }
+
+        [Required]
+        [Column(TypeName = "text")]
+        public OrganizationAccessCriteria AccessCriteria { get; set; }
+
 
 
         [Required]
