@@ -78,9 +78,8 @@ namespace Cody.Controllers.Organizations
                     HasLogo = l != null,
                     HasCover = b != null,
 
-                    IsCallerAMember = userId == null 
-                        ? false
-                        : m.Any(m => m.UserAccountId == userId)
+                    IsCallerAMember = 
+                        userId != null && m.Any(m => m.UserAccountId == userId)
                 };
         }
     }
