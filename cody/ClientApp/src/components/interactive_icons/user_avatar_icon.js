@@ -40,18 +40,16 @@ const useStyles = makeStyles((theme) => ({
 export function UserAvatarIcon(){  
   const classes = useStyles();
 
-  const { logged, setLogged } = React.useContext(UserContext);
-  
+  const { isLogged, setIsLogged } = React.useContext(UserContext);  
   const { role } = React.useContext(UserContext);
   const isAdmin = role === "Admin"
 
   const [openMenu, setOpenMenu] = React.useState(null);
-
   const [username, setUsername] = React.useState(null);
   
 
   useEffect(() => {
-    if(logged){
+    if(isLogged){
       UserAccountInfo
       .createRequest()
         .get('username')
@@ -61,7 +59,7 @@ export function UserAvatarIcon(){
         setUsername(got.get('username'));
       })
     }
-  }, [logged])
+  }, [isLogged])
 
   const handleClick = (event) => {
     setOpenMenu(event.currentTarget);
@@ -134,8 +132,8 @@ export function UserAvatarIcon(){
         <MenuItem
           onClick={() => {
             User.logout({
-              onSuccess: () => setLogged(false),
-              onError: () => setLogged(false),
+              onSuccess: () => setIsLogged(false),
+              onError: () => setIsLogged(false),
             })
             .then(() => {
               handleClose();

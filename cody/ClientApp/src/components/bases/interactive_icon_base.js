@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function InteractiveIconBase(props){  
   const classes = useStyles();
-  const { logged } = React.useContext(UserContext);
+  const { isLogged } = React.useContext(UserContext);
   const { loading } = React.useContext(UserContext);
  
 	const extraLoadingCondition = props.extraLoadingCondition? 
@@ -55,7 +55,7 @@ export function InteractiveIconBase(props){
         }}
       />
 			{
-				logged ? 
+				isLogged ? 
 					loggedContent : notLoggedContent
 			}
     </div>

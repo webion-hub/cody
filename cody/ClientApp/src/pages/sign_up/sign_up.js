@@ -52,7 +52,7 @@ export function SignUp(){
   });
 
   const [openAlert, setOpenAlert] = React.useState(false);
-  const { setLoggedWithoutRefresh } = React.useContext(UserContext);
+  const { setIsLoggedWithoutRefresh } = React.useContext(UserContext);
 
   const handleDataChange = (prop) => (value) => {
     setData({
@@ -79,7 +79,7 @@ export function SignUp(){
       data: setUser(data),
       profileImage: data.profileImage,
       registrationErrors: registrationErrors,
-      onSuccess: () => setLoggedWithoutRefresh(true),
+      onSuccess: () => setIsLoggedWithoutRefresh(true),
       onError: (errors) => setRegistrationErrors(errors),
       onOpenAlert: (open) => setOpenAlert(open),
     })

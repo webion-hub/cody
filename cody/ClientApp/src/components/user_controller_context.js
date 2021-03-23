@@ -5,9 +5,9 @@ import { User } from 'src/lib/user';
 import { UserAccountInfo } from 'src/lib/user_account_info'
 
 export const UserContext = React.createContext({
-  logged: false,
-  setLogged: () => {},
-  setLoggedWithoutRefresh: () =>{},
+  isLogged: false,
+  setIsLogged: () => {},
+  setIsLoggedWithoutRefresh: () =>{},
   
   loading: true,
   setLoading: () => {},
@@ -20,51 +20,51 @@ export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
   const state = sessionStorage.getItem('logged');
-  const logged = JSON.parse(state)? JSON.parse(state) : false;
+  const isLogged = JSON.parse(state)? JSON.parse(state) : false;
   const [loading, setLoading] = React.useState(true);
-  const [loggedWithCookie, setLoggedWithCookie] = React.useState(false);
+  const [loggedWithCookie, setIsLoggedWithCookie] = React.useState(false);
 
   const [role, setRole] = React.useState(null);
 
-  const setLoggedWithoutRefresh = (loggedState) => {
+  const setIsLoggedWithoutRefresh = (loggedState) => {
     sessionStorage.setItem('logged', loggedState);
   }
 
-  const setLogged = (loggedState) => {
+  const setIsLogged = (loggedState) => {
     PageController.refresh()
     sessionStorage.setItem('logged', loggedState);
   }
 
   const setRoleState = () => {
+    setLoading(true)
+
     UserAccountInfo
     .createRequest()
       .get('role')
     .send()
     .then(resp => {
+      setLoading(false)
       const got = resp.got;
-      setLoggedWithoutRefresh(true)
-      setRole(got.get('role'));
+      const role = got.get('role')
+      setRole(role);
+      setIsLoggedWithoutRefresh(true)
     })
   }
 
   useEffect(() => {
-    if(logged){
-      setLoading(false)
-    }
-
     setRoleState()
 
     User
       .tryLoginWithCookie({
         onSuccess: () => {
-          setLoggedWithoutRefresh(true)
-          setLoggedWithCookie(true)
+          setIsLoggedWithoutRefresh(true)
+          setIsLoggedWithCookie(true)
           setRoleState()
         },
         onError: () => {
           if(loggedWithCookie){
-            setLoggedWithoutRefresh(false)
-            setLoggedWithCookie(false)
+            setIsLoggedWithoutRefresh(false)
+            setIsLoggedWithCookie(false)
           }
         }
       })
@@ -74,9 +74,9 @@ export function UserControllerContext(props){
   }, []);
     
   const value = { 
-    logged,
-    setLogged,
-    setLoggedWithoutRefresh,
+    isLogged,
+    setIsLogged,
+    setIsLoggedWithoutRefresh,
 
     loading,
     setLoading,

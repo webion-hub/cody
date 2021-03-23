@@ -30,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
 
 export function LoginBox(){
 	const classes = useStyles();
-  const { setLogged } = React.useContext(UserContext);
+  const { setIsLogged } = React.useContext(UserContext);
 
   const [data, setData] = React.useState({
     username: '',
@@ -76,7 +76,7 @@ export function LoginBox(){
     await User.tryLogin({
       userInfo: data,
       
-      onSuccess: _ => setLogged(true),
+      onSuccess: _ => setIsLogged(true),
       onUserNotFound: _ => {
         setErrors({...errors, wrongUsername: true})
         setLoading(false);
