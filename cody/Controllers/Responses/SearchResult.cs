@@ -10,7 +10,7 @@ namespace Cody.Controllers
     internal class SearchResult
     {
         internal record Response(
-            int Count,
+            int Total,
             IQueryable<object> Values
         );
 
@@ -19,12 +19,12 @@ namespace Cody.Controllers
             int? limit,
             int? offset
         ) {
-            var count = await results.CountAsync();
+            var total = await results.CountAsync();
             var values = results
                 .Skip(offset ?? 0)
                 .MaybeTake(limit);
 
-            return new Response(count, values);
+            return new Response(total, values);
         }
     }
 }
