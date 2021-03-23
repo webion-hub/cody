@@ -19,12 +19,10 @@ namespace Cody.Controllers.Organizations
     [Authorize]
     public partial class OrganizationsController : ControllerBase
     {
-        private readonly ILogger<OrganizationsController> _logger;
         private readonly CodyContext _dbContext;
 
-        public OrganizationsController(ILogger<OrganizationsController> logger, CodyContext context)
+        public OrganizationsController(CodyContext context)
         {
-            _logger = logger;
             _dbContext = context;
         }
 

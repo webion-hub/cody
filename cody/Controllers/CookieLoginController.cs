@@ -19,18 +19,11 @@ namespace Cody.Controllers
     [Authorize]
     public class CookieLoginController : ControllerBase
     {
-        private readonly ILogger<CookieLoginController> _logger;
-        private readonly CodyContext _dbContext;
         private readonly PersistentLoginCookieEmitterService _cookieEmitter;
 
 
-        public CookieLoginController(
-            ILogger<CookieLoginController> logger,
-            CodyContext dbContext, 
-            PersistentLoginCookieEmitterService cookieEmitter
-        ) {
-            _logger = logger;
-            _dbContext = dbContext;
+        public CookieLoginController(PersistentLoginCookieEmitterService cookieEmitter) 
+        {
             _cookieEmitter = cookieEmitter;
         }
 

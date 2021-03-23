@@ -14,18 +14,15 @@ namespace Cody.Services
 {
     public class EmailValidationService : IDisposable
     {
-        private readonly ILogger<EmailValidationService> _logger;
         private readonly CodyContext _context;
         private readonly SmtpClient _smtpClient;
         private readonly MailAddress _from;
         private readonly Lazy<string> _emailModel;
 
         public EmailValidationService(
-            ILogger<EmailValidationService> logger, 
             CodyContext context, 
             EmailServiceInfo info
         ) {
-            _logger = logger;
             _context = context;
             _from = new MailAddress(info.Email, info.Alias);
             _smtpClient = info.CreateSmtpClient();

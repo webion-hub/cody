@@ -17,13 +17,11 @@ namespace Cody.Controllers
     [Authorize]
     public class UserAccountInfoController : ControllerBase
     {
-        private readonly ILogger<UserAccountInfoController> _logger;
         private readonly CodyContext _dbContext;
 
 
-        public UserAccountInfoController(ILogger<UserAccountInfoController> logger, CodyContext dbContext)
+        public UserAccountInfoController(CodyContext dbContext)
         {
-            _logger = logger;
             _dbContext = dbContext;
         }
 

@@ -21,17 +21,14 @@ namespace Cody.Controllers
     [Route("user")]
     public class RegistrationController : ControllerBase
     {
-        private readonly ILogger<RegistrationController> _logger;
         private readonly EmailValidationService _emailValidationService;
         private readonly CodyContext _dbContext;
 
 
         public RegistrationController(
-            ILogger<RegistrationController> logger,
             EmailValidationService emailValidationService,
             CodyContext dbContext
         ) {
-            _logger = logger;
             _emailValidationService = emailValidationService;
             _dbContext = dbContext;
         }

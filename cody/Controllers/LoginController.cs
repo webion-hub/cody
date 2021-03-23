@@ -18,16 +18,13 @@ namespace Cody.Controllers
     [Route("user")]
     public class LoginController : ControllerBase
     {
-        private readonly ILogger<LoginController> _logger;
         private readonly CodyContext _dbContext;
         private readonly PersistentLoginCookieEmitterService _cookieEmitter;
 
         public LoginController(
-            ILogger<LoginController> logger, 
             CodyContext dbContext, 
             PersistentLoginCookieEmitterService cookieEmitter
         ) {
-            _logger = logger;
             _dbContext = dbContext;
             _cookieEmitter = cookieEmitter;
         }

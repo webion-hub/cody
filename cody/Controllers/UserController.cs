@@ -22,12 +22,10 @@ namespace Cody.Controllers
     [Route("user")]
     public partial class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
         private readonly CodyContext _dbContext;
 
-        public UserController(ILogger<UserController> logger, CodyContext dbContext) 
+        public UserController(CodyContext dbContext) 
         {
-            _logger = logger;
             _dbContext = dbContext;
         }
 
