@@ -18,6 +18,7 @@ namespace Cody.Models.Organizations
 
 
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

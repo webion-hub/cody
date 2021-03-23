@@ -11,6 +11,7 @@ namespace Cody.Models
     public class OrganizationState
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         

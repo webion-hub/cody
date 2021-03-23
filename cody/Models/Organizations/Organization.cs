@@ -22,6 +22,7 @@ namespace Cody.Models
     public class Organization : IRejectable
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
