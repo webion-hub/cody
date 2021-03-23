@@ -17,7 +17,9 @@ export function useSetOrganizationsValue(elementLoadingLimit){
       limit: elementLoadingLimit,
       offset: settings.offset,
     })
-    .then(organizations => {
+    .then(searchResults => {
+      const organizations = searchResults.values;
+      
       setLoading(false)
       if(settings.mergeResultWith === undefined)
         setOrganizations(organizations)
