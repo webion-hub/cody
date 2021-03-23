@@ -43,17 +43,17 @@ export default class App extends Component {
 }
 
 function Routes(){
-  const { logged } = React.useContext(UserContext);
+  const { isLogged } = React.useContext(UserContext);
 
   return (
     <Router history={history}>
       <Switch>
         <CustomRoute exact path='/' component={Home} />
-        <CustomRoute path='/login' component={Login} redirect={logged}/>
-        <CustomRoute path='/sign-up' component={SignUp} redirect={logged}/>
+        <CustomRoute path='/login' component={Login} redirect={isLogged}/>
+        <CustomRoute path='/sign-up' component={SignUp} redirect={isLogged}/>
         <CustomRoute path='/validate-email' component={EmailValidPage} />
         <CustomRoute path='/access-denied' component={UnauthorizedPage} />
-        <CustomRoute path='/account' component={Account} redirect={!logged}/>
+        <CustomRoute path='/account' component={Account} redirect={isLogged}/>
         
         <CustomRoute path='/admin' component={AdminPage}/>
         <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
