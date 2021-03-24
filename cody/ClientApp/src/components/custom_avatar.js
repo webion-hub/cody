@@ -3,8 +3,17 @@ import React, { useEffect } from 'react';
 import { Avatar, CircularProgress, useTheme } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    position: "relative"
+  }
+}));
+
 export function CustomAvatar(props){
   const theme = useTheme()
+  const classes = useStyles()
   const [loading, setLoading] = React.useState(true);
   const { disableLoading, shadow, size, ...other } = props;
 
@@ -45,11 +54,7 @@ export function CustomAvatar(props){
   }, [])
 
   return (
-    <div
-      style={{
-        position: "relative"
-      }}
-    >
+    <div className={classes.container}>
       <Skeleton
         variant="circle" 
         animation="wave"
@@ -76,7 +81,7 @@ export function CustomAvatar(props){
           height: finalSize,
           fontSize: `${1.25 * (size / 40)}rem`,
           display: finalLoading ? "none" : "flex",
-          boxShadow: shadow ? `2px 2px 6px 0px ${theme.palette.background.paperSecondary}` : null,
+          boxShadow: shadow && `2px 2px 6px 0px ${theme.palette.background.paperSecondary}`,
         }}
       />
     </div> 
