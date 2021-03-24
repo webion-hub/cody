@@ -11,7 +11,7 @@ import { nullData, noErrors } from './default_values/default_states';
 import { ProfilePicture } from 'src/lib/profile_picture'
 import { UserAccountInfo } from 'src/lib/user_account_info'
 import { AlertDialog } from 'src/components/dialogs/alert_dialog';
-import { BackgroundWithLines } from 'src/components/background_with_lines';
+import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
 
 import { PageController } from 'src/lib/page_controller';
 import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';

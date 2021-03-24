@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { CustomStepper } from 'src/components/stepper/custom_stepper/custom_stepper';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
-import { UserContext } from 'src/components/user_controller_context';
+import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { SignUpAlertError } from './components/sign_up_alert_error';
 
 import { dataDefault, noErrors } from './default_values/default_values';
@@ -52,7 +52,7 @@ export function SignUp(){
   });
 
   const [openAlert, setOpenAlert] = React.useState(false);
-  const { setIsLoggedWithoutRefresh } = React.useContext(UserContext);
+  const { setIsLogged } = React.useContext(UserContext);
 
   const handleDataChange = (prop) => (value) => {
     setData({
@@ -79,7 +79,7 @@ export function SignUp(){
       data: setUser(data),
       profileImage: data.profileImage,
       registrationErrors: registrationErrors,
-      onSuccess: () => setIsLoggedWithoutRefresh(true),
+      onSuccess: () => setIsLogged(true),
       onError: (errors) => setRegistrationErrors(errors),
       onOpenAlert: (open) => setOpenAlert(open),
     })

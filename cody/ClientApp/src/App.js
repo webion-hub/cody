@@ -18,8 +18,8 @@ import { CssBaseline } from "@material-ui/core";
 import { useMediaQuery } from '@material-ui/core';
 
 import { ThemeController } from "./lib/default_values/themes/theme_controller";
-import { UserControllerContext } from "./components/user_controller_context";
-import { UserContext } from "./components/user_controller_context";
+import { UserControllerContext } from "./components/user_controller_context/user_controller_context";
+import { UserContext } from "./components/user_controller_context/user_controller_context";
 import history from 'src/history'
 
 import './custom.css';

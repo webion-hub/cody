@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { BackgroundWithLines } from 'src/components/background_with_lines';
+import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
 
 import { OrganizationsInfo } from 'src/pages/create_or_join_organization/components/organizations_info';
 import { selectActionSettings } from 'src/pages/create_or_join_organization/pages/select_action/select_action';

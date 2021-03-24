@@ -5,7 +5,7 @@ import { Tab } from '@material-ui/core';
 
 import { UsersList } from 'src/pages/admin_pages/components/data_lists/users_list';
 import { OrganizationsList } from 'src/pages/admin_pages/components/data_lists/organizations_list';
-import { UserContext } from "src/components/user_controller_context";
+import { UserContext } from "src/components/user_controller_context/user_controller_context";
 import { DataTab } from "./components/data_tab";
 
 import { PageController } from 'src/lib/page_controller';

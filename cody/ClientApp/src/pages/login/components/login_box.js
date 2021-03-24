@@ -15,7 +15,7 @@ import  { ForgotPasswordDialog } from './forgot_pw_dialog'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
-import { UserContext } from 'src/components/user_controller_context';
+import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { User } from 'src/lib/user';
 
 export const useStyles = makeStyles((theme) => ({
