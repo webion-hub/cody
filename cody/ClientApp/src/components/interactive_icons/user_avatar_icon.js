@@ -13,7 +13,7 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
 
-import { UserContext } from 'src/components/user_controller_context';
+import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base/interactive_icon_base';
 import { CustomAvatar } from 'src/components/custom_avatar';
 import { TouchableTooltip } from 'src/components/touchable_tooltip'
