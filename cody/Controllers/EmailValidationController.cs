@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,28 @@ namespace Cody.Controllers
     [ApiController]
     public class EmailValidationController : ControllerBase
     {
+        private readonly EmailValidationService _emailValidationService;
         private readonly CodyContext _dbContext;
 
-        public EmailValidationController(CodyContext dbContext)
-        {
+        public EmailValidationController(
+            EmailValidationService emailValidationService,
+            CodyContext dbContext
+        ) {
+            _emailValidationService = emailValidationService;
             _dbContext = dbContext;
+        }
+
+
+        [HttpGet("send_new_email/{userId}")]
+        [Authorize]
+        public async Task<IActionResult> SendNew([FromRoute] int userId)
+        {
+            var user = await GetUserAsync(userId);
+            if (user is null)
+                return BadRequest();
+
+            await _emailValidationService.MarkUserForValidationAsync(user);
+            return Ok();
         }
 
 
