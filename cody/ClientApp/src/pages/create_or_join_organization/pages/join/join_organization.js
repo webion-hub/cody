@@ -28,14 +28,14 @@ const useStyles = makeStyles((theme) => ({
     overflow: "overlay",
     height: 472,
     [theme.breakpoints.down('xs')]: {
-      height: "calc(100vh - 228px)",
+      height: "calc(100vh - 244px)",
     },
   },
   searchBar: {
-    maxWidth: "calc(100% - 174px)",
+    maxWidth: "calc(100% - 174px) !important",
     [theme.breakpoints.down('xs')]: {
       width: "100%",
-      maxWidth: "calc(100vw - 16px)"
+      maxWidth: "calc(100vw - 16px) !important"
     },
   },
   linearProgress: {

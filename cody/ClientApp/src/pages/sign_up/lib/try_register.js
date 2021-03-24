@@ -18,7 +18,6 @@ export const tryRegister = (settings) => {
 
       onSuccess: _ => {
         settings.onSuccess()
-        console.log(profileImage)
 
         if (profileImage == null){            
           resolve(true)
