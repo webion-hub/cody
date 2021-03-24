@@ -9,14 +9,15 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  paper: props => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
     maxWidth: 500,
     width: "100%",
-    background: theme.palette.background.paperSecondary
-  },
+    background: props.background ? 
+      props.background : theme.palette.background.paperSecondary
+  }),
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
@@ -31,31 +32,51 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function GenericSearchBar(props){
-  const classes = useStyles();
+  const background = props.background;
+  const classes = useStyles({background});
   const inputBaseRef = useRef();
-  const [showDelete, setShowDelete] = React.useState(false);
+
   const onSubmit = props.onSubmit ? props.onSubmit : () => {}
   const onChange = props.onChange ? props.onChange : () => {}
 
-  const handleDelete = () => {
+  const showSearchIcon = props.onSubmit;
+  const [showClearIcon, setShowClearIcon] = React.useState(false);
+
+  const handleClear = () => {
     inputBaseRef.current.value = ""
     onChange("")
     onSubmit()
-    setShowDelete(false)
+    setShowClearIcon(false)
   }
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    onChange(value)
+    const isSearchBarNotEmpty = value !== ""
+    setShowClearIcon(isSearchBarNotEmpty)
+  }
+
+  const handleSubmitWithoutRefresh = (event) => {
+    onSubmit()
+    //avoid to refresh page
+    event.preventDefault()
+  }
+
+  const searchIcon = showSearchIcon && 
+    <IconButton 
+      className={classes.iconButton} 
+      aria-label="search"
+      onClick={onSubmit}
+    >
+      <SearchRoundedIcon/>
+    </IconButton>
 
   return (
     <Paper 
       ref={props.searchBarRef}
       component="form"
-      onSubmit={(event) => {
-        onSubmit()
-        event.preventDefault()
-      }}
-      className={`${classes.root} ${props.className}`}
-      style={{
-        background: props.background
-      }}
+      onSubmit={handleSubmitWithoutRefresh}
+      className={`${classes.paper} ${props.className}`}
     >
       {props.startIcon}
       <InputBase
@@ -63,40 +84,20 @@ export function GenericSearchBar(props){
         className={classes.input}
         placeholder={props.label? props.label : "Cerca"}
         inputProps={{ 'aria-label': 'Cerca' }}
-        onChange={(event) => {
-          const value = event.target.value;
-          onChange(value)
-          const showDelete = value !== ""
-          setShowDelete(showDelete)
-        }}
-        onSubmit={e => {
-          e.stopPropagation();
-          e.nativeEvent.stopImmediatePropagation()
-        }}
+        onChange={handleChange}
       />
       <Fade
-        in={showDelete}
+        in={showClearIcon}
       >
         <IconButton 
           className={classes.iconDeleteButton} 
           aria-label="delete"
-          onClick={handleDelete}
+          onClick={handleClear}
         >
           <ClearRoundedIcon/>
         </IconButton>
       </Fade>  
-      {
-        props.onSubmit ? 
-          <IconButton 
-            className={classes.iconButton} 
-            aria-label="search"
-            onClick={onSubmit}
-          >
-            <SearchRoundedIcon/>
-          </IconButton>
-          :
-          null
-      }
+      {searchIcon}
       {props.endIcon}
     </Paper>
   )

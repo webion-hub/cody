@@ -9,7 +9,6 @@ import { SearchBar } from '../search_bar/search_bar';
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
-
 const useStyles = makeStyles((theme) => ({
   menu:{
     background: "transparent",
@@ -34,7 +33,7 @@ export function CompressedSearchBar() {
   const [open, setOpen] = React.useState(false);
   
   return (
-    <div>
+    <>
       <IconButton
         aria-haspopup="true"
         onClick={() => setOpen(true)}
@@ -46,7 +45,7 @@ export function CompressedSearchBar() {
         open={open} 
       >
         {
-          open ? 
+          open && 
             <ClickAwayListener 
               onClickAway={() => setOpen(false)}
             >
@@ -57,10 +56,8 @@ export function CompressedSearchBar() {
                 />
               </div>
             </ClickAwayListener>
-          : null          
         }
       </Backdrop>
-    </div>
-
+    </>
   );
 }
