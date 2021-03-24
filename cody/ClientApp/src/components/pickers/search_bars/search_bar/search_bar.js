@@ -1,23 +1,20 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Grid } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
 import { useMediaQuery } from '@material-ui/core'
 import { useTheme } from '@material-ui/core'
 
-import { CodingFilterDialog } from 'src/components/pickers/search_bars/search_bar/components/coding_filter_dialog';
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
-import { TouchableTooltip } from 'src/components/touchable_tooltip'
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar'
 
 import { languages } from 'src/lib/default_values/lists/coding_languages'
 
-import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
-import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
-import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+import { useGetSize } from 'src/lib/hooks/use_get_size';
+import { SearchBarStartIcon } from './components/search_bar_start_icon';
+import { SearchBarEndtIcon } from './components/search_bar_end_icon';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,49 +49,49 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     flex: 1,
   },
-  iconButton: {
-    padding: 10,
-  },
 }));
 
 export function SearchBar(props) {
   const classes = useStyles();
 	const searchBarRef = useRef();
 	const theme = useTheme();
+	const searchBarSizes = useGetSize(searchBarRef);
+  const searchBarWidth = searchBarSizes.width;
+
+  const [showFavorite, setShowFavorite] = React.useState(false);
+  const [languageSelected, setLanguageSelected] = React.useState(null);
 
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-
-  const [open, setOpen] = React.useState(false);
-  const [languageSelected, setLanguageSelected] = React.useState(null);
-  const [showFavorite, setShowFavorite] = React.useState(false);
-  const [searchBarWidth, setSearchBarWidth] = React.useState(0);
-
   const disableTooltipsOnMobile = props.disableTooltipsOnMobile ? mobileView : false;
   const disableTooltip = props.disableTooltips || disableTooltipsOnMobile;
-
-  useLayoutEffect(() => {
-    window.addEventListener('resize', updateWidth);
-		
-    updateWidth();
-    return () => window.removeEventListener('resize', updateWidth);
-  });
-
-  const updateWidth = () => {
-    if(searchBarRef.current !== undefined)
-      setSearchBarWidth(searchBarRef.current.offsetWidth)
-  }
-
 
   const handleShowFavorite = () => {
     setShowFavorite(!showFavorite);
   };
 
-  const getLanguage = (value) => {
+  const handleLanguageChange = (value) => {
     setLanguageSelected(value)
-  };
+  }
+
+  const startIcon = 
+    <SearchBarStartIcon
+      showFavorite={showFavorite}
+      onShowFavoriteChange={handleShowFavorite}
+      disableTooltip={disableTooltip}
+    />
+
+  const endIcon = 
+    <SearchBarEndtIcon
+      disableTooltip={disableTooltip}
+      onLanguageChange={handleLanguageChange}
+      languageValue={languageSelected}
+    />
 
   return (
-    <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => setShowFavorite(false)}>
+    <ClickAwayListener 
+      mouseEvent="onMouseDown" 
+      onClickAway={() => setShowFavorite(false)}
+    >
       <Grid
         container
         direction="column"
@@ -104,69 +101,16 @@ export function SearchBar(props) {
       >
         <GenericSearchBar
           searchBarRef={searchBarRef}
-          startIcon={
-            <TouchableTooltip 
-              title={
-                showFavorite ? 
-                  "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"
-              } 
-              aria-label="filter"
-              placement="left"
-              disabled={disableTooltip}
-              arrow
-            >
-              <IconButton 
-                className={classes.iconButton}
-                onClick={handleShowFavorite}
-                aria-label="favorite"
-              >
-                {
-                  showFavorite ? 
-                    <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon/>
-                }          
-              </IconButton>
-            </TouchableTooltip>
-          }
-          endIcon={
-            <>
-              <TouchableTooltip 
-                title="Seleziona il linguaggio di programmazione." 
-                aria-label="filter"
-                placement="right"
-                disabled={disableTooltip}
-                arrow
-              >
-                <IconButton 
-                  className={classes.iconButton} 
-                  aria-label="filter"
-                  onClick={() => setOpen(true)}
-                >
-                  {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
-                </IconButton>
-              </TouchableTooltip>
-              <CodingFilterDialog
-                open={open}
-                onClose={() => setOpen(false)}
-                language={getLanguage}
-                defaultValue={languageSelected}
-                disabled={disableTooltip}
-              />
-            </>
-          }
+          startIcon={startIcon}
+          endIcon={endIcon}
         />        
         <Box 
           position="absolute"          
           width={searchBarWidth}
-          className={`
-            ${classes.chipsBox}
-            ${showFavorite ?
-               classes.chipsBoxAnimate 
-               : null
-              }
-          `}
+          className={`${classes.chipsBox} ${showFavorite ? classes.chipsBoxAnimate : ""}`}
         >
           <ScrollableChipsArray
-            value={getLanguage}
+            value={handleLanguageChange}
             list={languages}
             clickables
             delete

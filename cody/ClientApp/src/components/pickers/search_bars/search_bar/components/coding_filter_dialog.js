@@ -31,8 +31,8 @@ export function CodingFilterDialog(props) {
   }
 
   const handleSubmit = () => {
-    const {language} = props;
-    language(languageValue); 
+    const {onLanguageChange} = props;
+    onLanguageChange(languageValue); 
     props.onClose();
   }
 
