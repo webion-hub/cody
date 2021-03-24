@@ -17,12 +17,7 @@ export const UserContextConsumer = UserContext.Consumer;
 export function UserControllerContext(props){
   const [isLogged, setIsLogged] = React.useState(false);
   const [userLoading, setUserLoading] = React.useState(true);
-
   const [role, setRole] = React.useState(null);
-
-  useEffect(() => {
-
-  })
 
   useEffect(() => {
     setUserLoading(true)
