@@ -35,7 +35,9 @@ namespace Cody.Controllers.Organizations
 
             return isUserAdmin
                 ? organizations
-                : organizations.Where(o => !o.State.HasBeenDeleted);
+                : organizations
+                    .Where(o => o.State.Visibility == OrganizationVisibility.Public)
+                    .Where(o => !o.State.HasBeenDeleted);
         }
 
         private async Task<Organization> GetOrganizationByIdAsync(int id)
