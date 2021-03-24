@@ -68,6 +68,8 @@ namespace Cody.Controllers.Organizations
                     {
                         s.HasBeenVerified,
                         s.HasBeenDeleted,
+                        Visibility = s.Visibility.ToString(),
+                        AccessCriteria = s.AccessCriteria.ToString(),
                     },
                     Kind = o.Kind.ToString(),
                     Detail = new
