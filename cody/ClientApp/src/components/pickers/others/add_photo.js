@@ -27,8 +27,8 @@ export function AddPhoto(props){
 
   const deleteImage = () => {
     setCroppedImage(null);
-    const {image} = props;
-    image(null);
+    const {onImageChange} = props;
+    onImageChange(null);
   };
 
   const handleCloseEditDialog = () => {
@@ -38,8 +38,8 @@ export function AddPhoto(props){
   
   const getCroppedImage = (value) => {
     setCroppedImage(value)
-    const {image} = props;
-    image(value); 
+    const {onImageChange} = props;
+    onImageChange(value); 
   }
 
   /**
