@@ -14,7 +14,7 @@ namespace Cody.Services.Email
 {
     public sealed class EmailValidationService : IDisposable
     {
-        private readonly CodyContext _context;
+        private readonly CodyContext _dbContext;
         private readonly SmtpClient _smtpClient;
         private readonly MailAddress _from;
 
@@ -22,7 +22,7 @@ namespace Cody.Services.Email
             CodyContext context, 
             EmailServiceInfo info
         ) {
-            _context = context;
+            _dbContext = context;
             _from = new MailAddress(info.Email, info.Alias);
             _smtpClient = info.CreateSmtpClient();
         }
@@ -36,7 +36,7 @@ namespace Cody.Services.Email
                 IsEmailValid = false,
             };
 
-            await _context.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
             await SendValidationEmailAsync(user);
         }
 
