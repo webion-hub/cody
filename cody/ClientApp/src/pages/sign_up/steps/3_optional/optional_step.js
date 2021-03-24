@@ -38,7 +38,7 @@ export function OptionalData(props){
           justify="center"
         >
           <AddPhoto
-            image={image => props.onProfileImageChange(image)}
+            onImageChange={image => props.onProfileImageChange(image)}
             alt={props.values.username}
             disableLoading
           />

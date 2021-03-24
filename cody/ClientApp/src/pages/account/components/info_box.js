@@ -101,7 +101,7 @@ export function InfoBox(props){
       >
         <AddPhoto
           alt={props.oldData.username}
-          image={getImage}
+          onImageChange={getImage}
           value={image}
           accountEdit
         />
