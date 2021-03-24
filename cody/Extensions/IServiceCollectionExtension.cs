@@ -46,7 +46,7 @@ namespace Cody.Extensions
             this IServiceCollection services,
             IConfiguration configuration
         ) {
-            return services.AddScoped<EmailValidationService>(sp => new(
+            return services.AddScoped<EmailVerificationService>(sp => new(
                 context: sp.GetCodyContext(),
                 info: configuration.GetEmailServiceInfo()
             ));

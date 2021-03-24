@@ -37,7 +37,7 @@ namespace Cody.Contexts
         {
             modelBuilder
                 .Entity<UserAccountState>()
-                .Property(b => b.IsEmailValid)
+                .Property(b => b.IsEmailVerified)
                 .HasDefaultValue(false);
 
             modelBuilder

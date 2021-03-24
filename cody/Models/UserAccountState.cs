@@ -12,8 +12,8 @@ namespace Cody.Models
         public int Id { get; set; }
         
         
-        [Required] public Guid ValidationKey { get; set; }
-        [Required] public bool IsEmailValid { get; set; }
+        [Required] public Guid VerificationKey { get; set; }
+        [Required] public bool IsEmailVerified { get; set; }
         [Required] public bool HasBeenDeleted { get; set; }
 
         

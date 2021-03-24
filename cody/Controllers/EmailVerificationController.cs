@@ -1,4 +1,5 @@
 ﻿using Cody.Contexts;
+using Cody.Extensions;
 using Cody.Models;
 using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
@@ -11,53 +12,53 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers
 {
-    [Route("user/validate")]
+    [Route("user/verify")]
     [AllowAnonymous]
     [ApiController]
-    public class EmailValidationController : ControllerBase
+    public class EmailVerificationController : ControllerBase
     {
-        private readonly EmailValidationService _emailValidationService;
+        private readonly EmailVerificationService _emailVerificationService;
         private readonly CodyContext _dbContext;
 
-        public EmailValidationController(
-            EmailValidationService emailValidationService,
+        public EmailVerificationController(
+            EmailVerificationService emailValidationService,
             CodyContext dbContext
         ) {
-            _emailValidationService = emailValidationService;
+            _emailVerificationService = emailValidationService;
             _dbContext = dbContext;
         }
 
 
-        [HttpGet("send_new_email/{userId}")]
+        [HttpGet("send_new_verification_email")]
         [Authorize]
-        public async Task<IActionResult> SendNew([FromRoute] int userId)
+        public async Task<IActionResult> SendNew()
         {
-            var user = await GetUserAsync(userId);
+            var user = await HttpContext.GetLoggedUserAsync();
             if (user is null)
                 return BadRequest();
 
-            await _emailValidationService.MarkUserForValidationAsync(user);
+            await _emailVerificationService.MarkUserForVerificationAsync(user);
             return Ok();
         }
 
 
-        [HttpGet("{userId}/{validationKey}")]
+        [HttpGet("{userId}/{verificationKey}")]
         [AllowAnonymous]
         public async Task<IActionResult> Validate(
             [FromRoute] int userId,
-            [FromRoute] Guid validationKey
+            [FromRoute] Guid verificationKey
         ) {
             var user = await GetUserAsync(userId);
             if (user is null)
-                return Redirect("/validate-email#not-found");
+                return Redirect("/email-verification#not-found");
+            
+            if (user.AccountState.VerificationKey != verificationKey)
+                return Redirect("/email-verification#bad-key");
 
-            if (user.AccountState.ValidationKey != validationKey)
-                return Redirect("/validate-email#bad-key");
-
-            user.AccountState.ValidationKey = default;
-            user.AccountState.IsEmailValid = true;
+            user.AccountState.VerificationKey = default;
+            user.AccountState.IsEmailVerified = true;
             await _dbContext.SaveChangesAsync();
-            return Redirect("/validate-email#ok");
+            return Redirect("/email-verification#ok");
         }
 
 

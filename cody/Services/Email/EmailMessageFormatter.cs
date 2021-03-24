@@ -15,19 +15,19 @@ namespace Cody.Services.Email
 
         private readonly MailAddress _from;
         private readonly MailAddress _to;
-        private readonly string _validationUrl;
+        private readonly string _verificationUrl;
         private readonly string _username;
 
 
         static EmailMessageFormatter()
         {
             _simpleEmailModel = new(() => File.ReadAllText(
-                path: "Assets/validate_email_simple_model.html",
+                path: "Assets/verify_email_simple_model.html",
                 encoding: Encoding.UTF8
             ));
 
             _complexEmailModel = new(() => File.ReadAllText(
-                path: "Assets/validate_email_complex_model.html",
+                path: "Assets/verify_email_complex_model.html",
                 encoding: Encoding.UTF8
             ));
         }
@@ -36,12 +36,12 @@ namespace Cody.Services.Email
         public EmailMessageFormatter(
             MailAddress from,
             MailAddress to,
-            string validationUrl,
+            string verificationUrl,
             string username
         ) {
             _from = from;
             _to = to;
-            _validationUrl = validationUrl;
+            _verificationUrl = verificationUrl;
             _username = username;
         }
 
@@ -83,7 +83,7 @@ namespace Cody.Services.Email
         {
             return emailModel
                 .Replace("{username}", _username)
-                .Replace("{validationUrl}", _validationUrl);
+                .Replace("{verificationUrl}", _verificationUrl);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Cody.Controllers.Admin
                     u.Email,
                     State = new 
                     {
-                        s.IsEmailValid,
+                        s.IsEmailVerified,
                         s.HasBeenDeleted,
                     },
                     JoinedOrganizations = o.Count,

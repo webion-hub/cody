@@ -46,7 +46,7 @@ Admin._getUsersReq = new SingleXHRRequest();
  *  email: string,
  *  joinedOrganizations: number,
  *  state: {
- *    isEmailValid: boolean,
+ *    isEmailVerified: boolean,
  *    hasBeenDeleted: boolean,
  *  },
  *  detail: {

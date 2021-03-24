@@ -22,12 +22,12 @@ namespace Cody.Controllers
     [Route("user")]
     public class RegistrationController : ControllerBase
     {
-        private readonly EmailValidationService _emailValidationService;
+        private readonly EmailVerificationService _emailValidationService;
         private readonly CodyContext _dbContext;
 
 
         public RegistrationController(
-            EmailValidationService emailValidationService,
+            EmailVerificationService emailValidationService,
             CodyContext dbContext
         ) {
             _emailValidationService = emailValidationService;
@@ -50,7 +50,7 @@ namespace Cody.Controllers
 
             try
             {
-                await _emailValidationService.MarkUserForValidationAsync(user);
+                await _emailValidationService.MarkUserForVerificationAsync(user);
                 await _dbContext.UserAccounts.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
             }

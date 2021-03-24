@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Cody.Services.Email
 {
-    public sealed class EmailValidationService : IDisposable
+    public sealed class EmailVerificationService : IDisposable
     {
         private readonly CodyContext _dbContext;
         private readonly SmtpClient _smtpClient;
         private readonly MailAddress _from;
 
-        public EmailValidationService(
+        public EmailVerificationService(
             CodyContext context, 
             EmailServiceInfo info
         ) {
@@ -28,25 +28,25 @@ namespace Cody.Services.Email
         }
 
 
-        public async Task MarkUserForValidationAsync(UserAccount user)
+        public async Task MarkUserForVerificationAsync(UserAccount user)
         {
             user.AccountState = new UserAccountState
             {
-                ValidationKey = Guid.NewGuid(),
-                IsEmailValid = false,
+                VerificationKey = Guid.NewGuid(),
+                IsEmailVerified = false,
             };
 
             await _dbContext.SaveChangesAsync();
-            await SendValidationEmailAsync(user);
+            await SendVerificationEmailAsync(user);
         }
 
 
-        private async Task SendValidationEmailAsync(UserAccount user)
+        private async Task SendVerificationEmailAsync(UserAccount user)
         {
             var to = new MailAddress(user.Email);
             var accountState = user.AccountState;
             var validationUrl =
-                $"https://localhost/user/validate/{user.Id}/{accountState.ValidationKey}";
+                $"https://localhost/user/verify/{user.Id}/{accountState.VerificationKey}";
 
             var formatter = new EmailMessageFormatter(_from, to, validationUrl, user.Username);
             var message = formatter.CreateMessage();
