@@ -8,16 +8,16 @@ export const checkUserLogged = (settings) => {
     let logged = false;
     await User
       .isLogged()          
-      .then((resp) => {
+      .then(async (resp) => {
         logged = resp;
         if(resp)
-          onSuccessfullyLogged(settings)
+          await onSuccessfullyLogged(settings)
       })
 
     if(!logged)
       await User
         .tryLoginWithCookie({
-          onSuccess: () => onSuccessfullyLogged(settings),
+          onSuccess: async () => await onSuccessfullyLogged(settings),
           onError: () => onError()
         })
     

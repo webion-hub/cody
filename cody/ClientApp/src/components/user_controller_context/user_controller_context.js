@@ -14,20 +14,16 @@ export const UserContext = React.createContext({
 export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
-  const [isLogged, setIsLoggedState] = React.useState(false);
+  const [isLogged, setIsLogged] = React.useState(false);
   const [userLoading, setUserLoading] = React.useState(true);
 
   const [role, setRole] = React.useState(null);
 
-  const setIsLogged = (loggedState) => {
-    setIsLoggedState(loggedState)
-  }
-
   useEffect(() => {
     setUserLoading(true)
     checkUserLogged({
-      onSuccess: () => setIsLoggedState(true),
-      onError: () => setIsLoggedState(false),
+      onSuccess: () => setIsLogged(true),
+      onError: () => setIsLogged(false),
       onGetRole: (role) => setRole(role)
     })
     .then(() => setUserLoading(false))
