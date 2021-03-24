@@ -6,6 +6,14 @@ import './organizations';
 
 export class User {
   /**
+   * @returns {Promise<AxiosResponse<any>>} 
+   */
+  static async sendNewVerificationEmail() {
+    return axios.get('user/verify/send_new_verification_email');
+  }
+
+
+  /**
    * @returns {Promise<boolean>}
    */
   static async isLogged() {
