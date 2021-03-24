@@ -9,7 +9,7 @@ import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
 export function EditableCustomTextField(props){
-	const [editMode, setEditMode] = React.useState(false);
+	const [isInEditMode, setIsInEditMode] = React.useState(false);
 	const [value, setValue] = React.useState(undefined);
 	const {onChange} = props;
 
@@ -21,11 +21,11 @@ export function EditableCustomTextField(props){
 	}, [props.loading, value])
 
 	const handleEdit = () => {
-		setEditMode(true);
+		setIsInEditMode(true);
 	}
 	
 	const handleUndo = () => {
-		setEditMode(false);
+		setIsInEditMode(false);
 		setValue(props.value);
 		onChange(props.value);
 	}
@@ -35,12 +35,29 @@ export function EditableCustomTextField(props){
 	}
 	
 	const handleSubmit = () => {
-		setEditMode(false);
+		setIsInEditMode(false);
 		onChange(value);
 	}
 
+	const textFieldEndAdornment = 
+		<InputAdornment position="end">
+			{
+				isInEditMode &&
+					<IconButton
+						onClick={handleUndo}                    
+					>
+						<UndoRoundedIcon /> 
+					</IconButton>
+			}
+			<IconButton
+				onClick={isInEditMode ? handleSubmit : handleEdit}
+			>
+				{isInEditMode ? <CheckRoundedIcon/> : <EditRoundedIcon />}                  
+			</IconButton>
+		</InputAdornment>
+
 	return (
-		<ClickAwayListener onClickAway={editMode ? () => handleSubmit : () => {}}>
+		<ClickAwayListener onClickAway={isInEditMode ? () => handleSubmit : () => {}}>
 			<Box mb={props.mb?props.mb : 0} mt={props.mt?props.mt : 0}>
 				{
 					props.loading ? 
@@ -54,7 +71,7 @@ export function EditableCustomTextField(props){
 							variant="filled"
 							error={props.error}
 							fullWidth
-							focused={editMode}
+							focused={isInEditMode}
 							onChange={handleChange}
 							onKeyDown={(e) => {								
 								if (e.key === "Enter" && !props.disableEnterSubmit) {
@@ -62,26 +79,8 @@ export function EditableCustomTextField(props){
 								}
 							}}
 							InputProps={{
-								readOnly: !editMode,
-								endAdornment: (
-									<InputAdornment position="end">
-										{
-											editMode ? 
-												<IconButton
-													onClick={handleUndo}                    
-												>
-													<UndoRoundedIcon /> 
-												</IconButton>
-											:
-												null
-										}
-										<IconButton
-											onClick={editMode ? handleSubmit : handleEdit}
-										>
-											{editMode ? <CheckRoundedIcon/> : <EditRoundedIcon />}                  
-										</IconButton>
-									</InputAdornment>
-								),
+								readOnly: !isInEditMode,
+								endAdornment: textFieldEndAdornment
 							}}
 						/>
 				}

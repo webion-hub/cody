@@ -47,8 +47,25 @@ export function EditableBiography(props){
     }
 	}
 
+  const dialogFirstButton = 
+    <Button 
+      color="secondary"
+      onClick={handleUndo}
+    >
+      Reset
+    </Button>
+
+  const dialogSecondButton = 
+    <Button 
+      variant="contained"
+      color="primary"
+      onClick={handleSubmit}
+    >
+      Conferma
+    </Button>
+
 	return (
-    <div>
+    <>
       <Typography
         variant="caption"
       >
@@ -72,23 +89,8 @@ export function EditableBiography(props){
         title={props.title}
         open={editMode}
         onClose={() => setEditMode(false)}
-        firstButton={
-          <Button 
-            color="secondary"
-            onClick={handleUndo}
-          >
-            Reset
-          </Button>
-        }
-        secondButton={
-          <Button 
-            variant="contained"
-            color="primary"
-            onClick={handleSubmit}
-          >
-            Conferma
-          </Button>
-        }
+        firstButton={dialogFirstButton}
+        secondButton={dialogSecondButton}
       >
         <Grid
           container
@@ -116,6 +118,6 @@ export function EditableBiography(props){
           {currentCharacters}/{maxCharacters}
         </Typography>
       </DialogBase>
-    </div>
+    </>
 	);
 }
