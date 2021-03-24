@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { checkUserLogged } from './lib/check_user_logged';
+import { UserAccountInfo } from 'src/lib/user_account_info'
 
 
 export const UserContext = React.createContext({
@@ -20,15 +21,33 @@ export function UserControllerContext(props){
   const [role, setRole] = React.useState(null);
 
   useEffect(() => {
+
+  })
+
+  useEffect(() => {
     setUserLoading(true)
+    setRole(null)
+    if(isLogged){
+      UserAccountInfo
+        .createRequest()
+          .get('role')
+        .send()
+        .then(resp => {
+          const got = resp.got;
+          const role = got.get('role')
+          setRole(role)
+          setUserLoading(false)
+        })
+      return;
+    }
+    
     checkUserLogged({
       onSuccess: () => setIsLogged(true),
       onError: () => setIsLogged(false),
-      onGetRole: (role) => setRole(role)
     })
     .then(() => setUserLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps    
-  }, []);
+  }, [isLogged]);
     
   const value = { 
     isLogged,

@@ -1,9 +1,9 @@
-import { onSuccessfullyLogged } from './on_successfully_logged'
 import { User } from 'src/lib/user';
 
 export const checkUserLogged = (settings) => {
   return new Promise(async resolve => {
     const onError = settings.onError;
+    const onSuccess = settings.onSuccess;
     
     let logged = false;
     await User
@@ -11,13 +11,13 @@ export const checkUserLogged = (settings) => {
       .then(async (resp) => {
         logged = resp;
         if(resp)
-          await onSuccessfullyLogged(settings)
+          onSuccess()
       })
 
     if(!logged)
       await User
         .tryLoginWithCookie({
-          onSuccess: async () => await onSuccessfullyLogged(settings),
+          onSuccess: () => onSuccess(),
           onError: () => onError()
         })
     

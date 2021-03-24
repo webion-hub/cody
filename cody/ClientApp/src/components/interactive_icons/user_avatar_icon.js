@@ -47,7 +47,6 @@ export function UserAvatarIcon(){
   const [openMenu, setOpenMenu] = React.useState(null);
   const [username, setUsername] = React.useState(null);
   
-
   useEffect(() => {
     if(isLogged){
       UserAccountInfo
