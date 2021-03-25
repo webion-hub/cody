@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function MessagePageBase(props) {
 	const classes = useStyles();
+  const onClick = props.onClick ? props.onClick : (e) => PageController.push(props.href, e)
 
   return (
     <CenterComponentPageBase>
@@ -55,7 +56,7 @@ export function MessagePageBase(props) {
           color="primary"
           variant="contained"
           href={props.href}
-          onClick={(e) => PageController.push(props.href, e)}
+          onClick={onClick}
           fullWidth
         >
           {props.buttonLabel}
