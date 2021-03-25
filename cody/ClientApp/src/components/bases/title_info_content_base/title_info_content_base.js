@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import InfoRounded from '@material-ui/icons/InfoRounded';
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import { FlowingText } from '../typography/flowing_text';
-import { PaperWithTransitionBase } from './paper_with_transition_base';
+import { FlowingText } from '../../typography/flowing_text';
+import { BackButton } from './components/back_button';
+import { OpenAndCloseInfoButton } from './components/open_and_close_info_button';
+import { PaperWithTransitionBase } from '../paper_with_transition_base';
 
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 
@@ -20,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     background: theme.palette.background.paperSecondary,
   },
-  infoButton: {
-    position: "absolute",
-    right: 0
-  },
   backButton: {
     position: "absolute",
     left: 0
@@ -34,21 +30,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function TitleInfoContentBase(props){
-  const classes = useStyles();
-
-  const infoRef = props.infoRef;
-  const titleContainerRef = useRef();
-
+  const classes = useStyles(); 
+  
   const theme = useTheme();
+  const titleContainerRef = useRef();
   const titleContainerSize = useGetSize(titleContainerRef);
-
-  const scrollToInfo = () => {
-    infoRef.current.scrollIntoView({ block: 'start',  behavior: 'smooth' });
-  }
-
-  const showBackButton = props.onBack;
-  const showInfoArea = props.infoRef;
-
   const titleWidth = titleContainerSize.width - 96;
 
   const titleComponent =     
@@ -67,31 +53,19 @@ export function TitleInfoContentBase(props){
       >
         {props.title}
       </FlowingText>
-      {
-        showBackButton &&
-          <IconButton 
-            className={classes.backButton}
-            href={props.href}
-            onClick={props.onBack}
-          >
-            <ArrowBackRoundedIcon/>
-          </IconButton>
-      }
-      {
-        showInfoArea &&
-          <IconButton 
-            className={classes.infoButton}
-            onClick={scrollToInfo}
-          >
-            <InfoRounded/>
-          </IconButton>
-      }
+      <BackButton
+        hideBackButton={props.hideBackButton}
+      />
+      <OpenAndCloseInfoButton
+        hideInfoButton={props.hideInfoButton}
+      />
     </Grid>
 
   return(
     <PaperWithTransitionBase
       width={props.width}
       height={props.height}
+      overflow={props.overflow}
       title={titleComponent}
       direction="row"
     >
