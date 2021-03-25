@@ -1,10 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
-import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
-import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
-
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Tooltip } from '@material-ui/core';
