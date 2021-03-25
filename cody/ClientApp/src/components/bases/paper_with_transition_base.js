@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: props.width,
     height: props.height,
     marginTop: theme.appBar.fullHeight,
+    overflow: props.overflow,
     [theme.breakpoints.down('xs')]: {
       width: "100vw",
       minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px${props.removeHeightOnMobile})`,
       height: "auto",
       marginTop: theme.appBar.mobileHeight,
     },
-    transition: "max-width 0.25s, height 0.25s, height 0.25s",
+    transition: "max-width 0.25s, height 0.25s",
   }),
   childrenContainer: {
     padding: theme.spacing(2),
@@ -37,10 +38,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function PaperWithTransitionBase(props){
+  const overflow = props.overflow? props.overflow : "none";
   const width = props.width? props.width : "auto";
   const height = props.height? props.height : "auto";
   const removeHeightOnMobile = props.removeHeightOnMobile? ` - ${props.removeHeightOnMobile}px` : "";
-  const classes = useStyles({width, height, removeHeightOnMobile});
+  const classes = useStyles({
+    width,
+    height,
+    removeHeightOnMobile,
+    overflow,
+  });
 
   return(
     <PaperWithWaves
