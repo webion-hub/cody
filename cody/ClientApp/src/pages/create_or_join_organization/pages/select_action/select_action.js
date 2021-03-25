@@ -14,7 +14,7 @@ export const selectActionSettings = {
   title: "Unisciti o crea un'organizzazione",
   width: 750,
   height: 416,
-  onBack: null
+  hideBackButton: true
 }
 
 function SelectAction(props){
