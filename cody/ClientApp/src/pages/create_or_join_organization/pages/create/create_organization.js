@@ -43,8 +43,6 @@ export const createOrganizationSettings = {
   title: "Crea un'organizzazione",
   width: 450,
   height: 484,
-  href: "/organization",
-  onBack: (e) => PageController.updateHash("", e)
 }
 
 function CreateOrganization(props){
