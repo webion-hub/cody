@@ -143,7 +143,13 @@ Organizations._listAllReq = new SingleXHRRequest();
  * @typedef {object} OrganizationState
  * @property {boolean} hasBeenVerified
  * @property {boolean} hasBeenDeleted
+ * @property {OrganizationVisibility} visibility
+ * @property {OrganizationAccessCriteria} accessCriteria
  */
+
+/** @typedef {'Public' | 'Private'} OrganizationVisibility */
+/** @typedef {'Open' | 'OnInvite'} OrganizationAccessCriteria */
+
 
 /**
  * @typedef {object} OrganizationDetail
