@@ -22,6 +22,12 @@ export class PageController {
     history.go(0)
   }
 
+  static goBack = (event) => {
+    if(event !== undefined)
+      event.preventDefault()
+    history.goBack()
+  }
+
   static updateHash = (hash, event) => {
     if(event !== undefined)
       event.preventDefault()
