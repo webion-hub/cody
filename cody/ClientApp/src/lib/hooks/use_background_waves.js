@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-export function useBackgroundWaves(asSvg) {
-  const waves = useWaves()
+export function useBackgroundWaves(settings) {
+  const waves = useWaves(settings ? settings : null)
   const classes = useStyles({waves});
 
   return classes.wavedBackground;
