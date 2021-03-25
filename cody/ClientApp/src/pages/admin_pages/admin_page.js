@@ -34,9 +34,8 @@ export function AdminPage(){
 		if(userLoading)
 			return;
 
-		if(role !== "Admin"){
+		if(role !== "Admin")
 			PageController.push('/access-denied')
-		}
 	},[userLoading])
 
 	const handleChangeTab = (event, newValue) => {
