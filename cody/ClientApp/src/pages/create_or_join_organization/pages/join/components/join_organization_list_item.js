@@ -12,7 +12,7 @@ import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -35,7 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
   verifiedOrganization: {
     transform: "translate(0px, 4px)",
-    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    fontSize: 18,
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -120,7 +122,7 @@ export function JoinOrganizationsListItem(props){
  
   const organizationNameLabel = data.state.hasBeenVerified ? 
     <>
-      <CheckCircleIcon className={classes.verifiedOrganization} fontSize="small"/>{data.name}
+      {data.name}<CheckCircleRoundedIcon className={classes.verifiedOrganization} fontSize="small"/>
     </>
     :
     data.name
