@@ -19,28 +19,32 @@ export function UserControllerContext(props){
   const [userLoading, setUserLoading] = React.useState(true);
   const [role, setRole] = React.useState(null);
 
-  useEffect(() => {
+  const fetchRole = async () => {
+    if(!isLogged)
+      return;
+    return UserAccountInfo
+      .createRequest()
+        .get('role')
+      .send()
+      .then(resp => {
+        const got = resp.got;
+        const role = got.get('role')
+        setRole(role)
+      })
+  }
+
+  useEffect(async () => {
     setUserLoading(true)
     setRole(null)
-    if(isLogged){
-      UserAccountInfo
-        .createRequest()
-          .get('role')
-        .send()
-        .then(resp => {
-          const got = resp.got;
-          const role = got.get('role')
-          setRole(role)
-          setUserLoading(false)
-        })
-      return;
-    }
-    
+
     checkUserLogged({
       onSuccess: () => setIsLogged(true),
       onError: () => setIsLogged(false),
     })
-    .then(() => setUserLoading(false))
+    .then(async () => {
+      await fetchRole()
+      setUserLoading(false)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, [isLogged]);
     
