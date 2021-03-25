@@ -31,7 +31,7 @@ export function UsersList(props){
 			birthDate: birthDate.toLocaleDateString(),
 			registrationDate: registrationDate.toLocaleDateString(),
 			deleted: getDeletedIcon(data.state.hasBeenDeleted),
-			emailValid: getEmailValidIcon(data.state.isEmailValid),
+			emailValid: getEmailValidIcon(data.state.isEmailVerified),
 		})
 	}
 
