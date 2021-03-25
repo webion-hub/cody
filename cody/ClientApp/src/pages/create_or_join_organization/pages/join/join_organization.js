@@ -10,8 +10,6 @@ import { useSetOrganizationsValue } from './hooks/use_set_organizations_value';
 
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 
-import { PageController } from 'src/lib/page_controller';
-
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
     marginLeft: theme.spacing(1),
@@ -49,8 +47,6 @@ export const joinOrganizationSettings = {
   title: "Unisciti ad un'organizzazione",
   width: 750,
   height: 616,
-  href: "/organization",
-  onBack: (e) => PageController.updateHash("", e)
 }
 
 function JoinOrganization(){
