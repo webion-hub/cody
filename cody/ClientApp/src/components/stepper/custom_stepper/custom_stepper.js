@@ -126,7 +126,7 @@ export function CustomStepper(props){
         <DialogBase
           className={classes.formCompletedDialog}
           open={openFormCompleted}
-          onClose={() => PageController.refresh()}
+          onClose={props.onGoHomeClicked}
         >
           <Grid
             container
@@ -139,7 +139,7 @@ export function CustomStepper(props){
               className={classes.formCompletedButton}
               variant="contained"
               color="primary"
-              onClick={() => PageController.refresh()}
+              onClick={props.onGoHomeClicked}
             >
               Vai alla home
             </Button>

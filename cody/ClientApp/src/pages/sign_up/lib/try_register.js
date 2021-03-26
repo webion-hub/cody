@@ -17,8 +17,6 @@ export const tryRegister = (settings) => {
       user: data,
 
       onSuccess: _ => {
-        settings.onSuccess()
-
         if (profileImage == null){            
           resolve(true)
         }
@@ -29,7 +27,7 @@ export const tryRegister = (settings) => {
             })
             .then(_ => resolve(true))
             .catch(_ => {
-              settings.onOpenAlert(true)
+              settings.setOpenAlert(true)
               settings.onError({
                 ...registrationErrors,
                 imageUploadError: "Prova a ricaricare l'immagine più tardi."
@@ -39,7 +37,7 @@ export const tryRegister = (settings) => {
         }
       },
       onError: reasons => {
-        settings.onOpenAlert(true)  
+        settings.setOpenAlert(true)  
         settings.onError({
           ...registrationErrors,
           registerErrors: reasons
@@ -47,7 +45,7 @@ export const tryRegister = (settings) => {
         resolve(false)
       },
       onMissingFields: reasons => {
-        settings.onOpenAlert(true)  
+        settings.setOpenAlert(true)  
         settings.onError({
           ...registrationErrors,
           missingFields: "Manca data di nascita"

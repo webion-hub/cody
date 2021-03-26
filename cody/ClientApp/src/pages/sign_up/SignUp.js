@@ -79,9 +79,8 @@ export default function SignUp(){
       data: setUser(data),
       profileImage: data.profileImage,
       registrationErrors: registrationErrors,
-      onSuccess: () => setIsLogged(true),
       onError: (errors) => setRegistrationErrors(errors),
-      onOpenAlert: (open) => setOpenAlert(open),
+      setOpenAlert: (open) => setOpenAlert(open),
     })
   }
 
@@ -102,6 +101,7 @@ export default function SignUp(){
         elements={elementsList}
         formCompleted={<SignUpCompleted/>}
         onFormCompleted={tryRegisterPrep}
+        onGoHomeClicked={() => setIsLogged(true)}
       />   
       <div className={classes.termsAndService}>
         <Grid

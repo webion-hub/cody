@@ -14,32 +14,35 @@ export const getElements = ({
   {
     controller: new EmailPasswordController(),
     height: 452,
-    element: <EmailPassword
-      onEmailChange = {handleDataChange("email")}
-      onPasswordChange = {handleDataChange("password")}
-      onConfirmPasswordChange = {handleDataChange("confirmPassword")}
-      values = {data}
-      errors = {errors}
-    />
+    element: 
+      <EmailPassword
+        onEmailChange = {handleDataChange("email")}
+        onPasswordChange = {handleDataChange("password")}
+        onConfirmPasswordChange = {handleDataChange("confirmPassword")}
+        values = {data}
+        errors = {errors}
+      />
   },
   {
     controller: new IDController(),
     height: 521,
-    element: <IDData
-      onUsernameChange = {handleDataChange("username")}
-      onNameChange = {handleDataChange("name")}
-      onSurnameChange = {handleDataChange("surname")}
-      onBirthDateChange = {handleDataChange("birthDate")}
-      values = {data}
-      errors = {errors}
-    />
+    element: 
+      <IDData
+        onUsernameChange = {handleDataChange("username")}
+        onNameChange = {handleDataChange("name")}
+        onSurnameChange = {handleDataChange("surname")}
+        onBirthDateChange = {handleDataChange("birthDate")}
+        values = {data}
+        errors = {errors}
+      />
   },  
   {
     controller: null,
     height: 409,
-    element: <OptionalData
-      onProfileImageChange = {handleDataChange("profileImage")}
-      values = {data}
-    />, 
+    element: 
+      <OptionalData
+        onProfileImageChange = {handleDataChange("profileImage")}
+        values = {data}
+      />
   },
 ]

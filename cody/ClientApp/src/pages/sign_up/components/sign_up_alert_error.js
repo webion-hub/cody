@@ -12,7 +12,7 @@ export function SignUpAlertError(props){
   return (
     <AlertDialog
       open={props.open}
-      onClose={() => PageController.push('/sign-up')}
+      onClose={() => PageController.pushAndRefresh('/sign-up')}
       items={[
         <Grid
           container
