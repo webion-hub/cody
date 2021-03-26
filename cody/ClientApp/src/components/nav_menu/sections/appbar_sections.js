@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core';
 
 import { SearchBar } from '../../pickers/search_bars/search_bar/search_bar';
 import { CompressedSearchBar } from '../../pickers/search_bars/compressed_search_bar/compressed_search_bar';
-import { UserAvatarIcon } from '../../interactive_icons/user_avatar_icon';
+import { UserAvatarIcon } from '../../interactive_icons/user_avatar_icon/user_avatar_icon';
 import { NotificationsIcon } from '../../interactive_icons/notifications_icon';
 
 const leftAppBar = [
