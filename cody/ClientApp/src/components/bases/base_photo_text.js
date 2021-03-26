@@ -52,7 +52,6 @@ export function BasePhotoText(props) {
       direction={props.reverse ? "row-reverse" : "row"}
       justify="center"
       alignItems="center"
-      className={classes.container}
     >
       {props.flipImage ? flippedImage : image}        
       <Grid
