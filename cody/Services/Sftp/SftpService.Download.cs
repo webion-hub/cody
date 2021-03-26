@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Cody.Storage;
+using Microsoft.Extensions.Logging;
 using Renci.SshNet.Async;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace Cody.Services.Sftp
 {
     public sealed partial class SftpService
     {
+        public async Task<Stream> DownloadFileAsync(StoredFileMetadata metadata)
+        {
+            return await DownloadFileAsync(metadata.FilePath);
+        }
+
         public async Task<Stream> DownloadFileAsync(string remoteFilePath)
         {
             var stream = new MemoryStream();

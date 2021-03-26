@@ -29,7 +29,7 @@ namespace Cody.Controllers
                 return NoContent();
 
             var fileStream =
-                await _sftp.DownloadFileAsync(picture.FilePath);
+                await _sftp.DownloadFileAsync(picture);
 
             Response.Headers.Add("Cache-Control", "no-cache");
             return File(fileStream, picture.ContentType);
@@ -45,7 +45,7 @@ namespace Cody.Controllers
                 return NoContent();
 
             var fileStream =
-                await _sftp.DownloadFileAsync(picture.FilePath);
+                await _sftp.DownloadFileAsync(picture);
 
             Response.Headers.Add("Cache-Control", "no-cache");
             return File(fileStream, picture.ContentType);
