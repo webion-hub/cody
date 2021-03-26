@@ -4,7 +4,7 @@ export function useStepper(maxSteps){
   const [activeStep, setActiveStep] = React.useState(0);
 
 
-  const handleNext = (areErrors) => {
+  const handleNext = () => {
     const newStep = activeStep + 1;
     if(newStep >= maxSteps){
       setActiveStep(maxSteps - 1)

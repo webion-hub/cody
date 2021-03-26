@@ -110,9 +110,7 @@ export default function Home(){
           }
        ]}
       />
-      <BackgroundWithLines 
-        height={1}
-      /> 
+      <BackgroundWithLines/> 
     </div>
   );
 }

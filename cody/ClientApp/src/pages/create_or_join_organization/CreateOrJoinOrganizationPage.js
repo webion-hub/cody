@@ -49,9 +49,7 @@ export default function CreateOrJoinOrganization(){
       >
         <contentSetting.component/>
       </TitleInfoContentBase>
-      <BackgroundWithLines 
-        height={1}
-      /> 
+      <BackgroundWithLines/> 
     </CenterComponentPageBase>
   );
 }

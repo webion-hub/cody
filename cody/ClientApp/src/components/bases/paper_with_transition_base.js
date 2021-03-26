@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function PaperWithTransitionBase(props){
   const overflow = props.overflow? props.overflow : "hidden";
-  console.log(overflow)
 
   const width = props.width? props.width : "auto";
   const height = props.height? props.height : "auto";
