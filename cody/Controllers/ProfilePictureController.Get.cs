@@ -1,3 +1,4 @@
+﻿using Cody.Extensions;
 using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +32,7 @@ namespace Cody.Controllers
             var fileStream =
                 await _sftp.DownloadFileAsync(picture);
 
-            Response.Headers.Add("Cache-Control", "no-cache");
+            Response.AddNoCacheControlHeader();
             return File(fileStream, picture.ContentType);
         }
 
@@ -47,7 +48,7 @@ namespace Cody.Controllers
             var fileStream =
                 await _sftp.DownloadFileAsync(picture);
 
-            Response.Headers.Add("Cache-Control", "no-cache");
+            Response.AddNoCacheControlHeader();
             return File(fileStream, picture.ContentType);
         }
     }

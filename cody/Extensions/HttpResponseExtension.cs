@@ -9,6 +9,12 @@ namespace Cody.Extensions
 {
     internal static class HttpResponseExtension
     {
+        public static void AddNoCacheControlHeader(this HttpResponse response)
+        {
+            response.Headers.Add("Cache-Control", "no-cache");
+        }
+
+
         public static void SetLoginCookies(this HttpResponse response, int id, string token)
         {
             var cookies = new PersistentLoginCookies {
