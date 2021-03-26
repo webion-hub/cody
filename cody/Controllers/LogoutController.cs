@@ -39,9 +39,9 @@ namespace Cody.Controllers
             if (!Request.TryGetLoginCookies(out var id, out var _))
                 return;
 
-            var cookie = _dbContext
+            var cookie = await _dbContext
                 .LoginCookies
-                .Find(id);
+                .FindAsync(id);
 
             if (cookie is null)
                 return;
