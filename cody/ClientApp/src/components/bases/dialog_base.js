@@ -31,6 +31,8 @@ export function DialogBase(props){
 
   const areButtons = props.firstButton || props.secondButton
   const buttonsClassName = props.centeredButtons && classes.centeredButtons
+  const paperClassNames = `${classWithWavedBackground} ${classes.dialogContainer} ${props.paperClassName}`
+
   const buttons = areButtons &&      
     <DialogActions className={buttonsClassName}>
       {props.firstButton}
@@ -50,7 +52,7 @@ export function DialogBase(props){
       open={props.open}
       onClose={props.onClose}
       classes={{
-        paper: `${classWithWavedBackground} ${classes.dialogContainer}`
+        paper: paperClassNames
       }}
     >
       {dialogTitle}
