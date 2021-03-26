@@ -1,4 +1,5 @@
-﻿using Cody.Security.Authorization;
+﻿using Cody.QueryExtensions;
+using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace Cody.Controllers.Admin
         {
             var user = await _dbContext
                 .UserAccounts
-                .Include(u => u.AccountState)
+                .IncludingState()
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user is null)

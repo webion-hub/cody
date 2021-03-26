@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
 using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,7 +67,7 @@ namespace Cody.Controllers
         {
             return await _dbContext
                 .UserAccounts
-                .Include(u => u.AccountState)
+                .IncludingState()
                 .SingleOrDefaultAsync(u => u.Id == userId);
         }
     }

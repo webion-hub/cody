@@ -3,6 +3,7 @@ using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Models.Organizations;
+using Cody.QueryExtensions;
 using Cody.Services.Sftp;
 using Cody.Storage;
 using Microsoft.AspNetCore.Authorization;
@@ -112,10 +113,8 @@ namespace Cody.Controllers.Organizations
         {
             return await _dbContext
                 .Organizations
-                .Include(o => o.Detail)
-                    .ThenInclude(o => o.Cover)
-                .Include(o => o.Detail)
-                    .ThenInclude(o => o.Logo)
+                .IncludingCover()
+                .IncludingLogo()
                 .FirstOrDefaultAsync(o => o.Id == organizationId);
         }
     }

@@ -2,6 +2,7 @@
 using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
 using Cody.Security;
 using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -57,8 +58,7 @@ namespace Cody.Controllers
             user = null;
             var maybeUser = _dbContext
                 .MaybeGetUserBy(username)
-                .Include(u => u.Password)
-                    .ThenInclude(p => p.Metadata);
+                .IncludingPassword().WithMetadata();
 
             var userExists = maybeUser.Any();
             if (!userExists)

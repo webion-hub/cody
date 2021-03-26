@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Cody.Models;
 using Cody.Utilities.QueryFilters;
+using Cody.QueryExtensions;
 
 namespace Cody.Controllers.Admin
 {
@@ -82,10 +83,10 @@ namespace Cody.Controllers.Admin
         {
             return _dbContext
                 .UserAccounts
-                .Include(u => u.AccountDetail)
-                    .ThenInclude(ad => ad.ProfilePicture)
-                .Include(u => u.Organizations)
-                .Include(u => u.AccountState);
+                .IncludingDetail()
+                .IncludingProfilePicture()
+                .IncludingState()
+                .IncludingOrganizations();
         }
 
 

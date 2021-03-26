@@ -1,4 +1,4 @@
-﻿using Cody.Security.Authorization;
+using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +18,7 @@ namespace Cody.Controllers
         {
             var user = await _dbContext
                 .UserAccounts
-                .Include(u => u.AccountDetail)
-                    .ThenInclude(ad => ad.ProfilePicture)
+                .IncludingProfilePicture()
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user is null)

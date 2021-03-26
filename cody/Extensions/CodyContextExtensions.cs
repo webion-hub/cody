@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Cody.QueryExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,12 +41,11 @@ namespace Cody.Extensions
         {
             return context
                 .Organizations
-                .Include(o => o.Members)
-                .Include(o => o.State)
-                .Include(o => o.Detail)
-                    .ThenInclude(d => d.Logo)
-                .Include(o => o.Detail)
-                    .ThenInclude(d => d.Cover);
+                .IncludingMembers()
+                .IncludingState()
+                .IncludingDetail()
+                .IncludingLogo()
+                .IncludingCover();
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -36,15 +37,15 @@ namespace Cody.Controllers.Organizations
             return isUserAdmin
                 ? organizations
                 : organizations
-                    .Where(o => o.State.Visibility == OrganizationVisibility.Public)
-                    .Where(o => !o.State.HasBeenDeleted);
+                    .ThatArePublic() 
+                    .ThatHaveNotBeenDeleted();
         }
 
         private async Task<Organization> GetOrganizationByIdAsync(int id)
         {
             return await _dbContext
                 .Organizations
-                .Include(o => o.State)
+                .IncludingState()
                 .FirstOrDefaultAsync(o => o.Id == id);
         }
 
