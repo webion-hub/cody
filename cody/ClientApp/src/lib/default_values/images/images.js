@@ -1,5 +1,5 @@
 export const Images = {
   bulbImage: "images/bulb.jpeg",
-  forestImage: "images/forest.jpg",
+  forestImage: "images/forest.webp",
   wavesImage: "images/waves.svg"
 };
