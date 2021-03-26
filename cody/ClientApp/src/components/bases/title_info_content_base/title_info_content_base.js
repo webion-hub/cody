@@ -35,7 +35,8 @@ export function TitleInfoContentBase(props){
   const theme = useTheme();
   const titleContainerRef = useRef();
   const titleContainerSize = useGetSize(titleContainerRef);
-  const titleWidth = titleContainerSize.width - 96;
+  const iconWidth = 96;
+  const titleWidth = titleContainerSize.width - iconWidth;
 
   const titleComponent =     
     <Grid
