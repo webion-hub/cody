@@ -17,6 +17,11 @@ export function LoadingIconButton(props){
   const {variant, color, loading, ...otherProps} = props;
   const disabledButton = props.loading || props.disabled
 
+  const loadingAnimation = loading &&
+    <div className={classes.loadingIconButton}>
+      <CircularProgress size={48}/>
+    </div>
+
   return (
     <>
       <IconButton
@@ -27,12 +32,7 @@ export function LoadingIconButton(props){
       >
         {props.icon}
       </IconButton>
-      {
-        loading &&
-          <div className={classes.loadingIconButton}>
-            <CircularProgress size={48}/>
-          </div>
-      }
+      {loadingAnimation}
     </>
   ) 
 }

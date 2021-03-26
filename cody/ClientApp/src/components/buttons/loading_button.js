@@ -8,6 +8,15 @@ export function LoadingButton(props){
   const {variant, color, loading, label, fullWidth, ...otherProps} = props;
   const disabledButton = props.loading || props.disabled
 
+  const loadingAnimation = loading &&        
+    <CircularProgress
+      color="secondary"
+      size={25}
+      style={{
+        position: "absolute" 
+      }}
+    />
+
   const mainButton = 
     <Button
       {...otherProps}
@@ -16,16 +25,7 @@ export function LoadingButton(props){
       disabled={disabledButton}
       fullWidth={fullWidth}
     >
-      {
-        loading &&        
-          <CircularProgress
-            color="secondary"
-            size={25}
-            style={{
-              position: "absolute" 
-            }}
-          />
-      }
+      {loadingAnimation}
       {label}
     </Button>
 
