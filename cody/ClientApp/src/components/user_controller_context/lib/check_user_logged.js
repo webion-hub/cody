@@ -13,6 +13,7 @@ export const checkUserLogged = (settings) => {
         if(resp)
           onSuccess()
       })
+      .catch(() => onError())
 
     if(!logged)
       await User
@@ -20,6 +21,7 @@ export const checkUserLogged = (settings) => {
           onSuccess: () => onSuccess(),
           onError: () => onError()
         })
+        .catch(() => onError())
     
     resolve()      
   })
