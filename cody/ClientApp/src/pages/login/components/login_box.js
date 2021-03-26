@@ -10,8 +10,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Password } from 'src/components/password/password_textfield';
 import { LoadingButton } from 'src/components/buttons/loading_button';
-import { NextFocus } from 'src/lib/next_focus';
+import { Authentication } from 'src/components/illustrations/authentication';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
+import { BasePhotoText } from 'src/components/bases/base_photo_text';
+
+import { NextFocus } from 'src/lib/next_focus';
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
@@ -28,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function LoginBox(){
+export function LoginBox(props){
 	const classes = useStyles();
   const { setIsLogged } = React.useContext(UserContext);
 
@@ -67,16 +70,19 @@ export function LoginBox(){
     if (!data.username || !data.password)
       return;
 
-    setLoading(true);
     _tryLogin();
   }
 
 
   const _tryLogin = async () => {
+    setLoading(true);
+
     await User.tryLogin({
-      userInfo: data,
-      
-      onSuccess: _ => setIsLogged(true),
+      userInfo: data,      
+      onSuccess: _ => {
+        setIsLogged(true)
+        props.onSuccess?.()
+      },
       onUserNotFound: _ => {
         setErrors({...errors, wrongUsername: true})
         setLoading(false);
@@ -86,6 +92,9 @@ export function LoginBox(){
         setLoading(false);
       },
     })
+    .then(() => 
+      props.notUpdateLoading ? () => {} : setLoading(false)
+    )
   }
 
   const _updateUsername = e => {
@@ -110,103 +119,108 @@ export function LoginBox(){
   }
 
   return(
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-    >
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
-        <TextField
-          className={classes.usernameTextField}
-          id="username"
-          label="Username"
-          name="login_username"
-          variant="outlined"
-          color="secondary"
-          fullWidth
-          onChange={_updateUsername}
-          error={errors.wrongUsername}
-          inputRef={nextFocus.getInput("username")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              nextFocus.focusOn("password");
-            }
-        }}
-        />
-        <Password
-          label="Password"
-          name="login_password"
-          labelWidth={70}
-          onChange={_updatePassword}
-          inputRef={nextFocus.getInput("password")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              _maybeLogin();
-              nextFocus.removeFocus();
-            }
-        }}
-          error={errors.wrongPassword}
-        />
+    <BasePhotoText
+      image={Authentication}
+      items={[
         <Grid
           container
-          justify="flex-start"
+          direction="column"
+          justify="center"
+          alignItems="center"
         >
-          <FormControlLabel
-            value="end"
-            control={
-              <Checkbox
-                color="secondary"
-                size="small"
-                onChange={_updateRememberMe}
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <TextField
+              className={classes.usernameTextField}
+              id="username"
+              label="Username"
+              name="login_username"
+              variant="outlined"
+              color="secondary"
+              fullWidth
+              onChange={_updateUsername}
+              error={errors.wrongUsername}
+              inputRef={nextFocus.getInput("username")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  nextFocus.focusOn("password");
+                }
+            }}
+            />
+            <Password
+              label="Password"
+              name="login_password"
+              labelWidth={70}
+              onChange={_updatePassword}
+              inputRef={nextFocus.getInput("password")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  _maybeLogin();
+                  nextFocus.removeFocus();
+                }
+            }}
+              error={errors.wrongPassword}
+            />
+            <Grid
+              container
+              justify="flex-start"
+            >
+              <FormControlLabel
+                value="end"
+                control={
+                  <Checkbox
+                    color="secondary"
+                    size="small"
+                    onChange={_updateRememberMe}
+                  />
+                }
+                label={
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                  >
+                    Ricordami
+                  </Typography>
+                }
+                labelPlacement="end"
               />
-            }
-            label={
-              <Typography
-                variant="body2"
-                color="textSecondary"
-              >
-                Ricordami
-              </Typography>
-            }
-            labelPlacement="end"
-          />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <LoadingButton
+              loading={loading}
+              fullWidth
+              endIcon={<AccountCircleRoundedIcon/>}
+              onClick={_ => {
+                _maybeLogin()
+              }}
+              label="Accedi"
+            />
+            <Link
+              className={classes.forgotPasswordLink}
+              component="button"
+              variant="body2"
+              color="secondary"
+              onClick={() => setOpenForgotPw(true)}
+            >
+              Password dimenticata?
+            </Link>
+            <ForgotPasswordDialog
+              open={openForgotPw}
+              onClose={() => setOpenForgotPw(false)}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
-        <LoadingButton
-          loading={loading}
-          fullWidth
-          endIcon={<AccountCircleRoundedIcon/>}
-          onClick={_ => {
-            _maybeLogin()
-          }}
-          label="Accedi"
-        />
-        <Link
-          className={classes.forgotPasswordLink}
-          component="button"
-          variant="body2"
-          color="secondary"
-          onClick={() => setOpenForgotPw(true)}
-        >
-          Password dimenticata?
-        </Link>
-        <ForgotPasswordDialog
-          open={openForgotPw}
-          onClose={() => setOpenForgotPw(false)}
-        />
-      </Grid>
-    </Grid>
+      ]}
+    />
   )
 }
