@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PaperWithWaves } from '../paper_with_waves';
+import { LoadingButton } from '../buttons/loading_button';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     width: 200,
     margin: "0 auto",
-    display: "block",
-    textAlign: "center"
+    display: "flex",
   }
 }));
 
@@ -51,16 +50,16 @@ export function MessagePageBase(props) {
         >
           {props.subTitle}
         </Typography>
-        <Button
+        <LoadingButton
+          loading={props.loading}
           className={classes.button}
           color="primary"
           variant="contained"
           href={props.href}
           onClick={onClick}
           fullWidth
-        >
-          {props.buttonLabel}
-        </Button>
+          label={props.buttonLabel}
+        />
       </PaperWithWaves>
     </CenterComponentPageBase>
   );
