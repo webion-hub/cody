@@ -11,7 +11,7 @@ export const errorPageSettings = {
   href: '/'
 }
 
-export function UnauthorizedPage() {
+export default function UnauthorizedPage() {
   return (
     <MessagePageBase
       {...errorPageSettings}

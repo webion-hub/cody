@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function Home(){
+export default function Home(){
   const classes = useStyles();
 
   /**

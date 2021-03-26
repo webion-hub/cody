@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export function AdminPage(){
+export default function AdminPage(){
 	const classes = useStyles();
   const [value, setValue] = React.useState(0);
 	const { userLoading, role } = React.useContext(UserContext);

@@ -4,19 +4,17 @@ import { Button } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Authentication } from 'src/components/illustrations/authentication';
 import { LoginBox } from './components/login_box';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { Images } from 'src/lib/default_values/images/images';
 
-import { BasePhotoText } from 'src/components/bases/base_photo_text';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
 import { PaperWithWaves } from 'src/components/paper_with_waves';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     maxWidth: 632,
@@ -39,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function Login(){
+export default function Login(){
 	const classes = useStyles();
 
   return (
@@ -53,11 +51,8 @@ export function Login(){
         alignItems="center"
       >
         <PaperWithWaves className={classes.paper}>
-          <BasePhotoText
-            image={Authentication}
-            items={[
-              <LoginBox/>
-            ]}
+          <LoginBox
+            notUpdateLoading
           />
         </PaperWithWaves> 
         <Button

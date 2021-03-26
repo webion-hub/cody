@@ -17,7 +17,7 @@ import { PageController } from 'src/lib/page_controller';
 import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
 import { PaperWithWaves } from 'src/components/paper_with_waves';
 
-export function Account(){
+export default function Account(){
 	const classes = useAccountStyles();
 
   //Loadings

@@ -11,7 +11,7 @@ export const errorPageSettings = {
   href: '/'
 }
 
-export function Error404Page() {
+export default function Error404Page() {
   return (
     <MessagePageBase
       {...errorPageSettings}

@@ -16,7 +16,7 @@ import { CenterComponentPageBase } from 'src/components/bases/center_component_p
 import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base/title_info_content_base';
 
 
-export function CreateOrJoinOrganization(){
+export default function CreateOrJoinOrganization(){
   const [contentSetting, setContentSetting] = React.useState(selectActionSettings);
   const organizationsInfoSettings = useOrganizationsInfoSettings()
 

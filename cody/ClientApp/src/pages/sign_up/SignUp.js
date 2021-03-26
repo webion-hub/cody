@@ -40,7 +40,7 @@ export const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function SignUp(){
+export default function SignUp(){
 	const classes = useStyles();
   const [data, setData] = React.useState(dataDefault); 
 

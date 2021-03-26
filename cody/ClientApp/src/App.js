@@ -1,17 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
-
-import { Login } from './pages/login/login';
-import { SignUp } from './pages/sign_up/sign_up';
-import { Error404Page } from './pages/message_pages/error404_page';
-import { EmailValidPage } from './pages/message_pages/email_valid_page/email_valid_page';
-import { UnauthorizedPage } from './pages/message_pages/unauthorized_page';
-import { Home } from './pages/home/home';
-import { Account } from './pages/account/account';
-import { Test } from './pages/test';
-import { AdminPage } from './pages/admin_pages/admin_page';
-import { CreateOrJoinOrganization } from './pages/create_or_join_organization/create_or_join_organization_page';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';  
 import { CssBaseline } from "@material-ui/core";
@@ -23,6 +12,17 @@ import { UserContext } from "./components/user_controller_context/user_controlle
 import history from 'src/history'
 
 import './custom.css';
+
+const Login = lazy(() => import('./pages/login/Login'));
+const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
+const Error404Page = lazy(() => import('./pages/message_pages/Error404Page'));
+const EmailValidPage = lazy(() => import('./pages/message_pages/email_valid_page/EmailValidPage'));
+const UnauthorizedPage = lazy(() => import('./pages/message_pages/UnauthorizedPage'));
+const Home = lazy(() => import('./pages/home/Home'));
+const Account = lazy(() => import('./pages/account/Account'));
+const Test = lazy(() => import('./pages/Test'));
+const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
+const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
 
 const themeController = new ThemeController();
 
@@ -47,20 +47,22 @@ function Routes(){
 
   return (
     <Router history={history}>
-      <Switch>
-        <CustomRoute exact path='/' component={Home} />
-        <CustomRoute path='/login' component={Login} redirect={isLogged}/>
-        <CustomRoute path='/sign-up' component={SignUp} redirect={isLogged}/>
-        <CustomRoute path='/email-verification' component={EmailValidPage} />
-        <CustomRoute path='/access-denied' component={UnauthorizedPage} />
-        <CustomRoute path='/account' component={Account} redirect={!isLogged}/>
-        
-        <CustomRoute path='/admin' component={AdminPage}/>
-        <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <CustomRoute exact path='/' component={Home} />
+          <CustomRoute path='/login' component={Login} redirect={isLogged}/>
+          <CustomRoute path='/sign-up' component={SignUp} redirect={isLogged}/>
+          <CustomRoute path='/email-verification' component={EmailValidPage} />
+          <CustomRoute path='/access-denied' component={UnauthorizedPage} />
+          <CustomRoute path='/account' component={Account} redirect={!isLogged}/>
+          
+          <CustomRoute path='/admin' component={AdminPage}/>
+          <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
 
-        <CustomRoute path='/test' component={Test}/>
-        <CustomRoute component={Error404Page} />
-      </Switch>
+          <CustomRoute path='/test' component={Test}/>
+          <CustomRoute component={Error404Page} />
+        </Switch>
+      </Suspense>
     </Router>
   );
 }
