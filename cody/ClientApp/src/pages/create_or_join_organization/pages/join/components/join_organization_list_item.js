@@ -1,18 +1,17 @@
 import React from 'react';
-import { useTheme, ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
+import { ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-
-import { FlowingText } from 'src/components/typography/flowing_text';
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 import { User } from 'src/lib/user';
-import { LoadingButton } from 'src/components/buttons/loading_button';
 import { PageController } from 'src/lib/page_controller';
 import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
-import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+import { JoinButton } from './join_button';
+import { LeaveButton } from './leave_button';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -22,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 0,
     paddingRight: theme.spacing(2),
   },
+  listItemText: props => ({
+    width: props.containerWidth,
+    maxWidth: 'calc(100vw - 155px)'
+  }),
   members: {
     marginRight: theme.spacing(2),
   },
@@ -46,7 +49,13 @@ export function JoinOrganizationsListItem(props){
   const id = data.id;
 
 	const theme = useTheme();
-  const classes = useStyles();
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+
+  let containerWidth = props.containerWidth - 190;
+  if(mobileView) 
+    containerWidth = props.containerWidth - 120
+
+  const classes = useStyles({containerWidth});
 
   const [loading, setLoading] = React.useState(false);
   const [membersCount, setMembersCount] = React.useState(data.membersCount);
@@ -99,27 +108,20 @@ export function JoinOrganizationsListItem(props){
   }
 
   const joinButton =
-    <LoadingButton
+    <JoinButton
       loading={loading}
-      variant="outlined"
-      color="secondary"
       disabled={data.state.hasBeenDeleted}
-      onClick={handleJoin}
-      label="Unisciti"
-      endIcon={<AddRoundedIcon/>}
+      onJoin={handleJoin}
     />
 
   const leaveButton = 
-    <LoadingButton
+    <LeaveButton
       loading={loading}
-      variant="outlined"
       disabled={data.state.hasBeenDeleted}
-      onClick={handleOpenLeaveDialog}
-      label="Lascia"
-      className={classes.leaveButton}
-      endIcon={<ExitToAppRoundedIcon/>}
+      onLeave={handleOpenLeaveDialog}    
     />
- 
+   
+
   const organizationNameLabel = data.state.hasBeenVerified ? 
     <>
       {data.name}<CheckCircleRoundedIcon className={classes.verifiedOrganization} fontSize="small"/>
@@ -139,24 +141,17 @@ export function JoinOrganizationsListItem(props){
           {getOrganizationKindIcon(data.kind)}
         </ListItemIcon>
         <ListItemText
-          primary={
-            <>
-              <FlowingText
-                containerWidth={props.maxListItemWidth}
-                background={theme.palette.background.paperSecondary}          
-              >
-                {organizationNameLabel}
-              </FlowingText>
-              <FlowingText
-                variant="caption"
-                color="textSecondary"
-                containerWidth={props.maxListItemWidth}
-                background={theme.palette.background.paperSecondary}          
-              >
-                {membersCountLabel}{locationLabel}    
-              </FlowingText>
-            </>
-          }
+          className={classes.listItemText}
+          primary={organizationNameLabel}
+          secondary={`${membersCountLabel}${locationLabel}`}
+          primaryTypographyProps={{
+            noWrap: true,
+            className: classes.listItemText
+          }}
+          secondaryTypographyProps={{
+            noWrap: true,
+            className: classes.listItemText
+          }}
         />
         <ListItemSecondaryAction>
           <Grid
@@ -164,12 +159,7 @@ export function JoinOrganizationsListItem(props){
             direction="row"
             alignItems="center"
           >         
-            {
-              showLeaveButton ? 
-                leaveButton
-                :
-                joinButton
-            }
+            {showLeaveButton ? leaveButton : joinButton}
           </Grid>
         </ListItemSecondaryAction>
       </ListItem>

@@ -54,7 +54,7 @@ function JoinOrganization(){
   const classes = useStyles();
   const listRef = useRef();
   
-  const maxListItemWidth = useGetSize(listRef).width - 190;
+  const containerWidth = useGetSize(listRef).width;
 
   const elementLoadingLimit = 20;
   const [organizationsValues, setOrganizationsValue] = useSetOrganizationsValue(elementLoadingLimit);
@@ -168,7 +168,7 @@ function JoinOrganization(){
               organizations.map((element, index) => (
                 <JoinOrganizationsListItem
                   key={index}
-                  maxListItemWidth={maxListItemWidth}
+                  containerWidth={containerWidth}
                   data={element}
                 />
               ))
