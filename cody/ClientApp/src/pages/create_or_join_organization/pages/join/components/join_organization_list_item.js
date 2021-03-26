@@ -21,10 +21,15 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 0,
     paddingRight: theme.spacing(2),
   },
-  listItemText: props => ({
-    width: props.containerWidth,
-    maxWidth: 'calc(100vw - 155px)'
-  }),
+  listItemText: {
+    maxWidth: 'calc(750px - 226px)',
+    [theme.breakpoints.down(750 + theme.drawer.width)]: {
+      maxWidth: 'calc(100vw - 275px)'
+    },
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: 'calc(100vw - 155px)'
+    },
+  },
   members: {
     marginRight: theme.spacing(2),
   },
@@ -50,12 +55,7 @@ export function JoinOrganizationsListItem(props){
 
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-
-  let containerWidth = props.containerWidth - 190;
-  if(mobileView) 
-    containerWidth = props.containerWidth - 120
-
-  const classes = useStyles({containerWidth});
+  const classes = useStyles();
 
   const [loading, setLoading] = React.useState(false);
   const [membersCount, setMembersCount] = React.useState(data.membersCount);

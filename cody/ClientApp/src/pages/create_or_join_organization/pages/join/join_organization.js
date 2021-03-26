@@ -8,8 +8,6 @@ import { JoinOrganizationsListItem } from './components/join_organization_list_i
 import { FilterComponent } from './components/filter_components';
 import { useSetOrganizationsValue } from './hooks/use_set_organizations_value';
 
-import { useGetSize } from 'src/lib/hooks/use_get_size';
-
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
     marginLeft: theme.spacing(1),
@@ -54,8 +52,6 @@ function JoinOrganization(){
   const classes = useStyles();
   const listRef = useRef();
   
-  const containerWidth = useGetSize(listRef).width;
-
   const elementLoadingLimit = 20;
   const [organizationsValues, setOrganizationsValue] = useSetOrganizationsValue(elementLoadingLimit);
   const loading = organizationsValues.loading;
@@ -168,7 +164,6 @@ function JoinOrganization(){
               organizations.map((element, index) => (
                 <JoinOrganizationsListItem
                   key={index}
-                  containerWidth={containerWidth}
                   data={element}
                 />
               ))
