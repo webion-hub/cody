@@ -14,11 +14,12 @@ export function CustomScrollContainer(props){
 	const contentRef = useRef();
 	const scrollRef = useRef();
 	const screenWidth = useGetSize(window).width;
+	const contentRefHeight = useGetSize(contentRef).height;
+	const childrenHeight = props.height ? props.height : contentRefHeight;
 
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 	const arrowWidth = 48;
 
-	const [childrenHeight, setChildrenHeight] = React.useState(props.height? props.height : 0);
 	const [activeDrag, setActiveDrag] = React.useState(false);
 	const [usingAnotherOne, setUsingAnotherOne] = React.useState(false);
 
@@ -50,16 +51,6 @@ export function CustomScrollContainer(props){
     return () => window.removeEventListener("mousemove", handleDrag);
 	}, [activeDrag])
 
-	//handle resize
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useLayoutEffect(() => {
-    window.addEventListener('resize', updateHeight);
-		
-    updateHeight();
-    return () => window.removeEventListener('resize', updateHeight);
-  }, [contentRef.current]);
-
-
 
 	const resetScrollableContainer = () => {
 		setActiveDrag(false)
@@ -67,17 +58,6 @@ export function CustomScrollContainer(props){
 		scrollRef.current.style.cursor = "auto"
 		scrollRef.current.style.userSelect = "auto"
 	}
-
-	const updateHeight = () => {
-		if(getContentExist()){
-			if(!props.height)
-				setChildrenHeight(contentRef.current? contentRef.current.offsetHeight : 0);
-			else
-				setChildrenHeight(props.height);
-		}
-	}
-
-
 	
 	const getContentExist = () => {
 		return contentRef.current !== null 
