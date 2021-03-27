@@ -30,6 +30,9 @@ export function AlertDialog(props){
 
   const getItems = () => {
     const items = props.items;
+    if(items !== null)
+      return;
+
     const cleanItems = items.filter(item => item !== undefined && item !== null)
     const getItems = 
       cleanItems.map((item, index) => 
@@ -43,6 +46,11 @@ export function AlertDialog(props){
     return getItems;
   }
 
+  const children = props.children &&
+    <ListItem>
+      <ListItemText primary={props.children} />
+    </ListItem>
+
   return(
     <DialogBase
       paperClassName={classes.paperClassName}
@@ -55,7 +63,7 @@ export function AlertDialog(props){
           color="primary"
           variant="contained"
         >
-          Chiudi
+          {props.buttonLabel ? props.buttonLabel : "Chiudi"}
         </Button>
       }
     >
@@ -68,9 +76,11 @@ export function AlertDialog(props){
           </Typography>,
           <List component="nav">
             {getItems()}
+            {children}
           </List>
         ]}
-      />
+      >
+      </BasePhotoText>
     </DialogBase>
   )
 }
