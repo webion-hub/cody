@@ -1,12 +1,12 @@
 import React from 'react';
 import { Organizations } from 'src/lib/organizations';
 
-export function useSetOrganizationsValue(elementLoadingLimit){
+export function useSetOrganizationsSearch(elementLoadingLimit){
   const [organizations, setOrganizations] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [offset, setOffset] = React.useState(0);
 
-  const setOrganizationsValue = (settings) => {
+  const setOrganizationsSearch = (settings) => {
     setLoading(true)
     setOffset(settings.offset)
     
@@ -39,11 +39,11 @@ export function useSetOrganizationsValue(elementLoadingLimit){
   }
   
 
-  const values = {
+  const searchSettings = {
     loading: loading,
     offset: offset,
     organizations: organizations
   }
 
-  return [values, setOrganizationsValue]
+  return [searchSettings, setOrganizationsSearch]
 }

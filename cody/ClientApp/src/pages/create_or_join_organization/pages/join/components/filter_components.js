@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export function FilterComponent(props){
   const classes = useStyles();
   const filterStatus = props.filterStatus;
-  const handleFilter = props.handleFilter;
+  const setFilter = props.setFilter;
 
   return(
     <ButtonGroup
@@ -32,7 +32,7 @@ export function FilterComponent(props){
         title="Filtra per teams"
       >
         <Button
-          onClick={() => handleFilter("teams")}
+          onClick={() => setFilter("teams")}
           variant={filterStatus.teams ? "contained" : "outlined"}
         >
           {getOrganizationKindIcon("team")}
@@ -43,7 +43,7 @@ export function FilterComponent(props){
         title="Filtre per scuole"
       >
         <Button
-          onClick={() => handleFilter("school")}
+          onClick={() => setFilter("schools")}
           variant={filterStatus.schools ? "contained" : "outlined"}
         >
           {getOrganizationKindIcon("school")}
@@ -54,7 +54,7 @@ export function FilterComponent(props){
         title="Filtre per aziende"
       >
         <Button
-          onClick={() => handleFilter("companies")}
+          onClick={() => setFilter("companies")}
           variant={filterStatus.companies ? "contained" : "outlined"}
         >
           {getOrganizationKindIcon("company")}

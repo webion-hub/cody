@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 
 import { User } from 'src/lib/user';
 import { PageController } from 'src/lib/page_controller';
@@ -52,16 +50,17 @@ const useStyles = makeStyles((theme) => ({
 export function JoinOrganizationsListItem(props){
   const data = props.data;
   const id = data.id;
-
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
   const [loading, setLoading] = React.useState(false);
   const [membersCount, setMembersCount] = React.useState(data.membersCount);
-  const [showLeaveButton, setShowLeaveButton] = React.useState(data.isCallerAMember);
+  const [isCallerAMember, setIsCallerAMember] = React.useState(data.isCallerAMember);
   const [openLeaveDialog, setOpenLeaveDialog] = React.useState(false);
   const [leaveError, setLeaveError] = React.useState(null);
+
+  useEffect(() => {
+    setIsCallerAMember(data.isCallerAMember)
+  }, [data.isCallerAMember])
 
   const membersCountLabel = membersCount === 1 ? 
     `${membersCount} Utente` : `${membersCount} Utenti`
@@ -70,17 +69,6 @@ export function JoinOrganizationsListItem(props){
 
   const openOrganization = (e) => {
     PageController.push(`/organizations/${id}`)
-  }
-
-  const handleJoin = () => {
-    setLoading(true)
-    User
-      .join(id)
-      .then((val) => {
-        setLoading(false)
-        setShowLeaveButton(true)
-        setMembersCount(membersCount + 1)
-      })
   }
 
   const handleOpenLeaveDialog = () => {
@@ -98,13 +86,24 @@ export function JoinOrganizationsListItem(props){
       organizationId: id,      
       onSuccess: () => {
         setMembersCount(membersCount - 1)
-        setShowLeaveButton(false)
+        setIsCallerAMember(false)
         handleCloseLeaveDialog();
       },
       onError: () => setLeaveError("C'è stato un errore prova più tardi"),
       onNotFound: () => setLeaveError("Non sei membro di questa organizzazione!"),
       onForbidden: () => setLeaveError("Non puoi uscire da un'organizzazione dove sei il propietario!"),    
     })
+  }
+
+  const handleJoin = () => {
+    setLoading(true)
+    User
+      .join(id)
+      .then((val) => {
+        setLoading(false)
+        setIsCallerAMember(true)
+        setMembersCount(membersCount + 1)
+      })
   }
 
   const joinButton =
@@ -159,7 +158,7 @@ export function JoinOrganizationsListItem(props){
             direction="row"
             alignItems="center"
           >         
-            {showLeaveButton ? leaveButton : joinButton}
+            {isCallerAMember ? leaveButton : joinButton}
           </Grid>
         </ListItemSecondaryAction>
       </ListItem>

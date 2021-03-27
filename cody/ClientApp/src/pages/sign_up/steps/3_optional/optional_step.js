@@ -40,6 +40,7 @@ export function OptionalData(props){
           <AddPhoto
             onImageChange={image => props.onProfileImageChange(image)}
             alt={props.values.username}
+            value={props.values.profileImage}
             disableLoading
           />
           <Typography

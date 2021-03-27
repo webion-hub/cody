@@ -6,7 +6,7 @@ import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_sea
 
 import { JoinOrganizationsListItem } from './components/join_organization_list_item';
 import { FilterComponent } from './components/filter_components';
-import { useSetOrganizationsValue } from './hooks/use_set_organizations_value';
+import { useSetOrganizationsSearch } from './hooks/use_set_organizations_value';
 
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
@@ -53,10 +53,10 @@ function JoinOrganization(){
   const listRef = useRef();
   
   const elementLoadingLimit = 20;
-  const [organizationsValues, setOrganizationsValue] = useSetOrganizationsValue(elementLoadingLimit);
-  const loading = organizationsValues.loading;
-  const offset= organizationsValues.offset;
-  const organizations = organizationsValues.organizations;
+  const [organizationsSeacrh, setOrganizationsSearch] = useSetOrganizationsSearch(elementLoadingLimit);
+  const loading = organizationsSeacrh.loading;
+  const offset= organizationsSeacrh.offset;
+  const organizations = organizationsSeacrh.organizations;
 
   const [searchValue, setSearchValue] = React.useState("");
   const [filterStatus, setFilterStatus] = React.useState({
@@ -66,7 +66,7 @@ function JoinOrganization(){
   });
 
   useEffect(() => {
-    setOrganizationsValue({
+    setOrganizationsSearch({
       filter: filterStatus,
       value: "",
       offset: 0,
@@ -86,7 +86,7 @@ function JoinOrganization(){
     setFilterStatus(filterValues)
 
     goTop()
-    setOrganizationsValue({
+    setOrganizationsSearch({
       filter: filterValues,
       value: searchValue,
       offset: 0,
@@ -96,7 +96,7 @@ function JoinOrganization(){
   const handleSearchValue = (value) => {
     setSearchValue(value);
 
-    setOrganizationsValue({
+    setOrganizationsSearch({
       filter: filterStatus,
       value: value,
       offset: 0,
@@ -115,7 +115,7 @@ function JoinOrganization(){
 
       if(areOtherElements && !loading){
         const newOffsetVal = offset + elementLoadingLimit
-        setOrganizationsValue({
+        setOrganizationsSearch({
           filter: filterStatus,
           value: searchValue,
           offset: newOffsetVal,
@@ -142,7 +142,7 @@ function JoinOrganization(){
             onChange={handleSearchValue}
           />
           <FilterComponent
-            handleFilter={handleFilter}
+            setFilter={handleFilter}
             filterStatus={filterStatus}
           />
         </Grid>

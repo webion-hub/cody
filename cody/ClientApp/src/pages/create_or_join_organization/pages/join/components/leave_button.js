@@ -26,7 +26,7 @@ export function LeaveButton(props){
 
   const loading = props.loading;
   const disabled = props.disabled;
-  const onLeave = props.onJoin;
+  const onLeave = props.onLeave;
 
   if(mobileView)
     return(
