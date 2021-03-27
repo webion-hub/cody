@@ -15,7 +15,7 @@ export const UserContext = React.createContext({
 export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
-  const [userState, setUserGeneralState] = React.useState("notLogged");
+  const [userState, setUserGeneralState] = React.useState("loading");
   const [role, setRole] = React.useState(null);
 
   const fetchRole = async () => {
