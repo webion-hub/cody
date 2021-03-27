@@ -1,5 +1,5 @@
 import './cody_types';
-import axios from 'axios';
+import Requests from './requests';
 
 export class UserAccountInfo {
   constructor() {
@@ -55,20 +55,19 @@ export class UserAccountInfo {
     if (this._getters.length == 0)
       return Promise.resolve(new Map([]));
 
-    return axios
-      .request({
-        url: 'user/info',
-        method: 'POST',
-        data: this._getters,
-      })
-      .then(resp => {
-        const data = resp.data;
-        const mappedValues = Object
-          .keys(data)
-          .map(key => [key, data[key]]);
+    return Requests.send({
+      url: 'user/info',
+      method: 'POST',
+      data: this._getters,
+    })
+    .then(resp => {
+      const data = resp?.data;
+      const mappedValues = Object
+        .keys(data)
+        .map(key => [key, data[key]]);
 
-        return new Map(mappedValues);
-      });
+      return new Map(mappedValues);
+    });
   }
 
   /**
@@ -78,17 +77,19 @@ export class UserAccountInfo {
     if (Object.keys(this._setters).length == 0)
       return Promise.resolve(null);
 
-    return axios
-      .request({
-        url: 'user/info',
-        method: 'PUT',
-        validateStatus: false,
-        data: this._setters,
-      })
-      .then(resp => resp.status == 200
+    return Requests.send({
+      url: 'user/info',
+      method: 'PUT',
+      data: this._setters,
+    })
+    .then(resp => {
+      if (!resp)
+        return [];
+
+      return resp.status == 200
         ? []
         : resp.data
-      );
+    });
   }
 }
 

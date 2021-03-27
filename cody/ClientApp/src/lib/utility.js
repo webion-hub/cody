@@ -13,10 +13,14 @@ export function throwIfNullOrEmpty(object, name) {
  * @param {string | number} key 
  * @param {Map<number, Function>} actions 
  */
-export function invokeCallback(key, actions) {
+export function tryInvokeCallback(key, actions) {
   const action = actions[key];
-  if (action)
+  if (action) {
     action();
+    return true;
+  }
+
+  return false;
 }
 
 

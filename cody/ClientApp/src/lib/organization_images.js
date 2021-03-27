@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import axios from "axios";
+import Requests from './requests';
 
 export default class OrganizationImages {
   /**
@@ -27,7 +27,7 @@ export default class OrganizationImages {
     const formData = new FormData();
     formData.append('base64', base64Image);
     
-    return axios.request({
+    return Requests.send({
       url: `organizations/${this._organizationId}/${what}`,
       method: 'PUT',
       data: formData,
@@ -42,7 +42,10 @@ export default class OrganizationImages {
    * @returns {Promise<AxiosResponse<any>>}
    */
    async delete(what) {
-    return axios.delete(`organizations/${this._organizationId}/${what}`);
+    return Requests.send({
+      url: `organizations/${this._organizationId}/${what}`,
+      method: 'DELETE',
+    });
   }
 }
 

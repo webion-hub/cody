@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { AxiosResponse } from 'axios';
-import { invokeCallback } from './utility';
+import { tryInvokeCallback } from './utility';
 import SingleXHRRequest from './single_xhr_request';
+import Requests from './requests';
 
 
 export class Organizations {
@@ -10,13 +10,11 @@ export class Organizations {
    * @returns {Promise<Organization>}
    */
   static async getById(id) {
-    return axios
-      .request({
-        url: `organizations/${id}`,
-        method: 'GET',
-        validateStatus: false,
-      })
-      .then(response => response.data);
+    return Requests.send({
+      url: `organizations/${id}`,
+      method: 'GET',
+    })
+    .then(response => response?.data);
   }
 
 
@@ -25,7 +23,10 @@ export class Organizations {
    * @returns {Promise<AxiosResponse<any>>}
    */
    static async verify(id) {
-    return axios.patch(`organizations/verify/${id}`);
+    return Requests.send({
+      url: `organizations/verify/${id}`,
+      method: 'PATCH',
+    });
   }
 
 
@@ -34,7 +35,10 @@ export class Organizations {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async delete(id) {
-    return axios.delete(`organizations/${id}`);
+    return Requests.send({
+      url: `organizations/${id}`,
+      method: 'DELETE',
+    });
   }
 
 
@@ -43,7 +47,10 @@ export class Organizations {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async restore(id) {
-    return axios.patch(`organizations/restore/${id}`);
+    return Requests.send({
+      url: `organizations/restore/${id}`,
+      method: 'PATCH',
+    });
   }
 
 
@@ -59,21 +66,25 @@ export class Organizations {
       onError,
     } = options;
 
-    return axios
-      .request({
-        url: 'organizations/create_new',
-        method: 'POST',
-        data: organization,
-        validateStatus: false,
-      })
-      .then(response => {
-        const organizationId = response.data;
-        invokeCallback(response.status, {
-          201: _ => onSuccess(organizationId),
-          409: _ => onConflict(organizationId),
-          400: _ => onError(),
-        });
+    return Requests.send({
+      url: 'organizations/create_new',
+      method: 'POST',
+      data: organization,
+      validateStatus: (status) => {
+        return [201, 409, 400].includes(status);
+      },
+    })
+    .then(response => {
+      if (!response)
+        return;
+
+      const organizationId = response.data;
+      tryInvokeCallback(response.status, {
+        201: _ => onSuccess(organizationId),
+        409: _ => onConflict(organizationId),
+        400: _ => onError(),
       });
+    });
   }
 
 
@@ -83,14 +94,17 @@ export class Organizations {
    */
   static async listAll(options) {
     return Organizations._listAllReq.send(tokenSource => {
-      return axios
-        .request({
-          url: 'organizations',
-          method: 'GET',
-          cancelToken: tokenSource.token,
-          params: options,
-        })
-        .then(response => response.data)
+      return Requests.send({
+        url: 'organizations',
+        method: 'GET',
+        cancelToken: tokenSource.token,
+        params: options,
+      })
+      .then(response => {
+        return response 
+          ? response.data
+          : {total: 0, values: []};
+      })
     });
   }
 }

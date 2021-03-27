@@ -1,15 +1,18 @@
-import { invokeCallback } from './utility';
+import { tryInvokeCallback } from './utility';
 import { AxiosResponse } from 'axios';
-import axios from 'axios';
 import './cody_types';
 import './organizations';
+import Requests from './requests';
 
 export class User {
   /**
    * @returns {Promise<AxiosResponse<any>>} 
    */
   static async sendNewVerificationEmail() {
-    return axios.get('user/verify/send_new_verification_email');
+    return Requests.send({
+      url: 'user/verify/send_new_verification_email',
+      method: 'GET',
+    });
   }
 
 
@@ -17,9 +20,11 @@ export class User {
    * @returns {Promise<boolean>}
    */
   static async isLogged() {
-    return axios
-      .get('user/is_logged')
-      .then(resp => resp.data);
+    return Requests.send({
+      url: 'user/is_logged',
+      method: 'GET',
+    })
+    .then(resp => resp?.data);
   }
 
 
@@ -32,12 +37,11 @@ export class User {
       usernameOrEmail,
     } = options;
 
-    return axios
-      .request({
-        url: `user/exists/${usernameOrEmail}/`,
-        method: 'GET',
-      })
-      .then(resp => resp.data);
+    return Requests.send({
+      url: `user/exists/${usernameOrEmail}/`,
+      method: 'GET',
+    })
+    .then(resp => resp?.data);
   }
 
 
@@ -50,18 +54,16 @@ export class User {
       onError,
     } = options;
 
-    return axios
-      .request({
-        url: 'user/logout',
-        method: 'POST',
-        validateStatus: false,
-      })
-      .then(response => {
-        invokeCallback(response.status, {
+    return Requests.send({
+      url: 'user/logout',
+      method: 'POST',
+      validateStatus: (status) => {
+        return tryInvokeCallback(status, {
           200: onSuccess,
           401: onError,
         });
-      });
+      },
+    });
   }
 
 
@@ -77,20 +79,18 @@ export class User {
       onPasswordMismatch,
     } = options;
 
-    return axios
-      .request({
-        url: `user/login`,
-        method: 'POST',
-        validateStatus: false,
-        data: userInfo,
-      })
-      .then(response => {
-        invokeCallback(response.status, {
+    return Requests.send({
+      url: `user/login`,
+      method: 'POST',
+      data: userInfo,
+      validateStatus: (status) => {
+        return tryInvokeCallback(status, {
           200: onSuccess,
           404: onUserNotFound,
           400: onPasswordMismatch,
         });
-      });
+      },
+    });
   }
 
 
@@ -104,18 +104,16 @@ export class User {
       onError,
     } = options;
 
-    return axios
-      .request({
-        url: 'user/login_with_cookie',
-        method: 'POST',
-        validateStatus: false,
-      })
-      .then(response => {
-        invokeCallback(response.status, {
+    return Requests.send({
+      url: 'user/login_with_cookie',
+      method: 'POST',
+      validateStatus: (status) => {
+        return tryInvokeCallback(status, {
           200: onSuccess,
           400: onError,
         });
-      });
+      },
+    });
   }
 
 
@@ -131,22 +129,26 @@ export class User {
       onMissingFields,
     } = options;
 
-    return axios
-      .request({
-        url: 'user/register',
-        method: 'POST',
-        responseType: 'json',
-        validateStatus: false,
-        data: user,
-      })
-      .then(response => {
-        const data = response.data;
-        invokeCallback(response.status, {
-          200: _ => onSuccess(data),
-          409: _ => onError(data),
-          400: _ => onMissingFields(data.errors),
-        });
+    return Requests.send({
+      url: 'user/register',
+      method: 'POST',
+      responseType: 'json',
+      data: user,
+      validateStatus: status => {
+        return [200, 409, 400].includes(status);
+      },
+    })
+    .then(response => {
+      if (!response)
+        return;
+
+      const data = response.data;
+      tryInvokeCallback(response.status, {
+        200: _ => onSuccess(data),
+        409: _ => onError(data),
+        400: _ => onMissingFields(data.errors),
       });
+    });
   }
 
 
@@ -155,7 +157,10 @@ export class User {
    * @returns {Promise<AxiosResponse<any>>} 
    */
   static async join(organizationId) {
-    return axios.post(`user/join/${organizationId}`);
+    return Requests.send({
+      url: `user/join/${organizationId}`,
+      method: 'POST',
+    });
   }
 
 
@@ -172,20 +177,18 @@ export class User {
       onNotFound,
     } = options;
 
-    return axios
-      .request({
-        url: `user/leave/${organizationId}`,
-        method: 'POST',
-        validateStatus: false,
-      })
-      .then(resp => {
-        invokeCallback(resp.status, {
+    return Requests.send({
+      url: `user/leave/${organizationId}`,
+      method: 'POST',
+      validateStatus: (status) => {
+        return tryInvokeCallback(status, {
           200: onSuccess,
           400: onError,
           403: onForbidden,
           404: onNotFound,
         });
-      });
+      },
+    });
   }
 
 
@@ -193,11 +196,11 @@ export class User {
    * @returns {Promise<User.JoinedOrganization[]>} 
    */
   static async getJoinedOrganizations() {
-    return axios
-      .get('user/joined_organizations', {
-        validateStatus: false,
-      })
-      .then(resp => resp.data);
+    return Requests.send({
+      url: 'user/joined_organizations',
+      method: 'GET',
+    })
+    .then(resp => resp?.data);
   }
 }
 

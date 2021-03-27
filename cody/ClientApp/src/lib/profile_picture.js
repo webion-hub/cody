@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import './cody_types';
 import 'axios';
+import Requests from './requests';
 
 export class ProfilePicture {
   /**
@@ -20,23 +21,25 @@ export class ProfilePicture {
     else if (formFile)
       formData.append('formFile', formFile, formFile.name);
 
-    return axios
-      .request({
-        url: 'user/profile_picture',
-        method: 'PUT',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-      })
-      .then(response => response.data);
+    return Requests.send({
+      url: 'user/profile_picture',
+      method: 'PUT',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    })
+    .then(response => response?.data);
   }
 
   /**
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async delete() {
-    return axios.delete('user/profile_picture');
+    return Requests.send({
+      url: 'user/profile_picture',
+      method: 'DELETE',
+    });
   }
 }
 

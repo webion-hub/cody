@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Requests from './requests';
 import SingleXHRRequest from './single_xhr_request';
 
 export class Cities {
@@ -8,7 +8,7 @@ export class Cities {
    */
   static async find(name) {
     return Cities._singleRequest.send(tokenSource => {
-      return axios.request({
+      return Requests.send({
         url: 'https://dev.virtualearth.net/REST/v1/Locations',
         method: 'GET',
         cancelToken: tokenSource.token,
@@ -19,12 +19,15 @@ export class Cities {
           culture: 'it-IT',
         },
       })
-      .then(resp => resp.data)
+      .then(resp => resp?.data)
       .then(Cities.formatResult);
     });
   }
 
   static formatResult(bingResult) {
+    if (!bingResult)
+      return [];
+
     return bingResult
       .resourceSets[0]
       .resources

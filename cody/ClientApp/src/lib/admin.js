@@ -1,5 +1,5 @@
-import axios from 'axios';
 import './cody_types';
+import Requests from './requests';
 import SingleXHRRequest from './single_xhr_request';
 
 export class Admin {
@@ -9,12 +9,17 @@ export class Admin {
    */
   static async getUsers(options) {
     return Admin._getUsersReq.send(tokenSource => {
-      return axios
-        .get(`admin/users`, {
-          cancelToken: tokenSource.token,
-          params: options,
-        })
-        .then(resp => resp.data);
+      return Requests.send({
+        url: 'admin/users',
+        cancelToken: tokenSource.token,
+        params: options,
+        method: 'GET',
+      })
+      .then(resp => {
+        return resp
+          ? resp.data
+          : {total: 0, values: []};
+      });
     });
   }
 
@@ -23,7 +28,10 @@ export class Admin {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async deleteUser(id) {
-    return axios.delete(`admin/users/${id}`);
+    return Requests.send({
+      url: `admin/users/${id}`,
+      method: 'DELETE',
+    });
   }
 
 
@@ -32,7 +40,10 @@ export class Admin {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static async restoreUser(id) {
-    return axios.patch(`admin/users/restore/${id}`);
+    return Requests.send({
+      url: `admin/users/restore/${id}`,
+      method: 'PATCH',
+    });
   }
 }
 
