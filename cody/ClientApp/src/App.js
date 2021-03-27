@@ -47,9 +47,27 @@ function Routes(){
 
   Requests.onError = (reason) => {
     setErrorsDialog(reason)
-    console.log(reason)
   };
   
+  const getErrorLabel = (error) => {
+    switch (error) {
+      case "serverError":
+        return "C'è stato un errore con il server!"
+      case "sizeTooBig":
+        return "Dimensione troppo grande!"
+      case "unauthorized":
+        return "Richiesta non autorizzata!"
+      case "badRequest":
+        return "Richiesta non valida!"
+      case "notFound":
+        return "Non trovato!"
+      case "networkError":
+        return "C'è stato un errore di rete!"
+      case "genericError":
+      default:
+        return "C'è stato un errore!"
+    }
+  }
 
   return (
     <Router history={history}>
@@ -71,10 +89,13 @@ function Routes(){
       </Suspense>      
       <AlertDialog
         open={errorsDialog !== ""}
-        onClose={() => PageController.refresh()}
+        onClose={() => {
+          setErrorsDialog("")
+          PageController.refresh()
+        }}
         buttonLabel="Ricarica la pagina"
       >
-        {errorsDialog}
+        {getErrorLabel(errorsDialog)}
       </AlertDialog>
     </Router>
   );
