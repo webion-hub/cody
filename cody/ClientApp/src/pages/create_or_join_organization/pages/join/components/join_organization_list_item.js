@@ -82,6 +82,7 @@ export function JoinOrganizationsListItem(props){
 
   const handleLeave = () => {
     setLeaveError(null)
+    setLoading(true)
     User.leave({
       organizationId: id,      
       onSuccess: () => {
@@ -93,13 +94,14 @@ export function JoinOrganizationsListItem(props){
       onNotFound: () => setLeaveError("Non sei membro di questa organizzazione!"),
       onForbidden: () => setLeaveError("Non puoi uscire da un'organizzazione dove sei il propietario!"),    
     })
+    .finally(() => setLoading(false))
   }
 
   const handleJoin = () => {
     setLoading(true)
     User
       .join(id)
-      .then((val) => {
+      .finally(() => {
         setLoading(false)
         setIsCallerAMember(true)
         setMembersCount(membersCount + 1)
@@ -163,6 +165,7 @@ export function JoinOrganizationsListItem(props){
         </ListItemSecondaryAction>
       </ListItem>
       <LeaveOrganizationDialog
+        loading={loading}
         open={openLeaveDialog}
         onClose={handleCloseLeaveDialog}
         onLeave={handleLeave}

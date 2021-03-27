@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 
 import { DialogBase } from 'src/components/bases/dialog_base';
+import { LoadingButton } from 'src/components/buttons/loading_button';
 
 const useStyles = makeStyles((theme) => ({
   dialogLeaveWarning: {
@@ -42,13 +43,13 @@ export function LeaveOrganizationDialog(props){
         </Button>
       }
       secondButton={
-        <Button 
+        <LoadingButton 
+          loading={props.loading}
           variant="contained"
           color="primary"
           onClick={onLeave}
-        >
-          Conferma
-        </Button>
+          label="Conferma"
+        />
       }
       title={`Sei sicuro di volere abbandonare ${props.organizationName}?`}
     >

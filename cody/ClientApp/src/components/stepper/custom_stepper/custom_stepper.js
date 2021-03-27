@@ -68,8 +68,8 @@ export function CustomStepper(props){
         });
 
         props.setErrors(errors);
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false))
   }
 
   const handlNextFormCompleted = () => {

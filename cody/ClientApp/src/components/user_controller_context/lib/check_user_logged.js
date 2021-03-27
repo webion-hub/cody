@@ -8,7 +8,7 @@ export const checkUserLogged = (settings) => {
     let logged = false;
     await User
       .isLogged()          
-      .then(async (resp) => {
+      .then((resp) => {
         logged = resp;
         if(resp)
           onSuccess()

@@ -18,16 +18,16 @@ export function useSetOrganizationsSearch(elementLoadingLimit){
       offset: settings.offset,
     })
     .then(searchResults => {
-      const organizations = searchResults.values;
+      const organizations = searchResults.values;      
       
-      setLoading(false)
       if(settings.mergeResultWith === undefined)
         setOrganizations(organizations)
       else {
         const fullList = settings.mergeResultWith.concat(organizations)
         setOrganizations(fullList)
       }
-    });
+    })
+    .finally(() => setLoading(false))
   }
 
   const getFilter = (filter) => {

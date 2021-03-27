@@ -14,13 +14,13 @@ const updateProfilePic  = (image) => {
     .createOrUpdate({
       base64: image,
     })
-    .then(() => refreshPage());
+    .finally(() => refreshPage());
 }
 
 const deleteProfilePic  = () => {
   ProfilePicture
     .delete()
-    .then(() => refreshPage())
+    .finally(() => refreshPage())
 }
 
 const handleSaveImage = (image, defaultImage) => {
@@ -52,7 +52,7 @@ const saveData = (data) => {
 
 
 export const trySave = (settings) => {
-  return new Promise(resolve => {
+  return new Promise(async resolve  => {
     const errorsController = new AccountErrorsController();
 
     const {
@@ -64,9 +64,9 @@ export const trySave = (settings) => {
       defaultImage,
     } = settings;
 
-    errorsController
+    await errorsController
       .checkAll(data, oldData)
-      .then(results => {
+      .then(async results => {
         let errors = {};
         results.forEach(result => {
           errors[result] = true;
@@ -78,13 +78,14 @@ export const trySave = (settings) => {
           return;
         }
 
-        saveData(data)
-        .then((res) => {
-          if(res.set.length !== 0)
-            onSavingErrors(res.set)
-          else
-            handleSaveImage(image, defaultImage)
-        })        
+        await saveData(data)
+          .then(async (res) => {
+            const areSavingErrors = res.set.length !== 0
+            if(areSavingErrors)
+              onSavingErrors(res.set)
+            else
+              await handleSaveImage(image, defaultImage)
+          })        
       })
 
     resolve();

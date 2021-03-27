@@ -6,7 +6,7 @@ import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_sea
 
 import { JoinOrganizationsListItem } from './components/join_organization_list_item';
 import { FilterComponent } from './components/filter_components';
-import { useSetOrganizationsSearch } from './hooks/use_set_organizations_value';
+import { useSetOrganizationsSearch } from './hooks/use_set_organizations_search';
 
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {

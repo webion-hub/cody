@@ -12,44 +12,39 @@ export function tryCreateOrganization(settings){
     errorController
       .checkAll(data, kind)
       .then(
-        results => {
+        async results => {
           let errorsFromController = {};
           results.forEach(result => {
             errorsFromController[result] = true;
           });
-          const thereAreNotFormatErrors = errorsFromController.noError;
-          if(thereAreNotFormatErrors){
-            Organizations.createNew({
-              organization: {
-                name: data.name,
-                location: data.location,
-                website: data.website === "" ? null : data.website,
-                description: data.description,
-                kind: kind,
-              },
-              onSuccess: async (id) => {
-                if(data.logo !== null)
-                  await OrganizationImages
-                    .of(id)
-                    .update('logo', data.logo)
+          const thereAreFormatErrors = !errorsFromController.noError;
 
-                settings.onSuccess(id)
-                resolve()                    
-              },
-              onConflict: () => {
-                settings.onConflict()
-                resolve()
-              },
-              onError: () => {
-                settings.onError()
-                resolve()
-              }
-            })
-          }
-          else{
+          if(thereAreFormatErrors){
             settings.onFormatError(errorsFromController)
-            resolve()
+            return;
           }
+
+          await Organizations.createNew({
+            organization: {
+              name: data.name,
+              location: data.location,
+              website: data.website === "" ? null : data.website,
+              description: data.description,
+              kind: kind,
+            },
+            onSuccess: async (id) => {
+              if(data.logo !== null)
+                await OrganizationImages
+                  .of(id)
+                  .update('logo', data.logo)
+
+              settings.onSuccess(id)
+            },
+            onConflict: () => settings.onConflict(),
+            onError: () => settings.onError()
+          })
+
+          resolve()
         }
       )  
 

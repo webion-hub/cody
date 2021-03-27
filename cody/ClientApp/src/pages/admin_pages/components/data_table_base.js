@@ -51,8 +51,8 @@ export function DataTableBase(props){
 
 				setDataList(preparedList)
 				setTotalItems(total)
-				setLoading(false)
 			})
+			.finally(() => setLoading(false))
 	}
 
 	const handleChange = (value) => {

@@ -86,7 +86,7 @@ export function CreateOrganizationBase(props){
       onError: (err) => {},
       onFormatError: (err) => setErrors(err)
     })
-    .then(() => setLoading(false))
+    .finally(() => setLoading(false))
   }
 
   return(

@@ -88,7 +88,7 @@ export default function Account(){
         setErrorsDuringSaving(errors)
       }
     })
-    .then(() => setLoadingSave(false))
+    .finally(() => setLoadingSave(false))
   }
 
   const errorsList = 
