@@ -18,6 +18,10 @@ export default class Requests {
       response,
     } = error;
 
+    const wasCanceled = !request && !response;
+    if (wasCanceled)
+      return;
+
     if (response && Requests._tryRaiseErrorFromResponse(response))
       return;
     
