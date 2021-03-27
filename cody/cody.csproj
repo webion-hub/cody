@@ -42,8 +42,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="pub_out\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="pub_out\**" />
+    <EmbeddedResource Remove="pub_out\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="pub_out\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
