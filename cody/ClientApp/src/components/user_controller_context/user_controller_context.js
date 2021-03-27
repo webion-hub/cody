@@ -5,8 +5,8 @@ import { UserAccountInfo } from 'src/lib/user_account_info'
 
 
 export const UserContext = React.createContext({
-  isLogged: false,
-  setIsLogged: () => {},
+  userState: false,
+  setUserState: () => {},
   
   userLoading: true,
   role: null,
@@ -15,14 +15,11 @@ export const UserContext = React.createContext({
 export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
-  const [isLogged, setIsLogged] = React.useState(false);
-  const [userLoading, setUserLoading] = React.useState(true);
+  const [userState, setUserGeneralState] = React.useState("notLogged");
   const [role, setRole] = React.useState(null);
 
   const fetchRole = async () => {
-    if(!isLogged)
-      return;
-    return UserAccountInfo
+    return await UserAccountInfo
       .createRequest()
         .get('role')
       .send()
@@ -33,26 +30,41 @@ export function UserControllerContext(props){
       })
   }
 
-  useEffect(async () => {
-    setUserLoading(true)
+  useEffect(() => {
+    setUserGeneralState("loading")
     setRole(null)
 
     checkUserLogged({
-      onSuccess: () => setIsLogged(true),
-      onError: () => setIsLogged(false),
-    })
-    .then(async () => {
-      await fetchRole()
-      setUserLoading(false)
+      onSuccess: async () => {
+        await fetchRole()
+        setUserGeneralState("logged")
+      },
+      onError: () => setUserGeneralState("notLogged"),
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps    
-  }, [isLogged]);
+  }, []);
+
+  const setUserState = async (state) => {
+    switch (state) {
+      case "logged":
+        setUserGeneralState("loading")
+        await fetchRole()
+        setUserGeneralState("logged")
+        break;
+      case "notLogged":
+        setRole(null)
+        setUserGeneralState("notLogged")
+        break;
+      default:
+        setUserGeneralState("loading")
+        break;
+    }
+  }
     
   const value = { 
-    isLogged,
-    setIsLogged,
+    userState,
+    setUserState,
 
-    userLoading,
     role,
   };
 
