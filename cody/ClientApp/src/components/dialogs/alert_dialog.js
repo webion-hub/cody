@@ -17,6 +17,9 @@ export const useStyles = makeStyles((theme) => ({
   paperClassName: {
     maxWidth: 632,
     width: "100%"
+  },
+  listItem: {
+    paddingLeft: 0,
   }
 }));
 
@@ -37,7 +40,7 @@ export function AlertDialog(props){
     const getItems = 
       cleanItems.map((item, index) => 
         <div key={index}>
-          <ListItem>
+          <ListItem className={classes.listItem}>
             <ListItemText primary={item} />
           </ListItem>
         </div>
@@ -47,7 +50,7 @@ export function AlertDialog(props){
   }
 
   const children = props.children &&
-    <ListItem>
+    <ListItem className={classes.listItem}>
       <ListItemText primary={props.children} />
     </ListItem>
 
