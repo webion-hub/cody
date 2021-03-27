@@ -3,8 +3,6 @@ import { useSpring } from 'react-spring'
 
 import { MainTextBox } from './components/main_text_box';
 import { DynamicSearchBar } from './components/dynamic_searchbar';
-import { MyClasses } from './components/my_classes/my_classes';
-import { Cpp } from 'src/components/icons/cpp';
 import { AnimatedCoding } from 'src/components/illustrations/animated_coding/animated_coding';
 import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
 
@@ -30,11 +28,6 @@ const useStyles = makeStyles((theme) => ({
       width: "90%",
     },
   },
-  myClasses: {
-    background: theme.palette.background.paperSecondary,
-    paddingBottom: theme.spacing(8),
-    position: "relative",
-  }
 }));
 
 export default function Home(){
@@ -56,60 +49,6 @@ export default function Home(){
       <MainTextBox/>
       <DynamicSearchBar/>
       <AnimatedCoding className={classes.background} springProps={springProps}/>
-      <MyClasses
-       className={classes.myClasses}
-       classesList={[
-         {
-            image: "images/pattern.svg",
-            title: "Classe 1",
-            icon: (<Cpp/>),
-            admin: {
-              username: "Matteo2437aaaaaaaaaaaaaaaaaaa",
-              profilePic: "images/forest.jpg"
-            },
-            users: [
-              {
-                username: "cala_br",
-                profilePic: "/images/bulb.jpeg"
-              },
-              {
-                username: "aaaaa",
-                profilePic: "/images/waves.svg"
-              }
-            ]
-         },
-         {
-            image: "images/pattern.svg",
-            title: "Classe 2",
-            icon: (<Cpp/>),
-            admin: {
-              username: "Matteo2437",
-              profilePic: "images/forest.jpg"
-            },
-            users: []
-          },
-          {
-             image: "images/pattern.svg",
-             title: "Classe 3",
-             icon: (<Cpp/>),
-             admin: {
-               username: "Matteo2437",
-               profilePic: "images/forest.jpg"
-             },
-             users: []
-           },
-           {
-            image: "images/pattern.svg",
-            title: "Classe 4",
-            icon: (<Cpp/>),
-            admin: {
-              username: "Matteo2437",
-              profilePic: "images/forest.jpg"
-            },
-           users: []
-          }
-       ]}
-      />
       <BackgroundWithLines/> 
     </div>
   );
