@@ -23,8 +23,8 @@ const deleteProfilePic  = () => {
     .finally(() => refreshPage())
 }
 
-const handleSaveImage = (image, defaultImage) => {
-  const isImageChanged = image !== defaultImage;
+const handleSaveImage = (image, oldImage) => {
+  const isImageChanged = image !== oldImage;
   const isImageDeleted = image === null;
   const isImageChangeButNotDeleted =  isImageChanged && !isImageDeleted;
 
@@ -61,7 +61,7 @@ export const trySave = (settings) => {
       data,
       oldData,
       image,
-      defaultImage,
+      oldImage,
     } = settings;
 
     await errorsController
@@ -84,7 +84,7 @@ export const trySave = (settings) => {
             if(areSavingErrors)
               onSavingErrors(res.set)
             else
-              await handleSaveImage(image, defaultImage)
+              await handleSaveImage(image, oldImage)
           })        
       })
 
