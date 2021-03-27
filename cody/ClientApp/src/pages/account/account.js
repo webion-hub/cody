@@ -4,18 +4,17 @@ import { Box, Grid } from '@material-ui/core';
 import { LoadingButton } from 'src/components/buttons/loading_button'
 import { InfoBox } from './components/info_box';
 import { DataForms } from './components/data_forms';
-import { AccountErrorsController } from './lib/account_errors_controller';
 import { useAccountStyles } from './styles/account_styles';
 import { nullData, noErrors } from './default_values/default_states';
 
-import { ProfilePicture } from 'src/lib/profile_picture'
-import { UserAccountInfo } from 'src/lib/user_account_info'
 import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
 
-import { PageController } from 'src/lib/page_controller';
 import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
 import { PaperWithWaves } from 'src/components/paper_with_waves';
+
+import { getUserAllData } from './lib/get_user_all_data';
+import { trySave } from './lib/try_save';
 
 export default function Account(){
 	const classes = useAccountStyles();
@@ -30,8 +29,8 @@ export default function Account(){
   const accountIsEdited = isEdited || isEditedImage;
 
   //Data & image
-  const defaultImage = profileImage;
-  const [image, setImage] = React.useState(defaultImage);
+  const oldImage = profileImage;
+  const [image, setImage] = React.useState(oldImage);
   const [oldData, setOldData] = React.useState(nullData);
   const [data, setData] = React.useState(nullData);
 
@@ -42,36 +41,13 @@ export default function Account(){
   
   //Data init
   useEffect(() => {
-    UserAccountInfo
-      .createRequest()
-        .get('username')
-        .get('name')
-        .get('surname')
-        .get('email')
-        .get('birthDate')
-        .get('school')
-        .get('role')
-        .get('biography')
-      .send()
-      .then(resp => {
-        const got = resp.got;
-        const actualData = {
-          username: got.get('username'),
-          name: got.get('name'),
-          surname: got.get('surname'),
-          email: got.get('email'),
-          birthDate: new Date(got.get('birthDate')),
-          school: got.get('school'),
-          role: got.get('role'),
-          biography: got.get('biography'),
-        }
-
-        setData(actualData);        
-        setOldData(actualData);
+    getUserAllData()
+      .then((data) => {
+        setData(data);        
+        setOldData(data);
         setLoadingLoad(false);
       })
   }, [])
-
 
   /**
    * Get values
@@ -94,86 +70,25 @@ export default function Account(){
     }
   }
 
-
-  /**
-   * Try save
-   */
-
-  const refreshPage = () => {
-    setLoadingSave(false)
-    PageController.refresh()
-  }
-
-  const updateProfilePic  = () => {
-    ProfilePicture
-      .createOrUpdate({
-        base64: image,
-      })
-      .then(() => refreshPage());
-  }
-
-  const deleteProfilePic  = () => {
-    ProfilePicture
-      .delete()
-      .then(() => refreshPage())
-  }
-
   const handleTrySave = () => {
-    const errorsController = new AccountErrorsController();
-
     setLoadingSave(true);
     setErrors(noErrors);
     setOpenAlert(false);
-
-    errorsController
-      .checkAll(data, oldData)
-      .then(results => {
-        let errors = {};
-        results.forEach(result => {
-          errors[result] = true;
-        });
-        
-        if(errors.noError){
-          UserAccountInfo
-            .createRequest()
-              .set('username', data.username)
-              .set('name', data.name)
-              .set('surname', data.surname)
-              .set('email', data.email)
-              .set('birthDate', data.birthDate)
-              .set('school', data.school? data.school.id : null)
-              .set('role', data.role)
-              .set('biography', data.biography)
-            .send()
-            .then(res => {
-              if(res.set.length !== 0){
-                //Are errors during saving data
-                setLoadingSave(false);
-                setOpenAlert(true)
-                setErrorsDuringSaving(res.set)
-              }
-              else {
-                //No errors during saving data
-                const isImageChanged = image !== defaultImage;
-                const isImageDeleted = image === null;
-                const isImageChangeButNotDeleted =  isImageChanged && !isImageDeleted;
-
-                if(isImageChangeButNotDeleted)
-                  updateProfilePic()
-                else if(isImageDeleted)
-                  deleteProfilePic()
-                else
-                  refreshPage()
-              }
-            })           
-        }
-        else
-        {
-          //Are errors
-          setErrors(errors);
-          setLoadingSave(false);
-        }
-      })
+    
+    trySave({
+      data: data,
+      oldData: oldData,
+      image: image,
+      oldImage: oldImage,
+      onError: () => {
+        setErrors(errors);
+      },
+      onSavingErrors: (errors) => {
+        setOpenAlert(true)
+        setErrorsDuringSaving(errors)
+      }
+    })
+    .then(() => setLoadingSave(false))
   }
 
   const errorsList = 
@@ -182,11 +97,8 @@ export default function Account(){
       direction="column"
     >
       {
-        Array.isArray(errorsDuringSaving)?
-          errorsDuringSaving.map((err, i) => 
-            <div key={i}>{err}</div>
-          )
-          : null
+        Array.isArray(errorsDuringSaving) &&
+          errorsDuringSaving.map((err, i) => <div key={i}>{err}</div>)
       }
     </Grid>
 
@@ -212,7 +124,7 @@ export default function Account(){
               data={data}
               oldData={oldData}
               onDataChange={getData}
-              defaultImage={defaultImage}
+              defaultImage={oldImage}
             />
           </Grid>
           <Grid item>
