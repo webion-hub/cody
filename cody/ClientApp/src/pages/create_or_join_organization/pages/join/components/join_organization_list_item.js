@@ -110,6 +110,7 @@ export function JoinOrganizationsListItem(props){
 
   const joinButton =
     <JoinButton
+      mobileView={props.mobileView}
       loading={loading}
       disabled={data.state.hasBeenDeleted}
       onJoin={handleJoin}
@@ -117,6 +118,7 @@ export function JoinOrganizationsListItem(props){
 
   const leaveButton = 
     <LeaveButton
+      mobileView={props.mobileView}
       loading={loading}
       disabled={data.state.hasBeenDeleted}
       onLeave={handleOpenLeaveDialog}    
@@ -133,6 +135,9 @@ export function JoinOrganizationsListItem(props){
   return(
     <>
       <ListItem 
+        ContainerProps={{ style: props.style }}
+        ContainerComponent="div" 
+        key={props.index}
         className={classes.listItem}
         button
         onClick={openOrganization}

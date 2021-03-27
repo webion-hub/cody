@@ -1,6 +1,4 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';
@@ -20,15 +18,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function LeaveButton(props){
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
 
   const loading = props.loading;
   const disabled = props.disabled;
   const onLeave = props.onLeave;
 
-  if(mobileView)
+  if(props.mobileView)
     return(
       <LoadingIconButton
         loading={loading}  

@@ -1,12 +1,16 @@
 import React, { useEffect, useRef } from 'react';
-import { useTheme, Grid, List, Paper, LinearProgress, Fade } from '@material-ui/core'
+import { useTheme, Grid, Paper, LinearProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { useMediaQuery } from '@material-ui/core'
 
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 
 import { JoinOrganizationsListItem } from './components/join_organization_list_item';
 import { FilterComponent } from './components/filter_components';
 import { useSetOrganizationsSearch } from './hooks/use_set_organizations_search';
+
+import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
+
 
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
@@ -22,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     overflow: "overlay",
-    height: 472,
-    [theme.breakpoints.down('xs')]: {
-      height: "calc(100vh - 244px)",
-    },
   },
   searchBar: {
     maxWidth: "calc(100% - 174px) !important",
@@ -49,6 +49,8 @@ export const joinOrganizationSettings = {
 
 function JoinOrganization(){
 	const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+
   const classes = useStyles();
   const listRef = useRef();
   
@@ -57,6 +59,8 @@ function JoinOrganization(){
   const loading = organizationsSeacrh.loading;
   const offset= organizationsSeacrh.offset;
   const organizations = organizationsSeacrh.organizations;
+  const listHeight = mobileView ? 
+    window.innerHeight - 244 : 472
 
   const [searchValue, setSearchValue] = React.useState("");
   const [filterStatus, setFilterStatus] = React.useState({
@@ -104,10 +108,14 @@ function JoinOrganization(){
   }
 
   const handleScroll = () => {
+    if(listRef.current === undefined)
+      return;
     const scrollPosition = 
       listRef.current.offsetHeight + listRef.current.scrollTop;
     const scrollHeight = listRef.current.scrollHeight;
-    const isScrollAtTheEnd = scrollPosition + 250 >= scrollHeight
+
+    const scrollEndOffset = listHeight / 4
+    const isScrollAtTheEnd = scrollPosition + scrollEndOffset >= scrollHeight
 
     if(isScrollAtTheEnd){
       const areOtherElements = 
@@ -155,20 +163,26 @@ function JoinOrganization(){
           />
         </Fade>
         <Paper className={classes.listContainer}>
-          <List 
-            ref={listRef}
+          <ListWithVirtualized 
+            outerRef={listRef}
             className={classes.list}
             onScroll={handleScroll}
-          >
-            {
-              organizations.map((element, index) => (
+            height={listHeight}
+            width="100%"
+            itemSize={72} 
+            itemCount={organizations.length}
+            overscanCount={10}
+            getListItem={(index, style) => {
+              return (
                 <JoinOrganizationsListItem
+                  style={style}
                   key={index}
-                  data={element}
+                  data={organizations[index]}
+                  mobileView={mobileView}
                 />
-              ))
-            }
-          </List>
+              )
+            }}
+          />
         </Paper>
       </Grid>
     </>
