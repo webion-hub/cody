@@ -27,7 +27,7 @@ export default function EmailValidPage() {
 	const classes = useStyles();
   const [contentSetting, setContentSetting] = React.useState(errorPageSettings);
   const [openAlertDialog, setOpenAlertDialog] = React.useState("close");
-  const { isLogged } = React.useContext(UserContext);  
+  const { userState } = React.useContext(UserContext);  
   
   const validateEmailBadKeySettingsIsLogged = getValidateEmailBadKeySettingsIsLogged({
     setOpenAlertDialog: setOpenAlertDialog,
@@ -42,10 +42,10 @@ export default function EmailValidPage() {
 
     setContentByHash(value)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.location.hash, isLogged])
+  }, [window.location.hash, userState])
 
   const setContentByHash = (hash) => {
-    const validateEmailBadKeySettings = isLogged ? 
+    const validateEmailBadKeySettings = userState === "logged" ? 
       validateEmailBadKeySettingsIsLogged : validateEmailBadKeySettingsIsNotLogged
 
     const action = {

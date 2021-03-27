@@ -13,10 +13,10 @@ export const LogoutMenuItem =  React.forwardRef((props, ref) => {
     <MenuItem
       onClick={() => {
         props.onClose()
-
+        props.setUserState("loading")
         User.logout({
-          onSuccess: () => props.setIsLogged(false),
-          onError: () => props.setIsLogged(false),
+          onSuccess: () => props.setUserState("notLogged"),
+          onError: () => props.setUserState("notLogged"),
         })
       }}
     >

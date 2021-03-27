@@ -52,7 +52,7 @@ export default function SignUp(){
   });
 
   const [openAlert, setOpenAlert] = React.useState(false);
-  const { setIsLogged } = React.useContext(UserContext);
+  const { setUserState } = React.useContext(UserContext);
 
   const handleDataChange = (prop) => (value) => {
     setData({
@@ -101,7 +101,7 @@ export default function SignUp(){
         elements={elementsList}
         formCompleted={<SignUpCompleted/>}
         onFormCompleted={tryRegisterPrep}
-        onGoHomeClicked={() => setIsLogged(true)}
+        onGoHomeClicked={() => setUserState("logged")}
       />   
       <div className={classes.termsAndService}>
         <Grid

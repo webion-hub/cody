@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export function LoggedAvatarMenu(){  
   const classes = useStyles();
 
-  const { isLogged, setIsLogged } = React.useContext(UserContext);  
+  const { userState, setUserState } = React.useContext(UserContext);  
   const { role } = React.useContext(UserContext);
   const isAdmin = role === "Admin"
 
@@ -37,7 +37,7 @@ export function LoggedAvatarMenu(){
   const [username, setUsername] = React.useState(null);
   
   useEffect(() => {
-    if(isLogged){
+    if(userState === "logged"){
       UserAccountInfo
       .createRequest()
         .get('username')
@@ -47,7 +47,7 @@ export function LoggedAvatarMenu(){
         setUsername(got.get('username'));
       })
     }
-  }, [isLogged])
+  }, [userState])
 
   const handleClick = (event) => {
     setOpenMenu(event.currentTarget);
@@ -92,7 +92,7 @@ export function LoggedAvatarMenu(){
         />
         <LogoutMenuItem
           onClose={handleClose}
-          setIsLogged={setIsLogged}
+          setUserState={setUserState}
         />
       </Menu>
     </>

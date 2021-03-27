@@ -28,15 +28,15 @@ export const useStyles = makeStyles((theme) => ({
 export default function AdminPage(){
 	const classes = useStyles();
   const [value, setValue] = React.useState(0);
-	const { userLoading, role } = React.useContext(UserContext);
+	const { userState, role } = React.useContext(UserContext);
 
 	useEffect(() => {
-		if(userLoading)
+		if(userState === "loading")
 			return;
 
 		if(role !== "Admin")
 			PageController.push('/access-denied')
-	},[userLoading])
+	},[userState])
 
 	const handleChangeTab = (event, newValue) => {
 		setValue(newValue)

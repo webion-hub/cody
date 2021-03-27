@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme) => ({
 
 export function InteractiveIconBase(props){  
   const classes = useStyles();
-  const { isLogged, userLoading } = React.useContext(UserContext);
+  const { userState } = React.useContext(UserContext);
  
 	const extraLoadingCondition = props.extraLoadingCondition? 
 		props.extraLoadingCondition : false;
 
 	const finalLoading = 
-		userLoading || extraLoadingCondition;
+    userState === "loading" || extraLoadingCondition;
 
 	const loggedContent =
 		<LoadingDisplayComponent
@@ -49,7 +49,7 @@ export function InteractiveIconBase(props){
           display: finalLoading ? "block" : "none"  
         }}
       />
-			{isLogged ? loggedContent : notLoggedContent}
+			{userState === "logged" ? loggedContent : notLoggedContent}
     </div>
   );
 }

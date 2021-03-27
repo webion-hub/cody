@@ -19,8 +19,8 @@ const Error404Page = lazy(() => import('./pages/message_pages/Error404Page'));
 const EmailValidPage = lazy(() => import('./pages/message_pages/email_valid_page/EmailValidPage'));
 const UnauthorizedPage = lazy(() => import('./pages/message_pages/UnauthorizedPage'));
 const Home = lazy(() => import('./pages/home/Home'));
-const Account = lazy(() => import('./pages/account/Account'));
-const Test = lazy(() => import('./pages/Test'));
+const Account = lazy(() => import('./pages/account/account'));
+const Test = lazy(() => import('./pages/test'));
 const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
 const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
 
@@ -43,7 +43,9 @@ export default class App extends Component {
 }
 
 function Routes(){
-  const { isLogged } = React.useContext(UserContext);
+  const { userState } = React.useContext(UserContext);
+  const isLogged = userState === "logged"
+  const isNotLogged = userState === "notLogged"
 
   return (
     <Router history={history}>
@@ -54,7 +56,7 @@ function Routes(){
           <CustomRoute path='/sign-up' component={SignUp} redirect={isLogged}/>
           <CustomRoute path='/email-verification' component={EmailValidPage} />
           <CustomRoute path='/access-denied' component={UnauthorizedPage} />
-          <CustomRoute path='/account' component={Account} redirect={!isLogged}/>
+          <CustomRoute path='/account' component={Account} redirect={isNotLogged}/>
           
           <CustomRoute path='/admin' component={AdminPage}/>
           <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
