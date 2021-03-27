@@ -1,17 +1,17 @@
 import React, { Component, lazy, Suspense } from 'react';
-import { Router, Redirect, Route, Switch} from 'react-router-dom';
+import { Router, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
-import { MuiThemeProvider } from '@material-ui/core/styles';  
-import { CssBaseline } from "@material-ui/core";
-import { useMediaQuery } from '@material-ui/core';
-
-import { ThemeController } from "./lib/default_values/themes/theme_controller";
 import { UserControllerContext } from "./components/user_controller_context/user_controller_context";
 import { UserContext } from "./components/user_controller_context/user_controller_context";
+import { CustomRoute } from "./components/route_components/custom_route";
 import history from 'src/history'
 
+import Requests from 'src/lib/requests';
+
 import './custom.css';
+import { AlertDialog } from './components/dialogs/alert_dialog';
+import { PageController } from './lib/page_controller';
 
 const Login = lazy(() => import('./pages/login/Login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
@@ -24,7 +24,6 @@ const Test = lazy(() => import('./pages/test'));
 const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
 const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
 
-const themeController = new ThemeController();
 
 export default class App extends Component {
   static displayName = App.name;
@@ -32,20 +31,25 @@ export default class App extends Component {
   render () {
     return (
       <UserControllerContext>
-        <Theme>
-          <Layout>
-            <Routes/>
-          </Layout>
-        </Theme>
+        <Layout>
+          <Routes/>
+        </Layout>
       </UserControllerContext>
     );
   }
 }
 
 function Routes(){
+  const [errorsDialog, setErrorsDialog] = React.useState("")
   const { userState } = React.useContext(UserContext);
   const isLogged = userState === "logged"
   const isNotLogged = userState === "notLogged"
+
+  Requests.onError = (reason) => {
+    setErrorsDialog(reason)
+    console.log(reason)
+  };
+  
 
   return (
     <Router history={history}>
@@ -64,37 +68,14 @@ function Routes(){
           <CustomRoute path='/test' component={Test}/>
           <CustomRoute component={Error404Page} />
         </Switch>
-      </Suspense>
+      </Suspense>      
+      <AlertDialog
+        open={errorsDialog !== ""}
+        onClose={() => PageController.refresh()}
+        buttonLabel="Ricarica la pagina"
+      >
+        {errorsDialog}
+      </AlertDialog>
     </Router>
-  );
-}
-
-function CustomRoute(props){
-  return (
-    <div>
-      {
-        props.redirect ? (
-          <Redirect to={props.redirectTo? props.redirectTo : '/'}/>
-        ):(
-          <Route 
-            exact={props.exact}
-            path={props.path} 
-            component={props.component} 
-          />
-        )
-      }
-    </div>
-  );
-}
-
-function Theme(props){
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = prefersDarkMode ? "dark" : "light";
-
-  return (
-    <MuiThemeProvider theme = {themeController.getTheme(theme)}>
-      <CssBaseline />
-      {props.children}
-    </MuiThemeProvider>
   );
 }
