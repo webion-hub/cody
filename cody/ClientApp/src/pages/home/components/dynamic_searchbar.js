@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
-import { CustomizableMenuContext } from 'src/components/nav_menu/customizable_menu';
+import { FadeAppBarContext } from 'src/components/nav_menu/custom_appbar/custom_appbar';
 import { SearchBar } from 'src/components/pickers/search_bars/search_bar/search_bar';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       position: "sticky",
       top: "32px",
-      zIndex: "1200",
+      zIndex: 1220,
       maxWidth: 500,
       marginLeft: "50%",
       transform: "translate(-50%, -50%)",
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function DynamicSearchBar(){
-  const { setFadeAppBarSection } = React.useContext(CustomizableMenuContext);
+  const { setFadeInAppBar } = React.useContext(FadeAppBarContext);
   const classes = useStyles();
   const searchBarRef = useRef();
   
@@ -35,8 +35,8 @@ export function DynamicSearchBar(){
   media = media.replace('@media ','');
 
   const setHomeAppBar = () => {
-    setFadeAppBarSection({
-      left: false,
+    setFadeInAppBar({
+      left: true,
       center: false,
       right: true,
     });
@@ -48,7 +48,7 @@ export function DynamicSearchBar(){
     const showAppBarSearchBar = searchBarYPosition < 5 && notFadeOnBigScreen;
 
     if(showAppBarSearchBar){
-      setFadeAppBarSection({
+      setFadeInAppBar({
         left: true,
         center: true,
         right: true,
@@ -64,7 +64,7 @@ export function DynamicSearchBar(){
     window.addEventListener("scroll", scrollHandler, true);
     return () => {
       window.removeEventListener("scroll", scrollHandler, true);
-      setFadeAppBarSection({
+      setFadeInAppBar({
         left: true,
         center: true,
         right: true,
