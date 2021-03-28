@@ -74,6 +74,7 @@ function Routes(){
           <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
 
           <CustomRoute path='/test' component={Test}/>
+          <CustomRoute path='/index.html' redirect/>
           <CustomRoute component={Error404Page} />
         </Switch>
       </Suspense>      
