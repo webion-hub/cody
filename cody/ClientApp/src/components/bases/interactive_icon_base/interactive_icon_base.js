@@ -38,7 +38,7 @@ export function InteractiveIconBase(props){
 
 
   return (    
-    <div>
+    <>
       <Skeleton
         variant="circle" 
         animation="wave"
@@ -50,6 +50,6 @@ export function InteractiveIconBase(props){
         }}
       />
 			{userState === "logged" ? loggedContent : notLoggedContent}
-    </div>
+    </>
   );
 }
