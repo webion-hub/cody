@@ -48,25 +48,15 @@ function Routes(){
   Requests.onError = (reason) => {
     setErrorsDialog(reason)
   };
-  
-  const getErrorLabel = (error) => {
-    switch (error) {
-      case "serverError":
-        return "C'è stato un errore con il server!"
-      case "sizeTooBig":
-        return "Dimensione troppo grande!"
-      case "unauthorized":
-        return "Richiesta non autorizzata!"
-      case "badRequest":
-        return "Richiesta non valida!"
-      case "notFound":
-        return "Non trovato!"
-      case "networkError":
-        return "C'è stato un errore di rete!"
-      case "genericError":
-      default:
-        return "C'è stato un errore!"
-    }
+
+  const errorLabels = {
+    serverError: "C'è stato un errore con il server!",
+    sizeTooBig: "Dimensione troppo grande!",
+    unauthorized: "Richiesta non autorizzata!",
+    badRequest: "Richiesta non valida!",
+    notFound: "Non trovato!",
+    networkError: "C'è stato un errore di rete!",
+    genericError: "C'è stato un errore!",
   }
 
   return (
@@ -95,7 +85,7 @@ function Routes(){
         }}
         buttonLabel="Ricarica la pagina"
       >
-        {getErrorLabel(errorsDialog)}
+        {errorLabels[errorsDialog]}
       </AlertDialog>
     </Router>
   );
