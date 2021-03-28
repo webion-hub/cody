@@ -1,14 +1,21 @@
 {
   "short_name": "cody",
   "name": "cody",
+  "description": "Impara a programmare",
+  "lang": "it-IT",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "icons/cody-sm.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
+    },
+    {
+      "src": "icons/cody-lg.webp",
+      "sizes": "512x512 192x192",
+      "type": "image/webp"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
