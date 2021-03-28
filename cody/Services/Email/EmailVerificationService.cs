@@ -46,7 +46,7 @@ namespace Cody.Services.Email
             var to = new MailAddress(user.Email);
             var accountState = user.AccountState;
             var validationUrl =
-                $"https://localhost/user/verify/{user.Id}/{accountState.VerificationKey}";
+                $"https://iscody.com/user/verify/{user.Id}/{accountState.VerificationKey}";
 
             var formatter = new EmailMessageFormatter(_from, to, validationUrl, user.Username);
             var message = formatter.CreateMessage();
