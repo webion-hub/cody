@@ -48,10 +48,11 @@ namespace Cody.Controllers
             user.Password =
                 await Password.CreateAsync(user.PlainPassword);
 
+            
             try
             {
+                _dbContext.UserAccounts.Add(user);
                 await _emailValidationService.MarkUserForVerificationAsync(user);
-                await _dbContext.UserAccounts.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
             }
             catch {
