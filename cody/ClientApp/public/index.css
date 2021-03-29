@@ -2,14 +2,14 @@ body {
   margin: 0px;
 }
 
-html {
+:root {
   --ring-inner-color: #f3f3f3;
   --ring-outer-color: #1F4BFF;
   --background-color: #f7f7f8;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
+  :root {
     --ring-inner-color: #131C2A;
     --ring-outer-color: #1F4BFF;
     --background-color: #172230;
