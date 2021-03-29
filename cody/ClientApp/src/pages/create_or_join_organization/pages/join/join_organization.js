@@ -9,7 +9,7 @@ import { JoinOrganizationsListItem } from './components/join_organization_list_i
 import { FilterComponent } from './components/filter_components';
 import { useSetOrganizationsSearch } from './hooks/use_set_organizations_search';
 
-import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
+import { ListWithScrollUpdater } from 'src/components/list_with_scroll_updater';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -107,32 +107,6 @@ function JoinOrganization(){
     })
   }
 
-  const handleScroll = () => {
-    if(listRef.current === undefined)
-      return;
-    const scrollPosition = 
-      listRef.current.offsetHeight + listRef.current.scrollTop;
-    const scrollHeight = listRef.current.scrollHeight;
-
-    const scrollEndOffset = listHeight / 4
-    const isScrollAtTheEnd = scrollPosition + scrollEndOffset >= scrollHeight
-
-    if(isScrollAtTheEnd){
-      const areOtherElements = 
-        organizations.length % elementLoadingLimit === 0
-
-      if(areOtherElements && !loading){
-        const newOffsetVal = offset + elementLoadingLimit
-        setOrganizationsSearch({
-          filter: filterStatus,
-          value: searchValue,
-          offset: newOffsetVal,
-          mergeResultWith: organizations,
-        })
-      }
-    }
-  }
-
   return(
     <>
       <Grid
@@ -163,14 +137,26 @@ function JoinOrganization(){
           />
         </Fade>
         <Paper className={classes.listContainer}>
-          <ListWithVirtualized 
-            outerRef={listRef}
+          <ListWithScrollUpdater
+            loading={loading}
+            elementLoadingLimit={elementLoadingLimit}
+            itemList={organizations}
+            offset={offset}
+            setItemList={(settings) => {
+              const offset = settings.offset;
+              const mergeResultWith = settings.mergeResultWith;
+
+              setOrganizationsSearch({
+                filter: filterStatus,
+                value: searchValue,
+                offset: offset,
+                mergeResultWith: mergeResultWith,
+              })
+            }}
             className={classes.list}
-            onScroll={handleScroll}
             height={listHeight}
             width="100%"
             itemSize={72} 
-            itemCount={organizations.length}
             overscanCount={10}
             getListItem={(index, style) => {
               return (
