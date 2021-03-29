@@ -18,7 +18,7 @@ export function StepperRightButton(props){
 
   const lastPageRightButton = 
     <LoadingButton
-      onClick={props.onNextLastPage}
+      onClick={props.onNext}
       variant="contained"
       color="primary"
       loading={loading}

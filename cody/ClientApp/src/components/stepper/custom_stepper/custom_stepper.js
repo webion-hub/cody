@@ -24,9 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     [theme.breakpoints.down('xs')]: {
-      position: "absolute",
-      bottom: 0,
-      padding: theme.spacing(1)
+      marginTop: theme.spacing(2)
     },
   }
 }));
@@ -38,49 +36,58 @@ export function CustomStepper(props){
   const totalStep = elements.length;
 
   const [activeStep, stepperHandlers] = useStepper(totalStep);
-  const [openFormCompleted, setOpenFormCompleted] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [stepperState, setStepperState] = React.useState("");
 
   const content = props.elements[activeStep].element
   const height = props.elements[activeStep].height
 
   const handleNextWithFormControl = () => {
-    setLoading(true);
+    setStepperState("loading");
+
     const controller = props.elements[activeStep].controller;
     const data = props.data;
     if(controller === null){
       stepperHandlers.handleNext()
-      setLoading(false);
+      setStepperState("");
       return;
     }
 
     controller
       .checkAll(data)
-      .then(results => {
+      .then(async results => {
         let errors = {};
-        results.forEach(result => {
-          if (result === 'noError') {
-            stepperHandlers.handleNext()
+        results.forEach(async result => {
+          if (result === 'noError'){
+            handleNoErrors()
             return;
           }
-
           errors[result] = true;
         });
-
         props.setErrors(errors);
       })
-      .finally(() => setLoading(false))
   }
 
-  const handlNextFormCompleted = () => {
-    setLoading(true)
-
+  const handleLastStep = () => {
     props
       .onFormCompleted()
       .then((state) => {
-        setLoading(false)
-        setOpenFormCompleted(state)
+        if(state)
+          setStepperState("openDialog");
+        else
+          setStepperState("");
       })
+  }
+
+  const handleMiddleSteps = () => {
+    stepperHandlers.handleNext()
+    setStepperState("");
+  }
+
+  const handleNoErrors = () => {
+    if(activeStep === totalStep - 1)
+      handleLastStep()
+    else 
+      handleMiddleSteps()            
   }
 
   return (
@@ -88,7 +95,7 @@ export function CustomStepper(props){
       <PaperWithTransitionBase
         width={616}
         height={height}
-        removeHeightOnMobile={32}
+        extraHeightOnMobile={32}
         direction="column"
         title={
           <StepperTopArea
@@ -111,21 +118,20 @@ export function CustomStepper(props){
             hrefFirstPage='/login'
             onBackFirstPage={(e) => PageController.push('/login', e)}
             firstPageLabel="Vai al login"
-            disabled={loading}
+            disabled={stepperState === "loading"}
           />
           <StepperRightButton 
             activeStep={activeStep}
             totalStep={totalStep}
             onNext={handleNextWithFormControl}
-            onNextLastPage={handlNextFormCompleted}
             lastPageLabel="Finisci"
-            loading={loading}
+            loading={stepperState === "loading"}
           />
         </Grid>
       </PaperWithTransitionBase>
         <DialogBase
           className={classes.formCompletedDialog}
-          open={openFormCompleted}
+          open={stepperState === "openDialog"}
           onClose={props.onGoHomeClicked}
         >
           <Grid
