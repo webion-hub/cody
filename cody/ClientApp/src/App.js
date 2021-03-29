@@ -45,6 +45,10 @@ function Routes(){
   const isLogged = userState === "logged"
   const isNotLogged = userState === "notLogged"
 
+  Requests.onRedirect = (where) => {
+    window.location.href = where;
+  };
+
   Requests.onError = (reason) => {
     setErrorsDialog(reason)
   };

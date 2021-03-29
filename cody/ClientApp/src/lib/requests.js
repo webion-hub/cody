@@ -9,7 +9,49 @@ export default class Requests {
   static async send(config) {
     return axios
       .request(config)
-      .catch(Requests._handleRequestError);
+      .then(resp => {
+        Requests._tryRedirect(resp);
+        return resp;
+      })
+      .catch(err => {
+        if (Requests._wasCanceled(err.request, err.response))
+          return;
+
+        if (Requests._tryRedirect(err.response))
+          return;
+
+        Requests._handleRequestError(err)
+      });
+  }
+
+  static _wasCanceled(request, response) {
+    return !request && !response;
+  }
+
+  /**
+   * @param {AxiosResponse} response 
+   * @returns {boolean}
+   */
+  static _tryRedirect(response) {
+    const {
+      request, 
+      status, 
+      config,
+    } = response;
+
+    if (!request)
+      return false;
+
+    const responseURL = new URL(request.responseURL);
+    const requestURL = new URL(config.url, responseURL.origin);
+    const wasARedirect = 
+      status == 200 && responseURL.href != requestURL.href;
+
+    if (!wasARedirect)
+      return false;
+
+    Requests.raise('redirect', request.responseURL);
+    return true;
   }
 
   static _handleRequestError(error) {
@@ -18,19 +60,16 @@ export default class Requests {
       response,
     } = error;
 
-    const wasCanceled = !request && !response;
-    if (wasCanceled)
-      return;
-
     if (response && Requests._tryRaiseErrorFromResponse(response))
       return;
     
-    const reason = request
+    const reason = request && !response
       ? 'networkError'
       : 'genericError';
 
     Requests.raise('error', reason);
   }
+
 
   static _tryRaiseErrorFromResponse(response) {
     const status = response.status;
@@ -38,11 +77,13 @@ export default class Requests {
 
     if (reasons.has(status))
       Requests.raise('error', reasons.get(status));
+
+    return reasons.has(status);
   }
 
 
   /**
-   * @param {'error'} what 
+   * @param {Request.EventKind} what 
    * @param {Request.ErrorReasons} why
    */
   static raise(what, why) {
@@ -54,6 +95,13 @@ export default class Requests {
    */
   static set onError(callback) {
     this._eventsEmitter.on('error', callback);
+  }
+
+  /**
+   * @param {(where: string) => void} callback
+   */
+   static set onRedirect(callback) {
+    this._eventsEmitter.on('redirect', callback);
   }
 }
 
@@ -71,12 +119,20 @@ Requests._mappedReasons = new Map([
 
 /**
  * @typedef {(
+ *  'error' |
+ *  'redirect'
+ * )} Request.EventKind
+ */
+
+/**
+ * @typedef {(
  *  'serverError' |
  *  'networkError' |
  *  'genericError' |
  *  'sizeTooBig' |
  *  'unauthorized' |
  *  'badRequest' |
- *  'notFound'
+ *  'notFound' |
+ *  'redirect'
  * )} Request.ErrorReasons
  */
