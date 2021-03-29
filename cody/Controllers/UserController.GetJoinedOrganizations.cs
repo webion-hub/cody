@@ -59,7 +59,9 @@ namespace Cody.Controllers
                 {
                     o.Id,
                     o.Name,
-                    o.State.HasBeenVerified,
+                    State = new {
+                        o.State.HasBeenVerified,
+                    },
                     Kind = o.Kind.ToString(),
                     HasLogo = o.Detail.Logo != null,
                 });
