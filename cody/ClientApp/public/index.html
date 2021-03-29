@@ -9,6 +9,7 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/index.css">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png">
@@ -31,7 +32,11 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root">isCody</div>
+    <div id="root">
+      <div id="ringContainer" class="center-children">
+        <div class="loader"></div>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

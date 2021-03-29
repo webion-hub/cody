@@ -1,0 +1,54 @@
+body {
+  margin: 0px;
+}
+
+html {
+  --ring-inner-color: #f3f3f3;
+  --ring-outer-color: #1F4BFF;
+  --background-color: #f7f7f8;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --ring-inner-color: #131C2A;
+    --ring-outer-color: #1F4BFF;
+    --background-color: #172230;
+  }
+}
+
+
+#ringContainer {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+.center-children {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+
+.loader {
+  border: 6px solid var(--ring-outer-color);
+  border-top: 6px solid var(--ring-inner-color);
+  border-radius: 50%;
+  
+  width: 56px;
+  height: 56px;
+
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
