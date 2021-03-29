@@ -56,11 +56,21 @@ export function CustomAppBar(props){
   const fadeCenter = fadeInAppBarSection.center || mobileView;
   const fadeRight = fadeInAppBarSection.right
 
-  const sizeLeft = mobileView ? 6 : 3;
+  const sizeLeft = mobileView ? 4 : 3;
   const sizeCenter = 6;
-  const sizeRight = mobileView ? 6 : 3;
+  const sizeRight = mobileView ? 8 : 3;
 
   const appBarElements = props.appBarElements;
+
+  const openDrawerIcon = mobileView && 
+    <IconButton
+      aria-label="open drawer"
+      edge="start"
+      className={classes.menuButton}
+      onClick={props.toggleMobileDrawer}
+    >
+      <MenuIcon />
+    </IconButton>
 
   return (
     <FadeAppBarContext.Provider value={value}>
@@ -74,15 +84,7 @@ export function CustomAppBar(props){
           className={classes.appBar}
         >
           <Toolbar style={{paddingLeft: 12}}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              className={classes.menuButton}
-              onClick={props.toggleMobileDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
+            {openDrawerIcon}
             <Grid
               container
               direction="row"
