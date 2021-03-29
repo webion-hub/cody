@@ -1,11 +1,14 @@
 ﻿using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
+using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -14,10 +17,43 @@ namespace Cody.Controllers
     {
         [HttpGet("joined_organizations")]
         [Authorize]
-        public IActionResult GetJoinedOrganizations()
+        public async Task<IActionResult> GetJoinedOrganizations(
+            [FromQuery] string filter,
+            [FromQuery] int? limit,
+            [FromQuery] int? offset
+        ) {
+            var organizations = GetUserOrganizations(filter);
+            var result = await SearchResult.FormatAsync(
+                results: organizations,
+                limit: limit,
+                offset: offset
+            );
+
+            return Ok(result);
+        }
+
+
+        private IQueryable<object> GetUserOrganizations(string filter)
         {
-            var organizations = GetUserOrganizations()
+            var userId = HttpContext.User.GetId();
+            return _dbContext
+                .OrganizationMembers
+                .IncludingOrganization().WithState()
+                .IncludingOrganization().WithLogo()
+
+                .Where(om => om.UserAccountId == userId)
                 .Select(om => om.Organization)
+                .ThatHaveNotBeenDeleted()
+
+                .CreateFilter(filter ?? "", FilterKind.SplitWords)
+                .Where(k => o =>
+                    k == "HasLogo" && o.Detail.Logo != null ||
+                    k.AsEnum<OrganizationKind>() == o.Kind ||
+
+                    Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.Location, k.Pattern, RegexOptions.IgnoreCase) ||
+                    Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
+                )
                 .OrderBy(o => o.Id)
                 .Select(o => new
                 {
@@ -27,24 +63,6 @@ namespace Cody.Controllers
                     Kind = o.Kind.ToString(),
                     HasLogo = o.Detail.Logo != null,
                 });
-
-            return Ok(organizations);
-        }
-
-
-        private IQueryable<OrganizationMember> GetUserOrganizations()
-        {
-            var userId = HttpContext.User.GetId();
-            return _dbContext
-                .OrganizationMembers
-                .Include(om => om.Organization)
-                    .ThenInclude(o => o.State)
-                .Include(om => om.Organization)
-                    .ThenInclude(o => o.Detail)
-                        .ThenInclude(d => d.Logo)
-
-                .Where(om => !om.Organization.State.HasBeenDeleted)
-                .Where(om => om.UserAccountId == userId);
         }
     }
 }
