@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.appBar.fullHeight,
 		marginLeft: theme.drawer.width,
 		zIndex: 1250,
-		transition: "0.25s width, 0.25s opacity"
+		transition: "0.25s width, 0.25s opacity",
 	},
 	drawerContent: {
 		margin: theme.spacing(1),
@@ -87,7 +87,8 @@ export function CustomSideBar(props){
 			</div>
 			<div className={classes.sideBar}>
 				{sideBarItems.map((element, index) => {
-					if(element.skipOnBigScreen)
+					const isHidden = element.skipOnBigScreen || element.hideWhen
+					if(isHidden)
 						return;
 					return (
 						<element.item 
