@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,6 +9,9 @@ import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { PageController } from 'src/lib/page_controller';
+
+import { User } from 'src/lib/user';
+
 
 const useStyles = makeStyles((theme) => ({
 	sideBarList: {
@@ -58,7 +61,14 @@ const useStyles = makeStyles((theme) => ({
 
 export function SideBarOrganizationList(props){
 	const isDrawerOpen = props.isDrawerOpen;
-	const organizationsNumber = 3;
+	const [loading, setLoading] = React.useState(false)
+  const [organizationsList, setOrganizationsList] = React.useState([])
+  const [numberOfOrganizationsFinded, setNumberOfOrganizationsFinded] = React.useState(0)
+
+	const maxOrganizationsNumber = 4;
+	const organizationsNumber = 
+		numberOfOrganizationsFinded > maxOrganizationsNumber ? 
+		maxOrganizationsNumber : numberOfOrganizationsFinded
 	const iconHeight = 48;
 
 	const organizationsListHeightOnDrawerOpen = iconHeight * 2
@@ -73,6 +83,35 @@ export function SideBarOrganizationList(props){
 
   const classes = useStyles({organizationsListHeight, expandIconTopPosition});
 
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      User
+       .getJoinedOrganizations({
+         filter: "+logo",
+				 limit: maxOrganizationsNumber
+       })
+        .then(data => {
+					setNumberOfOrganizationsFinded(data.total)
+					setOrganizationsList(data.values)
+				})
+        .finally(() => setLoading(false))
+    }, 150);
+  }, [])
+
+	const organizationAvatarList = 
+		organizationsList.map((organization) => 
+			<ListItem button className={classes.sideBarAvatar} key={organization.id}>
+				<CustomAvatar
+					propsLoading={loading}
+					src={`organizations/${organization.id}/logo`}
+					alt={organization.name}
+				/>
+			</ListItem>
+		)
+
+	const showOrganizationAvatarList = !isDrawerOpen &&	organizationAvatarList
+
 	return (
 		<List className={`${classes.sideBarList} ${classes.organizationsList}`}>
 			<ListItem 
@@ -86,20 +125,7 @@ export function SideBarOrganizationList(props){
 					<AddRoundedIcon/>
 				</ListItemIcon>
 			</ListItem>
-			{
-				!isDrawerOpen &&
-					<>
-						<ListItem button className={classes.sideBarAvatar}>
-							<CustomAvatar/>
-						</ListItem>
-						<ListItem button className={classes.sideBarAvatar}>
-							<CustomAvatar/>
-						</ListItem>
-						<ListItem button className={classes.sideBarAvatar}>
-							<CustomAvatar/>
-						</ListItem>
-					</>
-			}
+			{showOrganizationAvatarList}
 			<ListItem 
 				button 
 				className={classes.expandOrganizationListButton}

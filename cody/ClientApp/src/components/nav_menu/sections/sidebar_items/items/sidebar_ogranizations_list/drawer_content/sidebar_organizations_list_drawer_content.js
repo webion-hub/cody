@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Grid, IconButton, useTheme, Paper, LinearProgress, Fade } from '@material-ui/core'
+import { Grid, IconButton, useTheme, Paper, LinearProgress, Fade, ListItemIcon, Typography, Button } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,6 +13,11 @@ import { ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { User } from 'src/lib/user';
+import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
+import { OrganizationLabel } from 'src/components/typography/organization_label';
+import { Sad } from 'src/components/illustrations/sad';
+
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
@@ -20,6 +25,18 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       maxWidth: 'calc(100vw - 190px)',
     },
+  },
+  listItemIcon: {
+    marginLeft: theme.spacing(1)
+  },
+  findOrganizationButton: {
+    marginTop: theme.spacing(3)
+  },
+  findOrganizationContainer: {
+    height: `calc(100vh - ${theme.appBar.fullHeight + 16}px)`,
+    [theme.breakpoints.down('xs')]: {
+      height: "auto",
+    },  
   }
 }));
 
@@ -30,34 +47,63 @@ export function SideBarOrganizationListDrawerContent() {
 
   const [loading, setLoading] = React.useState(false)
   const [organizationsList, setOrganizationsList] = React.useState([])
+  const [noOrganizations, setNoOrganizations] = React.useState(false)
 
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
       User
-       .getJoinedOrganizations()
-        .then(organizationsList => setOrganizationsList(organizationsList))
+       .getJoinedOrganizations({
+         filter: "",
+       })
+        .then(data => {
+          setOrganizationsList(data.values)
+          if(data.total === 0)
+            setNoOrganizations(true)
+        })
         .finally(() => setLoading(false))
     }, 150);
   }, [])
 
+
+  const handleSearchValue = (value) => {
+    setLoading(true)
+    User
+    .getJoinedOrganizations({
+      filter: value,
+    })
+     .then(data =>  setOrganizationsList(data.values))
+     .finally(() => setLoading(false))
+  }
+
+
   const getListItem = (index, style) => {
-    const organizations = organizationsList[index]
-    const organizationsId = organizations.id
-    const organizationImageUrl = `organizations/${organizationsId}/logo`
-    const organizationName = organizations.name
+    const organization = organizationsList[index]
+    const organizationId = organization.id
+    const organizationName = organization.name
+    const organizationHasLogo = organization.hasLogo
+    const organizationKind = organization.kind
+
+    const organizationImageUrl = `organizations/${organizationId}/logo`
 
     return (
       <ListItem button ContainerProps={{ style: style }} ContainerComponent="div" key={index}>
-        <ListItemAvatar>
-          <CustomAvatar
-            src={organizationImageUrl}
-            alt={organizationName}
-          />
-        </ListItemAvatar>
+        {
+          organizationHasLogo ? 
+            <ListItemAvatar>
+              <CustomAvatar
+                src={organizationImageUrl}
+                alt={organizationName}
+              />
+            </ListItemAvatar>
+            :
+            <ListItemIcon className={classes.listItemIcon}>
+              {getOrganizationKindIcon(organizationKind)}
+            </ListItemIcon>
+        }
         <ListItemText
           className={classes.listItemText}
-          primary={organizationName} 
+          primary={<OrganizationLabel organization={organization}/>} 
           primaryTypographyProps={{
             noWrap: true,
             className: classes.listItemText
@@ -74,13 +120,43 @@ export function SideBarOrganizationListDrawerContent() {
     )
   }
 
+  if(noOrganizations)
+    return (
+      <Grid
+        className={classes.findOrganizationContainer}
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Sad size="100%"/>
+        <Typography variant="h6">
+          Non ci sono organizzazioni
+        </Typography>
+        <Typography variant="subtitle1">
+          a cui sei iscritto.
+        </Typography>
+        <Button
+          className={classes.findOrganizationButton}
+          variant="outlined"
+          color="secondary"
+          href='/organization'
+          onClick={(event) => PageController.push('/organization', event)}
+        >
+          Trovane una
+        </Button>
+      </Grid>
+    )
+
   return (
     <Paper>
       <Grid
         container
         direction="column"
       >
-        <GenericSearchBar/>
+        <GenericSearchBar
+            onChange={handleSearchValue}
+        />
         <Fade in={loading}>
           <LinearProgress color="secondary" />
         </Fade>
