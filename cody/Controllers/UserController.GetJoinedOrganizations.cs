@@ -47,7 +47,7 @@ namespace Cody.Controllers
 
                 .CreateFilter(filter ?? "", FilterKind.SplitWords)
                 .Where(k => o =>
-                    k == "HasLogo" && o.Detail.Logo != null ||
+                    k.MustHave("logo") && o.Detail.Logo != null ||
                     k.AsEnum<OrganizationKind>() == o.Kind ||
 
                     Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||

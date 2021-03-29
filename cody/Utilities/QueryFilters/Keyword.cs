@@ -13,6 +13,7 @@ namespace Cody.Utilities.QueryFilters
         public string Value { get; init; }
         public string Pattern { get; init; }
         public bool ExcludeFromSearch { get; init; }
+        public bool MarksProperty { get; init; }
 
 
         public Lazy<DateTime> Date { get; init; }
@@ -24,7 +25,12 @@ namespace Cody.Utilities.QueryFilters
         public Keyword(string rawValue)
         {
             ExcludeFromSearch = rawValue.StartsWith('-');
-            Value = ExcludeFromSearch ? rawValue[1..] : rawValue;
+            MarksProperty = rawValue.StartsWith('+');
+
+            Value = ExcludeFromSearch || MarksProperty 
+                ? rawValue[1..] 
+                : rawValue;
+            
             Pattern = Regex.Escape(Value);
             Date = new(LoadDate);
         }
@@ -35,6 +41,11 @@ namespace Cody.Utilities.QueryFilters
             return result;
         }
 
+
+        public bool MustHave(string what)
+        {
+            return MarksProperty && what == Value;
+        }
 
         public T? AsEnum<T>() where T: struct => Utility.MaybeGetEnumFrom<T>(Value);
 
