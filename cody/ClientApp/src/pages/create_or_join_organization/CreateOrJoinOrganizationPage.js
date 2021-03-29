@@ -15,16 +15,31 @@ import { CenterComponentPageBase } from 'src/components/bases/center_component_p
 
 import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base/title_info_content_base';
 
+import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { LoginDialog } from 'src/components/dialogs/login_dialog';
+
 
 export default function CreateOrJoinOrganization(){
   const [contentSetting, setContentSetting] = React.useState(selectActionSettings);
+  const [loginDialog, setLoginDialog] = React.useState(false);
   const organizationsInfoSettings = useOrganizationsInfoSettings()
+  const { userState } = React.useContext(UserContext);
 
   useEffect(() => {
     const hash = window.location.hash
-    const value = hash.replace('#', '')
+    const hashValue = hash.replace('#', '')
+    const isNotLogged = userState === "notLogged"
+    const wrongHashForNotLoggedUser = hashValue !== '' && hashValue !== 'info'
 
-    setContentByHash(value)
+    if(wrongHashForNotLoggedUser && isNotLogged){
+      setLoginDialog(true)
+      window.location.hash = '';
+      return;
+    }
+
+
+    setContentByHash(hashValue)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.hash])
 
@@ -50,6 +65,11 @@ export default function CreateOrJoinOrganization(){
         <contentSetting.component/>
       </TitleInfoContentBase>
       <BackgroundWithLines/> 
+      <LoginDialog
+        open={loginDialog}
+        onClose={() => setLoginDialog(false)}
+        onSuccess={() => setLoginDialog(false)}
+      />
     </CenterComponentPageBase>
   );
 }
