@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: props.overflow,
     [theme.breakpoints.down('xs')]: {
       width: "100vw",
-      minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px${props.removeHeightOnMobile})`,
+      minHeight: `calc(100vh - ${theme.appBar.mobileHeight + props.removeHeightOnMobile}px)`,
       height: "auto",
       marginTop: theme.appBar.mobileHeight,
     },
@@ -42,7 +42,7 @@ export function PaperWithTransitionBase(props){
 
   const width = props.width? props.width : "auto";
   const height = props.height? props.height : "auto";
-  const removeHeightOnMobile = props.removeHeightOnMobile? ` - ${props.removeHeightOnMobile}px` : "";
+  const removeHeightOnMobile = props.removeHeightOnMobile? props.removeHeightOnMobile : 0;
   const classes = useStyles({
     width,
     height,
