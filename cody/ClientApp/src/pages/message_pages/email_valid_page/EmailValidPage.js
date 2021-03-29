@@ -10,21 +10,12 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { PageController } from 'src/lib/page_controller';
-import { LoginBox } from 'src/pages/login/components/login_box';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
-
-export const useStyles = makeStyles((theme) => ({
-  paperClassName: {
-    maxWidth: 632,
-    width: "100%"
-  }
-}));
+import { LoginDialog } from 'src/components/dialogs/login_dialog';
 
 export default function EmailValidPage() {
-	const classes = useStyles();
   const [contentSetting, setContentSetting] = React.useState(errorPageSettings);
   const [openAlertDialog, setOpenAlertDialog] = React.useState("close");
   const { userState } = React.useContext(UserContext);  
@@ -82,15 +73,11 @@ export default function EmailValidPage() {
         loading={openAlertDialog === "loading"}
         {...contentSetting}
       />
-      <DialogBase
+      <LoginDialog
         open={openAlertDialog == "login"}
         onClose={() => setOpenAlertDialog("close")}
-        paperClassName={classes.paperClassName}
-      >
-        <LoginBox
-          onSuccess={() => setOpenAlertDialog("close")}
-        />
-      </DialogBase>
+        onSuccess={() => setOpenAlertDialog("close")}
+      />
       <DialogBase
         open={openAlertDialog == "error" || openAlertDialog == "success" }
         onClose={(event) => PageController.push('/', event)}
