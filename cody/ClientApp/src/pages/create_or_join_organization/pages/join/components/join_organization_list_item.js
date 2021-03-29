@@ -10,6 +10,7 @@ import { LeaveOrganizationDialog } from './leave_organization_dialog';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import { JoinButton } from './join_button';
 import { LeaveButton } from './leave_button';
+import { OrganizationLabel } from 'src/components/typography/organization_label';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -124,14 +125,6 @@ export function JoinOrganizationsListItem(props){
       onLeave={handleOpenLeaveDialog}    
     />
    
-
-  const organizationNameLabel = data.state.hasBeenVerified ? 
-    <>
-      {data.name}<CheckCircleRoundedIcon className={classes.verifiedOrganization} fontSize="small"/>
-    </>
-    :
-    data.name
-
   return(
     <>
       <ListItem 
@@ -148,7 +141,7 @@ export function JoinOrganizationsListItem(props){
         </ListItemIcon>
         <ListItemText
           className={classes.listItemText}
-          primary={organizationNameLabel}
+          primary={<OrganizationLabel organization={data}/>}
           secondary={`${membersCountLabel}${locationLabel}`}
           primaryTypographyProps={{
             noWrap: true,
