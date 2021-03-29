@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import './cody_types';
 import './organizations';
 import Requests from './requests';
+import SingleXHRRequest from './single_xhr_request';
 
 export class User {
   /**
@@ -193,16 +194,26 @@ export class User {
 
 
   /**
-   * @returns {Promise<User.JoinedOrganization[]>} 
+   * @param {CommonFilterOptions} options
+   * @returns {Promise<SearchResult<User.JoinedOrganization>>} 
    */
-  static async getJoinedOrganizations() {
-    return Requests.send({
-      url: 'user/joined_organizations',
-      method: 'GET',
-    })
-    .then(resp => resp?.data);
+  static async getJoinedOrganizations(options) {
+    return User._getJoinedOrgsReq.send(tokenSource => {
+      return Requests.send({
+        url: 'user/joined_organizations',
+        method: 'GET',
+        cancelToken: tokenSource.token,
+        params: options,
+      })
+      .then(resp => resp
+        ? resp.data
+        : {total: 0, values: []}
+      );
+    });
   }
 }
+
+User._getJoinedOrgsReq = new SingleXHRRequest();
 
 
 /**

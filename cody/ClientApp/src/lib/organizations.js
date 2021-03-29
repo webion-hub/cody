@@ -89,7 +89,7 @@ export class Organizations {
 
 
   /**
-   * @param {Organizations.ListAllOptions} options
+   * @param {CommonFilterOptions} options
    * @returns {Promise<SearchResult<Organization>>}
    */
   static async listAll(options) {
@@ -126,14 +126,6 @@ Organizations._listAllReq = new SingleXHRRequest();
  * @property {OrganizationKind} kind 
  * @property {string} city 
  * @property {string} country 
- */
-
-
-/**
- * @typedef {object} Organizations.ListAllOptions
- * @property {string} [filter]
- * @property {number} [limit]
- * @property {number} [offset]
  */
 
 /**
