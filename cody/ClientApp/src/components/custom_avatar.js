@@ -15,7 +15,7 @@ export function CustomAvatar(props){
   const theme = useTheme()
   const classes = useStyles()
   const [loading, setLoading] = React.useState(true);
-  const { disableLoading, shadow, size, ...other } = props;
+  const { disableLoading, shadow, size, propsLoading, ...other } = props;
 
   const propsOnLoad = props.onLoad? 
     props.onLoad() : () => {}
@@ -42,7 +42,8 @@ export function CustomAvatar(props){
     img.src = props.src;
   }
 
-  const finalLoading = loading && !disableLoading
+  const isLoading = loading || propsLoading;
+  const finalLoading = isLoading && !disableLoading
   const finalSize = size? size : 40
 
   const extraLoadingWidth = finalSize / 5
