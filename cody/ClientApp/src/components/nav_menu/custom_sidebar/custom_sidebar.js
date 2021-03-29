@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 
 const useStyles = makeStyles((theme) => ({
 	sideBar: {
@@ -21,17 +22,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerContent: {
 		margin: theme.spacing(1),
-		background: theme.palette.background.backgroundTransparent
 	},
 }));
 
 export function CustomSideBar(props){
   const classes = useStyles();
 	const sideBarItems = props.sideBarItems;
+  const { userState } = React.useContext(UserContext);
 	const [drawerContent, setDrawerContent] = React.useState({
 		identifier: "",
 		width: 0,
 	})
+
+	useEffect(() => {
+		setDrawerContent({
+			identifier: "",
+			width: 0,
+		})
+	},[userState])
 
 	const getDrawerContent = () => {
 		const findedElement = sideBarItems.find(element => {
