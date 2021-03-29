@@ -103,30 +103,6 @@ export default function SignUp(){
         onFormCompleted={tryRegisterPrep}
         onGoHomeClicked={() => setUserState("logged")}
       />   
-      <div className={classes.termsAndService}>
-        <Grid
-          container
-          direction="row"
-          justify="flex-start"
-          alignContent="flex-start"
-        >
-          <Typography
-            className={classes.termsAndServiceTypography}
-            variant="caption"
-          >
-            Registrandoti accetti i nostri
-          </Typography>
-          <Link
-            className={classes.termsAndServiceLink}
-            component="button"
-            variant="caption"
-            href="/terms_and_services"
-            onClick={(e) => PageController.push('/terms_and_services', e)}
-          >
-            termini di servizio.
-          </Link>
-        </Grid>
-      </div>
       <SignUpAlertError
         open={openAlert}
         registrationErrors={registrationErrors}

@@ -7,6 +7,7 @@ export const noErrors = {
   nameError: false,
   surnameError: false,
   birthDateError: false,
+  acceptTermsError: false,
 }
 
 export const dataDefault = {
@@ -20,4 +21,5 @@ export const dataDefault = {
   birthDate: new Date(),
 
   profileImage: null,
+  acceptTerms: false,
 }

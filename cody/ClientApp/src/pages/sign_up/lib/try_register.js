@@ -16,12 +16,12 @@ export const tryRegister = (settings) => {
     User.tryRegister({
       user: data,
 
-      onSuccess: _ => {
+      onSuccess: async _ => {
         if (profileImage == null){            
           resolve(true)
         }
         else{
-          ProfilePicture
+          await ProfilePicture
             .createOrUpdate({
               base64: profileImage,
             })

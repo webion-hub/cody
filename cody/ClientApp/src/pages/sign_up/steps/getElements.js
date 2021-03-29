@@ -4,7 +4,8 @@ import { EmailPasswordController } from './1_email_password/email_password_contr
 import { IDData } from './2_ID_data/id_step';
 import { IDController } from './2_ID_data/id_controller';
 
-import { OptionalData } from './3_optional/optional_step';
+import { AddPhotoStep } from './3_optional/addphoto_step';
+import { TermsAndServiceController } from './3_optional/terms_and_service_controller';
 
 export const getElements = ({
   handleDataChange,
@@ -13,7 +14,7 @@ export const getElements = ({
 }) => [
   {
     controller: new EmailPasswordController(),
-    height: 452,
+    height: 415,
     element: 
       <EmailPassword
         onEmailChange = {handleDataChange("email")}
@@ -25,7 +26,7 @@ export const getElements = ({
   },
   {
     controller: new IDController(),
-    height: 521,
+    height: 483,
     element: 
       <IDData
         onUsernameChange = {handleDataChange("username")}
@@ -37,12 +38,14 @@ export const getElements = ({
       />
   },  
   {
-    controller: null,
-    height: 409,
+    controller: new TermsAndServiceController,
+    height: 397,
     element: 
-      <OptionalData
+      <AddPhotoStep
         onProfileImageChange = {handleDataChange("profileImage")}
+        onAcceptTerms = {handleDataChange("acceptTerms")}
         values = {data}
+        errors = {errors}
       />
   },
 ]
