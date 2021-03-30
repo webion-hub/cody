@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import { ListItemText, ListItem, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
+import { ListItemText, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 import { User } from 'src/lib/user';
-import { PageController } from 'src/lib/page_controller';
-import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
+import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
-import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import { JoinButton } from './join_button';
 import { LeaveButton } from './leave_button';
 import { OrganizationLabel } from 'src/components/typography/organization_label';
+import { OrganizationListItem } from 'src/components/organization_list_item';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -69,10 +68,6 @@ export function JoinOrganizationsListItem(props){
   const locationLabel = data.detail.location?
     ` - ${data.detail.location}` : ""
 
-  const openOrganization = (e) => {
-    PageController.push(`/organizations/${id}`)
-  }
-
   const handleOpenLeaveDialog = () => {
     setOpenLeaveDialog(true)
     setLeaveError(null)
@@ -130,17 +125,15 @@ export function JoinOrganizationsListItem(props){
    
   return(
     <>
-      <ListItem 
-        ContainerProps={{ style: props.style }}
-        ContainerComponent="div" 
-        key={props.index}
+      <OrganizationListItem
+        index={props.index}
         className={classes.listItem}
-        button
-        onClick={openOrganization}
         disabled={data.state.hasBeenDeleted}
-      >  
+        organizationId={id}
+        style={props.style}
+      >
         <ListItemIcon className={classes.listItemIcon}>
-          {getOrganizationKindIcon(data.kind)}
+          <OrganizationKindIcon kind={data.kind}/>
         </ListItemIcon>
         <ListItemText
           className={classes.listItemText}
@@ -164,7 +157,7 @@ export function JoinOrganizationsListItem(props){
             {isCallerAMember ? leaveButton : joinButton}
           </Grid>
         </ListItemSecondaryAction>
-      </ListItem>
+      </OrganizationListItem>
       <LeaveOrganizationDialog
         loading={loading}
         open={openLeaveDialog}
