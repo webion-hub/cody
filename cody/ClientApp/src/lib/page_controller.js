@@ -35,4 +35,8 @@ export class PageController {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  static listen = (onListen) => {
+    history.listen(onListen)
+  }
+
 }
