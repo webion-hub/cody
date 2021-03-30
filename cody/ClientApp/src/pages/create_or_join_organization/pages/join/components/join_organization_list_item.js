@@ -58,6 +58,7 @@ export function JoinOrganizationsListItem(props){
   const [isCallerAMember, setIsCallerAMember] = React.useState(data.isCallerAMember);
   const [openLeaveDialog, setOpenLeaveDialog] = React.useState(false);
   const [leaveError, setLeaveError] = React.useState(null);
+  const updateUserOrganizations = new Event('updateUserOrganizations');
 
   useEffect(() => {
     setIsCallerAMember(data.isCallerAMember)
@@ -90,6 +91,7 @@ export function JoinOrganizationsListItem(props){
         setMembersCount(membersCount - 1)
         setIsCallerAMember(false)
         handleCloseLeaveDialog();
+        document.dispatchEvent(updateUserOrganizations)
       },
       onError: () => setLeaveError("C'è stato un errore prova più tardi"),
       onNotFound: () => setLeaveError("Non sei membro di questa organizzazione!"),
@@ -106,6 +108,7 @@ export function JoinOrganizationsListItem(props){
         setLoading(false)
         setIsCallerAMember(true)
         setMembersCount(membersCount + 1)
+        document.dispatchEvent(updateUserOrganizations)
       })
   }
 

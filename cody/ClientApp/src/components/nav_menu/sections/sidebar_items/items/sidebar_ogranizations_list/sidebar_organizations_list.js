@@ -83,21 +83,25 @@ export function SideBarOrganizationList(props){
 
   const classes = useStyles({organizationsListHeight, expandIconTopPosition});
 
+	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList())
+
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => {
-      User
-       .getJoinedOrganizations({
-         filter: "+logo",
-				 limit: maxOrganizationsNumber
-       })
-        .then(data => {
-					setNumberOfOrganizationsFinded(data.total)
-					setOrganizationsList(data.values)
-				})
-        .finally(() => setLoading(false))
-    }, 150);
+    setTimeout(() => refreshOrganizationList(), 150);
   }, [])
+
+	const refreshOrganizationList = () => {
+		User
+			.getJoinedOrganizations({
+				filter: "+logo",
+				limit: maxOrganizationsNumber
+			})
+			.then(data => {
+				setNumberOfOrganizationsFinded(data.total)
+				setOrganizationsList(data.values)
+			})
+			.finally(() => setLoading(false))
+	}
 
 	const organizationAvatarList = 
 		organizationsList.map((organization) => 

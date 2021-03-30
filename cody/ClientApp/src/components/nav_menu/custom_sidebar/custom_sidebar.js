@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
 	sideBar: {
@@ -34,12 +35,20 @@ export function CustomSideBar(props){
 		width: 0,
 	})
 
-	useEffect(() => {
+	const handleCloseDrawer = () => {
 		setDrawerContent({
 			identifier: "",
 			width: 0,
 		})
+	}
+
+	useEffect(() => {
+		handleCloseDrawer()
 	},[userState])
+
+	PageController.listen(() => {
+		handleCloseDrawer()
+	})
 
 	const getDrawerContent = () => {
 		const findedElement = sideBarItems.find(element => {

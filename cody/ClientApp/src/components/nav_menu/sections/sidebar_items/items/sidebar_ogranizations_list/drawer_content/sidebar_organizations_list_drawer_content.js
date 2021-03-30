@@ -48,32 +48,37 @@ export function SideBarOrganizationListDrawerContent() {
   const [loading, setLoading] = React.useState(false)
   const [organizationsList, setOrganizationsList] = React.useState([])
   const [noOrganizations, setNoOrganizations] = React.useState(false)
+  const [searchValue, setSearchValue] = React.useState("")
+
+	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList(searchValue))
 
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => {
-      User
-       .getJoinedOrganizations({
-         filter: "",
-       })
-        .then(data => {
-          setOrganizationsList(data.values)
-          if(data.total === 0)
-            setNoOrganizations(true)
-        })
-        .finally(() => setLoading(false))
-    }, 150);
+    setTimeout(() => 
+      refreshOrganizationList(
+        "", () => setNoOrganizations(true)
+      )
+    , 150);
   }, [])
+
+  const refreshOrganizationList = (value, onZeroOrganizationsFounded) => {
+    User
+      .getJoinedOrganizations({
+        filter: value,
+      })
+      .then(data => {
+        setOrganizationsList(data.values)
+        if(data.total === 0)
+          onZeroOrganizationsFounded?.()
+      })
+      .finally(() => setLoading(false))
+	}
 
 
   const handleSearchValue = (value) => {
     setLoading(true)
-    User
-    .getJoinedOrganizations({
-      filter: value,
-    })
-     .then(data =>  setOrganizationsList(data.values))
-     .finally(() => setLoading(false))
+    setSearchValue(value)
+    refreshOrganizationList(value)
   }
 
 

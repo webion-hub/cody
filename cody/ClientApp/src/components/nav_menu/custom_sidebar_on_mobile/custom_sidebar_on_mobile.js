@@ -60,9 +60,8 @@ export function CustomSideBarOnMobile(props){
             if(isHidden)
               return;
             return (
-              <>
-                <ListItem 
-                  key={index}
+              <React.Fragment key={index}>
+                <ListItem                   
                   button
                   onClick={handleOnClick(element)}  
                 >
@@ -74,7 +73,7 @@ export function CustomSideBarOnMobile(props){
                   </ListItemText>
                 </ListItem>
                 <Divider/>
-              </>
+              </React.Fragment>
             )
           })}
         </List>
