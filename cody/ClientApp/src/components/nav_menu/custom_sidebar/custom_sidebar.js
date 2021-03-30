@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { PageController } from 'src/lib/page_controller';
+import { getDrawerContent } from '../lib/get_drawer_content';
 
 const useStyles = makeStyles((theme) => ({
 	sideBar: {
@@ -50,18 +51,6 @@ export function CustomSideBar(props){
 		handleCloseDrawer()
 	})
 
-	const getDrawerContent = () => {
-		const findedElement = sideBarItems.find(element => {
-			const drawerContentIdentifier = drawerContent.identifier;
-			return element.identifier === drawerContentIdentifier
-		});
-
-		if(findedElement === undefined)
-			return null;
-		
-		return findedElement.drawerContent;
-	}
-
 	const handleDrawerContent = (element) => {
 		const elementIdentifier = element.identifier;
 		const elementWidth = element.width;
@@ -99,7 +88,7 @@ export function CustomSideBar(props){
 				}}
 			>
 				<div className={classes.drawerContent}>
-					{getDrawerContent()}
+        	{getDrawerContent(sideBarItems,	drawerContent.identifier)}
 				</div>
 			</div>
 			<div className={classes.sideBar}>
