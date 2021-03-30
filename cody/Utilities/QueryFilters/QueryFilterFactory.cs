@@ -12,11 +12,17 @@ namespace Cody.Utilities.QueryFilters
 
     public static class QueryFilterFactory
     {
-        public static QueryFilter<T> CreateNew<T>(IQueryable<T> query, string filter, FilterKind kind) => kind switch
+        public static QueryFilter<T> CreateNew<T>(IQueryable<T> query, string filter, FilterKind kind)
         {
-            FilterKind.SplitWords => new SplitWordsFilter<T>(query, filter),
+            if (string.IsNullOrWhiteSpace(filter))
+                return new EmptyFilter<T>(query);
 
-            _ => throw new NotSupportedException(),
-        };
+            return kind switch
+            {
+                FilterKind.SplitWords => new SplitWordsFilter<T>(query, filter),
+
+                _ => throw new NotSupportedException(),
+            };
+        }
     }
 }
