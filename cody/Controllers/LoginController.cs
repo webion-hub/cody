@@ -54,11 +54,12 @@ namespace Cody.Controllers
         }
 
 
-        private async Task<UserAccount> MaybeGetUserAsync(string username)
+        private async Task<UserAccount> MaybeGetUserAsync(string usernameOrEmail)
         {
             return await _dbContext
-                .MaybeGetUserBy(username)
+                .UserAccounts
                 .IncludingPassword().WithMetadata()
+                .GetBy(usernameOrEmail)
                 .SingleOrDefaultAsync();
         }
     }

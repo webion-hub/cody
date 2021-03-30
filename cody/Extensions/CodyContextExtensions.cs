@@ -11,32 +11,6 @@ namespace Cody.Extensions
 {
     internal static class CodyContextExtensions
     {
-        public static bool UserExists(this CodyContext context, string usernameOrEmail)
-        {
-            if (string.IsNullOrWhiteSpace(usernameOrEmail))
-                return false;
-
-            var userExists = context
-                .MaybeGetUserBy(usernameOrEmail)
-                .Any();
-
-            return userExists;
-        }
-
-
-        public static IQueryable<UserAccount> MaybeGetUserBy(this CodyContext context, string usernameOrEmail)
-        {
-            var maybeUser =
-                from user in context.UserAccounts
-                where
-                    user.Username == usernameOrEmail ||
-                    user.Email == usernameOrEmail
-                select user;
-
-            return maybeUser;
-        }
-
-
         public static IQueryable<Organization> GetAllOrganizations(this CodyContext context)
         {
             return context
@@ -48,9 +22,8 @@ namespace Cody.Extensions
                 .IncludingCover();
         }
 
-
         public static async Task<bool> IsUserOwnerOfAsync(
-            this CodyContext context, 
+            this CodyContext context,
             UserAccount user, 
             Organization organization
         ) {

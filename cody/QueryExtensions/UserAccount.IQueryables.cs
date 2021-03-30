@@ -1,10 +1,20 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using QueryableUser = System.Linq.IQueryable<Cody.Models.UserAccount>;
 
 namespace Cody.QueryExtensions
 {
     public static partial class UserAccountQueries
     {
+        public static QueryableUser GetBy(this QueryableUser self, string usernameOrEmail)
+        {
+            return self.Where(u =>
+                u.Username == usernameOrEmail ||
+                u.Email == usernameOrEmail
+            );
+        }
+
+
         public static QueryableUser ThatHaveBeenDeleted(this QueryableUser self)
         {
             return self.Where(u => u.AccountState.HasBeenDeleted);

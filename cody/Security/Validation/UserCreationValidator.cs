@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +20,17 @@ namespace Cody.Security.Validation
         {
             base.MaybeReject(user);
             if (!WasRejected)
-                _rejectReasons.AddRange(MaybeUserExists(user));
+                _rejectReasons.AddRange(MaybeUserExistsAsync(user));
         }
 
-        private IEnumerable<string> MaybeUserExists(UserAccount user)
+        private IEnumerable<string> MaybeUserExistsAsync(UserAccount user)
         {
-            if (_dbContext.UserExists(user.Username))
+            var users = _dbContext.UserAccounts;
+
+            if (users.ExistsAsync(user.Username).Result)
                 yield return "username_exists";
 
-            if (_dbContext.UserExists(user.Email))
+            if (users.ExistsAsync(user.Email).Result)
                 yield return "email_exists";
         }
     }
