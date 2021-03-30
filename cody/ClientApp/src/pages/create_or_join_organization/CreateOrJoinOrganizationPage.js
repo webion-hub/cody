@@ -41,7 +41,7 @@ export default function CreateOrJoinOrganization(){
     setContentByHash(hashValue)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.location.hash])
+  }, [userState, window.location.hash])
 
   const setContentByHash = (hash) => {
     const action = {
