@@ -6,10 +6,10 @@ export function tryCreateOrganization(settings){
   const data = settings.data;
   const kind = settings.kind;
 
-  return new Promise(resolve => {
+  return new Promise(async resolve => {
     const errorController = new CreateOrganizationErrorController();
 
-    errorController
+    await errorController
       .checkAll(data, kind)
       .then(
         async results => {
@@ -44,9 +44,8 @@ export function tryCreateOrganization(settings){
             onError: () => settings.onError()
           })
 
-          resolve()
         }
       )  
-
+      resolve()
   })
 }
