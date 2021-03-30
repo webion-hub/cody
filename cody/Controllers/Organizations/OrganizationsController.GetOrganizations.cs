@@ -54,6 +54,10 @@ namespace Cody.Controllers.Organizations
             return organizations
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .Where(k => o =>
+                    (k.MustHave("logo") && o.Detail.Logo != null) ||
+                    (k.MustHave("cover") && o.Detail.Cover != null) ||
+                    (k.MustHave("website") && o.Detail.Website != null) ||
+
                     k.AsEnum<OrganizationKind>() == o.Kind ||
 
                     Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
