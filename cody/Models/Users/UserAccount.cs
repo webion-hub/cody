@@ -1,4 +1,4 @@
-﻿using Cody.Security;
+﻿using Cody.Models.Organizations;
 using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cody.Models
+namespace Cody.Models.Users
 {
     [Table("user_account")]
     public class UserAccount : IRejectable

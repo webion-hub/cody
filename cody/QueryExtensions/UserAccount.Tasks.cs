@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using QueryableUser = System.Linq.IQueryable<Cody.Models.UserAccount>;
+using QueryableUser = System.Linq.IQueryable<Cody.Models.Users.UserAccount>;
 
 namespace Cody.QueryExtensions
 {

@@ -1,4 +1,5 @@
 ﻿using Cody.Models;
+using Cody.Models.Organizations;
 using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;

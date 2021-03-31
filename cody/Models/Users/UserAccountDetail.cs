@@ -1,15 +1,11 @@
-﻿using Cody.Security;
-using Cody.Security.Validation;
+﻿using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.Rejection;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Cody.Models
+namespace Cody.Models.Users
 {
     [Table("user_account_detail")]
     public class UserAccountDetail : IRejectable
@@ -31,7 +27,7 @@ namespace Cody.Models
 
         public UserBiography Biography { get; set; }
         public UserProfilePicture ProfilePicture { get; set; }
-        public UserPreferredTheme PreferredTheme { get; set; }
+        public PreferredTheme PreferredTheme { get; set; }
 
 
         public RejectionResult MaybeReject()

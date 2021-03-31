@@ -1,4 +1,4 @@
-﻿using Cody.Models;
+﻿using Cody.Models.Users;
 using Konscious.Security.Cryptography;
 using System.Linq;
 using System.Text;

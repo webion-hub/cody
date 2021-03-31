@@ -1,11 +1,6 @@
-﻿using Cody.Extensions;
-using Cody.Models;
-using Cody.Utilities.QueryFilters;
-using System;
-using System.Collections.Generic;
+﻿using Cody.Models.Organizations;
 using System.Linq;
-using System.Threading.Tasks;
-using QueryableOrganization = System.Linq.IQueryable<Cody.Models.Organization>;
+using QueryableOrganization = System.Linq.IQueryable<Cody.Models.Organizations.Organization>;
 
 namespace Cody.QueryExtensions
 {

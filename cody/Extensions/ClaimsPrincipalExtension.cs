@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Cody.Models.Users;
 using Cody.QueryExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;

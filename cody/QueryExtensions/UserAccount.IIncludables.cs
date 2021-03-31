@@ -1,14 +1,14 @@
-﻿using Cody.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using IncludableDetail = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountDetail>;
-using IncludableState = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountState>;
-using IncludableProfilePicture = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserProfilePicture>;
-using IncludablePassword = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountPassword>;
-using IncludableRole = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountRole>;
-using IncludableBiography = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserBiography>;
-using IncludableTheme = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserPreferredTheme>;
-using IncludableOrganizations = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, System.Collections.Generic.List<Cody.Models.OrganizationMember>>;
+using IncludableDetail = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserAccountDetail>;
+using IncludableState = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserAccountState>;
+using IncludableProfilePicture = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserProfilePicture>;
+using IncludablePassword = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserAccountPassword>;
+using IncludableRole = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserAccountRole>;
+using IncludableBiography = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserBiography>;
+using IncludableTheme = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.PreferredTheme>;
+using IncludableOrganizations = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, System.Collections.Generic.List<Cody.Models.Organizations.OrganizationMember>>;
+using Cody.Models.Users;
 
 namespace Cody.QueryExtensions
 {

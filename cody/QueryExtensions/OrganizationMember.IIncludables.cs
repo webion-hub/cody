@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QueryableOrganizationMember = System.Linq.IQueryable<Cody.Models.OrganizationMember>;
-using IncludableOrganization = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.OrganizationMember, Cody.Models.Organization>;
-using IncludableUser = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.OrganizationMember, Cody.Models.UserAccount>;
-using IncludableOrganizationState = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.OrganizationMember, Cody.Models.OrganizationState>;
-using IncludableLogo = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.OrganizationMember, Cody.Models.Organizations.OrganizationLogo>;
-using IncludableCover = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.OrganizationMember, Cody.Models.Organizations.OrganizationCover>;
+using QueryableOrganizationMember = System.Linq.IQueryable<Cody.Models.Organizations.OrganizationMember>;
+using IncludableOrganization = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.OrganizationMember, Cody.Models.Organizations.Organization>;
+using IncludableUser = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.OrganizationMember, Cody.Models.Users.UserAccount>;
+using IncludableOrganizationState = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.OrganizationMember, Cody.Models.Organizations.OrganizationState>;
+using IncludableLogo = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.OrganizationMember, Cody.Models.Organizations.OrganizationLogo>;
+using IncludableCover = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.OrganizationMember, Cody.Models.Organizations.OrganizationCover>;
 
 
 namespace Cody.QueryExtensions

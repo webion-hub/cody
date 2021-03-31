@@ -1,12 +1,6 @@
 ﻿using Cody.Controllers.Requests;
-using Cody.Extensions;
-using Cody.Models.Organizations;
-using Cody.Storage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations

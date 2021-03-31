@@ -2,6 +2,7 @@
 using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.Models.Users;
 using Cody.Services;
 using Cody.Services.Sftp;
 using Cody.Utilities;

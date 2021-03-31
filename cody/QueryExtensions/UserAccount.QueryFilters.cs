@@ -1,10 +1,7 @@
-﻿using Cody.Models;
+﻿using Cody.Models.Users;
 using Cody.Utilities.QueryFilters;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Cody.QueryExtensions
 {

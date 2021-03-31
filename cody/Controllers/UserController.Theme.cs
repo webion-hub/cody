@@ -1,5 +1,6 @@
 ﻿using Cody.Extensions;
 using Cody.Models;
+using Cody.Models.Users;
 using Cody.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,14 +1,12 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
-using Cody.Models;
+using Cody.Models.Users;
 using Cody.QueryExtensions;
 using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers

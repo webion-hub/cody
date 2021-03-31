@@ -1,4 +1,5 @@
 ﻿using Cody.Models;
+using Cody.Models.Users;
 using Cody.Security.Authorization;
 using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;

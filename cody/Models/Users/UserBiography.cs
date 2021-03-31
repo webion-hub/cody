@@ -4,7 +4,7 @@ using Cody.Security.Validation.Rejection;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cody.Models
+namespace Cody.Models.Users
 {
     [Table("user_biography")]
     public class UserBiography : IRejectable

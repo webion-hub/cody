@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using IncludableMetadata = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.Argon2PasswordMetadata>;
-using IncludablePassword = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountPassword>;
+using IncludableMetadata = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.Argon2PasswordMetadata>;
+using IncludablePassword = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Users.UserAccount, Cody.Models.Users.UserAccountPassword>;
 
 namespace Cody.QueryExtensions
 {

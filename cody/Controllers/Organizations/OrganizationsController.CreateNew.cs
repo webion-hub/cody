@@ -1,6 +1,7 @@
 ﻿using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.Models.Organizations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

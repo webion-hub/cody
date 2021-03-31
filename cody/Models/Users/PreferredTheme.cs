@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Cody.Models
+namespace Cody.Models.Users
 {
     public enum ThemeColor {
         Light,
@@ -14,7 +10,7 @@ namespace Cody.Models
 
 
     [Table("user_preferred_theme")]
-    public class UserPreferredTheme
+    public class PreferredTheme
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

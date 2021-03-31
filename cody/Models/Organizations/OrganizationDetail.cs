@@ -1,13 +1,10 @@
-﻿using Cody.Models.Organizations;
-using Cody.Security.Validation;
+﻿using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
-using Cody.Security.Validation.PropertyValidators;
 using Cody.Security.Validation.Rejection;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cody.Models
+namespace Cody.Models.Organizations
 {
     [Table("organization_detail")]
     public class OrganizationDetail : IRejectable

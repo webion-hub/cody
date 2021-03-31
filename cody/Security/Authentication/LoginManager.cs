@@ -1,4 +1,5 @@
 ﻿using Cody.Models;
+using Cody.Models.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;

@@ -1,12 +1,7 @@
-﻿using Cody.Security;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Cody.Models
+namespace Cody.Models.Users
 {
     [Table("user_account_role")]
     public class UserAccountRole

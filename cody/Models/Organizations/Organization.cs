@@ -2,14 +2,12 @@
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;
 using Cody.Security.Validation.Rejection;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Cody.Models
+namespace Cody.Models.Organizations
 {
     public enum OrganizationKind {
         School,

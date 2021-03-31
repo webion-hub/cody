@@ -1,14 +1,9 @@
-﻿using Cody.Contexts;
-using Cody.Models;
+﻿using Cody.Models.Organizations;
+using Cody.Models.Users;
 using Cody.Security.Authentication;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Cody.Extensions

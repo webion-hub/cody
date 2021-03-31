@@ -1,8 +1,7 @@
 ﻿using Cody.Models;
 using Cody.Models.Organizations;
-using Cody.Security;
+using Cody.Models.Users;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Cody.Contexts
 {
@@ -18,7 +17,8 @@ namespace Cody.Contexts
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
         public DbSet<UserAccountRole> Roles { get; set; }
         public DbSet<UserBiography> Biographies { get; set; }
-        public DbSet<UserPreferredTheme> PreferredThemes { get; set; }
+        public DbSet<PreferredTheme> PreferredThemes { get; set; }
+        public DbSet<FavoriteOrganization> FavoriteOrganizations { get; set; }
 
 
         public DbSet<Organization> Organizations { get; set; }
@@ -29,8 +29,17 @@ namespace Cody.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            ConfigurePrimaryKeys(modelBuilder);
             ConfigureDefaultValues(modelBuilder);
             ConfigureOrganizationMembership(modelBuilder);
+        }
+
+
+        private static void ConfigurePrimaryKeys(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<FavoriteOrganization>()
+                .HasKey(fo => new { fo.UserAccountId, fo.OrganizationId });
         }
 
 

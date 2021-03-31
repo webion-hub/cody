@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.Models.Organizations;
 using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;

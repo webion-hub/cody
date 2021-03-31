@@ -1,8 +1,5 @@
-﻿using Cody.Models;
+﻿using Cody.Models.Users;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cody.Security
 {

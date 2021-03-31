@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Cody.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;

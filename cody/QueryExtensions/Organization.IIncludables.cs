@@ -1,11 +1,11 @@
-﻿using Cody.Models;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using IncludableState = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organization, Cody.Models.OrganizationState>;
-using IncludableMembers = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organization, System.Collections.Generic.List<Cody.Models.OrganizationMember>>;
-using IncludableDetail = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organization, Cody.Models.OrganizationDetail>;
-using IncludableCover = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organization, Cody.Models.Organizations.OrganizationCover>;
-using IncludableLogo = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organization, Cody.Models.Organizations.OrganizationLogo>;
+using IncludableState = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.Organization, Cody.Models.Organizations.OrganizationState>;
+using IncludableMembers = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.Organization, System.Collections.Generic.List<Cody.Models.Organizations.OrganizationMember>>;
+using IncludableDetail = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.Organization, Cody.Models.Organizations.OrganizationDetail>;
+using IncludableCover = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.Organization, Cody.Models.Organizations.OrganizationCover>;
+using IncludableLogo = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.Organizations.Organization, Cody.Models.Organizations.OrganizationLogo>;
+using Cody.Models.Organizations;
 
 namespace Cody.QueryExtensions
 {

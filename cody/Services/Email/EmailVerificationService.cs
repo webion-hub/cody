@@ -1,13 +1,7 @@
 ﻿using Cody.Contexts;
-using Cody.Models;
-using Microsoft.Extensions.Logging;
+using Cody.Models.Users;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Cody.Services.Email

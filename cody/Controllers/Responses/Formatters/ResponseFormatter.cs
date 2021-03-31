@@ -1,9 +1,6 @@
-﻿using Cody.Models;
+﻿using Cody.Models.Users;
 using Cody.Security.Authorization;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cody.Controllers.Responses.Formatters
 {

@@ -1,7 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Controllers.Requests;
 using Cody.Extensions;
-using Cody.Models;
+using Cody.Models.Users;
 using Cody.QueryExtensions;
 using Cody.Security;
 using Cody.Services;
@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers

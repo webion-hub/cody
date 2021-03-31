@@ -1,5 +1,7 @@
 ﻿using Cody.Controllers.Responses.Formatters;
 using Cody.Models;
+using Cody.Models.Organizations;
+using Cody.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
