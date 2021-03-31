@@ -11,13 +11,11 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: props.width,
     height: props.height,
-    marginTop: theme.appBar.fullHeight,
     overflow: props.overflow,
     [theme.breakpoints.down('xs')]: {
       width: "100vw",
       minHeight: `calc(100vh - ${theme.appBar.mobileHeight + props.removeHeightOnMobile}px)`,
       height: "auto",
-      marginTop: theme.appBar.mobileHeight,
     },
     transition: "max-width 0.25s, height 0.25s",
   }),

@@ -15,6 +15,7 @@ import { PaperWithWaves } from 'src/components/paper_with_waves';
 
 import { getUserAllData } from './lib/get_user_all_data';
 import { trySave } from './lib/try_save';
+import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 export default function Account(){
 	const classes = useAccountStyles();
@@ -103,12 +104,7 @@ export default function Account(){
     </Grid>
 
 	return (
-		<Grid
-			className={classes.container}
-			container
-			justify="center"
-			alignItems="center"
-		>
+    <CenterComponentPageBase>
       <PaperWithWaves className={classes.paperContainer}>
         <Grid
           container
@@ -155,6 +151,6 @@ export default function Account(){
         items={[errorsList]}
       />
       <BackgroundWithLines/>
-		</Grid>
+    </CenterComponentPageBase>
 	);
 }

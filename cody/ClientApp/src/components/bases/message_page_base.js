@@ -12,10 +12,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 600,
     padding: theme.spacing(3),
-    marginTop: theme.appBar.fullHeight,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.appBar.mobileHeight,
-    },
 	},
   button: {
     marginTop: theme.spacing(2),

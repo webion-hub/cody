@@ -1,16 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useAccountStyles = makeStyles((theme) => ({
-  container: {
-    minHeight: "100vh",
-    position: "relative"
-  },
 	paperContainer: {
     padding: theme.spacing(2),
-    marginTop: theme.appBar.fullHeight,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.appBar.mobileHeight,
-    },
 	},
   submitButton: {
     paddingTop: theme.spacing(1),
