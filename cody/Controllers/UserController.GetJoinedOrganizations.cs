@@ -43,17 +43,10 @@ namespace Cody.Controllers
 
                 .Where(om => om.UserAccountId == userId)
                 .Select(om => om.Organization)
+                
                 .ThatHaveNotBeenDeleted()
-
-                .CreateFilter(filter ?? "", FilterKind.SplitWords)
-                .Where(k => o =>
-                    k.MustHave("logo") && o.Detail.Logo != null ||
-                    k.AsEnum<OrganizationKind>() == o.Kind ||
-
-                    Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Location, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
-                )
+                .CreateFilter(filter, FilterKind.SplitWords)
+                .DefaultMatch()
                 .OrderBy(o => o.Id)
                 .Select(o => new
                 {

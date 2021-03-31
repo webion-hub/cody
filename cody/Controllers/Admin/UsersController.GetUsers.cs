@@ -42,71 +42,16 @@ namespace Cody.Controllers.Admin
 
         private IQueryable<object> GetFilteredUsers(string filter)
         {
-            var users = GetAllUsers();
-            var filteredUsers = FilterUsers(users, filter);
-
-            return
-                from u in filteredUsers
-                let ad = u.AccountDetail
-                let o = u.Organizations
-                let s = u.AccountState
-                let pp = ad.ProfilePicture
-
-                orderby u.Id ascending
-                select new
-                {
-                    u.Id,
-                    u.Username,
-                    u.Email,
-                    State = new 
-                    {
-                        s.IsEmailVerified,
-                        s.HasBeenDeleted,
-                    },
-                    JoinedOrganizations = o.Count,
-                    Detail = new
-                    {
-                        ad.Name,
-                        ad.Surname,
-                        ad.BirthDate,
-                        ad.RegistrationDate,
-                    },
-                    ProfilePicture = pp == null ? null : new
-                    {
-                        pp.FilePath,
-                    },
-                };
-        }
-
-
-        private IQueryable<UserAccount> GetAllUsers()
-        {
             return _dbContext
                 .UserAccounts
                 .IncludingDetail()
                 .IncludingProfilePicture()
                 .IncludingState()
-                .IncludingOrganizations();
-        }
+                .IncludingOrganizations()
 
-
-        private static IQueryable<UserAccount> FilterUsers(IQueryable<UserAccount> users, string filter)
-        {
-            if (string.IsNullOrWhiteSpace(filter))
-                return users;
-
-            return users
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .Where(k => u => 
-                    u.AccountDetail.BirthDate == k ||
-                    u.AccountDetail.RegistrationDate == k ||
-
-                    Regex.IsMatch(u.Id.ToString(), k.Pattern) ||
-                    Regex.IsMatch(u.Username, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.Email, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.AccountDetail.Name, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(u.AccountDetail.Surname, k.Pattern, RegexOptions.IgnoreCase)
-                );
+                .DefaultMatch()
+                .FormatFor(null);
         }
     }
 }

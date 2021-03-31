@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Cody.Models
 {
-    
     [Table("user_account_role")]
     public class UserAccountRole
     {

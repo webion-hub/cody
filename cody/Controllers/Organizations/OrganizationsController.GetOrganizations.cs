@@ -1,4 +1,5 @@
-﻿using Cody.Extensions;
+﻿using Cody.Controllers.Responses.Formatters;
+using Cody.Extensions;
 using Cody.Models;
 using Cody.QueryExtensions;
 using Cody.Security.Authorization;
@@ -37,21 +38,14 @@ namespace Cody.Controllers.Organizations
             return Ok(response);
         }
 
-
         private async Task<IQueryable<object>> GetFilteredOrganizationsAsync(string filter)
         {
-            var organizations = await GetOrganizationsBasedOnUserRoleAync();
-            var filtered = FilterOrganizations(organizations, filter);
-
-            return FormatAsResponse(filtered);
-        }
-
-
-        private static IQueryable<Organization> FilterOrganizations(IQueryable<Organization> organizations, string filter)
-        {
-            return organizations
+            var user = await HttpContext.GetLoggedUserAsync();
+            return _dbContext
+                .GetAllOrganizations()
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .MatchDefault();
+                .DefaultMatch()
+                .FormatFor(user);
         }
     }
 }

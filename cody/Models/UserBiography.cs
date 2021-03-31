@@ -9,6 +9,7 @@ namespace Cody.Models
     [Table("user_biography")]
     public class UserBiography : IRejectable
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

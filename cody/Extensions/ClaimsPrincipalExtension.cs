@@ -1,5 +1,6 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
+using Cody.QueryExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace Cody.Extensions
 
             return await dbContext
                 .UserAccounts
-                .Include(u => u.AccountDetail)
-                .Include(u => u.AccountState)
-                .Include(u => u.AccountRole)
+                .IncludingDetail()
+                .IncludingState()
+                .IncludingRole()
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
 
