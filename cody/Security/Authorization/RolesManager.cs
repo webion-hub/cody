@@ -20,6 +20,11 @@ namespace Cody.Security.Authorization
         public static RolesManager Using(CodyContext dbContext) => new (dbContext);
 
 
+        public static bool IsUserAdmin(UserAccount user)
+        {
+            return IsUserInRole(user, Roles.Admin);
+        }
+
         public static bool IsUserInRole(UserAccount user, string role)
         {
             if (user is null)
