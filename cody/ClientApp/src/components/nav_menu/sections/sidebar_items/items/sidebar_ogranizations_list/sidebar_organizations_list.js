@@ -11,6 +11,7 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 import { PageController } from 'src/lib/page_controller';
 
 import { User } from 'src/lib/user';
+import { OrganizationListItem } from 'src/components/organization_list_item';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -104,14 +105,18 @@ export function SideBarOrganizationList(props){
 	}
 
 	const organizationAvatarList = 
-		organizationsList.map((organization) => 
-			<ListItem button className={classes.sideBarAvatar} key={organization.id}>
+		organizationsList.map(organization => 
+			<OrganizationListItem 
+				className={classes.sideBarAvatar} 
+				key={organization.id}
+				organizationId={organization.id}
+			>
 				<CustomAvatar
 					propsLoading={loading}
 					src={`organizations/${organization.id}/logo`}
 					alt={organization.name}
 				/>
-			</ListItem>
+			</OrganizationListItem>
 		)
 
 	const showOrganizationAvatarList = !isDrawerOpen &&	organizationAvatarList
