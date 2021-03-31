@@ -11,6 +11,7 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 import { PageController } from 'src/lib/page_controller';
 
 import { User } from 'src/lib/user';
+import { OrganizationListItem } from 'src/components/organization_list_item';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -83,31 +84,39 @@ export function SideBarOrganizationList(props){
 
   const classes = useStyles({organizationsListHeight, expandIconTopPosition});
 
+	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList())
+
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => {
-      User
-       .getJoinedOrganizations({
-         filter: "+logo",
-				 limit: maxOrganizationsNumber
-       })
-        .then(data => {
-					setNumberOfOrganizationsFinded(data.total)
-					setOrganizationsList(data.values)
-				})
-        .finally(() => setLoading(false))
-    }, 150);
+    setTimeout(() => refreshOrganizationList(), 150);
   }, [])
 
+	const refreshOrganizationList = () => {
+		User
+			.getJoinedOrganizations({
+				filter: "+logo",
+				limit: maxOrganizationsNumber
+			})
+			.then(data => {
+				setNumberOfOrganizationsFinded(data.total)
+				setOrganizationsList(data.values)
+			})
+			.finally(() => setLoading(false))
+	}
+
 	const organizationAvatarList = 
-		organizationsList.map((organization) => 
-			<ListItem button className={classes.sideBarAvatar} key={organization.id}>
+		organizationsList.map(organization => 
+			<OrganizationListItem 
+				className={classes.sideBarAvatar} 
+				key={organization.id}
+				organizationId={organization.id}
+			>
 				<CustomAvatar
 					propsLoading={loading}
 					src={`organizations/${organization.id}/logo`}
 					alt={organization.name}
 				/>
-			</ListItem>
+			</OrganizationListItem>
 		)
 
 	const showOrganizationAvatarList = !isDrawerOpen &&	organizationAvatarList

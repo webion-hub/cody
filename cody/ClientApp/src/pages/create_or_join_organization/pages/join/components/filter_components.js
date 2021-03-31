@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Tooltip } from '@material-ui/core';
-import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
+import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,7 @@ export function FilterComponent(props){
           onClick={() => setFilter("teams")}
           variant={filterStatus.teams ? "contained" : "outlined"}
         >
-          {getOrganizationKindIcon("team")}
+          <OrganizationKindIcon kind="team"/>
         </Button>
       </Tooltip>
       <Tooltip
@@ -46,7 +46,7 @@ export function FilterComponent(props){
           onClick={() => setFilter("schools")}
           variant={filterStatus.schools ? "contained" : "outlined"}
         >
-          {getOrganizationKindIcon("school")}
+          <OrganizationKindIcon kind="school"/>
         </Button>
       </Tooltip>
       <Tooltip
@@ -57,7 +57,7 @@ export function FilterComponent(props){
           onClick={() => setFilter("companies")}
           variant={filterStatus.companies ? "contained" : "outlined"}
         >
-          {getOrganizationKindIcon("company")}
+          <OrganizationKindIcon kind="company"/>
         </Button>
       </Tooltip>
     </ButtonGroup>

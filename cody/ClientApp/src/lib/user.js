@@ -7,6 +7,30 @@ import SingleXHRRequest from './single_xhr_request';
 
 export class User {
   /**
+   * @returns {Promise<User.ThemeColor?>}
+   */
+  static async getThemeColor() {
+    return Requests.send({
+      url: 'user/theme',
+      method: 'GET',
+    })
+    .then(resp => resp.data);
+  }
+
+
+  /**
+   * @param {User.ThemeColor} color 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async setThemeColor(color) {
+    return Requests.send({
+      url: `user/theme/${color}`,
+      method: 'PUT',
+    });
+  }
+
+
+  /**
    * @returns {Promise<AxiosResponse<any>>} 
    */
   static async sendNewVerificationEmail() {
@@ -262,4 +286,8 @@ User._getJoinedOrgsReq = new SingleXHRRequest();
  * @property {OrganizationKind} kind
  * @property {{hasBeenVerified: boolean}} state
  * @property {boolean} hasLogo 
+ */
+
+/**
+ * @typedef {'Light' | 'Dark'} User.ThemeColor
  */

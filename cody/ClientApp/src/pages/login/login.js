@@ -19,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     maxWidth: 632,
     width: "100%",
-    marginTop: theme.appBar.fullHeight,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.appBar.mobileHeight,
-    },
   },
   createAccount: {
     margin: theme.spacing(1),

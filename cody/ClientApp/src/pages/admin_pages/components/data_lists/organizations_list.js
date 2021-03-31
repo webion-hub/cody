@@ -4,7 +4,7 @@ import { RowMenu } from 'src/pages/admin_pages/components/row_menu';
 import { Organizations } from 'src/lib/organizations';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
 import { getVerificationIcon } from 'src/pages/admin_pages/lib/get_verification_icon';
-import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
+import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 export function OrganizationsList(props){
@@ -28,7 +28,7 @@ export function OrganizationsList(props){
 			id: index,
 			Id: data.id,
 			logo: data.hasLogo ? <CustomAvatar src={`organizations/${data.id}/logo`}/> : null,
-			kind: getOrganizationKindIcon(data.kind, "small"),
+			kind: <OrganizationKindIcon kind={data.kind} size="small"/>,
 			name: data.name,
 			location: data.detail.location,
 			members: data.membersCount,

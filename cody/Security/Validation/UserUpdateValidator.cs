@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,8 @@ namespace Cody.Security.Validation
         private bool IsFieldDuplicated(string usernameOrEmail, UserAccount user)
         {
             return _dbContext
-                .MaybeGetUserBy(usernameOrEmail)
+                .UserAccounts
+                .GetBy(usernameOrEmail)
                 .Any(u => u.Id != user.Id);
         }
     }

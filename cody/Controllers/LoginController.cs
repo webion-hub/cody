@@ -35,7 +35,8 @@ namespace Cody.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TryLoginAsync([FromBody] UserLoginRequest request) 
         {
-            if (!TryGetUser(request.Username, out var user))
+            var user = await MaybeGetUserAsync(request.Username);
+            if (user is null)
                 return NotFound();
 
             var isPasswordCorrect =
@@ -53,19 +54,13 @@ namespace Cody.Controllers
         }
 
 
-        private bool TryGetUser(string username, out UserAccount user)
+        private async Task<UserAccount> MaybeGetUserAsync(string usernameOrEmail)
         {
-            user = null;
-            var maybeUser = _dbContext
-                .MaybeGetUserBy(username)
-                .IncludingPassword().WithMetadata();
-
-            var userExists = maybeUser.Any();
-            if (!userExists)
-                return false;
-
-            user = maybeUser.Single();
-            return true;
+            return await _dbContext
+                .UserAccounts
+                .IncludingPassword().WithMetadata()
+                .GetBy(usernameOrEmail)
+                .SingleOrDefaultAsync();
         }
     }
 }

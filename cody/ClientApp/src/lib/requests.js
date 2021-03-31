@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import EventEmitter from 'events';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import RequestsValidator from './requests_validator';
 
 export default class Requests {
   /**
@@ -9,74 +9,53 @@ export default class Requests {
   static async send(config) {
     return axios
       .request(config)
-      .catch(Requests._handleRequestError);
-  }
-
-  static _handleRequestError(error) {
-    const {
-      request,
-      response,
-    } = error;
-
-    const wasCanceled = !request && !response;
-    if (wasCanceled)
-      return;
-
-    if (response && Requests._tryRaiseErrorFromResponse(response))
-      return;
-    
-    const reason = request
-      ? 'networkError'
-      : 'genericError';
-
-    Requests.raise('error', reason);
-  }
-
-  static _tryRaiseErrorFromResponse(response) {
-    const status = response.status;
-    const reasons = Requests._mappedReasons;
-
-    if (reasons.has(status))
-      Requests.raise('error', reasons.get(status));
+      .then(Requests._done)
+      .catch(Requests._catch);
   }
 
 
   /**
-   * @param {'error'} what 
-   * @param {Request.ErrorReasons} why
+   * @param {AxiosResponse} response 
+   * @returns 
    */
-  static raise(what, why) {
-    this._eventsEmitter.emit(what, why);
+  static _done(response) {
+    Requests
+      ._validator
+      .tryRedirect(response);
+
+    return response;
   }
 
   /**
-   * @param {(reason: Request.ErrorReasons) => void} callback
+   * @param {AxiosError} error
+   */
+  static _catch(error) {
+    const validator = Requests._validator;
+    const {request, response} = error;
+
+    if (validator.wasCanceled(request, response))
+      return;
+
+    if (validator.tryRedirect(response))
+      return;
+
+    validator.handleRequestError(error)
+  }
+
+
+  /**
+   * @param {Requests.OnErrorCallback} callback
    */
   static set onError(callback) {
-    this._eventsEmitter.on('error', callback);
+    this._validator.on('error', callback);
+  }
+
+  /**
+   * @param {Requests.OnRedirectCallback} callback
+   */
+   static set onRedirect(callback) {
+    this._validator.on('redirect', callback);
   }
 }
 
-Requests._eventsEmitter = new EventEmitter();
-
-/**@type {Map<number, Request.ErrorReasons} */
-Requests._mappedReasons = new Map([
-  [500, 'serverError'],
-  [413, 'sizeTooBig'],
-  [401, 'unauthorized'],
-  [400, 'badRequest'],
-  [404, 'notFound'],
-]);
-
-
-/**
- * @typedef {(
- *  'serverError' |
- *  'networkError' |
- *  'genericError' |
- *  'sizeTooBig' |
- *  'unauthorized' |
- *  'badRequest' |
- *  'notFound'
- * )} Request.ErrorReasons
- */
+Requests._validator = new RequestsValidator();

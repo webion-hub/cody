@@ -5,8 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
-    minHeight: "100vh",
+    minHeight: `calc(100vh - ${theme.appBar.fullHeight}px)`,
     position: "relative",
+    [theme.breakpoints.down('xs')]: {
+      minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px)`,
+    },
   },
 }));
 

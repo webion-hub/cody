@@ -31,6 +31,7 @@ namespace Cody.Models
 
         public UserBiography Biography { get; set; }
         public UserProfilePicture ProfilePicture { get; set; }
+        public UserPreferredTheme PreferredTheme { get; set; }
 
 
         public RejectionResult MaybeReject()

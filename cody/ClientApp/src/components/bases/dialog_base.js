@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
   }),
   centeredButtons: {
     display: "block",
-    textAlign: "center"
+    textAlign: "center",
+  },
+  buttons: {
+    padding: theme.spacing(2)
   }
 }));
 
@@ -34,7 +37,7 @@ export function DialogBase(props){
   const paperClassNames = `${classWithWavedBackground} ${classes.dialogContainer} ${props.paperClassName}`
 
   const buttons = areButtons &&      
-    <DialogActions className={buttonsClassName}>
+    <DialogActions className={`${buttonsClassName} ${classes.buttons}`}>
       {props.firstButton}
       {props.secondButton}
     </DialogActions>

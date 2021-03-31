@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { PageController } from 'src/lib/page_controller';
 import { DialogBase } from 'src/components/bases/dialog_base';
+import { getDrawerContent } from '../lib/get_drawer_content';
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
@@ -18,7 +19,7 @@ export function CustomSideBarOnMobile(props){
   const classes = useStyles();
   const theme = useTheme();
   const sideBarItems = props.sideBarItems;
-  const [dialogContet, setDialogContet] = React.useState("")
+  const [dialogContentIdentifier, setDialogContentIdentifier] = React.useState("")
 
   const handleOnClick = (element) => (event) => {
     props.onCloseMobileDrawer()
@@ -27,20 +28,8 @@ export function CustomSideBarOnMobile(props){
       return;
     }
 
-    setDialogContet(element.identifier);    
+    setDialogContentIdentifier(element.identifier);    
   }
-
-	const getDrawerContent = () => {
-		const findedElement = sideBarItems.find(element => {
-			const drawerContentIdentifier = dialogContet;
-			return element.identifier === drawerContentIdentifier
-		});
-
-		if(findedElement === undefined)
-			return null;
-		
-		return findedElement.drawerContent;
-	}
 
   return (
     <>
@@ -60,9 +49,8 @@ export function CustomSideBarOnMobile(props){
             if(isHidden)
               return;
             return (
-              <>
-                <ListItem 
-                  key={index}
+              <React.Fragment key={index}>
+                <ListItem                   
                   button
                   onClick={handleOnClick(element)}  
                 >
@@ -74,7 +62,7 @@ export function CustomSideBarOnMobile(props){
                   </ListItemText>
                 </ListItem>
                 <Divider/>
-              </>
+              </React.Fragment>
             )
           })}
         </List>
@@ -82,19 +70,19 @@ export function CustomSideBarOnMobile(props){
       {props.children}
       <DialogBase
         className={classes.dialog}
-        open={dialogContet !== ""}
-        onClose={() => setDialogContet("")}
+        open={dialogContentIdentifier !== ""}
+        onClose={() => setDialogContentIdentifier("")}
         firstButton={
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setDialogContet("")}
+            onClick={() => setDialogContentIdentifier("")}
           >
             Chiudi
           </Button>
         }
       > 
-        {getDrawerContent()}
+        {getDrawerContent(sideBarItems,dialogContentIdentifier)}
       </DialogBase>
     </>
 

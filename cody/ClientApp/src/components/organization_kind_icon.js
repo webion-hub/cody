@@ -2,9 +2,9 @@ import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 
-export const getOrganizationKindIcon = (kind, size) => {
+export const OrganizationKindIcon = ({kind, size}) => {
   const iconSize = size ? size : "inherit";
-  const lowerKind = kind.toLowerCase()
+  const lowerKind = kind?.toLowerCase()
 
   switch(lowerKind){
     case "school":        
@@ -14,6 +14,6 @@ export const getOrganizationKindIcon = (kind, size) => {
     case "company":        
       return <BusinessCenterRoundedIcon size={iconSize}/>;
     default:
-      return;
+      return null;
   }
 }

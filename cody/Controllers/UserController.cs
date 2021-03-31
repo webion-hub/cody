@@ -15,6 +15,7 @@ using Cody.Services;
 using Cody.Security;
 using Microsoft.AspNetCore.Authorization;
 using Cody.Extensions;
+using Cody.QueryExtensions;
 
 namespace Cody.Controllers
 {
@@ -41,10 +42,11 @@ namespace Cody.Controllers
 
         [HttpGet("exists/{usernameOrEmail}")]
         [AllowAnonymous]
-        public IActionResult UserExists(string usernameOrEmail)
+        public async Task <IActionResult> UserExists(string usernameOrEmail)
         {
-            var exists =
-                _dbContext.UserExists(usernameOrEmail);
+            var exists = await _dbContext
+                .UserAccounts
+                .ExistsAsync(usernameOrEmail);
 
             return Ok(exists);
         }

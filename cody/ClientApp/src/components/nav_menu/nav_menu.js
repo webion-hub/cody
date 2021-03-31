@@ -11,10 +11,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 	children: {
+    marginTop: theme.appBar.fullHeight,
     [theme.breakpoints.up('sm')]: {
       paddingLeft: theme.drawer.width,
       width: "100%",
       transition: "all 0.25s",
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: theme.drawer.width,
+      width: "100%",
+      transition: "all 0.25s",
+      marginTop: theme.appBar.mobileHeight,
     },
   }
 }));

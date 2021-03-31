@@ -1,23 +1,17 @@
 import React, { useEffect } from 'react';
 
-import { Grid, IconButton, useTheme, Paper, LinearProgress, Fade, ListItemIcon, Typography, Button } from '@material-ui/core'
+import { Grid, useTheme, Paper, LinearProgress, Fade, Typography, Button } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import LaunchRoundedIcon from '@material-ui/icons/LaunchRounded';
 
 import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
-import { ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
-import { CustomAvatar } from 'src/components/custom_avatar';
-
-import { User } from 'src/lib/user';
-import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
-import { OrganizationLabel } from 'src/components/typography/organization_label';
+import { FavoriteOrganizationListItem } from './favorite_organization_list_item';
 import { Sad } from 'src/components/illustrations/sad';
 
 import { PageController } from 'src/lib/page_controller';
+import { User } from 'src/lib/user';
+
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
@@ -48,75 +42,49 @@ export function SideBarOrganizationListDrawerContent() {
   const [loading, setLoading] = React.useState(false)
   const [organizationsList, setOrganizationsList] = React.useState([])
   const [noOrganizations, setNoOrganizations] = React.useState(false)
+  const [searchValue, setSearchValue] = React.useState("")
+
+	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList(searchValue))
 
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => {
-      User
-       .getJoinedOrganizations({
-         filter: "",
-       })
-        .then(data => {
-          setOrganizationsList(data.values)
-          if(data.total === 0)
-            setNoOrganizations(true)
-        })
-        .finally(() => setLoading(false))
-    }, 150);
+    setTimeout(() => 
+      refreshOrganizationList(
+        "", () => setNoOrganizations(true)
+      )
+    , 150);
   }, [])
+
+  const refreshOrganizationList = (value, onZeroOrganizationsFounded) => {
+    User
+      .getJoinedOrganizations({
+        filter: value,
+      })
+      .then(data => {
+        setOrganizationsList(data.values)
+        if(data.total === 0)
+          onZeroOrganizationsFounded?.()
+      })
+      .finally(() => setLoading(false))
+	}
 
 
   const handleSearchValue = (value) => {
     setLoading(true)
-    User
-    .getJoinedOrganizations({
-      filter: value,
-    })
-     .then(data =>  setOrganizationsList(data.values))
-     .finally(() => setLoading(false))
+    setSearchValue(value)
+    refreshOrganizationList(value)
   }
 
 
   const getListItem = (index, style) => {
-    const organization = organizationsList[index]
-    const organizationId = organization.id
-    const organizationName = organization.name
-    const organizationHasLogo = organization.hasLogo
-    const organizationKind = organization.kind
-
-    const organizationImageUrl = `organizations/${organizationId}/logo`
-
     return (
-      <ListItem button ContainerProps={{ style: style }} ContainerComponent="div" key={index}>
-        {
-          organizationHasLogo ? 
-            <ListItemAvatar>
-              <CustomAvatar
-                src={organizationImageUrl}
-                alt={organizationName}
-              />
-            </ListItemAvatar>
-            :
-            <ListItemIcon className={classes.listItemIcon}>
-              {getOrganizationKindIcon(organizationKind)}
-            </ListItemIcon>
-        }
-        <ListItemText
-          className={classes.listItemText}
-          primary={<OrganizationLabel organization={organization}/>} 
-          primaryTypographyProps={{
-            noWrap: true,
-            className: classes.listItemText
-          }}
-        />
-        <ListItemSecondaryAction>
-          <IconButton
-            color="secondary"
-          >
-            <LaunchRoundedIcon/>
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
+      <FavoriteOrganizationListItem
+        organization={organizationsList[index]}
+        style={style}
+        index={index}
+        isFavorite={false}
+        onIsFavoriteChange={(isFavorite) => console.log(isFavorite)}
+      />
     )
   }
 
@@ -163,7 +131,7 @@ export function SideBarOrganizationListDrawerContent() {
         <ListWithVirtualized 
           height={mobileView ? 2*window.innerHeight/3  : window.innerHeight - 128}
           width="100%"
-          itemSize={46} 
+          itemSize={56} 
           itemCount={organizationsList.length}
           overscanCount={10}
           getListItem={getListItem}

@@ -61,11 +61,21 @@ export function CustomStepper(props){
             handleNoErrors()
             return;
           }
+
           errors[result] = true;
+          setStepperState("")
         });
         props.setErrors(errors);
       })
   }
+
+  const handleNoErrors = () => {
+    if(activeStep === totalStep - 1)
+      handleLastStep()
+    else 
+      handleMiddleSteps()            
+  }
+
 
   const handleLastStep = () => {
     props
@@ -83,12 +93,6 @@ export function CustomStepper(props){
     setStepperState("");
   }
 
-  const handleNoErrors = () => {
-    if(activeStep === totalStep - 1)
-      handleLastStep()
-    else 
-      handleMiddleSteps()            
-  }
 
   return (
     <>

@@ -18,6 +18,7 @@ namespace Cody.Contexts
         public DbSet<UserProfilePicture> ProfilePictures { get; set; }
         public DbSet<UserAccountRole> Roles { get; set; }
         public DbSet<UserBiography> Biographies { get; set; }
+        public DbSet<UserPreferredTheme> PreferredThemes { get; set; }
 
 
         public DbSet<Organization> Organizations { get; set; }

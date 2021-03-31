@@ -58,7 +58,7 @@ export function FlowingText(props){
 		<Box
 			position="relative"
 			width={longText ? props.containerWidth : undefined}
-			className={classes.container}
+			className={`${classes.container} ${props.className}`}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 

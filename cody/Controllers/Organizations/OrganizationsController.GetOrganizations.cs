@@ -1,5 +1,6 @@
 ﻿using Cody.Extensions;
 using Cody.Models;
+using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
@@ -48,18 +49,9 @@ namespace Cody.Controllers.Organizations
 
         private static IQueryable<Organization> FilterOrganizations(IQueryable<Organization> organizations, string filter)
         {
-            if (string.IsNullOrWhiteSpace(filter))
-                return organizations;
-
             return organizations
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .Where(k => o =>
-                    k.AsEnum<OrganizationKind>() == o.Kind ||
-
-                    Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Location, k.Pattern, RegexOptions.IgnoreCase) ||
-                    Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
-                );
+                .MatchDefault();
         }
     }
 }

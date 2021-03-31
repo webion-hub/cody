@@ -7,7 +7,7 @@ import { TeamWork } from 'src/components/illustrations/team_work';
 import { CreateOrganizationContainer } from './components/create_organization_container';
 
 import { PageController } from 'src/lib/page_controller';
-import { getOrganizationKindIcon } from 'src/lib/get_organization_kind_icon';
+import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 
 const useStyles = makeStyles((theme) => ({
   imageContainer: {
@@ -80,7 +80,7 @@ function CreateOrganization(props){
               direction="row"
               alignItems="center"
             >
-              {getOrganizationKindIcon(option.value, "small")}
+              <OrganizationKindIcon kind={option.value} size="small"/>
               <Typography
                 className={classes.menuLabel}
                 variant="inherit" 
