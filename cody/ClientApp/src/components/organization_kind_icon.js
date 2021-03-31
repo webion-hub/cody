@@ -4,7 +4,7 @@ import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded'
 
 export const OrganizationKindIcon = ({kind, size}) => {
   const iconSize = size ? size : "inherit";
-  const lowerKind = kind.toLowerCase()
+  const lowerKind = kind?.toLowerCase()
 
   switch(lowerKind){
     case "school":        

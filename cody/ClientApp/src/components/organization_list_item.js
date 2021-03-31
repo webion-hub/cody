@@ -5,7 +5,7 @@ import { PageController } from 'src/lib/page_controller';
 
 export function OrganizationListItem(props){
   const organizationId = props.organizationId;
-  const organizationUrl = `/organizations/${organizationId}`
+  const organizationUrl = `/organization/${organizationId}`
 
   const openOrganization = (e) => {
     PageController.push(organizationUrl, e)

@@ -13,7 +13,7 @@ import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';
 import { PageController } from './lib/page_controller';
 
-const Login = lazy(() => import('./pages/login/Login'));
+const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
 const Error404Page = lazy(() => import('./pages/message_pages/Error404Page'));
 const EmailValidPage = lazy(() => import('./pages/message_pages/email_valid_page/EmailValidPage'));
@@ -23,6 +23,7 @@ const Account = lazy(() => import('./pages/account/account'));
 const Test = lazy(() => import('./pages/test'));
 const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
 const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
+const OrganizationPage = lazy(() => import('./pages/organization/OrganizationPage'));
 
 
 export default class App extends Component {
@@ -73,9 +74,10 @@ function Routes(){
           <CustomRoute path='/email-verification' component={EmailValidPage} />
           <CustomRoute path='/access-denied' component={UnauthorizedPage} />
           <CustomRoute path='/account' component={Account} redirect={isNotLogged}/>
+          <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
+          <CustomRoute exact path='/organization/:id' component={OrganizationPage}/>
           
           <CustomRoute path='/admin' component={AdminPage}/>
-          <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
 
           <CustomRoute path='/test' component={Test}/>
           <CustomRoute path='/index.html' redirect/>
