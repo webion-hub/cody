@@ -1,4 +1,6 @@
-﻿using Cody.Models;
+﻿using Cody.Extensions;
+using Cody.Models;
+using Cody.Utilities.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

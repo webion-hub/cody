@@ -10,7 +10,7 @@ namespace Cody.QueryExtensions
 {
     public static partial class OrganizationQueries
     {
-        public static IQueryable<Organization> MatchDefault(this QueryFilter<Organization> self)
+        public static IQueryable<Organization> DefaultMatch(this QueryFilter<Organization> self)
         {
             return self.Where(k => o =>
                 (k.MustHave("logo") && o.Detail.Logo != null) ||

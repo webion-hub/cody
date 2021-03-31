@@ -7,6 +7,7 @@ using IncludableProfilePicture = Microsoft.EntityFrameworkCore.Query.IIncludable
 using IncludablePassword = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountPassword>;
 using IncludableRole = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserAccountRole>;
 using IncludableBiography = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserBiography>;
+using IncludableTheme = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, Cody.Models.UserPreferredTheme>;
 using IncludableOrganizations = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Cody.Models.UserAccount, System.Collections.Generic.List<Cody.Models.OrganizationMember>>;
 
 namespace Cody.QueryExtensions
@@ -47,6 +48,12 @@ namespace Cody.QueryExtensions
                 .ThenInclude(ad => ad.Biography);
         }
 
+        public static IncludableTheme IncludingTheme(this IQueryable<UserAccount> self)
+        {
+            return self
+                .Include(u => u.AccountDetail)
+                .ThenInclude(ad => ad.PreferredTheme);
+        }
 
         public static IncludableOrganizations IncludingOrganizations(this IQueryable<UserAccount> self)
         {
