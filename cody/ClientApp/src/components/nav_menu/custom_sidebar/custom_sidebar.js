@@ -9,7 +9,9 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     height: "100vh",
 		marginTop: theme.appBar.fullHeight,
-		zIndex: 1250
+		display: "flex",
+		flexDirection: "column",
+		zIndex: 1250,
 	},
 	sideBarDrawer: {
 		background: theme.drawer.default,

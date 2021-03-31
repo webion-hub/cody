@@ -12,6 +12,7 @@ import Requests from 'src/lib/requests';
 import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';
 import { PageController } from './lib/page_controller';
+import { ThemeContext } from 'src/components/theme_context';
 
 const Login = lazy(() => import('./pages/login/Login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
@@ -28,12 +29,42 @@ const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organ
 export default class App extends Component {
   static displayName = App.name;
 
+  constructor(props) {
+    super(props);
+    
+    let savedState = localStorage.getItem('isCody-ThemeMode');
+    savedState = 
+      localStorage.getItem('isCody-ThemeMode') ? 
+        savedState :
+        'light'; 
+
+    this.toggleTheme = () => {
+      savedState = savedState == 'dark'
+        ? 'light'
+        : 'dark'
+
+      this.setState( _ => ({
+        theme: savedState
+      }));  
+
+      localStorage.setItem('isCody-ThemeMode', savedState);  
+    };
+
+
+    this.state = {
+      theme: savedState,
+      toggleTheme: this.toggleTheme,
+    };
+  }
+
   render () {
     return (
       <UserControllerContext>
-        <Layout>
-          <Routes/>
-        </Layout>
+        <ThemeContext.Provider value={this.state}>
+          <Layout>
+            <Routes/>
+          </Layout>
+        </ThemeContext.Provider>
       </UserControllerContext>
     );
   }

@@ -13,6 +13,7 @@ import { appBarElements } from 'src/components/nav_menu/sections/appbar_elements
 import { useSideBarItems } from 'src/components/nav_menu/sections/sidebar_items/sidebar_items';
 
 import { NavMenu } from 'src/components/nav_menu/nav_menu';
+import { ThemeContext } from 'src/components/theme_context';
 
 const themeController = new ThemeController();
 
@@ -22,17 +23,21 @@ export function Layout(props){
   const theme = prefersDarkMode ? "dark" : "light";
 
   return (
-    <MuiThemeProvider theme = {themeController.getTheme(theme)}>
-      <CssBaseline />
-      <NavMenu
-        appBarElements={appBarElements}
-        appBar={CustomAppBar}
-        sideBarItems={sideBarItems}
-        sideBar={CustomSideBar}
-        sideBarOnMobile={CustomSideBarOnMobile}
-      >
-        {props.children}
-      </NavMenu>
-    </MuiThemeProvider>        
+    <ThemeContext.Consumer>
+    {({theme, toggleTheme}) => (
+      <MuiThemeProvider theme = {themeController.getTheme(theme)}>
+        <CssBaseline />
+        <NavMenu
+          appBarElements={appBarElements}
+          appBar={CustomAppBar}
+          sideBarItems={sideBarItems}
+          sideBar={CustomSideBar}
+          sideBarOnMobile={CustomSideBarOnMobile}
+        >
+          {props.children}
+        </NavMenu>
+      </MuiThemeProvider>   
+      )}     
+    </ThemeContext.Consumer>
   );
 }
