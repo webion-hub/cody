@@ -18,7 +18,7 @@ namespace Cody.Contexts
         public DbSet<UserAccountRole> Roles { get; set; }
         public DbSet<UserBiography> Biographies { get; set; }
         public DbSet<PreferredTheme> PreferredThemes { get; set; }
-        public DbSet<FavoriteOrganization> FavoriteOrganizations { get; set; }
+        public DbSet<BookmarkedOrganization> BookmarkedOrganizations { get; set; }
 
 
         public DbSet<Organization> Organizations { get; set; }
@@ -38,7 +38,7 @@ namespace Cody.Contexts
         private static void ConfigurePrimaryKeys(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<FavoriteOrganization>()
+                .Entity<BookmarkedOrganization>()
                 .HasKey(fo => new { fo.UserAccountId, fo.OrganizationId });
         }
 

@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cody.Models.Users
 {
-    [Table("favorite_organization")]
-    public class FavoriteOrganization
+    [Table("bookmarked_organization")]
+    public class BookmarkedOrganization
     {
         [Required] public int UserAccountId { get; set; }
         [Required] public int OrganizationId { get; set; }

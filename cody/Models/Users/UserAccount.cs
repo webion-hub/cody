@@ -38,7 +38,7 @@ namespace Cody.Models.Users
         public UserAccountRole AccountRole { get; set; }
         public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public List<OrganizationMember> Organizations { get; set; }
-        public List<FavoriteOrganization> FavoriteOrganizations { get; set; }
+        public List<BookmarkedOrganization> BookmarkedOrganizations { get; set; }
 
 
         public RejectionResult MaybeReject()

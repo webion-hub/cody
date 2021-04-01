@@ -1,14 +1,9 @@
 ﻿using Cody.Extensions;
-using Cody.Models;
 using Cody.QueryExtensions;
 using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -45,6 +40,7 @@ namespace Cody.Controllers
                 .Select(om => om.Organization)
                 
                 .ThatHaveNotBeenDeleted()
+
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .DefaultMatch()
                 .OrderBy(o => o.Id)
