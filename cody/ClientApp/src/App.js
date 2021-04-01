@@ -5,8 +5,9 @@ import { Layout } from './components/Layout';
 import { UserControllerContext } from "./components/user_controller_context/user_controller_context";
 import { UserContext } from "./components/user_controller_context/user_controller_context";
 import { CustomRoute } from "./components/route_components/custom_route";
-import history from 'src/history'
-
+import history from 'src/history';
+import { User } from 'src/lib/user';
+ 
 import Requests from 'src/lib/requests';
 
 import './custom.css';
@@ -32,28 +33,50 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
+
+    let currentTheme = 'light';
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      currentTheme = "dark"
+    };
+    if(localStorage.getItem("Cody-ThemeMode"))
+      currentTheme = localStorage.getItem("Cody-ThemeMode");
+
+      User.isLogged().then(isLogged => {
+        if (!isLogged)
+          return;
     
-    let savedState = localStorage.getItem('isCody-ThemeMode');
-    savedState = 
-      localStorage.getItem('isCody-ThemeMode') ? 
-        savedState :
-        'light'; 
+        User.getThemeColor().then(themeColor => {
+          if(themeColor)
+          {
+            currentTheme = themeColor;
+            this.setState( _ => ({
+              theme: currentTheme.toLowerCase()
+            }));  
+          }
+      });
+    });
+    
 
     this.toggleTheme = () => {
-      savedState = savedState == 'dark'
-        ? 'light'
-        : 'dark'
+      currentTheme = 
+        currentTheme == 'dark'? 
+          'light' : 
+          'dark'
 
       this.setState( _ => ({
-        theme: savedState
+        theme: currentTheme
       }));  
 
-      localStorage.setItem('isCody-ThemeMode', savedState);  
+      User.isLogged().then(isLogged => {
+          User.setThemeColor(currentTheme);
+      });
+
+      localStorage.setItem('Cody-ThemeMode', currentTheme);  
     };
 
 
     this.state = {
-      theme: savedState,
+      theme: currentTheme,
       toggleTheme: this.toggleTheme,
     };
   }

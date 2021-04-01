@@ -8,6 +8,15 @@ body {
   --background-color: #f7f7f8;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ring-inner-color: #131C2A;
+    --ring-outer-color: #1F4BFF;
+    --background-color: #172230;
+  }
+}
+
+
 #ringContainer {
   position: absolute;
   top: 0px;
