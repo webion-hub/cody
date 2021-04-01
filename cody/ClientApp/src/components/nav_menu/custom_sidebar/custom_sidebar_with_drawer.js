@@ -35,6 +35,9 @@ export function CustomSideBarWithDrawer(props){
 	}
 
 	const handleCloseDrawer = () => {
+		if(!isDrawerOpen)
+			return;
+
 		setDrawerContent({
 			identifier: drawerContent.identifier,
 			width: 0,
