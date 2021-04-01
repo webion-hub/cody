@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 		"& *": {
 			minWidth: "0"
 		},
-        position: "inherit",
+        position: "fixed",
         bottom: 0
 	}
 }));
