@@ -13,7 +13,7 @@ namespace Cody.Controllers
 {
     public partial class BookmarkedOrganizationsController
     {
-        [HttpGet("organizations")]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Get(
             [FromQuery] string filter,

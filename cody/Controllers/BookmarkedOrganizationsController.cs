@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cody.Controllers
 {
-    [Route("user/bookmarks")]
+    [Route("user/bookmarks/organizations")]
     [Authorize]
     [ApiController]
     public partial class BookmarkedOrganizationsController : ControllerBase

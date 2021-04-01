@@ -7,25 +7,22 @@ import SingleXHRRequest from './single_xhr_request';
 
 export class User {
   /**
-   * @param {User.addBookmarkedOrganizationOptions} options
    * @returns {Promise<AxiosResponse<any>>}
    */
-  static async addBookmarkedOrganization(options) {
-    const {
-      organizationId,
-      onSuccess,
-      onNotFound,
-    } = options;
-
+  static async addBookmarkedOrganization(organizationId) {
     return Requests.send({
       url: `user/bookmarks/organizations/add/${organizationId}`,
       method: 'PUT',
-      validateStatus: (status) => {
-        return tryInvokeCallback(status, {
-          200: onSuccess,
-          404: onNotFound,
-        });
-      },
+    });
+  }
+
+  /**
+   * @returns {Promise<AxiosResponse>} 
+   */
+  static async removeBookmarkedOrganizations(organizationId) {
+    return Requests.send({
+      url: `user/bookmarks/organizations/remove/${organizationId}`,
+      method: 'DELETE',
     });
   }
 
@@ -320,12 +317,4 @@ User._getJoinedOrgsReq = new SingleXHRRequest();
 
 /**
  * @typedef {'Light' | 'Dark'} User.ThemeColor
- */
-
-
-/**
- * @typedef {object} User.addBookmarkedOrganizationOptions
- * @property {number} organizationId
- * @property {() => void} [onSuccess]
- * @property {() => void} [onNotFound]
  */

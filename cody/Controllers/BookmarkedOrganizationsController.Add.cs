@@ -9,7 +9,7 @@ namespace Cody.Controllers
 {
     public partial class BookmarkedOrganizationsController
     {
-        [HttpPut("organizations/add/{organizationId}")]
+        [HttpPut("add/{organizationId}")]
         [Authorize]
         public async Task<IActionResult> Add([FromRoute] int organizationId)
         {
