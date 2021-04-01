@@ -6,14 +6,12 @@ import { UserControllerContext } from "./components/user_controller_context/user
 import { UserContext } from "./components/user_controller_context/user_controller_context";
 import { CustomRoute } from "./components/route_components/custom_route";
 import history from 'src/history';
-import { User } from 'src/lib/user';
- 
+
 import Requests from 'src/lib/requests';
 
 import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';
 import { PageController } from './lib/page_controller';
-import { ThemeContext } from 'src/components/theme_context';
 
 const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
@@ -31,67 +29,12 @@ const OrganizationPage = lazy(() => import('./pages/organization/OrganizationPag
 export default class App extends Component {
   static displayName = App.name;
 
-  constructor(props) {
-    super(props);
-
-    let currentTheme = 'light';
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      currentTheme = "dark"
-    };
-    if(localStorage.getItem("Cody-ThemeMode"))
-      currentTheme = localStorage.getItem("Cody-ThemeMode").toLowerCase();
-
-      User.isLogged().then(isLogged => {
-        if (!isLogged)
-          return;
-    
-        User.getThemeColor().then(themeColor => {
-          if(themeColor)
-          {
-            currentTheme = themeColor;
-            this.setState( _ => ({
-              theme: currentTheme.toLowerCase()
-            }));  
-            localStorage.setItem('Cody-ThemeMode', currentTheme);  
-            loaderThemeSelection();
-          }
-      });
-    });
-    
-
-    this.toggleTheme = () => {
-      currentTheme = 
-        currentTheme == 'dark'? 
-          'light' : 
-          'dark'
-
-      this.setState( _ => ({
-        theme: currentTheme.toLowerCase()
-      }));  
-
-      User.isLogged().then(isLogged => {
-          User.setThemeColor(currentTheme);
-      });
-
-      localStorage.setItem('Cody-ThemeMode', currentTheme);  
-      loaderThemeSelection();
-    };
-
-
-    this.state = {
-      theme: currentTheme,
-      toggleTheme: this.toggleTheme,
-    };
-  }
-
   render () {
     return (
       <UserControllerContext>
-        <ThemeContext.Provider value={this.state}>
-          <Layout>
-            <Routes/>
-          </Layout>
-        </ThemeContext.Provider>
+        <Layout>
+          <Routes/>
+        </Layout>
       </UserControllerContext>
     );
   }
@@ -157,22 +100,4 @@ function Routes(){
       </AlertDialog>
     </Router>
   );
-}
-
-function loaderThemeSelection()
-{
-    let root = document.documentElement;
-    if(localStorage.getItem('Cody-ThemeMode') == 'dark')
-    {
-        root.style.setProperty('--ring-inner-color', "#131C2A");
-        root.style.setProperty('--ring-outer-color', "#1F4BFF");
-        root.style.setProperty('--background-color', "#172230");
-    }
-
-    if(localStorage.getItem('Cody-ThemeMode') == 'light')
-    {
-        root.style.setProperty('--ring-inner-color', "#f3f3f3");
-        root.style.setProperty('--ring-outer-color', "#1F4BFF");
-        root.style.setProperty('--background-color', "#f7f7f8");
-    }
 }

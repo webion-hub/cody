@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
 
-import { ThemeContext } from 'src/components/theme_context'
+import { ThemeContextConsumer } from 'src/components/theme_context'
 
 const useStyles = makeStyles((theme) => ({
 	sideBarList: {
@@ -25,19 +25,19 @@ export function SideBarThemeIcon(){
 
 	return (
 		<List className={classes.sideBarList}>
-            <ThemeContext.Consumer>
-                {({theme, toggleTheme}) => (
+            <ThemeContextConsumer>
+                {({state, toggleTheme}) => (
                     <ListItem 
                         button
                         component="a"
-                        onClick={toggleTheme}	
+                        onClick={_=> toggleTheme(state)}
                     >
                         <ListItemIcon>
                             <BrightnessMediumIcon/>
                         </ListItemIcon>
                     </ListItem>
                 )}
-            </ThemeContext.Consumer>
+            </ThemeContextConsumer>
 		</List>
 	)
 }
