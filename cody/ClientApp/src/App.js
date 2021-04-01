@@ -97,7 +97,11 @@ function Routes(){
 
   return (
     <Router history={history}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={
+        <div id="ringContainer" className="center-children">
+          <div className="loader"></div>
+        </div>
+      }>
         <Switch>
           <CustomRoute exact path='/' component={Home} />
           <CustomRoute path='/login' component={Login} redirect={isLogged}/>
