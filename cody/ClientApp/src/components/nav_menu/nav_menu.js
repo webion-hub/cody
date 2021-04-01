@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,13 +13,14 @@ const useStyles = makeStyles((theme) => ({
   },
 	children: {
     marginTop: theme.appBar.fullHeight,
+    paddingLeft: theme.drawer.width,
     [theme.breakpoints.up('sm')]: {
       paddingLeft: theme.drawer.width,
       width: "100%",
       transition: "all 0.25s",
     },
     [theme.breakpoints.down('xs')]: {
-      paddingLeft: theme.drawer.width,
+      paddingLeft: 0,
       width: "100%",
       transition: "all 0.25s",
       marginTop: theme.appBar.mobileHeight,
@@ -31,6 +33,10 @@ export function NavMenu(props){
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
   const [openMobileDrawer, setOpenMobileDrawer] = React.useState(false);
+
+  PageController.listen(() => {
+		setOpenMobileDrawer(false)
+	})
 
   const children = 
     <main className={classes.content}>
