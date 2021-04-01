@@ -6,10 +6,26 @@ import Requests from './requests';
 import SingleXHRRequest from './single_xhr_request';
 
 export class User {
-  static async addBookmarkedOrganization(organizationId) {
+  /**
+   * @param {User.addBookmarkedOrganizationOptions} options
+   * @returns {Promise<AxiosResponse<any>>}
+   */
+  static async addBookmarkedOrganization(options) {
+    const {
+      organizationId,
+      onSuccess,
+      onNotFound,
+    } = options;
+
     return Requests.send({
       url: `user/bookmarks/organizations/add/${organizationId}`,
       method: 'PUT',
+      validateStatus: (status) => {
+        return tryInvokeCallback(status, {
+          200: onSuccess,
+          404: onNotFound,
+        });
+      },
     });
   }
 
@@ -304,4 +320,12 @@ User._getJoinedOrgsReq = new SingleXHRRequest();
 
 /**
  * @typedef {'Light' | 'Dark'} User.ThemeColor
+ */
+
+
+/**
+ * @typedef {object} User.addBookmarkedOrganizationOptions
+ * @property {number} organizationId
+ * @property {() => void} [onSuccess]
+ * @property {() => void} [onNotFound]
  */
