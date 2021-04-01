@@ -49,7 +49,6 @@ export function ThemeContextProvider(props){
 
     localStorage.setItem('Cody-ThemeMode', currentTheme);  
     loaderThemeSelection();
-    console.log("no");
   };
     
   
