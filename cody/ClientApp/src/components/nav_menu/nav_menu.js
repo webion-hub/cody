@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
   },
 	children: {
     marginTop: theme.appBar.fullHeight,
-    paddingLeft: theme.drawer.width,
     [theme.breakpoints.up('sm')]: {
       paddingLeft: theme.drawer.width,
       width: "100%",
@@ -32,10 +31,14 @@ export function NavMenu(props){
   const classes = useStyles();
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
-  const [openMobileDrawer, setOpenMobileDrawer] = React.useState(false);
+  const [openSidebar, setOpenSidebar] = React.useState(false);
+
+  useEffect(() => {
+    setOpenSidebar(!mobileView)
+  }, [mobileView])
 
   PageController.listen(() => {
-		setOpenMobileDrawer(false)
+		setOpenSidebar(false)
 	})
 
   const children = 
@@ -48,26 +51,17 @@ export function NavMenu(props){
   return (
     <div className={classes.root}>
       <props.appBar
-        toggleMobileDrawer={() => setOpenMobileDrawer(!openMobileDrawer)}
+        toggleMobileDrawer={() => setOpenSidebar(!openSidebar)}
         appBarElements={props.appBarElements}
       >
-        {
-          mobileView ? 
-            <props.sideBarOnMobile
-              onOpenMobileDrawer={() => setOpenMobileDrawer(true)}
-              onCloseMobileDrawer={() => setOpenMobileDrawer(false)}
-              openMobileDrawer={openMobileDrawer}
-              sideBarItems={props.sideBarItems}
-            >
-              {children}
-            </props.sideBarOnMobile>
-            :
-            <props.sideBar
-              sideBarItems={props.sideBarItems}
-            >
-              {children}
-            </props.sideBar>
-        }
+        <props.sideBar
+          sideBarItems={props.sideBarItems}
+          openSidebar={openSidebar}
+          onSidebarOpen={() => setOpenSidebar(true)}
+          onSidebarClose={() => setOpenSidebar(false)}
+        >
+          {children}
+        </props.sideBar>
       </props.appBar>
     </div>
   )

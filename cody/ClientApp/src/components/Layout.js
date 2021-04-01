@@ -6,8 +6,7 @@ import { useMediaQuery } from '@material-ui/core';
 import { ThemeController } from "src/lib/default_values/themes/theme_controller";
 
 import { CustomAppBar } from 'src/components/nav_menu/custom_appbar/custom_appbar';
-import { CustomSideBar } from 'src/components/nav_menu/custom_sidebar/custom_sidebar';
-import { CustomSideBarOnMobile } from 'src/components/nav_menu/custom_sidebar_on_mobile/custom_sidebar_on_mobile';
+import { CustomSideBarWithDrawer } from 'src/components/nav_menu/custom_sidebar/custom_sidebar_with_drawer';
 
 import { appBarElements } from 'src/components/nav_menu/sections/appbar_elements';
 import { useSideBarItems } from 'src/components/nav_menu/sections/sidebar_items/sidebar_items';
@@ -31,8 +30,7 @@ export function Layout(props){
           appBarElements={appBarElements}
           appBar={CustomAppBar}
           sideBarItems={sideBarItems}
-          sideBar={CustomSideBar}
-          sideBarOnMobile={CustomSideBarOnMobile}
+          sideBar={CustomSideBarWithDrawer}
         >
           {props.children}
         </NavMenu>
