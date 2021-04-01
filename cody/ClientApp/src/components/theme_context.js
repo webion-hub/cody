@@ -9,7 +9,7 @@ export const ThemeContext = React.createContext({
 export const ThemeContextConsumer = ThemeContext.Consumer;
   
 export function ThemeContextProvider(props){
-  const [state, setState] = useState(localStorage.getItem("Cody-ThemeMode").toLowerCase());
+  const [state, setState] = useState('dark');
   let currentTheme = localStorage.getItem("Cody-ThemeMode");
   let value;
 
@@ -18,6 +18,8 @@ export function ThemeContextProvider(props){
       currentTheme = localStorage.getItem("Cody-ThemeMode").toLowerCase();
     else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
       currentTheme = "dark"
+
+    localStorage.setItem('Cody-ThemeMode', currentTheme); 
     
     User.isLogged().then(isLogged => {
       if (!isLogged)
