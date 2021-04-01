@@ -49,20 +49,10 @@ export function CustomSideBarOnMobile(props){
             if(isHidden)
               return;
             return (
-              <React.Fragment key={index}>
-                <ListItem                   
-                  button
-                  onClick={handleOnClick(element)}  
-                >
-                  <ListItemIcon>
-                    {element.icon}
-                  </ListItemIcon>
-                  <ListItemText>
-                    {element.label}
-                  </ListItemText>
-                </ListItem>
-                <Divider/>
-              </React.Fragment>
+              <element.item 
+                key={index}
+                setOpenDrawer={handleOnClick(element)}
+              />
             )
           })}
         </List>
