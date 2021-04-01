@@ -119,13 +119,6 @@ export function DataForms(props){
 				mt={1}
 				mb={1}
 			/>
-			<EditableCustomTextField 
-				loading={props.loading}
-				title="Ruolo" 
-				value={props.oldData.role} 
-				onChange={getValue("role")}
-				mt={1}
-			/>
 		</div>
 	);
 }
