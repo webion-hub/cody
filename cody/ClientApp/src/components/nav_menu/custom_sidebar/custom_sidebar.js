@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { PageController } from 'src/lib/page_controller';
 import { getDrawerContent } from '../lib/get_drawer_content';
+import { Backdrop, ClickAwayListener } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	sideBar: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
 	drawerContent: {
 		margin: theme.spacing(1),
 	},
+	backdrop: {
+		zIndex: 1
+	}
 }));
 
 export function CustomSideBar(props){
@@ -40,9 +44,16 @@ export function CustomSideBar(props){
 
 	const handleCloseDrawer = () => {
 		setDrawerContent({
-			identifier: "",
+			identifier: drawerContent.identifier,
 			width: 0,
 		})
+
+		setTimeout(() => 
+			setDrawerContent({
+				identifier: "",
+				width: 0,
+			}), 250
+		)
 	}
 
 	useEffect(() => {
@@ -59,20 +70,8 @@ export function CustomSideBar(props){
 
 		const actualDrawerIdentifier = drawerContent.identifier
 		const isDrawerContentOpen = actualDrawerIdentifier !== "";
-		if(isDrawerContentOpen){
-			setDrawerContent({
-				identifier: actualDrawerIdentifier,
-				width: 0,
-			})
-
-			setTimeout(() => 
-				setDrawerContent({
-					identifier: "",
-					width: 0,
-				}), 250
-			)
-		}
-
+		if(isDrawerContentOpen)
+			handleCloseDrawer()
 		else
 			setDrawerContent({
 				identifier: elementIdentifier,
@@ -82,33 +81,38 @@ export function CustomSideBar(props){
 
   return (
     <>
-			<div
-				className={classes.sideBarDrawer}
-				style={{
-					width: drawerContent.width,
-					opacity: drawerContent.width !== 0 ? 1 : 0,
-				}}
-			>
-				<div className={classes.drawerContent}>
-        	{getDrawerContent(sideBarItems,	drawerContent.identifier)}
-				</div>
-			</div>
-			<div className={classes.sideBar}>
-				{sideBarItems.map((element, index) => {
-					const isHidden = element.skipOnBigScreen || element.hideWhen
-					if(isHidden)
-						return;
-					return (
-						<element.item 
-							key={index}
-							setOpenDrawer={() => handleDrawerContent(element)}
-							isDrawerOpen={drawerContent.width !== 0}
-						/>
-					)
-				}
-				)}
-			</div>
+			<ClickAwayListener onClickAway={() => handleCloseDrawer()}>
+					<div>
+						<div
+							className={classes.sideBarDrawer}
+							style={{
+								width: drawerContent.width,
+								opacity: drawerContent.width !== 0 ? 1 : 0,
+							}}
+						>
+							<div className={classes.drawerContent}>
+								{getDrawerContent(sideBarItems,	drawerContent.identifier)}
+							</div>
+						</div>
+						<div className={classes.sideBar}>
+							{sideBarItems.map((element, index) => {
+								const isHidden = element.skipOnBigScreen || element.hideWhen
+								if(isHidden)
+									return;
+								return (
+									<element.item 
+										key={index}
+										setOpenDrawer={() => handleDrawerContent(element)}
+										isDrawerOpen={drawerContent.width !== 0}
+									/>
+								)
+							}
+							)}
+						</div>
+					</div>
+			</ClickAwayListener>
 			{props.children}
+			<Backdrop open={drawerContent.width !== 0} className={classes.backdrop}/>
     </>
   )
 }
