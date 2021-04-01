@@ -8,18 +8,10 @@ export class Admin {
    * @returns {Promise<SearchResult<Admin.UserResult>>}
    */
   static async getUsers(options) {
-    return Admin._getUsersReq.send(tokenSource => {
-      return Requests.send({
-        url: 'admin/users',
-        cancelToken: tokenSource.token,
-        params: options,
-        method: 'GET',
-      })
-      .then(resp => {
-        return resp
-          ? resp.data
-          : {total: 0, values: []};
-      });
+    return Requests.search(Admin._getUsersReq, {
+      url: 'admin/users',
+      method: 'GET',
+      params: options,
     });
   }
 

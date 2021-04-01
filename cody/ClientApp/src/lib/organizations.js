@@ -93,18 +93,10 @@ export class Organizations {
    * @returns {Promise<SearchResult<Organization>>}
    */
   static async listAll(options) {
-    return Organizations._listAllReq.send(tokenSource => {
-      return Requests.send({
-        url: 'organizations',
-        method: 'GET',
-        cancelToken: tokenSource.token,
-        params: options,
-      })
-      .then(response => {
-        return response 
-          ? response.data
-          : {total: 0, values: []};
-      })
+    return Requests.search(Organizations._listAllReq, {
+      url: 'organizations',
+      method: 'GET',
+      params: options,
     });
   }
 }

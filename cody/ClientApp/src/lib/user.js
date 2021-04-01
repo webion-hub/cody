@@ -18,18 +18,10 @@ export class User {
    * @returns {Promise<SearchResult<Organization>>}
    */
   static async getBookmarkedOrganizations(options) {
-    return User._getBookmarkedOrgsReq.send(tokenSource => {
-      return Requests.send({
-        url: 'user/bookmarks/organizations',
-        method: 'GET',
-        cancelToken: tokenSource.token,
-        params: options,
-      })
-      .then(response => {
-        return response 
-          ? response.data
-          : {total: 0, values: []};
-      });
+    return Requests.search(User._getBookmarkedOrgsReq, {
+      url: 'user/bookmarks/organizations',
+      method: 'GET',
+      params: options,
     });
   }
 
@@ -250,17 +242,10 @@ export class User {
    * @returns {Promise<SearchResult<User.JoinedOrganization>>} 
    */
   static async getJoinedOrganizations(options) {
-    return User._getJoinedOrgsReq.send(tokenSource => {
-      return Requests.send({
-        url: 'user/joined_organizations',
-        method: 'GET',
-        cancelToken: tokenSource.token,
-        params: options,
-      })
-      .then(resp => resp
-        ? resp.data
-        : {total: 0, values: []}
-      );
+    return Requests.search(User._getJoinedOrgsReq, {
+      url: 'user/joined_organizations',
+      method: 'GET',
+      params: options,
     });
   }
 }

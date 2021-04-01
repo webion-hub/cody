@@ -1,7 +1,28 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import RequestsValidator from './requests_validator';
+import SingleXHRRequest from './single_xhr_request';
 
 export default class Requests {
+  /**
+   * @param {SingleXHRRequest} singleXHRRequest
+   * @param {AxiosRequestConfig} config
+   * @returns {Promise<SearchResult<any>>}
+   */
+  static async search(singleXHRRequest, config) {
+    return singleXHRRequest.send(async tokenSource => {
+      return Requests.send({
+        ...config,
+        cancelToken: tokenSource.token,
+      })
+      .then(response => {
+        return response 
+          ? response.data
+          : {total: 0, values: []};
+      });
+    });
+  }
+
+
   /**
    * @param {AxiosRequestConfig} config 
    * @returns {Promise<AxiosResponse<any>>} 
