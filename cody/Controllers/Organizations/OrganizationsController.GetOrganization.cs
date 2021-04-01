@@ -1,6 +1,8 @@
 ﻿using Cody.Extensions;
+using Cody.QueryExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,12 @@ namespace Cody.Controllers.Organizations
         [AllowAnonymous]
         public async Task<IActionResult> GetOrganization(int id)
         {
-            var organizations = await GetOrganizationsBasedOnUserRoleAync();
-            var filtered = organizations.Where(o => o.Id == id);
-            var result = FormatAsResponse(filtered).FirstOrDefault();
+            var user = await HttpContext.GetLoggedUserAsync();
+            var result = await _dbContext
+                .GetAllOrganizations()
+                .Where(o => o.Id == id)
+                .FormatFor(user)
+                .FirstOrDefaultAsync();
 
             return result is null
                 ? NotFound()
