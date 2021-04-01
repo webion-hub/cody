@@ -52,7 +52,6 @@ function JoinOrganization(){
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
   const classes = useStyles();
-  const listRef = useRef();
   
   const elementLoadingLimit = 20;
   const [organizationsSeacrh, setOrganizationsSearch] = useSetOrganizationsSearch(elementLoadingLimit);
@@ -78,10 +77,6 @@ function JoinOrganization(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const goTop = () => {
-    listRef.current.scrollTo({top: 0, behavior: 'smooth'})
-  }
-
   const handleFilter = (filter) => {
     const filterValues = {
       ...filterStatus,
@@ -89,7 +84,6 @@ function JoinOrganization(){
     }
     setFilterStatus(filterValues)
 
-    goTop()
     setOrganizationsSearch({
       filter: filterValues,
       value: searchValue,
