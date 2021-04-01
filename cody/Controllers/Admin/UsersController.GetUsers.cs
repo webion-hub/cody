@@ -27,9 +27,6 @@ namespace Cody.Controllers.Admin
             [FromQuery] int? limit, 
             [FromQuery] int? offset
         ) {
-            if (limit is < 0 || offset is < 0)
-                return BadRequest();
-
             var response = await SearchResult.FormatAsync(
                 results: GetFilteredUsers(filter),
                 limit: limit,

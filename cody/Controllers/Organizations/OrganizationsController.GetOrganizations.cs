@@ -25,9 +25,6 @@ namespace Cody.Controllers.Organizations
             [FromQuery] int? limit,
             [FromQuery] int? offset
         ) {
-            if (limit is < 0 || offset is < 0)
-                return BadRequest();
-
             var organizations = await GetFilteredOrganizationsAsync(filter);
             var response = await SearchResult.FormatAsync(
                 results: organizations,
