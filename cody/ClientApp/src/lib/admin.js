@@ -31,6 +31,18 @@ export class Admin {
    * @param {number} id 
    * @returns {Promise<AxiosResponse<any>>}
    */
+   static async deleteUserForever(id) {
+    return Requests.send({
+      url: `admin/users/delete_forever/${id}`,
+      method: 'DELETE',
+    });
+  }
+
+
+  /**
+   * @param {number} id 
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   static async restoreUser(id) {
     return Requests.send({
       url: `admin/users/restore/${id}`,
