@@ -46,6 +46,7 @@ export function ThemeContextProvider(props){
     setState(currentTheme.toLowerCase());  
 
     User.isLogged().then(isLogged => {
+      if (isLogged)
         User.setThemeColor(currentTheme);
     });
 
