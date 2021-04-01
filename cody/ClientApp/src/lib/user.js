@@ -6,6 +6,34 @@ import Requests from './requests';
 import SingleXHRRequest from './single_xhr_request';
 
 export class User {
+  static async addBookmarkedOrganization(organizationId) {
+    return Requests.send({
+      url: `user/bookmarks/organizations/add/${organizationId}`,
+      method: 'PUT',
+    });
+  }
+
+  /**
+   * @param {CommonFilterOptions} options
+   * @returns {Promise<SearchResult<Organization>>}
+   */
+  static async getBookmarkedOrganizations(options) {
+    return User._getBookmarkedOrgsReq.send(tokenSource => {
+      return Requests.send({
+        url: 'user/bookmarks/organizations',
+        method: 'GET',
+        cancelToken: tokenSource.token,
+        params: options,
+      })
+      .then(response => {
+        return response 
+          ? response.data
+          : {total: 0, values: []};
+      });
+    });
+  }
+
+
   /**
    * @returns {Promise<User.ThemeColor?>}
    */
@@ -237,6 +265,7 @@ export class User {
   }
 }
 
+User._getBookmarkedOrgsReq = new SingleXHRRequest();
 User._getJoinedOrgsReq = new SingleXHRRequest();
 
 
