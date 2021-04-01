@@ -10,14 +10,14 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { OrganizationLabel } from 'src/components/typography/organization_label';
 
-import { FavoriteIconButton } from 'src/components/favorite_icon_button';
+import { BookmarkIconButton } from 'src/components/bookmark_icon_button';
 import { OrganizationListItem } from 'src/components/organization_list_item';
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
     maxWidth: 'calc(480px - 140px)',
     [theme.breakpoints.down('xs')]: {
-      maxWidth: 'calc(100vw - 190px)',
+      maxWidth: 'calc(100vw - 210px)',
     },
   },
   listItemIcon: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function FavoriteOrganizationListItem(props) {
+export function BookmarkOrganizationListItem(props) {
   const classes = useStyles();
 
   const organization = props.organization
@@ -70,9 +70,9 @@ export function FavoriteOrganizationListItem(props) {
         }}
       />
       <ListItemSecondaryAction>
-        <FavoriteIconButton
-          isFavorite={props.isFavorite}
-          onChange={props.onIsFavoriteChange}
+        <BookmarkIconButton
+          isSaved={props.isSaved}
+          onChange={props.onIsSavedChange}
         />
       </ListItemSecondaryAction>
     </OrganizationListItem>
