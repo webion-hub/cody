@@ -1,4 +1,4 @@
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 
 export const checkUserLogged = (settings) => {
   return new Promise(async resolve => {

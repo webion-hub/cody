@@ -1,4 +1,4 @@
-import { UserAccountInfo } from 'src/lib/user_account_info'
+import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 
 export const getUserAllData = () => {
   return new Promise(resolve => {

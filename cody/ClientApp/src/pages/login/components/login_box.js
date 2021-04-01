@@ -19,7 +19,7 @@ import { NextFocus } from 'src/lib/next_focus';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 
 export const useStyles = makeStyles((theme) => ({
   usernameTextField: {

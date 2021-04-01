@@ -9,7 +9,7 @@ import { UserContext } from 'src/components/user_controller_context/user_control
 import { CustomAvatar } from 'src/components/custom_avatar';
 import { TouchableTooltip } from 'src/components/touchable_tooltip'
 
-import { UserAccountInfo } from 'src/lib/user_account_info'
+import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 
 import { AccountMenuItem } from './menu_items/account_menu_item';
 import { AdminMenuItem } from './menu_items/admin_menu_item';

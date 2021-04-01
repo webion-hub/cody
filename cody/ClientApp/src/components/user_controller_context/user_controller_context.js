@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { checkUserLogged } from './lib/check_user_logged';
-import { UserAccountInfo } from 'src/lib/user_account_info'
+import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 
 
 export const UserContext = React.createContext({

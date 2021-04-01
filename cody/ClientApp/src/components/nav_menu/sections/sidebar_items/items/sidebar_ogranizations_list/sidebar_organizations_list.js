@@ -10,7 +10,7 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { PageController } from 'src/lib/page_controller';
 
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 import { OrganizationListItem } from 'src/components/organization_list_item';
 
 

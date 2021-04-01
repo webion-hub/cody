@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { CustomAvatar } from "src/components/custom_avatar";
-import { Organizations } from "src/lib/organizations";
+import { Organizations } from "src/lib/server_calls/organizations";
 import { Grid, IconButton, Typography, Badge } from "@material-ui/core";
 import { Images } from "src/lib/default_values/images/images";
 import { makeStyles } from '@material-ui/core/styles';

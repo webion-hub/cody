@@ -1,5 +1,5 @@
-import { Organizations } from 'src/lib/organizations';
-import OrganizationImages from 'src/lib/organization_images';
+import { Organizations } from 'src/lib/server_calls/organizations';
+import OrganizationImages from 'src/lib/server_calls/organization_images';
 import { CreateOrganizationErrorController } from './create_organization_error_controller';
 
 export function tryCreateOrganization(settings){

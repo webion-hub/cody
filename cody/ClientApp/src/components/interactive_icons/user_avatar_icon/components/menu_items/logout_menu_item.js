@@ -4,7 +4,7 @@ import { MenuItem } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { ListItemIcon } from '@material-ui/core';
 
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 

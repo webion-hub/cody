@@ -1,5 +1,5 @@
 import React from 'react';
-import { Organizations } from 'src/lib/organizations';
+import { Organizations } from 'src/lib/server_calls/organizations';
 
 export function useSetOrganizationsSearch(elementLoadingLimit){
   const [organizations, setOrganizations] = React.useState([]);

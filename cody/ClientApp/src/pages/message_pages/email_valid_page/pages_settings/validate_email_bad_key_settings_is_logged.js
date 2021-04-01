@@ -1,5 +1,5 @@
 import { Error } from 'src/components/illustrations/error';
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 
 export const getValidateEmailBadKeySettingsIsLogged = ({setOpenAlertDialog}) => {
   const resendEmail = () => {      

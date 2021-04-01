@@ -1,4 +1,4 @@
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 
 export class EmailController{

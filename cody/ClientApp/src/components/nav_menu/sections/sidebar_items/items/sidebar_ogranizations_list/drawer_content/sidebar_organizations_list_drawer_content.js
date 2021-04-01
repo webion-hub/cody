@@ -7,7 +7,7 @@ import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_w
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 import { BookmarkOrganizationListItem } from './bookmark_organization_list_item';
 
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 import { NoOrganizationFounded } from './no_organization_founded';
 
 export function SideBarOrganizationListDrawerContent() {

@@ -7,7 +7,7 @@ import { UserContext } from "./components/user_controller_context/user_controlle
 import { CustomRoute } from "./components/route_components/custom_route";
 import history from 'src/history';
 
-import Requests from 'src/lib/requests';
+import Requests from 'src/lib/server_calls/requests';
 
 import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';

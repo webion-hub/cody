@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 
 export const ThemeContext = React.createContext({
     state: 'dark',

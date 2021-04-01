@@ -1,5 +1,5 @@
-import { User } from 'src/lib/user';
-import { ProfilePicture } from 'src/lib/profile_picture';
+import { User } from 'src/lib/server_calls/user';
+import { ProfilePicture } from 'src/lib/server_calls/profile_picture';
 
 export const tryRegister = (settings) => {
   settings.onError({

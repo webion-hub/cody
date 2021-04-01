@@ -1,7 +1,7 @@
 import { AccountErrorsController } from './account_errors_controller';
 
-import { ProfilePicture } from 'src/lib/profile_picture'
-import { UserAccountInfo } from 'src/lib/user_account_info'
+import { ProfilePicture } from 'src/lib/server_calls/profile_picture'
+import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 
 import { PageController } from 'src/lib/page_controller';
 

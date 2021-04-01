@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ListItemText, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-import { User } from 'src/lib/user';
+import { User } from 'src/lib/server_calls/user';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
