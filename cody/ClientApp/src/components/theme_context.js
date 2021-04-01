@@ -9,31 +9,31 @@ export const ThemeContext = React.createContext({
 export const ThemeContextConsumer = ThemeContext.Consumer;
   
 export function ThemeContextProvider(props){
-  const [state, setState] = useState('dark');
-  let currentTheme = 'light';
+  const [state, setState] = useState(localStorage.getItem("Cody-ThemeMode").toLowerCase());
+  let currentTheme = localStorage.getItem("Cody-ThemeMode");
   let value;
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    currentTheme = "dark"
-  };
-  if(localStorage.getItem("Cody-ThemeMode"))
-  currentTheme = localStorage.getItem("Cody-ThemeMode").toLowerCase();
-  
-  User.isLogged().then(isLogged => {
-    if (!isLogged)
-    return;
+  useEffect( _ => {
+    if(localStorage.getItem("Cody-ThemeMode"))
+      currentTheme = localStorage.getItem("Cody-ThemeMode").toLowerCase();
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
+      currentTheme = "dark"
     
-    User.getThemeColor().then(themeColor => {
-      if(themeColor)
-      {
-        currentTheme = themeColor;
-        setState(currentTheme.toLowerCase());  
-        localStorage.setItem('Cody-ThemeMode', currentTheme);  
-        loaderThemeSelection();
-      }
+    User.isLogged().then(isLogged => {
+      if (!isLogged)
+      return;
+      
+      User.getThemeColor().then(themeColor => {
+        if(themeColor)
+        {
+          currentTheme = themeColor;
+          setState(currentTheme.toLowerCase());  
+          localStorage.setItem('Cody-ThemeMode', currentTheme);  
+          loaderThemeSelection();
+        }
+      });
     });
-  });
-
+  },[]);
 
   const toggleTheme = async (state) => {
     currentTheme = 
@@ -49,17 +49,20 @@ export function ThemeContextProvider(props){
 
     localStorage.setItem('Cody-ThemeMode', currentTheme);  
     loaderThemeSelection();
+    console.log("no");
   };
     
+  
   value = { 
     state,
     toggleTheme,
   };
 
-  
-
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContext.Provider value={{ 
+      state,
+      toggleTheme,
+    }}>
       {props.children}
     </ThemeContext.Provider>
   );

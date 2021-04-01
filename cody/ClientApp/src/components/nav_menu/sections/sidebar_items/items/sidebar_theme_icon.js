@@ -30,7 +30,7 @@ export function SideBarThemeIcon(){
                     <ListItem 
                         button
                         component="a"
-                        onClick={_=> toggleTheme(state)}
+                        onClick={toggleTheme}
                     >
                         <ListItemIcon>
                             <BrightnessMediumIcon/>
