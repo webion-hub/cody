@@ -58,7 +58,7 @@ export function CustomSideBar(props){
 				return (
 					<element.item 
 						key={index}
-						setOpenDrawer={() => handleDrawerContent(element)}
+						toggleDrawer={() => handleDrawerContent(element)}
 						isDrawerOpen={isDrawerOpen}
 					/>
 				)
