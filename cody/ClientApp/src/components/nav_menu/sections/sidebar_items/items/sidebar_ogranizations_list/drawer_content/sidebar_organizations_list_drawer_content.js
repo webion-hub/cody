@@ -67,7 +67,7 @@ export function SideBarOrganizationListDrawerContent() {
     return <NoOrganizationFounded/>
 
   return (
-    <Paper>
+    <>
       <Grid
         container
         direction="column"
@@ -87,6 +87,6 @@ export function SideBarOrganizationListDrawerContent() {
           getListItem={getListItem}
         />
       </Grid>
-    </Paper>
+    </>
   )
 }
