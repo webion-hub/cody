@@ -18,6 +18,9 @@ export function ListWithVirtualized(props) {
 
   return (
     <FixedSizeList
+      style={{
+        overflow: "overlay"
+      }}
       {...others}
     >
       {renderRow(props.getListItem)}
