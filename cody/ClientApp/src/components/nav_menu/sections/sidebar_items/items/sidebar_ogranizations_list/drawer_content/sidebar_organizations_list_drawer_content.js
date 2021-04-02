@@ -76,7 +76,7 @@ export function SideBarOrganizationListDrawerContent() {
 
   const getListItem = (index, style) => {
     const organization = organizationsList[index]
-    const isBookmarked = showOnlyBookmarked ? true : organization.isBookmarked
+    const isBookmarked = organization.isBookmarked
 
     return (
       <BookmarkOrganizationListItem
