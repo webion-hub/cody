@@ -13,7 +13,13 @@ import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';
 import { PageController } from './lib/page_controller';
 
-import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
+import PanToolIcon from '@material-ui/icons/PanTool';
+import WifiOffIcon from '@material-ui/icons/WifiOff';
+import ErrorIcon from '@material-ui/icons/Error';
+import CloudOffIcon from '@material-ui/icons/CloudOff';
+import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 import { AlertDialogItem } from './components/alert_dialog_item'
 
 const Login = lazy(() => import('./pages/login/login'));
@@ -58,13 +64,13 @@ function Routes(){
   };
 
   const errorLabels = {
-    serverError: [ <BrightnessMediumIcon/>, "C'è stato un errore con il server!" ],
-    sizeTooBig: [ <BrightnessMediumIcon/>, "Dimensione troppo grande!" ],
-    unauthorized: [ <BrightnessMediumIcon/>, "Richiesta non autorizzata!" ],
-    badRequest: [ <BrightnessMediumIcon/>, "Richiesta non valida!" ],
-    notFound: [ <BrightnessMediumIcon/>, "Non trovato!" ],
-    networkError: [ <BrightnessMediumIcon/>, "C'è stato un errore di rete!" ],
-    genericError: [ <BrightnessMediumIcon/>, "C'è stato un errore!" ],
+    serverError: [ <CloudOffIcon/>, "C'è stato un errore con il server!" ],
+    sizeTooBig: [ <ZoomOutMapIcon/>, "Dimensione troppo grande!" ],
+    unauthorized: [ <PanToolIcon/>, "Richiesta non autorizzata!" ],
+    badRequest: [ <RemoveCircleOutlineIcon/>, "Richiesta non valida!" ],
+    notFound: [ <FindInPageIcon/>, "Non trovato!" ],
+    networkError: [ <WifiOffIcon/>, "C'è stato un errore di rete!" ],
+    genericError: [ <ErrorIcon/>, "C'è stato un errore!" ],
   }
 
   return (

@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex"
   },
 	errorIcon: {
-    marginRight: "1rem"
+    marginRight: "1rem",
+    display: "flex"
 	}
 }));
 
