@@ -29,13 +29,14 @@ namespace Cody.Controllers.Responses.Formatters
 
         private IQueryable<object> Format(IQueryable<Organization> organizations)
         {
-            return 
+            return
                 from o in organizations
                 let s = o.State
                 let d = o.Detail
                 let m = o.Members
                 let l = d.Logo
                 let b = d.Cover
+                let bBy = o.BookmarkedBy
 
                 orderby o.Id ascending
                 select new
@@ -60,8 +61,11 @@ namespace Cody.Controllers.Responses.Formatters
                     HasLogo = l != null,
                     HasCover = b != null,
 
+                    IsBookmarked = 
+                        CallerId != null && bBy.Any(bo => bo.UserAccountId == CallerId),
+
                     IsCallerAMember =
-                        CallerId != null && m.Any(m => m.UserAccountId == CallerId)
+                        CallerId != null && m.Any(m => m.UserAccountId == CallerId),
                 };
         }
     }

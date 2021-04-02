@@ -1,4 +1,5 @@
-﻿using Cody.Security.Validation;
+﻿using Cody.Models.Users;
+using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;
 using Cody.Security.Validation.Rejection;
@@ -38,6 +39,7 @@ namespace Cody.Models.Organizations
 
 
         public List<OrganizationMember> Members { get; set; }
+        public List<BookmarkedOrganization> BookmarkedBy { get; set; }
 
 
         [NotMapped]
