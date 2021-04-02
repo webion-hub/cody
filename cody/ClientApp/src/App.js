@@ -13,13 +13,13 @@ import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';
 import { PageController } from './lib/page_controller';
 
-import PanToolIcon from '@material-ui/icons/PanTool';
-import WifiOffIcon from '@material-ui/icons/WifiOff';
-import ErrorIcon from '@material-ui/icons/Error';
-import CloudOffIcon from '@material-ui/icons/CloudOff';
-import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
+import PanToolRoundedIcon from '@material-ui/icons/PanToolRounded';
+import WifiOffRoundedIcon from '@material-ui/icons/WifiOffRounded';
+import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import CloudOffRoundedIcon from '@material-ui/icons/CloudOffRounded';
+import ZoomOutMapRoundedIcon from '@material-ui/icons/ZoomOutMapRounded';
+import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
+import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from './components/alert_dialog_item'
 
 const Login = lazy(() => import('./pages/login/login'));
@@ -64,13 +64,13 @@ function Routes(){
   };
 
   const errorLabels = {
-    serverError: [ <CloudOffIcon/>, "C'è stato un errore con il server!" ],
-    sizeTooBig: [ <ZoomOutMapIcon/>, "Dimensione troppo grande!" ],
-    unauthorized: [ <PanToolIcon/>, "Richiesta non autorizzata!" ],
-    badRequest: [ <RemoveCircleOutlineIcon/>, "Richiesta non valida!" ],
-    notFound: [ <FindInPageIcon/>, "Non trovato!" ],
-    networkError: [ <WifiOffIcon/>, "C'è stato un errore di rete!" ],
-    genericError: [ <ErrorIcon/>, "C'è stato un errore!" ],
+    serverError: [ <CloudOffRoundedIcon/>, "C'è stato un errore con il server!" ],
+    sizeTooBig: [ <ZoomOutMapRoundedIcon/>, "Dimensione troppo grande!" ],
+    unauthorized: [ <PanToolRoundedIcon/>, "Richiesta non autorizzata!" ],
+    badRequest: [ <RemoveCircleOutlineRoundedIcon/>, "Richiesta non valida!" ],
+    notFound: [ <FindInPageRoundedIcon/>, "Non trovato!" ],
+    networkError: [ <WifiOffRoundedIcon/>, "C'è stato un errore di rete!" ],
+    genericError: [ <ErrorRoundedIcon/>, "C'è stato un errore!" ],
   }
 
   return (

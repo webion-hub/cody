@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
+import BrightnessMediumRoundedIcon from '@material-ui/icons/BrightnessMediumRounded';
 
 import { ThemeContextConsumer } from 'src/components/theme_context'
 
@@ -33,7 +33,7 @@ export function SideBarThemeIcon(){
                         onClick={toggleTheme}
                     >
                         <ListItemIcon>
-                            <BrightnessMediumIcon/>
+                            <BrightnessMediumRoundedIcon/>
                         </ListItemIcon>
                     </ListItem>
                 )}
