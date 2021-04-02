@@ -14,9 +14,9 @@ export function ThemeContextProvider(props){
   
   let currentTheme = localStorage.getItem("Cody-ThemeMode");
   if(currentTheme)
-  currentTheme = currentTheme.toLowerCase();
+    currentTheme = currentTheme.toLowerCase();
   else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
-  currentTheme = "dark"
+    currentTheme = "dark"
   
   localStorage.setItem('Cody-ThemeMode', currentTheme); 
   const [theme, setTheme] = useState(currentTheme);

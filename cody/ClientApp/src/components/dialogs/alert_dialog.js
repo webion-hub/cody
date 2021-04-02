@@ -2,7 +2,6 @@
 import React from 'react';
 
 import { Button } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
 import { ListItemText } from '@material-ui/core';
@@ -74,9 +73,6 @@ export function AlertDialog(props){
         image={Error}
         margin={1}
         items={[
-          <Typography variant="h6">
-            Ci sono i seguenti errori:
-          </Typography>,
           <List component="nav">
             {getItems()}
             {children}

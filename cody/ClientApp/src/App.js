@@ -13,6 +13,9 @@ import './custom.css';
 import { AlertDialog } from './components/dialogs/alert_dialog';
 import { PageController } from './lib/page_controller';
 
+import BrightnessMediumIcon from '@material-ui/icons/BrightnessMedium';
+import { AlertDialogItem } from './components/alert_dialog_item'
+
 const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
 const Error404Page = lazy(() => import('./pages/message_pages/Error404Page'));
@@ -55,13 +58,13 @@ function Routes(){
   };
 
   const errorLabels = {
-    serverError: "C'è stato un errore con il server!",
-    sizeTooBig: "Dimensione troppo grande!",
-    unauthorized: "Richiesta non autorizzata!",
-    badRequest: "Richiesta non valida!",
-    notFound: "Non trovato!",
-    networkError: "C'è stato un errore di rete!",
-    genericError: "C'è stato un errore!",
+    serverError: [ <BrightnessMediumIcon/>, "C'è stato un errore con il server!" ],
+    sizeTooBig: [ <BrightnessMediumIcon/>, "Dimensione troppo grande!" ],
+    unauthorized: [ <BrightnessMediumIcon/>, "Richiesta non autorizzata!" ],
+    badRequest: [ <BrightnessMediumIcon/>, "Richiesta non valida!" ],
+    notFound: [ <BrightnessMediumIcon/>, "Non trovato!" ],
+    networkError: [ <BrightnessMediumIcon/>, "C'è stato un errore di rete!" ],
+    genericError: [ <BrightnessMediumIcon/>, "C'è stato un errore!" ],
   }
 
   return (
@@ -96,7 +99,10 @@ function Routes(){
         }}
         buttonLabel="Ricarica la pagina"
       >
-        {errorLabels[errorsDialog]}
+        <AlertDialogItem 
+          icon  = {errorsDialog ? errorLabels[errorsDialog][0]: ""}
+	    	  label = {errorsDialog ? errorLabels[errorsDialog][1]: ""}
+        />
       </AlertDialog>
     </Router>
   );
