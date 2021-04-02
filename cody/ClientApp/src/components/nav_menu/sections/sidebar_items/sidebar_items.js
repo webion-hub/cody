@@ -6,6 +6,7 @@ import { SideBarOrganizationList } from './items/sidebar_ogranizations_list/side
 import { SideBarOrganizationListDrawerContent } from './items/sidebar_ogranizations_list/drawer_content/sidebar_organizations_list_drawer_content';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { SideBarCreateOrJoinOrganizationIcon } from './items/sidebar_create_or_join_organization_icon';
 
 
 export const useSideBarItems = () => {
@@ -24,6 +25,10 @@ export const useSideBarItems = () => {
       drawerContent: <SideBarOrganizationListDrawerContent/>,
       width: 500,
       hideWhen: isNotLogged
+    },
+    {
+      item: SideBarCreateOrJoinOrganizationIcon,
+      hideWhen: isLogged
     },
     {
       item: SideBarThemeIcon,
