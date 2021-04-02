@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Grid, useTheme, Paper, LinearProgress, Fade } from '@material-ui/core'
+import { Grid, useTheme, LinearProgress, Fade } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
 import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
@@ -18,19 +18,42 @@ export function SideBarOrganizationListDrawerContent() {
   const [organizationsList, setOrganizationsList] = React.useState([])
   const [noOrganizations, setNoOrganizations] = React.useState(false)
   const [searchValue, setSearchValue] = React.useState("")
+  const [showOnlyBookmarked, setShowOnlyBookmarked] = React.useState(false)
 
-	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList(searchValue))
+	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList({values: searchValue}))
 
   useEffect(() => {
     setLoading(true)
     setTimeout(() => 
-      refreshOrganizationList(
-        "", () => setNoOrganizations(true)
-      )
+      refreshOrganizationList({
+        value: "",
+        onZeroOrganizationsFounded: () => setNoOrganizations(true)
+      })
     , 150);
-  }, [])
 
-  const refreshOrganizationList = (value, onZeroOrganizationsFounded) => {
+    setOnlyBookmarkedFilter()
+  }, [showOnlyBookmarked])
+
+  const setOnlyBookmarkedFilter = () => {
+  	document.addEventListener('showOnlyBookmarkedOrganizations', val => {
+      setShowOnlyBookmarked(val.detail)
+    })
+  }
+
+  const refreshOrganizationList = ({value, onZeroOrganizationsFounded}) => {
+    if(showOnlyBookmarked){
+      User
+        .getBookmarkedOrganizations({
+          filter: value,
+        })
+        .then(data => {
+          setOrganizationsList(data.values)
+        })
+        .finally(() => setLoading(false))
+      
+      return;
+    }
+
     User
       .getJoinedOrganizations({
         filter: value,
@@ -47,18 +70,20 @@ export function SideBarOrganizationListDrawerContent() {
   const handleSearchValue = (value) => {
     setLoading(true)
     setSearchValue(value)
-    refreshOrganizationList(value)
+    refreshOrganizationList({value: value})
   }
 
 
   const getListItem = (index, style) => {
+    const organization = organizationsList[index]
+    const isBookmarked = showOnlyBookmarked ? true : organization.isBookmarked
+
     return (
       <BookmarkOrganizationListItem
-        organization={organizationsList[index]}
+        organization={organization}
+        isBookmarked={isBookmarked}
         style={style}
         index={index}
-        isSaved={false}
-        onIsSavedChange={(isSaved) => console.log(isSaved)}
       />
     )
   }

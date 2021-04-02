@@ -6,29 +6,27 @@ import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded'
 import BookmarkRoundedIcon from '@material-ui/icons/BookmarkRounded';
 
 export function BookmarkIconButton(props) {
-  const [isSaved, setIsSaved] = React.useState(props.isFavorite)
+  const [isBookmarked, setIsBookmarked] = React.useState(props.isBookmarked)
 
-  const getIcon = (isSaved) => {
-    if(isSaved) 
+  const getIcon = (isBookmarked) => {
+    if(isBookmarked) 
       return <BookmarkRoundedIcon/>
     else
       return <BookmarkBorderRoundedIcon/>
   }
 
-  const handleIsSaved = () => {
-    setIsSaved(isSaved => !isSaved)
+  const handleIsBookmarked = () => {
+    setIsBookmarked(!isBookmarked)
+    props.onClick?.(!isBookmarked)
   }
-
-  useEffect(() => {
-    props.onChange?.(isSaved)
-  }, [isSaved])
 
   return (
     <IconButton
+      disabled={props.disabled}
       color="secondary"
-      onClick={handleIsSaved}
+      onClick={handleIsBookmarked}
     >
-      {getIcon(isSaved)}
+      {getIcon(isBookmarked)}
     </IconButton>
   )
 }

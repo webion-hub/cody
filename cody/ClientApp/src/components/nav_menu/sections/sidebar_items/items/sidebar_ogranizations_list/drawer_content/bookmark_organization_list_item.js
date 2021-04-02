@@ -12,6 +12,7 @@ import { OrganizationLabel } from 'src/components/typography/organization_label'
 
 import { BookmarkIconButton } from 'src/components/bookmark_icon_button';
 import { OrganizationListItem } from 'src/components/organization_list_item';
+import { User } from 'src/lib/server_calls/user';
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
@@ -25,12 +26,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1)
   },
   listItemAvatar: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(1)
   }
 }));
 
 export function BookmarkOrganizationListItem(props) {
   const classes = useStyles();
+  const [disableBookmarkedIcon, setDisableBookmarkedIcon] = React.useState(false)
+  const updateUserOrganizations = new Event('updateUserOrganizations');
 
   const organization = props.organization
   const organizationId = organization.id
@@ -39,6 +42,25 @@ export function BookmarkOrganizationListItem(props) {
   const organizationKind = organization.kind
 
   const organizationImageUrl = `organizations/${organizationId}/logo`
+
+
+  const handleBookmarkClick = (isBookmarked) => {
+    setDisableBookmarkedIcon(true)
+    if(isBookmarked)
+      User
+        .addBookmarkedOrganization(organizationId)
+        .finally(_ => {
+          document.dispatchEvent(updateUserOrganizations)          
+          setDisableBookmarkedIcon(false)
+        })
+    else
+      User
+        .removeBookmarkedOrganizations(organizationId)
+        .finally(_ => {
+          document.dispatchEvent(updateUserOrganizations)
+          setDisableBookmarkedIcon(false)
+        })
+  }
 
   return (
     <OrganizationListItem
@@ -71,8 +93,9 @@ export function BookmarkOrganizationListItem(props) {
       />
       <ListItemSecondaryAction>
         <BookmarkIconButton
-          isSaved={props.isSaved}
-          onChange={props.onIsSavedChange}
+          disabled={disableBookmarkedIcon}
+          isBookmarked={props.isBookmarked}
+          onClick={handleBookmarkClick}
         />
       </ListItemSecondaryAction>
     </OrganizationListItem>

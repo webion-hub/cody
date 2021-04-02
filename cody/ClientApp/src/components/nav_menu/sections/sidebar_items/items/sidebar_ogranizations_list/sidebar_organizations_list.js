@@ -5,13 +5,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
+import BookmarksRoundedIcon from '@material-ui/icons/BookmarksRounded';
+import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { PageController } from 'src/lib/page_controller';
 
-import { User } from 'src/lib/server_calls/user';
 import { OrganizationListItem } from 'src/components/organization_list_item';
+import { getBookmarkedOrganizations } from './lib/get_bookmarked_organizations';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 	organizationsList: props => ({
 		padding: 0,
 		margin: "8px 0px",
-		background: theme.palette.background.paperSecondary,
+		background: theme.palette.background.backgroundTransparent,
 		borderRadius: theme.drawer.width / 2,
 		height: props.organizationsListHeight,
 		transition: "0.25s height"
@@ -65,20 +67,24 @@ export function SideBarOrganizationList(props){
 	const [loading, setLoading] = React.useState(false)
   const [organizationsList, setOrganizationsList] = React.useState([])
   const [numberOfOrganizationsFinded, setNumberOfOrganizationsFinded] = React.useState(0)
+  const [showOnlyBookmarked, setShowOnlyBookmarked] = React.useState(false)
 
+	const extraIcons = 3;
 	const maxOrganizationsNumber = 4;
 	const organizationsNumber = 
 		numberOfOrganizationsFinded > maxOrganizationsNumber ? 
 		maxOrganizationsNumber : numberOfOrganizationsFinded
+
+	const totaleIcons = organizationsNumber + extraIcons
 	const iconHeight = 48;
 
-	const organizationsListHeightOnDrawerOpen = iconHeight * 2
-	const organizationsListHeightOnDrawerClose = iconHeight * (organizationsNumber + 2)
+	const organizationsListHeightOnDrawerOpen = iconHeight * extraIcons
+	const organizationsListHeightOnDrawerClose = iconHeight * totaleIcons
 	const organizationsListHeight = isDrawerOpen ? 
 		organizationsListHeightOnDrawerOpen : organizationsListHeightOnDrawerClose
 
-	const expandIconTopPositionOnDrawerOpen = iconHeight
-	const expandIconTopPositionOnDrawerClose = iconHeight * (organizationsNumber + 1)
+	const expandIconTopPositionOnDrawerOpen = iconHeight * (extraIcons - 1) 
+	const expandIconTopPositionOnDrawerClose = iconHeight * (totaleIcons - 1)
 	const expandIconTopPosition = isDrawerOpen ? 
 		expandIconTopPositionOnDrawerOpen : expandIconTopPositionOnDrawerClose
 
@@ -91,17 +97,41 @@ export function SideBarOrganizationList(props){
     setTimeout(() => refreshOrganizationList(), 150);
   }, [])
 
+	useEffect(() => {
+		handleBookmarEvent(showOnlyBookmarked)
+	}, [showOnlyBookmarked])
+
+	const handleBookmarEvent = (state) => {
+		const showOnlyBookmarkedOrganizations = new CustomEvent('showOnlyBookmarkedOrganizations', {detail: state});
+		document.dispatchEvent(showOnlyBookmarkedOrganizations)
+	}
+
 	const refreshOrganizationList = () => {
-		User
-			.getJoinedOrganizations({
-				filter: "+logo",
-				limit: maxOrganizationsNumber
-			})
-			.then(data => {
-				setNumberOfOrganizationsFinded(data.total)
-				setOrganizationsList(data.values)
-			})
-			.finally(() => setLoading(false))
+		getBookmarkedOrganizations({
+			maxOrganizationsNumber: maxOrganizationsNumber
+		})
+		.then(data => {
+			setOrganizationsList(data.values)
+			setNumberOfOrganizationsFinded(data.total)
+		})
+		.finally(_ => setLoading(false))
+	}
+
+
+
+	const handleOpenDrawerWithBookmarked = () => {
+		if(!isDrawerOpen){
+			setShowOnlyBookmarked(true)
+			props.toggleDrawer()
+			return
+		}
+
+		setShowOnlyBookmarked(!showOnlyBookmarked)
+	}
+
+	const handleOpendDrawer = () => {
+		setShowOnlyBookmarked(false)
+		props.toggleDrawer()
 	}
 
 	const organizationAvatarList = 
@@ -134,11 +164,20 @@ export function SideBarOrganizationList(props){
 					<AddRoundedIcon/>
 				</ListItemIcon>
 			</ListItem>
+			<ListItem 
+				button
+				component="a"
+				onClick={handleOpenDrawerWithBookmarked}
+			>
+				<ListItemIcon>
+					<BookmarksRoundedIcon color={isDrawerOpen && showOnlyBookmarked ? "secondary" : "inherit"}/>
+				</ListItemIcon>
+			</ListItem>
 			{showOrganizationAvatarList}
 			<ListItem 
 				button 
 				className={classes.expandOrganizationListButton}
-				onClick={props.setOpenDrawer}
+				onClick={handleOpendDrawer}
 			>
 				<ListItemIcon className={`${classes.drawerHandlerIcon} ${isDrawerOpen ? classes.rotateIcon : ""}`}>
 					<NavigateNextRoundedIcon/>
