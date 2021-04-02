@@ -1,13 +1,14 @@
 import React from 'react';
 
-import BeenhereRoundedIcon from '@material-ui/icons/BeenhereRounded';
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
-import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
-import RestoreRoundedIcon from '@material-ui/icons/RestoreRounded';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, IconButton, ListItemIcon, Menu, MenuItem } from '@material-ui/core';
+import { IconButton, Menu } from '@material-ui/core';
 import { DataTableContext } from 'src/pages/admin_pages/components/data_table_base';
+import { VerifyMenuItem } from './verify_menu_item';
+import { DeleteMenuItem } from './delete_menu_item';
+import { ResotreMenuItem } from './restore_menu_item';
+import { DeleteForeverMenuItem } from './delete_forever_menu_item';
 
 const useStyles = makeStyles((theme) => ({
 	menuBackground: {
@@ -74,44 +75,25 @@ export function RowMenu(props){
 					paper: classes.menuBackground
 				}}
 			>
-				{
-					onVerify ?
-						<MenuItem
-							onClick={handleVerify}
-							disabled={disableVerifiyButton}
-						>
-							<ListItemIcon>
-								<BeenhereRoundedIcon fontSize="small"/>
-							</ListItemIcon>
-							<Typography variant="inherit" noWrap>
-								Verifica
-							</Typography>
-						</MenuItem>
-						:
-						null
-				}
-				<MenuItem
-					onClick={handleDelete}
+				<VerifyMenuItem
+					hide={!onVerify}
+					disabled={disableVerifiyButton}
+					onVerify={handleVerify}
+				/>
+				<DeleteMenuItem
 					disabled={disableDeleteButton}
-				>
-					<ListItemIcon>
-						<DeleteRoundedIcon fontSize="small"/>
-					</ListItemIcon>
-					<Typography variant="inherit" noWrap>
-						Cancella
-					</Typography>
-				</MenuItem>
-        <MenuItem
-					onClick={handleRestore}
+					onDelete={handleDelete}
+				/>
+				<DeleteForeverMenuItem
+					hide
+					disabled={disableDeleteButton}
+					onDeleteForever={handleDelete}
+					id={id}
+				/>
+				<ResotreMenuItem
 					disabled={disableRestoreButton}
-				>
-					<ListItemIcon>
-						<RestoreRoundedIcon fontSize="small"/>
-					</ListItemIcon>
-					<Typography variant="inherit" noWrap>
-						Ripristina
-					</Typography>
-				</MenuItem>
+					onRestore={handleRestore}
+				/>
 			</Menu>
 		</>
 	);

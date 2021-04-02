@@ -1,6 +1,6 @@
 import React from 'react';
 import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base';
-import { RowMenu } from 'src/pages/admin_pages/components/row_menu';
+import { RowMenu } from 'src/pages/admin_pages/components/row_menu/row_menu';
 import { Admin } from 'src/lib/server_calls/admin';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
 import { getEmailValidIcon } from 'src/pages/admin_pages/lib/get_email_valid_icon';
