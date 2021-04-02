@@ -26,8 +26,8 @@ export function Layout(props){
   return (
     <ThemeContextProvider>
       <ThemeContextConsumer>
-        {({state, toggleTheme}) => (
-          <MuiThemeProvider theme = {themeController.getTheme(state)}>
+        {({theme, toggleTheme}) => (
+          <MuiThemeProvider theme = {themeController.getTheme(theme)}>
             <CssBaseline />
             <NavMenu
               appBarElements={appBarElements}

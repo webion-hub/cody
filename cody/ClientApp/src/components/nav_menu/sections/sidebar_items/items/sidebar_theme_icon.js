@@ -26,7 +26,7 @@ export function SideBarThemeIcon(){
 	return (
 		<List className={classes.sideBarList}>
             <ThemeContextConsumer>
-                {({state, toggleTheme}) => (
+                {({theme, toggleTheme}) => (
                     <ListItem 
                         button
                         component="a"

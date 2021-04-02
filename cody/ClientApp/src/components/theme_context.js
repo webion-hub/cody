@@ -1,68 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { User } from 'src/lib/server_calls/user';
+import { UserContext } from 'src/components/user_controller_context/user_controller_context'
 
 export const ThemeContext = React.createContext({
-    state: 'dark',
-    toggleTheme: () => {},
-  });
-  
+  theme: 'dark',
+  toggleTheme: () => {},
+});
+
 export const ThemeContextConsumer = ThemeContext.Consumer;
-  
+
 export function ThemeContextProvider(props){
-  const [state, setState] = useState('dark');
+  const userState = React.useContext(UserContext).userState;
+  
   let currentTheme = localStorage.getItem("Cody-ThemeMode");
-  let value;
+  if(currentTheme)
+  currentTheme = currentTheme.toLowerCase();
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
+  currentTheme = "dark"
+  
+  localStorage.setItem('Cody-ThemeMode', currentTheme); 
+  const [theme, setTheme] = useState(currentTheme);
 
   useEffect( _ => {
-    if(localStorage.getItem("Cody-ThemeMode"))
-      currentTheme = localStorage.getItem("Cody-ThemeMode").toLowerCase();
-    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
-      currentTheme = "dark"
-
-    localStorage.setItem('Cody-ThemeMode', currentTheme); 
-    
-    User.isLogged().then(isLogged => {
-      if (!isLogged)
-      return;
-      
+    if (userState == "logged")
+    {
       User.getThemeColor().then(themeColor => {
         if(themeColor)
         {
-          currentTheme = themeColor;
-          setState(currentTheme.toLowerCase());  
+          currentTheme = themeColor.toLowerCase();
+          setTheme(currentTheme.toLowerCase());  
           localStorage.setItem('Cody-ThemeMode', currentTheme);  
           loaderThemeSelection();
         }
       });
-    });
-  },[]);
+    }
+  },[userState]);
 
-  const toggleTheme = async (state) => {
+  const toggleTheme = async (theme) => {
     currentTheme = 
       currentTheme == 'dark'? 
         'light' : 
         'dark'
 
-    setState(currentTheme.toLowerCase());  
+    setTheme(currentTheme.toLowerCase());  
 
-    User.isLogged().then(isLogged => {
-      if (isLogged)
-        User.setThemeColor(currentTheme);
-    });
+    if (userState == "logged")
+      User.setThemeColor(currentTheme);
 
     localStorage.setItem('Cody-ThemeMode', currentTheme);  
     loaderThemeSelection();
   };
-    
-  
-  value = { 
-    state,
-    toggleTheme,
-  };
 
   return (
     <ThemeContext.Provider value={{ 
-      state,
+      theme,
       toggleTheme,
     }}>
       {props.children}
@@ -72,18 +63,18 @@ export function ThemeContextProvider(props){
   
 function loaderThemeSelection()
 {
-    let root = document.documentElement;
-    if(localStorage.getItem('Cody-ThemeMode') == 'dark')
-    {
-        root.style.setProperty('--ring-inner-color', "#131C2A");
-        root.style.setProperty('--ring-outer-color', "#1F4BFF");
-        root.style.setProperty('--background-color', "#172230");
-    }
+  let root = document.documentElement;
+  if(localStorage.getItem('Cody-ThemeMode') == 'dark')
+  {
+    root.style.setProperty('--ring-inner-color', "#131C2A");
+    root.style.setProperty('--ring-outer-color', "#1F4BFF");
+    root.style.setProperty('--background-color', "#172230");
+  }
 
-    if(localStorage.getItem('Cody-ThemeMode') == 'light')
-    {
-        root.style.setProperty('--ring-inner-color', "#f3f3f3");
-        root.style.setProperty('--ring-outer-color', "#1F4BFF");
-        root.style.setProperty('--background-color', "#f7f7f8");
-    }
+  if(localStorage.getItem('Cody-ThemeMode') == 'light')
+  {
+    root.style.setProperty('--ring-inner-color', "#f3f3f3");
+    root.style.setProperty('--ring-outer-color', "#1F4BFF");
+    root.style.setProperty('--background-color', "#f7f7f8");
+  }
 }
