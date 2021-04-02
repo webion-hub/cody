@@ -312,7 +312,8 @@ User._getJoinedOrgsReq = new SingleXHRRequest();
  * @property {string} name
  * @property {OrganizationKind} kind
  * @property {{hasBeenVerified: boolean}} state
- * @property {boolean} hasLogo 
+ * @property {boolean} hasLogo
+ * @property {boolean} isBookmarked
  */
 
 /**

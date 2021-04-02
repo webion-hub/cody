@@ -3,6 +3,7 @@ using Cody.QueryExtensions;
 using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,6 +36,7 @@ namespace Cody.Controllers
                 .OrganizationMembers
                 .IncludingOrganization().WithState()
                 .IncludingOrganization().WithLogo()
+                .IncludingOrganization().ThenInclude(o => o.BookmarkedBy)
 
                 .Where(om => om.UserAccountId == userId)
                 .Select(om => om.Organization)
@@ -53,6 +55,8 @@ namespace Cody.Controllers
                     },
                     Kind = o.Kind.ToString(),
                     HasLogo = o.Detail.Logo != null,
+                    IsBookmarked =
+                        o.BookmarkedBy.Any(bo => bo.UserAccountId == userId),
                 });
         }
     }
