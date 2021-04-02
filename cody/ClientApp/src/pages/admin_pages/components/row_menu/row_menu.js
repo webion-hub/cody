@@ -22,6 +22,7 @@ export function RowMenu(props){
   const { refreshDataTable } = React.useContext(DataTableContext);
 
   const onDelete = props.onDelete;
+  const onDeleteForever = props.onDeleteForever;
   const onRestore = props.onRestore;
   const onVerify = props.onVerify;
   const id = props.data.id;
@@ -59,6 +60,11 @@ export function RowMenu(props){
     refreshDataTable()
   }
 
+	const handleDeleteForever = () => {
+    onDeleteForever(id)
+    refreshDataTable()
+  }
+
 	return (
 		<>
 			<IconButton
@@ -85,10 +91,12 @@ export function RowMenu(props){
 					onDelete={handleDelete}
 				/>
 				<DeleteForeverMenuItem
-					hide
+					hide={!onDeleteForever}
 					disabled={disableDeleteButton}
-					onDeleteForever={handleDelete}
+					onDeleteForever={handleDeleteForever}
+					onMenuClose={_ => setAnchorEl(null)}
 					id={id}
+					username={props.data.username}
 				/>
 				<ResotreMenuItem
 					disabled={disableRestoreButton}

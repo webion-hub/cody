@@ -15,6 +15,7 @@ export function UsersList(props){
 			<RowMenu 
 				data={data} 
 				onDelete={Admin.deleteUser} 
+				onDeleteForever={Admin.deleteUserForever} 
 				onRestore={Admin.restoreUser}
 			/>
 
