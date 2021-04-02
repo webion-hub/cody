@@ -36,7 +36,6 @@ export function SideBarOrganizationListDrawerContent() {
         filter: value,
       })
       .then(data => {
-        console.log(data.values)
         setOrganizationsList(data.values)
         if(data.total === 0)
           onZeroOrganizationsFounded?.()

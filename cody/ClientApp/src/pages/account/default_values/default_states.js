@@ -5,7 +5,6 @@ export const nullData = {
 	email: "",
 	school: null,
 	birthDate: "",
-	role: "",
 	biography: "",
 }
 
