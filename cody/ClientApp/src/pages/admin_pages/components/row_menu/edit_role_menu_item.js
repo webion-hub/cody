@@ -3,17 +3,33 @@ import React from 'react';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { MenuItemBase } from './menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
-import { TextField, Button } from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import { Admin } from 'src/lib/server_calls/admin';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 export const EditRoleMenuItem = React.forwardRef((props, ref) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [textFieldRole, setTextFieldRole] = React.useState("");
 
+  const classes = useStyles();
+
   const handleEditRole = (data) => {
-    if(textFieldRole == "")
+    if(textFieldRole === "")
       return;
 
     const info = { 
@@ -26,12 +42,17 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
   }
 
   const handleDialogOpen = () => {
+    Admin.getUserRole(props.id).then(role => {
+      setTextFieldRole(role);
+      setOpenDialog(true);
+    });
+    
     props.onMenuClose?.();
-    setOpenDialog(true);
   }
 
   if(props.hide)
     return null;
+
 
   return (
     <>
@@ -64,7 +85,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
           </Button>
         }
       >
-        <Autocomplete
+        {/* <Autocomplete
           options={["Admin", "User"]}
           style={{ minWidth: "200px" }}
           onChange={(event, value) => setTextFieldRole(value)}
@@ -74,11 +95,28 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
               label="Ruolo"
               variant="outlined"
               color="secondary"
-              content={Admin.getUserRole(props.id)}
+              value={textFieldRole}
               onChange={e => setTextFieldRole(e.target.value)}
             />
           )}
-        />
+        /> */}
+
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">Ruolo</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={textFieldRole}
+            color="secondary"
+            onChange={e => setTextFieldRole(e.target.value)}
+            label="Ruolo"
+          >
+            <MenuItem value="User">User</MenuItem>
+            <MenuItem value="Admin">Admin</MenuItem>
+          </Select>
+        </FormControl>
+
+
       </DialogBase>
     </>
   );

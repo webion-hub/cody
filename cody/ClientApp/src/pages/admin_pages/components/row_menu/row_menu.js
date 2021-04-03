@@ -11,6 +11,8 @@ import { ResotreMenuItem } from './restore_menu_item';
 import { DeleteForeverMenuItem } from './delete_forever_menu_item';
 import { EditRoleMenuItem } from './edit_role_menu_item';
 
+import { Admin } from 'src/lib/server_calls/admin';
+
 const useStyles = makeStyles((theme) => ({
 	menuBackground: {
 		background: theme.palette.background.paperSecondary
