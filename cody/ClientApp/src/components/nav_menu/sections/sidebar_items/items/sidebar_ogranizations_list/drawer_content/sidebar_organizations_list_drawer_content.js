@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Grid, useTheme, LinearProgress, Fade } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
@@ -7,8 +7,8 @@ import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_w
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 import { BookmarkOrganizationListItem } from './bookmark_organization_list_item';
 
-import { User } from 'src/lib/server_calls/user';
 import { NoOrganizationFounded } from './no_organization_founded';
+import { getJoinedOrganizations } from './lib/get_joined_organizations';
 
 export function SideBarOrganizationListDrawerContent() {
   const theme = useTheme();
@@ -16,61 +16,41 @@ export function SideBarOrganizationListDrawerContent() {
 
   const [loading, setLoading] = React.useState(false)
   const [organizationsList, setOrganizationsList] = React.useState([])
-  const [noOrganizations, setNoOrganizations] = React.useState(false)
+  const [noOrganizations, setNoOrganizations] = React.useState("notShowMessage")
   const [searchValue, setSearchValue] = React.useState("")
-  const [showOnlyBookmarked, setShowOnlyBookmarked] = React.useState(false)
 
-	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList({values: searchValue}))
-
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => 
-      refreshOrganizationList({
-        value: "",
-        onZeroOrganizationsFounded: () => setNoOrganizations(true)
-      })
-    , 150);
-
-    setOnlyBookmarkedFilter()
-  }, [showOnlyBookmarked])
-
-  const setOnlyBookmarkedFilter = () => {
-  	document.addEventListener('showOnlyBookmarkedOrganizations', val => {
-      setShowOnlyBookmarked(val.detail)
+  document.addEventListener('drawerOrganizationsFilterEvent', val => {
+    refreshOrganizationList({
+      searchValue: "",
+      onZeroOrganizationsFounded: () => {
+        if(val.detail === "showOnlyBookmarked")
+          setNoOrganizations("showNoBookmarkedOrganizations")
+        else
+          setNoOrganizations("showNoOrganizations")
+      },
+      showOnlyBookmarked: val.detail
     })
-  }
+  })
 
-  const refreshOrganizationList = ({value, onZeroOrganizationsFounded}) => {
-    if(showOnlyBookmarked){
-      User
-        .getBookmarkedOrganizations({
-          filter: value,
-        })
-        .then(data => {
-          setOrganizationsList(data.values)
-        })
-        .finally(() => setLoading(false))
-      
-      return;
-    }
+  const refreshOrganizationList = ({searchValue, onZeroOrganizationsFounded, showOnlyBookmarked}) => {
+    setLoading(true)
 
-    User
-      .getJoinedOrganizations({
-        filter: value,
-      })
-      .then(data => {
-        setOrganizationsList(data.values)
-        if(data.total === 0)
-          onZeroOrganizationsFounded?.()
-      })
-      .finally(() => setLoading(false))
+    getJoinedOrganizations({
+      searchValue: searchValue,
+      showOnlyBookmarked: showOnlyBookmarked,
+    })
+    .then(data => {
+      setOrganizationsList(data.values)
+      if(data.total === 0)
+        onZeroOrganizationsFounded?.()
+    })
+    .finally(() => setLoading(false))
 	}
 
-
-  const handleSearchValue = (value) => {
+  const handleSearchValue = (searchValue) => {
     setLoading(true)
-    setSearchValue(value)
-    refreshOrganizationList({value: value})
+    setSearchValue(searchValue)
+    refreshOrganizationList({searchValue: searchValue})
   }
 
 
@@ -88,8 +68,8 @@ export function SideBarOrganizationListDrawerContent() {
     )
   }
 
-  if(noOrganizations)
-    return <NoOrganizationFounded/>
+  if(noOrganizations !== "notShowMessage")
+    return <NoOrganizationFounded messageType={noOrganizations}/>
 
   return (
     <>
