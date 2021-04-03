@@ -55,7 +55,7 @@ export function BookmarkOrganizationListItem(props) {
         })
     else
       User
-        .removeBookmarkedOrganizations(organizationId)
+        .removeBookmarkedOrganization(organizationId)
         .finally(_ => {
           document.dispatchEvent(updateUserOrganizations)
           setDisableBookmarkedIcon(false)
