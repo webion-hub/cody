@@ -29,6 +29,15 @@
     <script type="text/javascript" src="%PUBLIC_URL%/loaderThemeSelection.js"></script>
     <script>
       loaderThemeSelection();
+
+      function reload(){
+        window.location.reload()
+      }
+
+      window.addEventListener('online', reload)
+      document.addEventListener('reactDomLoaded', _ =>
+        window.removeEventListener('online', reload)
+      );
     </script>
     <title>cody</title>
   </head>
