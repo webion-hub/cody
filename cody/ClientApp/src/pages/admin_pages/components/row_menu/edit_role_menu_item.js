@@ -46,7 +46,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
       setTextFieldRole(role);
       setOpenDialog(true);
     });
-    
+
     props.onMenuClose?.();
   }
 
@@ -85,22 +85,6 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
           </Button>
         }
       >
-        {/* <Autocomplete
-          options={["Admin", "User"]}
-          style={{ minWidth: "200px" }}
-          onChange={(event, value) => setTextFieldRole(value)}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label="Ruolo"
-              variant="outlined"
-              color="secondary"
-              value={textFieldRole}
-              onChange={e => setTextFieldRole(e.target.value)}
-            />
-          )}
-        /> */}
-
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-outlined-label">Ruolo</InputLabel>
           <Select

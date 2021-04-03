@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';  
 import { CssBaseline } from "@material-ui/core";
 import { useMediaQuery } from '@material-ui/core';
@@ -13,7 +13,7 @@ import { useSideBarItems } from 'src/components/nav_menu/sections/sidebar_items/
 
 import { NavMenu } from 'src/components/nav_menu/nav_menu';
 
-import { ThemeContext, ThemeContextProvider, ThemeContextConsumer } from 'src/components/theme_context';
+import { ThemeContextProvider, ThemeContextConsumer } from 'src/components/theme_context';
 
 const themeController = new ThemeController();
 
@@ -21,7 +21,6 @@ const themeController = new ThemeController();
 export function Layout(props){
   const sideBarItems = useSideBarItems()
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = prefersDarkMode ? "dark" : "light";
   
   return (
     <ThemeContextProvider>
