@@ -40,7 +40,7 @@ namespace Cody.Controllers.Helpers
             Name             => _user.AccountDetail.Name,
             Surname          => _user.AccountDetail.Surname,
             BirthDate        => _user.AccountDetail.BirthDate,
-            Role             => _user.AccountRole?.Name,
+            Role             => _user.Role.ToString(),
             RegistrationDate => _user.AccountDetail.RegistrationDate,
             Biography        => await GetBiographyAsync().ContinueWith(b => b.Result?.Contents),
 
@@ -58,17 +58,8 @@ namespace Cody.Controllers.Helpers
                 case Name:      _user.AccountDetail.Name = value;                           break;
                 case Surname:   _user.AccountDetail.Surname = value;                        break;
                 case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);      break;
-                case Role:      SetRole(value);                                             break;
                 case Biography: await SetBiographyAsync(value);                             break;
             }
-        }
-
-
-        private void SetRole(string role)
-        {
-            RolesManager
-                .Using(_dbContext)
-                .AssignOrRevokeIfNull(_user, role);
         }
 
         private async Task SetBiographyAsync(string value)

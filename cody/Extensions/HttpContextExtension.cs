@@ -33,15 +33,6 @@ namespace Cody.Extensions
         }
 
 
-        public static async Task<bool> IsUserInRoleAsync(this HttpContext context, string role)
-        {
-            var user = 
-                await context.GetLoggedUserAsync();
-            
-            return RolesManager.IsUserInRole(user, role);
-        }
-
-
         public static Task<UserAccount> GetLoggedUserAsync(this HttpContext context)
         {
             var dbContext = context

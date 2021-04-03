@@ -18,8 +18,7 @@ namespace Cody.Controllers.Admin
             if (user is null)
                 return BadRequest();
 
-            var userRole = user.AccountRole?.Name ?? Roles.User;
-            return Ok(userRole);
+            return Ok(user.Role.ToString());
         }
 
 
@@ -33,10 +32,10 @@ namespace Cody.Controllers.Admin
             if (user is null)
                 return BadRequest();
 
-            if (!Roles.Exists(role))
+            if (!Roles.TryGet(role, out var userRole))
                 return BadRequest();
 
-            RolesManager.AssignTo(user, role);
+            user.Role = userRole;
             await _dbContext.SaveChangesAsync();
             return Ok();
         }
@@ -46,7 +45,6 @@ namespace Cody.Controllers.Admin
         {
             return await _dbContext
                 .UserAccounts
-                .IncludingRole()
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
     }

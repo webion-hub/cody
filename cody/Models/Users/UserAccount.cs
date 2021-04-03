@@ -9,6 +9,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cody.Models.Users
 {
+    public enum UserRole {
+        User,
+        Admin,
+    }
+
+
     [Table("user_account")]
     public class UserAccount : IRejectable
     {
@@ -26,6 +32,11 @@ namespace Cody.Models.Users
         public string Username { get; set; }
 
 
+        [Required]
+        [Column(TypeName = "text")]
+        public UserRole Role { get; set; }
+
+
         public UserAccountPassword Password { get; set; }
 
         [NotMapped]
@@ -35,7 +46,6 @@ namespace Cody.Models.Users
 
         public UserAccountDetail AccountDetail { get; set; }
         public UserAccountState AccountState { get; set; }
-        public UserAccountRole AccountRole { get; set; }
         public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public List<OrganizationMember> Organizations { get; set; }
         public List<BookmarkedOrganization> BookmarkedOrganizations { get; set; }

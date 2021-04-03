@@ -23,7 +23,6 @@ namespace Cody.Extensions
                 .UserAccounts
                 .IncludingDetail()
                 .IncludingState()
-                .IncludingRole()
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
 

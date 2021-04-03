@@ -49,7 +49,7 @@ namespace Cody.Security.Authorization
 
             var isUserAllowed = requirement
                 .AllowedRoles
-                .Contains(user.AccountRole?.Name);
+                .Contains(user.Role.ToString());
 
             return isUserAllowed;
         }

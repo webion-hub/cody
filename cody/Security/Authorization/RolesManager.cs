@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Models;
 using Cody.Models.Users;
+using Cody.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,12 @@ namespace Cody.Security.Authorization
 {
     internal class RolesManager
     {
-        private readonly CodyContext _dbContext;
-
-
-        public RolesManager(CodyContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
-        public static RolesManager Using(CodyContext dbContext) => new (dbContext);
-
-
         public static bool IsUserAdmin(UserAccount user)
         {
-            return IsUserInRole(user, Roles.Admin);
+            if (user is null)
+                return false;
+
+            return user.Role == UserRole.Admin;
         }
 
         public static bool IsUserInRole(UserAccount user, string role)
@@ -31,35 +24,7 @@ namespace Cody.Security.Authorization
             if (user is null)
                 return false;
 
-            if (user.AccountRole is null)
-                return role is "" or Roles.User;
-
-            return user.AccountRole.Name == role;
+            return user.Role.ToString() == role;
         }
-
-
-        public void AssignOrRevokeIfNull(UserAccount user, string role)
-        {
-            if (role is not null)
-                AssignTo(user, role);
-
-            else RevokeFrom(user);
-        }
-
-        public static void AssignTo(UserAccount user, string role)
-        {
-            if (!Roles.Exists(role))
-                throw new ArgumentException($"Inexistent role: {role}");
-
-            user.AccountRole ??= new();
-            user.AccountRole.Name = role;
-        }
-
-        public void RevokeFrom(UserAccount user)
-        {
-            if (user.AccountRole is not null)
-                _dbContext.Roles.Remove(user.AccountRole);
-        }
-
     }
 }

@@ -24,11 +24,6 @@ namespace Cody.QueryExtensions
             return self.Include(u => u.Password);
         }
 
-        public static IncludableRole IncludingRole(this IQueryable<UserAccount> self)
-        {
-            return self.Include(u => u.AccountRole);
-        }
-
         public static IncludableState IncludingState(this IQueryable<UserAccount> self)
         {
             return self.Include(u => u.AccountState);

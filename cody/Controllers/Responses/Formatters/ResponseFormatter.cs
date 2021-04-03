@@ -9,7 +9,7 @@ namespace Cody.Controllers.Responses.Formatters
         protected UserAccount Caller { get; init; }
         protected IQueryable<T> Values { get; init; }
 
-        protected string UserRole => Caller?.AccountRole.Name;
+        protected UserRole? UserRole => Caller?.Role;
         protected int? CallerId => Caller?.Id;
         protected bool IsCallerAnAdmin => RolesManager.IsUserAdmin(Caller);
 

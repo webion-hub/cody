@@ -32,6 +32,7 @@ namespace Cody.Controllers.Requests
                 Email = Email.Trim(),
                 PlainPassword = Password,
                 AccountDetail = AccountDetail.AsUserAccountDetail(),
+                Role = UserRole.User,
             };
         }
     }
