@@ -15,7 +15,7 @@ import { Admin } from 'src/lib/server_calls/admin';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 220,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -28,7 +28,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
 
   const classes = useStyles();
 
-  const handleEditRole = (data) => {
+  const handleEditRole = () => {
     if(textFieldRole === "")
       return;
 
@@ -42,10 +42,11 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
   }
 
   const handleDialogOpen = () => {
-    Admin.getUserRole(props.id).then(role => {
-      setTextFieldRole(role);
-      setOpenDialog(true);
-    });
+    Admin.getUserRole(props.id)
+      .then(role => {
+        setTextFieldRole(role);
+        setOpenDialog(true);
+      });
 
     props.onMenuClose?.();
   }
@@ -99,8 +100,6 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
             <MenuItem value="Admin">Admin</MenuItem>
           </Select>
         </FormControl>
-
-
       </DialogBase>
     </>
   );

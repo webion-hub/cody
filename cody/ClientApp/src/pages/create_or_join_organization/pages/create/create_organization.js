@@ -45,7 +45,7 @@ export const createOrganizationSettings = {
   height: 484,
 }
 
-function CreateOrganization(props){
+function CreateOrganization(){
   const classes = useStyles();
   const [organizationKind, setOrganizationKind] = React.useState('team');
 

@@ -95,6 +95,16 @@ export function RowMenu(props){
 					disabled={disableVerifiyButton}
 					onVerify={handleVerify}
 				/>
+				<EditRoleMenuItem
+					hide={!onEditRole}
+					onEditRole={handleEditRole}
+					onMenuClose={_ => setAnchorEl(null)}
+					id={id}
+				/>
+				<ResotreMenuItem
+					disabled={disableRestoreButton}
+					onRestore={handleRestore}
+				/>
 				<DeleteMenuItem
 					disabled={disableDeleteButton}
 					onDelete={handleDelete}
@@ -106,15 +116,6 @@ export function RowMenu(props){
 					onMenuClose={_ => setAnchorEl(null)}
 					id={id}
 					username={props.data.username}
-				/>
-				<ResotreMenuItem
-					disabled={disableRestoreButton}
-					onRestore={handleRestore}
-				/>
-				<EditRoleMenuItem
-					hide={!onEditRole}
-					onEditRole={handleEditRole}
-					id={id}
 				/>
 			</Menu>
 		</>
