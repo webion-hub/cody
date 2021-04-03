@@ -20,7 +20,7 @@ export class Admin {
    */
   static async getUserRole(userId) {
     return Requests.send({
-      url: `admin/users/${userId}`,
+      url: `admin/users/${userId}/role`,
       method: 'GET',
     })
     .then(resp => resp.data);
