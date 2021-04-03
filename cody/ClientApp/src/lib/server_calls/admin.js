@@ -4,6 +4,29 @@ import SingleXHRRequest from './single_xhr_request';
 
 export class Admin {
   /**
+   * @param {number} userId 
+   * @param {UserAccountRole} role 
+   */
+  static async setUserRole(userId, role) {
+    return Requests.send({
+      url: `admin/users/${userId}/role/${role}`,
+      method: 'PUT',
+    });
+  }
+
+  /**
+   * @param {number} userId
+   * @returns {Promise<UserAccountRole>} 
+   */
+  static async getUserRole(userId) {
+    return Requests.send({
+      url: `admin/users/${userId}`,
+      method: 'GET',
+    })
+    .then(resp => resp.data);
+  }
+
+  /**
    * @param {CommonFilterOptions} options
    * @returns {Promise<SearchResult<Admin.UserResult>>}
    */

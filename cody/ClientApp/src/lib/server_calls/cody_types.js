@@ -42,7 +42,8 @@
 
 /**
  * @typedef {(
- *  'Admin'
+ *  'Admin' |
+ *  'User'
  * )} UserAccountRole
  */
 
