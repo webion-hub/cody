@@ -22,7 +22,7 @@ export function ThemeContextProvider(props){
   const [theme, setTheme] = useState(currentTheme);
 
   useEffect( _ => {
-    if (userState == "logged")
+    if (userState === "logged")
     {
       User.getThemeColor().then(themeColor => {
         if(themeColor)
@@ -38,13 +38,13 @@ export function ThemeContextProvider(props){
 
   const toggleTheme = async (theme) => {
     currentTheme = 
-      currentTheme == 'dark'? 
+      currentTheme === 'dark'? 
         'light' : 
         'dark'
 
     setTheme(currentTheme.toLowerCase());  
 
-    if (userState == "logged")
+    if (userState === "logged")
       User.setThemeColor(currentTheme);
 
     localStorage.setItem('Cody-ThemeMode', currentTheme);  
@@ -64,14 +64,14 @@ export function ThemeContextProvider(props){
 function loaderThemeSelection()
 {
   let root = document.documentElement;
-  if(localStorage.getItem('Cody-ThemeMode') == 'dark')
+  if(localStorage.getItem('Cody-ThemeMode') === 'dark')
   {
     root.style.setProperty('--ring-inner-color', "#131C2A");
     root.style.setProperty('--ring-outer-color', "#1F4BFF");
     root.style.setProperty('--background-color', "#172230");
   }
 
-  if(localStorage.getItem('Cody-ThemeMode') == 'light')
+  if(localStorage.getItem('Cody-ThemeMode') === 'light')
   {
     root.style.setProperty('--ring-inner-color', "#f3f3f3");
     root.style.setProperty('--ring-outer-color', "#1F4BFF");
