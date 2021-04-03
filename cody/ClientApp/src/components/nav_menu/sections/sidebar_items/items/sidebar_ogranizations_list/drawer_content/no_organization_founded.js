@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function NoOrganizationFounded() {
+export function NoOrganizationFounded(props) {
   const classes = useStyles();
 
   return (
@@ -36,17 +36,20 @@ export function NoOrganizationFounded() {
         Non ci sono organizzazioni
       </Typography>
       <Typography variant="subtitle1">
-        a cui sei iscritto.
+        {props.messageType === "showNoOrganizations" ? "a cui sei iscritto" : "salvate"}
       </Typography>
-      <Button
-        className={classes.findOrganizationButton}
-        variant="outlined"
-        color="secondary"
-        href='/organization'
-        onClick={(event) => PageController.push('/organization', event)}
-      >
-        Trovane una
-      </Button>
+      {
+        props.messageType === "showNoOrganizations" && 
+          <Button
+            className={classes.findOrganizationButton}
+            variant="outlined"
+            color="secondary"
+            href='/organization'
+            onClick={(event) => PageController.push('/organization', event)}
+          >
+            Trovane una
+          </Button>
+      }
     </Grid>
   )
 }
