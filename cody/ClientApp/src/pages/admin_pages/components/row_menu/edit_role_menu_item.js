@@ -59,7 +59,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
       >
         <Autocomplete
           options={["Admin", "User"]}
-          style={{ width: 300 }}
+          style={{ minWidth: "200px" }}
           onChange={(event, value) => setTextFieldRole(value)}
           renderInput={params => (
             <TextField
