@@ -9,6 +9,7 @@ import { VerifyMenuItem } from './verify_menu_item';
 import { DeleteMenuItem } from './delete_menu_item';
 import { ResotreMenuItem } from './restore_menu_item';
 import { DeleteForeverMenuItem } from './delete_forever_menu_item';
+import { EditRoleMenuItem } from './edit_role_menu_item';
 
 const useStyles = makeStyles((theme) => ({
 	menuBackground: {
@@ -23,6 +24,7 @@ export function RowMenu(props){
 
   const onDelete = props.onDelete;
   const onDeleteForever = props.onDeleteForever;
+  const onEditRole = props.onEditRole;
   const onRestore = props.onRestore;
   const onVerify = props.onVerify;
   const id = props.data.id;
@@ -65,6 +67,11 @@ export function RowMenu(props){
     refreshDataTable()
   }
 
+  const handleEditRole = (data) => {
+    onEditRole(data)
+    refreshDataTable()
+  }
+
 	return (
 		<>
 			<IconButton
@@ -101,6 +108,11 @@ export function RowMenu(props){
 				<ResotreMenuItem
 					disabled={disableRestoreButton}
 					onRestore={handleRestore}
+				/>
+				<EditRoleMenuItem
+					hide={!onEditRole}
+					onEditRole={handleEditRole}
+					id={id}
 				/>
 			</Menu>
 		</>

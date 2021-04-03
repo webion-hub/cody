@@ -17,6 +17,9 @@ export function UsersList(props){
 				onDelete={Admin.deleteUser} 
 				onDeleteForever={Admin.deleteUserForever} 
 				onRestore={Admin.restoreUser}
+				onEditRole={(data) => {
+					
+				}}
 			/>
 
 		const birthDate = new Date(data.detail.birthDate)
