@@ -46,16 +46,19 @@ export function MessagePageBase(props) {
         >
           {props.subTitle}
         </Typography>
-        <LoadingButton
-          loading={props.loading}
-          className={classes.button}
-          color="primary"
-          variant="contained"
-          href={props.href}
-          onClick={onClick}
-          fullWidth
-          label={props.buttonLabel}
-        />
+        {
+          props.buttonLabel && 
+            <LoadingButton
+              loading={props.loading}
+              className={classes.button}
+              color="primary"
+              variant="contained"
+              href={props.href}
+              onClick={onClick}
+              fullWidth
+              label={props.buttonLabel}
+            />
+        }
       </PaperWithWaves>
     </CenterComponentPageBase>
   );
