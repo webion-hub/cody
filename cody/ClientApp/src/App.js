@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Router, Switch} from 'react-router-dom';
 import { Layout } from './components/Layout';
 
@@ -19,15 +19,17 @@ import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import CloudOffRoundedIcon from '@material-ui/icons/CloudOffRounded';
 import ZoomOutMapRoundedIcon from '@material-ui/icons/ZoomOutMapRounded';
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
+
 import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from './components/alert_dialog_item'
+import { OfflineController } from './components/offline_controller';
 
 const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
 const Error404Page = lazy(() => import('./pages/message_pages/Error404Page'));
 const EmailValidPage = lazy(() => import('./pages/message_pages/email_valid_page/EmailValidPage'));
 const UnauthorizedPage = lazy(() => import('./pages/message_pages/UnauthorizedPage'));
-const Home = lazy(() => import('./pages/home/home'));
+const Home = lazy(() => import('./pages/home/Home'));
 const Account = lazy(() => import('./pages/account/account'));
 const Test = lazy(() => import('./pages/test'));
 const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
@@ -35,18 +37,16 @@ const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organ
 const OrganizationPage = lazy(() => import('./pages/organization/OrganizationPage'));
 
 
-export default class App extends Component {
-  static displayName = App.name;
-
-  render () {
-    return (
-      <UserControllerContext>
-        <Layout>
+export default function App(){
+  return (
+    <UserControllerContext>
+      <Layout>
+        <OfflineController>
           <Routes/>
-        </Layout>
-      </UserControllerContext>
-    );
-  }
+        </OfflineController>
+      </Layout>
+    </UserControllerContext>
+  );
 }
 
 function Routes(){
