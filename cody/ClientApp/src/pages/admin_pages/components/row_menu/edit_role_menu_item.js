@@ -6,6 +6,8 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 import { TextField, Button } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete'
 
+import { Admin } from 'src/lib/server_calls/admin';
+
 export const EditRoleMenuItem = React.forwardRef((props, ref) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [textFieldRole, setTextFieldRole] = React.useState("");
@@ -14,7 +16,12 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
     if(textFieldRole == "")
       return;
 
-    props.onEditRole([props.id, textFieldRole]);
+    const info = { 
+      id : props.id,
+      role : textFieldRole,
+    }
+
+    props.onEditRole(info);
     setOpenDialog(false);
   }
 
@@ -67,6 +74,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
               label="Ruolo"
               variant="outlined"
               color="secondary"
+              content={Admin.getUserRole(props.id)}
               onChange={e => setTextFieldRole(e.target.value)}
             />
           )}

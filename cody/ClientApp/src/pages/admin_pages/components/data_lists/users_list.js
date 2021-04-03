@@ -18,7 +18,7 @@ export function UsersList(props){
 				onDeleteForever={Admin.deleteUserForever} 
 				onRestore={Admin.restoreUser}
 				onEditRole={(data) => {
-					
+					Admin.setUserRole(data.id, data.role);
 				}}
 			/>
 
