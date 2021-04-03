@@ -18,6 +18,20 @@ export default class RequestsValidator {
 
 
   /**
+   * @param {AxiosError} error 
+   */
+  tryRaiseNetworkError(error) {
+    const isNetworkError =
+      error.isAxiosError && error.message === 'Network Error';
+
+    if (isNetworkError)
+      this.raise('error', 'networkError');
+
+    return isNetworkError;
+  }
+
+
+  /**
    * @param {AxiosResponse} response 
    * @returns {boolean}
    */
@@ -46,7 +60,6 @@ export default class RequestsValidator {
 
   /**
    * @param {AxiosError} error 
-   * @returns 
    */
   handleRequestError(error) {
     const {

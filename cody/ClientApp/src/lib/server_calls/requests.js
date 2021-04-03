@@ -57,6 +57,9 @@ export default class Requests {
     if (validator.wasCanceled(request, response))
       return;
 
+    if (validator.tryRaiseNetworkError(error))
+      return;
+
     if (validator.tryRedirect(response))
       return;
 
