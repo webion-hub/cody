@@ -4,9 +4,14 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { OrganizationListItem } from 'src/components/organization_list_item';
 import { TouchableTooltip } from 'src/components/touchable_tooltip';
+import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
+import { Grid, Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
+  tootltipTitle: {
+    paddingLeft: theme.spacing(1)
+  },
 	sideBarAvatar: {
 		padding: 4,
 		animation: `$fade 0.25s linear`,
@@ -26,6 +31,26 @@ export function SidebarOrganizationAvatarList(props){
   const organizationsList = props.organizationsList
   const loading = props.loading
 
+
+  const getTooltipTitle = (organization) => {
+    return (
+      <Grid 
+        container 
+        direction="row" 
+        justify="center" 
+        alignItems="center"
+      >
+        <OrganizationKindIcon kind={organization.kind} size="small"/>
+        <Typography 
+          variant="caption"
+          className={classes.tootltipTitle}
+        >
+          {organization.name}
+        </Typography>
+      </Grid>
+    )
+  }
+
 	return organizationsList.map(organization => 
     <OrganizationListItem 
       className={classes.sideBarAvatar} 
@@ -35,7 +60,7 @@ export function SidebarOrganizationAvatarList(props){
       <TouchableTooltip
         arrow
         placement="right"
-        title={organization.name}
+        title={getTooltipTitle(organization)}
       >
         <CustomAvatar
           propsLoading={loading}

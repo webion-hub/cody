@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 export function BookmarkOrganizationListItem(props) {
   const classes = useStyles();
   const [disableBookmarkedIcon, setDisableBookmarkedIcon] = React.useState(false)
-  const updateUserOrganizations = new Event('updateUserOrganizations');
 
   const organization = props.organization
   const organizationId = organization.id
@@ -46,20 +45,11 @@ export function BookmarkOrganizationListItem(props) {
 
   const handleBookmarkClick = (isBookmarked) => {
     setDisableBookmarkedIcon(true)
-    if(isBookmarked)
-      User
-        .addBookmarkedOrganization(organizationId)
-        .finally(_ => {
-          document.dispatchEvent(updateUserOrganizations)          
-          setDisableBookmarkedIcon(false)
-        })
-    else
-      User
-        .removeBookmarkedOrganization(organizationId)
-        .finally(_ => {
-          document.dispatchEvent(updateUserOrganizations)
-          setDisableBookmarkedIcon(false)
-        })
+    const userAction = isBookmarked ? 
+      User.addBookmarkedOrganization : User.removeBookmarkedOrganization
+
+    userAction(organizationId)
+      .finally(_ => setDisableBookmarkedIcon(false))
   }
 
   return (

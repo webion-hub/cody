@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function NoOrganizationFounded(props) {
   const classes = useStyles();
+  
+  if(props.loading)
+    return null;
 
   return (
     <Grid
@@ -33,23 +36,20 @@ export function NoOrganizationFounded(props) {
     >
       <Sad size="100%"/>
       <Typography variant="h6">
-        Non ci sono organizzazioni
+        Nessun risultato
       </Typography>
       <Typography variant="subtitle1">
-        {props.messageType === "showNoOrganizations" ? "a cui sei iscritto" : "salvate"}
+        Non è stata trovata nessuna organizzazione.
       </Typography>
-      {
-        props.messageType === "showNoOrganizations" && 
-          <Button
-            className={classes.findOrganizationButton}
-            variant="outlined"
-            color="secondary"
-            href='/organization'
-            onClick={(event) => PageController.push('/organization', event)}
-          >
-            Trovane una
-          </Button>
-      }
+      <Button
+        className={classes.findOrganizationButton}
+        variant="outlined"
+        color="secondary"
+        href='/organization'
+        onClick={(event) => PageController.push('/organization', event)}
+      >
+        Trova un'organizzazione
+      </Button>
     </Grid>
   )
 }

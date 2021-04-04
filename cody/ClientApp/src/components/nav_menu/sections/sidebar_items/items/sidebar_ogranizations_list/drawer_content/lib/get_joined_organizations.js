@@ -7,7 +7,7 @@ export const getJoinedOrganizations = (settings) => {
   } = settings
 
   return new Promise(resolve => {
-    if(showOnlyBookmarked === "showOnlyBookmarked"){
+    if(showOnlyBookmarked){
       User
         .getBookmarkedOrganizations({
           filter: searchValue,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Grid, useTheme, LinearProgress, Fade } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
@@ -15,44 +15,39 @@ export function SideBarOrganizationListDrawerContent() {
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   const [loading, setLoading] = React.useState(false)
-  const [organizationsList, setOrganizationsList] = React.useState([])
-  const [noOrganizations, setNoOrganizations] = React.useState("notShowMessage")
+  const [filter, setFilter] = React.useState("waiting")
   const [searchValue, setSearchValue] = React.useState("")
+  const [organizationsList, setOrganizationsList] = React.useState([])
 
-  document.addEventListener('drawerOrganizationsFilterEvent', val => {
-    refreshOrganizationList({
-      searchValue: "",
-      onZeroOrganizationsFounded: () => {
-        if(val.detail === "showOnlyBookmarked")
-          setNoOrganizations("showNoBookmarkedOrganizations")
-        else
-          setNoOrganizations("showNoOrganizations")
-      },
-      showOnlyBookmarked: val.detail
-    })
+  const noOrganizationFounded = organizationsList.length === 0
+
+  document.addEventListener('drawerFilterState', val => {
+    setSearchValue("")
+    setFilter(val.detail)
   })
 
-  const refreshOrganizationList = ({searchValue, onZeroOrganizationsFounded, showOnlyBookmarked}) => {
+  useEffect(() => {
+    refreshOrganizationList()
+  }, [searchValue, filter])
+
+  const refreshOrganizationList = () => {
+    if(filter === "waiting")
+      return
+
     setLoading(true)
 
     getJoinedOrganizations({
       searchValue: searchValue,
-      showOnlyBookmarked: showOnlyBookmarked,
+      showOnlyBookmarked: filter === "onlyBookmarked",
     })
-    .then(data => {
-      setOrganizationsList(data.values)
-      if(data.total === 0)
-        onZeroOrganizationsFounded?.()
-    })
+    .then(data => setOrganizationsList(data.values))
     .finally(() => setLoading(false))
 	}
 
   const handleSearchValue = (searchValue) => {
-    setLoading(true)
     setSearchValue(searchValue)
-    refreshOrganizationList({searchValue: searchValue})
+    setLoading(true)
   }
-
 
   const getListItem = (index, style) => {
     const organization = organizationsList[index]
@@ -68,9 +63,6 @@ export function SideBarOrganizationListDrawerContent() {
     )
   }
 
-  if(noOrganizations !== "notShowMessage")
-    return <NoOrganizationFounded messageType={noOrganizations}/>
-
   return (
     <>
       <Grid
@@ -78,19 +70,26 @@ export function SideBarOrganizationListDrawerContent() {
         direction="column"
       >
         <GenericSearchBar
-            onChange={handleSearchValue}
+          onChange={handleSearchValue}
+          value={searchValue}
         />
         <Fade in={loading}>
           <LinearProgress color="secondary" />
         </Fade>
-        <ListWithVirtualized 
-          height={mobileView ? window.innerHeight - 68 : window.innerHeight - 128}
-          width="100%"
-          itemSize={56} 
-          itemCount={organizationsList.length}
-          overscanCount={10}
-          getListItem={getListItem}
-        />
+        {
+          noOrganizationFounded ? 
+            <NoOrganizationFounded loading={loading}/>
+            :            
+            <ListWithVirtualized 
+              loading={loading}
+              height={mobileView ? window.innerHeight - 68 : window.innerHeight - 128}
+              width="100%"
+              itemSize={56} 
+              itemCount={organizationsList.length}
+              overscanCount={10}
+              getListItem={getListItem}
+            />
+        }
       </Grid>
     </>
   )

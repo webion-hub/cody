@@ -44,12 +44,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function SideBarOrganizationList(props){
-	const isDrawerOpen = props.isDrawerOpen;
+	const drawerState = props.drawerState;
+	const isDrawerOpen = drawerState === "open";
+
 	const [loading, setLoading] = React.useState(false)
   const [organizationsList, setOrganizationsList] = React.useState([])
   const [numberOfOrganizationsFinded, setNumberOfOrganizationsFinded] = React.useState(0)
-  const [drawerOrganizationsFilter, setDrawerOrganizationsFilter] = React.useState("drawerClose")
-
+  const [drawerFilterState, setDrawerFilterState] = React.useState("showAll")
 	//Settings
 	const extraIcons = 3;
 	const maxOrganizationsNumber = 4;
@@ -78,22 +79,22 @@ export function SideBarOrganizationList(props){
 	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList())
 
   useEffect(() => {
-    setLoading(true)
-    setTimeout(() => refreshOrganizationList(), 150);
+		setTimeout(() => refreshOrganizationList(), 150);
   }, [])
 
 	useEffect(() => {
-		handleDrawerEvent(drawerOrganizationsFilter)
-	}, [drawerOrganizationsFilter])
+		const drawerFilterStateEvent = new CustomEvent('drawerFilterState', {detail: drawerFilterState});
+		document.dispatchEvent(drawerFilterStateEvent)
 
-	const handleDrawerEvent = (state) => {
-		const drawerOrganizationsFilterEvent = 
-			new CustomEvent('drawerOrganizationsFilterEvent', {detail: state});
+		if(drawerState === "close"){
+			setDrawerFilterState("showAll")
+			refreshOrganizationList()
+		}
 
-		document.dispatchEvent(drawerOrganizationsFilterEvent)
-	}
+  }, [drawerState, drawerFilterState])
 
 	const refreshOrganizationList = () => {
+    setLoading(true)
 		getBookmarkedOrganizations({
 			maxOrganizationsNumber: maxOrganizationsNumber
 		})
@@ -105,30 +106,24 @@ export function SideBarOrganizationList(props){
 	}
 
 	const handleOpenDrawerShowOnlyBookmarked = () => {
-		if(!isDrawerOpen){
-			//open drawer and set only bookmarked
-			setDrawerOrganizationsFilter("showOnlyBookmarked")
-			props.toggleDrawer()
-			return;
-		}
-
-		if(drawerOrganizationsFilter === "showAll")
-			setDrawerOrganizationsFilter("showOnlyBookmarked")
-
-		if(drawerOrganizationsFilter === "showOnlyBookmarked")
-			setDrawerOrganizationsFilter("showAll")
+		props.setDrawerState("open")
+		if(drawerFilterState === "onlyBookmarked")
+			setDrawerFilterState("showAll")
+		else
+			setDrawerFilterState("onlyBookmarked")
 	}
 
 	const handleOpenDrawer = () => {
-		const isDrawerClose = drawerOrganizationsFilter !== "drawerClose"
-		if(isDrawerClose)
-			setDrawerOrganizationsFilter("drawerClose")
-		else
-			setDrawerOrganizationsFilter("showAll")
-
-		props.toggleDrawer()
+		setDrawerFilterState("showAll")
+		props.setDrawerState("toggle")
 	}
 
+	const avatarList = drawerState === "close" &&
+	<SidebarOrganizationAvatarList
+		organizationsList={organizationsList}
+		loading={loading}
+	/>
+	
 	return (
 		<List className={classes.organizationsList}>
 			<ListItem 
@@ -137,6 +132,7 @@ export function SideBarOrganizationList(props){
 				href="/organization"
 				onClick={(event) => PageController.push('/organization', event)}	
 				className={`${classes.createOrJoinButton} ${classes.listItemWithIcon}`}
+				disabled={loading}
 			>
 				<ListItemIcon>
 					<AddRoundedIcon/>
@@ -147,24 +143,27 @@ export function SideBarOrganizationList(props){
 				component="a"
 				className={classes.listItemWithIcon}
 				onClick={handleOpenDrawerShowOnlyBookmarked}
+				disabled={loading}
 			>
 				<ListItemIcon>
-					<BookmarksRoundedIcon color={drawerOrganizationsFilter === "showOnlyBookmarked" ? "secondary" : "inherit"}/>
+					<BookmarksRoundedIcon 
+						color={
+							drawerFilterState === "onlyBookmarked" ?
+								"secondary" :	"inherit"
+						}
+					/>
 				</ListItemIcon>
 			</ListItem>
-			{
-				!isDrawerOpen &&
-					<SidebarOrganizationAvatarList
-						organizationsList={organizationsList}
-						loading={loading}
-					/>
-			}
+			{avatarList}
 			<ListItem 
 				button 
 				className={`${classes.expandOrganizationListButton} ${classes.listItemWithIcon}`}
 				onClick={handleOpenDrawer}
+				disabled={loading}
 			>
-				<ListItemIcon className={`${classes.drawerHandlerIcon} ${isDrawerOpen ? classes.rotateIcon : ""}`}>
+				<ListItemIcon 
+					className={`${classes.drawerHandlerIcon} ${isDrawerOpen ? classes.rotateIcon : ""}`}
+				>
 					<NavigateNextRoundedIcon/>
 				</ListItemIcon>
 			</ListItem>
