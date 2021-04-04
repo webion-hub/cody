@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Fade, Paper } from '@material-ui/core';
@@ -85,6 +85,7 @@ export function GenericSearchBar(props){
         placeholder={props.label? props.label : "Cerca"}
         inputProps={{ 'aria-label': 'Cerca' }}
         onChange={handleChange}
+        value={props.value}
       />
       <Fade
         in={showClearIcon}
