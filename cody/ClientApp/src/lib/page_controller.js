@@ -36,7 +36,6 @@ export class PageController {
   }
 
   static listen = (onListen) => {
-    history.listen(onListen)
+    return history.listen(onListen)
   }
-
 }
