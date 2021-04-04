@@ -40,6 +40,7 @@ export function ListWithScrollUpdater(props) {
   return (
     <ListWithVirtualized 
       {...otherProps}
+      loading={loading}
       height={height}
       outerRef={listRef}
       onScroll={handleScroll}

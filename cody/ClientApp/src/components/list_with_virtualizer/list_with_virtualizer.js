@@ -16,6 +16,9 @@ renderRow.propTypes = {
 export function ListWithVirtualized(props) {
   const {getListItem, ...others} = props;
 
+  if(props.loading)
+    return null;
+
   return (
     <FixedSizeList
       style={{
