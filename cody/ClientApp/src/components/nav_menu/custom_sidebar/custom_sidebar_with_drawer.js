@@ -11,7 +11,7 @@ import { CustomSideBar } from './components/custom_sidebar';
 
 const useStyles = makeStyles((theme) => ({
 	backdrop: {
-		zIndex: 1
+		zIndex: 1220
 	},
 	closeSideBarIcon: {
 		marginTop: 4

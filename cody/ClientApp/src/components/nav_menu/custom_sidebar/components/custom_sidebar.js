@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,29 +23,27 @@ const useStyles = makeStyles((theme) => ({
 export function CustomSideBar(props){
   const classes = useStyles();
 	const sideBarItems = props.sideBarItems;
-	const isDrawerOpen = props.isDrawerOpen
-
-  const { userState } = React.useContext(UserContext);
-
-	useEffect(() => {
-		props.onDrawerClose()
-	},[userState])
+	const drawerState = props.isDrawerOpen ? "open" : "close"
 
 	PageController.listen(() => {
 		props.onDrawerClose()
 	})
 
-	const handleDrawerContent = (element) => {
+	const handleDrawerContent = (element, newDrawerState) => {
 		const elementIdentifier = element.identifier;
 		const elementWidth = element.width;
+		
+		const drawerAction = newDrawerState === "toggle" ? 
+			drawerState === "close" :
+			newDrawerState === "open"
 
-		if(isDrawerOpen)
-			props.onDrawerClose()
-		else
+		if(drawerAction)
 			props.setDrawerContent({
 				identifier: elementIdentifier,
 				width: elementWidth,
 			})
+		else
+			props.onDrawerClose()
 	}
 
   return (
@@ -58,8 +55,8 @@ export function CustomSideBar(props){
 				return (
 					<element.item 
 						key={index}
-						toggleDrawer={() => handleDrawerContent(element)}
-						isDrawerOpen={isDrawerOpen}
+						setDrawerState={(newDrawerState) => handleDrawerContent(element, newDrawerState)}
+						drawerState={drawerState}
 					/>
 				)
 			}
