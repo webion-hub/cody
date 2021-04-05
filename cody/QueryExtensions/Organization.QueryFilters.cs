@@ -9,22 +9,26 @@ namespace Cody.QueryExtensions
     {
         public static IQueryable<Organization> DefaultMatch(this QueryFilter<Organization> self)
         {
-            return self.Where(k => k.RequestedProperty.IsRequested
-                ? k.RequestedProperty.MustNotBeNull
-                    ? o =>
-                        (k.RequestedProperty.PropertyName == "logo" && o.Detail.Logo != null) ||
-                        (k.RequestedProperty.PropertyName == "cover" && o.Detail.Cover != null) ||
-                        (k.RequestedProperty.PropertyName == "website" && o.Detail.Website != null)
-                    : o =>
-                        (k.RequestedProperty.PropertyName == "id" && o.Id.ToString() == k.RequestedProperty.Value) ||
-                        (k.RequestedProperty.PropertyName == "name" && o.Name == k.RequestedProperty.Value)
-                : o =>
+            var filterOptions = new FilterOptions<Organization>
+            {
+                OnNotNull = rp => o =>
+                    (rp.Name == "logo" && o.Detail.Logo != null) ||
+                    (rp.Name == "cover" && o.Detail.Cover != null) ||
+                    (rp.Name == "website" && o.Detail.Website != null),
+
+                OnMatchExact = rp => o =>
+                    (rp.Name == "id" && o.Id.ToString() == rp.Value) ||
+                    (rp.Name == "name" && o.Name == rp.Value),
+
+                OnDefault = k => o =>
                     k.AsEnum<OrganizationKind>() == o.Kind ||
 
                     Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(o.Detail.Location, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
-            );
+            };
+
+            return self.Where(filterOptions.AsFilterGenerator());
         }
     }
 }

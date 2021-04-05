@@ -8,7 +8,7 @@ namespace Cody.Utilities.QueryFilters
 {
     public class RequestedProperty
     {
-        public string PropertyName { get; init; } = null;
+        public string Name { get; init; } = null;
         public string Value { get; init; } = null;
         public bool IsRequested =>
             MustNotBeNull || MustMatchExact;
@@ -23,7 +23,7 @@ namespace Cody.Utilities.QueryFilters
             MustNotBeNull = rawValue.StartsWith('+');
 
             if (MustNotBeNull) {
-                PropertyName = rawValue[1..];
+                Name = rawValue[1..];
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace Cody.Utilities.QueryFilters
 
             if (match.Success) {
                 MustMatchExact = true;
-                PropertyName = match.Groups["prop_name"].Value;
+                Name = match.Groups["prop_name"].Value;
                 Value = match.Groups["what"].Value;
             }
         }

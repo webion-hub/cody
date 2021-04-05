@@ -9,12 +9,12 @@ namespace Cody.QueryExtensions
     {
         public static IQueryable<UserAccount> DefaultMatch(this QueryFilter<UserAccount> self)
         {
-            return self.Where(k => k.RequestedProperty.IsRequested
-                ? k.RequestedProperty.MustMatchExact
-                    ? u => 
-                        (k.RequestedProperty.PropertyName == "id" && u.Id.ToString() == k.RequestedProperty.Value)
-                    : u => false
-                : u =>
+            var filterOptions = new FilterOptions<UserAccount>
+            {
+                OnNotNull = rp => u =>
+                    (rp.Name == "id" && u.Id.ToString() == rp.Value),
+
+                OnDefault = k => u =>
                     u.AccountDetail.BirthDate == k ||
                     u.AccountDetail.RegistrationDate == k ||
 
@@ -23,7 +23,9 @@ namespace Cody.QueryExtensions
                     Regex.IsMatch(u.Email, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(u.AccountDetail.Name, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(u.AccountDetail.Surname, k.Pattern, RegexOptions.IgnoreCase)
-            );
+            };
+
+            return self.Where(filterOptions.AsFilterGenerator());
         }
     }
 }
