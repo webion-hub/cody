@@ -48,7 +48,7 @@ export default class RequestsValidator {
     const responseURL = new URL(request.responseURL);
     const requestURL = new URL(config.url, responseURL.origin);
     const wasRedirected = 
-      status == 200 && responseURL.pathname != requestURL.pathname;
+      status === 200 && responseURL.pathname !== requestURL.pathname;
 
     if (!wasRedirected)
       return false;

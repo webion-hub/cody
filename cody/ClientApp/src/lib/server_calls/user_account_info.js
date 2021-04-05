@@ -52,7 +52,7 @@ export class UserAccountInfo {
    * @returns {Promise<UserAccountInfoGetResponse>}
    */
   _maybeGet = async () => {
-    if (this._getters.length == 0)
+    if (this._getters.length === 0)
       return Promise.resolve(new Map([]));
 
     return Requests.send({
@@ -74,7 +74,7 @@ export class UserAccountInfo {
    * @returns {Promise<UserRejectReasons[]>} 
    */
   _maybeSet = async () => {
-    if (Object.keys(this._setters).length == 0)
+    if (Object.keys(this._setters).length === 0)
       return Promise.resolve(null);
 
     return Requests.send({
@@ -86,7 +86,7 @@ export class UserAccountInfo {
       if (!resp)
         return [];
 
-      return resp.status == 200
+      return resp.status === 200
         ? []
         : resp.data
     });
