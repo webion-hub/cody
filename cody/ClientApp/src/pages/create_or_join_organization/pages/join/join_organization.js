@@ -62,18 +62,21 @@ function JoinOrganization(){
     window.innerHeight - 244 : 472
 
   const [searchValue, setSearchValue] = React.useState("");
+  const [searchValueLoading, setSearchValueLoading] = React.useState(false);
   const [filterStatus, setFilterStatus] = React.useState({
     teams: true,
     schools: true,
     companies: true,
   });
 
-  useEffect(() => {
-    setOrganizationsSearch({
+  useEffect(async () => {
+    setSearchValueLoading(true)
+    await setOrganizationsSearch({
       filter: filterStatus,
       value: "",
       offset: 0,
     })
+    setSearchValueLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -91,14 +94,17 @@ function JoinOrganization(){
     })    
   }
 
-  const handleSearchValue = (value) => {
+  const handleSearchValue = async (value) => {
     setSearchValue(value);
+    setSearchValueLoading(true)
 
-    setOrganizationsSearch({
+    await setOrganizationsSearch({
       filter: filterStatus,
       value: value,
       offset: 0,
     })
+    
+    setSearchValueLoading(false)
   }
 
   return(
@@ -132,7 +138,7 @@ function JoinOrganization(){
         </Fade>
         <Paper className={classes.listContainer}>
           <ListWithScrollUpdater
-            loading={loading}
+            loading={searchValueLoading}
             elementLoadingLimit={elementLoadingLimit}
             itemList={organizations}
             offset={offset}

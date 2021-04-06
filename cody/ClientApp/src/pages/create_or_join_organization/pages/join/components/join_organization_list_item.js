@@ -63,10 +63,13 @@ export function JoinOrganizationsListItem(props){
     setIsCallerAMember(data.isCallerAMember)
   }, [data.isCallerAMember])
 
-  const membersCountLabel = membersCount === 1 ? 
-    `${membersCount} Utente` : `${membersCount} Utenti`
-  const locationLabel = data.detail.location?
-    ` - ${data.detail.location}` : ""
+  const membersCountLabel = membersCount === 1 
+    ? `${membersCount} Utente` 
+    : `${membersCount} Utenti`
+
+  const locationLabel = data.detail.location
+    ? ` - ${data.detail.location}` 
+    : ""
 
   const handleOpenLeaveDialog = () => {
     setOpenLeaveDialog(true)
