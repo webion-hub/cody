@@ -5,7 +5,9 @@ function init() {
 
 
 function initEventHandlers() {
-  const reload = window.location.reload;
+  const reload = () => {
+    window.location.reload();
+  };
 
   window.addEventListener('themeUpdated', loadThemeColors);
   window.addEventListener('online', reload);
