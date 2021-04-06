@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: 24,
   },
+  toolbar: {
+    paddingLeft: 12,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.drawer.width
+    },
+  }
 }));
 
 export const FadeAppBarContext = React.createContext({
@@ -83,7 +89,7 @@ export function CustomAppBar(props){
           position="fixed"
           className={classes.appBar}
         >
-          <Toolbar style={{paddingLeft: 12}}>
+          <Toolbar className={classes.toolbar}>
             {openDrawerIcon}
             <Grid
               container
