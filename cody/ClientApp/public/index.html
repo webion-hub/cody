@@ -26,27 +26,20 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script type="text/javascript" src="%PUBLIC_URL%/loaderThemeSelection.js"></script>
-    <script>
-      loaderThemeSelection();
-
-      function reload(){
-        window.location.reload()
-      }
-
-      window.addEventListener('online', reload)
-      document.addEventListener('reactDomLoaded', _ =>
-        window.removeEventListener('online', reload)
-      );
-    </script>
+    <script type="text/javascript" src="%PUBLIC_URL%/index.js"></script>
     <title>cody</title>
   </head>
   <body>
+    <script>
+      init();
+    </script>
+
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+
     <div id="root">
-      <div id="ringContainer" class="center-children">
+      <div id="ringContainer" class="center dynamic-background">
         <div class="loader"></div>
       </div>
     </div>

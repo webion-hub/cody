@@ -22,10 +22,17 @@ body {
   top: 0px;
   width: 100vw;
   height: 100vh;
+}
+
+.dynamic-background {
   background-color: var(--background-color);
 }
 
-.center-children {
+.column {
+  flex-direction: column;
+}
+
+.center {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;

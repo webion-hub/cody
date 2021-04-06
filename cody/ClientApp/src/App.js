@@ -76,8 +76,8 @@ function Routes(){
   return (
     <Router history={history}>
       <Suspense fallback={
-        <div id="ringContainer" className="center-children">
-          <div className="loader"></div>
+        <div id="ringContainer" class="center dynamic-background">
+          <div class="loader"></div>
         </div>
       }>
         <Switch>
