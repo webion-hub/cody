@@ -31,16 +31,9 @@ export function ThemeContextProvider(props) {
   const [theme, setTheme] = useState(initialTheme);
 
   
-  /**
-   * @param {'Dark' | 'Light'} newTheme 
-   */
-  const updateTheme = (newTheme) => {
-    newTheme = newTheme.toLowerCase();
-
-    setTheme(newTheme);
-    StoredTheme.set(newTheme);
-    window.dispatchEvent(new Event('themeUpdated'));
-  };
+  useEffect(_ => {
+    maybeGetAndUpdateThemeFromDb();
+  }, [userState]);
 
 
   const maybeGetAndUpdateThemeFromDb = async () => {
@@ -53,11 +46,6 @@ export function ThemeContextProvider(props) {
     });
   }
 
-  useEffect(_ => {
-    maybeGetAndUpdateThemeFromDb();
-  }, [userState]);
-
-
   const toggleTheme = async _ => {
     const toggledTheme = StoredTheme.get() === 'dark'
       ? 'light'
@@ -68,6 +56,18 @@ export function ThemeContextProvider(props) {
 
     updateTheme(toggledTheme);
   };
+
+  /**
+   * @param {'Dark' | 'Light'} newTheme 
+   */
+  const updateTheme = (newTheme) => {
+    newTheme = newTheme.toLowerCase();
+
+    setTheme(newTheme);
+    StoredTheme.set(newTheme);
+    window.dispatchEvent(new Event('themeUpdated'));
+  };
+
 
   return (
     <ThemeContext.Provider value={{ 

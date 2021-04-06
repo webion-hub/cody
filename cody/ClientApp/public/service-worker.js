@@ -73,7 +73,7 @@ function isCacheable(requestUrl) {
   return cacheableUrls.some(regex => {
     return regex.test(requestUrl);
   });
-} 
+}
 
 
 /**
