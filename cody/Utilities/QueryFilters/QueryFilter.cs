@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Cody.Utilities.QueryFilters
 {
     public delegate Expression<Func<T, bool>> FilterGenerator<T>(Keyword keyword);
+    public delegate Expression<Func<T, bool>> PropertyFilter<T>(RequestedProperty rp);
 
 
     public abstract class QueryFilter<T>

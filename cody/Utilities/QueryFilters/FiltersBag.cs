@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Cody.Utilities.QueryFilters
 {
-    public class FilterOptions<T>
+    public class FiltersBag<T>
     {
-        public Func<RequestedProperty, Expression<Func<T, bool>>> OnNotNull { get; init; } = _ => _ => false;
-        public Func<RequestedProperty, Expression<Func<T, bool>>> OnMatchExact { get; init; } = _ => _ => false;
-        public FilterGenerator<T> OnDefault { get; init; } = _ => _ => false;
+        public PropertyFilter<T> OnNotNull { get; set; } = _ => _ => false;
+        public PropertyFilter<T> OnMatchExact { get; set; } = _ => _ => false;
+        public FilterGenerator<T> OnDefault { get; set; } = _ => _ => false;
 
 
         public FilterGenerator<T> AsFilterGenerator()
