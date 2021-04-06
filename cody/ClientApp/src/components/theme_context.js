@@ -7,48 +7,66 @@ export const ThemeContext = React.createContext({
   toggleTheme: () => {},
 });
 
+
+class StoredTheme {
+  static get = () => {
+    return localStorage.getItem(this._key);
+  }
+
+  static set = (newTheme) => {
+    localStorage.setItem(this._key, newTheme);
+  }
+}
+
+StoredTheme._key = "Cody-ThemeMode";
+
+
 export const ThemeContextConsumer = ThemeContext.Consumer;
 
-export function ThemeContextProvider(props){
-  const userState = React.useContext(UserContext).userState;
+export function ThemeContextProvider(props) {
+  const initialTheme = getInitialTheme();
+  StoredTheme.set(initialTheme);
+
+  const {userState} = React.useContext(UserContext);
+  const [theme, setTheme] = useState(initialTheme);
+
   
-  let currentTheme = localStorage.getItem("Cody-ThemeMode");
-  if(currentTheme)
-    currentTheme = currentTheme.toLowerCase();
-  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 
-    currentTheme = "dark"
-  
-  localStorage.setItem('Cody-ThemeMode', currentTheme); 
-  const [theme, setTheme] = useState(currentTheme);
+  /**
+   * @param {'Dark' | 'Light'} newTheme 
+   */
+  const updateTheme = (newTheme) => {
+    newTheme = newTheme.toLowerCase();
 
-  useEffect( _ => {
+    setTheme(newTheme);
+    StoredTheme.set(newTheme);
+    window.dispatchEvent(new Event('themeUpdated'));
+  };
+
+
+  const maybeGetAndUpdateThemeFromDb = async () => {
+    if (userState !== "logged")
+      return;
+    
+    User.getThemeColor().then(themeColor => {
+      if(themeColor)
+        updateTheme(themeColor);
+    });
+  }
+
+  useEffect(_ => {
+    maybeGetAndUpdateThemeFromDb();
+  }, [userState]);
+
+
+  const toggleTheme = async _ => {
+    const toggledTheme = StoredTheme.get() === 'dark'
+      ? 'light'
+      : 'dark';
+
     if (userState === "logged")
-    {
-      User.getThemeColor().then(themeColor => {
-        if(themeColor)
-        {
-          currentTheme = themeColor.toLowerCase();
-          setTheme(currentTheme.toLowerCase());  
-          localStorage.setItem('Cody-ThemeMode', currentTheme);  
-          loaderThemeSelection();
-        }
-      });
-    }
-  },[userState]);
+      User.setThemeColor(toggledTheme);
 
-  const toggleTheme = async (theme) => {
-    currentTheme = 
-      currentTheme === 'dark'? 
-        'light' : 
-        'dark'
-
-    setTheme(currentTheme.toLowerCase());  
-
-    if (userState === "logged")
-      User.setThemeColor(currentTheme);
-
-    localStorage.setItem('Cody-ThemeMode', currentTheme);  
-    loaderThemeSelection();
+    updateTheme(toggledTheme);
   };
 
   return (
@@ -60,21 +78,17 @@ export function ThemeContextProvider(props){
     </ThemeContext.Provider>
   );
 }
-  
-function loaderThemeSelection()
-{
-  let root = document.documentElement;
-  if(localStorage.getItem('Cody-ThemeMode') === 'dark')
-  {
-    root.style.setProperty('--ring-inner-color', "#131C2A");
-    root.style.setProperty('--ring-outer-color', "#1F4BFF");
-    root.style.setProperty('--background-color', "#172230");
-  }
 
-  if(localStorage.getItem('Cody-ThemeMode') === 'light')
-  {
-    root.style.setProperty('--ring-inner-color', "#f3f3f3");
-    root.style.setProperty('--ring-outer-color', "#1F4BFF");
-    root.style.setProperty('--background-color', "#f7f7f8");
-  }
+
+function getInitialTheme() {
+  const storedTheme = StoredTheme.get();
+  if (storedTheme)
+    return storedTheme;
+
+  const prefersDarkTheme = 
+    !!window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  
+  return prefersDarkTheme
+    ? 'dark'
+    : 'light';
 }
