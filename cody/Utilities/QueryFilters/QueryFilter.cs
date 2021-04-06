@@ -16,6 +16,7 @@ namespace Cody.Utilities.QueryFilters
     {
         protected readonly IQueryable<T> _query;
         protected readonly IEnumerable<Keyword> _keywords;
+        protected readonly Lazy<FiltersBag<T>> _filtersBag;
 
 
         protected QueryFilter(IQueryable<T> query, Keyword keyword)
@@ -26,8 +27,34 @@ namespace Cody.Utilities.QueryFilters
         {
             _query = query;
             _keywords = keywords;
+            _filtersBag = new();
         }
 
+
+
+        public QueryFilter<T> OnMatchExact(PropertyFilter<T> expr)
+        {
+            _filtersBag.Value.OnMatchExact = expr;
+            return this;
+        }
+
+        public QueryFilter<T> OnNotNull(PropertyFilter<T> expr)
+        {
+            _filtersBag.Value.OnNotNull = expr;
+            return this;
+        }
+
+        public QueryFilter<T> OnDefault(FilterGenerator<T> expr)
+        {
+            _filtersBag.Value.OnDefault = expr;
+            return this;
+        }
+
+
+        public IQueryable<T> Filter()
+        {
+            return Where(_filtersBag.Value.AsFilterGenerator());
+        }
 
         public virtual IQueryable<T> Where(FilterGenerator<T> generator)
         {

@@ -9,26 +9,24 @@ namespace Cody.QueryExtensions
     {
         public static IQueryable<Organization> DefaultMatch(this QueryFilter<Organization> self)
         {
-            var filterOptions = new FilterOptions<Organization>
-            {
-                OnNotNull = rp => o =>
+            return self
+                .OnNotNull(rp => o =>
                     (rp.Name == "logo" && o.Detail.Logo != null) ||
                     (rp.Name == "cover" && o.Detail.Cover != null) ||
-                    (rp.Name == "website" && o.Detail.Website != null),
-
-                OnMatchExact = rp => o =>
+                    (rp.Name == "website" && o.Detail.Website != null)
+                )
+                .OnMatchExact(rp => o =>
                     (rp.Name == "id" && o.Id.ToString() == rp.Value) ||
-                    (rp.Name == "name" && o.Name == rp.Value),
-
-                OnDefault = k => o =>
+                    (rp.Name == "name" && o.Name == rp.Value)
+                )
+                .OnDefault(k => o =>
                     k.AsEnum<OrganizationKind>() == o.Kind ||
 
                     Regex.IsMatch(o.Name, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(o.Detail.Location, k.Pattern, RegexOptions.IgnoreCase) ||
                     Regex.IsMatch(o.Detail.Website, k.Pattern, RegexOptions.IgnoreCase)
-            };
-
-            return self.Where(filterOptions.AsFilterGenerator());
+                )
+                .Filter();
         }
     }
 }
