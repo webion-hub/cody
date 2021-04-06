@@ -30,6 +30,10 @@ html {
   opacity: .8;
 }
 
+.button:active {
+  opacity: .5;
+}
+
 .illustration {
   width: 70%;
   max-width: 480px;
