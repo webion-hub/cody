@@ -11,7 +11,7 @@ namespace Cody.QueryExtensions
         {
             var filterOptions = new FilterOptions<UserAccount>
             {
-                OnNotNull = rp => u =>
+                OnMatchExact = rp => u =>
                     (rp.Name == "id" && u.Id.ToString() == rp.Value),
 
                 OnDefault = k => u =>
