@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useTheme, Grid, Paper, LinearProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core'
@@ -7,9 +7,10 @@ import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_sea
 
 import { JoinOrganizationsListItem } from './components/join_organization_list_item';
 import { FilterComponent } from './components/filter_components';
-import { useSetOrganizationsSearch } from './hooks/use_set_organizations_search';
+import { getOrganizationFilter } from './lib/get_organization_filter';
 
 import { ListWithScrollUpdater } from 'src/components/list_with_scroll_updater';
+import { Organizations } from 'src/lib/server_calls/organizations';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,37 +49,66 @@ export const joinOrganizationSettings = {
 }
 
 function JoinOrganization(){
+  const classes = useStyles();
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-
-  const classes = useStyles();
   
-  const elementLoadingLimit = 20;
-  const [organizationsSeacrh, setOrganizationsSearch] = useSetOrganizationsSearch(elementLoadingLimit);
-  const loading = organizationsSeacrh.loading;
-  const offset= organizationsSeacrh.offset;
-  const organizations = organizationsSeacrh.organizations;
   const listHeight = mobileView ? 
     window.innerHeight - 244 : 472
 
+  const offsetStep = 25;
+  const [offset, setOffset] = React.useState(0);
+  const [loading, setLoading] = React.useState({
+    mainLoading: false,
+    searchLoading: false,
+  });
+  const totalLoading = loading.mainLoading || loading.searchLoading
+
   const [searchValue, setSearchValue] = React.useState("");
-  const [searchValueLoading, setSearchValueLoading] = React.useState(false);
+  const [organizationList, setOrganizationList] = React.useState([]);
   const [filterStatus, setFilterStatus] = React.useState({
     teams: true,
     schools: true,
     companies: true,
   });
 
-  useEffect(async () => {
-    setSearchValueLoading(true)
-    await setOrganizationsSearch({
-      filter: filterStatus,
-      value: "",
-      offset: 0,
+  const listAllOrganizations = (setOrganizationList) => {
+    const listAllOrganizationsFilter = `${getOrganizationFilter(filterStatus)} ${searchValue}`
+
+    return Organizations.listAll({
+      filter: listAllOrganizationsFilter,
+      limit: offsetStep,
+      offset: offset,
     })
-    setSearchValueLoading(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    .then(searchResults => setOrganizationList(searchResults.values))
+    .finally(_=> {
+      setLoading({
+        mainLoading: false,
+        searchLoading: false
+      })
+    })
+  }
+
+  useEffect(() => {
+    setLoading({
+      mainLoading: true,
+      searchLoading: true
+    })
+
+    listAllOrganizations(setOrganizationList)
+  }, [searchValue, filterStatus])
+
+  useEffect(() => {
+    if(offset === 0)
+      return;
+      
+    setLoading({
+      mainLoading: true,
+      searchLoading: false
+    })
+
+    listAllOrganizations(mergeResultWith)
+  }, [offset])
 
   const handleFilter = (filter) => {
     const filterValues = {
@@ -86,25 +116,25 @@ function JoinOrganization(){
       [filter]: !filterStatus[filter]
     }
     setFilterStatus(filterValues)
-
-    setOrganizationsSearch({
-      filter: filterValues,
-      value: searchValue,
-      offset: 0,
-    })    
+    setOffset(0)
   }
 
-  const handleSearchValue = async (value) => {
+  const handleSearchValue = (value) => {
     setSearchValue(value);
-    setSearchValueLoading(true)
+    setOffset(0)
+  }
 
-    await setOrganizationsSearch({
-      filter: filterStatus,
-      value: value,
-      offset: 0,
-    })
-    
-    setSearchValueLoading(false)
+  const handleScrollEnd = () => {
+    if(totalLoading)
+      return;
+      
+    const newOffset = offsetStep + offset;
+    setOffset(newOffset)  
+  }
+
+  const mergeResultWith = (newOrganizationList) => {
+    const completeOrganizationList = organizationList.concat(newOrganizationList)
+    setOrganizationList(completeOrganizationList)
   }
 
   return(
@@ -129,7 +159,7 @@ function JoinOrganization(){
           />
         </Grid>
         <Fade
-          in={loading}
+          in={totalLoading}
         >
           <LinearProgress 
             color="secondary"
@@ -138,21 +168,9 @@ function JoinOrganization(){
         </Fade>
         <Paper className={classes.listContainer}>
           <ListWithScrollUpdater
-            loading={searchValueLoading}
-            elementLoadingLimit={elementLoadingLimit}
-            itemList={organizations}
-            offset={offset}
-            setItemList={(settings) => {
-              const offset = settings.offset;
-              const mergeResultWith = settings.mergeResultWith;
-
-              setOrganizationsSearch({
-                filter: filterStatus,
-                value: searchValue,
-                offset: offset,
-                mergeResultWith: mergeResultWith,
-              })
-            }}
+            loading={loading.searchLoading}
+            itemList={organizationList}
+            onScrollEnd={handleScrollEnd}
             className={classes.list}
             height={listHeight}
             width="100%"
@@ -163,7 +181,7 @@ function JoinOrganization(){
                 <JoinOrganizationsListItem
                   style={style}
                   key={index}
-                  data={organizations[index]}
+                  data={organizationList[index]}
                   mobileView={mobileView}
                 />
               )
