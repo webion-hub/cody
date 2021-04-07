@@ -1,40 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'; 
 
-
-export default class MUICookieConsent extends React.Component {
-  static defaultProps = {
-    hideOnAccept: true,
-    snackbarAnchor: { horizontal: 'center', vertical: 'bottom' },
-    children: null,
-    message: 'You accept cookies for this website',
-    acceptButtonLabel: 'Accetta',
-    actions: null,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
-    };
+const useStyles = makeStyles(() => ({
+  container: {
+    backgroundColor: "var(--background-color)"
   }
+}));
 
-  componentDidMount() {
-    const cookieName = this.props.cookieName;
+export default function MUICookieConsent(props){
+  const [visible, setVisible] = useState(false);
+  const styles = useStyles();
+  
+  useEffect(_ => {
+    const cookieName = props.cookieName;
 
     const consent = localStorage.getItem(cookieName);
-    if (consent !== "true" || this.props.debug) {
-      this.setState({ visible: true });
-    }
-  }
+    if (consent !== "true" || props.debug)
+      setVisible(true);
+  });
 
-  handleAccept = () => {
+  function handleAccept() {
     const {
       cookieName,
-      hideOnAccept,
       onAccept,
-    } = this.props;
+    } = props;
 
     if (onAccept) {
       onAccept();
@@ -42,44 +34,61 @@ export default class MUICookieConsent extends React.Component {
 
     localStorage.setItem(cookieName, true);
 
-    if (hideOnAccept) {
-      this.setState({ visible: false });
-    }
+    setVisible(false);
   };
 
-  render() {
-    const {
-      children,
-      message,
-      snackbarAnchor,
-      acceptButtonLabel,
-      actions,
-    } = this.props;
+  const {
+    children,
+    message,
+    link,
+    snackbarAnchor,
+    acceptButtonLabel,
+    actions,
+  } = props;
 
-    const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, { onAccept: this.handleAccept }),
-    );
+  const childrenWithProps = React.Children.map(children, child =>
+    React.cloneElement(child, { onAccept: handleAccept }),
+  );
+  
+  if(visible)
+    return children ? (
+      <Snackbar anchorOrigin={snackbarAnchor} open={visible}>
+        {childrenWithProps}
+      </Snackbar> 
+    ) : (
+      <Snackbar
+        anchorOrigin={snackbarAnchor}
+        open={visible}
+        ContentProps={{className: styles.container }}
+        message={
+          <Typography
+            color="textPrimary"
+          >
+          {message}
+          <a>{link}</a>
+          </Typography>
+        }
+        action={[
+          ...React.Children.toArray(actions),
+          <Button
+            key="accept"
+            color="secondary"
+            size="small"
+            onClick={handleAccept}
+          >
+            {acceptButtonLabel}
+          </Button>,
+        ]}
+      />
+    )
+  else return null;
+}
 
-    
-  return children ? (
-    <Snackbar anchorOrigin={snackbarAnchor} open={this.state.visible}>
-      {childrenWithProps}
-    </Snackbar> ) : (
-    <Snackbar
-      anchorOrigin={snackbarAnchor}
-      open={this.state.visible}
-      message={<span>{message}</span>}
-      action={[
-        ...React.Children.toArray(actions),
-        <Button
-          key="accept"
-          color="secondary"
-          size="small"
-          onClick={this.handleAccept}
-        >
-          {acceptButtonLabel}
-        </Button>,
-      ]}
-    />
-  )}
+MUICookieConsent.defaultProps = {
+  hideOnAccept: true,
+  snackbarAnchor: { horizontal: 'center', vertical: 'bottom' },
+  children: null,
+  acceptButtonLabel: 'Accetta',
+  actions: null,
+  link: ""
 }

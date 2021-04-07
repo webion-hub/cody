@@ -47,7 +47,8 @@ export default function App(){
       <Layout>
         <MUICookieConsent
           cookieName="Cody-AcceptCookies"
-          message="Questo sito usa cookies e tu accetti.... bla bla bla... roba legale fornita dal team legale e così via... "
+          message="Questo sito usa i cookie per offrirti un'esperienza ottimale. "
+          link="Privacy&Policy page"
         />
         <OfflineController>
           <Routes/>
