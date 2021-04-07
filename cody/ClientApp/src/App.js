@@ -23,6 +23,8 @@ import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutli
 import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from './components/alert_dialog_item'
 import { OfflineController } from './components/offline_controller';
+import { Fab } from '@material-ui/core';
+import AssignmentRoundedIcon from '@material-ui/icons/AssignmentRounded';
 
 const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
@@ -35,6 +37,7 @@ const Test = lazy(() => import('./pages/test'));
 const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
 const CreateOrJoinOrganization = lazy(() => import('./pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
 const OrganizationPage = lazy(() => import('./pages/organization/OrganizationPage'));
+const Form = lazy(() => import('./pages/Form'));
 
 
 export default function App(){
@@ -89,6 +92,7 @@ function Routes(){
           <CustomRoute path='/account' component={Account} redirect={isNotLogged}/>
           <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
           <CustomRoute exact path='/organization/:id' component={OrganizationPage}/>
+          <CustomRoute exact path='/form' component={Form}/>
           
           <CustomRoute path='/admin' component={AdminPage}/>
 
@@ -106,10 +110,24 @@ function Routes(){
         buttonLabel="Ricarica la pagina"
       >
         <AlertDialogItem 
-          icon  = {errorsDialog ? errorLabels[errorsDialog][0]: ""}
-	    	  label = {errorsDialog ? errorLabels[errorsDialog][1]: ""}
+          icon  = {errorsDialog && errorLabels[errorsDialog][0]}
+	    	  label = {errorsDialog && errorLabels[errorsDialog][1]}
         />
       </AlertDialog>
+      <Fab 
+        variant="extended"
+        color="primary"
+        style={{
+          position: "fixed",
+          right: 16,
+          bottom: 16,
+        }}
+        href="/form"
+        onClick={e => PageController.push("/form", e)}
+      >
+        <AssignmentRoundedIcon style={{marginRight: 8}}/>
+        Sondaggio
+      </Fab>
     </Router>
   );
 }
