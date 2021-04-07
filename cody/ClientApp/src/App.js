@@ -5,6 +5,7 @@ import { Layout } from './components/Layout';
 import { UserControllerContext } from "./components/user_controller_context/user_controller_context";
 import { UserContext } from "./components/user_controller_context/user_controller_context";
 import { CustomRoute } from "./components/route_components/custom_route";
+import MUICookieConsent from "./components/cookie_consent_snackbar"
 import history from 'src/history';
 
 import Requests from 'src/lib/server_calls/requests';
@@ -31,7 +32,7 @@ const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
 const Error404Page = lazy(() => import('./pages/message_pages/Error404Page'));
 const EmailValidPage = lazy(() => import('./pages/message_pages/email_valid_page/EmailValidPage'));
 const UnauthorizedPage = lazy(() => import('./pages/message_pages/UnauthorizedPage'));
-const Home = lazy(() => import('./pages/home/Home'));
+const Home = lazy(() => import('./pages/home/home'));
 const Account = lazy(() => import('./pages/account/account'));
 const Test = lazy(() => import('./pages/test'));
 const AdminPage = lazy(() => import('./pages/admin_pages/AdminPage'));
@@ -44,6 +45,10 @@ export default function App(){
   return (
     <UserControllerContext>
       <Layout>
+        <MUICookieConsent
+          cookieName="Cody-AcceptCookies"
+          message="Questo sito usa cookies e tu accetti.... bla bla bla... roba legale fornita dal team legale e così via... "
+        />
         <OfflineController>
           <Routes/>
         </OfflineController>
