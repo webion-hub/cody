@@ -13,7 +13,6 @@ import { Skeleton } from "@material-ui/lab";
 
 export const useStyles = makeStyles((theme) => ({
   organizationInfoArea: {
-    marginTop: theme.spacing(2),
     background: theme.palette.background.paperSecondary,
     padding: theme.spacing(2),
     paddingBottom: theme.spacing(0),

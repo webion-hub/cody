@@ -53,7 +53,7 @@ export default function OrganizationDescription(props){
         variant="body2"
         className={classes.description}
       >
-        {description}        
+        {description}    
       </Typography>
     </div>
   );
