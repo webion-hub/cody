@@ -104,7 +104,7 @@ export class Organizations {
   /**
    * @param {number} organizationId 
    * @param {CommonFilterOptions} options 
-   * @returns {Promise<SearchResult>}
+   * @returns {Promise<SearchResult<OrganizationMember>>}
    */
   static async getMembersOf(organizationId, options) {
     return Requests.search(Organizations._getMembersReq, {
@@ -171,4 +171,15 @@ Organizations._getMembersReq = new SingleXHRRequest();
  * @property {string} [country]
  * @property {string} [description]
  * @property {string} [website]
+ */
+
+/**
+ * @typedef {object} OrganizationMember
+ * @property {number} id
+ * @property {string} username
+ * @property {OrganizationRole} role
+ */
+
+/**
+ * @typedef {'User' | 'Admin' | 'Owner'} OrganizationRole
  */
