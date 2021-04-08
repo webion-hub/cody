@@ -50,28 +50,33 @@ export function RowMenu(props) {
   }
 
   const handleDelete = () => {
-    onDelete(id)
-    refreshDataTable()
+    onDelete(id).finally(_ => {
+			refreshDataTable();
+		});
   }
 
   const handleRestore = () => {
-    onRestore(id)
-    refreshDataTable()
+    onRestore(id).finally(_ => {
+			refreshDataTable();
+		});
   }
 
 	const handleVerify = () => {
-    onVerify(id)
-    refreshDataTable()
+    onVerify(id).finally(_ => {
+			refreshDataTable();
+		});
   }
 
 	const handleDeleteForever = () => {
-    onDeleteForever(id)
-    refreshDataTable()
+    onDeleteForever(id).finally(_ => {
+			refreshDataTable();
+		});
   }
 
   const handleEditRole = (data) => {
-    onEditRole(data)
-    refreshDataTable()
+    onEditRole(data).finally(_ => {
+			refreshDataTable();
+		});
   }
 
 	return (
@@ -92,7 +97,7 @@ export function RowMenu(props) {
 			>
 				<VerifyMenuItem
 					hide={!onVerify}
-					disabled={disableVerifiyButton}
+					disabled={disableVerifyButton}
 					onVerify={handleVerify}
 				/>
 				<EditRoleMenuItem
