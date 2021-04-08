@@ -23,21 +23,22 @@ export function RowMenu(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
   const { refreshDataTable } = React.useContext(DataTableContext);
 
-  const onDelete = props.onDelete;
-  const onDeleteForever = props.onDeleteForever;
-  const onEditRole = props.onEditRole;
-  const onRestore = props.onRestore;
-  const onVerify = props.onVerify;
-  const id = props.data.id;
-  const thereIsState = props.data.state !== undefined
-
-	let disableVerifiyButton = true
-	let disableDeleteButton = true
-	let disableRestoreButton = true
-  if(thereIsState){
-    disableVerifiyButton = props.data.state.hasBeenVerified || props.data.state.hasBeenDeleted
-    disableDeleteButton = props.data.state.hasBeenDeleted 
-    disableRestoreButton = !props.data.state.hasBeenDeleted 
+  const {
+		onDelete,
+  	onDeleteForever,
+  	onEditRole,
+  	onRestore,
+  	onVerify,
+		data: {id, state},
+	} = props;
+  
+	let disableVerifyButton = true;
+	let disableDeleteButton = true;
+	let disableRestoreButton = true;
+  if (state !== undefined) {
+    disableVerifyButton = state.hasBeenVerified || state.hasBeenDeleted
+    disableDeleteButton = state.hasBeenDeleted 
+    disableRestoreButton = !state.hasBeenDeleted 
   }
 
   const handleClick = (event) => {
