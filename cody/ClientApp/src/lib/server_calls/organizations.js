@@ -99,9 +99,24 @@ export class Organizations {
       params: options,
     });
   }
+
+
+  /**
+   * @param {number} organizationId 
+   * @param {CommonFilterOptions} options 
+   * @returns {Promise<SearchResult>}
+   */
+  static async getMembersOf(organizationId, options) {
+    return Requests.search(Organizations._getMembersReq, {
+      url: `organizations/${organizationId}/members`,
+      method: 'GET',
+      params: options,
+    });
+  }
 }
 
 Organizations._listAllReq = new SingleXHRRequest();
+Organizations._getMembersReq = new SingleXHRRequest();
 
 
 /**
