@@ -6,21 +6,23 @@ import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
 import { getVerificationIcon } from 'src/pages/admin_pages/lib/get_verification_icon';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { CustomAvatar } from 'src/components/custom_avatar';
+import Organization from 'src/lib/server_calls/organization';
 
 export function OrganizationsList(props){
 
 	const associateOrganizations = (settings) => {
 		const list = settings.list;
-		/**@type {import('src/lib/server_calls/organizations').Organization} */
+		/**@type {import('src/lib/server_calls/organization').Cody.Organization} */
 		const data = settings.data;
 		const index = settings.index;
+		const organization = Organization.withId(data.id);
 
 		const menu = 
 			<RowMenu 
 				data={data} 
-				onVerify={Organizations.verify} 
-				onDelete={Organizations.delete} 
-				onRestore={Organizations.restore}
+				onVerify={organization.verify} 
+				onDelete={organization.delete} 
+				onRestore={organization.restore}
 			/>
 
 		list.push({

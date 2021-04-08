@@ -3,7 +3,7 @@ import React from 'react';
 import RestoreRoundedIcon from '@material-ui/icons/RestoreRounded';
 import { MenuItemBase } from './menu_item_base';
 
-export const ResotreMenuItem = React.forwardRef((props, ref) => {
+export const RestoreMenuItem = React.forwardRef((props, ref) => {
   if(props.hide)
     return null;
 
