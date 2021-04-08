@@ -1,7 +1,9 @@
 ﻿using Cody.Extensions;
+using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
@@ -18,7 +20,11 @@ namespace Cody.Controllers.Admin
 
             var target = await _dbContext
                 .UserAccounts
-                .FindAsync(id);
+                .IncludingOrganizations()
+                .IncludingDetail()
+                .IncludingPassword()
+                .IncludingTheme()
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (target is null)
                 return NotFound();
