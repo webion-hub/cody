@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from  'src/lib/page_controller' 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: "var(--background-color)"
-  },
-  link: {
-    textDecoration: "none",
-    color: "#4175DC",
-    cursor: "pointer"
+    backgroundColor: theme.palette.background.paperSecondary
   }
 }));
 
-export default function MUICookieConsent(props){
+export default function CookieConsentSnackBar(props){
   const [visible, setVisible] = useState(false);
   const styles = useStyles();
   
@@ -26,7 +21,7 @@ export default function MUICookieConsent(props){
     const consent = localStorage.getItem(cookieName);
     if (consent !== "true" || props.debug)
       setVisible(true);
-  });
+  }, []);
 
   function handleAccept() {
     const {
@@ -43,10 +38,6 @@ export default function MUICookieConsent(props){
     setVisible(false);
   };
 
-  function handleLinkClick() {
-    PageController.push("/privacy-and-policy");
-  };
-
   const {
     children,
     message,
@@ -60,47 +51,51 @@ export default function MUICookieConsent(props){
     React.cloneElement(child, { onAccept: handleAccept }),
   );
   
-  if(visible)
-    return children ? (
-      <Snackbar anchorOrigin={snackbarAnchor} open={visible}>
-        {childrenWithProps}
-      </Snackbar> 
-    ) : (
-      <Snackbar
-        anchorOrigin={snackbarAnchor}
-        open={visible}
-        ContentProps={{className: styles.container }}
-        message={
-          <Typography
-            variant="subtitle1"
-            color="textPrimary"
-          >
+  if(!visible)
+    return null;  
+
+  return children ? (
+    <Snackbar anchorOrigin={snackbarAnchor} open={visible}>
+      {childrenWithProps}
+    </Snackbar> 
+  ) : (
+    <Snackbar
+      anchorOrigin={snackbarAnchor}
+      open={visible}
+      ContentProps={{className: styles.container }}
+      message={
+        <Typography
+          variant="subtitle1"
+          color="textPrimary"
+        >
           {message}
-          <a 
+          <Link
             className={styles.link}
-            onClick={handleLinkClick}
+            onClick={e => PageController.push("/privacy-and-policy", e)}
+            href="/privacy-and-policy"
+            component="a"
+            color="secondary"
           >
             {link}
-          </a>
-          </Typography>
-        }
-        action={[
-          ...React.Children.toArray(actions),
-          <Button
-            key="accept"
-            color="secondary"
-            size="small"
-            onClick={handleAccept}
-          >
-            {acceptButtonLabel}
-          </Button>,
-        ]}
-      />
-    )
-  else return null;
+          </Link>
+        </Typography>
+      }
+      action={[
+        ...React.Children.toArray(actions),
+        <Button
+          key="accept"
+          color="secondary"
+          size="small"
+          onClick={handleAccept}
+        >
+          {acceptButtonLabel}
+        </Button>,
+      ]}
+    />
+  )
 }
 
-MUICookieConsent.defaultProps = {
+CookieConsentSnackBar.defaultProps = {
   hideOnAccept: true,
   snackbarAnchor: { horizontal: 'center', vertical: 'bottom' },
   children: null,

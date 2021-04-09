@@ -5,7 +5,7 @@ import { Layout } from './components/Layout';
 import { UserControllerContext } from "./components/user_controller_context/user_controller_context";
 import { UserContext } from "./components/user_controller_context/user_controller_context";
 import { CustomRoute } from "./components/route_components/custom_route";
-import MUICookieConsent from "./components/cookie_consent_snackbar"
+import CookieConsentSnackBar from "./components/cookie_consent_snackbar"
 import history from 'src/history';
 
 import Requests from 'src/lib/server_calls/requests';
@@ -45,7 +45,7 @@ export default function App(){
   return (
     <UserControllerContext>
       <Layout>
-        <MUICookieConsent
+        <CookieConsentSnackBar
           cookieName="Cody-AcceptCookies"
           message="Questo sito usa i cookie per offrirti un'esperienza ottimale. "
           link="Privacy&Policy page"
