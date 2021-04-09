@@ -9,7 +9,7 @@ import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
 export const useStyles = makeStyles((theme) => ({
 	coursesBox: {
-		marginTop: theme.spacing(8),
+		marginTop: theme.spacing(6),
 	},
 	coursesTitle: {
 		paddingBottom: theme.spacing(1)

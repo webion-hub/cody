@@ -1,22 +1,24 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Badge, Grid, IconButton, Typography } from "@material-ui/core";
+import { Badge, Grid, IconButton } from "@material-ui/core";
 import { OrganizationKindIcon } from "src/components/organization_kind_icon";
 import { CustomAvatar } from "src/components/custom_avatar";
 import { OrganizationLabel } from "src/components/typography/organization_label";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
+import { Skeleton } from "@material-ui/lab";
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
+
 import OrganizationDescription from "./organization_description";
-import { Skeleton } from "@material-ui/lab";
+import { TypographyWithLoading } from "src/components/typography/typography_with_loading";
 
 export const useStyles = makeStyles((theme) => ({
   organizationInfoArea: {
     background: theme.palette.background.paperSecondary,
     padding: theme.spacing(2),
     paddingBottom: theme.spacing(0),
-    borderRadius: 56,
+    borderRadius: "56px 56px 8px 8px",
   },
   organizationInfoBox: {
     display: "grid",
@@ -137,15 +139,4 @@ export default function OrganizationInfoArea(props){
 			</div>
     </>
   );
-}
-
-function TypographyWithLoading(props){
-  const {loading, children, ...others} = props
-  return (
-    <Typography
-      {...others}
-    >
-      {loading ? <Skeleton animation="wave"/> : children}
-    </Typography>
-  )
 }

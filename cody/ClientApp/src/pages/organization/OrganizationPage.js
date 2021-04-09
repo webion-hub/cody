@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Organizations } from "src/lib/server_calls/organizations";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import OrganizationInfoArea from "./components/organization_info_area";
@@ -8,17 +7,10 @@ import { PaperWithWaves } from "src/components/paper_with_waves";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
-
-import TreeView from '@material-ui/lab/TreeView';
-import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
-import TreeItem from '@material-ui/lab/TreeItem';
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
+import OrganizationAvatarList from "./components/organization_avatar_list";
+import Organization from "src/lib/server_calls/organization";
 
 export const useStyles = makeStyles((theme) => ({
   backgroundImage: {
@@ -29,8 +21,9 @@ export const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center center",
     position: "relative"
   },
-	container: {
-		padding: theme.spacing(2)
+	centerPaperContainer: {
+		padding: theme.spacing(2),
+		height: "100%"
 	},
 	coursesBox: {
 		marginTop: theme.spacing(8),
@@ -57,12 +50,20 @@ export const useStyles = makeStyles((theme) => ({
       width: "100%"
     },
 	}),
-	userList: props => ({
+	userListContainer: props => ({
+		background: theme.palette.background.paper,
 		width: `${props.rightSectionWidth}%`,
 		[theme.breakpoints.down('xs')]: {
       width: "0%"
     },
-	})
+	}),
+	userList: {
+		position: "sticky !important",
+		top: theme.appBar.fullHeight,
+		[theme.breakpoints.down('xs')]: {
+			top: theme.appBar.mobileHeight,
+    },
+	}
 }));
 
 export default function OrganizationPage(){
@@ -77,9 +78,10 @@ export default function OrganizationPage(){
 
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
-  const { id } = useParams();
   const [loading, setLoading] = React.useState(false)
   const [organizationData, setOrganizationData] = React.useState(null)
+  const { id } = useParams();
+	const organization = Organization.withId(id)
 
   useEffect(() => {
     getOrganizationByPageId()
@@ -87,8 +89,8 @@ export default function OrganizationPage(){
 
   const getOrganizationByPageId = () => {
     setLoading(true)
-    Organizations
-      .getById(id)
+    organization
+      .getInfo()
       .then(data => {
         console.log(data)
         setOrganizationData(data)})
@@ -117,25 +119,47 @@ export default function OrganizationPage(){
       		<div className={classes.backgroundImage}/>
 
 					<Grid
-						item
-						className={classes.centerSectionWidth}
+						container
+						direction="row"
 					>
-						<PaperWithWaves className={classes.container}>
-							<OrganizationInfoArea
-								id={id}
-								organizationData={organizationData}
-								loading={loading}
+						<Grid
+							item
+							className={classes.centerSectionWidth}
+						>
+							<PaperWithWaves className={classes.centerPaperContainer}>
+								<OrganizationInfoArea
+									id={id}
+									organizationData={organizationData}
+									loading={loading}
+								/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+								<OrganizationCourses/>
+							</PaperWithWaves>
+						</Grid>
+						<Grid 
+							item
+							className={classes.userListContainer}
+						>
+							<OrganizationAvatarList 
+								organization={organization}
+								className={classes.userList}
 							/>
-							<OrganizationCourses/>
-						</PaperWithWaves>
-					</Grid>
-				</Grid>
-				<Grid 
-					item
-					className={classes.userList}
-				>
-
-				</Grid>			
+						</Grid>
+					</Grid>	
+				</Grid>		
 			</Grid>
 			{mobileView && treeViewSection}
     </>
