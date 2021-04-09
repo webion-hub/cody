@@ -39,7 +39,7 @@ export function CustomDrawer(props){
 
 	useEffect(() => {
 		props.onDrawerClose()
-	},[userState])
+	},[userState, mobileView])
 
 	PageController.listen(() => {
 		props.onDrawerClose()

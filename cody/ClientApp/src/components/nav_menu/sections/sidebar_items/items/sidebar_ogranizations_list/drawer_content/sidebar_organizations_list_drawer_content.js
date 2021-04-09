@@ -18,8 +18,8 @@ export function SideBarOrganizationListDrawerContent() {
 
   return (
     <ListWithSearch
-      listHeight={window.innerHeight - 128}
-      listMobileHeight={window.innerHeight - 68}
+      listHeight={window.innerHeight - 145}
+      listMobileHeight={window.innerHeight - 80}
       width="100%"
       elementForStep={25}
       itemSize={56} 
