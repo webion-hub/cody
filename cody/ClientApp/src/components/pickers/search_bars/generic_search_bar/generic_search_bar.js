@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Fade, Paper } from '@material-ui/core';
@@ -38,6 +38,11 @@ export function GenericSearchBar(props){
 
   const showSearchIcon = props.onSubmit;
   const [showClearIcon, setShowClearIcon] = React.useState(false);
+
+  useEffect(() => {
+    if(props.value === "")
+      setShowClearIcon(false)
+  }, [props.value])
 
   const handleClear = () => {
     inputBaseRef.current.value = ""
