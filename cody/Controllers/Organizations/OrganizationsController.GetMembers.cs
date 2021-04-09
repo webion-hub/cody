@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
@@ -34,8 +35,10 @@ namespace Cody.Controllers.Organizations
                 })
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .OnMatchExact(rp => u =>
-                    (rp.Name == "id" && u.Id.ToString() == rp.Value) || 
-                    (rp.Name == "username" && u.Username == rp.Value)
+                    rp.Name == "id" && u.Id.ToString() == rp.Value
+                )
+                .OnDefault(k => u =>
+                    Regex.IsMatch(u.Username, k.Pattern, RegexOptions.IgnoreCase)
                 )
                 .Filter();
 
