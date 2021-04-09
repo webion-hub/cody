@@ -5,8 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Sad } from 'src/components/illustrations/sad';
 
-import { PageController } from 'src/lib/page_controller';
-
 
 const useStyles = makeStyles((theme) => ({
   findOrganizationButton: {
@@ -20,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function NoOrganizationFounded(props) {
+export function NoDataFounded(props) {
   const classes = useStyles();
   
-  if(props.loading)
+  if(props.loading || props.hide)
     return null;
 
   return (
@@ -36,20 +34,28 @@ export function NoOrganizationFounded(props) {
     >
       <Sad size="100%"/>
       <Typography variant="h6">
-        Nessun risultato
+        {props.title}
       </Typography>
       <Typography variant="subtitle1">
-        Non è stata trovata nessuna organizzazione.
+        {props.subTitle}
       </Typography>
-      <Button
-        className={classes.findOrganizationButton}
-        variant="outlined"
-        color="secondary"
-        href='/organization'
-        onClick={(event) => PageController.push('/organization', event)}
-      >
-        Trova un'organizzazione
-      </Button>
+      {
+        props.buttonLabel && 
+          <Button
+            className={classes.findOrganizationButton}
+            variant="outlined"
+            color="secondary"
+            href={props.buttonHref}
+            onClick={props.buttonOnClick}
+          >
+            {props.buttonLabel}
+          </Button>
+      }
     </Grid>
   )
+}
+
+NoDataFounded.defaultProps = {
+  title: "Nessun risultato",
+  subTitle: "Non è stato trovato nussun risultato",
 }

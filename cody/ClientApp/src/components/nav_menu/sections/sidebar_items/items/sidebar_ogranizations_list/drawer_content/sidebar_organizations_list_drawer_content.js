@@ -4,6 +4,7 @@ import { BookmarkOrganizationListItem } from './components/bookmark_organization
 
 import { getJoinedOrganizations } from './lib/get_joined_organizations';
 import { ListWithSearch } from 'src/components/list_with_search/list_with_search';
+import { PageController } from 'src/lib/page_controller';
 
 export function SideBarOrganizationListDrawerContent() {
   const [filter, setFilter] = React.useState("waiting")
@@ -27,6 +28,12 @@ export function SideBarOrganizationListDrawerContent() {
       listItem={BookmarkOrganizationListItem}
       filter={filter}
       cleanOnFilterChange
+      noDataFoundedProps={{
+        subTitle: "Nessuna organizzazione trovata",
+        buttonLabel: "Trovane una",
+        buttonHref: "/organization",
+        buttonOnClick: e => PageController.push("/organization", e)
+      }}
     />
   )
 }

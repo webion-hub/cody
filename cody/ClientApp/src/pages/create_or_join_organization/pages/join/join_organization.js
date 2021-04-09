@@ -46,6 +46,9 @@ function JoinOrganization(){
           filterStatus={filterStatus}
         />
       }
+      noDataFoundedProps={{
+        subTitle: "Nessuna organizzazione trovata",
+      }}
     />
   );
 }
