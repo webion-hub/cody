@@ -34,7 +34,8 @@ namespace Cody.Controllers.Organizations
                 })
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .OnMatchExact(rp => u =>
-                    rp.Name == "id" && u.Id.ToString() == rp.Value
+                    (rp.Name == "id" && u.Id.ToString() == rp.Value) || 
+                    (rp.Name == "username" && u.Username == rp.Value)
                 )
                 .Filter();
 
