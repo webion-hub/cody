@@ -9,23 +9,26 @@ import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
-    marginLeft: theme.spacing(1),
+    borderColor: "transparent",
+    "& > *": {
+      borderRight: `1px solid ${theme.palette.background.paper} !important`,
+    },
     [theme.breakpoints.down('xs')]: {
-      marginLeft: 0,
       marginTop: theme.spacing(1),
     },
   },
 }));
 
-export function FilterComponent(props){
+export const FilterComponent = React.forwardRef((props, ref) => {
   const classes = useStyles();
   const filterStatus = props.filterStatus;
   const setFilter = props.setFilter;
 
   return(
     <ButtonGroup
-      color="secondary"
-      className={classes.buttonGroup}
+      ref={ref}
+      variant="contained"
+      className={`${classes.buttonGroup} ${props?.className}`}
     >
       <Tooltip
         arrow
@@ -33,7 +36,7 @@ export function FilterComponent(props){
       >
         <Button
           onClick={() => setFilter("teams")}
-          variant={filterStatus.teams ? "contained" : "outlined"}
+          color={filterStatus.teams ? "primary" : "secondary"}
         >
           <OrganizationKindIcon kind="team"/>
         </Button>
@@ -44,7 +47,7 @@ export function FilterComponent(props){
       >
         <Button
           onClick={() => setFilter("schools")}
-          variant={filterStatus.schools ? "contained" : "outlined"}
+          color={filterStatus.schools ? "primary" : "secondary"}
         >
           <OrganizationKindIcon kind="school"/>
         </Button>
@@ -55,11 +58,11 @@ export function FilterComponent(props){
       >
         <Button
           onClick={() => setFilter("companies")}
-          variant={filterStatus.companies ? "contained" : "outlined"}
+          color={filterStatus.companies ? "primary" : "secondary"}
         >
           <OrganizationKindIcon kind="company"/>
         </Button>
       </Tooltip>
     </ButtonGroup>
   );
-}
+})
