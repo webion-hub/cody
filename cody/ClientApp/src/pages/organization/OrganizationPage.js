@@ -11,6 +11,7 @@ import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
 import OrganizationAvatarList from "./components/organization_avatar_list";
 import Organization from "src/lib/server_calls/organization";
+import { PageController } from "src/lib/page_controller";
 
 export const useStyles = makeStyles((theme) => ({
   backgroundImage: {
@@ -51,6 +52,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 	}),
 	userListContainer: props => ({
+		padding: theme.spacing(1),
 		background: theme.palette.background.paper,
 		width: `${props.rightSectionWidth}%`,
 		[theme.breakpoints.down('xs')]: {
@@ -59,9 +61,9 @@ export const useStyles = makeStyles((theme) => ({
 	}),
 	userList: {
 		position: "sticky !important",
-		top: theme.appBar.fullHeight,
+		top: theme.appBar.fullHeight + 8,
 		[theme.breakpoints.down('xs')]: {
-			top: theme.appBar.mobileHeight,
+			top: theme.appBar.mobileHeight + 8,
     },
 	}
 }));
@@ -106,8 +108,8 @@ export default function OrganizationPage(){
 		</Grid>	
 
   return (
-    <>
-			<Grid
+    <div key={id}>
+			<Grid				
 				container
 				direction="row"
 			>
@@ -162,6 +164,6 @@ export default function OrganizationPage(){
 				</Grid>		
 			</Grid>
 			{mobileView && treeViewSection}
-    </>
+    </div>
   );
 }
