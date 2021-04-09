@@ -41,9 +41,13 @@ export function CustomDrawer(props){
 		props.onDrawerClose()
 	},[userState, mobileView])
 
-	PageController.listen(() => {
+	const unListen = PageController.listen(() => {
 		props.onDrawerClose()
 	})
+
+  useEffect(_ => {
+    return _ => unListen()
+  }, [])
 
 	const getDrawerWidth = () => {
 		const isDrawerOpenOnMobileView = isDrawerOpen && mobileView

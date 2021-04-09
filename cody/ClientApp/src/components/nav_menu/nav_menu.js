@@ -37,9 +37,13 @@ export function NavMenu(props){
     setOpenSidebar(!mobileView)
   }, [mobileView])
 
-  PageController.listen(() => {
+  const unListen = PageController.listen(() => {
 		setOpenSidebar(false)
 	})
+
+  useEffect(_ => {
+    return _ => unListen()
+  }, [])
 
   const children = 
     <main className={classes.content}>

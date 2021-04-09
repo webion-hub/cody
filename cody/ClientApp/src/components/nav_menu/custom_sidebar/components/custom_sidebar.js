@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
 
@@ -25,9 +25,13 @@ export function CustomSideBar(props){
 	const sideBarItems = props.sideBarItems;
 	const drawerState = props.isDrawerOpen ? "open" : "close"
 
-	PageController.listen(() => {
+	const unListen = PageController.listen(() => {
 		props.onDrawerClose()
 	})
+	
+  useEffect(_ => {
+    return _ => unListen()
+  }, [])
 
 	const handleDrawerContent = (element, newDrawerState) => {
 		const elementIdentifier = element.identifier;
