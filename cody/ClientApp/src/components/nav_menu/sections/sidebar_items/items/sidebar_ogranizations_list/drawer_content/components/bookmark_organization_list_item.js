@@ -34,11 +34,12 @@ export function BookmarkOrganizationListItem(props) {
   const classes = useStyles();
   const [disableBookmarkedIcon, setDisableBookmarkedIcon] = React.useState(false)
 
-  const organization = props.organization
+  const organization = props.data
   const organizationId = organization.id
   const organizationName = organization.name
   const organizationHasLogo = organization.hasLogo
   const organizationKind = organization.kind
+  const isBookmarked = organization.isBookmarked
 
   const organizationImageUrl = `organizations/${organizationId}/logo`
 
@@ -84,7 +85,7 @@ export function BookmarkOrganizationListItem(props) {
       <ListItemSecondaryAction>
         <BookmarkIconButton
           disabled={disableBookmarkedIcon}
-          isBookmarked={props.isBookmarked}
+          isBookmarked={isBookmarked}
           onClick={handleBookmarkClick}
         />
       </ListItemSecondaryAction>

@@ -2,15 +2,22 @@ import { User } from 'src/lib/server_calls/user';
 
 export const getJoinedOrganizations = (settings) => {
   const {
-    searchValue,
-    showOnlyBookmarked 
+    filter,
+    offset,
+    limit,
   } = settings
 
   return new Promise(resolve => {
+    const filterNotUndefined = filter ? filter : ""
+    const showOnlyBookmarked = filterNotUndefined.startsWith("onlyBookmarked");
+    const prepFilter = filterNotUndefined.replace("onlyBookmarked", "");
+
     if(showOnlyBookmarked){
       User
         .getBookmarkedOrganizations({
-          filter: searchValue,
+          filter: prepFilter,
+          limit: limit,
+          offset: offset,
         })
         .then(data => resolve(data))
       
@@ -19,7 +26,9 @@ export const getJoinedOrganizations = (settings) => {
 
     User
       .getJoinedOrganizations({
-        filter: searchValue,
+        filter: prepFilter,
+        limit: limit,
+        offset: offset,
       })
       .then(data => resolve(data))
   })
