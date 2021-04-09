@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
 		"& *": {
 			minWidth: "0"
 		},
-        position: "fixed",
-        bottom: 0
+		position: "fixed",
+		bottom: 0
 	}
 }));
 
@@ -25,19 +25,19 @@ export function SideBarThemeIcon(){
 
 	return (
 		<List className={classes.sideBarList}>
-            <ThemeContextConsumer>
-                {({theme, toggleTheme}) => (
-                    <ListItem 
-                        button
-                        component="a"
-                        onClick={toggleTheme}
-                    >
-                        <ListItemIcon>
-                            <BrightnessMediumRoundedIcon/>
-                        </ListItemIcon>
-                    </ListItem>
-                )}
-            </ThemeContextConsumer>
+			<ThemeContextConsumer>
+				{({theme, toggleTheme}) => (
+					<ListItem 
+						button
+						component="a"
+						onClick={toggleTheme}
+					>
+						<ListItemIcon>
+							<BrightnessMediumRoundedIcon/>
+						</ListItemIcon>
+					</ListItem>
+				)}
+			</ThemeContextConsumer>
 		</List>
 	)
 }

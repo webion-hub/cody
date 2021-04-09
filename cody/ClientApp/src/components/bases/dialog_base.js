@@ -34,7 +34,8 @@ export function DialogBase(props){
 
   const areButtons = props.firstButton || props.secondButton
   const buttonsClassName = props.centeredButtons && classes.centeredButtons
-  const paperClassNames = `${classWithWavedBackground} ${classes.dialogContainer} ${props.paperClassName}`
+  const paperClassNames = 
+    `${classWithWavedBackground} ${classes.dialogContainer} ${props.paperClassName}`
 
   const buttons = areButtons &&      
     <DialogActions className={`${buttonsClassName} ${classes.buttons}`}>

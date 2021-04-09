@@ -6,7 +6,7 @@ import ArrowDropDownRoundedIcon from '@material-ui/icons/ArrowDropDownRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 export const AutocompleteContext = React.createContext({
-  heightBigScreen: 56,
+  heightBigScreen: 36,
   heightSmallsScreen: 48,
 });
 
@@ -22,10 +22,14 @@ export function AutocompleteWithVirtualizer(props) {
       <Autocomplete
         {...props}
         ListboxComponent={ListboxComponent}
-        popupIcon={props.popupIcon ? props.popupIcon : <ArrowDropDownRoundedIcon/>}
-        closeIcon={props.closeIcon ? props.closeIcon : <CloseRoundedIcon/>}
+        popupIcon={props.popupIcon}
+        closeIcon={props.closeIcon}
       />
     </AutocompleteContext.Provider>
   );
 }
 
+AutocompleteWithVirtualizer.defaultProps = {
+  popupIcon: <ArrowDropDownRoundedIcon/>,
+  closeIcon: <CloseRoundedIcon/>,
+}

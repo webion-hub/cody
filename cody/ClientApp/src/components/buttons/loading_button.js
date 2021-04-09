@@ -20,8 +20,8 @@ export function LoadingButton(props){
   const mainButton = 
     <Button
       {...otherProps}
-      variant={variant ? variant : "contained"}
-      color={color ? color : "primary"}
+      variant={variant}
+      color={color}
       disabled={disabledButton}
       fullWidth={fullWidth}
     >
@@ -39,4 +39,9 @@ export function LoadingButton(props){
         {mainButton}
       </span>   
   ) 
+}
+
+LoadingButton.defaultProps = {
+  color: "primary",
+  variant: "contained"
 }

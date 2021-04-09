@@ -5,7 +5,8 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 const useStyles = makeStyles((theme) => ({
   verifiedOrganization: props => ({
-    transform: props.translateIconY ? `translate(0px, ${props.translateIconY}px)` : "translate(0px, 4px)",
+    transform: props.translateIconY ?
+      `translate(0px, ${props.translateIconY}px)` : "translate(0px, 4px)",
     marginLeft: theme.spacing(1),
     fontSize: 18,
     color: theme.palette.text.secondary

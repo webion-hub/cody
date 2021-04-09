@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Fade, Paper } from '@material-ui/core';
@@ -36,28 +36,26 @@ export function GenericSearchBar(props){
   const classes = useStyles({background});
   const inputBaseRef = useRef();
 
-  const onSubmit = props.onSubmit ? props.onSubmit : () => {}
-  const onChange = props.onChange ? props.onChange : () => {}
-
   const showSearchIcon = props.onSubmit;
   const [showClearIcon, setShowClearIcon] = React.useState(false);
 
   const handleClear = () => {
     inputBaseRef.current.value = ""
-    onChange("")
-    onSubmit()
+    props.onChange?.("")
+    props.onSubmit?.()
     setShowClearIcon(false)
   }
 
   const handleChange = (event) => {
     const value = event.target.value;
-    onChange(value)
+    props.onChange?.(value)
+
     const isSearchBarNotEmpty = value !== ""
     setShowClearIcon(isSearchBarNotEmpty)
   }
 
   const handleSubmitWithoutRefresh = (event) => {
-    onSubmit()
+    props.onSubmit?.()
     //avoid to refresh page
     event.preventDefault()
   }
@@ -66,7 +64,7 @@ export function GenericSearchBar(props){
     <IconButton 
       className={classes.iconButton} 
       aria-label="search"
-      onClick={onSubmit}
+      onClick={_ => props.onSubmit?.()}
     >
       <SearchRoundedIcon/>
     </IconButton>
@@ -82,7 +80,7 @@ export function GenericSearchBar(props){
       <InputBase
         inputRef={inputBaseRef}
         className={classes.input}
-        placeholder={props.label? props.label : "Cerca"}
+        placeholder={props.label}
         inputProps={{ 'aria-label': 'Cerca' }}
         onChange={handleChange}
         value={props.value}
@@ -102,4 +100,8 @@ export function GenericSearchBar(props){
       {props.endIcon}
     </Paper>
   )
+}
+
+GenericSearchBar.defaultProps = {
+  label: "Cerca"
 }

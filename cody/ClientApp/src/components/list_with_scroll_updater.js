@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
 
 export function ListWithScrollUpdater(props) {

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function BackgroundWithLines(props){
+export function BackgroundWithLines(){
   const classes = useStyles();
 	const box = useRef();
 	const boxHeight = useGetSize(box).height;

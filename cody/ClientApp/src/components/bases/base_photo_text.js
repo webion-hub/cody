@@ -34,8 +34,7 @@ export function BasePhotoText(props) {
       {image}
     </div>
 
-  const propsItems = props.items? props.items : [];
-  const items = propsItems.map((item, index) => 
+  const items = props.items.map((item, index) => 
     <Box 
       key={index}
       mb={props.margin}
@@ -43,13 +42,12 @@ export function BasePhotoText(props) {
     >
       {item}
     </Box>
-  );
-  
+  );  
 
   return (
     <Grid
       container
-      direction={props.reverse ? "row-reverse" : "row"}
+      direction={props.direction}
       justify="center"
       alignItems="center"
     >
@@ -67,4 +65,9 @@ export function BasePhotoText(props) {
       </Grid>
     </Grid>
   );
+}
+
+BasePhotoText.defaultProps = {
+  items: [],
+  direction: "row"
 }

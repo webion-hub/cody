@@ -35,7 +35,11 @@ export function OfflineController(props){
 
   return (
     <>
-      <SnackbarAlert open={openSnackBar} onClose={() => setOpenSnackBar(false)} severity={isOffline ? "error" : "success"}>
+      <SnackbarAlert 
+        open={openSnackBar} 
+        onClose={() => setOpenSnackBar(false)} 
+        severity={isOffline ? "error" : "success"}
+      >
         {isOffline ? "Sei offline" : "Sei di nuovo online"}
       </SnackbarAlert>
       {showOfflinePage ? <OfflinePage/> : props.children}

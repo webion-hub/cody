@@ -6,7 +6,7 @@ export function CustomRoute(props){
     <>
       {
         props.redirect ? (
-          <Redirect to={props.redirectTo? props.redirectTo : '/'}/>
+          <Redirect to={props.redirectTo}/>
         ):(
           <Route 
             exact={props.exact}
@@ -17,4 +17,8 @@ export function CustomRoute(props){
       }
     </>
   );
+}
+
+CustomRoute.defaultProps = {
+  redirectTo: '/'
 }

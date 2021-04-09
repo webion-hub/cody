@@ -19,7 +19,7 @@ export function AddPhotoBadgeButton(props){
   const imageUnderEditing = props.imageUnderEditing;
   const thereIsAnImage = props.thereIsAnImage;
 
-  const iconSize = props.iconSize? props.iconSize : 40;
+  const iconSize = props.iconSize;
   const classes = useStyles({iconSize});
   
   const deleteImageButton =
@@ -71,6 +71,10 @@ export function AddPhotoBadgeButton(props){
   }
 
   return getBadgeButton()
-
 }
+
+AddPhotoBadgeButton.defaultProps = {
+  iconSize : 40
+}
+
 

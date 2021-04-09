@@ -36,17 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function PaperWithTransitionBase(props){
-  const overflow = props.overflow? props.overflow : "hidden";
-
-  const width = props.width? props.width : "auto";
-  const height = props.height? props.height : "auto";
-  const removeHeightOnMobile = props.removeHeightOnMobile? props.removeHeightOnMobile : 0;
-  const classes = useStyles({
-    width,
-    height,
-    removeHeightOnMobile,
-    overflow,
-  });
+  const classes = useStyles(props);
 
   return(
     <PaperWithWaves
@@ -71,3 +61,9 @@ export function PaperWithTransitionBase(props){
   );
 }
 
+PaperWithTransitionBase.defaultProps = {
+  overflow: "hidden",
+  width: "auto",
+  height: "auto",
+  removeHeightOnMobile: 0,
+}

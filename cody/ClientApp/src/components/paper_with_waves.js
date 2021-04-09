@@ -7,9 +7,7 @@ export function PaperWithWaves(props){
   const classWithWavedBackground = useBackgroundWaves();
 
   const { className, children, otherProps } = props;
-
-  const propsClassName = className ? className : ""
-  const classesName = `${classWithWavedBackground} ${propsClassName}`
+  const classesName = `${classWithWavedBackground} ${className}`
 
   return(
     <Paper 
@@ -21,3 +19,6 @@ export function PaperWithWaves(props){
   );
 }
 
+PaperWithWaves.defaultProps = {
+  className: ""
+}

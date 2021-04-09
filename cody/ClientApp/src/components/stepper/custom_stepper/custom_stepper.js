@@ -158,6 +158,3 @@ export function CustomStepper(props){
     </>
   );
 }
-
-
-

@@ -5,9 +5,9 @@ import { useMediaQuery } from '@material-ui/core'
 
 import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
-import { BookmarkOrganizationListItem } from './bookmark_organization_list_item';
+import { BookmarkOrganizationListItem } from './components/bookmark_organization_list_item';
 
-import { NoOrganizationFounded } from './no_organization_founded';
+import { NoOrganizationFounded } from './components/no_organization_founded';
 import { getJoinedOrganizations } from './lib/get_joined_organizations';
 
 export function SideBarOrganizationListDrawerContent() {

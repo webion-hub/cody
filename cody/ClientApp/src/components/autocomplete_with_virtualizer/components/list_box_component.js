@@ -53,12 +53,10 @@ export const ListboxComponent = React.forwardRef(function ListboxComponent(props
   })
 
   const getHeight = () => {
-    if (itemCount > 8) {
+    if (itemCount > 8)
       return 8 * itemSize;
-    }
-    else {
-      return itemCount * itemSize
-    }
+
+    return itemCount * itemSize
   };
 
   return (

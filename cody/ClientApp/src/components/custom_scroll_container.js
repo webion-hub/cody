@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Box, Grid, IconButton } from '@material-ui/core'
 import { useTheme } from '@material-ui/core'

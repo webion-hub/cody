@@ -33,9 +33,9 @@ export function CustomSideBar(props){
 		const elementIdentifier = element.identifier;
 		const elementWidth = element.width;
 		
-		const drawerAction = newDrawerState === "toggle" ? 
-			drawerState === "close" :
-			newDrawerState === "open"
+		const drawerAction = newDrawerState === "toggle" 
+			? drawerState === "close" 
+			: newDrawerState === "open"
 
 		if(drawerAction)
 			props.setDrawerContent({

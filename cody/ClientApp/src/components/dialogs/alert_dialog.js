@@ -65,7 +65,7 @@ export function AlertDialog(props){
           color="primary"
           variant="contained"
         >
-          {props.buttonLabel ? props.buttonLabel : "Chiudi"}
+          {props.buttonLabel}
         </Button>
       }
     >
@@ -82,4 +82,8 @@ export function AlertDialog(props){
       </BasePhotoText>
     </DialogBase>
   )
+}
+
+AlertDialog.defaultProps = {
+  buttonLabel: "Chiudi",
 }

@@ -26,8 +26,8 @@ export function LoadingIconButton(props){
     <>
       <IconButton
         {...otherProps}
-        variant={variant ? variant : "contained"}
-        color={color ? color : "primary"}
+        variant={variant}
+        color={color}
         disabled={disabledButton}
       >
         {props.icon}
@@ -35,4 +35,9 @@ export function LoadingIconButton(props){
       {loadingAnimation}
     </>
   ) 
+}
+
+LoadingIconButton.defaultProps = {
+  color: "primary",
+  variant: "contained"
 }

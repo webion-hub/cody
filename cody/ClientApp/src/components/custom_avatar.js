@@ -17,12 +17,6 @@ export function CustomAvatar(props){
   const [loading, setLoading] = React.useState(true);
   const { disableLoading, shadow, size, propsLoading, ...other } = props;
 
-  const propsOnLoad = props.onLoad? 
-    props.onLoad() : () => {}
-
-  const propsOnError = props.onError? 
-    props.onError() : () => {}
-
   const handleLoading = () => {
     if(!disableLoading)
       checkImage()
@@ -32,11 +26,11 @@ export function CustomAvatar(props){
   const checkImage = () => {
     var img = new Image();
     img.onload = () => {
-      propsOnLoad()
+      props.onLoad?.()
       setLoading(false)
     } 
     img.onerror = () => {
-      propsOnError()
+      props.onError?.()
       setLoading(false)
     }
     img.src = props.src;
@@ -44,10 +38,9 @@ export function CustomAvatar(props){
 
   const isLoading = loading || propsLoading;
   const finalLoading = isLoading && !disableLoading
-  const finalSize = size? size : 40
 
-  const extraLoadingWidth = finalSize / 5
-  const loadingSize = finalSize + extraLoadingWidth;
+  const extraLoadingWidth = size / 5
+  const loadingSize = size + extraLoadingWidth;
 
   useEffect(() => {
     handleLoading();
@@ -59,8 +52,8 @@ export function CustomAvatar(props){
       <Skeleton
         variant="circle" 
         animation="wave"
-        width={finalSize} 
-        height={finalSize} 
+        width={size} 
+        height={size} 
         style={{
           display: finalLoading ? "block" : "none"
         }}
@@ -78,8 +71,8 @@ export function CustomAvatar(props){
       <Avatar
         {...other}
         style={{
-          width: finalSize,
-          height: finalSize,
+          width: size,
+          height: size,
           fontSize: `${1.25 * (size / 40)}rem`,
           display: finalLoading ? "none" : "flex",
           boxShadow: shadow && `2px 2px 6px 0px ${theme.palette.background.paperSecondary}`,
@@ -87,4 +80,8 @@ export function CustomAvatar(props){
       />
     </div> 
   );
+}
+
+CustomAvatar.defaultProps = {
+  size: 40,
 }

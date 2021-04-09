@@ -16,11 +16,8 @@ export function InteractiveIconBase(props){
   const classes = useStyles();
   const { userState } = React.useContext(UserContext);
  
-	const extraLoadingCondition = props.extraLoadingCondition? 
-		props.extraLoadingCondition : false;
-
 	const finalLoading = 
-    userState === "loading" || extraLoadingCondition;
+    userState === "loading" || props.extraLoadingCondition;
 
 	const loggedContent =
 		<LoadingDisplayComponent
@@ -52,4 +49,8 @@ export function InteractiveIconBase(props){
 			{userState === "logged" ? loggedContent : notLoggedContent}
     </>
   );
+}
+
+InteractiveIconBase.defaultProps = {
+  extraLoadingCondition: false
 }
