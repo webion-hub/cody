@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import { Button } from '@material-ui/core';
@@ -9,8 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { DialogBase } from 'src/components/bases/dialog_base';
-
-import { Error } from 'src/components/illustrations/error';
 
 export const useStyles = makeStyles((theme) => ({
   paperClassName: {
@@ -70,7 +67,7 @@ export function AlertDialog(props){
       }
     >
       <BasePhotoText
-        image={Error}
+        image={props.illustration}
         margin={1}
         items={[
           <List component="nav">

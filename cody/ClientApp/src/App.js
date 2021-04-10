@@ -21,6 +21,11 @@ import CloudOffRoundedIcon from '@material-ui/icons/CloudOffRounded';
 import ZoomOutMapRoundedIcon from '@material-ui/icons/ZoomOutMapRounded';
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
+import { Error } from 'src/components/illustrations/error';
+import { Error404 } from 'src/components/illustrations/error404';
+import { Sad } from 'src/components/illustrations/sad';
+import { NetworkError } from 'src/components/illustrations/network_error';
+
 import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from './components/alert_dialog_item'
 import { OfflineController } from './components/offline_controller';
@@ -72,14 +77,42 @@ function Routes(){
     setErrorsDialog(reason)
   };
 
-  const errorLabels = {
-    serverError: [ <CloudOffRoundedIcon/>, "C'è stato un errore con il server!" ],
-    sizeTooBig: [ <ZoomOutMapRoundedIcon/>, "Dimensione troppo grande!" ],
-    unauthorized: [ <PanToolRoundedIcon/>, "Richiesta non autorizzata!" ],
-    badRequest: [ <RemoveCircleOutlineRoundedIcon/>, "Richiesta non valida!" ],
-    notFound: [ <FindInPageRoundedIcon/>, "Non trovato!" ],
-    networkError: [ <WifiOffRoundedIcon/>, "C'è stato un errore di rete!" ],
-    genericError: [ <ErrorRoundedIcon/>, "C'è stato un errore!" ],
+  const errorInfos = {
+    serverError: { 
+      icon: <CloudOffRoundedIcon/>, 
+      label: "C'è stato un errore con il server!",
+      illustration: NetworkError
+    },
+    sizeTooBig: { 
+      icon: <ZoomOutMapRoundedIcon/>, 
+      label: "Dimensione troppo grande!",
+      illustration: Error
+    },
+    unauthorized: { 
+      icon: <PanToolRoundedIcon/>, 
+      label: "Richiesta non autorizzata!",
+      illustration: Sad
+    },
+    badRequest: { 
+      icon: <RemoveCircleOutlineRoundedIcon/>, 
+      label: "Richiesta non valida!",
+      illustration: Error
+    },
+    notFound: { 
+      icon: <FindInPageRoundedIcon/>, 
+      label: "Non trovato!",
+      illustration: Error404
+    },
+    networkError: { 
+      icon: <WifiOffRoundedIcon/>, 
+      label: "C'è stato un errore di rete!",
+      illustration: NetworkError
+    },
+    genericError: { 
+      icon: <ErrorRoundedIcon/>, 
+      label: "C'è stato un errore!",
+      illustration: Error 
+    },
   }
 
   return (
@@ -109,6 +142,7 @@ function Routes(){
       </Suspense>      
       <AlertDialog
         open={errorsDialog !== ""}
+        illustration={errorsDialog && errorInfos[errorsDialog].illustration}
         onClose={() => {
           setErrorsDialog("")
           PageController.refresh()
@@ -116,8 +150,8 @@ function Routes(){
         buttonLabel="Ricarica la pagina"
       >
         <AlertDialogItem 
-          icon  = {errorsDialog && errorLabels[errorsDialog][0]}
-	    	  label = {errorsDialog && errorLabels[errorsDialog][1]}
+          icon  = {errorsDialog && errorInfos[errorsDialog].icon}
+	    	  label = {errorsDialog && errorInfos[errorsDialog].label}
         />
       </AlertDialog>
       <Fab 
