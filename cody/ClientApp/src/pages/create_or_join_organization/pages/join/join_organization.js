@@ -46,7 +46,7 @@ function JoinOrganization(){
           filterStatus={filterStatus}
         />
       }
-      noDataFoundedProps={{
+      noDataFoundProps={{
         subTitle: "Nessuna organizzazione trovata",
       }}
     />

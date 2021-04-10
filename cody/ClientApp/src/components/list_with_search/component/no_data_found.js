@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function NoDataFounded(props) {
+export function NoDataFound(props) {
   const classes = useStyles();
   
   if(props.loading || props.hide)
@@ -55,7 +55,7 @@ export function NoDataFounded(props) {
   )
 }
 
-NoDataFounded.defaultProps = {
+NoDataFound.defaultProps = {
   title: "Nessun risultato",
   subTitle: "Non è stato trovato nussun risultato",
 }

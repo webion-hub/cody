@@ -6,7 +6,7 @@ import { useMediaQuery } from '@material-ui/core'
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 import { ListWithScrollUpdater } from 'src/components/list_with_search/component/list_with_scroll_updater';
 import { useListWithSearch } from './hook/use_list_with_search';
-import { NoDataFounded } from './component/no_data_founded';
+import { NoDataFound } from './component/no_data_found';
 
 const useStyles = makeStyles((theme) => ({
   listContainer: props => ({
@@ -103,8 +103,8 @@ export function ListWithSearch(props){
       <Paper className={classes.listContainer}>
         {
           dataList?.values.length === 0 ?
-            <NoDataFounded 
-              {...props.noDataFoundedProps}
+            <NoDataFound 
+              {...props.noDataFoundProps}
               loading={totalLoading}
             />
             :
@@ -129,7 +129,6 @@ export function ListWithSearch(props){
               }}
             />
         }
-
       </Paper>
     </Grid>
   );

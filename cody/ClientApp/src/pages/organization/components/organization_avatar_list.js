@@ -54,7 +54,7 @@ export default function OrganizationAvatarList(props){
       itemSize={56}
       getList={organization.getMembersOf}
       listItem={AvatarListItem}
-      noDataFoundedProps={{
+      noDataFoundProps={{
         hide: true,
       }}
     />
@@ -74,6 +74,8 @@ function AvatarListItem(props){
         <ListItemAvatar>
           <CustomAvatar
             src={`user/${props.index}/profile_picture`}
+            alt={props.data?.username}
+            disableLoading
           />
         </ListItemAvatar>
         <ListItemText
