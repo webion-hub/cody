@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Backdrop, ClickAwayListener } from '@material-ui/core';
 
@@ -15,19 +15,26 @@ const useStyles = makeStyles((theme) => ({
 	},
 	closeSideBarIcon: {
 		marginTop: 4
-	}
+	},
 }));
 
 export function CustomSideBarWithDrawer(props){
 	const theme = useTheme();
 	const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
-  const classes = useStyles();
 	const sideBarItems = props.sideBarItems;
 	const [drawerContent, setDrawerContent] = React.useState({
 		identifier: "",
 		width: 0,
 	})
 	const isDrawerOpen = drawerContent.width !== 0;
+  const classes = useStyles({isDrawerOpen});
+
+	useEffect(() => {
+		if(isDrawerOpen)
+			document.body.style.overflowY = 'hidden';
+		else
+			document.body.style.overflowY = 'overlay';
+	}, [isDrawerOpen])
 
 	const handleCloseSidebar = () => {
 		handleCloseDrawer()

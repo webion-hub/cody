@@ -28,7 +28,7 @@ export function SideBarOrganizationListDrawerContent() {
       listItem={BookmarkOrganizationListItem}
       filter={filter}
       cleanOnFilterChange
-      noDataFoundedProps={{
+      noDataFoundProps={{
         subTitle: "Nessuna organizzazione trovata",
         buttonLabel: "Trovane una",
         buttonHref: "/organization",

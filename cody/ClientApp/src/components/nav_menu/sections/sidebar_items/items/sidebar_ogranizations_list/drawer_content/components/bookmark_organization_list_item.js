@@ -65,6 +65,7 @@ export function BookmarkOrganizationListItem(props) {
             <CustomAvatar
               src={organizationImageUrl}
               alt={organizationName}
+              disableLoading
             />
           </ListItemAvatar>
           :
