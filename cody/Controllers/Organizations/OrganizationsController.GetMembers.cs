@@ -28,27 +28,11 @@ namespace Cody.Controllers.Organizations
                 .OrganizationMembers
                 .IncludingUser()
                 .Where(om => om.OrganizationId == organizationId)
-                .OrderBy(om =>
-                    om.Role == OrganizationRole.Owner ? 1 :
-                    om.Role == OrganizationRole.Admin ? 2 :
-                    om.Role == OrganizationRole.User  ? 3 : 4
-                )
+                .OrderByRole()
                 .ThenBy(om => om.UserAccountId)
-                .Select(om => new
-                {
-                    om.UserAccount.Id,
-                    om.UserAccount.Username,
-                    Role = om.Role.ToString(),
-                })
                 .CreateFilter(filter, FilterKind.SplitWords)
-                .OnMatchExact(rp => u =>
-                    (rp.Name == "id" && u.Id.ToString() == rp.Value) ||
-                    (rp.Name == "role" && u.Role == rp.Value)
-                )
-                .OnDefault(k => u =>
-                    Regex.IsMatch(u.Username, k.Pattern, RegexOptions.IgnoreCase)
-                )
-                .Filter();
+                .DefaultMatch()
+                .Format();
 
             var result = await SearchResult.FormatAsync(
                 results: members,

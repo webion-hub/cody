@@ -9,7 +9,7 @@ using IncludableCover = Microsoft.EntityFrameworkCore.Query.IIncludableQueryable
 
 namespace Cody.QueryExtensions
 {
-    public static class OrganizationMemberQueries
+    public static partial class OrganizationMemberQueries
     {
         public static IncludableOrganization IncludingOrganization(this QueryableOrganizationMember self)
         {
