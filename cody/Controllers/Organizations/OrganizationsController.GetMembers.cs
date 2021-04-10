@@ -1,4 +1,5 @@
 ﻿using Cody.Extensions;
+using Cody.Models.Organizations;
 using Cody.QueryExtensions;
 using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -26,7 +28,12 @@ namespace Cody.Controllers.Organizations
                 .OrganizationMembers
                 .IncludingUser()
                 .Where(om => om.OrganizationId == organizationId)
-                .OrderBy(om => om.UserAccountId)
+                .OrderBy(om =>
+                    om.Role == OrganizationRole.Owner ? 1 :
+                    om.Role == OrganizationRole.Admin ? 2 :
+                    om.Role == OrganizationRole.User  ? 3 : 4
+                )
+                .ThenBy(om => om.UserAccountId)
                 .Select(om => new
                 {
                     om.UserAccount.Id,
@@ -35,7 +42,8 @@ namespace Cody.Controllers.Organizations
                 })
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .OnMatchExact(rp => u =>
-                    rp.Name == "id" && u.Id.ToString() == rp.Value
+                    (rp.Name == "id" && u.Id.ToString() == rp.Value) ||
+                    (rp.Name == "role" && u.Role == rp.Value)
                 )
                 .OnDefault(k => u =>
                     Regex.IsMatch(u.Username, k.Pattern, RegexOptions.IgnoreCase)
