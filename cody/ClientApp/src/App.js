@@ -25,7 +25,7 @@ import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from './components/alert_dialog_item'
 import { OfflineController } from './components/offline_controller';
 import { Fab } from '@material-ui/core';
-import AssignmentRoundedIcon from '@material-ui/icons/AssignmentRounded';
+import EcoRoundedIcon from '@material-ui/icons/EcoRounded';
 
 const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
@@ -98,7 +98,7 @@ function Routes(){
           <CustomRoute path='/account' component={Account} redirect={isNotLogged}/>
           <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
           <CustomRoute exact path='/organization/:id' component={OrganizationPage}/>
-          <CustomRoute exact path='/form' component={Form}/>
+          <CustomRoute exact path='/help-us' component={Form}/>
           
           <CustomRoute path='/admin' component={AdminPage}/>
 
@@ -128,11 +128,11 @@ function Routes(){
           right: 16,
           bottom: 16,
         }}
-        href="/form"
-        onClick={e => PageController.push("/form", e)}
+        href="/help-us"
+        onClick={e => PageController.push("/help-us", e)}
       >
-        <AssignmentRoundedIcon style={{marginRight: 8}}/>
-        Sondaggio
+        <EcoRoundedIcon style={{marginRight: 8}}/>
+        Aiutaci
       </Fab>
     </Router>
   );
