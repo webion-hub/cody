@@ -5,6 +5,7 @@ using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using static Cody.Extensions.ClaimsPrincipalExtension;
 
 namespace Cody.Extensions
 {
@@ -33,13 +34,13 @@ namespace Cody.Extensions
         }
 
 
-        public static Task<UserAccount> GetLoggedUserAsync(this HttpContext context)
+        public static Task<UserAccount> GetLoggedUserAsync(this HttpContext context, Includer include = null)
         {
             var dbContext = context
                 .RequestServices
                 .GetCodyContext();
 
-            return context.User.FetchFromDbAsync(dbContext);
+            return context.User.FetchFromDbAsync(dbContext, include);
         }
     }
 }

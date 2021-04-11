@@ -1,10 +1,9 @@
 ﻿using Cody.Contexts;
-using Cody.Models;
 using Cody.Models.Users;
 using Cody.QueryExtensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,17 +12,28 @@ namespace Cody.Extensions
 {
     internal static class ClaimsPrincipalExtension
     {
-        public static async Task<UserAccount> FetchFromDbAsync(this ClaimsPrincipal claim, CodyContext dbContext)
-        {
+        public delegate IQueryable<UserAccount> Includer(IQueryable<UserAccount> user);
+
+
+        public static async Task<UserAccount> FetchFromDbAsync(
+            this ClaimsPrincipal claim,
+            CodyContext dbContext,
+            Includer include = null 
+        ) {
             var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!int.TryParse(rawId, out int userId))
                 return null;
 
-            return await dbContext
+            var query = dbContext
                 .UserAccounts
                 .IncludingDetail()
                 .IncludingState()
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                .AsQueryable();
+
+            if (include is not null)
+                query = include(query);
+
+            return await query.FirstOrDefaultAsync(u => u.Id == userId);
         }
 
 
