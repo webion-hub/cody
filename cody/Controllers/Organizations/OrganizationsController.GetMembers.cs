@@ -28,8 +28,8 @@ namespace Cody.Controllers.Organizations
                 .OrganizationMembers
                 .IncludingUser()
                 .Where(om => om.OrganizationId == organizationId)
-                .OrderByRole()
-                .ThenBy(om => om.UserAccountId)
+                .OrderByRole().ThenById()
+                
                 .CreateFilter(filter, FilterKind.SplitWords)
                 .DefaultMatch()
                 .Format();
