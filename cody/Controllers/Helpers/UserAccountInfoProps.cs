@@ -33,7 +33,7 @@ namespace Cody.Controllers.Helpers
         }
 
 
-        public async Task<object> GetAsync(string prop) => prop switch
+        public object Get(string prop) => prop switch
         {
             Username         => _user.Username,
             Email            => _user.Email,
@@ -42,13 +42,13 @@ namespace Cody.Controllers.Helpers
             BirthDate        => _user.AccountDetail.BirthDate,
             Role             => _user.Role.ToString(),
             RegistrationDate => _user.AccountDetail.RegistrationDate,
-            Biography        => await GetBiographyAsync().ContinueWith(b => b.Result?.Contents),
+            Biography        => _user.AccountDetail.Biography.Contents,
 
             _ => null,
         };
 
 
-        public async Task SetAsync(string prop, object val)
+        public void Set(string prop, object val)
         {
             var value = val?.ToString();
             switch (prop)
@@ -58,14 +58,12 @@ namespace Cody.Controllers.Helpers
                 case Name:      _user.AccountDetail.Name = value;                           break;
                 case Surname:   _user.AccountDetail.Surname = value;                        break;
                 case BirthDate: _user.AccountDetail.BirthDate = DateTime.Parse(value);      break;
-                case Biography: await SetBiographyAsync(value);                             break;
+                case Biography: SetBiography(value);                                        break;
             }
         }
 
-        private async Task SetBiographyAsync(string value)
+        private void SetBiography(string value)
         {
-            await LoadUserBiographyAsync();
-
             if (value is null) {
                 MaybeRemoveBiography();
             }
@@ -79,20 +77,6 @@ namespace Cody.Controllers.Helpers
         {
             if (_user.AccountDetail.Biography is not null)
                 _dbContext.Biographies.Remove(_user.AccountDetail.Biography);
-        }
-
-        private async Task<UserBiography> GetBiographyAsync()
-        {
-            await LoadUserBiographyAsync();
-            return _user.AccountDetail.Biography;
-        }
-
-        private async Task LoadUserBiographyAsync()
-        {
-            await _dbContext
-                .Entry(_user.AccountDetail)
-                .Reference(ad => ad.Biography)
-                .LoadAsync();
         }
     }
 }

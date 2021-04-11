@@ -1,6 +1,7 @@
 ﻿using Cody.Contexts;
 using Cody.Controllers.Helpers;
 using Cody.Extensions;
+using Cody.QueryExtensions;
 using Cody.Security.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -30,12 +31,14 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Post([FromBody] List<string> getters)
         {
-            var user = await HttpContext.GetLoggedUserAsync();
-            var userProps = new UserAccountInfoProps(_dbContext, user);
+            var user = await HttpContext.GetLoggedUserAsync(
+                user => user.IncludingBiography()
+            );
 
+            var userProps = new UserAccountInfoProps(_dbContext, user);
             var result = getters.ToDictionary(
                 prop => prop,
-                prop => userProps.GetAsync(prop).Result
+                prop => userProps.Get(prop)
             );
 
             return Ok(result);
@@ -46,13 +49,16 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Put([FromBody] Dictionary<string, object> setters)
         {
-            var user = await HttpContext.GetLoggedUserAsync();
+            var user = await HttpContext.GetLoggedUserAsync(
+                user => user.IncludingBiography()
+            );
+
             var userProps = new UserAccountInfoProps(_dbContext, user);
             var validator = new UserUpdateValidator(_dbContext);
 
             try {
                 foreach (var (prop, value) in setters)
-                    await userProps.SetAsync(prop, value);
+                    userProps.Set(prop, value);
             }
             catch {
                 return BadRequest();
