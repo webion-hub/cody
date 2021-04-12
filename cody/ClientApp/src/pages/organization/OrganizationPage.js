@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import OrganizationInfoArea from "./components/organization_info_area";
+import OrganizationInfoArea from "./components/organization_info_area/organization_info_area";
 import { PaperWithWaves } from "src/components/paper_with_waves";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
@@ -23,7 +23,6 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative"
   },
 	centerPaperContainer: {
-		padding: theme.spacing(2),
 		height: "100%"
 	},
 	coursesBox: {
@@ -133,6 +132,7 @@ export default function OrganizationPage(){
 									id={id}
 									organizationData={organizationData}
 									loading={loading}
+									organization={organization}
 								/>
 								<OrganizationCourses/>
 								<OrganizationCourses/>
@@ -155,10 +155,6 @@ export default function OrganizationPage(){
 							item
 							className={classes.userListContainer}
 						>
-							<OrganizationAvatarList 
-								organization={organization}
-								className={classes.userList}
-							/>
 						</Grid>
 					</Grid>	
 				</Grid>		

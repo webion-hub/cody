@@ -7,14 +7,12 @@ export const useStyles = makeStyles((theme) => ({
 		height: props.showDescription ? props.descriptionHeight + 44 : 0, 
 		transition: "0.25s height",
 		"& > *": {
-			paddingLeft: theme.spacing(2),
-			paddingRight: theme.spacing(2),
 			opacity: props.showDescription ? 1 : 0, 
 			transition: "0.25s opacity",
 		}
 	}),
 	descriptionTitle: {
-		paddingTop: theme.spacing(2),
+		padding: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
       textAlign: "center",
     },
