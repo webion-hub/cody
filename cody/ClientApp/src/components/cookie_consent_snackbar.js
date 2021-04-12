@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CookieConsentSnackBar(props){
   const [visible, setVisible] = useState(false);
-  const styles = useStyles();
+  const classes = useStyles();
   
   useEffect(_ => {
     const cookieName = props.cookieName;
@@ -62,7 +62,7 @@ export default function CookieConsentSnackBar(props){
     <Snackbar
       anchorOrigin={snackbarAnchor}
       open={visible}
-      ContentProps={{className: styles.container }}
+      ContentProps={{className: classes.container }}
       message={
         <Typography
           variant="subtitle1"
@@ -70,7 +70,7 @@ export default function CookieConsentSnackBar(props){
         >
           {message}
           <Link
-            className={styles.link}
+            className={classes.link}
             onClick={e => PageController.push("/privacy-and-policy", e)}
             href="/privacy-and-policy"
             component="a"
