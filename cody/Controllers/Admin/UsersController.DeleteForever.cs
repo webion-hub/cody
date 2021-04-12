@@ -1,4 +1,5 @@
 ﻿using Cody.Extensions;
+using Cody.Models.Users;
 using Cody.QueryExtensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
@@ -18,20 +19,36 @@ namespace Cody.Controllers.Admin
             if (userId == id)
                 return BadRequest();
 
-            var target = await _dbContext
+            var user = await GetUserAsync(id);
+            if (user is null)
+                return NotFound();
+
+            var pictureDeleted = TryDeleteProfilePicture(user);
+            if (!pictureDeleted)
+                return Problem();
+
+            _dbContext.UserAccounts.Remove(user);
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+
+        private async Task<UserAccount> GetUserAsync(int userId)
+        {
+            return await _dbContext
                 .UserAccounts
                 .IncludingOrganizations()
                 .IncludingDetail()
                 .IncludingPassword()
                 .IncludingTheme()
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .IncludingProfilePicture()
+                .FirstOrDefaultAsync(u => u.Id == userId);
+        }
 
-            if (target is null)
-                return NotFound();
-
-            _dbContext.UserAccounts.Remove(target);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
+        private bool TryDeleteProfilePicture(UserAccount user)
+        {
+            var path = user.AccountDetail.ProfilePicture.FilePath;
+            return _sftp.TryDeleteFile(path);
         }
     }
 }
