@@ -9,7 +9,6 @@ import { useMediaQuery } from '@material-ui/core'
 
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
-import OrganizationAvatarList from "./components/organization_avatar_list";
 import Organization from "src/lib/server_calls/organization";
 import { PageController } from "src/lib/page_controller";
 
