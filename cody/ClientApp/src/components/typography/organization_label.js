@@ -8,20 +8,29 @@ const useStyles = makeStyles((theme) => ({
     transform: props.translateIconY ?
       `translate(0px, ${props.translateIconY}px)` : "translate(0px, 4px)",
     marginLeft: theme.spacing(1),
-    fontSize: 18,
+    fontSize: props.iconSize,
     color: theme.palette.text.secondary
   })
 }));
 
-export const OrganizationLabel = ({organization, translateIconY}) => {
-  const classes = useStyles({translateIconY});
+export const OrganizationLabel = (props) => {
+  const {
+    organization,
+    translateIconY,
+    iconSize
+  } = props
+  const classes = useStyles({translateIconY, iconSize});
 
   if(organization?.state.hasBeenVerified)
     return (
       <>
-        {organization?.name}<CheckCircleRoundedIcon className={classes.verifiedOrganization} fontSize="small"/>
+        {organization?.name}<CheckCircleRoundedIcon className={classes.verifiedOrganization}/>
       </>
     )
   else
     return organization? organization.name : null
+}
+
+OrganizationLabel.defaultProps = {
+  iconSize: 18
 }
