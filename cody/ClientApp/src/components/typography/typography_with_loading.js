@@ -1,14 +1,26 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
+import { makeStyles } from '@material-ui/core/styles';
+
+export const useStyles = makeStyles((theme) => ({
+  skeleton: {
+    maxWidth: "70%",
+  }
+}));
 
 export function TypographyWithLoading(props){
+	const classes = useStyles();
   const {loading, children, ...others} = props
   return (
     <Typography
       {...others}
     >
-      {loading ? <Skeleton animation="wave"/> : children}
+      {
+        loading 
+          ? <Skeleton className={classes.skeleton} animation="wave"/> 
+          : children
+     }
     </Typography>
   )
 }
