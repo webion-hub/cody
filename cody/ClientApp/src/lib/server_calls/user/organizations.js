@@ -5,6 +5,19 @@ import { tryInvokeCallback } from "../utility";
 
 /**
  * @param {number} organizationId
+ * @returns {import("../organization").OrganizationRole?}
+ */
+export const getRoleIn = async (organizationId) => {
+  return Requests.send({
+    url: `user/role_in/${organizationId}`,
+    method: 'GET',
+  })
+  .then(resp => resp.data);
+}
+
+
+/**
+ * @param {number} organizationId
  * @returns {Promise<AxiosResponse<any>>} 
  */
 export const join = async (organizationId) => {

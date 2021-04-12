@@ -21,6 +21,7 @@ export class User {
 
   static join = Organizations.join;
   static leave = Organizations.leave;
+  static getRoleIn = Organizations.getRoleIn;
   static getJoinedOrganizations = Organizations.getJoinedOrganizations;
 
   static addBookmarkedOrganization = BookmarkedOrganizations.addBookmarkedOrganization;
