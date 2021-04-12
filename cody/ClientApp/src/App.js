@@ -64,7 +64,7 @@ export default function App(){
 }
 
 function Routes(){
-  const [errorsDialog, setErrorsDialog] = React.useState("")
+  const [currentError, setCurrentError] = React.useState("")
   const { userState } = React.useContext(UserContext);
   const isLogged = userState === "logged"
   const isNotLogged = userState === "notLogged"
@@ -74,47 +74,68 @@ function Routes(){
   };
 
   Requests.onError = (reason) => {
-    setErrorsDialog(reason)
+    setCurrentError(reason);
   };
 
   const errorInfos = {
     serverError: { 
       icon: <CloudOffRoundedIcon/>, 
-      label: "C'è stato un errore con il server!",
-      illustration: NetworkError
+      title: "Sembra che il server abbia riscontrato un problema",
+      illustration: NetworkError,
+      description: `
+        Cercheremo di risolvere il problema il prima possibile, 
+        intanto puoi provare a ricaricare la pagina
+      `,
     },
     sizeTooBig: { 
       icon: <ZoomOutMapRoundedIcon/>, 
-      label: "Dimensione troppo grande!",
-      illustration: Error
+      title: "Le dimensioni del file sono troppo grandi",
+      illustration: Error,
+      description: `
+        Prova a caricare un file di dimensioni più piccole
+      `,
     },
     unauthorized: { 
       icon: <PanToolRoundedIcon/>, 
-      label: "Richiesta non autorizzata!",
-      illustration: Sad
+      title: "Non sei autorizzato ad accedere a questo contenuto",
+      illustration: Sad,
+      description: `
+        Prova a loggarti con un account con privilegi più elevati
+      `,
     },
     badRequest: { 
       icon: <RemoveCircleOutlineRoundedIcon/>, 
-      label: "Richiesta non valida!",
-      illustration: Error
+      title: "Richiesta non valida",
+      illustration: Error,
+      description: ``,
     },
     notFound: { 
       icon: <FindInPageRoundedIcon/>, 
-      label: "Non trovato!",
-      illustration: Error404
+      title: "Non trovato",
+      illustration: Error404,
+      description: `
+        La risorsa che hai richiesto non è stata trovata
+      `,
     },
     networkError: { 
       icon: <WifiOffRoundedIcon/>, 
-      label: "C'è stato un errore di rete!",
-      illustration: NetworkError
+      title: "Si è verificato un errore di rete",
+      illustration: NetworkError,
+      description: `
+        Probabilmente sei offline, prova a ricaricare la pagina
+      `,
     },
     genericError: { 
       icon: <ErrorRoundedIcon/>, 
-      label: "C'è stato un errore!",
-      illustration: Error 
+      title: "Si è verificato un errore",
+      illustration: Error,
+      description: `
+        Scusa, questo non sarebbe dovuto succedere ＞﹏＜
+      `,
     },
-  }
+  };
 
+  const errorInfo = errorInfos[currentError];
   return (
     <Router history={history}>
       <Suspense fallback={
@@ -139,21 +160,24 @@ function Routes(){
           <CustomRoute path='/index.html' redirect/>
           <CustomRoute component={Error404Page} />
         </Switch>
-      </Suspense>      
+      </Suspense>
+
       <AlertDialog
-        open={errorsDialog !== ""}
-        illustration={errorsDialog && errorInfos[errorsDialog].illustration}
+        open={errorInfo !== undefined}
+        illustration={errorInfo?.illustration}
         onClose={() => {
-          setErrorsDialog("")
-          PageController.refresh()
+          setCurrentError("");
+          PageController.refresh();
         }}
+        title={errorInfo?.title}
         buttonLabel="Ricarica la pagina"
       >
         <AlertDialogItem 
-          icon  = {errorsDialog && errorInfos[errorsDialog].icon}
-	    	  label = {errorsDialog && errorInfos[errorsDialog].label}
+          icon = {errorInfo?.icon}
+          label = {errorInfo?.description}
         />
       </AlertDialog>
+
       <Fab 
         variant="extended"
         color="primary"
