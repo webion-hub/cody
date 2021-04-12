@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { MenuItemBase } from './menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Typography } from '@material-ui/core';
+import { LoadingButton } from 'src/components/buttons/loading_button';
 
 export const DeleteForeverMenuItem = React.forwardRef((props, ref) => {
   const [openDialog, setOpenDialog] = React.useState(false)
   const [textFieldName, setTextFieldName] = React.useState("")
   const [error, setError] = React.useState(false)
+
+  useEffect(() => {
+    if(!props.loading)
+      setOpenDialog(false);
+  }, [props.loading])
 
   const handleDeleteForever = () => {
     if(textFieldName !== props.username){
@@ -17,7 +23,6 @@ export const DeleteForeverMenuItem = React.forwardRef((props, ref) => {
     }
 
     props.onDeleteForever()
-    setOpenDialog(false)
   }
 
   const handleDialogOpen = () => {
@@ -51,21 +56,29 @@ export const DeleteForeverMenuItem = React.forwardRef((props, ref) => {
           </Button>
         }
         secondButton={
-          <Button
+          <LoadingButton
             variant="contained"
             color="primary"
             onClick={handleDeleteForever}
-          >
-            Elimina
-          </Button>
+            label="Elimina"
+            loading={props.loading}
+          />
         }
       >
+        <Typography
+          variant="body2"
+          color="textSecondary"
+        >
+          Scrivi <b>{props.username}</b> per eliminare
+        </Typography>
+        <br/>
         <TextField
           error={error}
           label="Username"
           variant="outlined"
           color="secondary"
           onChange={e => setTextFieldName(e.target.value)}
+          fullWidth
         />
       </DialogBase>
     </>

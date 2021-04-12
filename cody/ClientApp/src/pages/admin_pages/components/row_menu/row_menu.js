@@ -3,7 +3,7 @@ import React from 'react';
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Menu } from '@material-ui/core';
+import { Fade, IconButton, LinearProgress, Menu } from '@material-ui/core';
 import { DataTableContext } from 'src/pages/admin_pages/components/data_table_base';
 import { VerifyMenuItem } from './verify_menu_item';
 import { DeleteMenuItem } from './delete_menu_item';
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export function RowMenu(props) {
   const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [loading, setLoading] = React.useState(false);
   const { refreshDataTable } = React.useContext(DataTableContext);
 
   const {
@@ -50,31 +51,41 @@ export function RowMenu(props) {
   }
 
   const handleDelete = () => {
+		setLoading(true)
     onDelete(id).finally(_ => {
+			setLoading(false)
 			refreshDataTable();
 		});
   }
 
   const handleRestore = () => {
+		setLoading(true)
     onRestore(id).finally(_ => {
+			setLoading(false)
 			refreshDataTable();
 		});
   }
 
 	const handleVerify = () => {
+		setLoading(true)
     onVerify(id).finally(_ => {
+			setLoading(false)
 			refreshDataTable();
 		});
   }
 
 	const handleDeleteForever = () => {
+		setLoading(true)
     onDeleteForever(id).finally(_ => {
+			setLoading(false)
 			refreshDataTable();
 		});
   }
 
   const handleEditRole = (data) => {
+		setLoading(true)
     onEditRole(data).finally(_ => {
+			setLoading(false)
 			refreshDataTable();
 		});
   }
@@ -95,28 +106,34 @@ export function RowMenu(props) {
 					paper: classes.menuBackground
 				}}
 			>
+				<Fade in={loading}>
+					<LinearProgress color="secondary"/>
+				</Fade>
 				<VerifyMenuItem
 					hide={!onVerify}
-					disabled={disableVerifyButton}
+					disabled={disableVerifyButton || loading}
 					onVerify={handleVerify}
 				/>
 				<EditRoleMenuItem
+					loading={loading}
 					hide={!onEditRole}
+					disabled={loading}
 					onEditRole={handleEditRole}
 					onMenuClose={_ => setAnchorEl(null)}
 					id={id}
 				/>
 				<RestoreMenuItem
-					disabled={disableRestoreButton}
+					disabled={disableRestoreButton || loading}
 					onRestore={handleRestore}
 				/>
 				<DeleteMenuItem
-					disabled={disableDeleteButton}
+					disabled={disableDeleteButton || loading}
 					onDelete={handleDelete}
 				/>
 				<DeleteForeverMenuItem
+					loading={loading}
 					hide={!onDeleteForever}
-					disabled={disableDeleteButton}
+					disabled={loading}
 					onDeleteForever={handleDeleteForever}
 					onMenuClose={_ => setAnchorEl(null)}
 					id={id}

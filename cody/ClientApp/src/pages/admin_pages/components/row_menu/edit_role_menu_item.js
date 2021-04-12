@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { MenuItemBase } from './menu_item_base';
@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { Admin } from 'src/lib/server_calls/admin';
+import { LoadingButton } from 'src/components/buttons/loading_button';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -23,10 +24,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const EditRoleMenuItem = React.forwardRef((props, ref) => {
+  const [selectLoading, setSelectLoading] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [textFieldRole, setTextFieldRole] = React.useState("");
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if(!props.loading)
+      setOpenDialog(false);
+  }, [props.loading])
 
   const handleEditRole = () => {
     if(textFieldRole === "")
@@ -38,15 +45,16 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
     }
 
     props.onEditRole(info);
-    setOpenDialog(false);
   }
 
   const handleDialogOpen = () => {
+    setOpenDialog(true);
+    setSelectLoading(true);
     Admin.getUserRole(props.id)
       .then(role => {
         setTextFieldRole(role);
-        setOpenDialog(true);
-      });
+      })
+      .finally(() => setSelectLoading(false))
 
     props.onMenuClose?.();
   }
@@ -77,20 +85,19 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
           </Button>
         }
         secondButton={
-          <Button
+          <LoadingButton
+            loading={props.loading}
             variant="contained"
             color="primary"
             onClick={handleEditRole}
-          >
-            Salva
-          </Button>
+            label="Salva"
+          />
         }
       >
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="demo-simple-select-outlined-label">Ruolo</InputLabel>
+          <InputLabel>Ruolo</InputLabel>
           <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
+            disabled={selectLoading}
             value={textFieldRole}
             color="secondary"
             onChange={e => setTextFieldRole(e.target.value)}
