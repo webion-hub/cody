@@ -15,7 +15,14 @@ export function CustomAvatar(props){
   const theme = useTheme()
   const classes = useStyles()
   const [loading, setLoading] = React.useState(true);
-  const { disableLoading, shadow, size, propsLoading, ...other } = props;
+  const { 
+    disableLoading,
+    shadow, 
+    size, 
+    propsLoading, 
+    disableLoadingRing, 
+    ...other 
+  } = props;
 
   const handleLoading = () => {
     if(!disableLoading)
@@ -65,7 +72,7 @@ export function CustomAvatar(props){
           position: "absolute",
           top: -extraLoadingWidth/2,
           left: -extraLoadingWidth/2,
-          display: finalLoading ? "block" : "none",
+          display: finalLoading && !disableLoadingRing ? "block" : "none",
         }}
       />
       <Avatar
