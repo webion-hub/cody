@@ -81,9 +81,7 @@ export default function Account(){
       oldData: oldData,
       image: image,
       oldImage: oldImage,
-      onError: () => {
-        setErrors(errors);
-      },
+      onError: (errors) => setErrors(errors),
       onSavingErrors: (errors) => {
         setOpenAlert(true)
         setErrorsDuringSaving(errors)

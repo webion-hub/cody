@@ -73,7 +73,7 @@ export const trySave = (settings) => {
 
         const areErrors = !errors.noError;
         if(areErrors){
-          onError()
+          onError(errors)
           return;
         }
 
