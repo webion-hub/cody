@@ -3,6 +3,7 @@ using Cody.Controllers.Requests;
 using Cody.Extensions;
 using Cody.Models;
 using Cody.Models.Users;
+using Cody.QueryExtensions;
 using Cody.Services;
 using Cody.Services.Sftp;
 using Cody.Utilities;
@@ -36,14 +37,11 @@ namespace Cody.Controllers
 
         private async Task<UserProfilePicture> GetUserProfilePictureAsync()
         {
-            var user =
-                await HttpContext.GetLoggedUserAsync();
+            var user = await HttpContext.GetLoggedUserAsync(
+                user => user.IncludingProfilePicture()
+            );
 
-            var picture = _dbContext
-                .ProfilePictures
-                .Where(p => p.AccountDetailId == user.AccountDetail.Id);
-
-            return picture.SingleOrDefault();
+            return user.AccountDetail.ProfilePicture;
         }
 
         private async Task<UserProfilePicture> CreateNewUserPictureAsync()
