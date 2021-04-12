@@ -172,7 +172,7 @@ function Routes(){
         title={errorInfo?.title}
         buttonLabel="Ricarica la pagina"
       >
-        <AlertDialogItem 
+        <AlertDialogItem
           icon = {errorInfo?.icon}
           label = {errorInfo?.description}
         />

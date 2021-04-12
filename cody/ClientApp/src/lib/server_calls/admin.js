@@ -58,7 +58,7 @@ export class Admin {
     return Requests.send({
       url: `admin/users/delete_forever/${id}`,
       method: 'DELETE',
-    });
+    }); 
   }
 
 
