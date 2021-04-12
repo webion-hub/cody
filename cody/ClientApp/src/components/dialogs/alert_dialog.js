@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { DialogBase } from 'src/components/bases/dialog_base';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(_ => ({
   paperClassName: {
     maxWidth: 632,
     width: "100%"
@@ -27,24 +27,6 @@ export function AlertDialog(props){
     onClose(false);
   }
 
-  const getItems = () => {
-    const items = props.items;
-    if(items !== null)
-      return;
-
-    const cleanItems = items.filter(item => item !== undefined && item !== null)
-    const getItems = 
-      cleanItems.map((item, index) => 
-        <div key={index}>
-          <ListItem className={classes.listItem}>
-            <ListItemText primary={item} />
-          </ListItem>
-        </div>
-      );
-    
-    return getItems;
-  }
-
   const children = props.children &&
     <ListItem className={classes.listItem}>
       <ListItemText primary={props.children} />
@@ -53,7 +35,7 @@ export function AlertDialog(props){
   return(
     <DialogBase
       paperClassName={classes.paperClassName}
-      title="C'è stato un errore"
+      title={props.title || "Si è verificato un errore"}
       open={props.open}
       onClose={handleClose}
       firstButton={
@@ -71,7 +53,6 @@ export function AlertDialog(props){
         margin={1}
         items={[
           <List component="nav">
-            {getItems()}
             {children}
           </List>
         ]}
