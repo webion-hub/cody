@@ -8,6 +8,7 @@ export function AvatarButton(props){
     buttonClassName,
     children,
     placement,
+    style,
     ...otherProps
   } = props
 
@@ -20,6 +21,7 @@ export function AvatarButton(props){
       <ButtonBase
         onClick={onClick}
         className={buttonClassName}
+        style={style}
       >
         <CustomAvatar
           disableLoadingRing

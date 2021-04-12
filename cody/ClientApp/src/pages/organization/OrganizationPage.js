@@ -10,7 +10,6 @@ import { useMediaQuery } from '@material-ui/core'
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
 import Organization from "src/lib/server_calls/organization";
-import { PageController } from "src/lib/page_controller";
 
 export const useStyles = makeStyles((theme) => ({
   backgroundImage: {

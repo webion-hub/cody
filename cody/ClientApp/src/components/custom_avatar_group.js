@@ -74,30 +74,32 @@ export function CustomAvatarGroup(props){
         <AvatarButton
           {...otherProps}
           key={index}
+          style={{zIndex: avatarsProps.length - index}}
           placement={tooltipPlacement}
           onClick={onClick}
-          buttonClassName={`${classes.avatar} ${index !== 0 ? avatarSpacingClassName : ""}`}
+          buttonClassName={`${classes.avatar} ${avatarSpacingClassName}`}
         />
       )
     })
 
   const avatarList = 
     <>
-      {avatars}
       {
         numberOfExtraAvatar !== 0 &&
           <AvatarButton
+            style={{zIndex: avatarsProps?.length + 1}}
             onClick={props.onExtraAvatarClick}
             placement={tooltipPlacement}
             alt="Mostra gli altri utenti"
             className={classes.finalAvatar}
-            buttonClassName={`${classes.avatar} ${avatarSpacingClassName}`}
+            buttonClassName={classes.avatar}
           >
             <Typography variant="caption">
               {`+${numberOfExtraAvatar}`}
             </Typography>
           </AvatarButton>
       }
+      {avatars}
     </>
 
   return (
