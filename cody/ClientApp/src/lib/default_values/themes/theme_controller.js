@@ -108,7 +108,7 @@ export class ThemeController {
         },
         MuiAvatar: {
           colorDefault: {
-            backgroundColor: this.color.textSecondary,
+            backgroundColor: this.color.avatarBackground,
             color: this.color.backgroundSecondary
           }
         },
