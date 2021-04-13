@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       "& > *": {
         marginTop: 8,
-        boxShadow: "none",
       }
     }
   }),
@@ -35,10 +34,12 @@ const useStyles = makeStyles((theme) => ({
   }),
 
   avatar: props => ({
+    background: props.borderColor,
     boxShadow: `0 0 0 ${props.borderWidth}px ${props.borderColor}`,
     borderRadius: "50%",
     "&:hover": {
       transform: "scale(1.2)",
+      boxShadow: "none",
     },
     transition: "0.25s all"
   }),
@@ -51,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
 export function CustomAvatarGroup(props){
 	const classes = useStyles(props);
   const avatarsProps = props.avatarsProps
-  const numberOfExtraAvatar = props.numberOfAvatar - avatarsProps?.length
+  const numberOfAvatar = avatarsProps ? avatarsProps.length : 0
+  const numberOfExtraAvatar = props.numberOfAvatar - numberOfAvatar
 
   const isDirectionHorizontal = props.direction === "horizontal"
 
@@ -74,7 +76,7 @@ export function CustomAvatarGroup(props){
         <AvatarButton
           {...otherProps}
           key={index}
-          style={{zIndex: avatarsProps.length - index}}
+          style={{zIndex: numberOfAvatar - index}}
           placement={tooltipPlacement}
           onClick={onClick}
           buttonClassName={`${classes.avatar} ${avatarSpacingClassName}`}
@@ -84,21 +86,19 @@ export function CustomAvatarGroup(props){
 
   const avatarList = 
     <>
-      {
-        numberOfExtraAvatar !== 0 &&
-          <AvatarButton
-            style={{zIndex: avatarsProps?.length + 1}}
-            onClick={props.onExtraAvatarClick}
-            placement={tooltipPlacement}
-            alt="Mostra gli altri utenti"
-            className={classes.finalAvatar}
-            buttonClassName={classes.avatar}
-          >
-            <Typography variant="caption">
-              {`+${numberOfExtraAvatar}`}
-            </Typography>
-          </AvatarButton>
-      }
+      <AvatarButton
+        disableLoading
+        style={{zIndex: numberOfAvatar + 1}}
+        onClick={props.onExtraAvatarClick}
+        placement={tooltipPlacement}
+        alt="Mostra tutti gli utenti"
+        className={classes.finalAvatar}
+        buttonClassName={classes.avatar}
+      >
+        <Typography variant="caption">
+          {`+${numberOfExtraAvatar}`}
+        </Typography>
+      </AvatarButton>
       {avatars}
     </>
 

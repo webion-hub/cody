@@ -65,16 +65,19 @@ export function CustomAvatar(props){
           display: finalLoading ? "block" : "none"
         }}
       />
-      <CircularProgress
-        thickness={2.5}
-        size={loadingSize}
-        style={{
-          position: "absolute",
-          top: -extraLoadingWidth/2,
-          left: -extraLoadingWidth/2,
-          display: finalLoading && !disableLoadingRing ? "block" : "none",
-        }}
-      />
+      {
+        !disableLoadingRing &&
+          <CircularProgress
+            thickness={2.5}
+            size={loadingSize}
+            style={{
+              position: "absolute",
+              top: -extraLoadingWidth/2,
+              left: -extraLoadingWidth/2,
+              display: finalLoading ? "block" : "none",
+            }}
+          />
+      }
       <Avatar
         {...other}
         style={{
