@@ -5,11 +5,20 @@ import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
+import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
 import OrganizationDescription from "../organization_description";
 import { OrganizationBadgeAvatar } from "./components/organization_badge_avatar";
 import { OrganizationAvatarGroup } from "./components/organization_avatar_group/organization_avatar_group";
 import { OrganizationInfo } from "./components/organization_info";
+
+import MenuItem from '@material-ui/core/MenuItem';
+import { MenuWithLoading } from "src/components/menu/menu_with_loading";
+import { MenuItemBase } from "src/components/menu/menu_item_base";
+
+import ReportRoundedIcon from '@material-ui/icons/ReportRounded';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import { LeaveOrganizationButton } from "src/components/buttons/leave_organization_button/leave_organization_button";
 
 export const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
@@ -36,9 +45,10 @@ export const useStyles = makeStyles((theme) => ({
       marginLeft: 0,
     },
   },
-	showDescription: {
+	bottomArea: {
 		width: "100%",
 		textAlign: "center",
+    position: "relative",
 	},
 	expandIcon: props => ({
 		transform: props.showDescription && "rotate(180deg)",
@@ -46,6 +56,10 @@ export const useStyles = makeStyles((theme) => ({
 	}),
   descriptionBox: {
     background: theme.palette.background.backgroundTransparent,
+  },
+  organizationSettings: {
+    position: "absolute",
+    left: 0
   }
 }));
 
@@ -86,7 +100,11 @@ export default function OrganizationInfoArea(props){
             organizationData={organizationData}
             showDescription={showDescription}
           />
-          <div className={classes.showDescription}>
+          <div className={classes.bottomArea}>
+            <OrganizationSettingsMenu 
+              className={classes.organizationSettings}
+              organizationData={organizationData}
+            />
             <IconButton 
               onClick={_ => setShowDescription(!showDescription)}
               disabled={props.loading}
@@ -99,3 +117,67 @@ export default function OrganizationInfoArea(props){
     </>
   );
 }
+
+function OrganizationSettingsMenu(props){
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <IconButton 
+        className={props.className}
+        onClick={handleClick}  
+      >
+        <MoreVertRoundedIcon/>
+      </IconButton>
+      <MenuWithLoading
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <ReportMenuItem/>
+        <LeaveOrganizationtMenuItem
+          organizationData={props.organizationData}
+          onClose={handleClose}
+        />
+      </MenuWithLoading>
+    </>
+  )
+}
+
+export const ReportMenuItem =  React.forwardRef((props, ref) => {   
+  return ( 
+    <MenuItemBase
+      ref={ref}
+      onClick={_ => {}}
+      icon={ReportRoundedIcon}
+      label="Segnala"
+    />
+  );
+})
+
+export const LeaveOrganizationtMenuItem =  React.forwardRef((props, ref) => {
+  const organizationData = props.organizationData
+  if(!organizationData.isCallerAMember)
+    return null
+    
+  return (
+    <LeaveOrganizationButton
+      organization={organizationData}
+      ButtonComponent={MenuItemBase}
+      customComponentProps={{
+        ref: ref,
+        color: "error",
+        icon: ExitToAppRoundedIcon,
+        onClick: props.onClose
+      }}
+    />
+  );
+})

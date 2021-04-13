@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
 import { AvatarButton } from "./buttons/avatar_button";
+import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
 
 const useStyles = makeStyles((theme) => ({
   avatarGroupHorizontal: props => ({
@@ -53,10 +54,8 @@ export function CustomAvatarGroup(props){
 	const classes = useStyles(props);
   const avatarsProps = props.avatarsProps
   const numberOfAvatar = avatarsProps ? avatarsProps.length : 0
-  const numberOfExtraAvatar = props.numberOfAvatar - numberOfAvatar
 
   const isDirectionHorizontal = props.direction === "horizontal"
-
   const tooltipPlacement =  isDirectionHorizontal
     ? "bottom" 
     : "left"
@@ -84,29 +83,31 @@ export function CustomAvatarGroup(props){
       )
     })
 
-  const avatarList = 
-    <>
-      <AvatarButton
-        disableLoading
-        style={{zIndex: numberOfAvatar + 1}}
-        onClick={props.onExtraAvatarClick}
-        placement={tooltipPlacement}
-        alt="Mostra tutti gli utenti"
-        className={classes.finalAvatar}
-        buttonClassName={classes.avatar}
-      >
-        <Typography variant="caption">
-          {`+${numberOfExtraAvatar}`}
-        </Typography>
-      </AvatarButton>
-      {avatars}
-    </>
+  const extraAvatarsIcon = 
+    <AvatarButton
+      disableLoading
+      style={{zIndex: numberOfAvatar + 1}}
+      onClick={props.onExtraAvatarClick}
+      placement={tooltipPlacement}
+      alt="Mostra tutti gli utenti"
+      className={classes.finalAvatar}
+      buttonClassName={classes.avatar}
+    >
+      <MenuOpenRoundedIcon/>
+    </AvatarButton>
+
 
   return (
     <div
       className={`${avatarGroupClassName} ${props.className}`}
     >
-      {!props.loading && avatarList}
+      {
+        !props.loading &&
+          <>
+            {extraAvatarsIcon}
+            {avatars}
+          </>     
+      }
     </div>
   )
 }
