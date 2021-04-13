@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { OrganizationLabel } from "src/components/typography/organization_label";
 import { TypographyWithLoading } from "src/components/typography/typography_with_loading";
+import { JoinOrganizationButton } from "src/components/buttons/join_organization_button";
 
 export const useStyles = makeStyles((theme) => ({
   title: {
@@ -19,6 +20,9 @@ export const useStyles = makeStyles((theme) => ({
         margin: "0 auto"
       }
     }, 
+  },
+  joinButton: {
+    marginTop: theme.spacing(1)
   }
 }));
 
@@ -48,6 +52,13 @@ export function OrganizationInfo(props){
       >
         {organizationData?.detail.location}
       </TypographyWithLoading>
+      {
+        !organizationData?.isCallerAMember && 
+          <JoinOrganizationButton
+            organization={organizationData}
+            className={classes.joinButton}
+          />
+      }
     </div>
   )
 }

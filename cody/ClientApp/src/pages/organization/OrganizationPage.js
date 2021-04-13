@@ -82,9 +82,12 @@ export default function OrganizationPage(){
   const { id } = useParams();
 	const organization = Organization.withId(id)
 
-  useEffect(() => {
+	useEffect(() => {
+		document.addEventListener('updateUserOrganizations', getOrganizationByPageId)
     getOrganizationByPageId()
-  }, [id])
+
+		return _ => document.removeEventListener('updateUserOrganizations', getOrganizationByPageId)
+	}, [id])
 
   const getOrganizationByPageId = () => {
     setLoading(true)

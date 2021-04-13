@@ -19,7 +19,8 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	description: props => ({
     display: props.noDescription && "none",
-    paddingBottom: theme.spacing(2),
+    paddingTop: 0,
+    padding: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
       textAlign: "center",
     },

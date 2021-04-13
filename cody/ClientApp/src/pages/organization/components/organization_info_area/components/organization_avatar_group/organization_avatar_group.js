@@ -30,12 +30,19 @@ export function  OrganizationAvatarGroup(props) {
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 	const classes = useStyles();
-	const organization = Organization.withId(4)
+	const organization = props.organization
   const [openDialog, setOpenDialog] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [smallUserList, setSmallUserList] = React.useState([])
+  
+	useEffect(() => {
+		document.addEventListener('updateUserOrganizations', getMembers)
+    getMembers()
 
-  useEffect(() => {
+		return _ => document.removeEventListener('updateUserOrganizations', getMembers)
+	}, [])
+
+  const getMembers = () => {
     setLoading(true)
     organization
       .getMembersOf({
@@ -45,12 +52,12 @@ export function  OrganizationAvatarGroup(props) {
       })
       .then(setUserList)
       .finally(_ => setLoading(false))
-  }, [])
+  }
 
   const setUserList = (data) => {
     const values = data.values
     const userList = values.map(user => ({
-      src: `user/${user.id}/profile_picture`,
+      src: `user/profile_picture/${user.id}`,
       alt: user.username,
       onClick: e => PageController.push(`/user/${props.id}`, e)
     }))
