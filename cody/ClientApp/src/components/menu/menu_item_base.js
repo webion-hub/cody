@@ -2,17 +2,22 @@ import React from 'react';
 import { Typography, ListItemIcon, MenuItem } from '@material-ui/core';
 
 export const MenuItemBase = React.forwardRef((props, ref) => {
+	const {
+		color,
+		label,
+		...menuItemProps
+	} = props
+
 	return (
 		<MenuItem
       ref={ref}
-			onClick={props.onClick}
-			disabled={props.disabled}
+			{...menuItemProps}
 		>
 			<ListItemIcon>
-				<props.icon color={props.color} fontSize="small"/>
+				<props.icon color={color} fontSize="small"/>
 			</ListItemIcon>
-			<Typography color={props.color} variant="inherit" noWrap>
-				{props.label}
+			<Typography color={color} variant="inherit" noWrap>
+				{label}
 			</Typography>
 		</MenuItem>
 	);

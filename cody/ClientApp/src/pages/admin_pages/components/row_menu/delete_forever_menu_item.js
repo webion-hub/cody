@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
-import { MenuItemBase } from './menu_item_base';
+import { MenuItemBase } from '../../../../components/menu/menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
 import { TextField, Button, Typography } from '@material-ui/core';
 import { LoadingButton } from 'src/components/buttons/loading_button';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { MenuItemBase } from './menu_item_base';
+import { MenuItemBase } from '../../../../components/menu/menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

@@ -10,6 +10,7 @@ import { DeleteMenuItem } from './delete_menu_item';
 import { RestoreMenuItem as RestoreMenuItem } from './restore_menu_item';
 import { DeleteForeverMenuItem } from './delete_forever_menu_item';
 import { EditRoleMenuItem } from './edit_role_menu_item';
+import { MenuWithLoading } from 'src/components/menu/menu_with_loading';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,8 +98,9 @@ export function RowMenu(props) {
 			>
 				<MoreVertRoundedIcon/>
 			</IconButton>
-			<Menu
+			<MenuWithLoading
 				anchorEl={anchorEl}
+				loading={loading}
 				keepMounted
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
@@ -106,40 +108,33 @@ export function RowMenu(props) {
 					paper: classes.menuBackground
 				}}
 			>
-				<Fade in={loading}>
-					<LinearProgress color="secondary"/>
-				</Fade>
 				<VerifyMenuItem
 					hide={!onVerify}
-					disabled={disableVerifyButton || loading}
+					disabled={disableVerifyButton}
 					onVerify={handleVerify}
 				/>
 				<EditRoleMenuItem
-					loading={loading}
 					hide={!onEditRole}
-					disabled={loading}
 					onEditRole={handleEditRole}
 					onMenuClose={_ => setAnchorEl(null)}
 					id={id}
 				/>
 				<RestoreMenuItem
-					disabled={disableRestoreButton || loading}
+					disabled={disableRestoreButton}
 					onRestore={handleRestore}
 				/>
 				<DeleteMenuItem
-					disabled={disableDeleteButton || loading}
+					disabled={disableDeleteButton}
 					onDelete={handleDelete}
 				/>
 				<DeleteForeverMenuItem
-					loading={loading}
 					hide={!onDeleteForever}
-					disabled={loading}
 					onDeleteForever={handleDeleteForever}
 					onMenuClose={_ => setAnchorEl(null)}
 					id={id}
 					username={props.data.username}
 				/>
-			</Menu>
+			</MenuWithLoading>
 		</>
 	);
 }
