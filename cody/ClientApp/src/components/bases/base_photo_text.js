@@ -28,7 +28,13 @@ export function BasePhotoText(props) {
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
-  const image = <props.image maxWidth={Form.width} size={mobileView ? "100%" : "50%"}/>
+  const image = props.image &&
+    <props.image 
+      padding={props.imagePadding}
+      maxWidth={Form.width} 
+      size={mobileView ? "100%" : "50%"}
+    />
+
   const flippedImage = 
     <div className={classes.flipImage}>
       {image}
@@ -69,5 +75,6 @@ export function BasePhotoText(props) {
 
 BasePhotoText.defaultProps = {
   items: [],
-  direction: "row"
+  direction: "row",
+  imagePadding: 0
 }
