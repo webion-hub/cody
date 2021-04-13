@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3)
   },
   findOrganizationContainer: {
-    height: `calc(100vh - ${theme.appBar.fullHeight + 16}px)`,
+    height: "100%",
     [theme.breakpoints.down('xs')]: {
       height: `calc(100vh - ${theme.appBar.mobileHeight + 16}px)`,
     },  
