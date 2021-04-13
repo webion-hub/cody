@@ -76,10 +76,12 @@ export function SideBarOrganizationList(props){
 
   const classes = useStyles({organizationsListHeight, expandIconTopPosition});
 
-	document.addEventListener('updateUserOrganizations', () => refreshOrganizationList())
 
   useEffect(() => {
+		document.addEventListener('updateUserOrganizations', refreshOrganizationList)
 		setTimeout(() => refreshOrganizationList(), 150);
+
+		return _ => document.removeEventListener('updateUserOrganizations', refreshOrganizationList)
   }, [])
 
 	useEffect(() => {

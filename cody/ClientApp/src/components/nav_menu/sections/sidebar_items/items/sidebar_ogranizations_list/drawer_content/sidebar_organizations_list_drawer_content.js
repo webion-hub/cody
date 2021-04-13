@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { BookmarkOrganizationListItem } from './components/bookmark_organization_list_item';
 
@@ -9,13 +9,21 @@ import { PageController } from 'src/lib/page_controller';
 export function SideBarOrganizationListDrawerContent() {
   const [filter, setFilter] = React.useState("waiting")
 
-  document.addEventListener('drawerFilterState', val => {
+  useEffect(() => {
+    document.addEventListener('drawerFilterState', updateState)
+    updateState()
+    
+    return _ => document.removeEventListener('drawerFilterState', updateState)
+  }, [])
+
+
+  const updateState = (val) => {
     const newFilter = val.detail === "onlyBookmarked" 
       ? "onlyBookmarked" 
       : ""
 
     setFilter(newFilter)
-  })
+  }
 
   return (
     <ListWithSearch
