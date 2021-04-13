@@ -4,20 +4,38 @@ import { ListWithSearch } from "src/components/list_with_search/list_with_search
 import { Button, ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
+import { BasePhotoText } from "src/components/bases/base_photo_text";
+import { UserGroup } from "src/components/illustrations/user_group";
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 export const useStyles = makeStyles((theme) => ({
   listItem: {
     width: "100%",
     tableLayout: "fixed",
+    padding: theme.spacing(1)
+  },
+  dialogPaper: {
+    maxWidth: 632,
+    width: "100%"
+  },
+  userList: {
+    background: theme.palette.background.backgroundTransparent,
+    backdropFilter: "blur(10px)"
   }
 }));
 
 export function AllOrganizationUserDialog(props){
+  const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+	const classes = useStyles();
   const organization = props.organization
+
   return (
     <DialogBase
       open={props.open}
       onClose={props.onClose}
+      paperClassName={classes.dialogPaper}
       firstButton={
         <Button
           color="primary"
@@ -28,18 +46,25 @@ export function AllOrganizationUserDialog(props){
         </Button>
       }
     >
-      <ListWithSearch
-        listHeight={500}
-        listMobileHeight={500}
-        width="calc(100% - 8px)"
-        elementForStep={25}
-        itemSize={56}
-        getList={organization.getMembersOf}
-        listItem={AvatarListItem}
-        noDataFoundProps={{
-          hide: true,
-        }}
-      />
+      <BasePhotoText
+        imagePadding={4}
+        image={!mobileView && UserGroup}
+      >
+        <ListWithSearch
+          paperClassName={classes.userList}
+          listHeight={400}
+          listMobileHeight={window.innerHeight / 2}
+          width="100%"
+          elementForStep={25}
+          itemSize={56}
+          getList={organization.getMembersOf}
+          listItem={AvatarListItem}
+          noDataFoundProps={{
+            hide: true,
+          }}
+        />     
+      </BasePhotoText>
+
     </DialogBase> 
   )
 }
@@ -56,9 +81,8 @@ function AvatarListItem(props){
       >
         <ListItemAvatar>
           <CustomAvatar
-            src={`user/${props.index}/profile_picture`}
+            src={`user/profile_picture/${props.data?.id}`}
             alt={props.data?.username}
-            disableLoading
           />
         </ListItemAvatar>
         <ListItemText
