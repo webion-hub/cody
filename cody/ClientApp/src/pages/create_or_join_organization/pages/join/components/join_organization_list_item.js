@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { ListItemText, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-import { User } from 'src/lib/server_calls/user';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
-import { JoinButton } from './join_button';
-import { LeaveButton } from './leave_button';
+import { JoinOrganizationButton } from '../../../../../components/buttons/join_organization_button';
+import { LeaveOrganizationButton } from '../../../../../components/buttons/leave_organization_button/leave_organization_button';
 import { OrganizationLabel } from 'src/components/typography/organization_label';
 import { OrganizationListItem } from 'src/components/organization_list_item';
 
@@ -52,12 +50,8 @@ export function JoinOrganizationsListItem(props){
   const id = data.id;
   const classes = useStyles();
 
-  const [loading, setLoading] = React.useState(false);
   const [membersCount, setMembersCount] = React.useState(data.membersCount);
   const [isCallerAMember, setIsCallerAMember] = React.useState(data.isCallerAMember);
-  const [openLeaveDialog, setOpenLeaveDialog] = React.useState(false);
-  const [leaveError, setLeaveError] = React.useState(null);
-  const updateUserOrganizations = new Event('updateUserOrganizations');
 
   useEffect(() => {
     setIsCallerAMember(data.isCallerAMember)
@@ -71,104 +65,63 @@ export function JoinOrganizationsListItem(props){
     ? ` - ${data.detail.location}` 
     : ""
 
-  const handleOpenLeaveDialog = () => {
-    setOpenLeaveDialog(true)
-    setLeaveError(null)
-  }
-
-  const handleCloseLeaveDialog = () => {
-    setOpenLeaveDialog(false)
-  }
-
   const handleLeave = () => {
-    setLeaveError(null)
-    setLoading(true)
-    User.leave({
-      organizationId: id,      
-      onSuccess: () => {
-        setMembersCount(membersCount - 1)
-        setIsCallerAMember(false)
-        handleCloseLeaveDialog();
-        document.dispatchEvent(updateUserOrganizations)
-      },
-      onError: () => setLeaveError("C'è stato un errore prova più tardi"),
-      onNotFound: () => setLeaveError("Non sei membro di questa organizzazione!"),
-      onForbidden: () => setLeaveError("Non puoi uscire da un'organizzazione dove sei il propietario!"),    
-    })
-    .finally(() => setLoading(false))
+    setIsCallerAMember(false)
+    setMembersCount(membersCount - 1)
   }
 
   const handleJoin = () => {
-    setLoading(true)
-    User
-      .join(id)
-      .finally(() => {
-        setLoading(false)
-        setIsCallerAMember(true)
-        setMembersCount(membersCount + 1)
-        document.dispatchEvent(updateUserOrganizations)
-      })
+    setIsCallerAMember(true)
+    setMembersCount(membersCount + 1)
   }
 
   const joinButton =
-    <JoinButton
+    <JoinOrganizationButton
+      organization={data}
       mobileView={props.mobileView}
-      loading={loading}
-      disabled={data.state.hasBeenDeleted}
       onJoin={handleJoin}
     />
 
   const leaveButton = 
-    <LeaveButton
+    <LeaveOrganizationButton
+      organization={data}
       mobileView={props.mobileView}
-      loading={loading}
-      disabled={data.state.hasBeenDeleted}
-      onLeave={handleOpenLeaveDialog}    
+      onLeave={handleLeave}    
     />
    
   return(
-    <>
-      <OrganizationListItem
-        index={props.index}
-        className={classes.listItem}
-        disabled={data.state.hasBeenDeleted}
-        organizationId={id}
-        style={props.style}
-      >
-        <ListItemIcon className={classes.listItemIcon}>
-          <OrganizationKindIcon kind={data.kind}/>
-        </ListItemIcon>
-        <ListItemText
-          className={classes.listItemText}
-          primary={<OrganizationLabel organization={data}/>}
-          secondary={`${membersCountLabel}${locationLabel}`}
-          primaryTypographyProps={{
-            noWrap: true,
-            className: classes.listItemText
-          }}
-          secondaryTypographyProps={{
-            noWrap: true,
-            className: classes.listItemText
-          }}
-        />
-        <ListItemSecondaryAction>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-          >         
-            {isCallerAMember ? leaveButton : joinButton}
-          </Grid>
-        </ListItemSecondaryAction>
-      </OrganizationListItem>
-      <LeaveOrganizationDialog
-        loading={loading}
-        open={openLeaveDialog}
-        onClose={handleCloseLeaveDialog}
-        onLeave={handleLeave}
-        organizationName={data.name}
-        leaveError={leaveError}
+    <OrganizationListItem
+      index={props.index}
+      className={classes.listItem}
+      disabled={data.state.hasBeenDeleted}
+      organizationId={id}
+      style={props.style}
+    >
+      <ListItemIcon className={classes.listItemIcon}>
+        <OrganizationKindIcon kind={data.kind}/>
+      </ListItemIcon>
+      <ListItemText
+        className={classes.listItemText}
+        primary={<OrganizationLabel organization={data}/>}
+        secondary={`${membersCountLabel}${locationLabel}`}
+        primaryTypographyProps={{
+          noWrap: true,
+          className: classes.listItemText
+        }}
+        secondaryTypographyProps={{
+          noWrap: true,
+          className: classes.listItemText
+        }}
       />
-    </>
+      <ListItemSecondaryAction>
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+        >         
+          {isCallerAMember ? leaveButton : joinButton}
+        </Grid>
+      </ListItemSecondaryAction>
+    </OrganizationListItem>
   )
 }
