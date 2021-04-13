@@ -14,7 +14,7 @@ namespace Cody.Controllers
     public partial class ProfilePictureController
     {
         [HttpGet("{userId}")]
-        [Authorize(Roles = Roles.Admin)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetFor(int userId)
         {
             var user = await _dbContext
