@@ -5,7 +5,16 @@ import { Box } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 
 export function LoadingButton(props){
-  const {variant, color, loading, label, fullWidth, ...otherProps} = props;
+  const {
+    variant,
+    color,
+    loading, 
+    label, 
+    fullWidth, 
+    children, 
+    ...otherProps
+  } = props;
+
   const disabledButton = props.loading || props.disabled
 
   const loadingAnimation = loading &&        
@@ -27,6 +36,7 @@ export function LoadingButton(props){
     >
       {loadingAnimation}
       {label}
+      {children}
     </Button>
 
   return (

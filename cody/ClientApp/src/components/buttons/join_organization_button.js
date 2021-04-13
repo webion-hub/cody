@@ -40,13 +40,14 @@ export function JoinOrganizationButton(props){
         icon={<AddRoundedIcon/>}
       />
     )
-  else
-    return (
-      <LoadingButton
-        {...commonProps}
-        variant="outlined"
-        label="Unisciti"
-        endIcon={<AddRoundedIcon/>}
-      />     
-    )
+    
+  return (
+    <LoadingButton
+      {...commonProps}
+      variant="outlined"
+      label="Unisciti"
+      endIcon={<AddRoundedIcon/>}
+    />     
+  )
+
 }
