@@ -1,29 +1,21 @@
 import React from 'react';
-
-import { MenuItem } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { ListItemIcon } from '@material-ui/core';
-
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { PageController } from 'src/lib/page_controller';
+import { MenuItemBase } from 'src/components/menu/menu_item_base';
 
 export const AccountMenuItem =  React.forwardRef((props, ref) => {  
-  return (    
-    <MenuItem
+  return (
+    <MenuItemBase
       ref={ref}
+      component="a"
       href="/account"
       onClick={(e) => {
         PageController.push('/account', e)
         props.onClose()
       }}
-    >
-      <ListItemIcon>
-        <AccountCircleRoundedIcon fontSize="small"/>
-      </ListItemIcon>
-      <Typography variant="inherit" noWrap>
-        Account
-      </Typography>
-    </MenuItem>
+      icon={AccountCircleRoundedIcon}
+      label="Account"
+    />
   );
 })
