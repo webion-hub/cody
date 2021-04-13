@@ -31,7 +31,14 @@ export function LeaveOrganizationButton(props){
     organization,
     onLeave,
     mobileView,
+    customComponentProps,
+    ButtonComponent,
   } = props
+
+  const {
+    onClick,
+    ...customComponentPropsWithoutOnClick
+  } = customComponentProps
 
   const handleOpenLeaveDialog = () => {
     setOpenLeaveDialog(true)
@@ -61,16 +68,23 @@ export function LeaveOrganizationButton(props){
     if(leaveError === "noError"){
       document.dispatchEvent(updateUserOrganizations)
       onLeave?.()
+      onClick?.()
       handleCloseLeaveDialog()
     }
   }, [leaveError])
 
   const commonProps = {
-    color: "inherit",
     disabled: organization?.state.hasBeenDeleted,
     className: classes.leaveButton,
     onClick: handleOpenLeaveDialog
   }
+
+  const buttonComponentProps = !customComponentProps &&
+    {
+      endIcon: <ExitToAppRoundedIcon/>,
+      variant: "outlined",
+      color: "inherit",
+    }
 
   const leaveOrganizationDialog = 
     <LeaveOrganizationDialog
@@ -88,21 +102,26 @@ export function LeaveOrganizationButton(props){
         <LoadingIconButton
           {...commonProps}
           icon={<ExitToAppRoundedIcon/>}
+          color="inherit"
         />
         {leaveOrganizationDialog}
       </>
     )
-  else
-    return (
-      <>
-        <LoadingButton
-          {...commonProps}
-          variant="outlined"
-          label="Lascia"
-          endIcon={<ExitToAppRoundedIcon/>}
-        />
-        {leaveOrganizationDialog} 
-      </>
-  
-    )
+
+  return (
+    <>
+      <ButtonComponent
+        {...customComponentPropsWithoutOnClick}
+        {...commonProps}
+        {...buttonComponentProps}
+        label="Lascia"
+      />
+      {leaveOrganizationDialog} 
+    </>  
+  )
 }
+
+LeaveOrganizationButton.defaultProps = {
+  ButtonComponent: LoadingButton
+}
+

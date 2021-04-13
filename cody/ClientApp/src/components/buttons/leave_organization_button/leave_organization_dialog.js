@@ -27,6 +27,7 @@ export function LeaveOrganizationDialog(props){
   const onClose = props.onClose;
   const onLeave = props.onLeave;
   const leaveError = props.leaveError;
+  const areError = leaveError !== null && leaveError !== "noError"
 
   return(
     <DialogBase
@@ -64,7 +65,7 @@ export function LeaveOrganizationDialog(props){
           Tutti i tuoi progressi veranno eliminati!
         </Typography>
         <Fade
-          in={leaveError !== null}
+          in={areError}
         >
           <Typography
             color="error"
