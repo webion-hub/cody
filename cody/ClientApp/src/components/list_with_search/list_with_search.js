@@ -100,7 +100,7 @@ export function ListWithSearch(props){
           className={classes.linearProgress}
         />
       </Fade>
-      <Paper className={classes.listContainer}>
+      <Paper className={`${classes.listContainer} ${props.paperClassName ? props.paperClassName : ""}`}>
         {
           dataList?.values.length === 0 ?
             <NoDataFound 
