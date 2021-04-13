@@ -64,6 +64,15 @@ export function CustomSideBarWithDrawer(props){
 			isDrawerOpen={isDrawerOpen}
 			onDrawerClose={handleCloseDrawer}
 			setDrawerContent={setDrawerContent}
+			onSidebarClose={handleCloseSidebar}
+			drawerContent={
+				<CustomDrawer
+					sideBarItems={sideBarItems}
+					contentWidth={drawerContent.width}
+					contentId={drawerContent.identifier}
+					onDrawerClose={handleCloseDrawer}
+				/>	
+			}
 		/>
 
 	const mobileSideBar =
@@ -79,12 +88,6 @@ export function CustomSideBarWithDrawer(props){
     <>
 			<ClickAwayListener onClickAway={() => handleCloseDrawer()}>
 				<div>
-					<CustomDrawer
-						sideBarItems={sideBarItems}
-						contentWidth={drawerContent.width}
-						contentId={drawerContent.identifier}
-						onDrawerClose={handleCloseDrawer}
-					/>
 					{
 						mobileView ? 
 							mobileSideBar : sideBar

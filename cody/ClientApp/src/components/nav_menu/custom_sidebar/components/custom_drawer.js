@@ -11,16 +11,8 @@ import { useTheme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
 	sideBarDrawer: {
 		background: theme.drawer.default,
-    position: "fixed",
     height: "100vh",
-		marginLeft: theme.drawer.width,
-		zIndex: 1250,
 		transition: "0.25s width, 0.25s opacity",
-		marginTop: theme.appBar.fullHeight,
-		[theme.breakpoints.down('xs')]: {
-			marginTop: 0,
-			zIndex: 1350,
-    },
 	},
 	drawerContent: {
 		margin: theme.spacing(1),

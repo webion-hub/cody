@@ -1,13 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, SwipeableDrawer } from '@material-ui/core';
+import { SwipeableDrawer } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	closeSideBarIcon: {
-		marginTop: 4
+		marginTop: 4,
+		width: "fit-content"
 	}
 }));
 
@@ -26,12 +25,6 @@ export function CustomSideBarMobile(props){
 				keepMounted: true, // Better open performance on mobile.
 			}}
 		>
-			<IconButton
-				className={classes.closeSideBarIcon}
-				onClick={props.onSidebarClose}
-			>
-				<CloseRoundedIcon/>
-			</IconButton>
 			{props.children}
 		</SwipeableDrawer>
   )
