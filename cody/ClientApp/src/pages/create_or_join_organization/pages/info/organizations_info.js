@@ -103,7 +103,7 @@ function OrganizationsInfo(props){
           />
           <OrganizationsInfoCard
             title="Istituti"
-            description="Se sei un professore e vuoi creare un ambiente per i tuoi studenti dove possono allenarsi e interagire sul codice gli istuti sono la scelta migliore."
+            description="Se sei un professore e vuoi creare un ambiente per i tuoi studenti dove possono allenarsi e interagire sul codice gli istituti sono la scelta migliore."
             image={School}
           />
           <OrganizationsInfoCard

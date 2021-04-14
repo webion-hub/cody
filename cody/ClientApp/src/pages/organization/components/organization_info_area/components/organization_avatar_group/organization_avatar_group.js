@@ -84,9 +84,7 @@ export function  OrganizationAvatarGroup(props) {
         open={openDialog}
         onClose={_ => setOpenDialog(false)}
         organization={organization}
-      >
-
-      </AllOrganizationUserDialog>
+      />
     </div>
   )
 }
