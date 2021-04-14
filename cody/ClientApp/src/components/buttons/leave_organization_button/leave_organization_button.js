@@ -8,6 +8,7 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
 import { User } from 'src/lib/server_calls/user';
+import { UserOrganizationsController } from 'src/lib/update_user_organizations';
 
 const useStyles = makeStyles((theme) => ({
   leaveButton: {
@@ -25,7 +26,6 @@ export function LeaveOrganizationButton(props){
   const [openLeaveDialog, setOpenLeaveDialog] = React.useState(false);
   const [leaveError, setLeaveError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-  const updateUserOrganizations = new Event('updateUserOrganizations');
 
   const {
     organization,
@@ -66,7 +66,7 @@ export function LeaveOrganizationButton(props){
 
   useEffect(() => {
     if(leaveError === "noError"){
-      document.dispatchEvent(updateUserOrganizations)
+      UserOrganizationsController.update()
       onLeave?.()
       onClick?.()
       handleCloseLeaveDialog()

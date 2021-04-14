@@ -16,6 +16,7 @@ import { prepareData } from '../../lib/prepare_data';
 import { CreateOrganizationContainer } from '../create_organization_container';
 import { AddPhoto } from 'src/components/pickers/others/add_photo';
 import { PageController } from 'src/lib/page_controller';
+import { UserOrganizationsController } from 'src/lib/update_user_organizations';
 
 const useStyles = makeStyles((theme) => ({
   fields: {
@@ -83,9 +84,7 @@ export function CreateOrganizationBase(props){
       data: prepareData(data),
       kind: props.type,
       onSuccess: (id) => {
-        const updateUserOrganizations = new Event('updateUserOrganizations');
-        document.dispatchEvent(updateUserOrganizations)
-        
+        UserOrganizationsController.update()
         PageController.push(`/organization/${id}`)
       },
       onConflict: () => setExistingOrganization(true),

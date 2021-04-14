@@ -4,10 +4,10 @@ import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import { LoadingButton } from 'src/components/buttons/loading_button';
 import { LoadingIconButton } from 'src/components/buttons/loading_icon_button';
 import { User } from 'src/lib/server_calls/user';
+import { UserOrganizationsController } from 'src/lib/update_user_organizations';
 
 export function JoinOrganizationButton(props){
   const [loading, setLoading] = React.useState(false);
-  const updateUserOrganizations = new Event('updateUserOrganizations');
 
   const {
     organization,
@@ -21,7 +21,7 @@ export function JoinOrganizationButton(props){
       .join(organization?.id)
       .finally(() => {
         setLoading(false)
-        document.dispatchEvent(updateUserOrganizations)
+        UserOrganizationsController.update()
         onJoin?.()
       })
   }

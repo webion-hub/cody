@@ -12,6 +12,8 @@ import { PageController } from 'src/lib/page_controller';
 
 import { getBookmarkedOrganizations } from './lib/get_bookmarked_organizations';
 import { SidebarOrganizationAvatarList } from './components/sidebar_organization_avatar_list';
+import { UserOrganizationsController } from 'src/lib/update_user_organizations';
+import { useListener } from 'src/lib/hooks/use_listener';
 
 const useStyles = makeStyles((theme) => ({
 	organizationsList: props => ({
@@ -76,25 +78,6 @@ export function SideBarOrganizationList(props){
 
   const classes = useStyles({organizationsListHeight, expandIconTopPosition});
 
-
-  useEffect(() => {
-		document.addEventListener('updateUserOrganizations', refreshOrganizationList)
-		setTimeout(() => refreshOrganizationList(), 150);
-
-		return _ => document.removeEventListener('updateUserOrganizations', refreshOrganizationList)
-  }, [])
-
-	useEffect(() => {
-		const drawerFilterStateEvent = new CustomEvent('drawerFilterState', {detail: drawerFilterState});
-		document.dispatchEvent(drawerFilterStateEvent)
-
-		if(drawerState === "close"){
-			setDrawerFilterState("showAll")
-			refreshOrganizationList()
-		}
-
-  }, [drawerState, drawerFilterState])
-
 	const refreshOrganizationList = () => {
     setLoading(true)
 		getBookmarkedOrganizations({
@@ -119,6 +102,23 @@ export function SideBarOrganizationList(props){
 		setDrawerFilterState("showAll")
 		props.setDrawerState("toggle")
 	}
+
+	useListener({
+		eventFunction: refreshOrganizationList,
+		controller: UserOrganizationsController,
+		firstExecutionDelay: 150,
+  }, [])
+
+	useEffect(() => {
+		const drawerFilterStateEvent = new CustomEvent('drawerFilterState', {detail: drawerFilterState});
+		document.dispatchEvent(drawerFilterStateEvent)
+
+		if(drawerState === "close"){
+			setDrawerFilterState("showAll")
+			refreshOrganizationList()
+		}
+
+  }, [drawerState, drawerFilterState])
 
 	const avatarList = drawerState === "close" &&
 	<SidebarOrganizationAvatarList
