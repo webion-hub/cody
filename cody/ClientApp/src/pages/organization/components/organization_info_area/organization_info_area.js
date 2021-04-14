@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
-import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
+import MoreHorizRoundedIcon from '@material-ui/icons/MoreHorizRounded';
 
 import OrganizationDescription from "../organization_description";
 import { OrganizationBadgeAvatar } from "./components/organization_badge_avatar";
@@ -59,7 +59,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   organizationSettings: {
     position: "absolute",
-    left: 0
+    right: 8
   }
 }));
 
@@ -135,7 +135,7 @@ function OrganizationSettingsMenu(props){
         className={props.className}
         onClick={handleClick}  
       >
-        <MoreVertRoundedIcon/>
+        <MoreHorizRoundedIcon/>
       </IconButton>
       <MenuWithLoading
         anchorEl={anchorEl}
