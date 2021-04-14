@@ -13,11 +13,7 @@ namespace Cody.Extensions
     {
         public static async Task SignInAsync(this HttpContext context, UserAccount user)
         {
-            await context.SignInAsync(
-                scheme: LoginManager.DEFAULT_SCHEME,
-                principal: LoginManager.GetPrincipalFor(user),
-                properties: LoginManager.DefaultAuthProperties
-            );
+            await LoginManager.SignIntoContextAsync(user, context);
         }
 
 

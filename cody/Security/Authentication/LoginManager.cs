@@ -15,6 +15,18 @@ namespace Cody.Security.Authentication
         public const string DEFAULT_SCHEME = 
             CookieAuthenticationDefaults.AuthenticationScheme;
 
+
+
+        public static async Task SignIntoContextAsync(UserAccount user, HttpContext context)
+        {
+            await context.SignInAsync(
+                scheme: DEFAULT_SCHEME,
+                principal: GetPrincipalFor(user),
+                properties: DefaultAuthProperties
+            );
+        }
+
+
         public static AuthenticationProperties DefaultAuthProperties => new()
         {
             AllowRefresh = true,
