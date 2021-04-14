@@ -1,4 +1,3 @@
-using Cody.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,11 +7,11 @@ using System;
 using Cody.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Cody.Security.Authorization;
 using Cody.Services.Sftp;
+using System.Security.Claims;
 
 namespace Cody
 {
@@ -53,6 +52,26 @@ namespace Cody
                     options.LoginPath = "/login";
                     options.LogoutPath = "/logout";
                     options.AccessDeniedPath = "/access-denied";
+
+                    options.Events.OnValidatePrincipal = async (context) =>
+                    {
+                        var identity = context.Principal.Identity as ClaimsIdentity;
+
+                        var expiration = identity.FindFirst(ClaimTypes.Expiration);
+                        var expiresAt = DateTime.Parse(expiration.Value);
+
+                        if (DateTime.Now < expiresAt)
+                            return;
+
+                        identity.RemoveClaim(expiration);
+                        identity.AddClaim(new Claim (
+                            type: ClaimTypes.Expiration, 
+                            value: DateTime.Now.AddMinutes(2).ToString()
+                        ));
+
+                        context.ShouldRenew = true;
+                        await Task.CompletedTask;
+                    };
                 });
 
 

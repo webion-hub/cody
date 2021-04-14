@@ -2,6 +2,7 @@
 using Cody.Models.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,6 @@ namespace Cody.Security.Authentication
         {
             AllowRefresh = true,
             IsPersistent = true,
-            ExpiresUtc = DateTime.Now.AddDays(1),
         };
 
 
@@ -53,6 +53,7 @@ namespace Cody.Security.Authentication
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
             new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Expiration, DateTime.Now.AddMinutes(2).ToString()),
         };
     }
 }
