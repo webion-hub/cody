@@ -102,7 +102,7 @@ export function ListWithSearch(props){
       </Fade>
       <Paper className={`${classes.listContainer} ${props.paperClassName ? props.paperClassName : ""}`}>
         {
-          dataList?.values.length === 0 ?
+          dataList?.total === 0 ?
             <NoDataFound 
               {...props.noDataFoundProps}
               loading={totalLoading}

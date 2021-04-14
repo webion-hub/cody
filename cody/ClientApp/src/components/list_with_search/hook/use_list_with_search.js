@@ -20,10 +20,11 @@ export function useListWithSearch(props){
     loading,
   } = useGetDataActions(getAllDataSettings)
 
-  useEffect(
-    () => getAllSearchedData(searchValueWithFilter),
-    [searchValue, filter]
-  )
+  useEffect(() => {
+    if(filter === "@waiting")
+      return;
+    getAllSearchedData(searchValueWithFilter)
+  }, [searchValue, filter])
 
   useEffect(
     () => getNewDataFromScroll(searchValueWithFilter),

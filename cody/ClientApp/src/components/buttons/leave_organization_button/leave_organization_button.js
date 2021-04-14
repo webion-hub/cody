@@ -38,7 +38,7 @@ export function LeaveOrganizationButton(props){
   const {
     onClick,
     ...customComponentPropsWithoutOnClick
-  } = customComponentProps
+  } = customComponentProps || {}
 
   const handleOpenLeaveDialog = () => {
     setOpenLeaveDialog(true)
