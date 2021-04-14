@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { JoinOrganizationsListItem } from './components/join_organization_list_item';
+import { JoinOrganizationsListItem } from '../../../../components/list_items/join_organization_list_item';
 import { FilterComponent } from './components/filter_components';
 import { getOrganizationFilter } from './lib/get_organization_filter';
 

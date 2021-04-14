@@ -11,7 +11,7 @@ import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { OrganizationLabel } from 'src/components/typography/organization_label';
 
 import { BookmarkIconButton } from 'src/components/bookmark_icon_button';
-import { OrganizationListItem } from 'src/components/organization_list_item';
+import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
 import { User } from 'src/lib/server_calls/user';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ export function BookmarkOrganizationListItem(props) {
   }
 
   return (
-    <OrganizationListItem
+    <OrganizationListItemBase
       index={props.index}
       organizationId={organizationId}
       style={props.style}
@@ -89,6 +89,6 @@ export function BookmarkOrganizationListItem(props) {
           onClick={handleBookmarkClick}
         />
       </ListItemSecondaryAction>
-    </OrganizationListItem>
+    </OrganizationListItemBase>
   )
 }

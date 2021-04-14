@@ -3,7 +3,7 @@ import { ListItem } from '@material-ui/core'
 
 import { PageController } from 'src/lib/page_controller';
 
-export function OrganizationListItem(props){
+export function OrganizationListItemBase(props){
   const organizationId = props.organizationId;
   const organizationUrl = `/organization/${organizationId}`
 

@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 
-import { JoinOrganizationButton } from '../../../../../components/buttons/join_organization_button';
-import { LeaveOrganizationButton } from '../../../../../components/buttons/leave_organization_button/leave_organization_button';
+import { JoinOrganizationButton } from '../buttons/join_organization_button';
+import { LeaveOrganizationButton } from '../buttons/leave_organization_button/leave_organization_button';
 import { OrganizationLabel } from 'src/components/typography/organization_label';
-import { OrganizationListItem } from 'src/components/organization_list_item';
+import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -58,7 +58,7 @@ export function JoinOrganizationsListItem(props){
   }, [data.isCallerAMember])
 
   const membersCountLabel = membersCount === 1 
-    ? `${membersCount} Utente` 
+    ? `${membersCount} Utente`
     : `${membersCount} Utenti`
 
   const locationLabel = data.detail.location
@@ -90,7 +90,7 @@ export function JoinOrganizationsListItem(props){
     />
    
   return(
-    <OrganizationListItem
+    <OrganizationListItemBase
       index={props.index}
       className={classes.listItem}
       disabled={data.state.hasBeenDeleted}
@@ -122,6 +122,6 @@ export function JoinOrganizationsListItem(props){
           {isCallerAMember ? leaveButton : joinButton}
         </Grid>
       </ListItemSecondaryAction>
-    </OrganizationListItem>
+    </OrganizationListItemBase>
   )
 }

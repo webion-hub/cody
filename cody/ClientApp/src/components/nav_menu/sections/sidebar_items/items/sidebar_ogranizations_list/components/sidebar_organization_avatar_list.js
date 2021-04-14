@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
-import { OrganizationListItem } from 'src/components/organization_list_item';
+import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 
@@ -51,7 +51,7 @@ export function SidebarOrganizationAvatarList(props){
   }
 
 	return organizationsList.map(organization => 
-    <OrganizationListItem 
+    <OrganizationListItemBase 
       className={classes.sideBarAvatar} 
       key={organization.id}
       organizationId={organization.id}
@@ -68,6 +68,6 @@ export function SidebarOrganizationAvatarList(props){
           alt={organization.name}
         />
       </Tooltip>
-    </OrganizationListItem>
+    </OrganizationListItemBase>
   )
 }
