@@ -1,12 +1,11 @@
 import React from 'react';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base/interactive_icon_base';
-import { TouchableTooltip } from 'src/components/touchable_tooltip';
 
 const useStyles = makeStyles((theme) => ({
   notificationsButton: {
@@ -22,7 +21,7 @@ export function NotificationsIcon(){
   return (
     <InteractiveIconBase
       loggedContent={
-        <TouchableTooltip
+        <Tooltip
           arrow
           title="Notifiche"
         >
@@ -38,7 +37,7 @@ export function NotificationsIcon(){
                 <NotificationsRoundedIcon />
             </Badge>
           </IconButton>
-        </TouchableTooltip>
+        </Tooltip>
       }
     />
   );

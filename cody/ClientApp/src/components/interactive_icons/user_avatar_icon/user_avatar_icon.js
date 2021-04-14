@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { Button } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base/interactive_icon_base';
-import { TouchableTooltip } from 'src/components/touchable_tooltip'
 
 import { PageController } from 'src/lib/page_controller';
 import { LoggedAvatarMenu } from './components/logged_avatar_menu';
@@ -24,7 +23,7 @@ export function UserAvatarIcon(){
     <LoggedAvatarMenu/>
   
   const notLoggedChildren = 
-    <TouchableTooltip
+    <Tooltip
       arrow
       interactive
       title={
@@ -42,7 +41,7 @@ export function UserAvatarIcon(){
       >
         Login
       </Button>
-    </TouchableTooltip> 
+    </Tooltip> 
 
   return (    
     <InteractiveIconBase 

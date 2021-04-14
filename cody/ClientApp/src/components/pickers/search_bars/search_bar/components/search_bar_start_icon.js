@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { IconButton } from '@material-ui/core';
-import { TouchableTooltip } from 'src/components/touchable_tooltip'
+import { IconButton, Tooltip } from '@material-ui/core';
 
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
@@ -20,7 +19,7 @@ export function SearchBarStartIcon(props) {
   const disableTooltip = props.disableTooltip
 
   return (
-    <TouchableTooltip 
+    <Tooltip 
       title={
         showFavorite ? 
           "Nascondi i tuoi linguaggi preferiti" : "Mostra i tuoi linguaggi preferiti"
@@ -40,6 +39,6 @@ export function SearchBarStartIcon(props) {
             <FavoriteRoundedIcon/> : <FavoriteBorderRoundedIcon/>
         }          
       </IconButton>
-    </TouchableTooltip>
+    </Tooltip>
   );
 }

@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { Menu } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { CustomAvatar } from 'src/components/custom_avatar';
-import { TouchableTooltip } from 'src/components/touchable_tooltip'
 
 import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 
@@ -59,7 +58,7 @@ export function LoggedAvatarMenu(){
 
   return (    
     <> 
-      <TouchableTooltip
+      <Tooltip
         arrow
         title="Account"
       >
@@ -75,7 +74,7 @@ export function LoggedAvatarMenu(){
             src="user/profile_picture" 
           />
         </IconButton>
-      </TouchableTooltip>
+      </Tooltip>
       <Menu
         id="simple-menu"
         anchorEl={openMenu}

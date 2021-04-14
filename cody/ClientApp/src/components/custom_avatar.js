@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function CustomAvatar(props){
+export const CustomAvatar = React.forwardRef((props, ref) => {
   const theme = useTheme()
   const classes = useStyles()
   const [loading, setLoading] = React.useState(true);
@@ -55,7 +55,10 @@ export function CustomAvatar(props){
   }, [])
 
   return (
-    <div className={classes.container}>
+    <div 
+      ref={ref}
+      className={classes.container}
+    >
       <Skeleton
         variant="circle" 
         animation="wave"
@@ -90,7 +93,7 @@ export function CustomAvatar(props){
       />
     </div> 
   );
-}
+})
 
 CustomAvatar.defaultProps = {
   size: 40,

@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 
 import { CodingFilterDialog } from 'src/components/pickers/search_bars/search_bar/components/coding_filter_dialog';
-import { TouchableTooltip } from 'src/components/touchable_tooltip'
 
 import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
 
@@ -22,7 +21,7 @@ export function SearchBarEndtIcon(props) {
 
   return (
     <>
-      <TouchableTooltip 
+      <Tooltip 
         title="Seleziona il linguaggio di programmazione." 
         aria-label="filter"
         placement="right"
@@ -36,7 +35,7 @@ export function SearchBarEndtIcon(props) {
         >
           {languageSelected? languageSelected.icon : <CodeRoundedIcon/>}
         </IconButton>
-      </TouchableTooltip>
+      </Tooltip>
       <CodingFilterDialog
         open={open}
         onClose={() => setOpen(false)}

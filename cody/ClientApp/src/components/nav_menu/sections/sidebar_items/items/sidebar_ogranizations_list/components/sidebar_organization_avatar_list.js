@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { OrganizationListItem } from 'src/components/organization_list_item';
-import { TouchableTooltip } from 'src/components/touchable_tooltip';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Tooltip, Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +56,8 @@ export function SidebarOrganizationAvatarList(props){
       key={organization.id}
       organizationId={organization.id}
     >
-      <TouchableTooltip
+      <Tooltip
+        key={organization.id}
         arrow
         placement="right"
         title={getTooltipTitle(organization)}
@@ -67,7 +67,7 @@ export function SidebarOrganizationAvatarList(props){
           src={`organizations/${organization.id}/logo`}
           alt={organization.name}
         />
-      </TouchableTooltip>
+      </Tooltip>
     </OrganizationListItem>
   )
 }
