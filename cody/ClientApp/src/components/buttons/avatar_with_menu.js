@@ -74,6 +74,6 @@ export function AvatarWithMenu(props){
   )
 }
 
-AvatarBuAvatarWithMenutton.defaultProps = {
+AvatarWithMenu.defaultProps = {
   placement: "bottom"
 }
