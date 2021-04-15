@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -10,6 +10,8 @@ import { useMediaQuery } from '@material-ui/core'
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
 import Organization from "src/lib/server_calls/organization";
+import { UserOrganizationsController } from "src/lib/user_organizations_controller";
+import { useListener } from "src/lib/hooks/use_listener";
 
 export const useStyles = makeStyles((theme) => ({
   backgroundImage: {
@@ -77,17 +79,10 @@ export default function OrganizationPage(){
 
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
   const [organizationData, setOrganizationData] = React.useState(null)
   const { id } = useParams();
 	const organization = Organization.withId(id)
-
-	useEffect(() => {
-		document.addEventListener('updateUserOrganizations', getOrganizationByPageId)
-    getOrganizationByPageId()
-
-		return _ => document.removeEventListener('updateUserOrganizations', getOrganizationByPageId)
-	}, [id])
 
   const getOrganizationByPageId = () => {
     setLoading(true)
@@ -98,6 +93,11 @@ export default function OrganizationPage(){
         setOrganizationData(data)})
       .finally(_ => setLoading(false))
   } 
+
+	useListener({
+		eventFunction: getOrganizationByPageId,
+		controller: UserOrganizationsController,
+	}, [id])
 
 	const treeViewSection = 
 		<Grid 
