@@ -10,11 +10,6 @@ import { SearchBar } from '../search_bar/search_bar';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 const useStyles = makeStyles((theme) => ({
-  menu:{
-    background: "transparent",
-    boxShadow: "none",
-    overflow: "hidden"
-  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',

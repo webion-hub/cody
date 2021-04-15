@@ -53,7 +53,7 @@ export function OrganizationInfo(props){
         {organizationData?.detail.location}
       </TypographyWithLoading>
       {
-        !organizationData?.isCallerAMember && 
+        (!organizationData?.isCallerAMember && !props.loading) && 
           <JoinOrganizationButton
             organization={organizationData}
             className={classes.joinButton}
