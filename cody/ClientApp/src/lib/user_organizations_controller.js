@@ -4,11 +4,11 @@ export class UserOrganizationsController {
     document.dispatchEvent(updateUserOrganizations)
   }
 
-  static addListener = (eventFunction) => {
+  static listen = (eventFunction) => {
     document.addEventListener('updateUserOrganizations', eventFunction)
   }
 
-  static removeListener = (eventFunction) => {
+  static unListen = (eventFunction) => {
     document.removeEventListener('updateUserOrganizations', eventFunction)
   }
 }
