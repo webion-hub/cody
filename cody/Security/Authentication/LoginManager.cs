@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Cody.Extensions;
 
 namespace Cody.Security.Authentication
 {
@@ -20,9 +21,16 @@ namespace Cody.Security.Authentication
 
         public static async Task SignIntoContextAsync(UserAccount user, HttpContext context)
         {
+            var dbContext = context.RequestServices.GetCodyContext();
+            var principal = GetPrincipalFor(user);
+
+            await RefreshTokenGenerator
+                .CreateNew(dbContext, principal.Identity as ClaimsIdentity)
+                .GenerateNewTokenForAsync(user);
+
             await context.SignInAsync(
                 scheme: DEFAULT_SCHEME,
-                principal: GetPrincipalFor(user),
+                principal: principal,
                 properties: DefaultAuthProperties
             );
         }
@@ -38,6 +46,8 @@ namespace Cody.Security.Authentication
         public static ClaimsPrincipal GetPrincipalFor(UserAccount user)
         {
             var claimsIdentity = GetIdentityFor(user);
+            claimsIdentity.RefreshExpirationTime();
+
             return new ClaimsPrincipal(claimsIdentity);
         }
 
@@ -53,7 +63,6 @@ namespace Cody.Security.Authentication
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Expiration, DateTime.Now.AddMinutes(2).ToString()),
         };
     }
 }

@@ -20,8 +20,8 @@ namespace Cody.Extensions
             CodyContext dbContext,
             Includer include = null 
         ) {
-            var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!int.TryParse(rawId, out int userId))
+            var userId = MaybeGetId(claim);
+            if (userId is null)
                 return null;
 
             var query = dbContext
@@ -37,20 +37,17 @@ namespace Cody.Extensions
         }
 
 
+        public static int GetId(this ClaimsPrincipal claim)
+        {
+            return MaybeGetId(claim) ?? throw new Exception("Cannot retrieve the user's id");
+        }
+
         public static int? MaybeGetId(this ClaimsPrincipal claim)
         {
             var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
             return int.TryParse(rawId, out int userId)
                 ? userId
                 : null;
-        }
-
-        public static int GetId(this ClaimsPrincipal claim)
-        {
-            var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.TryParse(rawId, out int userId)
-                ? userId
-                : throw new Exception("Cannot retrieve the user's id");
         }
     }
 }
