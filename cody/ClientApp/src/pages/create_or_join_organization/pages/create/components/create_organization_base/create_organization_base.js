@@ -16,7 +16,7 @@ import { prepareData } from '../../lib/prepare_data';
 import { CreateOrganizationContainer } from '../create_organization_container';
 import { AddPhoto } from 'src/components/pickers/others/add_photo';
 import { PageController } from 'src/lib/page_controller';
-import { UserOrganizationsController } from 'src/lib/update_user_organizations';
+import { UserOrganizationsController } from 'src/lib/user_organizations_controller';
 
 const useStyles = makeStyles((theme) => ({
   fields: {

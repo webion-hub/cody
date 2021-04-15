@@ -8,7 +8,7 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
 import { User } from 'src/lib/server_calls/user';
-import { UserOrganizationsController } from 'src/lib/update_user_organizations';
+import { UserOrganizationsController } from 'src/lib/user_organizations_controller';
 
 const useStyles = makeStyles((theme) => ({
   leaveButton: {

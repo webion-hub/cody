@@ -2,7 +2,7 @@ import React from 'react';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { PageController } from 'src/lib/page_controller';
-import { MenuItemBase } from 'src/components/menu/menu_item_base';
+import { MenuItemBase } from 'src/components/menu/menu_items/menu_item_base';
 
 export const AccountMenuItem =  React.forwardRef((props, ref) => {  
   return (

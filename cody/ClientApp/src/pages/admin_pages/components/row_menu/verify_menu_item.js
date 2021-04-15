@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BeenhereRoundedIcon from '@material-ui/icons/BeenhereRounded';
-import { MenuItemBase } from '../../../../components/menu/menu_item_base';
+import { MenuItemBase } from '../../../../components/menu/menu_items/menu_item_base';
 
 export const VerifyMenuItem = React.forwardRef((props, ref) => {
   if(props.hide)
