@@ -35,6 +35,13 @@ namespace Cody.Security
             };
         }
 
+
+        public static bool AreEqual(byte[] plainTextToken, byte[] salt, byte[] hashed)
+        {
+            var submitted = From(plainTextToken, salt);
+            return AreEqual(submitted, hashed);
+        }
+
         public static bool AreEqual(UniqueToken plain, UniqueToken hashed)
         {
             return AreEqual(plain, hashed.HashedToken);

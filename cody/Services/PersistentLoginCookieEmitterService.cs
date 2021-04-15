@@ -125,12 +125,11 @@ namespace Cody.Services
             string plainTextToken,
             UserAccountPersistentLoginCookie storedCookie
         ) {
-            var submittedCookie = UniqueToken.From(
-                plainTextToken: Convert.FromBase64String(plainTextToken), 
-                salt: storedCookie.Salt
+            return UniqueToken.AreEqual(
+                plainTextToken: Convert.FromBase64String(plainTextToken),
+                salt: storedCookie.Salt,
+                hashed: storedCookie.Token
             );
-
-            return UniqueToken.AreEqual(submittedCookie, storedCookie.Token);
         }
 
 
