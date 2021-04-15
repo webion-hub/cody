@@ -47,6 +47,7 @@ namespace Cody.Models.Users
         public UserAccountDetail AccountDetail { get; set; }
         public UserAccountState AccountState { get; set; }
         public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
+        public List<UserRefreshToken> RefreshTokens { get; set; }
         public List<OrganizationMember> Organizations { get; set; }
         public List<BookmarkedOrganization> BookmarkedOrganizations { get; set; }
 
