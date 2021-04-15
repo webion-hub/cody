@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
-import { AvatarButton } from "./buttons/avatar_button";
+import { AvatarWithMenu } from "./buttons/avatar_with_menu";
 import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
+
+const avatarGroupOpenHorizontal = {
+  marginLeft: "8px !important",
+  boxShadow: "none !important",
+  pointerEvents: "auto !important",
+}
+
+const avatarGroupOpenVertical = {
+  marginTop: "8px !important",
+  boxShadow: "none !important",
+  pointerEvents: "auto !important",
+}
 
 const useStyles = makeStyles((theme) => ({
   avatarGroupHorizontal: props => ({
@@ -10,10 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: props.borderWidth,
     display: "flex",
     "&:hover": {
-      "& > *": {
-        marginLeft: 8,
-        boxShadow: "none",
-      }
+      "& > *": avatarGroupOpenHorizontal
     }
   }),
   avatarGroupVertical: props => ({
@@ -21,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
     margin: props.borderWidth,
     display: "block",
     "&:hover": {
-      "& > *": {
-        marginTop: 8,
-      }
+      "& > *": avatarGroupOpenVertical
     }
   }),
+
+  avatarGroupOpenHorizontal: avatarGroupOpenHorizontal,
+  avatarGroupOpenVertical: avatarGroupOpenVertical,
 
   avatarSpacingHorizontal: props => ({
     marginLeft: -props.spacing,
@@ -38,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     background: props.borderColor,
     boxShadow: `0 0 0 ${props.borderWidth}px ${props.borderColor}`,
     borderRadius: "50%",
+    pointerEvents: "none",
     "&:hover": {
       transform: "scale(1.2)",
       boxShadow: "none",
@@ -52,13 +62,16 @@ const useStyles = makeStyles((theme) => ({
 
 export function CustomAvatarGroup(props){
 	const classes = useStyles(props);
+
+  //I've used a ref because is the only way 
+  //for passing the real status of "open" inside listeners
+	const [open, setOpen] = React.useState("close");
+  const openRef = useRef(open);
+
   const avatarsProps = props.avatarsProps
   const numberOfAvatar = avatarsProps ? avatarsProps.length : 0
 
   const isDirectionHorizontal = props.direction === "horizontal"
-  const tooltipPlacement =  isDirectionHorizontal
-    ? "bottom" 
-    : "left"
 
   const avatarGroupClassName = isDirectionHorizontal 
     ? classes.avatarGroupHorizontal
@@ -68,38 +81,76 @@ export function CustomAvatarGroup(props){
     ? classes.avatarSpacingHorizontal
     : classes.avatarSpacingVertical
 
+  const setOpenRef = (state) => {
+    openRef.current = state
+    setOpen(state)
+  }
+
+  const handleKeepOpen = () => setOpenRef("keepOpen")
+  const handleForceClose = () => setOpenRef("close")
+  const handleOpen = () => {
+    if(openRef.current === "keepOpen")
+      return;
+
+      setOpenRef("open")
+  }
+  const handleClose = () => {
+    if(openRef.current === "keepOpen")
+      return;
+
+    handleForceClose()
+  }
+
+  const getAvatarGroupClassStatus = () => {
+    const isOpen = 
+      open === "open" ||
+      open === "keepOpen"
+
+    const className = isDirectionHorizontal
+      ? classes.avatarGroupOpenHorizontal
+      : classes.avatarGroupOpenVertical
+
+    return isOpen ? className : ""
+  }
+
+
   const avatars = avatarsProps
     ?.map((avatarProps, index) => {
       const {onClick, ...otherProps} = avatarProps
+
       return (
-        <AvatarButton
+        <AvatarWithMenu
           {...otherProps}
           key={index}
           style={{zIndex: numberOfAvatar - index}}
-          placement={tooltipPlacement}
           onClick={onClick}
-          buttonClassName={`${classes.avatar} ${avatarSpacingClassName}`}
+          onMenuOpen={handleKeepOpen}
+          onMenuClose={handleForceClose}
+          buttonClassName={`${classes.avatar} ${avatarSpacingClassName} ${getAvatarGroupClassStatus()}`}
         />
       )
     })
 
   const extraAvatarsIcon = 
-    <AvatarButton
+    <AvatarWithMenu
       disableLoading
       style={{zIndex: numberOfAvatar + 1}}
       onClick={props.onExtraAvatarClick}
-      placement={tooltipPlacement}
-      alt="Mostra tutti gli utenti"
+      onMenuOpen={handleKeepOpen}
+      onMenuClose={handleForceClose}
       className={classes.finalAvatar}
-      buttonClassName={classes.avatar}
+      buttonClassName={`${classes.avatar} ${getAvatarGroupClassStatus()}`}
     >
       <MenuOpenRoundedIcon/>
-    </AvatarButton>
-
+    </AvatarWithMenu>
 
   return (
     <div
-      className={`${avatarGroupClassName} ${props.className}`}
+      className={`${avatarGroupClassName} ${props.className ? props.className : ""}`}
+      onMouseEnter={handleOpen}
+      onMouseLeave={handleClose}
+      onTouchStart={handleOpen}
+      onTouchMove={handleClose}
     >
       {
         !props.loading &&
