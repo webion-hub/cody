@@ -13,6 +13,7 @@ import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 import { AccountMenuItem } from './menu_items/account_menu_item';
 import { AdminMenuItem } from './menu_items/admin_menu_item';
 import { LogoutMenuItem } from './menu_items/logout_menu_item';
+import { useMenu } from 'src/lib/hooks/use_menu';
 
 const useStyles = makeStyles((theme) => ({
   avatarButton: {
@@ -27,12 +28,16 @@ const useStyles = makeStyles((theme) => ({
 
 export function LoggedAvatarMenu(){  
   const classes = useStyles();
+  const {
+    handleOpenMenu,
+    handleCloseMenu,
+    isMenuOpen,
+  } = useMenu()
 
   const { userState, setUserState } = React.useContext(UserContext);  
   const { role } = React.useContext(UserContext);
   const isAdmin = role === "Admin"
 
-  const [openMenu, setOpenMenu] = React.useState(null);
   const [username, setUsername] = React.useState(null);
   
   useEffect(() => {
@@ -48,14 +53,6 @@ export function LoggedAvatarMenu(){
     }
   }, [userState])
 
-  const handleClick = (event) => {
-    setOpenMenu(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setOpenMenu(null);
-  };
-
   return (    
     <> 
       <Tooltip
@@ -64,7 +61,7 @@ export function LoggedAvatarMenu(){
       >
         <IconButton
           className={classes.avatarButton}
-          onClick={handleClick}
+          onClick={handleOpenMenu}
           classes={{
             root: classes.iconButton
           }}
@@ -77,20 +74,20 @@ export function LoggedAvatarMenu(){
       </Tooltip>
       <Menu
         id="simple-menu"
-        anchorEl={openMenu}
+        anchorEl={isMenuOpen}
+        open={Boolean(isMenuOpen)}
         keepMounted
-        open={Boolean(openMenu)}
-        onClose={handleClose}
+        onClose={handleCloseMenu}
       >
         <AccountMenuItem
-          onClose={handleClose}
+          onClose={handleCloseMenu}
         />
         <AdminMenuItem
           isAdmin={isAdmin}
-          onClose={handleClose}
+          onClose={handleCloseMenu}
         />
         <LogoutMenuItem
-          onClose={handleClose}
+          onClose={handleCloseMenu}
           setUserState={setUserState}
         />
       </Menu>

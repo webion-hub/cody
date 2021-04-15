@@ -11,6 +11,7 @@ import { RestoreMenuItem as RestoreMenuItem } from './restore_menu_item';
 import { DeleteForeverMenuItem } from './delete_forever_menu_item';
 import { EditRoleMenuItem } from './edit_role_menu_item';
 import { MenuWithLoading } from 'src/components/menu/menu_with_loading';
+import { useMenu } from 'src/lib/hooks/use_menu';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +22,14 @@ const useStyles = makeStyles((theme) => ({
 
 export function RowMenu(props) {
   const classes = useStyles();
-	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [loading, setLoading] = React.useState(false);
   const { refreshDataTable } = React.useContext(DataTableContext);
+
+	const {
+    handleOpenMenu,
+    handleCloseMenu,
+    isMenuOpen,
+  } = useMenu()
 
   const {
 		onDelete,
@@ -41,14 +47,6 @@ export function RowMenu(props) {
     disableVerifyButton = state.hasBeenVerified || state.hasBeenDeleted
     disableDeleteButton = state.hasBeenDeleted 
     disableRestoreButton = !state.hasBeenDeleted 
-  }
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null);
   }
 
   const handleDelete = () => {
@@ -94,16 +92,16 @@ export function RowMenu(props) {
 	return (
 		<>
 			<IconButton
-				onClick={handleClick}
+				onClick={handleOpenMenu}
 			>
 				<MoreVertRoundedIcon/>
 			</IconButton>
 			<MenuWithLoading
-				anchorEl={anchorEl}
+				anchorEl={isMenuOpen}
 				loading={loading}
 				keepMounted
-				open={Boolean(anchorEl)}
-				onClose={handleClose}
+				open={Boolean(isMenuOpen)}
+				onClose={handleCloseMenu}
 				classes={{
 					paper: classes.menuBackground
 				}}
@@ -116,7 +114,7 @@ export function RowMenu(props) {
 				<EditRoleMenuItem
 					hide={!onEditRole}
 					onEditRole={handleEditRole}
-					onMenuClose={_ => setAnchorEl(null)}
+					onMenuClose={handleCloseMenu}
 					id={id}
 				/>
 				<RestoreMenuItem
@@ -130,7 +128,7 @@ export function RowMenu(props) {
 				<DeleteForeverMenuItem
 					hide={!onDeleteForever}
 					onDeleteForever={handleDeleteForever}
-					onMenuClose={_ => setAnchorEl(null)}
+					onMenuClose={handleCloseMenu}
 					id={id}
 					username={props.data.username}
 				/>
