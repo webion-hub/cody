@@ -29,7 +29,7 @@ namespace Cody.Security.Authentication
 
         public async Task ReplaceExistingTokenForAsync(UserAccount user, UserRefreshToken token)
         {
-            user.RefreshTokens.Remove(token);
+            user.RefreshTokens?.Remove(token);
             await GenerateNewTokenForAsync(user);
         }
 
@@ -41,6 +41,7 @@ namespace Cody.Security.Authentication
                 Salt = token.Salt,
             };
 
+            user.RefreshTokens ??= new();
             user.RefreshTokens.Add(refreshToken);
             await _dbContext.SaveChangesAsync();
 
