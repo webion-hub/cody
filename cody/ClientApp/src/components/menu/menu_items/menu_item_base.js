@@ -5,8 +5,12 @@ export const MenuItemBase = React.forwardRef((props, ref) => {
 	const {
 		color,
 		label,
+		hide,
 		...menuItemProps
 	} = props
+
+	if(hide)
+		return null;
 
 	return (
 		<MenuItem
