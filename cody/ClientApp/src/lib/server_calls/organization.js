@@ -121,6 +121,8 @@ Organization._getMembersReq = new SingleXHRRequest();
  * @typedef {object} OrganizationMember
  * @property {number} id
  * @property {string} username
+ * @property {string} name
+ * @property {string} surname
  * @property {OrganizationRole} role
  */
 

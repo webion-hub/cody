@@ -15,6 +15,8 @@ namespace Cody.QueryExtensions
             {
                 om.UserAccount.Id,
                 om.UserAccount.Username,
+                om.UserAccount.AccountDetail.Name,
+                om.UserAccount.AccountDetail.Surname,
                 Role = om.Role.ToString(),
             });
         }
