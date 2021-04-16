@@ -7,12 +7,6 @@ import { PageController } from "src/lib/page_controller";
 import { UserRoleLabel } from "src/components/user_role_label";
 
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
-import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
-import { useMenu } from "src/lib/hooks/use_menu";
-import { ReportMenuItem } from "./menu/menu_items/report_menu_item";
-import { EditRoleMenuItem } from "src/pages/admin_pages/components/row_menu/edit_role_menu_item";
-import { MenuWithLoading } from "./menu/menu_with_loading";
-import { KickUserMenuItem } from "./menu/menu_items/kick_user_menu_item";
 import { UserSettingsMenu } from "./menu/menus/user_settings_menu";
 
 export const useStyles = makeStyles((theme) => ({
@@ -54,7 +48,7 @@ export const useStyles = makeStyles((theme) => ({
 
 export const UserSmallSummary = React.forwardRef((props, ref) => {
 	const classes = useStyles();
-  const { user } = props
+  const { user, callerIs } = props
   return (
     <Grid
       ref={ref}
@@ -115,6 +109,7 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
       <div className={classes.openUserPage}>
         <UserSettingsMenu
           user={user}
+          callerIs={callerIs}
         />
         <IconButton
           className={classes.goToUserPageIcon}

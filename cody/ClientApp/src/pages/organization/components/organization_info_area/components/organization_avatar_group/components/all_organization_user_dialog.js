@@ -8,6 +8,7 @@ import { BasePhotoText } from "src/components/bases/base_photo_text";
 import { UserGroup } from "src/components/illustrations/user_group";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
+import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 export const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -29,7 +30,9 @@ export function AllOrganizationUserDialog(props){
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 	const classes = useStyles();
-  const organization = props.organization
+	const {
+    organization,
+	} = React.useContext(OrganizationContext);
 
   return (
     <DialogBase

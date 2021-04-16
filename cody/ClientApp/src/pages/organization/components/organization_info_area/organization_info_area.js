@@ -12,6 +12,7 @@ import { OrganizationAvatarGroup } from "./components/organization_avatar_group/
 import { OrganizationInfo } from "./components/organization_info";
 
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
+import { OrganizationContext } from "../../organization_controller_context";
 
 export const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
@@ -56,14 +57,18 @@ export const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function OrganizationInfoArea(props){
+export default function OrganizationInfoArea(){
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
   const [showDescription, setShowDescription] = React.useState(false)
 	const classes = useStyles({showDescription});
 
-  const organizationData = props.organizationData
-  
+	const {
+		organizationData,
+    id,
+		loading
+	} = React.useContext(OrganizationContext);
+
   return (
     <>
 			<div className={classes.organizationInfoContainer}>
@@ -75,18 +80,16 @@ export default function OrganizationInfoArea(props){
           alignItems="center"
 				>
 					<OrganizationBadgeAvatar
-            id={props.id}
+            id={id}
             organizationData={organizationData}
-            loading={props.loading}
+            loading={loading}
           />
           <OrganizationInfo
             className={classes.organizationInfoBox}
             organizationData={organizationData}
-            loading={props.loading}
+            loading={loading}
           />
-          <OrganizationAvatarGroup
-            organization={props.organization}
-          />
+          <OrganizationAvatarGroup/>
 				</Grid>
         <div className={classes.descriptionBox}>
           <OrganizationDescription
@@ -97,11 +100,11 @@ export default function OrganizationInfoArea(props){
             <OrganizationSettingsMenu 
               className={classes.organizationSettings}
               organizationData={organizationData}
-              loading={props.loading}
+              loading={loading}
             />
             <IconButton 
               onClick={_ => setShowDescription(!showDescription)}
-              disabled={props.loading}
+              disabled={loading}
             >
               <ExpandMoreRoundedIcon className={classes.expandIcon}/>
             </IconButton>

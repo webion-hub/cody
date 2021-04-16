@@ -8,6 +8,7 @@ import { AllOrganizationUserDialog } from "./components/all_organization_user_di
 import { UserOrganizationsController } from "src/lib/user_organizations_controller";
 import { useListener } from "src/lib/hooks/use_listener";
 import { UserSmallSummary } from "src/components/user_small_summary";
+import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 export const useStyles = makeStyles((theme) => ({
   avatarGroup: {
@@ -27,47 +28,36 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function  OrganizationAvatarGroup(props) {
-	const theme = useTheme();
+export function  OrganizationAvatarGroup() {
+	const classes = useStyles();  
+  const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
-	const classes = useStyles();
-  
-	const organization = props.organization
-  
   const [openDialog, setOpenDialog] = React.useState(false)
-  const [loading, setLoading] = React.useState(true)
-  const [smallUserList, setSmallUserList] = React.useState([])
 
-  const getMembers = () => {
-    setLoading(true)
-    organization
-      .getMembersOf({
-        filter: "",
-        limit: 3,
-        offset: null
-      })
-      .then(setUserList)
-      .finally(_ => setLoading(false))
-  }
+	const {
+    smallUserList,
+    callerIs,
+		loading
+	} = React.useContext(OrganizationContext);
 
   const setUserList = (data) => {
+    if(data.length === 0)
+      return null
+
     const values = data.values
     const userList = values.map(user => ({
       src: `user/profile_picture/${user.id}`,
       alt: user.username,
-      menuContent: <UserSmallSummary user={user}/>
+      menuContent: <UserSmallSummary user={user} callerIs={callerIs}/>
     }))
     
-    setSmallUserList({
+    return {
       userList: userList,
       totalMember: data.total,
-    })
+    }
   }
 
-  useListener({
-		eventFunction: getMembers,
-		controller: UserOrganizationsController,
-  }, [])
+  const userList = setUserList(smallUserList)
 
   return (
     <div className={classes.avatarGroup}>
@@ -78,13 +68,12 @@ export function  OrganizationAvatarGroup(props) {
         spacing={12}
         borderWidth={4}
         borderColor={theme.palette.background.paperSecondary}
-        avatarsProps={smallUserList.userList}
-        numberOfAvatar={smallUserList.totalMember}
+        avatarsProps={userList?.userList}
+        numberOfAvatar={userList?.totalMember}
       />
       <AllOrganizationUserDialog
         open={openDialog}
         onClose={_ => setOpenDialog(false)}
-        organization={organization}
       />
     </div>
   )
