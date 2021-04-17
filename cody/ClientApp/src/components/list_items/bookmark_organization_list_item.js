@@ -12,7 +12,6 @@ import { OrganizationLabel } from 'src/components/typography/organization_label'
 
 import { BookmarkIconButton } from 'src/components/bookmark_icon_button';
 import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
-import { User } from 'src/lib/server_calls/user';
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
@@ -32,26 +31,14 @@ const useStyles = makeStyles((theme) => ({
 
 export function BookmarkOrganizationListItem(props) {
   const classes = useStyles();
-  const [disableBookmarkedIcon, setDisableBookmarkedIcon] = React.useState(false)
 
   const organization = props.data
   const organizationId = organization.id
   const organizationName = organization.name
   const organizationHasLogo = organization.hasLogo
   const organizationKind = organization.kind
-  const isBookmarked = organization.isBookmarked
 
   const organizationImageUrl = `organizations/${organizationId}/logo`
-
-
-  const handleBookmarkClick = (isBookmarked) => {
-    setDisableBookmarkedIcon(true)
-    const userAction = isBookmarked ? 
-      User.addBookmarkedOrganization : User.removeBookmarkedOrganization
-
-    userAction(organizationId)
-      .finally(_ => setDisableBookmarkedIcon(false))
-  }
 
   return (
     <OrganizationListItemBase
@@ -84,9 +71,7 @@ export function BookmarkOrganizationListItem(props) {
       />
       <ListItemSecondaryAction>
         <BookmarkIconButton
-          disabled={disableBookmarkedIcon}
-          isBookmarked={isBookmarked}
-          onClick={handleBookmarkClick}
+          organizationData={organization}
         />
       </ListItemSecondaryAction>
     </OrganizationListItemBase>

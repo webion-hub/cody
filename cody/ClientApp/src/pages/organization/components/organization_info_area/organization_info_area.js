@@ -86,6 +86,7 @@ export default function OrganizationInfoArea(){
           />
           <OrganizationInfo
             className={classes.organizationInfoBox}
+            id={id}
             organizationData={organizationData}
             loading={loading}
           />

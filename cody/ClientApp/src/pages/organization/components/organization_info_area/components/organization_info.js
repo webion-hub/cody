@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { OrganizationLabel } from "src/components/typography/organization_label";
 import { TypographyWithLoading } from "src/components/typography/typography_with_loading";
 import { JoinOrganizationButton } from "src/components/buttons/join_organization_button";
+import { BookmarkIconButton } from "src/components/bookmark_icon_button";
 
 export const useStyles = makeStyles((theme) => ({
   title: {
@@ -23,6 +24,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   joinButton: {
     marginTop: theme.spacing(1)
+  },
+  bookmarkButton: {
+    transform: "translate(0px, -2px)"
   }
 }));
 
@@ -38,6 +42,14 @@ export function OrganizationInfo(props){
         noWrap
         loading={props.loading}
       >
+        {
+          organizationData?.isCallerAMember &&
+            <BookmarkIconButton
+              className={classes.bookmarkButton}
+              organizationData={organizationData}
+              updateUserOrganizations
+            />
+        }
         <OrganizationLabel
           organization={organizationData} 
           iconSize={22}
