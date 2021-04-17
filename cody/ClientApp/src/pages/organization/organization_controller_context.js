@@ -65,7 +65,6 @@ export const OrganizationControllerContext = ({id, children}) => {
 		controller: UserOrganizationsController.setEvent('updateOrganizationMember'),
 	}, [])
 
-
 	const value = {
     id,
 		organizationData,

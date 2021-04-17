@@ -103,6 +103,7 @@ export default function OrganizationInfoArea(){
             <OrganizationSettingsMenu 
               className={classes.organizationSettings}
               organizationData={organizationData}
+              callerIs={callerIs}
               loading={loading}
             />
             <IconButton 
