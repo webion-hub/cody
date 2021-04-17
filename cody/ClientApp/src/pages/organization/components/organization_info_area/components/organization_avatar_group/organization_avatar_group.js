@@ -5,8 +5,6 @@ import { useMediaQuery } from '@material-ui/core'
 
 import { CustomAvatarGroup } from "src/components/custom_avatar_group";
 import { AllOrganizationUserDialog } from "./components/all_organization_user_dialog";
-import { UserOrganizationsController } from "src/lib/user_organizations_controller";
-import { useListener } from "src/lib/hooks/use_listener";
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
