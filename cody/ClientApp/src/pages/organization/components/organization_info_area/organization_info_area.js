@@ -65,6 +65,7 @@ export default function OrganizationInfoArea(){
 
 	const {
 		organizationData,
+    callerIs,
     id,
 		loading
 	} = React.useContext(OrganizationContext);
@@ -88,6 +89,7 @@ export default function OrganizationInfoArea(){
             className={classes.organizationInfoBox}
             id={id}
             organizationData={organizationData}
+            callerIs={callerIs}
             loading={loading}
           />
           <OrganizationAvatarGroup/>
