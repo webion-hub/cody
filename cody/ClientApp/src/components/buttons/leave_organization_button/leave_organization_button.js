@@ -66,7 +66,10 @@ export function LeaveOrganizationButton(props){
 
   useEffect(() => {
     if(leaveError === "noError"){
-      UserOrganizationsController.update()
+      UserOrganizationsController
+        .setEvent('updateOrganizationMember')
+        .update()
+
       onLeave?.()
       onClick?.()
       handleCloseLeaveDialog()

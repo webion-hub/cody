@@ -1,14 +1,26 @@
 export class UserOrganizationsController {
-  static update = () => {
-    const updateUserOrganizations = new Event('updateUserOrganizations');
+  constructor(event){
+    this.event = event
+  }
+
+  /**
+   * @param {('updateOrganizationMember' | 'updateBookmarkedOrganizations')} event 
+   */
+  
+  static setEvent(event){
+    return new UserOrganizationsController(event)
+  }
+
+  update = (value) => {
+    const updateUserOrganizations = new CustomEvent(this.event, {detail: value});
     document.dispatchEvent(updateUserOrganizations)
   }
 
-  static listen = (eventFunction) => {
-    document.addEventListener('updateUserOrganizations', eventFunction)
+  listen = (eventFunction) => {
+    document.addEventListener(this.event, eventFunction)
   }
 
-  static unListen = (eventFunction) => {
-    document.removeEventListener('updateUserOrganizations', eventFunction)
+  unListen = (eventFunction) => {
+    document.removeEventListener(this.event, eventFunction)
   }
 }

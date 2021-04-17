@@ -105,7 +105,7 @@ export function SideBarOrganizationList(props){
 
 	useListener({
 		eventFunction: refreshOrganizationList,
-		controller: UserOrganizationsController,
+		controller: UserOrganizationsController.setEvent('updateBookmarkedOrganizations'),
 		firstExecutionDelay: 150,
   }, [])
 

@@ -62,7 +62,7 @@ export const OrganizationControllerContext = ({id, children}) => {
 	useListener({
     removeFirstExecution: true,
 		eventFunction: updateMembers,
-		controller: UserOrganizationsController,
+		controller: UserOrganizationsController.setEvent('updateOrganizationMember'),
 	}, [])
 
 
