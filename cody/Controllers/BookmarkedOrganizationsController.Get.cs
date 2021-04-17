@@ -38,9 +38,10 @@ namespace Cody.Controllers
         private IQueryable<Organization> GetBookmarkedOrganizationsFor(UserAccount user)
         {
             return _dbContext
-                .BookmarkedOrganizations
+                .OrganizationMembers
                 .Include(bo => bo.Organization)
                 .Where(bo => bo.UserAccountId == user.Id)
+                .Where(bo => bo.IsBookmarked)
                 .Select(bo => bo.Organization);
         }
     }

@@ -14,15 +14,11 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Remove([FromRoute] int organizationId)
         {
-            var userId = HttpContext.User.GetId();
-            var organization = await _dbContext
-                .BookmarkedOrganizations
-                .FindAsync(userId, organizationId);
-
+            var organization = await GetJoinedOrganization(organizationId);
             if (organization is null)
                 return NotFound();
 
-            _dbContext.BookmarkedOrganizations.Remove(organization);
+            organization.IsBookmarked = false;
             await _dbContext.SaveChangesAsync();
             return Ok();
         }

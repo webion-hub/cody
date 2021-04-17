@@ -1,8 +1,11 @@
 ﻿using Cody.Extensions;
+using Cody.Models.Organizations;
 using Cody.Models.Users;
+using Cody.QueryExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -13,40 +16,13 @@ namespace Cody.Controllers
         [Authorize]
         public async Task<IActionResult> Add([FromRoute] int organizationId)
         {
-            var organizationExists = await OrganizationExistsAsync(organizationId);
-            if (!organizationExists)
+            var organization = await GetJoinedOrganization(organizationId);
+            if (organization is null)
                 return NotFound();
 
-            var userId = HttpContext.User.GetId();
-            var bookmark = new BookmarkedOrganization {
-                UserAccountId = userId,
-                OrganizationId = organizationId,
-            };
-
-            var bookmarkExists = await BookmarkedOrganizationExistsAsync(bookmark);
-            if (bookmarkExists)
-                return Ok();
-
-            _dbContext.BookmarkedOrganizations.Add(bookmark);
+            organization.IsBookmarked = true;
             await _dbContext.SaveChangesAsync();
             return Ok();
-        }
-
-
-        public async Task<bool> OrganizationExistsAsync(int organizationId)
-        {
-            var organization = await _dbContext
-                .Organizations
-                .FirstOrDefaultAsync(o => o.Id == organizationId);
-
-            return organization is not null;
-        }
-
-        public async Task<bool> BookmarkedOrganizationExistsAsync(BookmarkedOrganization bookmark)
-        {
-            return await _dbContext
-                .BookmarkedOrganizations
-                .ContainsAsync(bookmark);
         }
     }
 }

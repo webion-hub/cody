@@ -38,6 +38,7 @@ namespace Cody.Controllers
             organization.Members.Add(new() {
                 UserAccountId = userId,
                 Role = OrganizationRole.User,
+                IsBookmarked = false,
             });
 
             await _dbContext.SaveChangesAsync();

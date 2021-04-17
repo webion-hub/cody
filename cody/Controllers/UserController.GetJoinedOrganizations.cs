@@ -32,15 +32,15 @@ namespace Cody.Controllers
         private IQueryable<object> GetUserOrganizations(string filter)
         {
             var userId = HttpContext.User.GetId();
-            return _dbContext
+            var joinedOrganizations = _dbContext
                 .OrganizationMembers
                 .IncludingOrganization().WithState()
                 .IncludingOrganization().WithLogo()
-                .IncludingOrganization().ThenInclude(o => o.BookmarkedBy)
 
-                .Where(om => om.UserAccountId == userId)
+                .Where(om => om.UserAccountId == userId);
+
+            return joinedOrganizations
                 .Select(om => om.Organization)
-                
                 .ThatHaveNotBeenDeleted()
 
                 .CreateFilter(filter, FilterKind.SplitWords)
@@ -55,8 +55,9 @@ namespace Cody.Controllers
                     },
                     Kind = o.Kind.ToString(),
                     HasLogo = o.Detail.Logo != null,
-                    IsBookmarked =
-                        o.BookmarkedBy.Any(bo => bo.UserAccountId == userId),
+                    IsBookmarked = joinedOrganizations
+                        .First(om => om.OrganizationId == o.Id)
+                        .IsBookmarked,
                 });
         }
     }
