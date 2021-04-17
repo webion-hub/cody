@@ -26,24 +26,31 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1)
   },
   bookmarkButton: {
-    transform: "translate(0px, -2px)"
+    marginBottom: 2
   }
 }));
 
 export function OrganizationInfo(props){
 	const classes = useStyles();
-  const organizationData = props.organizationData
+  const { 
+    organizationData,
+    callerIs,
+    loading,
+    className,
+   } = props
+
+  const isCallerAMember = callerIs !== "noMember"
 
   return (
-    <div className={props.className}>
+    <div className={className}>
       <TypographyWithLoading
         className={`${classes.title} ${classes.centerText}`}
         variant="h5"
         noWrap
-        loading={props.loading}
+        loading={loading}
       >
         {
-          organizationData?.isCallerAMember &&
+          isCallerAMember &&
             <BookmarkIconButton
               className={classes.bookmarkButton}
               organizationData={organizationData}
@@ -59,13 +66,13 @@ export function OrganizationInfo(props){
       <TypographyWithLoading
         variant="caption"
         noWrap
-        loading={props.loading}
+        loading={loading}
         className={classes.centerText}
       >
         {organizationData?.detail.location}
       </TypographyWithLoading>
       {
-        (!organizationData?.isCallerAMember && !props.loading) && 
+        (!isCallerAMember && !loading) && 
           <JoinOrganizationButton
             organization={organizationData}
             className={classes.joinButton}
