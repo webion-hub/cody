@@ -124,6 +124,7 @@ export function ListWithSearch(props){
                     key={index}
                     data={dataList?.values[index]}
                     mobileView={mobileView}
+                    {...props.listItemProps}
                   />
                 )
               }}
