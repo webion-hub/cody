@@ -39,7 +39,6 @@ namespace Cody.Models.Organizations
 
 
         public List<OrganizationMember> Members { get; set; }
-        public List<BookmarkedOrganization> BookmarkedBy { get; set; }
 
 
         [NotMapped]

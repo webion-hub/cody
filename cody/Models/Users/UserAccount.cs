@@ -49,7 +49,6 @@ namespace Cody.Models.Users
         public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public List<UserRefreshToken> RefreshTokens { get; set; }
         public List<OrganizationMember> Organizations { get; set; }
-        public List<BookmarkedOrganization> BookmarkedOrganizations { get; set; }
 
 
         public RejectionResult MaybeReject()
