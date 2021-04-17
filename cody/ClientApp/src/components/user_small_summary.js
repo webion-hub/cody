@@ -14,7 +14,8 @@ export const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
-    width: 220,
+    width: 230,
+    position: "relative"
   },
   usernameAvatarContainer: {
     marginBottom: theme.spacing(1),
@@ -23,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   userInfoTextBox: {
     tableLayout: "fixed",
-    width: "100%",
+    width: 140,
     marginLeft: theme.spacing(1),
   },
   openUserPage: {
@@ -48,13 +49,17 @@ export const useStyles = makeStyles((theme) => ({
 
 export const UserSmallSummary = React.forwardRef((props, ref) => {
 	const classes = useStyles();
-  const { user, callerIs } = props
+  const { user, callerIs, className } = props
+  
+  if(user === null)
+    return <div></div>
+
   return (
     <Grid
       ref={ref}
       container
       direction="column"
-      className={classes.container}
+      className={`${classes.container} ${className}`}
     >
       <Grid
         container
