@@ -20,7 +20,6 @@ export function JoinOrganizationButton(props){
     User
       .join(organization?.id)
       .finally(() => {
-        setLoading(false)
         UserOrganizationsController.update()
         onJoin?.()
       })
