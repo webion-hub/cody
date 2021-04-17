@@ -36,6 +36,7 @@ namespace Cody.Controllers.Responses.Formatters
                 let m = o.Members
                 let l = d.Logo
                 let b = d.Cover
+                let om = m.Where(om => om.UserAccountId == CallerId)
 
                 orderby o.Id ascending
                 select new
@@ -60,12 +61,8 @@ namespace Cody.Controllers.Responses.Formatters
                     HasLogo = l != null,
                     HasCover = b != null,
 
-                    IsBookmarked = CallerId != null && m
-                        .Single(m => m.UserAccountId == CallerId)
-                        .IsBookmarked,
-
-                    IsCallerAMember =
-                        CallerId != null && m.Any(m => m.UserAccountId == CallerId),
+                    IsBookmarked = om.Any(m => m.IsBookmarked),
+                    IsCallerAMember = om.Any(),
                 };
         }
     }
