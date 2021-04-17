@@ -23,6 +23,9 @@ namespace Cody.Models.Organizations
         [Required] 
         public OrganizationRole Role { get; set; }
 
+        [Required] 
+        public bool IsBookmarked { get; set; }
+
 
         public Organization Organization { get; set; }
         public UserAccount UserAccount { get; set; }
