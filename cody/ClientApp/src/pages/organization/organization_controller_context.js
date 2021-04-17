@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Organization from "src/lib/server_calls/organization";
 import { UserOrganizationsController } from "src/lib/user_organizations_controller";
@@ -52,17 +52,25 @@ export const OrganizationControllerContext = ({id, children}) => {
 		setLoading(false)
 	}
 
+  const updateMembers = async () => {
+    await getMembers()
+		await getRole()
+  }
+
+  useEffect(getOrganizationData, [id])
+
 	useListener({
-		eventFunction: getOrganizationData,
+    removeFirstExecution: true,
+		eventFunction: updateMembers,
 		controller: UserOrganizationsController,
-	}, [id])
+	}, [])
 
 
 	const value = {
     id,
 		organizationData,
 		smallUserList,
-		callerIs,
+		callerIs: callerIs === "" ? "noMember" : callerIs,
 		organization,
 		loading,
 	}
