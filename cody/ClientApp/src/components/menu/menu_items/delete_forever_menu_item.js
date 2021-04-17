@@ -92,7 +92,7 @@ export const DeleteForeverMenuItem = React.forwardRef((props, ref) => {
           label="Username"
           variant="outlined"
           color="secondary"
-          onChange={e => e.preventDefault()}
+          onChange={e => setTextFieldName(e.target.value)}
           fullWidth
         />
       </DialogBase>
