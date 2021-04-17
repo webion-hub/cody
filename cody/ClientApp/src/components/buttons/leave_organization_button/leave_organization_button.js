@@ -70,6 +70,10 @@ export function LeaveOrganizationButton(props){
         .setEvent('updateOrganizationMember')
         .update()
 
+      UserOrganizationsController
+        .setEvent('updateBookmarkedOrganizations')
+        .update()
+
       onLeave?.()
       onClick?.()
       handleCloseLeaveDialog()

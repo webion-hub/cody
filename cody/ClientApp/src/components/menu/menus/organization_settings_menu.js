@@ -31,6 +31,7 @@ export function OrganizationSettingsMenu(props){
         <ReportMenuItem/>
         <LeaveOrganizationtMenuItem
           organizationData={props.organizationData}
+          callerIs={props.callerIs}
           onClose={handleCloseMenu}
         />
       </MenuWithLoading>

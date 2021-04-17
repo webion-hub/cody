@@ -6,7 +6,7 @@ import { LeaveOrganizationButton } from "src/components/buttons/leave_organizati
 
 export const LeaveOrganizationtMenuItem =  React.forwardRef((props, ref) => {
   const organizationData = props.organizationData
-  if(!organizationData.isCallerAMember)
+  if(organizationData.isCaller === "noMember")
     return null
     
   return (
