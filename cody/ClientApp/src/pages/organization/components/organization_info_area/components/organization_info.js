@@ -54,7 +54,6 @@ export function OrganizationInfo(props){
             <BookmarkIconButton
               className={classes.bookmarkButton}
               organizationData={organizationData}
-              updateUserOrganizations
             />
         }
         <OrganizationLabel
