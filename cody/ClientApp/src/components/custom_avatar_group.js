@@ -135,7 +135,10 @@ export function CustomAvatarGroup(props){
     <AvatarWithMenu
       disableLoading
       style={{zIndex: numberOfAvatar + 1}}
-      onClick={props.onExtraAvatarClick}
+      onClick={_ => {
+        props.onExtraAvatarClick?.()
+        handleForceClose()
+      }}
       onMenuOpen={handleKeepOpen}
       onMenuClose={handleForceClose}
       className={classes.finalAvatar}
