@@ -1,4 +1,4 @@
-import './cody_types';
+import '../cody_types';
 import Requests from "../requests";
 
 
