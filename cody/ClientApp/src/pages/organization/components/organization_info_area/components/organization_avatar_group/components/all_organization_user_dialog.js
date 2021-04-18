@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
 import { ListWithSearch } from "src/components/list_with_search/list_with_search";
 import { Button, Grid, IconButton, ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
-import { BasePhotoText } from "src/components/bases/base_photo_text";
 import { UserGroup } from "src/components/illustrations/user_group";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
-import { UserSmallSummary } from "src/components/user_small_summary";
 
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import { UserSummaryCard } from "src/components/user_summary_card";
+import { UserSmallSummary } from "src/components/user_small_summary";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   listItem: {
     width: "100%",
     tableLayout: "fixed",
@@ -21,14 +21,20 @@ export const useStyles = makeStyles((theme) => ({
   },
   dialogPaper: {
     maxWidth: 648,
-    width: "100%"
+    width: "100%",
   },
   userList: {
     background: theme.palette.background.backgroundTransparent,
     backdropFilter: "blur(10px)",
   },
   areaWidth: {
-    maxWidth: 300
+    width: "50%",
+    position: "relative",
+    [theme.breakpoints.down('xs')]: {
+			margin: "0 auto",
+        maxWidth: 300,
+        width: "100%",
+    },
   },
   image: {
     transition: "0.25s transform"
@@ -37,6 +43,8 @@ export const useStyles = makeStyles((theme) => ({
     transform: "translate(-300px, 0px)"
   },
   userSmallSummary: {
+    width: "100%",
+    height: "100%",
     marginLeft: -12,
     position: "absolute",
     animation: `$fade 0.25s linear`,
@@ -49,6 +57,9 @@ export const useStyles = makeStyles((theme) => ({
       opacity: 1,
     }
   },
+  mobileDialog: {
+    padding: "0px !important",
+  }
 }));
 
 export function AllOrganizationUserDialog(props){
@@ -67,11 +78,16 @@ export function AllOrganizationUserDialog(props){
     setUserData(null)
   }
 
+  const handleUserChange = (user) => {
+    setUserData(user)
+  }
+
   return (
     <DialogBase
       open={props.open}
       onClose={handleClose}
       paperClassName={classes.dialogPaper}
+      title="Tutti gli utenti"
       firstButton={
         <Button
           color="primary"
@@ -86,37 +102,49 @@ export function AllOrganizationUserDialog(props){
         container
         direction="row"
       >
-        <Grid
-          className={classes.areaWidth}
-          container
-          direction="column"
-          alignItems="center"
-        >
-          {
-            !mobileView && 
+        {
+          mobileView ?
+            <DialogBase
+              className={classes.mobileDialog}
+              open={userData !== null}
+              onClose={_ => setUserData(null)}
+            >
+              <UserSmallSummary
+                user={userData}
+                callerIs={callerIs}
+              />
+            </DialogBase>
+            :
+            <Grid
+              className={classes.areaWidth}
+              container
+              direction="column"
+              alignItems="center"
+            >
               <UserGroup 
                 className={`${userData !== null ? classes.hideImage : ""} ${classes.image}`}
                 maxWidth={300} 
                 size="100%" 
                 padding={4}
               />
-          }
-          {
-            userData !== null &&
-              <div className={classes.userSmallSummary}>
-                <IconButton 
-                  onClick={_ => setUserData(null)}
-                >
-                  <CloseRoundedIcon/>
-                </IconButton>
-                <UserSmallSummary
-                  user={userData}
-                  callerIs={callerIs}
-                />
-              </div>
-
-          }
-        </Grid>
+              {
+                userData !== null &&
+                  <div className={classes.userSmallSummary}>
+                    <UserSummaryCard
+                      user={userData}
+                      callerIs={callerIs}
+                      leftIcon={
+                        <IconButton 
+                          onClick={_ => setUserData(null)}
+                        >
+                          <CloseRoundedIcon/>
+                        </IconButton>
+                      }
+                    />
+                  </div>
+              }
+            </Grid>
+        }
         <ListWithSearch
           className={classes.areaWidth}
           paperClassName={classes.userList}
@@ -128,7 +156,7 @@ export function AllOrganizationUserDialog(props){
           getList={organization.getMembersOf}
           listItem={AvatarListItem}
           listItemProps={{
-            onClick: data => setUserData(data)
+            onClick: handleUserChange 
           }}
           noDataFoundProps={{
             hide: true,
