@@ -37,10 +37,6 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
     tableLayout: "fixed",
   },
-  roleIcon: {
-    transform: "translate(0, 4px)",
-    marginRight: theme.spacing(0.5)
-  },
   goToUserPageIcon: {
     position: "absolute",
     right: 0
@@ -99,18 +95,13 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
       >
         Ruolo
       </Typography>
-      <Typography
+      <UserRoleLabel 
+        role={user.role}
         className={classes.userInfoText}
         noWrap
         variant="body1"
         color="textSecondary"
-      >
-        <UserRoleLabel 
-          role={user.role}
-          className={classes.roleIcon}
-        />
-      </Typography>
-
+      />
       <div className={classes.openUserPage}>
         <UserSettingsMenu
           user={user}
