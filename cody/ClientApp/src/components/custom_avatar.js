@@ -50,9 +50,10 @@ export const CustomAvatar = React.forwardRef((props, ref) => {
   const loadingSize = size + extraLoadingWidth;
 
   useEffect(() => {
+    setLoading(true)
     handleLoading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [props.src])
 
   return (
     <div 
