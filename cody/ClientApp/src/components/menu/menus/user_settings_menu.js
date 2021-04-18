@@ -8,7 +8,7 @@ import { MenuWithLoading } from "src/components/menu/menu_with_loading";
 import { KickUserMenuItem } from "src/components/menu/menu_items/kick_user_menu_item";
 import { EditRoleMenuItem } from "src/components/menu/menu_items/edit_role_menu_item";
 
-export function UserSettingsMenu({user, callerIs}){
+export function UserSettingsMenu({user, callerIs, className}){
   const {
     handleOpenMenu,
     handleCloseMenu,
@@ -18,6 +18,7 @@ export function UserSettingsMenu({user, callerIs}){
   return (
     <>
       <IconButton
+        className={className}
         onClick={handleOpenMenu}
       >
         <MoreVertRoundedIcon fontSize="small"/>
