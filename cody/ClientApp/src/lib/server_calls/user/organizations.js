@@ -5,7 +5,7 @@ import { tryInvokeCallback } from "../utility";
 
 /**
  * @param {number} organizationId
- * @returns {import("../organization").OrganizationRole?}
+ * @returns {Promise<OrganizationRole?>}
  */
 export const getRoleIn = async (organizationId) => {
   return Requests.send({

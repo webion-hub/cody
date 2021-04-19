@@ -44,6 +44,12 @@ export default class Requests {
       ._validator
       .tryRedirect(response);
 
+    if (!(data in response))
+      response.data = null;
+
+    if (response.status === 204 && response.data === '')
+      response.data = null;
+
     return response;
   }
 

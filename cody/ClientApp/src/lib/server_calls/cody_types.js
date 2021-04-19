@@ -47,6 +47,12 @@
  * )} UserAccountRole
  */
 
+
+/**
+ * @typedef {'User' | 'Admin' | 'Owner'} OrganizationRole
+ */
+
+
 /**
  * @typedef {object} CommonFilterOptions
  * @property {string} [filter]
