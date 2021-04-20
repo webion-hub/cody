@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { FixedSizeList } from 'react-window';
 
 const renderRow = (getListItem) => (props) => {
-  const { index, style } = props;
+  const { index, style, data } = props;
 
-  return getListItem(index, style);
+  return getListItem(index, style, data[index]);
 }
 
 renderRow.propTypes = {

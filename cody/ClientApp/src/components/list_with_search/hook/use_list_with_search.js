@@ -35,9 +35,12 @@ export function useListWithSearch(props){
     const totalLoading = loading.mainLoading || loading.searchLoading
     if(totalLoading)
       return;
-      
+    
+    if(offset > dataList.total)
+      return;
+    
     const newOffset = props.elementForStep + offset;
-    setOffset(newOffset)  
+    setOffset(newOffset)
   }
 
   return {

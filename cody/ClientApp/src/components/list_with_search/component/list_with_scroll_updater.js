@@ -4,7 +4,7 @@ import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_w
 export function ListWithScrollUpdater(props) {
   const listRef = useRef();
   const {
-    itemList,
+    itemData,
     height, 
     loading,
     onScrollEnd,
@@ -22,7 +22,7 @@ export function ListWithScrollUpdater(props) {
       return;
 
     const scrollEndOffset = height / 5
-    const isScrollAtTheEnd = scrollPosition >= scrollMaxPosition - scrollEndOffset
+    const isScrollAtTheEnd = scrollPosition >= scrollMaxPosition
 
     if(isScrollAtTheEnd)
       props.onScrollEnd?.()
@@ -35,7 +35,8 @@ export function ListWithScrollUpdater(props) {
       height={height}
       outerRef={listRef}
       onScroll={handleScroll}
-      itemCount={itemList.length}
+      itemCount={itemData.length}
+      itemData={itemData}
     />
   )
 }

@@ -208,6 +208,7 @@ function Routes(){
           position: "fixed",
           right: 16,
           bottom: 16,
+          zIndex: 1000,
         }}
         href="/help-us"
         onClick={e => PageController.push("/help-us", e)}

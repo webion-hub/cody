@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   dialogPaper: {
     maxWidth: 648,
     width: "100%",
+    [theme.breakpoints.down('xs')]: {
+			margin: theme.spacing(2),
+    },
   },
   userList: {
     background: theme.palette.background.backgroundTransparent,
@@ -78,9 +81,9 @@ export function AllOrganizationUserDialog(props){
     setUserData(null)
   }
 
-  const handleUserChange = (user) => {
+  const handleUserChange = React.useCallback((user) => {
     setUserData(user)
-  }
+  }, [userData])
 
   return (
     <DialogBase

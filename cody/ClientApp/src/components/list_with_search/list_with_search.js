@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function ListWithSearch(props){
+export const ListWithSearch = React.memo((props) => {
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
   const filterComponentRef = React.useRef();
@@ -64,6 +64,9 @@ export function ListWithSearch(props){
       setSearchValue("")
   }, [props.filter])  
   
+  console.log("aaaaaaaaaaa")
+  console.log(dataList)
+  console.log(loading)
 
   return(
     <Grid
@@ -110,19 +113,19 @@ export function ListWithSearch(props){
             :
             <ListWithScrollUpdater
               loading={loading.searchLoading}
-              itemList={dataList?.values}
+              itemData={dataList?.values}
               onScrollEnd={handleScrollEnd}
               className={classes.list}
               height={listHeight}
               width={props.width}
               itemSize={props.itemSize} 
               overscanCount={10}
-              getListItem={(index, style) => {
+              getListItem={(index, style, data) => {
                 return (
                   <props.listItem
                     style={style}
                     key={index}
-                    data={dataList?.values[index]}
+                    data={data}
                     mobileView={mobileView}
                     {...props.listItemProps}
                   />
@@ -133,4 +136,13 @@ export function ListWithSearch(props){
       </Paper>
     </Grid>
   );
-}
+}, (prevProps, nextProps) => {
+  console.log(prevProps)
+  console.log(nextProps)
+  console.log(prevProps !== nextProps)
+
+  if(prevProps.listItemProps !== nextProps.listItemProps)
+    return true
+
+  return false
+})
