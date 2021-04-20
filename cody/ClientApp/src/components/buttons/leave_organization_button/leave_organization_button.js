@@ -8,7 +8,7 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { LeaveOrganizationDialog } from './leave_organization_dialog';
 
 import { User } from 'src/lib/server_calls/user';
-import { UserOrganizationsController } from 'src/lib/user_organizations_controller';
+import { EventsDispatcher } from 'src/lib/events_dispatcher';
 
 const useStyles = makeStyles((theme) => ({
   leaveButton: {
@@ -66,11 +66,11 @@ export function LeaveOrganizationButton(props){
 
   useEffect(() => {
     if(leaveError === "noError"){
-      UserOrganizationsController
+      EventsDispatcher
         .setEvent('updateOrganizationMember')
         .update()
 
-      UserOrganizationsController
+      EventsDispatcher
         .setEvent('updateBookmarkedOrganizations')
         .update()
 

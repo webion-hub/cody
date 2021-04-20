@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core'
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import BookmarkRoundedIcon from '@material-ui/icons/BookmarkRounded';
 import { User } from 'src/lib/server_calls/user';
-import { UserOrganizationsController } from 'src/lib/user_organizations_controller';
+import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { useListener } from 'src/lib/hooks/use_listener';
 
 export function BookmarkIconButton(props) {
@@ -35,7 +35,7 @@ export function BookmarkIconButton(props) {
       .then(_ => {
         setIsBookmarkedState(newBookmarkValue)
 
-        UserOrganizationsController 
+        EventsDispatcher 
           .setEvent('updateBookmarkedOrganizations')
           .update({state: newBookmarkValue, organizationId: id})
       })
@@ -43,10 +43,10 @@ export function BookmarkIconButton(props) {
   }
 
   const updateBookmarkState = (val) => {
-    if(val.detail === null)
+    if(val === null)
       return
 
-    const {state, organizationId} = val.detail
+    const {state, organizationId} = val
 
     if(organizationId === id)
       setIsBookmarkedState(state)
@@ -55,7 +55,7 @@ export function BookmarkIconButton(props) {
   useListener({
     removeFirstExecution: true,
 		eventFunction: updateBookmarkState,
-		controller: UserOrganizationsController.setEvent('updateBookmarkedOrganizations'),
+		controller: EventsDispatcher.setEvent('updateBookmarkedOrganizations'),
 	}, [isBookmarkedState])
 
   return (

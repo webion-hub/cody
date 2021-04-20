@@ -12,7 +12,7 @@ import { PageController } from 'src/lib/page_controller';
 
 import { getBookmarkedOrganizations } from './lib/get_bookmarked_organizations';
 import { SidebarOrganizationAvatarList } from './components/sidebar_organization_avatar_list';
-import { UserOrganizationsController } from 'src/lib/user_organizations_controller';
+import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { useListener } from 'src/lib/hooks/use_listener';
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +105,7 @@ export function SideBarOrganizationList(props){
 
 	useListener({
 		eventFunction: refreshOrganizationList,
-		controller: UserOrganizationsController.setEvent('updateBookmarkedOrganizations'),
+		controller: EventsDispatcher.setEvent('updateBookmarkedOrganizations'),
 		firstExecutionDelay: 150,
   }, [])
 

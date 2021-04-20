@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 
 import Organization from "src/lib/server_calls/organization";
-import { UserOrganizationsController } from "src/lib/user_organizations_controller";
+import { EventsDispatcher } from "src/lib/events_dispatcher";
 import { useListener } from "src/lib/hooks/use_listener";
 import { User } from "src/lib/server_calls/user";
+import { UserContext } from "src/components/user_controller_context/user_controller_context";
 
 export const OrganizationContext = React.createContext({
 	organizationData: null,
@@ -16,6 +17,8 @@ export const OrganizationContext = React.createContext({
 export const OrganizationContextConsumer = OrganizationContext.Consumer;
 
 export const OrganizationControllerContext = ({id, children}) => {
+  const { userState } = React.useContext(UserContext)
+
 	const [loading, setLoading] = React.useState(true)
   const [organizationData, setOrganizationData] = React.useState(null)
   const [smallUserList, setSmallUserList] = React.useState([])
@@ -39,6 +42,11 @@ export const OrganizationControllerContext = ({id, children}) => {
   }
 
   const getRole = async () => {
+    if(userState !== "logged" ){
+      setCallerIs("")
+      return
+    }
+
     await User
       .getRoleIn(id)
       .then(setCallerIs)
@@ -57,13 +65,13 @@ export const OrganizationControllerContext = ({id, children}) => {
 		await getRole()
   }
 
-  useEffect(getOrganizationData, [id])
+  useEffect(getOrganizationData, [id, userState])
 
 	useListener({
     removeFirstExecution: true,
 		eventFunction: updateMembers,
-		controller: UserOrganizationsController.setEvent('updateOrganizationMember'),
-	}, [])
+		controller: EventsDispatcher.setEvent('updateOrganizationMember'),
+	}, [id])
 
 	const value = {
     id,

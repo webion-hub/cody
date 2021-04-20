@@ -10,7 +10,7 @@ export const useListener = ({eventFunction, controller, firstExecutionDelay, rem
     if(!removeFirstExecution)
 		  setTimeout(() => eventFunction(), delay);
 
-		return _ => controller.unListen(eventFunction)
+		return _ => controller.unlisten(eventFunction)
   }, dependencies)
 
 }
