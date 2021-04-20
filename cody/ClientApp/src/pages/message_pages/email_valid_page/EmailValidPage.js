@@ -13,19 +13,30 @@ import { Button } from '@material-ui/core';
 
 import { PageController } from 'src/lib/page_controller';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
-import { LoginDialog } from 'src/components/dialogs/login_dialog';
+import { EventsDispatcher } from 'src/lib/events_dispatcher';
 
 export default function EmailValidPage() {
   const [contentSetting, setContentSetting] = React.useState(errorPageSettings);
   const [openAlertDialog, setOpenAlertDialog] = React.useState("close");
   const { userState } = React.useContext(UserContext);  
   
-  const validateEmailBadKeySettingsIsLogged = getValidateEmailBadKeySettingsIsLogged({
-    setOpenAlertDialog: setOpenAlertDialog,
-  })
-  const validateEmailBadKeySettingsIsNotLogged = getValidateEmailBadKeySettingsIsNotLogged({
-    setOpenAlertDialog: setOpenAlertDialog,
-  })
+  useEffect(() => {
+    if(openAlertDialog === "login")
+      EventsDispatcher
+        .setEvent('openLoginDialog')
+        .update()
+
+  }, [openAlertDialog])
+
+  const validateEmailBadKeySettingsIsLogged = 
+    getValidateEmailBadKeySettingsIsLogged({
+      setOpenAlertDialog: setOpenAlertDialog,
+    })
+
+  const validateEmailBadKeySettingsIsNotLogged = 
+    getValidateEmailBadKeySettingsIsNotLogged({
+      setOpenAlertDialog: setOpenAlertDialog,
+    })
 
   useEffect(() => {
     const hash = window.location.hash
@@ -72,11 +83,6 @@ export default function EmailValidPage() {
       <MessagePageBase
         loading={openAlertDialog === "loading"}
         {...contentSetting}
-      />
-      <LoginDialog
-        open={openAlertDialog == "login"}
-        onClose={() => setOpenAlertDialog("close")}
-        onSuccess={() => setOpenAlertDialog("close")}
       />
       <DialogBase
         open={openAlertDialog == "error" || openAlertDialog == "success" }

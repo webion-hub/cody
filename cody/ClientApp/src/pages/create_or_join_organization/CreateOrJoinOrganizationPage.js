@@ -16,12 +16,11 @@ import { CenterComponentPageBase } from 'src/components/bases/center_component_p
 import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base/title_info_content_base';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
-import { LoginDialog } from 'src/components/dialogs/login_dialog';
+import { EventsDispatcher } from 'src/lib/events_dispatcher';
 
 
 export default function CreateOrJoinOrganization(){
   const [contentSetting, setContentSetting] = React.useState(selectActionSettings);
-  const [loginDialog, setLoginDialog] = React.useState(false);
   const organizationsInfoSettings = useOrganizationsInfoSettings()
   const { userState } = React.useContext(UserContext);
 
@@ -32,7 +31,7 @@ export default function CreateOrJoinOrganization(){
     const wrongHashForNotLoggedUser = hashValue !== '' && hashValue !== 'info'
 
     if(wrongHashForNotLoggedUser && isNotLogged){
-      setLoginDialog(true)
+      EventsDispatcher.setEvent('openLoginDialog').update()
       window.location.hash = '';
       return;
     }
@@ -65,11 +64,6 @@ export default function CreateOrJoinOrganization(){
         <contentSetting.component/>
       </TitleInfoContentBase>
       <BackgroundWithLines/> 
-      <LoginDialog
-        open={loginDialog}
-        onClose={() => setLoginDialog(false)}
-        onSuccess={() => setLoginDialog(false)}
-      />
     </CenterComponentPageBase>
   );
 }

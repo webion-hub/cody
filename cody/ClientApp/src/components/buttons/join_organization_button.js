@@ -4,9 +4,11 @@ import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import { LoadingButton } from 'src/components/buttons/loading_button';
 import { LoadingIconButton } from 'src/components/buttons/loading_icon_button';
 import { User } from 'src/lib/server_calls/user';
-import { UserOrganizationsController } from 'src/lib/user_organizations_controller';
+import { EventsDispatcher } from 'src/lib/events_dispatcher';
+import { UserContext } from '../user_controller_context/user_controller_context';
 
 export function JoinOrganizationButton(props){
+  const { userState } = React.useContext(UserContext)
   const [loading, setLoading] = React.useState(false);
 
   const {
@@ -16,11 +18,18 @@ export function JoinOrganizationButton(props){
   } = props
 
   const handleJoin = () => {
+    if(userState !== "logged"){
+      EventsDispatcher
+        .setEvent('openLoginDialog')
+        .update()
+      return;
+    }
+
     setLoading(true)
     User
       .join(organization?.id)
       .finally(() => {
-        UserOrganizationsController
+        EventsDispatcher
           .setEvent('updateOrganizationMember')
           .update()
           
@@ -49,7 +58,7 @@ export function JoinOrganizationButton(props){
       variant="outlined"
       label="Unisciti"
       endIcon={<AddRoundedIcon/>}
-    />     
+    />
   )
 
 }
