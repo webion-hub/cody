@@ -18,27 +18,32 @@ export const CustomAvatar = React.forwardRef((props, ref) => {
   const { 
     disableLoading,
     shadow, 
-    size, 
-    propsLoading, 
+    size,
+    onLoadEnd,
+    loading: propsLoading, 
     disableLoadingRing, 
     ...other 
   } = props;
+
+  const handleLoadEnd = () => {
+    onLoadEnd?.()
+    setLoading(false)
+  }
 
   const handleLoading = () => {
     if(!disableLoading)
       checkImage()
   }
 
-
   const checkImage = () => {
     var img = new Image();
     img.onload = () => {
       props.onLoad?.()
-      setLoading(false)
+      handleLoadEnd()
     } 
     img.onerror = () => {
       props.onError?.()
-      setLoading(false)
+      handleLoadEnd()
     }
     img.src = props.src;
   }

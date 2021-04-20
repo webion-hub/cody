@@ -63,7 +63,7 @@ export function SidebarOrganizationAvatarList(props){
         title={getTooltipTitle(organization)}
       >
         <CustomAvatar
-          propsLoading={loading}
+          loading={loading}
           src={`organizations/${organization.id}/logo`}
           alt={organization.name}
         />
