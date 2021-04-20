@@ -102,7 +102,7 @@ export function InfoBox(props){
         <AddPhoto
           alt={props.oldData.username}
           onImageChange={getImage}
-          value={image}
+          src={image}
           accountEdit
         />
         <div className={classes.info}>
