@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from "@material-ui/core";
 
@@ -19,6 +19,13 @@ export function CustomImg(props){
   const [imageLoading, setImageLoading] = React.useState(true)
   
   const isLoading = loading || imageLoading
+
+  useEffect(() => {
+    if(src === null)
+      setSrcImage(defaultImage)
+    else
+      setSrcImage(src)
+  }, [src])
 
   const handleLoadEnd = () => {
     setImageLoading(false)
