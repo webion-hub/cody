@@ -31,6 +31,9 @@ import { AlertDialogItem } from './components/alert_dialog_item'
 import { OfflineController } from './components/offline_controller';
 import { Fab } from '@material-ui/core';
 import EcoRoundedIcon from '@material-ui/icons/EcoRounded';
+import { LoginDialog } from './components/dialogs/login_dialog';
+import { useListener } from './lib/hooks/use_listener';
+import { EventsDispatcher } from './lib/events_dispatcher';
 
 const Login = lazy(() => import('./pages/login/login'));
 const SignUp = lazy(() => import('./pages/sign_up/SignUp'));
@@ -65,6 +68,8 @@ export default function App(){
 
 function Routes(){
   const [currentError, setCurrentError] = React.useState("")
+  const [openLoginDialog, setOpenLoginDialog] = React.useState(false);
+
   const { userState } = React.useContext(UserContext);
   const isLogged = userState === "logged"
   const isNotLogged = userState === "notLogged"
@@ -76,6 +81,20 @@ function Routes(){
   Requests.onError = (reason) => {
     setCurrentError(reason);
   };
+
+  const handleOpenLoginDialog = () => {
+    setOpenLoginDialog(true)
+  }
+
+  const handleCloseLoginDialog = () => {
+    setOpenLoginDialog(false)
+  }
+
+	useListener({
+		eventFunction: handleOpenLoginDialog,
+		controller: EventsDispatcher.setEvent('openLoginDialog'),
+    removeFirstExecution: true,
+  }, [])
 
   const errorInfos = {
     serverError: { 
@@ -177,7 +196,11 @@ function Routes(){
           label = {errorInfo?.description}
         />
       </AlertDialog>
-
+      <LoginDialog
+        open={openLoginDialog}
+        onClose={handleCloseLoginDialog}
+        onSuccess={handleCloseLoginDialog}      
+      />
       <Fab 
         variant="extended"
         color="primary"
