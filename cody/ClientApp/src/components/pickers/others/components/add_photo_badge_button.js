@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import { ImageUploader } from './image_uploader';
 
 const useStyles = makeStyles((theme) => ({
   fab: props => ({
@@ -53,24 +54,18 @@ export function AddPhotoBadgeButton(props){
     className={classes.fab}
   >
     <EditRoundedIcon />
-    <input
-      type="file"
-      accept="image/*"
-      onChange={onImageChange}
-      hidden
+    <ImageUploader
+      onImageChange={onImageChange}
     />
   </Fab>
 
-  const getBadgeButton = () => {
-    if(imageUnderEditing)
-      return editableBadgeContent;
-    if(thereIsAnImage)
-      return deleteImageButton;
-    else
-      return addImageButton;      
-  }
 
-  return getBadgeButton()
+  if(imageUnderEditing)
+    return editableBadgeContent;
+  if(thereIsAnImage)
+    return deleteImageButton;
+
+  return addImageButton;    
 }
 
 AddPhotoBadgeButton.defaultProps = {
