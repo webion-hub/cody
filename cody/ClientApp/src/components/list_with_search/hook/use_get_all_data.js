@@ -19,8 +19,6 @@ export const useGetAllData = (props) => {
       offset: resetOffset ? 0 : offset,
     })
     .then(searchResults => {
-      console.log("sus")
-      console.log(searchResults)
       if(searchResults.values.length === 0)
         return
       dataListAction(searchResults)

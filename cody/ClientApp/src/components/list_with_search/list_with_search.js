@@ -63,10 +63,6 @@ export const ListWithSearch = React.memo((props) => {
     if(props.cleanOnFilterChange)
       setSearchValue("")
   }, [props.filter])  
-  
-  console.log("aaaaaaaaaaa")
-  console.log(dataList)
-  console.log(loading)
 
   return(
     <Grid
@@ -137,10 +133,6 @@ export const ListWithSearch = React.memo((props) => {
     </Grid>
   );
 }, (prevProps, nextProps) => {
-  console.log(prevProps)
-  console.log(nextProps)
-  console.log(prevProps !== nextProps)
-
   if(prevProps.listItemProps !== nextProps.listItemProps)
     return true
 
