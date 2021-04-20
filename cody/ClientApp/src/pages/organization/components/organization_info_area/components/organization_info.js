@@ -5,7 +5,7 @@ import { TypographyWithLoading } from "src/components/typography/typography_with
 import { JoinOrganizationButton } from "src/components/buttons/join_organization_button";
 import { BookmarkIconButton } from "src/components/bookmark_icon_button";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {

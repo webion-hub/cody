@@ -14,7 +14,7 @@ import { OrganizationInfo } from "./components/organization_info";
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { OrganizationContext } from "../../organization_controller_context";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
     background: theme.palette.background.backgroundTransparent,
   },

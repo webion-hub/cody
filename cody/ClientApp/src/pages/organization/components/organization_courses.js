@@ -7,7 +7,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	coursesBox: {
 		marginTop: theme.spacing(6),
 	},

@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { DialogBase } from 'src/components/bases/dialog_base';
 
-export const useStyles = makeStyles(_ => ({
+const useStyles = makeStyles(_ => ({
   paperClassName: {
     maxWidth: 632,
     width: "100%"

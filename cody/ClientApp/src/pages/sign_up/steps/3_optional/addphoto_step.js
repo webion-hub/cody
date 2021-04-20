@@ -15,7 +15,7 @@ import { Step3 } from 'src/components/illustrations/step3';
 
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   addPhoto: {
     padding: theme.spacing(2),
     marginBottom: theme.spacing(3)

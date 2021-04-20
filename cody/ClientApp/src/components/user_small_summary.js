@@ -9,7 +9,7 @@ import { UserRoleLabel } from "src/components/user_role_label";
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 import { UserSettingsMenu } from "./menu/menus/user_settings_menu";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(1),

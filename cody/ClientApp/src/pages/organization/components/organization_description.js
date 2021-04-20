@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	descriptionBox: props => ({
 		height: props.showDescription ? props.descriptionHeight + 44 : 0, 
 		transition: "0.25s height",

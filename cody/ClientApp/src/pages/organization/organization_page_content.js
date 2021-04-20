@@ -11,7 +11,7 @@ import OrganizationCourses from "./components/organization_courses";
 import { AddPhotoOverlay } from "src/components/pickers/others/add_photo_overlay";
 import { OrganizationImageBackground } from "./components/organzation_image_background";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	centerPaperContainer: {
 		height: "100%"
 	},

@@ -19,7 +19,7 @@ import { Images } from 'src/lib/default_values/images/images';
 import { PageController } from 'src/lib/page_controller';
 import { tryRegister } from './lib/try_register';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   pageContainer: {
     backgroundImage: `url(${Images.forestImage})`,
     backgroundSize: "cover",

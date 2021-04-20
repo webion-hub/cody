@@ -5,7 +5,7 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 import { LoginBox } from 'src/pages/login/components/login_box';
 import { PageController } from 'src/lib/page_controller';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   paperClassName: {
     maxWidth: 632,
     width: "100%"

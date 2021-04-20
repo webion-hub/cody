@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useBackgroundWaves } from "src/lib/hooks/use_background_waves";
 import { useMenu } from "src/lib/hooks/use_menu";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   menu: {
     padding: 0,
   },

@@ -14,7 +14,7 @@ import { FormatLengthController } from 'src/lib/format_controller/utilities/form
 
 import { Step2 } from 'src/components/illustrations/step2';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   textFieldName: {
     marginTop: theme.spacing(1)
   },

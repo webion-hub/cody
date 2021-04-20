@@ -7,7 +7,7 @@ import { CustomAvatar } from "src/components/custom_avatar";
 import { Skeleton } from "@material-ui/lab";
 import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_photo_base";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   badgeContent: {
     width: 36,
     height: 36,

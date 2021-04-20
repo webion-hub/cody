@@ -11,7 +11,7 @@ import { DataTab } from "./components/data_tab";
 import { PageController } from 'src/lib/page_controller';
 
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
 	dataGrid: {
 		position: "relative",
 		maxWidth: `calc(100vw - ${theme.drawer.width}px)`,

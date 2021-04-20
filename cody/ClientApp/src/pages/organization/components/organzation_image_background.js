@@ -4,7 +4,7 @@ import { OrganizationContext } from "../organization_controller_context";
 import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_photo_base";
 import { CustomImg } from "src/components/custom_img";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   backgroundImage: {
     height: 192,
     width: "100%",

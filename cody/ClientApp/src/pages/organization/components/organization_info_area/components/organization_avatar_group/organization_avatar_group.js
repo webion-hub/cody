@@ -8,7 +8,7 @@ import { AllOrganizationUserDialog } from "./components/all_organization_user_di
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   avatarGroup: {
     minHeight: 148,
     minWidth: 64,

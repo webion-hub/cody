@@ -3,7 +3,7 @@ import { Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   skeleton: {
     width: "70%",
     maxWidth: 200,

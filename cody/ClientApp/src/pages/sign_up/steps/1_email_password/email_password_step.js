@@ -16,7 +16,7 @@ import { FormatLengthController } from 'src/lib/format_controller/utilities/form
 import { Step1 } from 'src/components/illustrations/step1';
 
 
-export const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%"
   },
