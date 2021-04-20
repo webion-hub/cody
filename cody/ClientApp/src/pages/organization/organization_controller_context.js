@@ -22,7 +22,7 @@ export const OrganizationControllerContext = ({id, children}) => {
 	const [loading, setLoading] = React.useState(true)
   const [organizationData, setOrganizationData] = React.useState(null)
   const [smallUserList, setSmallUserList] = React.useState([])
-  const [callerIs, setCallerIs] = React.useState("")
+  const [callerIs, setCallerIs] = React.useState("noMember")
 	const organization = Organization.withId(id)
 
   const getOrganizationByPageId = async () => {
@@ -43,7 +43,7 @@ export const OrganizationControllerContext = ({id, children}) => {
 
   const getRole = async () => {
     if(userState !== "logged" ){
-      setCallerIs("")
+      setCallerIs("noMember")
       return
     }
 
@@ -53,6 +53,7 @@ export const OrganizationControllerContext = ({id, children}) => {
   }
 
 	const getOrganizationData = async () => {
+    setCallerIs("noMember")
 		setLoading(true)
 		await getOrganizationByPageId()
 		await getMembers()
@@ -61,6 +62,7 @@ export const OrganizationControllerContext = ({id, children}) => {
 	}
 
   const updateMembers = async () => {
+    setCallerIs("noMember")
     await getMembers()
 		await getRole()
   }

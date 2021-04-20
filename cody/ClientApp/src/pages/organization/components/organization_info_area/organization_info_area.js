@@ -82,6 +82,7 @@ export default function OrganizationInfoArea(){
 				>
 					<OrganizationBadgeAvatar
             id={id}
+            callerIs={callerIs}
             organizationData={organizationData}
             loading={loading}
           />

@@ -51,7 +51,7 @@ export function AddPhotoStep(props){
           <AddPhoto
             onImageChange={image => props.onProfileImageChange(image)}
             alt={props.values.username}
-            value={props.values.profileImage}
+            src={props.values.profileImage}
             disableLoading
           />
           <Typography

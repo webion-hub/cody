@@ -8,16 +8,10 @@ import { useMediaQuery } from '@material-ui/core'
 
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
+import { AddPhotoOverlay } from "src/components/pickers/others/add_photo_overlay";
+import { OrganizationImageBackground } from "./components/organzation_image_background";
 
 export const useStyles = makeStyles((theme) => ({
-  backgroundImage: {
-    height: 192,
-    width: "100%",
-    background: `url(images/forest.webp)`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    position: "relative"
-  },
 	centerPaperContainer: {
 		height: "100%"
 	},
@@ -95,7 +89,7 @@ export function OrganizationPageContent(){
 					item
 					className={classes.backgroundImageContainer}
 				>
-      		<div className={classes.backgroundImage}/>
+					<OrganizationImageBackground/>
 
 					<Grid
 						container

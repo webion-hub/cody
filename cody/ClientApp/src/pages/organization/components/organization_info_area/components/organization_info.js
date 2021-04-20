@@ -27,6 +27,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   bookmarkButton: {
     marginBottom: 2
+  },
+  shiftLeft: {
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 48
+    }, 
   }
 }));
 
@@ -66,7 +71,7 @@ export function OrganizationInfo(props){
         variant="caption"
         noWrap
         loading={loading}
-        className={classes.centerText}
+        className={`${classes.centerText} ${isCallerAMember ? classes.shiftLeft : ""}`}
       >
         {organizationData?.detail.location}
       </TypographyWithLoading>

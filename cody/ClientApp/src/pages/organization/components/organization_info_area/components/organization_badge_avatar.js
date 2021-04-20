@@ -5,6 +5,7 @@ import { OrganizationKindIcon } from "src/components/organization_kind_icon";
 import { CustomAvatar } from "src/components/custom_avatar";
 
 import { Skeleton } from "@material-ui/lab";
+import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_photo_base";
 
 export const useStyles = makeStyles((theme) => ({
   badgeContent: {
@@ -13,13 +14,15 @@ export const useStyles = makeStyles((theme) => ({
     padding: 6,
     background: theme.palette.secondary.main,
     borderRadius: 18
+  },
+  addPhotoOverlay: {
+    borderRadius: "50%"
   }
 }));
 
 export function OrganizationBadgeAvatar(props){
 	const classes = useStyles();
-  const organizationData = props.organizationData
-  const id = props.id
+  const { organizationData, id, callerIs } = props
 
   return (
     <Badge
@@ -44,12 +47,19 @@ export function OrganizationBadgeAvatar(props){
         </div>
       }
     >
-      <CustomAvatar
-        src={`organizations/${id}/logo`}
-        alt={organizationData?.name}
-        size={110}
-        propsLoading={props.loading}
-      />
+      <AddOrganizationPhotoBase
+        id={id}
+        callerIs={callerIs}
+        type="logo"
+        className={classes.addPhotoOverlay}
+        loading={props.loading}
+      >
+        <CustomAvatar       
+          alt={organizationData?.name}
+          size={110}
+          loading={props.loading}
+        />
+      </AddOrganizationPhotoBase>
     </Badge>
   )
 }
