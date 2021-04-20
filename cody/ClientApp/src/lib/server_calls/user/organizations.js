@@ -12,10 +12,7 @@ export const getRoleIn = async (organizationId) => {
     url: `user/role_in/${organizationId}`,
     method: 'GET',
   })
-  .then(resp => {
-    console.log(resp.data)
-    return resp.data
-  });
+  .then(resp => resp.data);
 }
 
 
