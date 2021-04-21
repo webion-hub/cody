@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
     padding: 6,
     background: theme.palette.secondary.main,
     borderRadius: 18
-  },
-  addPhotoOverlay: {
-    borderRadius: "50%"
   }
 }));
 
@@ -51,7 +48,6 @@ export function OrganizationBadgeAvatar(props){
         id={id}
         callerIs={callerIs}
         type="logo"
-        className={classes.addPhotoOverlay}
         loading={props.loading}
       >
         <CustomAvatar       
