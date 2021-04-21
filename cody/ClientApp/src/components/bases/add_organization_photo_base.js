@@ -8,7 +8,6 @@ export function AddOrganizationPhotoBase(props){
   const { 
     id, 
     callerIs, 
-    className, 
     type, 
     loading,
     ...other
@@ -40,7 +39,6 @@ export function AddOrganizationPhotoBase(props){
       {...other}
       loading={loading}
       disabled={canNotUserEdit}
-      className={className}
       src={`organizations/${id}/${type}`}
       onImageChange={handleImageChange}
       onImageDelete={handleImageDelete}
