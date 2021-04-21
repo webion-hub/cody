@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     },
     transition: "0.25s all" 
+  },
+  icon: {
+    color: "rgba(255,255,255,1)"
+  },
+  disabledIcon: {
+    color: "rgba(255,255,255,0.5)"
   }
 }));
 
@@ -96,13 +102,13 @@ export function AddPhotoOverlay(props){
           <ImageUploader
             onImageChange={handleImageUpload}
           />
-          <AddRoundedIcon/>
+          <AddRoundedIcon className={classes.icon}/>
         </IconButton>
         <IconButton
           disabled={notImage}
           onClick={handleDeleteImage}
         >
-          <DeleteRoundedIcon/>
+          <DeleteRoundedIcon className={notImage ? classes.disabledIcon : classes.icon}/>
         </IconButton>
       </Grid>
       <ImageCropperDialog
