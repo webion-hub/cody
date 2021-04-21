@@ -60,6 +60,11 @@ export const CustomAvatar = React.forwardRef((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.src])
 
+  useEffect(() => {
+    if(disableLoading)
+      handleLoadEnd()
+  }, [disableLoading])
+
   return (
     <div 
       ref={ref}
