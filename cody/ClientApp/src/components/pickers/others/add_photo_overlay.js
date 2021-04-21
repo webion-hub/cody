@@ -49,11 +49,15 @@ export function AddPhotoOverlay(props){
   } = useAddPhoto(props.src)
 
   useEffect(_=> {
+    if(image === null){
+      props.onImageDelete?.()
+      return;
+    }
+
     if(image !== props.src)
       props.onImageChange?.(image);
 
-    if(image === null)
-      props.onImageDelete?.()
+
 
   },[image])
 
