@@ -18,11 +18,7 @@ export const useGetAllData = (props) => {
       limit: elementForStep,
       offset: resetOffset ? 0 : offset,
     })
-    .then(searchResults => {
-      if(searchResults.values.length === 0)
-        return
-      dataListAction(searchResults)
-    })
+    .then(dataListAction)
     .finally(_=> {
       setLoading({
         mainLoading: false,
