@@ -53,6 +53,9 @@ export const OrganizationControllerContext = ({id, children}) => {
   }
 
 	const getOrganizationData = async () => {
+    if(userState === "loading")
+      return
+
     setCallerIs("noMember")
 		setLoading(true)
 		await getOrganizationByPageId()
