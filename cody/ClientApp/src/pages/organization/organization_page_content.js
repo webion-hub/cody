@@ -8,7 +8,6 @@ import { useMediaQuery } from '@material-ui/core'
 
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
-import { AddPhotoOverlay } from "src/components/pickers/others/add_photo_overlay";
 import { OrganizationImageBackground } from "./components/organzation_image_background";
 
 const useStyles = makeStyles((theme) => ({

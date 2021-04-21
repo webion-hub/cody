@@ -79,7 +79,7 @@ export const OrganizationControllerContext = ({id, children}) => {
     id,
 		organizationData,
 		smallUserList,
-		callerIs: callerIs === "" ? "noMember" : callerIs,
+		callerIs: callerIs ?? "noMember",
 		organization,
 		loading,
 	}
