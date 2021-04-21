@@ -1,8 +1,7 @@
 import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
 import { ListWithSearch } from "src/components/list_with_search/list_with_search";
-import { Button, Grid, IconButton, ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
-import { CustomAvatar } from "src/components/custom_avatar";
+import { Button, Grid, IconButton } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { UserGroup } from "src/components/illustrations/user_group";
 import { useTheme } from '@material-ui/core'
@@ -12,13 +11,9 @@ import { OrganizationContext } from "src/pages/organization/organization_control
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import { UserSummaryCard } from "src/components/user_summary_card";
 import { UserSmallSummary } from "src/components/user_small_summary";
+import { UserListItem } from "src/components/list_items/user_list_item";
 
 const useStyles = makeStyles((theme) => ({
-  listItem: {
-    width: "100%",
-    tableLayout: "fixed",
-    padding: theme.spacing(1)
-  },
   dialogPaper: {
     maxWidth: 648,
     width: "100%",
@@ -26,9 +21,8 @@ const useStyles = makeStyles((theme) => ({
 			margin: theme.spacing(2),
     },
   },
-  userList: {
-    background: theme.palette.background.backgroundTransparent,
-    backdropFilter: "blur(10px)",
+  mobileDialog: {
+    padding: "0px !important",
   },
   areaWidth: {
     width: "50%",
@@ -38,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 300,
         width: "100%",
     },
+  },
+  userList: {
+    background: theme.palette.background.backgroundTransparent,
+    backdropFilter: "blur(10px)",
   },
   image: {
     transition: "0.25s transform"
@@ -60,9 +58,7 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     }
   },
-  mobileDialog: {
-    padding: "0px !important",
-  }
+
 }));
 
 export function AllOrganizationUserDialog(props){
@@ -157,7 +153,7 @@ export function AllOrganizationUserDialog(props){
           elementForStep={25}
           itemSize={56}
           getList={organization.getMembersOf}
-          listItem={AvatarListItem}
+          listItem={UserListItem}
           listItemProps={{
             onClick: handleUserChange 
           }}
@@ -167,34 +163,5 @@ export function AllOrganizationUserDialog(props){
         /> 
       </Grid>
     </DialogBase> 
-  )
-}
-
-function AvatarListItem(props){
-	const classes = useStyles();
-
-  return (
-    <div style={props.style} key={props.index}>
-      <ListItem 
-        className={classes.listItem}
-        ContainerComponent="div" 
-        button
-        onClick={_ => props.onClick?.(props.data)}
-      >
-        <ListItemAvatar>
-          <CustomAvatar
-            src={`user/profile_picture/${props.data?.id}`}
-            alt={props.data?.username}
-          />
-        </ListItemAvatar>
-        <ListItemText
-          primaryTypographyProps={{
-            noWrap: true
-          }}
-        >
-          {props.data?.username}
-        </ListItemText>
-      </ListItem>
-    </div>
   )
 }
