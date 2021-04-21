@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, Link, Paper } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { AddPhoto } from 'src/components/pickers/others/add_photo'
 import { FlowingText } from 'src/components/typography/flowing_text'
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
-import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import { Skeleton } from '@material-ui/lab';
 
 import { EditableBiography } from 'src/components/pickers/text_fields/editable_text_fields/editable_biography';
 import { useGetSize } from 'src/lib/hooks/use_get_size';
+import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -99,11 +98,12 @@ export function InfoBox(props){
         direction={"row"}
         alignItems={"center"}
       >
-        <AddPhoto
-          alt={props.oldData.username}
+        <AvatarAddPhoto
+          loading={props.loading}
           onImageChange={getImage}
+          onImageDelete={handleDelete}
           src={image}
-          accountEdit
+          alt={props.oldData.username}
         />
         <div className={classes.info}>
           <Grid
@@ -157,41 +157,6 @@ export function InfoBox(props){
               :
               null
           }
-          <Typography 
-            variant="caption"
-            className={classes.deleteProfilePic}
-          >
-            <Link 
-              color="textSecondary"
-              component="button"
-              onClick={handleDelete}
-            >
-              <Grid
-                container
-                direction="row"
-                alignItems="center"
-              >
-                {
-                  props.loading ? 
-                    <Skeleton 
-                      width={flowingTextMaxWidth} animation="wave" variant="rect"
-                    />
-                    :
-                    <>
-
-                      <HighlightOffRoundedIcon className={classes.iconMargin}/>                      
-                      <FlowingText
-                        containerWidth={flowingTextMaxWidth}
-                        background={theme.palette.background.paper}
-                        variant="caption"
-                      >
-                        Elimina immagine profilo.
-                      </FlowingText>
-                    </>
-                }
-              </Grid>
-            </Link>
-          </Typography>
         </div>
       </Grid>
       <div className={classes.biography}>

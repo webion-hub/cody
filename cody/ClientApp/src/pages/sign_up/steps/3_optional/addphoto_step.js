@@ -9,11 +9,11 @@ import { FormControlLabel } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
-import { AddPhoto } from 'src/components/pickers/others/add_photo';
 
 import { Step3 } from 'src/components/illustrations/step3';
 
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
+import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
 
 const useStyles = makeStyles((theme) => ({
   addPhoto: {
@@ -48,11 +48,11 @@ export function AddPhotoStep(props){
           container
           justify="center"
         >
-          <AddPhoto
-            onImageChange={image => props.onProfileImageChange(image)}
+          <AvatarAddPhoto
+            disableLoading
+            onImageChange={props.onProfileImageChange}
             alt={props.values.username}
             src={props.values.profileImage}
-            disableLoading
           />
           <Typography
             className={classes.addPhotoLabel}
