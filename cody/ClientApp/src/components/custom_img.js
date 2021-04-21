@@ -14,7 +14,16 @@ const useStyles = makeStyles((theme) => ({
 
 export function CustomImg(props){
 	const classes = useStyles();
-  const {loading, className, defaultImage, src, onLoadEnd, onError, ...imgProps} = props
+  const {
+    loading, 
+    className, 
+    defaultImage, 
+    src, 
+    onLoadEnd, 
+    onError,
+    onLoad,
+    ...imgProps
+  } = props
   const [srcImage, setSrcImage] = React.useState(src)
   const [imageLoading, setImageLoading] = React.useState(true)
   
@@ -40,6 +49,7 @@ export function CustomImg(props){
 
   const handleOnLoad = () => {
     handleLoadEnd()
+    onLoad?.()
   }
 
   return (
