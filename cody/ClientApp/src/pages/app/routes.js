@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Router, Switch} from 'react-router-dom';
 
 import { UserContext } from "src/components/user_controller_context/user_controller_context";
@@ -6,19 +6,20 @@ import { CustomRoute } from "src/components/route_components/custom_route";
 
 import history from 'src/history';
 import Requests from 'src/lib/server_calls/requests';
+import { lazyWithRetry } from 'src/lib/lazy_with_retry';
 
-const Login = lazy(() => import('src/pages/login/login'));
-const SignUp = lazy(() => import('src/pages/sign_up/SignUp'));
-const Error404Page = lazy(() => import('src/pages/message_pages/Error404Page'));
-const EmailValidPage = lazy(() => import('src/pages/message_pages/email_valid_page/EmailValidPage'));
-const UnauthorizedPage = lazy(() => import('src/pages/message_pages/UnauthorizedPage'));
-const Home = lazy(() => import('src/pages/home/home'));
-const Account = lazy(() => import('src/pages/account/account'));
-const Test = lazy(() => import('src/pages/test'));
-const AdminPage = lazy(() => import('src/pages/admin_pages/AdminPage'));
-const CreateOrJoinOrganization = lazy(() => import('src/pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
-const OrganizationPage = lazy(() => import('src/pages/organization/OrganizationPage'));
-const Form = lazy(() => import('src/pages/Form'));
+const Login = lazyWithRetry(() => import('src/pages/login/login'));
+const SignUp = lazyWithRetry(() => import('src/pages/sign_up/SignUp'));
+const Error404Page = lazyWithRetry(() => import('src/pages/message_pages/Error404Page'));
+const EmailValidPage = lazyWithRetry(() => import('src/pages/message_pages/email_valid_page/EmailValidPage'));
+const UnauthorizedPage = lazyWithRetry(() => import('src/pages/message_pages/UnauthorizedPage'));
+const Home = lazyWithRetry(() => import('src/pages/home/home'));
+const Account = lazyWithRetry(() => import('src/pages/account/account'));
+const Test = lazyWithRetry(() => import('src/pages/test'));
+const AdminPage = lazyWithRetry(() => import('src/pages/admin_pages/AdminPage'));
+const CreateOrJoinOrganization = lazyWithRetry(() => import('src/pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
+const OrganizationPage = lazyWithRetry(() => import('src/pages/organization/OrganizationPage'));
+const Form = lazyWithRetry(() => import('src/pages/Form'));
 
 export function Routes(){
   const { userState } = React.useContext(UserContext);
