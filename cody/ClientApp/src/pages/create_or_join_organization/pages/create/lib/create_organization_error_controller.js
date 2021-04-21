@@ -28,16 +28,8 @@ export class CreateOrganizationErrorController{
 
         const skipFields = kind === "Team"
 
-        let skipWebsite;
-        let skipDescription;
-        if(skipFields){
-          skipWebsite = true;
-          skipDescription = true;
-        }
-        else{
-          skipWebsite = website.length === 0;
-          skipDescription = description.length === 0;  
-        }
+        const skipWebsite = website.length === 0;
+        const skipDescription = description.length === 0;  
 
         let errorsList = ["noError"];  
         Promise.all([
@@ -62,7 +54,7 @@ export class CreateOrganizationErrorController{
               },
             ),    
           websiteController
-            .checkWebsite(website, skipWebsite || skipFields)
+            .checkWebsite(website, skipWebsite)
             .then(
               result => {
                 if(result !== "correctWebsite") {
@@ -72,7 +64,7 @@ export class CreateOrganizationErrorController{
               },
             ),    
           descriptionController
-            .checkDescription(description, skipDescription || skipFields)
+            .checkDescription(description, skipDescription)
             .then(
               result => {
                 if(result !== "correctDescription") {

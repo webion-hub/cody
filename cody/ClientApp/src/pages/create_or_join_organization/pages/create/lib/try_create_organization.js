@@ -11,41 +11,39 @@ export function tryCreateOrganization(settings){
 
     await errorController
       .checkAll(data, kind)
-      .then(
-        async results => {
-          let errorsFromController = {};
-          results.forEach(result => {
-            errorsFromController[result] = true;
-          });
-          const thereAreFormatErrors = !errorsFromController.noError;
+      .then(async results => {
+        let errorsFromController = {};
+        results.forEach(result => {
+          errorsFromController[result] = true;
+        });
+        const thereAreFormatErrors = !errorsFromController.noError;
 
-          if(thereAreFormatErrors){
-            settings.onFormatError(errorsFromController)
-            return;
-          }
-
-          await Organizations.createNew({
-            organization: {
-              name: data.name,
-              location: data.location,
-              website: data.website === "" ? null : data.website,
-              description: data.description,
-              kind: kind,
-            },
-            onSuccess: async (id) => {
-              if(data.logo !== null)
-                await OrganizationImages
-                  .of(id)
-                  .update('logo', data.logo)
-
-              settings.onSuccess(id)
-            },
-            onConflict: () => settings.onConflict(),
-            onError: () => settings.onError()
-          })
-
+        if(thereAreFormatErrors){
+          settings.onFormatError(errorsFromController)
+          return;
         }
-      )  
+
+        await Organizations.createNew({
+          organization: {
+            name: data.name,
+            location: data.location,
+            website: data.website === "" ? null : data.website,
+            description: data.description,
+            kind: kind,
+          },
+          onSuccess: async (id) => {
+            if(data.logo !== null)
+              await OrganizationImages
+                .of(id)
+                .update('logo', data.logo)
+
+            settings.onSuccess(id)
+          },
+          onConflict: () => settings.onConflict(),
+          onError: () => settings.onError()
+        })
+
+      })  
       resolve()
   })
 }
