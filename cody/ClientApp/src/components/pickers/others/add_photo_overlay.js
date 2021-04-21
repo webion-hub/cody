@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
   disabledIcon: {
     color: "rgba(255,255,255,0.5)"
+  },
+  roundImage: {
+    borderRadius: "50%"
   }
 }));
 
@@ -38,7 +41,7 @@ export function AddPhotoOverlay(props){
   const classes = useStyles()
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
   const [imageLoading, setImageLoading] = React.useState(true);
-  const [notImage, setNotImage] = React.useState(false);
+  const [notImage, setNotImage] = React.useState(true);
    
   const {
     getImageUploaded,
@@ -56,9 +59,6 @@ export function AddPhotoOverlay(props){
 
     if(image !== props.src)
       props.onImageChange?.(image);
-
-
-
   },[image])
 
   const handleCloseEditDialog = () => {
@@ -85,7 +85,8 @@ export function AddPhotoOverlay(props){
       src: image,
       loading: child.props.loading || props.loading,
       onLoadEnd: _=> setImageLoading(false),
-      onError: _=> setNotImage(true)
+      onError: _=> setNotImage(true),
+      onLoad: _=> setNotImage(false)
     }),
   );
 
@@ -93,9 +94,9 @@ export function AddPhotoOverlay(props){
     return imageComponent
 
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container} ${props.className ? props.className : ""}`}>
       <Grid
-        className={`${classes.overlay} ${props.className ? props.className : ""}`}
+        className={`${classes.overlay} ${props.cropShape === "round" ? classes.roundImage : ""}`}
         container
         direction="row"
         justify="center"
@@ -128,4 +129,9 @@ export function AddPhotoOverlay(props){
       {imageComponent}
     </div>
   )
+}
+
+
+AddPhotoOverlay.defaultProps = {
+  cropShape: "round"
 }
