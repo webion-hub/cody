@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
 export function LoginDialog(props){
 	const classes = useStyles();
 
+  const navigateTo = (href) => (event) => {
+    PageController.push(href, event)
+    props.onClose()
+  }
+
   return (
     <DialogBase
       open={props.open}
@@ -41,13 +46,13 @@ export function LoginDialog(props){
         >
           <Button
             href='/sign-up'
-            onClick={(event) => PageController.push('/sign-up', event)}
+            onClick={navigateTo('/sign-up')}
           >
             Crea un account
           </Button>
           <Button
             href='/'
-            onClick={(event) => PageController.push('/', event)}
+            onClick={navigateTo('/')}
           >
             Vai alla home
           </Button>
