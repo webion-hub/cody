@@ -69,5 +69,5 @@ export function CustomImg(props){
 }
 
 CustomImg.defaultProps = {
-  defaultImage: 'images/pattern.svg'
+  defaultImage: 'images/forest.webp'
 }
