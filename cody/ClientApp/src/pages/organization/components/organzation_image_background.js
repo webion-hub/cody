@@ -5,23 +5,24 @@ import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_
 import { CustomImg } from "src/components/custom_img";
 
 const useStyles = makeStyles((theme) => ({
-  backgroundImage: {
-    height: 192,
+  backgroundImage: props => ({
+    height: props.imageHeight,
     width: "100%",
     objectFit: "cover",
     position: "relative",
 		display: "block"
-  }
+  })
 }));
 
 export function OrganizationImageBackground(){
-	const classes = useStyles();
+  const imageHeight = 240
+	const classes = useStyles({imageHeight});
 	const { id, callerIs, loading } = React.useContext(OrganizationContext);
 
   return (
     <AddOrganizationPhotoBase
-      aspect={1200 / 192}
-      maxSize={1200}
+      aspect={1200 / imageHeight}
+      maxSize={1920}
       cropShape="rect"
       id={id}
       callerIs={callerIs}
