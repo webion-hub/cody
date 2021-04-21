@@ -8,6 +8,7 @@ import { useAddPhoto } from './hooks/use_add_photo';
 import { ImageUploader } from './components/image_uploader';
 import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog';
 import { makeStyles } from '@material-ui/core/styles';
+import { setOpacityColor } from 'src/lib/setOpacityColor';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     height: "100%",
     opacity: 0,
-    background: theme.palette.background.backgroundTransparent,
+    background: setOpacityColor(theme.palette.secondary.main, 0.25),
     backdropFilter: "blur(10px)",
     "&:hover": {
       opacity: 1,
