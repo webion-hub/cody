@@ -4,6 +4,7 @@ import { OrganizationLabel } from "src/components/typography/organization_label"
 import { TypographyWithLoading } from "src/components/typography/typography_with_loading";
 import { JoinOrganizationButton } from "src/components/buttons/join_organization_button";
 import { BookmarkIconButton } from "src/components/bookmark_icon_button";
+import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -38,11 +39,14 @@ const useStyles = makeStyles((theme) => ({
 export function OrganizationInfo(props){
 	const classes = useStyles();
   const { 
-    organizationData,
-    callerIs,
-    loading,
     className,
    } = props
+
+   const {
+		organizationData,
+    callerIs,
+		loading
+	} = React.useContext(OrganizationContext);
 
   const isCallerAMember = callerIs !== "noMember"
 

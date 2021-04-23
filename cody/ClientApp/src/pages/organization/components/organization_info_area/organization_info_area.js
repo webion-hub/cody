@@ -6,13 +6,14 @@ import { useMediaQuery } from '@material-ui/core'
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
-import OrganizationDescription from "../organization_description";
+import OrganizationDescription from "./components/organization_description";
 import { OrganizationBadgeAvatar } from "./components/organization_badge_avatar";
 import { OrganizationAvatarGroup } from "./components/organization_avatar_group/organization_avatar_group";
 import { OrganizationInfo } from "./components/organization_info";
 
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { OrganizationContext } from "../../organization_controller_context";
+import { setOpacityColor } from "src/lib/setOpacityColor";
 
 const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 		transition: "0.25s all"
 	}),
   descriptionBox: {
-    background: theme.palette.background.backgroundTransparent,
+    background: setOpacityColor(theme.palette.background.paperSecondary, 0.5),
   },
   organizationSettings: {
     position: "absolute",
@@ -66,7 +67,6 @@ export default function OrganizationInfoArea(){
 	const {
 		organizationData,
     callerIs,
-    id,
 		loading
 	} = React.useContext(OrganizationContext);
 
@@ -80,18 +80,9 @@ export default function OrganizationInfoArea(){
 					direction={mobileView ? "column" : "row"}
           alignItems="center"
 				>
-					<OrganizationBadgeAvatar
-            id={id}
-            callerIs={callerIs}
-            organizationData={organizationData}
-            loading={loading}
-          />
+					<OrganizationBadgeAvatar/>
           <OrganizationInfo
             className={classes.organizationInfoBox}
-            id={id}
-            organizationData={organizationData}
-            callerIs={callerIs}
-            loading={loading}
           />
           <OrganizationAvatarGroup/>
 				</Grid>

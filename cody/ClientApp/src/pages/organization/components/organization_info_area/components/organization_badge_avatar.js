@@ -6,6 +6,7 @@ import { CustomAvatar } from "src/components/custom_avatar";
 
 import { Skeleton } from "@material-ui/lab";
 import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_photo_base";
+import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 const useStyles = makeStyles((theme) => ({
   badgeContent: {
@@ -19,7 +20,13 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrganizationBadgeAvatar(props){
 	const classes = useStyles();
-  const { organizationData, id, callerIs } = props
+
+	const {
+		organizationData,
+    callerIs,
+    id,
+	} = React.useContext(OrganizationContext);
+
 
   return (
     <Badge
