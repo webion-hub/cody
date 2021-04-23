@@ -85,7 +85,6 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
             {user.name} {user.surname}
           </Typography>
         </div>
-
       </Grid>
       <Typography
         className={classes.userInfoText}

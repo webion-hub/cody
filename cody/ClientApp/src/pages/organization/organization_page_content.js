@@ -1,13 +1,12 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import OrganizationInfoArea from "./components/organization_info_area/organization_info_area";
-import { PaperWithWaves } from "src/components/paper_with_waves";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
 import OrganizationTreeView from "./components/organization_treeview";
-import OrganizationCourses from "./components/organization_courses";
+import OrganizationCourses from "./components/organization_courses/organization_courses";
 import { OrganizationImageBackground } from "./components/organzation_image_background";
 import { BackgroundWithLines } from "src/components/background_with_lines/background_with_lines";
 
