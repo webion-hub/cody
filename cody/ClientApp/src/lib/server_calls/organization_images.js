@@ -44,7 +44,7 @@ export default class OrganizationImages {
    * @param {OrganizationImagesKind} what 
    * @returns {Promise<AxiosResponse<any>>}
    */
-  async delete(what) {
+   async delete(what) {
     return Requests.send({
       url: this.url`/${what}`,
       method: 'DELETE',
