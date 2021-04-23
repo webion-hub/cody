@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   verifiedOrganization: props => ({
     transform: props.translateIconY ?
       `translate(0px, ${props.translateIconY}px)` : "translate(0px, 4px)",
-    marginLeft: theme.spacing(1),
+    marginLeft: `${theme.spacing(1)}px !important`,
     fontSize: props.iconSize,
     color: theme.palette.text.secondary
   })
