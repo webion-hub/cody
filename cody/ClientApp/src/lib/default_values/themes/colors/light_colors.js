@@ -15,6 +15,6 @@ export const lightColors = {
   
   appBar: '#fff',
   textPrimary: 'rgba(0,0,0,0.95)',
-  textSecondary: 'rgba(0,0,0,0.75)',
+  textSecondary: 'rgba(0,0,0,0.65)',
   avatarBackground: 'rgba(57,57,57)'
 }
