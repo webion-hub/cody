@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationsController
+    public partial class OrganizationController
     {
-        [HttpPatch("verify/{id}")]
+        [HttpPatch("verify")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Verify(int id)
         {

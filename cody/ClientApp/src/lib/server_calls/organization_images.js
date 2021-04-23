@@ -7,6 +7,9 @@ export default class OrganizationImages {
    */
   constructor(organizationId) {
     this._organizationId = organizationId;
+    this.url = Requests.createUrlTag(
+      `organization/${organizationId}/images`
+    );
   }
 
   /**
@@ -19,7 +22,7 @@ export default class OrganizationImages {
 
 
   /**
-   * @param {OrganizationImages.Kind} what 
+   * @param {OrganizationImagesKind} what 
    * @param {string} base64Image
    * @returns {Promise<AxiosResponse<any>>}
    */
@@ -28,7 +31,7 @@ export default class OrganizationImages {
     formData.append('base64', base64Image);
     
     return Requests.send({
-      url: `organizations/${this._organizationId}/${what}`,
+      url: this.url`/${what}`,
       method: 'PUT',
       data: formData,
       headers: {
@@ -38,12 +41,12 @@ export default class OrganizationImages {
   }
 
   /**
-   * @param {OrganizationImages.Kind} what 
+   * @param {OrganizationImagesKind} what 
    * @returns {Promise<AxiosResponse<any>>}
    */
-   async delete(what) {
+  async delete(what) {
     return Requests.send({
-      url: `organizations/${this._organizationId}/${what}`,
+      url: this.url`/${what}`,
       method: 'DELETE',
     });
   }
@@ -51,5 +54,5 @@ export default class OrganizationImages {
 
 
 /**
- * @typedef {'logo' | 'cover'} OrganizationImages.Kind
+ * @typedef {'logo' | 'cover'} OrganizationImagesKind
  */
