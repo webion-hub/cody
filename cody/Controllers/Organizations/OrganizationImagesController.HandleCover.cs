@@ -7,7 +7,7 @@ namespace Cody.Controllers.Organizations
 {
     public partial class OrganizationImagesController
     {
-        [HttpPut("/cover")]
+        [HttpPut("{organizationId}/cover")]
         [Authorize]
         public async Task<IActionResult> PutCover(
             [FromRoute] int organizationId, 
@@ -21,7 +21,7 @@ namespace Cody.Controllers.Organizations
             });
         }
 
-        [HttpDelete("/cover")]
+        [HttpDelete("{organizationId}/cover")]
         [Authorize]
         public async Task<IActionResult> DeleteCover(int organizationId) 
         {
@@ -32,7 +32,7 @@ namespace Cody.Controllers.Organizations
             );
         }
 
-        [HttpGet("/cover")]
+        [HttpGet("{organizationId}/cover")]
         [Authorize]
         public async Task<IActionResult> GetCover(int organizationId)
         {
