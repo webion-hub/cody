@@ -167,5 +167,7 @@ export function CustomAvatarGroup(props){
 }
 
 CustomAvatarGroup.defaultProps = {
-  direction: "horizontal"
+  direction: "horizontal",
+  spacing: 12,
+  borderWidth: 4,
 }

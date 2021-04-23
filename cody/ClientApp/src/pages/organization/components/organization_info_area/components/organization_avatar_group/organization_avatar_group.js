@@ -63,8 +63,6 @@ export function  OrganizationAvatarGroup() {
         onExtraAvatarClick={_ => setOpenDialog(true)}
         loading={loading}        
         direction={mobileView ? "horizontal" : "vertical"}
-        spacing={12}
-        borderWidth={4}
         borderColor={theme.palette.background.paperSecondary}
         avatarsProps={userList?.userList}
         numberOfAvatar={userList?.totalMember}
