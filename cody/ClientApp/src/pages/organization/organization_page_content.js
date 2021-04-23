@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import OrganizationInfoArea from "./components/organization_info_area/organization_info_area";
 import { PaperWithWaves } from "src/components/paper_with_waves";
 import { useTheme } from '@material-ui/core'
@@ -9,11 +9,9 @@ import { useMediaQuery } from '@material-ui/core'
 import OrganizationTreeView from "./components/organization_treeview";
 import OrganizationCourses from "./components/organization_courses";
 import { OrganizationImageBackground } from "./components/organzation_image_background";
+import { BackgroundWithLines } from "src/components/background_with_lines/background_with_lines";
 
 const useStyles = makeStyles((theme) => ({
-	centerPaperContainer: {
-		height: "100%"
-	},
 	coursesBox: {
 		marginTop: theme.spacing(8),
 	},
@@ -41,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 	}),
 	userListContainer: props => ({
 		padding: theme.spacing(1),
-		background: theme.palette.background.paper,
 		width: `${props.rightSectionWidth}%`,
 		[theme.breakpoints.down('xs')]: {
       width: "0%"
@@ -53,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down('xs')]: {
 			top: theme.appBar.mobileHeight + 8,
     },
+	},
+	paper: {
+		position: "relative"
 	}
 }));
 
@@ -98,24 +98,11 @@ export function OrganizationPageContent(){
 							item
 							className={classes.centerSectionWidth}
 						>
-							<PaperWithWaves className={classes.centerPaperContainer}>
-								<OrganizationInfoArea/>
+							<OrganizationInfoArea/>
+							<div className={classes.paper}>
 								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-								<OrganizationCourses/>
-							</PaperWithWaves>
+								<BackgroundWithLines background={theme.palette.background.paper}/>
+							</div>
 						</Grid>
 						<Grid 
 							item
