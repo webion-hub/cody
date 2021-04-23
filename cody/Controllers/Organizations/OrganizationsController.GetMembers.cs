@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationController
+    public partial class OrganizationsController
     {
-        [HttpGet("members")]
+        [HttpGet("{organizationId}/members")]
         [AllowAnonymous]
         public async Task<IActionResult> GetMembers(
             [FromRoute] int organizationId,

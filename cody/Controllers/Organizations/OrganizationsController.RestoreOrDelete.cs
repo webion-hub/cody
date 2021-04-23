@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationController
+    public partial class OrganizationsController
     {
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(int id) => await DeleteOrRestoreAsync(id, isDeleted: true);
 
-        [HttpPatch("restore")]
+        [HttpPatch("restore/{id}")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Restore(int id) => await DeleteOrRestoreAsync(id, isDeleted: false);
 

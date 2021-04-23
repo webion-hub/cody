@@ -6,7 +6,6 @@ import { getVerificationIcon } from 'src/pages/admin_pages/lib/get_verification_
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { CustomAvatar } from 'src/components/custom_avatar';
 import { AdminOrganizationMenu } from './admin_organization_menu';
-import OrganizationImages from 'src/lib/server_calls/organization_images';
 
 export function OrganizationsList(props){
 
@@ -25,7 +24,7 @@ export function OrganizationsList(props){
 			menu: menu,
 			id: index,
 			Id: data.id,
-			logo: data.hasLogo ? <CustomAvatar src={OrganizationImages.of(id).url`/logo`}/> : null,
+			logo: data.hasLogo ? <CustomAvatar src={`organizations/${data.id}/logo`}/> : null,
 			kind: <OrganizationKindIcon kind={data.kind} size="small"/>,
 			name: data.name,
 			location: data.detail.location,

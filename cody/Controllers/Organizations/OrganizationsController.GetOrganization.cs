@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationController
+    public partial class OrganizationsController
     {
-        [HttpGet]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetOrganization(int id)
         {

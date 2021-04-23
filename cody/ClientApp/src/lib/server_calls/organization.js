@@ -1,34 +1,31 @@
-import User from "./organization/user";
 import Requests from "./requests";
 import SingleXHRRequest from "./single_xhr_request";
 
 
 export default class Organization {
-  /**
-   * @param {number} organizationId 
-   */
-  static withId(organizationId) {
-    return new Organization(organizationId); 
-  }
 
   /**
    * @param {number} organizationId 
    */
   constructor(organizationId) {
     this._id = organizationId;
-    this.user = User.of(organizationId).withId;
-    this.url = Requests.createUrlTag(
-      `organization/${organizationId}`
-    );
+  }
+
+  /**
+   * @param {number} organizationId 
+   * @returns {Organization}
+   */
+  static withId(organizationId) {
+    return new Organization(organizationId); 
   }
 
 
   /**
    * @returns {Promise<Cody.Organization>}
    */
-  getInfo = async () => {
+   getInfo = async () => {
     return Requests.send({
-      url: this.url``,
+      url: `organizations/${this._id}`,
       method: 'GET',
     })
     .then(response => response?.data);
@@ -37,19 +34,19 @@ export default class Organization {
   /**
    * @returns {Promise<AxiosResponse<any>>}
    */
-  verify = async () => {
+   verify = async () => {
     return Requests.send({
-      url: this.url`/verify`,
+      url: `organizations/verify/${this._id}`,
       method: 'PATCH',
     });
   }
 
-  /**
+  /** 
    * @returns {Promise<AxiosResponse<any>>}
    */
   delete = async () => {
     return Requests.send({
-      url: this.url``,
+      url: `organizations/${this._id}`,
       method: 'DELETE',
     });
   }
@@ -59,7 +56,7 @@ export default class Organization {
    */
   restore = async () => {
     return Requests.send({
-      url: this.url`/restore`,
+      url: `organizations/restore/${this._id}`,
       method: 'PATCH',
     });
   }
@@ -68,9 +65,9 @@ export default class Organization {
    * @param {CommonFilterOptions} options 
    * @returns {Promise<SearchResult<OrganizationMember>>}
    */
-  getMembers = async (options) => {
+   getMembersOf = async (options) => {
     return Requests.search(Organization._getMembersReq, {
-      url: this.url`/members`,
+      url: `organizations/${this._id}/members`,
       method: 'GET',
       params: options,
     });
@@ -127,4 +124,8 @@ Organization._getMembersReq = new SingleXHRRequest();
  * @property {string} name
  * @property {string} surname
  * @property {OrganizationRole} role
+ */
+
+/**
+ * @typedef {'User' | 'Admin' | 'Owner'} OrganizationRole
  */

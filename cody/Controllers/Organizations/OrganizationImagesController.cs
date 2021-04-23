@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    [Route("organization/{organizationId}/images")]
+    [Route("organizations")]
     [ApiController]
     [Authorize]
     public partial class OrganizationImagesController : ControllerBase

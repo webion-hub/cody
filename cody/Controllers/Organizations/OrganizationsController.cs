@@ -27,5 +27,14 @@ namespace Cody.Controllers.Organizations
         {
             _dbContext = context;
         }
+
+
+        private async Task<Organization> GetOrganizationByIdAsync(int id)
+        {
+            return await _dbContext
+                .Organizations
+                .IncludingState()
+                .FirstOrDefaultAsync(o => o.Id == id);
+        }
     }
 }
