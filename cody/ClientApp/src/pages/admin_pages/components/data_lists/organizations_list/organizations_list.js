@@ -13,25 +13,29 @@ export function OrganizationsList(props){
 	const associateOrganizations = (settings) => {
 		const list = settings.list;
 		/**@type {import('src/lib/server_calls/organization').Cody.Organization} */
-		const data = settings.data;
+		const organization = settings.data;
 		const index = settings.index;
 
 		const menu = 
 			<AdminOrganizationMenu 
-				data={data} 
+				data={organization}
 			/>
+
+		const organizationLogo = organization.hasLogo
+			? <CustomAvatar src={OrganizationImages.of(organization.id).url`/logo`}/>
+			: null;
 
 		list.push({
 			menu: menu,
 			id: index,
-			Id: data.id,
-			logo: data.hasLogo ? <CustomAvatar src={OrganizationImages.of(id).url`/logo`}/> : null,
-			kind: <OrganizationKindIcon kind={data.kind} size="small"/>,
-			name: data.name,
-			location: data.detail.location,
-			members: data.membersCount,
-			verified: getVerificationIcon(data.state.hasBeenVerified),
-			deleted: getDeletedIcon(data.state.hasBeenDeleted),
+			Id: organization.id,
+			logo: organizationLogo,
+			kind: <OrganizationKindIcon kind={organization.kind} size="small"/>,
+			name: organization.name,
+			location: organization.detail.location,
+			members: organization.membersCount,
+			verified: getVerificationIcon(organization.state.hasBeenVerified),
+			deleted: getDeletedIcon(organization.state.hasBeenDeleted),
 		})
 	}
 
