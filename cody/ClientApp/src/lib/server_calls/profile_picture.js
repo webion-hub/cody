@@ -8,7 +8,7 @@ export class ProfilePicture {
    * @param {CreateOrUpdateOptions} options
    * @returns {Promise<number>}
    */
-  static async createOrUpdate(options) {
+  static createOrUpdate = async (options) => {
     const {
       base64,
       formFile,
@@ -22,7 +22,7 @@ export class ProfilePicture {
       formData.append('formFile', formFile, formFile.name);
 
     return Requests.send({
-      url: 'user/profile_picture',
+      url: this.url``,
       method: 'PUT',
       data: formData,
       headers: {
@@ -35,13 +35,17 @@ export class ProfilePicture {
   /**
    * @returns {Promise<AxiosResponse<any>>}
    */
-  static async delete() {
+  static delete = async () => {
     return Requests.send({
-      url: 'user/profile_picture',
+      url: this.url``,
       method: 'DELETE',
     });
   }
 }
+
+ProfilePicture.url = Requests.createUrlTag(
+  'api/user/profile_picture'
+);
 
 
 /**

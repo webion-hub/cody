@@ -4,11 +4,26 @@ import SingleXHRRequest from './single_xhr_request';
 
 export default class Requests {
   /**
+   * @param {string} baseUrl 
+   */
+  static createUrlTag = (baseUrl) => {
+    return (strings, ..._) => {
+      const raw = strings.raw[0];
+      const postfix = raw.length > 0 && !raw.startsWith('/')
+        ? '/' + raw
+        : raw;
+
+      return baseUrl + postfix;
+    };
+  }
+
+
+  /**
    * @param {SingleXHRRequest} singleXHRRequest
    * @param {AxiosRequestConfig} config
    * @returns {Promise<SearchResult<any>>}
    */
-  static async search(singleXHRRequest, config) {
+  static search = async (singleXHRRequest, config) => {
     return singleXHRRequest.send(async tokenSource => {
       return Requests.send({
         ...config,
@@ -27,19 +42,29 @@ export default class Requests {
    * @param {AxiosRequestConfig} config 
    * @returns {Promise<AxiosResponse<any>>} 
    */
-  static async send(config) {
+  static send = async (config) => {
+    Requests._maybeAddPrefix(config);
+    
     return axios
       .request(config)
       .then(Requests._done)
       .catch(Requests._catch);
   }
 
+  /**
+   * @param {AxiosRequestConfig} config
+   */
+   static _maybeAddPrefix = (config) => {
+    if (!config.url.startsWith('api/'))
+      config.url = 'api/' + config.url;
+  }
+
 
   /**
    * @param {AxiosResponse} response 
-   * @returns 
+   * @returns {AxiosResponse}
    */
-  static _done(response) {
+  static _done = (response) => {
     Requests
       ._validator
       .tryRedirect(response);
@@ -56,7 +81,7 @@ export default class Requests {
   /**
    * @param {AxiosError} error
    */
-  static _catch(error) {
+  static _catch = (error) => {
     const validator = Requests._validator;
     const {request, response} = error;
 

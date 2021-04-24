@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Cody.Controllers
 {
     [ApiController]
-    [Route("user/info")]
+    [Route("api/user/info")]
     [Authorize]
     public class UserAccountInfoController : ControllerBase
     {

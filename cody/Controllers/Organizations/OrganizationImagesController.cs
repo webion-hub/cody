@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    [Route("organizations")]
+    [Route("api/organization/{organizationId}/images")]
     [ApiController]
     [Authorize]
     public partial class OrganizationImagesController : ControllerBase
@@ -41,7 +41,7 @@ namespace Cody.Controllers.Organizations
                     await _sftpService.TryUploadImageAsync(request, metadata);
 
                 if (!uploaded)
-                    return Problem("sftp connection error");
+                    return Problem("upload_error");
 
                 await _dbContext.SaveChangesAsync();
                 return Ok();
@@ -62,7 +62,7 @@ namespace Cody.Controllers.Organizations
 
                 var deleted = _sftpService.TryDeleteFile(metadata.FilePath);
                 if (!deleted)
-                    return Problem("sftp connection error");
+                    return Problem("upload_error");
 
                 metadataDeleter(org.Detail);
                 await _dbContext.SaveChangesAsync();

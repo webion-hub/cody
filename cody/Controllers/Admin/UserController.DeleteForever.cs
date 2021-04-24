@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
 {
-    public partial class UsersController
+    public partial class UserController
     {
-        [HttpDelete("delete_forever/{id}")]
+        [HttpDelete("delete_forever")]
         [Authorize(Roles = Roles.Admin)]
-        public async Task<IActionResult> DeleteForever(int id)
+        public async Task<IActionResult> DeleteForever(int userId)
         {
-            var userId = HttpContext.User.GetId();
-            if (userId == id)
+            var callerId = HttpContext.User.GetId();
+            if (userId == callerId)
                 return BadRequest();
 
-            var user = await GetUserAsync(id);
+            var user = await GetUserAsync(userId);
             if (user is null)
                 return NotFound();
 

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace Cody.Controllers
 {
     [ApiController]
-    [Route("user/profile_picture")]
+    [Route("api/user/profile_picture")]
     [Authorize]
     public partial class ProfilePictureController : ControllerBase
     {

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { UserRoleLabel } from "src/components/user_role_label";
 import { UserSettingsMenu } from "src/components/menu/menus/user_settings_menu";
 import { PageController } from "src/lib/page_controller";
+import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -71,7 +72,7 @@ export function UserSummaryCard(props){
         alignItems="center"
       >
         <CustomAvatar
-          src={`user/profile_picture/${user.id}`}
+          src={ProfilePicture.url`/${user.id}`}
           alt={user.username}
           size={80}
         />

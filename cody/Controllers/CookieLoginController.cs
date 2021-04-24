@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Cody.Controllers
 {
     [ApiController]
-    [Route("user")]
+    [Route("api/user")]
     [Authorize]
     public class CookieLoginController : ControllerBase
     {

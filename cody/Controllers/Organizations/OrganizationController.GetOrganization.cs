@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationsController
+    public partial class OrganizationController
     {
-        [HttpGet("{id}")]
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetOrganization(int id)
+        public async Task<IActionResult> GetOrganization(int organizationId)
         {
             var user = await HttpContext.GetLoggedUserAsync();
             var result = await _dbContext
                 .GetAllOrganizations()
-                .Where(o => o.Id == id)
+                .Where(o => o.Id == organizationId)
                 .FormatFor(user)
                 .FirstOrDefaultAsync();
 

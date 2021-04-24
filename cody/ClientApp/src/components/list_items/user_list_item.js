@@ -2,6 +2,7 @@ import React from "react";
 import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
+import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -24,7 +25,7 @@ export function UserListItem(props){
       >
         <ListItemAvatar>
           <CustomAvatar
-            src={`user/profile_picture/${props.data?.id}`}
+            src={ProfilePicture.url`/${props.data?.id}`}
             alt={props.data?.username}
           />
         </ListItemAvatar>

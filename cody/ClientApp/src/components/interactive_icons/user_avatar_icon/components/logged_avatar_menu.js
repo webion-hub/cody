@@ -14,6 +14,7 @@ import { AccountMenuItem } from './menu_items/account_menu_item';
 import { AdminMenuItem } from './menu_items/admin_menu_item';
 import { LogoutMenuItem } from './menu_items/logout_menu_item';
 import { useMenu } from 'src/lib/hooks/use_menu';
+import { ProfilePicture } from 'src/lib/server_calls/profile_picture';
 
 const useStyles = makeStyles((theme) => ({
   avatarButton: {
@@ -68,7 +69,7 @@ export function LoggedAvatarMenu(){
         >
           <CustomAvatar
             alt={username}
-            src="user/profile_picture" 
+            src={ProfilePicture.url``}
           />
         </IconButton>
       </Tooltip>

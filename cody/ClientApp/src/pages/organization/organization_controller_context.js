@@ -33,7 +33,7 @@ export const OrganizationControllerContext = ({id, children}) => {
 
   const getMembers = async () => {
     await organization
-      .getMembersOf({
+      .getMembers({
         filter: "",
         limit: 3,
         offset: null

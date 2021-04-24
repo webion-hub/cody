@@ -21,7 +21,7 @@ namespace Cody.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("user")]
+    [Route("api/user")]
     public partial class UserController : ControllerBase
     {
         private readonly CodyContext _dbContext;

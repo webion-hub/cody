@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers
 {
-    [Route("user/bookmarks/organizations")]
+    [Route("api/user/bookmarks/organizations")]
     [Authorize]
     [ApiController]
     public partial class BookmarkedOrganizationsController : ControllerBase

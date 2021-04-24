@@ -12,7 +12,9 @@ export function AddOrganizationPhotoBase(props){
     loading,
     ...other
   } = props
+  
   const canNotUserEdit = !(callerIs === "Admin" || callerIs === "Owner")
+  const organizationImages = OrganizationImages.of(id);
 
   const updateOrganization = () => {
     EventsDispatcher
@@ -21,15 +23,13 @@ export function AddOrganizationPhotoBase(props){
   }
 
   const handleImageChange = (image) => {
-    OrganizationImages
-      .of(id)
+    organizationImages
       .update(type, image)
       .then(updateOrganization)
   }
 
   const handleImageDelete = () => {
-    OrganizationImages
-      .of(id)
+    organizationImages
       .delete(type)
       .then(updateOrganization)
   }
@@ -39,7 +39,7 @@ export function AddOrganizationPhotoBase(props){
       {...other}
       loading={loading}
       disabled={canNotUserEdit}
-      src={`organizations/${id}/${type}`}
+      src={organizationImages.url`/${type}`}
       onImageChange={handleImageChange}
       onImageDelete={handleImageDelete}
     >
