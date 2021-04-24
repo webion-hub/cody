@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
 {
-    [Route("admin/users")]
+    [Route("api/admin/users")]
     [ApiController]
     [Authorize(Roles = Roles.Admin)]
     public partial class UsersController : ControllerBase

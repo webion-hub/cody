@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    [Route("organizations")]
+    [Route("api/organizations")]
     [ApiController]
     [Authorize]
     public partial class OrganizationsController : ControllerBase

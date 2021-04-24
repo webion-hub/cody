@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers
 {
-    [Route("user")]
+    [Route("api/user")]
     [Authorize]
     public class JoinOrganizationController : ControllerBase
     {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    [Route("organization/{organizationId}/user/{userId}")]
+    [Route("api/organization/{organizationId}/user/{userId}")]
     [ApiController]
     [Authorize]
     public class OrganizationUsersController : ControllerBase

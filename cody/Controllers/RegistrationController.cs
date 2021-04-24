@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace Cody.Controllers
 {
     [ApiController]
-    [Route("user")]
+    [Route("api/user")]
     public class RegistrationController : ControllerBase
     {
         private readonly EmailVerificationService _emailValidationService;

@@ -13,7 +13,7 @@ export default class Requests {
         ? '/' + raw
         : raw;
 
-      return baseUrl + postfix;
+      return `api/${baseUrl}${postfix}`;
     };
   }
 

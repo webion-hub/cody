@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers
 {
-    [Route("user")]
+    [Route("api/user")]
     [ApiController]
     [Authorize]
     public class LogoutController : ControllerBase

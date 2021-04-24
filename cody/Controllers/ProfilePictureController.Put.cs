@@ -19,7 +19,7 @@ namespace Cody.Controllers
 
             var uploaded = await _sftp.TryUploadImageAsync(request, picture);
             if (!uploaded)
-                return Problem("sftp connection error");
+                return Problem("upload_error");
 
             await _dbContext.SaveChangesAsync();
             return Ok(picture.Id);

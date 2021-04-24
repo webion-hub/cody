@@ -28,7 +28,7 @@ namespace Cody.Controllers
         }
 
 
-        [HttpPost("login_with_cookie")]
+        [HttpPost("api/login_with_cookie")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithCookie()
         {

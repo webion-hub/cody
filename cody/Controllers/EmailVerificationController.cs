@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers
 {
-    [Route("user/verify")]
+    [Route("api/user/verify")]
     [AllowAnonymous]
     [ApiController]
     public class EmailVerificationController : ControllerBase
