@@ -7,8 +7,8 @@ export default class Requests {
    * @param {string} baseUrl 
    */
   static createUrlTag = (baseUrl) => {
-    return (strings, ..._) => {
-      const raw = strings.raw[0];
+    return (strings, ...values) => {
+      const raw = String.raw(strings, values);
       const postfix = raw.length > 0 && !raw.startsWith('/')
         ? '/' + raw
         : raw;
