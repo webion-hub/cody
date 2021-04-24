@@ -12,9 +12,9 @@ namespace Cody.Controllers.Organizations
     {
         [HttpPatch("verify")]
         [Authorize(Roles = Roles.Admin)]
-        public async Task<IActionResult> Verify(int id)
+        public async Task<IActionResult> Verify(int organizationId)
         {
-            var organization = await GetOrganizationByIdAsync(id);
+            var organization = await GetOrganizationByIdAsync(organizationId);
             if (organization is null)
                 return NotFound();
 

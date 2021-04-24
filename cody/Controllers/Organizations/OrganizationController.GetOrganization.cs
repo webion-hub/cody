@@ -14,12 +14,12 @@ namespace Cody.Controllers.Organizations
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetOrganization(int id)
+        public async Task<IActionResult> GetOrganization(int organizationId)
         {
             var user = await HttpContext.GetLoggedUserAsync();
             var result = await _dbContext
                 .GetAllOrganizations()
-                .Where(o => o.Id == id)
+                .Where(o => o.Id == organizationId)
                 .FormatFor(user)
                 .FirstOrDefaultAsync();
 

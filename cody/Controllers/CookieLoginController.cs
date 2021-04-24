@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Cody.Controllers
 {
     [ApiController]
-    [Route("user")]
+    [Route("api/user")]
     [Authorize]
     public class CookieLoginController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace Cody.Controllers
         }
 
 
-        [HttpPost("api/login_with_cookie")]
+        [HttpPost("login_with_cookie")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithCookie()
         {

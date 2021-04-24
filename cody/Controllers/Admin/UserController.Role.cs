@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
 {
-    public partial class UsersController
+    public partial class UserController
     {
-        [HttpGet("{userId}/role")]
+        [HttpGet("role")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> GetRole([FromRoute] int userId)
         {
@@ -22,7 +22,7 @@ namespace Cody.Controllers.Admin
         }
 
 
-        [HttpPut("{userId}/role/{role}")]
+        [HttpPut("role/{role}")]
         [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> SetRole(
             [FromRoute] int userId,

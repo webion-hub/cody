@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
 {
-    public partial class UsersController
+    public partial class UserController
     {
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles = Roles.Admin)]
-        public async Task<IActionResult> Delete(int id) => await DeleteOrRestoreAsync(id, isDeleted: true);
+        public async Task<IActionResult> Delete(int userId) => await DeleteOrRestoreAsync(userId, isDeleted: true);
 
-        [HttpPatch("restore/{id}")]
+        [HttpPatch("restore")]
         [Authorize(Roles = Roles.Admin)]
-        public async Task<IActionResult> Restore(int id) => await DeleteOrRestoreAsync(id, isDeleted: false);
+        public async Task<IActionResult> Restore(int userId) => await DeleteOrRestoreAsync(userId, isDeleted: false);
 
 
         private async Task<IActionResult> DeleteOrRestoreAsync(int userId, bool isDeleted)

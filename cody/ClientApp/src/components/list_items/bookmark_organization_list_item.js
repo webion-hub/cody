@@ -12,6 +12,7 @@ import { OrganizationLabel } from 'src/components/typography/organization_label'
 
 import { BookmarkIconButton } from 'src/components/bookmark_icon_button';
 import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
+import OrganizationImages from 'src/lib/server_calls/organization_images';
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
@@ -38,7 +39,8 @@ export function BookmarkOrganizationListItem(props) {
   const organizationHasLogo = organization.hasLogo
   const organizationKind = organization.kind
 
-  const organizationImageUrl = `organizations/${organizationId}/logo`
+  const organizationImageUrl = 
+    OrganizationImages.of(organizationId).url`/logo`
 
   return (
     <OrganizationListItemBase

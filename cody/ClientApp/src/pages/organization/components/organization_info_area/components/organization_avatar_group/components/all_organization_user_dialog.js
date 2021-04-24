@@ -152,7 +152,7 @@ export function AllOrganizationUserDialog(props){
           width="100%"
           elementForStep={25}
           itemSize={56}
-          getList={organization.getMembersOf}
+          getList={organization.getMembers}
           listItem={UserListItem}
           listItemProps={{
             onClick: handleUserChange 

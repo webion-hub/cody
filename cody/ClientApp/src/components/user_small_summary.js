@@ -8,6 +8,7 @@ import { UserRoleLabel } from "src/components/user_role_label";
 
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 import { UserSettingsMenu } from "./menu/menus/user_settings_menu";
+import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -64,7 +65,7 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
         className={classes.usernameAvatarContainer}
       >
         <CustomAvatar
-          src={`user/profile_picture/${user.id}`}
+          src={ProfilePicture.url`/${user.id}`}
           alt={user.username}
           size={56}
         />

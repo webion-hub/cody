@@ -8,7 +8,7 @@ export default class OrganizationImages {
   constructor(organizationId) {
     this._organizationId = organizationId;
     this.url = Requests.createUrlTag(
-      `organization/${organizationId}/images`
+      `api/organization/${organizationId}/images`
     );
   }
 

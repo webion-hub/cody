@@ -7,6 +7,7 @@ import { CustomAvatarGroup } from "src/components/custom_avatar_group";
 import { AllOrganizationUserDialog } from "./components/all_organization_user_dialog";
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
+import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 
 const useStyles = makeStyles((theme) => ({
   avatarGroup: {
@@ -44,7 +45,7 @@ export function  OrganizationAvatarGroup() {
 
     const values = data.values
     const userList = values.map(user => ({
-      src: `user/profile_picture/${user.id}`,
+      src: ProfilePicture.url`/${user.id}`,
       alt: user.username,
       menuContent: <UserSmallSummary user={user} callerIs={callerIs}/>
     }))

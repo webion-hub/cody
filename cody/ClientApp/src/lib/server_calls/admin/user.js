@@ -9,6 +9,9 @@ export default class User {
 
   constructor(id) {
     this._id = id;
+    this.url = Requests.createUrlTag(
+      `admin/user/${this._id}`
+    );
   }
 
 
@@ -17,7 +20,7 @@ export default class User {
    */
   setRole = async (role) => {
     return Requests.send({
-      url: `admin/users/${this._id}/role/${role}`,
+      url: this.url`/role/${role}`,
       method: 'PUT',
     });
   }
@@ -27,7 +30,7 @@ export default class User {
    */
   getRole = async () => {
     return Requests.send({
-      url: `admin/users/${this._id}/role`,
+      url: this.url`/role`,
       method: 'GET',
     })
     .then(resp => resp.data);
@@ -38,7 +41,7 @@ export default class User {
    */
   delete = async () => {
     return Requests.send({
-      url: `admin/users/${this._id}`,
+      url: this.url``,
       method: 'DELETE',
     });
   }
@@ -48,7 +51,7 @@ export default class User {
    */
   deleteForever = async () => {
     return Requests.send({
-      url: `admin/users/delete_forever/${this._id}`,
+      url: this.url`/delete_forever`,
       method: 'DELETE',
     }); 
   }
@@ -58,7 +61,7 @@ export default class User {
    */
   restore = async () => {
     return Requests.send({
-      url: `admin/users/restore/${this._id}`,
+      url: this.url`/restore`,
       method: 'PATCH',
     });
   }

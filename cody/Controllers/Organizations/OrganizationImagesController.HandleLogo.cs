@@ -10,7 +10,7 @@ namespace Cody.Controllers.Organizations
 {
     public partial class OrganizationImagesController
     {
-        [HttpPut("/logo")]
+        [HttpPut("logo")]
         [Authorize]
         public async Task<IActionResult> PutLogo(
             [FromRoute] int organizationId,
@@ -24,7 +24,7 @@ namespace Cody.Controllers.Organizations
             });
         }
         
-        [HttpDelete("/logo")]
+        [HttpDelete("logo")]
         [Authorize]
         public async Task<IActionResult> DeleteLogo(int organizationId)
         {
@@ -35,7 +35,7 @@ namespace Cody.Controllers.Organizations
             );
         }
 
-        [HttpGet("/logo")]
+        [HttpGet("logo")]
         [Authorize]
         public async Task<IActionResult> GetLogo(int organizationId)
         {

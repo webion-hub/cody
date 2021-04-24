@@ -13,7 +13,7 @@ export default class Requests {
         ? '/' + raw
         : raw;
 
-      return `api/${baseUrl}${postfix}`;
+      return baseUrl + postfix;
     };
   }
 
@@ -43,10 +43,20 @@ export default class Requests {
    * @returns {Promise<AxiosResponse<any>>} 
    */
   static send = async (config) => {
+    Requests._maybeAddPrefix(config);
+    
     return axios
       .request(config)
       .then(Requests._done)
       .catch(Requests._catch);
+  }
+
+  /**
+   * @param {AxiosRequestConfig} config
+   */
+   static _maybeAddPrefix = (config) => {
+    if (!config.url.startsWith('api/'))
+      config.url = 'api/' + config.url;
   }
 
 

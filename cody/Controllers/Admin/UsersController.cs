@@ -1,11 +1,10 @@
 ﻿using Cody.Contexts;
+using Cody.Extensions;
+using Cody.QueryExtensions;
 using Cody.Security.Authorization;
-using Cody.Services.Sftp;
+using Cody.Utilities.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,12 +16,42 @@ namespace Cody.Controllers.Admin
     public partial class UsersController : ControllerBase
     {
         private readonly CodyContext _dbContext;
-        private readonly SftpService _sftp;
 
-        public UsersController(CodyContext dbContext, SftpService sftp)
+        public UsersController(CodyContext dbContext)
         {
             _dbContext = dbContext;
-            _sftp = sftp;
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = Roles.Admin)]
+        public async Task<IActionResult> Get(
+            [FromQuery] string filter,
+            [FromQuery] int? limit,
+            [FromQuery] int? offset
+        ) {
+            var response = await SearchResult.FormatAsync(
+                results: GetFilteredUsers(filter),
+                limit: limit,
+                offset: offset
+            );
+
+            return Ok(response);
+        }
+
+
+        private IQueryable<object> GetFilteredUsers(string filter)
+        {
+            return _dbContext
+                .UserAccounts
+                .IncludingDetail()
+                .IncludingProfilePicture()
+                .IncludingState()
+                .IncludingOrganizations()
+
+                .CreateFilter(filter, FilterKind.SplitWords)
+                .DefaultMatch()
+                .FormatFor(null);
         }
     }
 }

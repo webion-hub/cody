@@ -5,6 +5,7 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
+import OrganizationImages from 'src/lib/server_calls/organization_images';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +65,7 @@ export function SidebarOrganizationAvatarList(props){
       >
         <CustomAvatar
           loading={loading}
-          src={`organizations/${organization.id}/logo`}
+          src={OrganizationImages.of(organization.id).url`/logo`}
           alt={organization.name}
         />
       </Tooltip>
