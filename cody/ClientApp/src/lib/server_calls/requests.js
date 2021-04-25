@@ -19,11 +19,13 @@ export default class Requests {
 
 
   /**
-   * @param {SingleXHRRequest} singleXHRRequest
    * @param {AxiosRequestConfig} config
    * @returns {Promise<SearchResult<any>>}
    */
-  static search = async (singleXHRRequest, config) => {
+  static search = async (config) => {
+    const singleXHRRequest = 
+      this._getSingleXHRRequestFrom(config.url);
+
     return singleXHRRequest.send(async tokenSource => {
       return Requests.send({
         ...config,
@@ -35,6 +37,11 @@ export default class Requests {
           : {total: 0, values: []};
       });
     });
+  }
+
+  static _getSingleXHRRequestFrom = (url) => {
+    Requests._searchRequests[url] ??= new SingleXHRRequest();
+    return Requests._searchRequests[url];
   }
 
 
@@ -114,3 +121,4 @@ export default class Requests {
 }
 
 Requests._validator = new RequestsValidator();
+Requests._searchRequests = {};

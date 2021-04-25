@@ -69,16 +69,13 @@ export default class Organization {
    * @returns {Promise<SearchResult<OrganizationMember>>}
    */
   getMembers = async (options) => {
-    return Requests.search(Organization._getMembersReq, {
+    return Requests.search({
       url: this.url`/members`,
       method: 'GET',
       params: options,
     });
   }
 }
-
-
-Organization._getMembersReq = new SingleXHRRequest();
 
 
 /**

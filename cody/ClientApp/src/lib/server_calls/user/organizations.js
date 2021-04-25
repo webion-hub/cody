@@ -61,14 +61,12 @@ export const leave = async (options) => {
  * @returns {Promise<SearchResult<JoinedOrganization>>} 
  */
 export const getJoinedOrganizations = async (options) => {
-  return Requests.search(_getJoinedOrgsReq, {
+  return Requests.search({
     url: 'user/joined_organizations',
     method: 'GET',
     params: options,
   });
 };
-
-const _getJoinedOrgsReq = new SingleXHRRequest();
 
 
 /**

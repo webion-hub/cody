@@ -29,12 +29,9 @@ export const removeBookmarkedOrganization = async (organizationId) => {
  * @returns {Promise<SearchResult<Organization>>}
  */
 export const getBookmarkedOrganizations = async (options) => {
-  return Requests.search(_getBookmarkedOrgsReq, {
+  return Requests.search({
     url: 'user/bookmarks/organizations',
     method: 'GET',
     params: options,
   });
 }
-
-
-const _getBookmarkedOrgsReq = new SingleXHRRequest();

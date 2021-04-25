@@ -44,15 +44,13 @@ export class Organizations {
    * @returns {Promise<SearchResult<Organization>>}
    */
   static async listAll(options) {
-    return Requests.search(Organizations._listAllReq, {
+    return Requests.search({
       url: 'organizations',
       method: 'GET',
       params: options,
     });
   }
 }
-
-Organizations._listAllReq = new SingleXHRRequest();
 
 
 /**

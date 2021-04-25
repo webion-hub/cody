@@ -1,7 +1,6 @@
 import './cody_types';
 import User from './admin/user';
 import Requests from './requests';
-import SingleXHRRequest from './single_xhr_request';
 
 export class Admin {
   /**
@@ -9,7 +8,7 @@ export class Admin {
    * @returns {Promise<SearchResult<Admin.UserResult>>}
    */
   static async getUsers(options) {
-    return Requests.search(Admin._getUsersReq, {
+    return Requests.search({
       url: 'admin/users',
       method: 'GET',
       params: options,
@@ -18,7 +17,6 @@ export class Admin {
 }
 
 Admin.User = User;
-Admin._getUsersReq = new SingleXHRRequest();
 
 /**
  * @typedef {{
