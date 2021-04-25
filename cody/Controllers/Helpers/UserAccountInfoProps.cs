@@ -42,7 +42,7 @@ namespace Cody.Controllers.Helpers
             BirthDate        => _user.AccountDetail.BirthDate,
             Role             => _user.Role.ToString(),
             RegistrationDate => _user.AccountDetail.RegistrationDate,
-            Biography        => _user.AccountDetail.Biography.Contents,
+            Biography        => _user.AccountDetail.Biography?.Contents,
 
             _ => null,
         };
