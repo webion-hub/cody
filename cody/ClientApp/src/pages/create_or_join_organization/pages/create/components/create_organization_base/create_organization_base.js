@@ -82,14 +82,12 @@ export function CreateOrganizationBase(props){
     tryCreateOrganization({
       data: prepareData(data),
       kind: props.type,
-      onSuccess: (id) => {
-        PageController.push(`/organization/${id}`)
-      },
+      onSuccess: (id) => PageController.push(`/organization/${id}`),
       onConflict: () => setExistingOrganization(true),
       onError: (err) => {},
-      onFormatError: (err) => setErrors(err)
+      onFormatError: setErrors
     })
-    .finally(() => setLoading(false))
+    .finally(_ => setLoading(false))
   }
 
   return(

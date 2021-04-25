@@ -88,7 +88,6 @@ export function OrganizationPageContent(){
 					className={classes.backgroundImageContainer}
 				>
 					<OrganizationImageBackground/>
-
 					<Grid
 						container
 						direction="row"
