@@ -47,7 +47,7 @@ namespace Cody.Security.Validation.Attributes
     internal class DefaultDescriptionLengthAttribute : MaxLengthAttribute
     {
         public DefaultDescriptionLengthAttribute()
-            : base(FieldLength.DefaultMaxLength)
+            : base(FieldLength.MaxDescriptionLength)
         { }
     }
 }
