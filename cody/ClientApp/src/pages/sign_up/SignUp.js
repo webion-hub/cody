@@ -16,8 +16,8 @@ import { SignUpCompleted } from './steps/form_completed/sign_up_completed';
 import { getElements } from './steps/getElements';
 
 import { Images } from 'src/lib/default_values/images/images';
-import { PageController } from 'src/lib/page_controller';
 import { tryRegister } from './lib/try_register';
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -96,6 +96,9 @@ export default function SignUp(){
       direction="column"
     >     
       <CustomStepper
+        hrefFirstPage='/login'
+        onBackFirstPage={(e) => PageController.push('/login', e)}
+        firstPageLabel="Vai al login"
         data={data}
         setErrors={setErrors}
         elements={elementsList}
