@@ -1,8 +1,8 @@
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
+import { FormatControllerBase } from '../format_controller_base';
 
-export class DescriptionController{
-
-  wrongFormat(description){
+export class DescriptionController extends FormatControllerBase{
+  static wrongFormat = (description) => {
     if(description.length === 0)
       return false;
 
@@ -11,9 +11,12 @@ export class DescriptionController{
       .wrongFormat(description, {skippable: true});
   }
 
-  checkDescription(description, skip){
-    if(skip)
-      return new Promise(resolve => {resolve('noError')});
+  static check = (values, skip) => {
+    const description = values.description
+    
+    if(this.canSkip(description, skip))
+      return new Promise(resolve => resolve());
+
     return new Promise(resolve => {
 
       if(this.wrongFormat(description))
@@ -21,7 +24,7 @@ export class DescriptionController{
         resolve("descriptionError");
       }
       else {
-        resolve("correctDescription")
+        resolve()
       }
     })
   }
