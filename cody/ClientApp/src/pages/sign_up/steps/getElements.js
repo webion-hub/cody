@@ -1,11 +1,8 @@
-import { EmailPassword } from './1_email_password/email_password_step';
-import { EmailPasswordController } from './1_email_password/email_password_controller';
+import { EmailPassword } from './email_password_step';
+import { IDData } from './id_step';
+import { AddPhotoStep } from './addphoto_step';
 
-import { IDData } from './2_ID_data/id_step';
-import { IDController } from './2_ID_data/id_controller';
-
-import { AddPhotoStep } from './3_optional/addphoto_step';
-import { TermsAndServiceController } from './3_optional/terms_and_service_controller';
+import { FormatController } from 'src/lib/format_controller/format_controller';
 
 export const getElements = ({
   handleDataChange,
@@ -13,7 +10,6 @@ export const getElements = ({
   errors,
 }) => [
   {
-    controller: new EmailPasswordController(),
     height: 415,
     element: 
       <EmailPassword
@@ -22,10 +18,13 @@ export const getElements = ({
         onConfirmPasswordChange = {handleDataChange("confirmPassword")}
         values = {data}
         errors = {errors}
-      />
+      />,
+    controller: FormatController
+      .setController()
+      .add('email')
+      .add('password')
   },
   {
-    controller: new IDController(),
     height: 483,
     element: 
       <IDData
@@ -35,10 +34,15 @@ export const getElements = ({
         onBirthDateChange = {handleDataChange("birthDate")}
         values = {data}
         errors = {errors}
-      />
+      />,
+    controller: FormatController
+      .setController()
+      .add('username')
+      .add('name')
+      .add('surname')
+      .add('birthDate')
   },  
   {
-    controller: new TermsAndServiceController,
     height: 397,
     element: 
       <AddPhotoStep
@@ -46,6 +50,9 @@ export const getElements = ({
         onAcceptTerms = {handleDataChange("acceptTerms")}
         values = {data}
         errors = {errors}
-      />
+      />,
+    controller: FormatController
+      .setController()
+      .add('termsAndService')
   },
 ]

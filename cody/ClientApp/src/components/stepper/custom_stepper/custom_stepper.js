@@ -46,30 +46,27 @@ export function CustomStepper(props){
 
     const controller = props.elements[activeStep].controller;
     const data = props.data;
-    if(controller === null){
+    if(controller === null || controller === undefined){
       stepperHandlers.handleNext()
       setStepperState("");
       return;
     }
 
     controller
-      .checkAll(data)
-      .then(async results => {
-        let errors = {};
-        results.forEach(async result => {
-          if (result === 'noError'){
-            handleNoErrors()
-            return;
-          }
-
-          errors[result] = true;
-          setStepperState("")
-        });
-        props.setErrors(errors);
+      .checkAll({
+        values: data,
+        onErrors: handleErrors,
+        onNoErrors: handleNoErrors
       })
   }
 
+  const handleErrors = (errors) => {
+    props.setErrors(errors)
+    setStepperState("")
+  }
+
   const handleNoErrors = () => {
+    props.setErrors({})
     if(activeStep === totalStep - 1)
       handleLastStep()
     else 
@@ -97,6 +94,7 @@ export function CustomStepper(props){
   return (
     <>
       <PaperWithTransitionBase
+        component={props.component}
         width={616}
         height={height}
         extraHeightOnMobile={32}
@@ -119,9 +117,9 @@ export function CustomStepper(props){
           <StepperLeftButton 
             activeStep={activeStep}
             onBack={() => stepperHandlers.handleBack()}
-            hrefFirstPage='/login'
-            onBackFirstPage={(e) => PageController.push('/login', e)}
-            firstPageLabel="Vai al login"
+            hrefFirstPage={props.hrefFirstPage}
+            onBackFirstPage={props.onBackFirstPage}
+            firstPageLabel={props.firstPageLabel}
             disabled={stepperState === "loading"}
           />
           <StepperRightButton 

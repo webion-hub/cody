@@ -8,9 +8,9 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { Calendar } from 'src/components/illustrations/calendar';
 
-import { BirthDateController } from 'src/lib/format_controller/id_controllers';
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
+import { BirthDateController } from 'src/lib/format_controller/controllers/birth_date_controller';
 
 export function EditableDatePicker(props){
 	const [editMode, setEditMode] = React.useState(false);
