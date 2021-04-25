@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -26,11 +26,6 @@ export function BackgroundWithLines(props){
 	const boxHeight = useGetSize(box).height;
 	const elementsNumber = Math.round(boxHeight / 100);
 
-
-	useEffect(() => {
-		console.log(box)
-	}, [box])
-	
 	const lines = [...Array(elementsNumber)]
 		.map((_, index) => (
 			<Grid
