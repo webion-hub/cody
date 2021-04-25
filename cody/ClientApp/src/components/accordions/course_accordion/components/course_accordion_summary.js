@@ -16,9 +16,30 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -theme.spacing(1),
     marginRight: theme.spacing(1)
   },
-  autoWidth: {
-    width: "auto"
+  title: {
+    width: "calc(100% - 64px)"
   },
+  titleContainer: {
+    width: "70%",
+    [theme.breakpoints.down('md')]: {
+      width: "100%"
+    },
+  },
+  teachersContainer: {
+    width: "30%",
+    [theme.breakpoints.down('md')]: {
+      width: "100%"
+    },
+  },
+  teachers: {
+    width: "100%"
+  },
+  teachersLabel: {
+    width: "100%"
+  },
+  accordionSummary: {
+    width: 0
+  }
 }));
 
 export function CourseAccordionSummary(props){
@@ -33,6 +54,9 @@ export function CourseAccordionSummary(props){
 
   return (
     <AccordionSummary
+      classes={{
+        content: classes.accordionSummary
+      }}
       expandIcon={<ExpandMoreRoundedIcon />}
     >
       <Grid
@@ -42,7 +66,7 @@ export function CourseAccordionSummary(props){
         alignItems={smallScreenView ? "flex-start" : "center"}
       >
         <Grid
-          className={classes.autoWidth}
+          className={classes.titleContainer}
           container
           direction="row"
           alignItems="center"
@@ -57,6 +81,7 @@ export function CourseAccordionSummary(props){
           </IconButton>
           <Typography
             noWrap
+            className={classes.title}
           >
             {title}
           </Typography>
@@ -64,9 +89,10 @@ export function CourseAccordionSummary(props){
         <Grid
           container
           direction="column"
-          className={classes.autoWidth}
+          className={classes.teachersContainer}
         >
           <Typography
+            className={classes.teachersLabel}
             variant="caption"
             align={smallScreenView ? "left" : "right"}
             color="textSecondary"
@@ -75,6 +101,8 @@ export function CourseAccordionSummary(props){
             Professori
           </Typography>
           <Typography
+            className={classes.teachers}
+            align={smallScreenView ? "left" : "right"}
             color="textSecondary"
             noWrap
           >
