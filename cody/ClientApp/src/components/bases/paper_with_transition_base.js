@@ -39,7 +39,7 @@ export function PaperWithTransitionBase(props){
   const classes = useStyles(props);
 
   return(
-    <PaperWithWaves
+    <props.component
       className={classes.paperBox}
     >
       <Grid
@@ -57,7 +57,7 @@ export function PaperWithTransitionBase(props){
           {props.children}
         </Grid>
       </Grid>
-    </PaperWithWaves>
+    </props.component>
   );
 }
 
@@ -66,4 +66,5 @@ PaperWithTransitionBase.defaultProps = {
   width: "auto",
   height: "auto",
   removeHeightOnMobile: 0,
+  component: PaperWithWaves
 }
