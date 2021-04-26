@@ -1,10 +1,15 @@
 const codyCache = 'cody-cache-v1';
 const urlsToCache = [
   '/images/forest.webp',
+  '/images/offline.svg',
+  '/images/server_not_available.svg',
   '/icons/cody-lg.webp',
   '/icons/cody-sm.png',
-  '/offline.html',
-  '/offline.css',
+
+  '/error/offline.html',
+  '/error/server_not_available.html',
+  '/error/error.css',
+  
   '/index.css',
   '/index.js',
 ];
@@ -38,13 +43,32 @@ async function getResponse(request) {
       if (response)
         return response;
 
-      return fetch(request)
-        .then(response => {
-          maybeCacheResponse(request.url, response.clone());
-          return response;
-        })
-        .catch(_ => getOfflinePage())
+      return fetchNonCachedRequest(request);
     });
+}
+
+async function fetchNonCachedRequest(request) {
+  return fetch(request)
+    .then(async response => {
+      return await handleResponse(request, response)
+    })
+    .catch(_ => getOfflinePage());
+}
+
+async function handleResponse(request, response) {
+  const error = await maybeGetErrorPage(response.status);
+  if (error)
+    return error;
+
+  maybeCacheResponse(request.url, response.clone());
+  return response;
+}
+
+async function maybeGetErrorPage(status) {
+  switch (status) {
+    case 502: return getServerNotAvailablePage();
+    default: return null;
+  }
 }
 
 
@@ -53,7 +77,7 @@ async function getResponse(request) {
  * @param {Response} response
  * @returns {Promise<void>}
  */
- async function maybeCacheResponse(requestUrl, response) {
+async function maybeCacheResponse(requestUrl, response) {
   if (!isCacheable(requestUrl))
     return Promise.resolve();
 
@@ -76,11 +100,19 @@ function isCacheable(requestUrl) {
 }
 
 
+async function getServerNotAvailablePage() {
+  return getCachedPage('/error/server_not_available.html');
+}
+
+async function getOfflinePage() {
+  return getCachedPage('/error/offline.html');
+}
+
 /**
  * @returns {Promise<Response>}
  */
-async function getOfflinePage() {
+async function getCachedPage(url) {
   return caches
     .open(codyCache)
-    .then(cache => cache.match('/offline.html'));
+    .then(cache => cache.match(url));
 }
