@@ -1,6 +1,10 @@
 function init() {
   loadThemeColors();
   initEventHandlers();
+
+  window.addEventListener('load', () => {
+    loadIllustrations();
+  });
 }
 
 
@@ -33,4 +37,18 @@ function loadThemeColors() {
     root.style.setProperty('--background-color', '#f7f7f8');
     root.style.setProperty('--offline-alert-color', 'black');
   }
+}
+
+
+function loadIllustrations() {
+  const illustrations = 
+    document.querySelectorAll('.illustration[data-path]');
+
+  illustrations.forEach((illustration) => {
+    const path = illustration.getAttribute('data-path');
+    fetch(path)
+      .then(r => r.text())
+      .then(t => illustration.innerHTML = t);
+  });
+}
 }
