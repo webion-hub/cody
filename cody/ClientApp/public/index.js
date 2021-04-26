@@ -51,4 +51,14 @@ function loadIllustrations() {
       .then(t => illustration.innerHTML = t);
   });
 }
+
+
+function reloadPage() {
+  const isErrorPage = location.href.match('/error/');
+  if (isErrorPage) {
+    location.href = '/';
+  }
+  else {
+    location.reload();
+  }
 }
