@@ -11,7 +11,7 @@ import NavigateNextRoundedIcon from '@material-ui/icons/NavigateNextRounded';
 import { PageController } from 'src/lib/page_controller';
 
 import { getBookmarkedOrganizations } from './lib/get_bookmarked_organizations';
-import { SidebarOrganizationAvatarList } from './components/sidebar_organization_avatar_list';
+import { SidebarBookmarkedOrganizationList } from './components/sidebar_bookmarked_organization_list';
 import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { useListener } from 'src/lib/hooks/use_listener';
 
@@ -121,7 +121,7 @@ export function SideBarOrganizationList(props){
   }, [drawerState, drawerFilterState])
 
 	const avatarList = drawerState === "close" &&
-	<SidebarOrganizationAvatarList
+	<SidebarBookmarkedOrganizationList
 		organizationsList={organizationsList}
 		loading={loading}
 	/>

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SidebarOrganizationAvatarList(props){
+export function SidebarBookmarkedOrganizationList(props){
   const classes = useStyles();
   const organizationsList = props.organizationsList
   const loading = props.loading
@@ -51,24 +51,25 @@ export function SidebarOrganizationAvatarList(props){
     )
   }
 
-	return organizationsList.map(organization => 
-    <OrganizationListItemBase 
-      className={classes.sideBarAvatar} 
-      key={organization.id}
-      organizationId={organization.id}
-    >
-      <Tooltip
+	return organizationsList
+    .map(organization => 
+      <OrganizationListItemBase 
+        className={classes.sideBarAvatar} 
         key={organization.id}
-        arrow
-        placement="right"
-        title={getTooltipTitle(organization)}
+        organizationId={organization.id}
       >
-        <CustomAvatar
-          loading={loading}
-          src={OrganizationImages.of(organization.id).url`/logo`}
-          alt={organization.name}
-        />
-      </Tooltip>
-    </OrganizationListItemBase>
-  )
+        <Tooltip
+          key={organization.id}
+          arrow
+          placement="right"
+          title={getTooltipTitle(organization)}
+        >
+          <CustomAvatar
+            loading={loading}
+            src={OrganizationImages.of(organization.id).url`/logo`}
+            alt={organization.name}
+          />
+        </Tooltip>
+      </OrganizationListItemBase>
+    )
 }
