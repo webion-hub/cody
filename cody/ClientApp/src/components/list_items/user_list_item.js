@@ -14,19 +14,30 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserListItem(props){
 	const classes = useStyles();
+  const {
+    style,
+    index,
+    data,
+    onClick,
+    onDataChange,
+  } = props
+
+  const handleEvent = (newData) => {
+    onDataChange(newData, index)
+  }
 
   return (
-    <div style={props.style} key={props.index}>
+    <div style={style} key={index}>
       <ListItem 
         className={classes.listItem}
         ContainerComponent="div" 
         button
-        onClick={_ => props.onClick?.(props.data)}
+        onClick={_ => onClick?.(data)}
       >
         <ListItemAvatar>
           <CustomAvatar
-            src={ProfilePicture.url`/${props.data?.id}`}
-            alt={props.data?.username}
+            src={ProfilePicture.url`/${data?.id}`}
+            alt={data?.username}
           />
         </ListItemAvatar>
         <ListItemText
@@ -34,7 +45,7 @@ export function UserListItem(props){
             noWrap: true
           }}
         >
-          {props.data?.username}
+          {data?.username}
         </ListItemText>
       </ListItem>
     </div>
