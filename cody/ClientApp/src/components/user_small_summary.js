@@ -9,6 +9,7 @@ import { UserRoleLabel } from "src/components/user_role_label";
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 import { UserSettingsMenu } from "./menu/menus/user_settings_menu";
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
+import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginRight: -theme.spacing(1),
     marginLeft: -theme.spacing(1),
-    background: theme.palette.background.paperSecondary
+    background: theme.palette.background.paperSecondary,
+    height: 44
   },
   userInfoText: {
     width: "100%",
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const UserSmallSummary = React.forwardRef((props, ref) => {
 	const classes = useStyles();
-  const { user, callerIs, className } = props
+  const { user, callerIs, handler, className } = props
   
   if(user === null)
     return <div></div>
@@ -104,8 +106,10 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
       />
       <div className={classes.openUserPage}>
         <UserSettingsMenu
-          user={user}
+          userId={user.id}
           callerIs={callerIs}
+          handler={handler}
+          onUserUpdate={props.onUserUpdate}
         />
         <IconButton
           className={classes.goToUserPageIcon}
