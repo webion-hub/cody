@@ -6,9 +6,9 @@ import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
 import OrganizationTreeView from "./components/organization_treeview";
-import OrganizationCourses from "./components/organization_courses/organization_courses";
 import { OrganizationImageBackground } from "./components/organzation_image_background";
 import { BackgroundWithLines } from "src/components/background_with_lines/background_with_lines";
+import { OrganizationCourses } from "./components/organization_courses/organization_courses";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
