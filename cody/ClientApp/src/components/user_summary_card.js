@@ -50,7 +50,9 @@ export function UserSummaryCard(props){
   const {
     user,
     leftIcon,
-    callerIs
+    callerIs,
+    handler,
+    onUserUpdate
   } = props
   
   const leftIconWithProps = React.Children.map(leftIcon, child =>
@@ -62,8 +64,10 @@ export function UserSummaryCard(props){
       {leftIconWithProps}
       <UserSettingsMenu
         className={classes.userSettingsMenu}
-        user={user}
+        userId={user.id}
         callerIs={callerIs}
+        handler={handler}
+        onUserUpdate={onUserUpdate}
       />
       <Grid
         className={classes.userInfoContainer}
