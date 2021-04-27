@@ -3,19 +3,14 @@ import { Organizations } from 'src/lib/server_calls/organizations';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
 
 const getOrganizationKindController = (kind) => {
-  if(kind === 'Team')
-    return FormatController
-      .setController()
-        .add('organizationName')
-        .add('website', true)
-        .add('description', true)
-
-  return FormatController
+  const formatController = FormatController
     .setController()
       .add('organizationName')
-      .add('location')
       .add('website', true)
       .add('description', true)
+      .addIf('location', kind !== 'Team')
+
+  return formatController
 }
  
 export function tryCreateOrganization(settings){

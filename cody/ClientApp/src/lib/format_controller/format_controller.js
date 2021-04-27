@@ -16,10 +16,6 @@ export class FormatController {
     this.errorsList = [];
   }
 
-  static setController(){
-    return new FormatController([])
-  }
-
   insertError = (error) => {
     if(error === undefined)
       return
@@ -27,20 +23,15 @@ export class FormatController {
     this.errorsList.push(error);
   }
 
-  /**
-   * @param {Controllers} controller 
-   */
-  add(controller, skippable = false){
+  addController = (controller, skippable) => {
     this.controllersLabel
       .push({
         controller,
         skippable,
       });
-
-    return new FormatController(this.controllersLabel);
   }
 
-  getController(controllerLabel){
+  getController = (controllerLabel) => {
     const controller = {
       'email':            EmailController,
       'password':         PasswordController,
@@ -58,20 +49,13 @@ export class FormatController {
     return controller
   }
 
-  getControllersList(values){
-    let controllers = []
-    
-    this.controllersLabel
-      .forEach(controller => {
-        const valueController =
-          this.getController(controller.controller)
-            .check(values, controller.skippable)
-            .then(this.insertError)
-
-        controllers.push(valueController)        
-      });
-
-    return controllers;
+  getControllersList = (values) => {
+    return this.controllersLabel
+      .map(controller => 
+        this.getController(controller.controller)
+          .check(values, controller.skippable)
+          .then(this.insertError)
+      );
   }
 
   getErrorObject = () => {
@@ -84,7 +68,30 @@ export class FormatController {
     return errorsFromController
   }
 
-  checkAll(settings){
+  static setController = () => {
+    return new FormatController([])
+  }
+
+  /**
+   * @param {Controllers} controller 
+   */
+   add = (controller, skippable = false) => {
+    this.addController(controller, skippable);
+
+    return new FormatController(this.controllersLabel);
+  }
+
+  /**
+   * @param {Controllers} controller 
+   */
+  addIf = (controller, condition, skippable = false) => {
+    if(condition)
+      this.addController(controller, skippable);
+
+    return new FormatController(this.controllersLabel);
+  }
+
+  checkAll = (settings) => {
     const values = settings?.values;
     const onErrors = settings?.onErrors;
     const onNoErrors = settings?.onNoErrors;
@@ -92,15 +99,15 @@ export class FormatController {
     return new Promise(async resolve => {
       const controllers = this.getControllersList(values)
       await Promise.all(controllers)
-        .then(_ => {
+        .then(async _ => {
           const noError = this.errorsList.length === 0
           if(noError){
-            onNoErrors?.()
+            await onNoErrors?.()
             return;
           }
 
           const errors = this.getErrorObject()
-          onErrors?.(errors)
+          await onErrors?.(errors)
         })
         
       resolve()
