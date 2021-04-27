@@ -40,6 +40,7 @@ export function AdminUserMenu(props) {
 				onEditRole={refreshDataTable}
 				setLoading={setLoading}
 				handler={user}
+				onMenuClose={handleCloseMenu}
 			/>
 			<RestoreMenuItem
 				disabled={disableRestoreButton}
@@ -57,6 +58,7 @@ export function AdminUserMenu(props) {
 				onDeleteForever={refreshDataTable}
 				username={username}
 				handler={user}
+				onMenuClose={handleCloseMenu}
 			/>
 		</AdminRowMenuBase>
 	);
