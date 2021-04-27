@@ -30,6 +30,15 @@ export default class User {
   
 
   /**
+   * @returns {Promise<OrganizationRole>} 
+   */
+  getRole = async () => {
+    return Requests.get({
+      url: this.url`/role`,
+    });
+  }
+
+  /**
    * @param {OrganizationRole} newRole
    */
   setRole = async (newRole) => {
