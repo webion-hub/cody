@@ -48,6 +48,19 @@ export default class Requests {
 
 
   /**
+   * @param {AxiosRequestConfig} config
+   * @returns {Promise} 
+   */
+  static get = async (config) => {
+    return Requests.send({
+      method: 'GET',
+      ...config
+    })
+    .then(resp => resp?.data);
+  }
+
+
+  /**
    * @param {AxiosRequestConfig} config 
    * @returns {Promise<AxiosResponse<any>>} 
    */
