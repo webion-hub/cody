@@ -22,7 +22,7 @@ export default class User {
   withId = (userId) => {
     this._id = userId;
     this.url = Requests.createUrlTag(
-      `organizations/${this._organizationId}/user/${this._id}`
+      `organization/${this._organizationId}/user/${this._id}`
     );
     
     return this;

@@ -8,11 +8,9 @@ import { tryInvokeCallback } from "../utility";
  * @returns {Promise<OrganizationRole?>}
  */
 export const getRoleIn = async (organizationId) => {
-  return Requests.send({
+  return Requests.get({
     url: `user/role_in/${organizationId}`,
-    method: 'GET',
   })
-  .then(resp => resp.data);
 }
 
 
