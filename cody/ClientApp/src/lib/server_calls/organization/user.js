@@ -32,7 +32,7 @@ export default class User {
   /**
    * @param {OrganizationRole} newRole
    */
-  changeRole = async (newRole) => {
+  setRole = async (newRole) => {
     return Requests.send({
       url: this.url`/role/${newRole}`,
       method: 'PUT',
