@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function OrganizationPage(){
+export function OrganizationCourses(){
 	const classes = useStyles();
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
@@ -89,7 +89,7 @@ export default function OrganizationPage(){
   }, [])
 
   return (
-    <AccordionDetails>
+    <>
       <div className={classes.coursesBox}>
         <Grid
           className={classes.coursesTitle}
@@ -206,7 +206,7 @@ export default function OrganizationPage(){
             },
           ]}
         />
-      </DialogBase>
-    </AccordionDetails>
+      </DialogBase>    
+    </>
   );
 }
