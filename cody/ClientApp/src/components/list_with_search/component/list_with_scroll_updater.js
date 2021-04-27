@@ -21,7 +21,6 @@ export function ListWithScrollUpdater(props) {
     if(scrollMaxPosition === 0)
       return;
 
-    const scrollEndOffset = height / 5
     const isScrollAtTheEnd = scrollPosition >= scrollMaxPosition
 
     if(isScrollAtTheEnd)
