@@ -33,7 +33,7 @@ self.addEventListener('fetch', (event) => {
 
 
 /**
- * @param {RequestInfo} request 
+ * @param {Request} request 
  * @returns {Promise<Response>}
  */
 async function getResponse(request) {
@@ -47,14 +47,24 @@ async function getResponse(request) {
     });
 }
 
+
+/**
+ * @param {Request} request 
+ * @returns {Promise<Response>}
+ */
 async function fetchNonCachedRequest(request) {
   return fetch(request)
     .then(async response => {
-      return await handleResponse(request, response)
+      return await handleResponse(request, response);
     })
     .catch(_ => getOfflinePage());
 }
 
+/**
+ * @param {Request} request 
+ * @param {Response} response 
+ * @returns {Promise<Response>}
+ */
 async function handleResponse(request, response) {
   const error = await maybeGetErrorPage(response.status);
   if (error)
@@ -64,11 +74,16 @@ async function handleResponse(request, response) {
   return response;
 }
 
+/**
+ * @param {number} status 
+ * @returns {Promise<Response?>}
+ */
 async function maybeGetErrorPage(status) {
-  switch (status) {
-    case 502: return getServerNotAvailablePage();
-    default: return null;
-  }
+  const errorPages = {
+    502: getServerNotAvailablePage,
+  };
+
+  return errorPages[status]?.();
 }
 
 
@@ -87,7 +102,8 @@ async function maybeCacheResponse(requestUrl, response) {
 }
 
 /**
- * @param {string} requestUrl 
+ * @param {string} requestUrl
+ * @returns {boolean}
  */
 function isCacheable(requestUrl) {
   const cacheableUrls = [
@@ -109,6 +125,7 @@ async function getOfflinePage() {
 }
 
 /**
+ * @param {RequestInfo} url
  * @returns {Promise<Response>}
  */
 async function getCachedPage(url) {
