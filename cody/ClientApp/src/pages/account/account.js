@@ -20,9 +20,8 @@ import { CenterComponentPageBase } from 'src/components/bases/center_component_p
 export default function Account(){
 	const classes = useAccountStyles();
 
-  //Loadings
-  const [loadingSave, setLoadingSave] = React.useState(false);
-  const [loadingLoad, setLoadingLoad] = React.useState(true);
+  //Loading
+  const [loading, setLoading] = React.useState("loadingLoad");
 
   //A value has been edited
   const [isEdited, setIsEdited] = React.useState(false);
@@ -46,7 +45,7 @@ export default function Account(){
       .then((data) => {
         setData(data);        
         setOldData(data);
-        setLoadingLoad(false);
+        setLoading("noLoading");
       })
   }, [])
 
@@ -72,7 +71,7 @@ export default function Account(){
   }
 
   const handleTrySave = () => {
-    setLoadingSave(true);
+    setLoading("loadingSave");
     setErrors(noErrors);
     setOpenAlert(false);
     
@@ -87,7 +86,7 @@ export default function Account(){
         setErrorsDuringSaving(errors)
       }
     })
-    .finally(() => setLoadingSave(false))
+    .finally(() => setLoading("noLoading"))
   }
 
   const errorsList = 
@@ -113,7 +112,7 @@ export default function Account(){
         >
           <Grid item>
             <InfoBox
-              loading={loadingLoad}
+              loading={loading === "loadingLoad"}
               onImageChange={getImage}
               data={data}
               oldData={oldData}
@@ -123,7 +122,7 @@ export default function Account(){
           </Grid>
           <Grid item>
             <DataForms
-              loading={loadingLoad}
+              loading={loading === "loadingLoad"}
               data={data}
               oldData={oldData}
               onDataChange={getData}
@@ -138,7 +137,7 @@ export default function Account(){
           <LoadingButton
             disabled={!accountIsEdited}
             onClick={handleTrySave}
-            loading={loadingSave}
+            loading={loading === "loadingSave"}
             label="Salva"
           />
         </Box>
