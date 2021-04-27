@@ -61,7 +61,7 @@ export class UserAccountInfo {
       data: this._getters,
     })
     .then(resp => {
-      const data = resp?.data;
+      const data = resp?.data ?? {};
       const mappedValues = Object
         .keys(data)
         .map(key => [key, data[key]]);
