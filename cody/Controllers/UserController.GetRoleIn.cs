@@ -9,9 +9,12 @@ namespace Cody.Controllers
     public partial class UserController
     {
         [HttpGet("role_in/{organizationId}")]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> GetRoleIn([FromRoute] int organizationId)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return Ok(null);
+
             var member = await _dbContext
                 .OrganizationMembers
                 .FirstOrDefaultAsync(om =>
