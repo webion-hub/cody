@@ -4,22 +4,20 @@ import { UserAccountInfo } from 'src/lib/server_calls/user_account_info'
 import { PageController } from 'src/lib/page_controller';
 import { FormatController } from 'src/lib/format_controller/format_controller';
 
-const refreshPage = () => {
-  PageController.refresh()
-}
+const refreshPage = () => PageController.refresh()
 
 const updateProfilePic  = (image) => {
   ProfilePicture
     .createOrUpdate({
       base64: image,
     })
-    .finally(() => refreshPage());
+    .finally(refreshPage);
 }
 
 const deleteProfilePic  = () => {
   ProfilePicture
     .delete()
-    .finally(() => refreshPage())
+    .finally(refreshPage)
 }
 
 const handleSaveImage = (image, oldImage) => {
@@ -48,7 +46,7 @@ const saveData = (data) => {
 }
 
 export const trySave = (settings) => {
-  return new Promise(resolve  => {
+  return new Promise(resolve => {
     const {
       onError,
       onSavingErrors,
@@ -60,24 +58,28 @@ export const trySave = (settings) => {
 
     FormatController
       .setController()
-        .add('email',     data.email === oldData.email)
-        .add('username',  data.username === oldData.username)
-        .add('name',      data.name === oldData.name)
-        .add('surname',   data.surname === oldData.surname)
-        .add('birthDate', data.birthDate === oldData.birthDate)
+        .addIf('email',     data.email !== oldData.email)
+        .addIf('username',  data.username !== oldData.username)
+        .addIf('name',      data.name !== oldData.name)
+        .addIf('surname',   data.surname !== oldData.surname)
+        .addIf('birthDate', data.birthDate !== oldData.birthDate)
       .checkAll({
         values: data,
         onErrors: onError,
         onNoErrors: async _ => {
           onError({})
+
           await saveData(data)
-          .then(async (res) => {
-            const areSavingErrors = res.set.length !== 0
-            if(areSavingErrors)
-              onSavingErrors(res.set)
-            else
+            .then(async (res) => {
+              const areSavingErrors = res.set.length !== 0
+
+              if(areSavingErrors){
+                onSavingErrors(res.set)
+                return;
+              }
+              
               await handleSaveImage(image, oldImage)
-          })  
+            })  
         }
       })
       .finally(resolve)

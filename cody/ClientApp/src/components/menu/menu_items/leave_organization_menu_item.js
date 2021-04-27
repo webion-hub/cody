@@ -5,8 +5,14 @@ import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { LeaveOrganizationButton } from "src/components/buttons/leave_organization_button/leave_organization_button";
 
 export const LeaveOrganizationtMenuItem =  React.forwardRef((props, ref) => {
-  const organizationData = props.organizationData
-  if(organizationData.isCaller === "noMember")
+  const {
+    organizationData,
+    callerIs,
+    onClose,
+    hide
+  } = props
+
+  if(callerIs === "noMember")
     return null
     
   return (
@@ -17,8 +23,8 @@ export const LeaveOrganizationtMenuItem =  React.forwardRef((props, ref) => {
         ref: ref,
         color: "error",
         icon: ExitToAppRoundedIcon,
-        onClick: props.onClose,
-        hide: props.hide
+        onClick: onClose,
+        hide: hide
       }}
     />
   );

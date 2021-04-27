@@ -40,7 +40,9 @@ export default class Requests {
   }
 
   static _getSingleXHRRequestFrom = (url) => {
-    Requests._searchRequests[url] ??= new SingleXHRRequest();
+    if (!Requests._searchRequests[url])
+      Requests._searchRequests[url] = new SingleXHRRequest();
+      
     return Requests._searchRequests[url];
   }
 
