@@ -21,7 +21,7 @@ namespace Cody.Controllers.Organizations
             if (member is null)
                 return NotFound();
 
-            return Ok(member.Role);
+            return Ok(member.Role.ToString());
         }
     }
 }
