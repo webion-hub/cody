@@ -31,7 +31,6 @@ export function UserControllerContext(props){
   }
 
   useEffect(() => {
-    setUserGeneralState("loading")
     setRole(null)
 
     checkUserLogged({
