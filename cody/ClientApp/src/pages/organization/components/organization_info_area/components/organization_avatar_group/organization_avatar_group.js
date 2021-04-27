@@ -8,6 +8,7 @@ import { AllOrganizationUserDialog } from "./components/all_organization_user_di
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
+import { EventsDispatcher } from "src/lib/events_dispatcher";
 
 const useStyles = makeStyles((theme) => ({
   avatarGroup: {
@@ -35,8 +36,9 @@ export function  OrganizationAvatarGroup() {
 
 	const {
     smallUserList,
-    callerIs,
-		loading
+		loading,
+    organization,
+    callerIs
 	} = React.useContext(OrganizationContext);
 
   const setUserList = (data) => {
@@ -47,7 +49,13 @@ export function  OrganizationAvatarGroup() {
     const userList = values.map(user => ({
       src: ProfilePicture.url`/${user.id}`,
       alt: user.username,
-      menuContent: <UserSmallSummary user={user} callerIs={callerIs}/>
+      menuContent: 
+        <UserSmallSummary 
+          user={user}
+          callerIs={callerIs}
+          handler={organization}
+          onUserUpdate={_ => EventsDispatcher.setEvent('updateOrganizationMember').update()}
+        />
     }))
     
     return {

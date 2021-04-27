@@ -12,6 +12,7 @@ import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import { UserSummaryCard } from "src/components/user_summary_card";
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { UserListItem } from "src/components/list_items/user_list_item";
+import { EventsDispatcher } from "src/lib/events_dispatcher";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -67,7 +68,8 @@ export function AllOrganizationUserDialog(props){
 	const classes = useStyles();
   
   const [userData, setUserData] = React.useState(null)
-	const {
+
+  const {
     organization,
     callerIs,
   } = React.useContext(OrganizationContext);
@@ -80,6 +82,12 @@ export function AllOrganizationUserDialog(props){
   const handleUserChange = React.useCallback((user) => {
     setUserData(user)
   }, [userData])
+
+  const updateOrganizationMember = (val) => {
+    EventsDispatcher
+      .setEvent('updateOrganizationMember')
+      .update()
+  }
 
   return (
     <DialogBase
@@ -111,6 +119,8 @@ export function AllOrganizationUserDialog(props){
               <UserSmallSummary
                 user={userData}
                 callerIs={callerIs}
+                handler={organization}
+                onUserUpdate={updateOrganizationMember}
               />
             </DialogBase>
             :
@@ -130,8 +140,10 @@ export function AllOrganizationUserDialog(props){
                 userData !== null &&
                   <div className={classes.userSmallSummary}>
                     <UserSummaryCard
+                      onUserUpdate={updateOrganizationMember}
                       user={userData}
                       callerIs={callerIs}
+                      handler={organization}
                       leftIcon={
                         <IconButton 
                           onClick={_ => setUserData(null)}
