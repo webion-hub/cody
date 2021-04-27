@@ -40,7 +40,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
   } = props
 
   useEffect(() => {
-    if(!loading)
+    if(!loading && openDialog)
       setOpenDialog(false);
   }, [loading])
 
@@ -53,7 +53,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
       .setRole(textFieldRole)
       .finally(_ => {
         setLoading(false)
-        onEditRole?.();
+        onEditRole?.(textFieldRole);
       });
   }
 
@@ -62,9 +62,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
     setSelectLoading(true);
 
     handler.getRole()
-      .then(role => {
-        setTextFieldRole(role);
-      })
+      .then(setTextFieldRole)
       .finally(() => setSelectLoading(false))
 
     onMenuClose?.();

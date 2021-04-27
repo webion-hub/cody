@@ -8,12 +8,27 @@ import { MenuWithLoading } from "src/components/menu/menu_with_loading";
 import { KickUserMenuItem } from "src/components/menu/menu_items/kick_user_menu_item";
 import { EditRoleMenuItem } from "src/components/menu/menu_items/edit_role_menu_item";
 
-export function UserSettingsMenu({user, callerIs, className}){
+export function UserSettingsMenu(props){
+  const {
+    userId,
+    callerIs,
+    className,
+    handler,
+    onUserUpdate
+  } = props
+
+  const [loading, setLoading] = React.useState(false)
+
   const {
     handleOpenMenu,
     handleCloseMenu,
     isMenuOpen,
   } = useMenu()
+
+  const user = handler.user(userId)
+
+  if(callerIs === "noMember")
+    return null;
 
   return (
     <>
@@ -24,17 +39,24 @@ export function UserSettingsMenu({user, callerIs, className}){
         <MoreVertRoundedIcon fontSize="small"/>
       </IconButton>
       <MenuWithLoading
+        loading={loading}
         anchorEl={isMenuOpen}
         open={Boolean(isMenuOpen)}
         onClose={handleCloseMenu}
+        keepMounted
       >
         <EditRoleMenuItem
           hide={callerIs === "User"}
-          id={user.id}
-          onMenuClose={handleCloseMenu}
+          handler={user}
+          setLoading={setLoading}
+          onEditRole={onUserUpdate}
+  				onMenuClose={handleCloseMenu}
         />
         <KickUserMenuItem
           hide={callerIs === "User"}
+          handler={user}
+          setLoading={setLoading}
+          onKickUser={onUserUpdate}
         />
         <ReportMenuItem/>
       </MenuWithLoading>  
