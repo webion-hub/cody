@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { PaperWithWaves } from '../paper_with_waves';
 
 const useStyles = makeStyles((theme) => ({
+  transitionEnd: {
+    height: "auto !important"
+  },
   paperBox: props => ({
     position: "relative",
     width: "100%",
@@ -37,10 +40,16 @@ const useStyles = makeStyles((theme) => ({
 
 export function PaperWithTransitionBase(props){
   const classes = useStyles(props);
+  const [transitionEnd, setTransitionEnd] = React.useState(false)
+
+  useEffect(() => {
+    setTransitionEnd(false)
+    setTimeout(() => setTransitionEnd(true), 250)
+  }, [props.children])
 
   return(
     <props.component
-      className={classes.paperBox}
+      className={`${classes.paperBox} ${transitionEnd ? classes.transitionEnd : ""}`}
     >
       <Grid
         container

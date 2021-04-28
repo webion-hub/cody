@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, TextField, useTheme } from '@material-ui/core'
+import { Box, Checkbox, TextField, useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -20,6 +20,9 @@ import { School } from "src/components/illustrations/school";
 import Chip from '@material-ui/core/Chip';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { AutocompleteWithVirtualizer } from "src/components/autocomplete_with_virtualizer/autocomplete_with_virtualizer";
+
+import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
+import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
@@ -60,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   teachersAutocomplete: {
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2)
   },
   nameTextField: {
     marginTop: theme.spacing(1)
@@ -86,7 +90,7 @@ export function OrganizationCourses(){
     organization
       .getMembers()
       .then(data => setUsers(data.values))
-  }, [])
+  }, [openDialog])
 
   return (
     <>
@@ -154,7 +158,7 @@ export function OrganizationCourses(){
                     color="secondary" 
                     label="Nome corso" 
                     fullWidth 
-                    variant="outlined"
+                    variant="filled"
                     required
                   />
                   <TextField
@@ -162,7 +166,7 @@ export function OrganizationCourses(){
                     label="Descrizione corso" 
                     multiline
                     color="secondary"
-                    variant="outlined"
+                    variant="filled"
                     fullWidth
                     rows={6}
                   />
@@ -181,22 +185,28 @@ export function OrganizationCourses(){
                   >
                     per questo corso
                   </Typography>
-                  {/*sostituisci con Enhanced Transfer List https://material-ui.com/components/transfer-list/ */}
                   <AutocompleteWithVirtualizer
-                    heightbig={45}
-                    heightsmall={50}
-                    limitTags={3}
-                    className={classes.teachersAutocomplete}
                     multiple
                     fullWidth
+                    className={classes.teachersAutocomplete}
                     options={users}
+                    disableCloseOnSelect
                     getOptionLabel={(option) => option.username}
-                    filterSelectedOptions
+                    renderOption={(option, { selected }) => (
+                      <>
+                        <Checkbox
+                          icon={<CheckBoxOutlineBlankRoundedIcon fontSize="small"/>}
+                          checkedIcon={<CheckBoxRoundedIcon fontSize="small"/>}
+                          style={{ marginRight: 8 }}
+                          checked={selected}
+                        />
+                        {option.username}
+                      </>
+                    )}
                     renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        label="Utenti"
+                      <TextField {...params} 
+                        variant="filled" 
+                        label="Utenti" 
                         color="secondary"
                       />
                     )}

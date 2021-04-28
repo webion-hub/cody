@@ -29,7 +29,7 @@ export function DatePicker(props){
         format="dd/MM/yyyy"
         margin="normal"
         label="Data di nascita"
-        fullWidth={true}
+        fullWidth
         value={selectedDate}
         onChange={handleDateChange}
         KeyboardButtonProps={{
