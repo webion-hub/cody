@@ -101,11 +101,7 @@ export function AddLocation(props){
             error={errors.locationError}
             variant="filled"
             inputRef={nextFocus.getInput("location")}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                nextFocus.focusOn("website");
-              }
-            }}
+            onKeyDown={nextFocus.enterPressedFocusOn("website")}
           />
       }
     />

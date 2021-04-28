@@ -8,7 +8,7 @@ import { FormControlLabel } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Password } from 'src/components/password/password_textfield';
+import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
 import { LoadingButton } from 'src/components/buttons/loading_button';
 import { Authentication } from 'src/components/illustrations/authentication';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
@@ -145,11 +145,7 @@ export function LoginBox(props){
             onChange={_updateUsername}
             error={errors.wrongUsername}
             inputRef={nextFocus.getInput("username")}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                nextFocus.focusOn("password");
-              }
-          }}
+            onKeyDown={nextFocus.enterPressedFocusOn("password")}
           />
           <Password
             label="Password"
@@ -157,12 +153,7 @@ export function LoginBox(props){
             labelWidth={70}
             onChange={_updatePassword}
             inputRef={nextFocus.getInput("password")}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                _maybeLogin();
-                nextFocus.removeFocus();
-              }
-          }}
+            onKeyDown={(e) => nextFocus.removeFocus(e, _maybeLogin)}
             error={errors.wrongPassword}
           />
           <Grid
@@ -200,9 +191,7 @@ export function LoginBox(props){
             loading={loading}
             fullWidth
             endIcon={<AccountCircleRoundedIcon/>}
-            onClick={_ => {
-              _maybeLogin()
-            }}
+            onClick={_maybeLogin}
             label="Accedi"
           />
           <Link

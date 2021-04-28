@@ -33,8 +33,15 @@ export class NextFocus{
     this.inputs[elementNumb].current.focus();
   }
 
-  removeFocus(e){
-    document.activeElement.blur();
+  enterPressedFocusOn = (element) => (e) => {
+    if (e.key === "Enter")
+      this.focusOn(element)
   }
 
+  removeFocus = (e, fun) => {
+    if (e.key === "Enter"){
+      document.activeElement.blur();
+      fun?.()
+    }
+  }
 }
