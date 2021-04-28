@@ -25,7 +25,7 @@ export const getElements = ({
       .add('password')
   },
   {
-    height: 483,
+    height: 494,
     element: 
       <IDData
         onUsernameChange = {handleDataChange("username")}

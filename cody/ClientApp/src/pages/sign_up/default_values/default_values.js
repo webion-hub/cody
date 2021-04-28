@@ -7,6 +7,8 @@ export const noErrors = {
   nameError: false,
   surnameError: false,
   birthDateError: false,
+  minBirthDateError: false,
+  maxBirthDateError: false,
   acceptTermsError: false,
 }
 
