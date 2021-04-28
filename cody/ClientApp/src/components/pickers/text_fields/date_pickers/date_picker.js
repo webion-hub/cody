@@ -6,22 +6,15 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 export function DatePicker(props){
-  const [selectedDate, setSelectedDate] = React.useState(props.value);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-
-    const {onChange} = props;
-    onChange(date);
-  };
-
   return(
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={itLocale}>
       <KeyboardDatePicker
+        style={{marginBottom: 0}}
         minDate={new Date('01/01/1920')}
         maxDate={new Date()}
-        minDateMessage="La data non deve inferiore al minimo valore"
-        maxDateMessage="La data non deve superare il massimo valore"
+        minDateMessage=""
+        maxDateMessage=""
+        invalidDateMessage=""
         error={props.error}
         inputVariant={props.variant}
         variant="inline"
@@ -30,8 +23,8 @@ export function DatePicker(props){
         margin="normal"
         label="Data di nascita"
         fullWidth
-        value={selectedDate}
-        onChange={handleDateChange}
+        value={props.value}
+        onChange={props.onChange}
         KeyboardButtonProps={{
           'aria-label': 'Data di nascita',
         }}
