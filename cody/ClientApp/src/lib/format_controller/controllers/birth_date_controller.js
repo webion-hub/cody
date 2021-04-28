@@ -12,19 +12,30 @@ export class BirthDateController extends FormatControllerBase{
 
       const minDate = new Date('01/01/1920');
       const maxDate = new Date();
-      const outOfRange = birthDate > maxDate || birthDate < minDate;
 
       const date = birthDate? birthDate.toLocaleDateString() : "";       
 
       const invalidFormat = !re.test(date);
       const empty = birthDate === null;
 
-      const areErrors = outOfRange || invalidFormat || empty
+      const areErrors = invalidFormat || empty
 
-      if(areErrors)
+      if(areErrors){
         resolve('birthDateError');
-      else
-        resolve()
+        return;
+      }
+
+      if(birthDate < minDate){
+        resolve('minBirthDateError')
+        return;
+      }
+      
+      if(birthDate > maxDate){
+        resolve('maxBirthDateError')
+        return;
+      }
+
+      resolve()
     })
   }
 }
