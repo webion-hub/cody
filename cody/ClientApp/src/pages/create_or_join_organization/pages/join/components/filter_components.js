@@ -1,68 +1,25 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { Tooltip } from '@material-ui/core';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-
-
-const useStyles = makeStyles((theme) => ({
-  buttonGroup: {
-    borderColor: "transparent",
-    "& > *": {
-      borderRight: `1px solid ${theme.palette.background.paper} !important`,
-    },
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(1),
-    },
-  },
-}));
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
 export const FilterComponent = React.forwardRef((props, ref) => {
-  const classes = useStyles();
-  const filterStatus = props.filterStatus;
-  const setFilter = props.setFilter;
-
   return(
-    <ButtonGroup
+    <ToggleButtonGroup
       ref={ref}
-      variant="contained"
-      className={`${classes.buttonGroup} ${props?.className}`}
+      className={props.className}
+      value={props.filters}
+      onChange={(_, filter) => props.onFiltersChange(filter)}
     >
-      <Tooltip
-        arrow
-        title="Filtra per teams"
-      >
-        <Button
-          onClick={() => setFilter("teams")}
-          color={filterStatus.teams ? "primary" : "secondary"}
-        >
-          <OrganizationKindIcon kind="team"/>
-        </Button>
-      </Tooltip>
-      <Tooltip
-        arrow
-        title="Filtre per scuole"
-      >
-        <Button
-          onClick={() => setFilter("schools")}
-          color={filterStatus.schools ? "primary" : "secondary"}
-        >
-          <OrganizationKindIcon kind="school"/>
-        </Button>
-      </Tooltip>
-      <Tooltip
-        arrow
-        title="Filtre per aziende"
-      >
-        <Button
-          onClick={() => setFilter("companies")}
-          color={filterStatus.companies ? "primary" : "secondary"}
-        >
-          <OrganizationKindIcon kind="company"/>
-        </Button>
-      </Tooltip>
-    </ButtonGroup>
+      <ToggleButton value="Team">
+        <OrganizationKindIcon kind="team"/>
+      </ToggleButton>
+      <ToggleButton value="School">
+        <OrganizationKindIcon kind="school"/>
+      </ToggleButton>
+      <ToggleButton value="Company">
+        <OrganizationKindIcon kind="company"/>
+      </ToggleButton>
+    </ToggleButtonGroup>
   );
 })

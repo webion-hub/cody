@@ -15,20 +15,7 @@ export const joinOrganizationSettings = {
 }
 
 function JoinOrganization(){
-  const [filterStatus, setFilterStatus] = React.useState({
-    teams: true,
-    schools: true,
-    companies: true,
-  });
-
-  const handleFilter = (filter) => {
-    const filterValues = {
-      ...filterStatus,
-      [filter]: !filterStatus[filter]
-    }
-    setFilterStatus(filterValues)
-  }
-
+  const [filters, setFilters] = React.useState(['Team', 'School', "Company"]);
 
   return(
     <ListWithSearch
@@ -39,11 +26,11 @@ function JoinOrganization(){
       itemSize={72}
       getList={Organizations.listAll}
       listItem={JoinOrganizationsListItem}
-      filter={getOrganizationFilter(filterStatus)}
+      filter={getOrganizationFilter(filters)}
       filterComponent={
         <FilterComponent
-          setFilter={handleFilter}
-          filterStatus={filterStatus}
+          onFiltersChange={setFilters}
+          filters={filters}
         />
       }
       noDataFoundProps={{
