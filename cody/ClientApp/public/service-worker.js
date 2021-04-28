@@ -108,6 +108,7 @@ async function maybeCacheResponse(requestUrl, response) {
 function isCacheable(requestUrl) {
   const cacheableUrls = [
     /https:\/\/.+\/static\//,
+    /https:\/\/.+\/illustrations\//,
   ];
 
   return cacheableUrls.some(regex => {
