@@ -23,6 +23,7 @@ import { AutocompleteWithVirtualizer } from "src/components/autocomplete_with_vi
 
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
+import { DescriptionTextField } from "src/components/pickers/text_fields/types/description_text_field";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
@@ -60,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
   teachersAutocomplete: {
     marginTop: theme.spacing(1),
@@ -161,14 +161,10 @@ export function OrganizationCourses(){
                     variant="filled"
                     required
                   />
-                  <TextField
+                  <DescriptionTextField
                     className={classes.description}
-                    label="Descrizione corso" 
-                    multiline
-                    color="secondary"
                     variant="filled"
-                    fullWidth
-                    rows={6}
+                    fullWidth              
                   />
                 </BasePhotoText>,
               height: 411
