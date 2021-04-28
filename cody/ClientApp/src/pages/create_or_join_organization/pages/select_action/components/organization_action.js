@@ -37,7 +37,7 @@ export function OrganizationAction(props){
         alignItems="center"
       >
         <div className={classes.imageContainer}>
-          <props.image size="100%"/>
+          {props.image}
         </div>
         <Button
           className={classes.button}
