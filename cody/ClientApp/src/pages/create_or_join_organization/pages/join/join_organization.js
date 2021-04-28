@@ -20,7 +20,7 @@ function JoinOrganization(){
   return(
     <ListWithSearch
       listHeight={472}
-      listMobileHeight={window.innerHeight - 244}
+      listMobileHeight={window.innerHeight - 264}
       width="100%"
       elementForStep={25}
       itemSize={72}

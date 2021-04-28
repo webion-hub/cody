@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
   filterComponent: {
     marginLeft: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
-      marginLeft: 0
+      marginLeft: 0,
+      marginTop: theme.spacing(2)
     },
   },
   linearProgress: {
