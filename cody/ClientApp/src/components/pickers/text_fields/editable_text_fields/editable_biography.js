@@ -5,6 +5,7 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 import { Reading } from 'src/components/illustrations/reading'
 import { Form } from 'src/lib/default_values/sizes/form_size';
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
+import { DescriptionTextField } from '../types/description_text_field';
 
 export function EditableBiography(props){
 	const [editMode, setEditMode] = React.useState(false);
@@ -99,24 +100,15 @@ export function EditableBiography(props){
           alignItems="center"
         >  
           <Reading size={Form.imageWidth}/>
-          <TextField
-            label="Descrizione"
-            multiline
-            color="secondary"
+          <DescriptionTextField
             variant="filled"
             fullWidth
-            rows={6}
             defaultValue={value}
             onChange={handleChange}
             error={error}
+            descriptionLength={currentCharacters}
           />
         </Grid>
-        <Typography
-          variant="caption"
-          color={error ? "error" : "textSecondary"}
-        >
-          {currentCharacters}/{maxCharacters}
-        </Typography>
       </DialogBase>
     </>
 	);
