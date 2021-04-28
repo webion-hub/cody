@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_text_fields/editable_custom_textfield'
 import { EditableDatePicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_date_picker';
+import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,32 +41,21 @@ export function DataForms(props){
 
 	return (
 		<div className={classes.container}>
-			<EditableCustomTextField
-				loading={props.loading}
-				title="Username" 
-				value={props.oldData.username} 
-				onChange={getValue("username")}
-				error={
-					props.errors.usernameExist ||
-					props.errors.usernameError
-				}
-			/>
-			<Grid
-				container
-				direction="row"
-				justify="flex-end"
+			<PickerWithErrorAndLabel
+				fadeError={props.errors.usernameExist}
+				errorLabel="Username già usato!"
 			>
-				<Fade
-					in={props.errors.usernameExist}
-				>
-					<Typography
-						variant="caption"
-						color="error"
-					>
-						Username già usato!
-					</Typography>
-				</Fade>
-			</Grid>
+				<EditableCustomTextField
+					loading={props.loading}
+					title="Username" 
+					value={props.oldData.username} 
+					onChange={getValue("username")}
+					error={
+						props.errors.usernameExist ||
+						props.errors.usernameError
+					}
+				/>
+			</PickerWithErrorAndLabel>
 			<EditableCustomTextField 
 				loading={props.loading}
 				title="Nome" 
@@ -83,32 +73,21 @@ export function DataForms(props){
 				error={props.errors.surnameError}
 				mb={1}
 			/>
-			<EditableCustomTextField 
-				loading={props.loading}
-				title="Email" 
-				value={props.oldData.email} 
-				onChange={getValue("email")}
-				error={
-					props.errors.emailExist ||
-					props.errors.emailError
-				}
-			/>
-			<Grid
-				container
-				direction="row"
-				justify="flex-end"
+			<PickerWithErrorAndLabel
+				fadeError={props.errors.emailExist}
+				errorLabel="Email già usata!"
 			>
-				<Fade
-					in={props.errors.emailExist}
-				>
-					<Typography
-						variant="caption"
-						color="error"
-					>
-						Email già usata!
-					</Typography>
-				</Fade>
-			</Grid>
+				<EditableCustomTextField 
+					loading={props.loading}
+					title="Email" 
+					value={props.oldData.email} 
+					onChange={getValue("email")}
+					error={
+						props.errors.emailExist ||
+						props.errors.emailError
+					}
+				/>
+			</PickerWithErrorAndLabel>
 			<EditableDatePicker
 				loading={props.loading}
 				title="Data di nascita"
@@ -122,4 +101,3 @@ export function DataForms(props){
 		</div>
 	);
 }
-

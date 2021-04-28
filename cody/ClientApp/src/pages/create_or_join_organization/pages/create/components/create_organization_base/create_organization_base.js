@@ -16,6 +16,8 @@ import { prepareData } from '../../lib/prepare_data';
 import { CreateOrganizationContainer } from '../create_organization_container';
 import { PageController } from 'src/lib/page_controller';
 import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
+import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
+import { DescriptionTextField } from 'src/components/pickers/text_fields/types/description_text_field';
 
 const useStyles = makeStyles((theme) => ({
   fields: {
@@ -73,7 +75,6 @@ export function CreateOrganizationBase(props){
     })
   }
 
-
   const handleSubmit = () => {
     setLoading(true)
     setErrors(noErrors)
@@ -107,39 +108,34 @@ export function CreateOrganizationBase(props){
         direction="column"
         alignItems="center"
       >
-        <TextField
-          className={classes.fieldWithText}
-          color="secondary"
-          label={props.nameLabel}
-          required
-          fullWidth
-          variant="filled"
-          error={errors.organizationNameError || existingOrganization}
-          onChange={handleData("name")}
-          inputRef={nextFocus.getInput("name")}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <GroupRoundedIcon />
-              </InputAdornment>
-            ),
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              nextFocus.focusOn("location");
-            }
-          }}
-        />
-        <Fade
-          in={existingOrganization}
+        <PickerWithErrorAndLabel
+          fadeError={existingOrganization}
+          errorLabel={props.errorLabel}
         >
-          <Typography
-            variant="caption"
-            color="error"
-          >
-            {props.errorLabel}
-          </Typography>
-        </Fade>
+          <TextField
+            className={classes.fieldWithText}
+            color="secondary"
+            label={props.nameLabel}
+            required
+            fullWidth
+            variant="filled"
+            error={errors.organizationNameError}
+            onChange={handleData("name")}
+            inputRef={nextFocus.getInput("name")}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <GroupRoundedIcon />
+                </InputAdornment>
+              ),
+            }}
+            onKeyDown={nextFocus.enterPressedFocusOn(
+              props.type === "Team" 
+                ? "website" 
+                : "location"
+            )}
+          />
+        </PickerWithErrorAndLabel>
         <AddLocation
           hide={props.type === "Team"}
           className={classes.fields}
@@ -163,32 +159,20 @@ export function CreateOrganizationBase(props){
               </InputAdornment>
             ),
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              nextFocus.focusOn("description");
-            }
-          }}
+          onKeyDown={nextFocus.enterPressedFocusOn("description")}
         />
         <div
           className={classes.fieldWithText}
         >
-          <TextField
+          <DescriptionTextField
             color="secondary"
-            label="Descrizione"
-            multiline
-            fullWidth
-            rows={6}
             variant="filled"
             error={errors.descriptionError}
             onChange={handleData("description")}
             inputRef={nextFocus.getInput("description")}
+            fullWidth
+            descriptionLength={data.description.length}
           />
-          <Typography
-            variant="caption"
-            color={errors.descriptionError ? "error" : "textSecondary"}
-          >
-            {data.description.length}/{`${FormatLengthController.set('description').max}`}
-          </Typography>
         </div>
       </Grid>
     </CreateOrganizationContainer>

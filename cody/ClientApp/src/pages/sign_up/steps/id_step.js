@@ -3,16 +3,15 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
-import { Fade } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
-import { DatePicker } from 'src/components/pickers/text_fields/others/date_picker';
 import { NextFocus } from 'src/lib/next_focus';
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 
 import { Step2 } from 'src/components/illustrations/step2';
+import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
+import { DatePickerWithErrors } from 'src/components/pickers/text_fields/date_pickers/date_picker_with_errors';
 
 const useStyles = makeStyles((theme) => ({
   textFieldName: {
@@ -30,6 +29,9 @@ export function IDData(props){
   const usernameError = props.errors.usernameError || props.errors.usernameExist
   const nameError = props.errors.nameError
   const surnameError = props.errors.surnameError
+
+  const minBirthDateError = props.errors.minBirthDateError
+  const maxBirthDateError = props.errors.maxBirthDateError
   const birthDateError = props.errors.birthDateError
 
   return (
@@ -44,47 +46,25 @@ export function IDData(props){
         >
           Come ti chiami?
         </Typography>,
-        <>
+        <PickerWithErrorAndLabel
+          fadeError={props.errors.usernameExist}
+          errorMessage="Username già usato!"
+          leftMessage={`Tra ${FormatLengthController.set('username').min} e ${FormatLengthController.set('username').max} caratteri`}
+        >
           <TextField
-              id="username"
-              label="Username"
-              variant="outlined"
-              color="secondary"
-              inputRef={nextFocus.getInput("username")}
-              fullWidth
-              required
-              defaultValue={props.values.username}
-              onChange={e => props.onUsernameChange(e.target.value)}
-              error={usernameError}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  nextFocus.focusOn("name");
-                }
-              }}  
+            id="username"
+            label="Username"
+            variant="outlined"
+            color="secondary"
+            inputRef={nextFocus.getInput("username")}
+            error={usernameError}
+            fullWidth
+            required
+            defaultValue={props.values.username}
+            onChange={e => props.onUsernameChange(e.target.value)}
+            onKeyDown={nextFocus.enterPressedFocusOn("name")}          
           />
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-          >
-            <Typography
-              variant="caption"
-              color="textSecondary"
-            >
-              {`Tra ${FormatLengthController.set('username').min} e ${FormatLengthController.set('username').max} caratteri`}
-            </Typography>
-            <Fade
-              in={props.errors.usernameExist}
-            >
-              <Typography
-                variant="caption"
-                color="error"
-              >
-                Username già usato!
-              </Typography>
-            </Fade>
-          </Grid>
-        </>,
+        </PickerWithErrorAndLabel>,
         <TextField
           className={classes.textFieldName}
           id="name"
@@ -97,11 +77,7 @@ export function IDData(props){
           defaultValue={props.values.name}
           onChange={e => props.onNameChange(e.target.value)}
           error={nameError}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              nextFocus.focusOn("surname");
-            }
-         }}
+          onKeyDown={nextFocus.enterPressedFocusOn("surname")}
         />,
         <TextField
           className={classes.textFieldSurname}
@@ -115,14 +91,12 @@ export function IDData(props){
           defaultValue={props.values.surname}
           onChange={e => props.onSurnameChange(e.target.value)}
           error={surnameError}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              nextFocus.removeFocus();
-            }
-         }}
+          onKeyDown={nextFocus.removeFocus}
         />,
-        <DatePicker
-          error={birthDateError}
+        <DatePickerWithErrors
+          generalError={birthDateError}
+          minBirthDateError={minBirthDateError}
+          maxBirthDateError={maxBirthDateError}
           variant="outlined"
           value={props.values.birthDate}
           onChange={props.onBirthDateChange}
