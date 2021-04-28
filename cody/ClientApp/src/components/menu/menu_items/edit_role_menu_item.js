@@ -3,12 +3,9 @@ import React, { useEffect } from 'react';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { MenuItemBase } from 'src/components/menu/menu_items/menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';
 
@@ -53,7 +50,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
       .setRole(textFieldRole)
       .finally(_ => {
         setLoading(false)
-        onEditRole?.(textFieldRole);
+        onEditRole?.();
       });
   }
 
@@ -62,7 +59,7 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
     setSelectLoading(true);
 
     handler.getRole()
-      .then(setTextFieldRole)
+      .then(role => setTextFieldRole(role))
       .finally(() => setSelectLoading(false))
 
     onMenuClose?.();
@@ -100,19 +97,19 @@ export const EditRoleMenuItem = React.forwardRef((props, ref) => {
           />
         }
       >
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel>Ruolo</InputLabel>
-          <Select
-            disabled={selectLoading}
-            value={textFieldRole}
-            color="secondary"
-            onChange={e => setTextFieldRole(e.target.value)}
-            label="Ruolo"
-          >
-            <MenuItem value="User">User</MenuItem>
-            <MenuItem value="Admin">Admin</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          className={classes.formControl}
+          select
+          label="Ruolo"
+          disabled={selectLoading}
+          onChange={e => setTextFieldRole(e.target.value)}
+          variant="outlined"
+          value={textFieldRole}
+          color="secondary"
+        >
+          <MenuItem value="User">User</MenuItem>
+          <MenuItem value="Admin">Admin</MenuItem>
+        </TextField>
       </DialogBase>
     </>
   );
