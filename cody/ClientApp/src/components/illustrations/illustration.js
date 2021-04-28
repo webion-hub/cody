@@ -5,22 +5,22 @@ import IllustrationLoader from "./illustration_loader";
 
 
 export const Illustration = React.forwardRef((props, _ref) => {
-  const {path} = props;
-  const svgRef = useRef(null);
+  const illustration = useRef(null);
   const [, setIsLoaded] = useState(false);
 
   const updateContent = svg => {
-    svgRef.current = svg;
+    illustration.current = svg;
     setIsLoaded(true);
   };
 
   useEffect(() => {
     IllustrationLoader
-      .load(path, props)
+      .create(props)
+      .load()
       .then(svg => updateContent(svg));
   }, []);
 
-  return svgRef.current;
+  return illustration.current;
 });
 
 

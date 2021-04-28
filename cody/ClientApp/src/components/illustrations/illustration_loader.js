@@ -4,38 +4,45 @@ import ReactHtmlParser from 'react-html-parser';
 
 export default class IllustrationLoader {
   /**
-   * @param {string} path 
-   * @param {IllustrationProps} props
+   * @param {IllustrationProps} props 
+   * @returns {IllustrationLoader}
+   */
+  static create = (props) => {
+    return new IllustrationLoader(props);
+  }
+  
+  /**
+   * @private
+   * @param {IllustrationProps} props 
+   */
+  constructor (props) {
+    this.path = props.path;
+    this.boxProps = props.boxProps;
+    this.svgProps = props.svgProps;
+  }
+
+
+  /**
    * @returns {Promise<Box>}
    */
-  static load = async (path, props) => {
-    return this.cache.has(path)
-      ? this.fetchFromCache(path)
-      : this.fetchFromServer(path, props);
+  load = async () => {
+    return IllustrationLoader.cache.has(this.path)
+      ? this.fetchFromCache()
+      : this.fetchFromServer();
   }
 
   /**
    * @private
    * @param {string} path 
-   * @returns {Promise<Box>} 
-   */
-  static fetchFromCache = async (path) => {
-    const elem = this.cache.get(path);
-    return Promise.resolve(elem);
-  }
-
-  /**
-   * @param {string} path 
    * @param {IllustrationProps} props 
    * @returns {Promise<Box>}
    */
-  static fetchFromServer = async (path, props) => {
-    const {boxProps, svgProps} = props;
-    return fetch(path)
+  fetchFromServer = async () => {
+    return fetch(this.path)
       .then(resp => resp.text())
-      .then(rawSvg => this.replaceProps(rawSvg, svgProps))
-      .then(svg => this.createSvgElement(svg, boxProps))
-      .then(svg => this.storeInCache(path, svg));
+      .then(rawSvg => this.replaceProps(rawSvg))
+      .then(svg => this.createSvgElement(svg))
+      .then(svg => this.storeInCache(svg));
   }
 
   /**
@@ -43,9 +50,9 @@ export default class IllustrationLoader {
    * @param {string} rawSvg 
    * @returns {string}
    */
-  static replaceProps = (rawSvg, svgProps) => {
+  replaceProps = (rawSvg) => {
     return Object
-      .entries(svgProps)
+      .entries(this.svgProps)
       .reduce(this.replaceProp, rawSvg);
   }
 
@@ -54,7 +61,7 @@ export default class IllustrationLoader {
    * @param {string} curr 
    * @returns {string}
    */
-  static replaceProp = (curr, [prop, value]) => {
+  replaceProp = (curr, [prop, value]) => {
     const pattern = new RegExp(`{${prop}}`, 'g');
     return curr.replace(pattern, value);
   };
@@ -65,22 +72,31 @@ export default class IllustrationLoader {
    * @param {string} path
    * @returns {Box} 
    */
-  static createSvgElement = (svg, boxProps) => {
+  createSvgElement = (svg) => {
     return (
-      <Box {...boxProps}>
+      <Box {...this.boxProps}>
         {ReactHtmlParser(svg)}
       </Box>
     );
   }
 
+
   /**
    * @private
-   * @param {string} path 
+   * @returns {Promise<Box>} 
+   */
+  fetchFromCache = async () => {
+    const elem = IllustrationLoader.cache.get(this.path);
+    return Promise.resolve(elem);
+  }
+
+  /**
+   * @private 
    * @param {Box} element 
    * @returns {Box}
    */
-  static storeInCache = (path, element) => {
-    this.cache.set(path, element);
+  storeInCache = (element) => {
+    IllustrationLoader.cache.set(this.path, element);
     return element;
   }
 }
