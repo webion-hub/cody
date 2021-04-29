@@ -1,5 +1,5 @@
 import { Box } from "@material-ui/core";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser, { processNodes } from 'react-html-parser';
 
 
 export default class IllustrationLoader {
@@ -75,9 +75,27 @@ export default class IllustrationLoader {
   createSvgElement = (svg) => {
     return (
       <Box {...this.boxProps}>
-        {ReactHtmlParser(svg)}
+        {ReactHtmlParser(svg, {
+          transform: IllustrationLoader.maybeReplaceViewBoxAttr,
+        })}
       </Box>
     );
+  }
+
+  /**
+   * @private
+   * @param {DOMElement} node 
+   * @returns {SVGElement | undefined} 
+   */
+  static maybeReplaceViewBoxAttr = (node) => {
+    if (node.name !== 'svg')
+      return;
+
+    node.attribs.viewBox = node.attribs.viewbox;
+    delete node.attribs.viewbox;
+    return <svg {...node.attribs}>
+      {processNodes(node.children, _ => {})}
+    </svg>;
   }
 
 
