@@ -36,6 +36,7 @@ EventsDispatcher._emitter = new EventEmitter();
  * @typedef {(
  *  'updateOrganizationMember' | 
  *  'updateBookmarkedOrganizations' |
- *  'openLoginDialog'
+ *  'openLoginDialog' |
+ *  'scroll'
  * )} UIEvent
  */

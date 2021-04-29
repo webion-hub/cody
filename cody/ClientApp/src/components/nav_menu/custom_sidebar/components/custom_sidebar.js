@@ -9,7 +9,6 @@ import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 const useStyles = makeStyles((theme) => ({
 	sideBar: {
-		background: theme.drawer.default,
 		overflow: "hidden",
     width:48,
     height: "100vh",
@@ -17,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 	},
 	sideBarContainer: {
+		background: theme.drawer.default,
 		zIndex: 1250,
 		width: "auto",
-		marginTop: theme.appBar.fullHeight,
+		paddingTop: theme.appBar.fullHeight,
     position: "fixed",
 		overflow: "hidden",
 		[theme.breakpoints.down('xs')]: {
-			marginTop: 0,
+			paddingTop: 0,
 			position: "initial",
     },
 	},

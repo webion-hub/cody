@@ -1,6 +1,12 @@
 import { useEffect } from "react"
 
-export const useListener = ({eventFunction, controller, firstExecutionDelay, removeFirstExecution}, dependencies) => {
+export const useListener = (
+  {
+    eventFunction, 
+    controller, 
+    firstExecutionDelay, 
+    removeFirstExecution
+  }, dependencies) => {
   
   useEffect(() => {
 		controller.listen(eventFunction)

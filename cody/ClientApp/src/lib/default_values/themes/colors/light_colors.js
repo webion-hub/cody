@@ -13,7 +13,7 @@ export const lightColors = {
   backgroundTransparent: "rgba(0,0,0,0.04)",
   backgroundGradient: "linear-gradient(180deg, #f3f3f3 0%, #f7f7f8 100%)",
   
-  appBar: '#fff',
+  appBar: '#24396B',
   textPrimary: 'rgba(0,0,0,0.95)',
   textSecondary: 'rgba(0,0,0,0.65)',
   avatarBackground: 'rgba(57,57,57)'
