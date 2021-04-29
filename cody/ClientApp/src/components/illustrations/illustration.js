@@ -24,6 +24,14 @@ export const Illustration = React.forwardRef((props, _ref) => {
 });
 
 
+Illustration.lazy = (illustrationName) => {
+  const path = `illustrations/${illustrationName}.svg`;
+  return (props) => {
+    return <Illustration path={path} {...props}/>;
+  };
+};
+
+
 Illustration.defaultProps = {
   divProps: {
     width: '100%',
@@ -34,6 +42,7 @@ Illustration.defaultProps = {
   svgProps: {
     height: '100%',
     width: '100%',
+    textColor: '#fff',
     primaryColor: Colors.primary,
     secondaryColor: Colors.secondary,
     tertiaryColor: Colors.tertiary,
