@@ -1,5 +1,5 @@
 <svg width="{width}" height="{height}"
-  xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" view-box="0 0 400 300">
+  xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 400 300">
   <path
     d="M122.08,82.6C95.6,92.89,76,119,72.08,150.53c-3.27,26.59,4.53,56,50.44,64.35,89.33,16.29,173,20.93,194.35-23S331.66,72.63,286.33,67.75C250.28,63.88,173.8,62.51,122.08,82.6Z"
     fill="#e6e6e6" opacity="0.3" />
