@@ -23,7 +23,12 @@ export function MainAlertDialog(){
   const [currentError, setCurrentError] = React.useState("")
 
   Requests.onError = (reason) => {
-    setCurrentError(reason);
+    if (process.env.NODE_ENV === 'development') {
+      window.alert(reason);
+    }
+    else {
+      setCurrentError(reason);
+    }
   };
 
   const errorInfos = {
