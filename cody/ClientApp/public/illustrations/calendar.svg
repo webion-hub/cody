@@ -12,7 +12,7 @@
   <rect x="121.84" y="58.31" width="166.62" height="46.39" fill="{primaryColor}" />
   <circle cx="276.3" cy="219.15" r="37.85" fill="{secondaryColor}" />
   <polyline points="264.96 218.68 273.1 232.69 290.08 207.31" fill="none" stroke="#fff" strokeLinecap="round"
-    strokeLinejoin="round" strokeWidth="10" />
+    stroke-linejoin="round" stroke-width="10" />
   <rect x="154.03" y="41.08" width="13.36" height="40.43" fill="#f2f2f2" />
   <rect x="167.39" y="58" width="8.82" height="23.5" opacity="0.08" />
   <rect x="255.55" y="58" width="8.82" height="23.5" opacity="0.08" />

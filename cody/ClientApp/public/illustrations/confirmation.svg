@@ -32,5 +32,5 @@
   <circle cx="185.04" cy="57.33" r="5.15" fill="{primaryColor}" />
   <circle cx="198.93" cy="57.33" r="5.15" fill="#24285b" />
   <polyline points="209.09 116.47 219.04 129.68 235.13 104.28" fill="none" stroke="#fff" strokeLinecap="round"
-    strokeLinejoin="round" strokeWidth="7" />
+    stroke-linejoin="round" stroke-width="7" />
 </svg>

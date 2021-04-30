@@ -13,14 +13,14 @@
   <rect x="161.16" y="121.79" width="25.53" height="25.53" fill="{primaryColor}" />
   <rect x="161.16" y="161.62" width="25.53" height="25.53" fill="{primaryColor}" />
   <polyline points="169.75 94.69 172.76 99.08 179 91" fill="none" stroke="#fff" strokeLinecap="round"
-    strokeLinejoin="round" strokeWidth="4" />
+    stroke-linejoin="round" stroke-width="4" />
   <polyline points="169.75 134.46 172.76 138.85 179 130.76" fill="none" stroke="#fff" strokeLinecap="round"
-    strokeLinejoin="round" strokeWidth="4" />
+    stroke-linejoin="round" stroke-width="4" />
   <path
     d="M206.88,163.46,203.12,170l12.66-1.61,13.42-4.88s6.87,11,18.37,17.52A60,60,0,0,1,275,212.89l.32.89v-61L257.7,134.31Z"
     opacity="0.1" />
   <polyline points="169.75 174.52 172.76 178.91 179 170.83" fill="none" stroke="#fff" strokeLinecap="round"
-    strokeLinejoin="round" strokeWidth="4" />
+    stroke-linejoin="round" stroke-width="4" />
   <path
     d="M273.38,131S259,118.11,237.71,127c-16.67,7-8.78,15.23.18,14.88s24-6.46,22.95,8.42c-.95,13.11-17.21-5.74-26.53-5s-8.25,11.33,3.23,17.14,27.6,18.39,40.15,8.51S286.65,143.52,273.38,131Z"
     fill="#f4a28c" />
