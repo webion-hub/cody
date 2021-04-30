@@ -40,11 +40,7 @@
         }
 
         .bbe4b708-7203-4176-b040-7120ea55c37a {
-          fill:$ {
-            svgColorSecondary
-          }
-
-          ;
+          fill: {secondaryColor};
         }
 
         .e56d9f12-e5de-44e9-9b64-2fd3afe52405 {
@@ -57,11 +53,7 @@
         }
 
         .fbef9748-13d5-45b9-8835-46e20e9b132b {
-          fill:$ {
-            svgColor
-          }
-
-          ;
+          fill: {primaryColor};
         }
 
         .a0e55165-d3ec-4aa9-9754-434fe4656404 {
