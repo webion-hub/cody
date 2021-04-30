@@ -9,9 +9,6 @@ export const SvgHtmlParser = (svg) => {
 }
 
 
-/**
- * @returns {SVGElement | undefined} 
- */
 const transformSvgNode = (node) => {
   if (!node.name)
     return;
