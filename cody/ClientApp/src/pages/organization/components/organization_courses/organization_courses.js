@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Checkbox, TextField, useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
 
 import { Grid } from "@material-ui/core";
 import { GenericSearchBar } from "src/components/pickers/search_bars/generic_search_bar/generic_search_bar";
@@ -14,16 +13,12 @@ import { CoursesButtons } from "./components/courses_buttons";
 import { DialogBase } from "src/components/bases/dialog_base";
 import { CustomStepper } from "src/components/stepper/custom_stepper/custom_stepper";
 import { BasePhotoText } from "src/components/bases/base_photo_text";
-import { Step1 } from "src/components/illustrations/step1";
-import { Teacher } from "src/components/illustrations/teacher";
-import { School } from "src/components/illustrations/school";
-import Chip from '@material-ui/core/Chip';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import { AutocompleteWithVirtualizer } from "src/components/autocomplete_with_virtualizer/autocomplete_with_virtualizer";
 
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
 import { DescriptionTextField } from "src/components/pickers/text_fields/types/description_text_field";
+import { School, Teacher } from "src/components/illustrations/illustrations";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {

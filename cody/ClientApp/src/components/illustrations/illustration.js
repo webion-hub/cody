@@ -33,7 +33,7 @@ Illustration.lazy = (illustrationName) => {
 
 
 Illustration.defaultProps = {
-  divProps: {
+  boxProps: {
     width: '100%',
     maxWidth: '100%',
     margin: 0,

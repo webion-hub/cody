@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Grid, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-
-import { Sad } from 'src/components/illustrations/sad';
-
+import { Sad } from 'src/components/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   findOrganizationButton: {
@@ -32,7 +30,7 @@ export function NoDataFound(props) {
       justify="center"
       alignItems="center"
     >
-      <Sad size="100%"/>
+      <Sad/>
       <Typography variant="h6">
         {props.title}
       </Typography>

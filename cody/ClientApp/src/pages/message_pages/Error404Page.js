@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Error404 } from 'src/components/illustrations/error404';
 import { MessagePageBase } from 'src/components/bases/message_page_base';
+import { Error404 } from 'src/components/illustrations/illustrations';
 
 export const errorPageSettings = {
   image: Error404,

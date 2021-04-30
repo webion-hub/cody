@@ -11,13 +11,11 @@ import CloudOffRoundedIcon from '@material-ui/icons/CloudOffRounded';
 import ZoomOutMapRoundedIcon from '@material-ui/icons/ZoomOutMapRounded';
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
-import { Error } from 'src/components/illustrations/error';
-import { Error404 } from 'src/components/illustrations/error404';
-import { Sad } from 'src/components/illustrations/sad';
-import { NetworkError } from 'src/components/illustrations/network_error';
 
 import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from 'src/components/alert_dialog_item'
+
+import { Error, Error404, NetworkError, Sad } from 'src/components/illustrations/illustrations';
 
 export function MainAlertDialog(){
   const [currentError, setCurrentError] = React.useState("")

@@ -3,9 +3,9 @@ import React from 'react';
 
 import { Typography, Grid, useTheme, useMediaQuery } from '@material-ui/core';
 
-import { RocketLaunch } from 'src/components/illustrations/rocket_launch';
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
+import { RocketLaunch } from 'src/components/illustrations/illustrations';
 
 
 export function SignUpCompleted(){
@@ -19,8 +19,9 @@ export function SignUpCompleted(){
       alignItems="center"
     >
       <RocketLaunch
-        size="100%"
-        maxWidth={Form.width} 
+        boxProps={{
+          maxWidth: Form.width
+        }}
       />
       <Typography
         variant={mobileView ? "h4" : "h3"}

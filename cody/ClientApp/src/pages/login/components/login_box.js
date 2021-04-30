@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
 import { LoadingButton } from 'src/components/buttons/loading_button';
-import { Authentication } from 'src/components/illustrations/authentication';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
 import { BasePhotoText } from 'src/components/bases/base_photo_text';
 
@@ -20,6 +19,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { User } from 'src/lib/server_calls/user';
+import { Authentication } from 'src/components/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   usernameTextField: {

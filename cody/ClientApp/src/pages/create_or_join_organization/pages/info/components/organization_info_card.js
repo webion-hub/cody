@@ -37,7 +37,11 @@ export function OrganizationsInfoCard(props){
           direction={mobileView ? "column" : "row"}
           alignItems="center"
         >
-          <props.image maxWidth={200} size="100%"/>
+          <props.image 
+            boxProps={{
+              maxWidth: 200
+            }}
+          />
           <Grid
             className={classes.textBoxContainer}
             container

@@ -6,11 +6,9 @@ import { DatePicker } from 'src/components/pickers/text_fields/date_pickers/date
 import { DialogBase } from 'src/components/bases/dialog_base';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { Calendar } from 'src/components/illustrations/calendar';
 
-
-import { Form } from 'src/lib/default_values/sizes/form_size';
 import { BirthDateController } from 'src/lib/format_controller/controllers/birth_date_controller';
+import { Calendar } from 'src/components/illustrations/illustrations';
 
 export function EditableDatePicker(props){
 	const [editMode, setEditMode] = React.useState(false);
@@ -121,7 +119,7 @@ export function EditableDatePicker(props){
 								justify="center"
 								alignItems="center"
 							>
-								<Calendar size={Form.imageWidth}/>
+								<Calendar/>
 								<DatePicker
 									variant="filled"
 									value={value}

@@ -5,10 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 
-import { School } from 'src/components/illustrations/school';
-import { TeamMeeting } from 'src/components/illustrations/team_meeting';
-import { TeamWork } from 'src/components/illustrations/team_work';
 import { OrganizationsInfoCard } from './components/organization_info_card';
+import { School, TeamMeeting, TeamWork } from 'src/components/illustrations/illustrations';
 
 
 const useStyles = makeStyles((theme) => ({

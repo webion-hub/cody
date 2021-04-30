@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MessagePageBase } from 'src/components/bases/message_page_base';
-import { NetworkError } from 'src/components/illustrations/network_error';
+import { NetworkError } from 'src/components/illustrations/illustrations';
 
 export const errorPageSettings = {
   image: NetworkError,

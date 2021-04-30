@@ -28,10 +28,12 @@ export function MessagePageBase(props) {
   return (
     <CenterComponentPageBase>
       <PaperWithWaves className={classes.paper}>
-        <props.image 
-          maxWidth={500}
-          size="100%"
-          margin="0 auto"
+        <props.image
+          boxProps={{
+            maxWidth: 500,
+            size: "100%",
+            margin: "0 auto"
+          }}
         />
         <Typography
           component="h1"

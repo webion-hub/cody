@@ -2,12 +2,10 @@ import React from 'react';
 
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
-import { TeamMeeting } from 'src/components/illustrations/team_meeting';
-import { NewOrganization } from 'src/components/illustrations/new_oraganization';
 
 import { OrganizationAction } from 'src/pages/create_or_join_organization/pages/select_action/components/organization_action';
 import { PageController } from 'src/lib/page_controller';
-import { Illustration } from 'src/components/illustrations/illustration';
+import { NewOrganization, TeamMeeting } from 'src/components/illustrations/illustrations';
 
 
 export const selectActionSettings = {
@@ -22,14 +20,14 @@ function SelectAction(){
   return(
     <>
       <OrganizationAction
-        image={<Illustration path="/illustrations/new_organization.svg"/>}
+        image={<NewOrganization/>}
         buttonLabel="Crea"
         endIcon={<ArrowForwardRoundedIcon/>}
         href="/organization#create"
         onClick={(e) => PageController.updateHash("create", e)}
       />
       <OrganizationAction
-        image={<TeamMeeting size="100%"/>}
+        image={<TeamMeeting/>}
         buttonLabel="Unisciti"
         endIcon={<ArrowForwardRoundedIcon/>}
         href="/organization#join"

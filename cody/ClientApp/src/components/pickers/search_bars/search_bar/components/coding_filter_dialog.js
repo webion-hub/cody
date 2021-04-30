@@ -10,8 +10,8 @@ import { Box } from '@material-ui/core';
 import { DialogBase } from 'src/components/bases/dialog_base';
 import { Form } from 'src/lib/default_values/sizes/form_size';
 import { languages } from 'src/lib/default_values/lists/coding_languages';
+import { Coding } from 'src/components/illustrations/illustrations';
 
-import { Coding } from 'src/components/illustrations/coding';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +58,7 @@ export function CodingFilterDialog(props) {
         justify="center"
         alignItems="center"
       >
-        <Coding size={Form.imageWidth}/>
+        <Coding/>
         <Autocomplete
           id="autocomplete"
           options={languages}

@@ -29,10 +29,12 @@ export function BasePhotoText(props) {
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   const image = props.image &&
-    <props.image 
-      padding={props.imagePadding}
-      maxWidth={Form.width} 
-      size={mobileView ? "100%" : "50%"}
+    <props.image
+      boxProps={{
+        padding: props.imagePadding,
+        maxWidth: Form.width,
+        width: mobileView ? "100%" : "50%"
+      }}
     />
 
   const flippedImage = 

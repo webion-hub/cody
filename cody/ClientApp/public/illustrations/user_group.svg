@@ -2,8 +2,7 @@
   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 137.71999 213.16001">
   <defs>
     <style>
-      {
-        `.a23fd8e4-2cd4-45d1-aaf7-34388f2e1791 {
+        .a23fd8e4-2cd4-45d1-aaf7-34388f2e1791 {
           fill: #c9c9c9;
         }
 
@@ -76,9 +75,6 @@
         .f41c5300-4218-4552-af07-d08670c30a63 {
           opacity: 0.39;
         }
-
-        `
-      }
     </style>
   </defs>
   <rect className="a23fd8e4-2cd4-45d1-aaf7-34388f2e1791" width="118.84999" height="213.16001" />

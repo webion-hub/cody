@@ -3,7 +3,6 @@ import { DialogBase } from "src/components/bases/dialog_base";
 import { ListWithSearch } from "src/components/list_with_search/list_with_search";
 import { Button, Grid, IconButton } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import { UserGroup } from "src/components/illustrations/user_group";
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
@@ -13,6 +12,7 @@ import { UserSummaryCard } from "src/components/user_summary_card";
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { UserListItem } from "src/components/list_items/user_list_item";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
+import { UserGroup } from "src/components/illustrations/illustrations";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -130,11 +130,13 @@ export function AllOrganizationUserDialog(props){
               direction="column"
               alignItems="center"
             >
-              <UserGroup 
-                className={`${userData !== null ? classes.hideImage : ""} ${classes.image}`}
-                maxWidth={300} 
-                size="100%" 
-                padding={4}
+              <UserGroup
+                boxProps={{
+                  className: `${userData !== null ? classes.hideImage : ""} ${classes.image}`,
+                  maxWidth: 300, 
+                  size: "100%", 
+                  padding: 4,
+                }}
               />
               {
                 userData !== null &&

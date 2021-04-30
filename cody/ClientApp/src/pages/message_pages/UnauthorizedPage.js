@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Error } from 'src/components/illustrations/error';
 import { MessagePageBase } from 'src/components/bases/message_page_base';
+import { Error } from 'src/components/illustrations/illustrations';
 
 export const errorPageSettings = {
   image: Error,

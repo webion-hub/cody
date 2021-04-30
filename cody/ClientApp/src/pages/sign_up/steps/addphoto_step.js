@@ -10,10 +10,9 @@ import { Paper } from '@material-ui/core';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 
-import { Step3 } from 'src/components/illustrations/step3';
-
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
+import { Step3 } from 'src/components/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   addPhoto: {

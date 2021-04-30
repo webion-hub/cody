@@ -3,11 +3,11 @@ import React from 'react';
 import { Grid, Typography, TextField, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { TeamWork } from 'src/components/illustrations/team_work';
 import { CreateOrganizationContainer } from './components/create_organization_container';
 
 import { PageController } from 'src/lib/page_controller';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
+import { TeamWork } from 'src/components/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   imageContainer: {
@@ -60,7 +60,7 @@ function CreateOrganization(){
       onClick={(e) => PageController.updateHash(`create${organizationKind}`, e)}
     >
       <div className={classes.imageContainer}>
-        <TeamWork size="100%"/>
+        <TeamWork/>
       </div>
       <TextField
         className={classes.organizationSelectionField}
