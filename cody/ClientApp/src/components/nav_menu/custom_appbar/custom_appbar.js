@@ -122,7 +122,6 @@ export function CustomAppBar(props){
             <Grid
               container
               direction="row"
-              style={{height: 48}}
             >
               <AppBarSection
                 size={sizeLeft}
