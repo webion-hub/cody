@@ -1,11 +1,14 @@
+import { Box, Grid } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import React, { useState } from "react";
 import { useEffect, useRef } from "react";
 import { Colors } from "src/lib/default_values/themes/colors/main_colors";
 import IllustrationLoader from "../lib/illustration_loader";
 
 
-export const Illustration = React.forwardRef((props, _ref) => {
-  const illustration = useRef(null);
+export const Illustration = React.forwardRef((props, ref) => {
+  const skeleton = getIllustrationSkeleton();
+  const illustration = useRef(skeleton);
   const [, setIsLoaded] = useState(false);
 
   const updateContent = (svg) => {
@@ -22,6 +25,22 @@ export const Illustration = React.forwardRef((props, _ref) => {
 
   return illustration.current;
 });
+
+
+const getIllustrationSkeleton = () => {
+  return (
+    <Box>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Skeleton height={200} width={128}/>
+      </Grid>
+    </Box>
+  );
+}
 
 
 Illustration.lazy = (illustrationName) => {
