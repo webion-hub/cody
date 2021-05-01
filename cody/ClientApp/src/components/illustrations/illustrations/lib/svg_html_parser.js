@@ -33,9 +33,9 @@ const maybeReplaceAttributes = (node) => {
     ['stroke-linecap', 'strokeLinecap'],
   ];
 
-  return newAttribs.some(([oldName, newName]) => {
-    return tryReplaceAttribute(node, oldName, newName);
-  });
+  return newAttribs
+    .map(([o, n]) => tryReplaceAttribute(node, o, n))
+    .some(res => res);
 }
 
 
