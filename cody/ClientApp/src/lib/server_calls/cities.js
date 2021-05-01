@@ -7,21 +7,18 @@ export class Cities {
    * @returns {Promise<City[]>}
    */
   static async find(name) {
-    return Cities._singleRequest.send(tokenSource => {
-      return Requests.send({
-        url: 'https://dev.virtualearth.net/REST/v1/Locations',
-        method: 'GET',
-        cancelToken: tokenSource.token,
-        params: {
-          key: Cities.BING_MAPS_API_KEY,
-          query: name,
-          maxResults: 10,
-          culture: 'it-IT',
-        },
-      })
-      .then(resp => resp?.data)
-      .then(Cities.formatResult);
-    });
+    return Requests.single({
+      url: 'https://dev.virtualearth.net/REST/v1/Locations',
+      method: 'GET',
+      params: {
+        key: Cities.BING_MAPS_API_KEY,
+        query: name,
+        maxResults: 10,
+        culture: 'it-IT',
+      },
+    })
+    .then(resp => resp?.data)
+    .then(Cities.formatResult);
   }
 
   static formatResult(bingResult) {
@@ -39,7 +36,6 @@ export class Cities {
   }
 }
 
-Cities._singleRequest = new SingleXHRRequest();
 Cities.BING_MAPS_API_KEY = 'Atk8WqFahBgE88OPqmaBcGtaXp-eW-oaL3VjFrtRPscXG5sq1xwk69zAWanavyH_';
 
 

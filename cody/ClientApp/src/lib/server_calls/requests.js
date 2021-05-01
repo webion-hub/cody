@@ -23,6 +23,19 @@ export default class Requests {
    * @returns {Promise<SearchResult<any>>}
    */
   static search = async (config) => {
+    const emptySearch = {total: 0, values: []};
+    return Requests
+      .single(config)
+      .then(response => {
+        return response?.data ?? emptySearch;
+      });
+  }
+
+
+  /**
+   * @param {AxiosRequestConfig} config 
+   */
+  static single = async (config) => {
     const singleXHRRequest = 
       this._getSingleXHRRequestFrom(config.url);
 
@@ -30,15 +43,15 @@ export default class Requests {
       return Requests.send({
         ...config,
         cancelToken: tokenSource.token,
-      })
-      .then(response => {
-        return response 
-          ? response.data
-          : {total: 0, values: []};
       });
     });
   }
 
+  /**
+   * @private 
+   * @param {string} url
+   * @returns {SingleXHRRequest}
+   */
   static _getSingleXHRRequestFrom = (url) => {
     if (!Requests._searchRequests[url])
       Requests._searchRequests[url] = new SingleXHRRequest();
@@ -77,8 +90,13 @@ export default class Requests {
    * @param {AxiosRequestConfig} config
    */
    static _maybeAddPrefix = (config) => {
-    if (!config.url.startsWith('api/'))
-      config.url = 'api/' + config.url;
+    if (config.url.startsWith('api/'))
+      return;
+      
+    if (config.url.startsWith('https'))
+      return;
+
+    config.url = 'api/' + config.url;
   }
 
 
