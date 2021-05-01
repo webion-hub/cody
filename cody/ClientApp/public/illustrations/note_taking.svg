@@ -25,11 +25,11 @@
   <circle cx="153.68" cy="108.24" r="2.52" fill="#fff" opacity="0.46" />
   <circle cx="156.49" cy="126.25" r="2.52" fill="#fff" opacity="0.46" />
   <circle cx="159.3" cy="144.26" r="2.52" fill="#fff" opacity="0.46" />
-  <line x1="165.14" y1="106.45" x2="235.91" y2="95.4" fill="none" stroke="#fff" strokeLinecap="round"
+  <line x1="165.14" y1="106.45" x2="235.91" y2="95.4" fill="none" stroke="#fff" stroke-linecap="round"
     stroke-linejoin="bevel" stroke-width="2" />
-  <line x1="167.95" y1="124.46" x2="238.73" y2="113.41" fill="none" stroke="#fff" strokeLinecap="round"
+  <line x1="167.95" y1="124.46" x2="238.73" y2="113.41" fill="none" stroke="#fff" stroke-linecap="round"
     stroke-linejoin="bevel" stroke-width="2" />
-  <line x1="170.76" y1="142.47" x2="241.54" y2="131.43" fill="none" stroke="#fff" strokeLinecap="round"
+  <line x1="170.76" y1="142.47" x2="241.54" y2="131.43" fill="none" stroke="#fff" stroke-linecap="round"
     stroke-linejoin="bevel" stroke-width="2" />
   <path
     d="M128.44,141.08l21.83-17.24c7.92-6.25,17.88,5.16,10.42,12-.42.38-.88.77-1.39,1.15a48.86,48.86,0,0,0-16.2,21.73s3.65,18.26-9.74,23.74S102.83,166.69,128.44,141.08Z"
