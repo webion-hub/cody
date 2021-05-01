@@ -12,7 +12,8 @@ const transformSvgNode = (node, index) => {
   if (!node.name)
     return;
 
-  maybeReplaceAttributes(node);
+  if (!maybeReplaceAttributes(node))
+    return;
 
   return <node.name {...node.attribs} key={index}>
     {processNodes(node.children, transformSvgNode)}
@@ -22,16 +23,32 @@ const transformSvgNode = (node, index) => {
 
 const maybeReplaceAttributes = (node) => {
   if (!node.attribs)
-    return;
+    return false;
 
-  const replaceAttribute = (oldName, newName) => {
-    if (!(oldName in node.attribs))
-      return;
+  const newAttribs = [
+    ['viewbox', 'viewBox'],
+    ['classname', 'className'],
+    ['stroke-linejoin', 'strokeLinejoin'],
+    ['stroke-width', 'strokeWidth'],
+    ['stroke-linecap', 'strokeLinecap'],
+  ];
 
-    node.attribs[newName] = node.attribs[oldName];
-    delete node.attribs[oldName];    
-  }
+  return newAttribs.some(([oldName, newName]) => {
+    return tryReplaceAttribute(node, oldName, newName);
+  });
+}
 
-  replaceAttribute('viewbox', 'viewBox');
-  replaceAttribute('classname', 'className');
+
+/** 
+ * @param {string} oldName 
+ * @param {string} newName 
+ * @returns {boolean}
+ */
+const tryReplaceAttribute = (node, oldName, newName) => {
+  if (!(oldName in node.attribs))
+    return false;
+
+  node.attribs[newName] = node.attribs[oldName];
+  delete node.attribs[oldName];
+  return true;
 }
