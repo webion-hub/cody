@@ -4,7 +4,7 @@ import { SvgHtmlParser } from "./svg_html_parser";
 
 export default class IllustrationLoader {
   /**
-   * @param {import("./illustration").IllustrationProps} props
+   * @param {import("../components/illustration").IllustrationProps} props
    */
   static create = (props) => {
     return new IllustrationLoader(props);

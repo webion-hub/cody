@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect, useRef } from "react";
 import { Colors } from "src/lib/default_values/themes/colors/main_colors";
-import IllustrationLoader from "./illustration_loader";
+import IllustrationLoader from "../lib/illustration_loader";
 
 
 export const Illustration = React.forwardRef((props, _ref) => {

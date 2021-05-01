@@ -1,4 +1,4 @@
-import { Illustration } from "./illustration";
+import { Illustration } from "./components/illustration";
 
 export const Authentication = Illustration.lazy('authentication');
 export const Calendar = Illustration.lazy('calendar');
