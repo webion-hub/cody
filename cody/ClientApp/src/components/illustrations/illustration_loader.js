@@ -4,8 +4,7 @@ import { SvgHtmlParser } from "./svg_html_parser";
 
 export default class IllustrationLoader {
   /**
-   * @param {IllustrationProps} props 
-   * @returns {IllustrationLoader}
+   * @param {import("./illustration").IllustrationProps} props
    */
   static create = (props) => {
     return new IllustrationLoader(props);
@@ -22,9 +21,6 @@ export default class IllustrationLoader {
   }
 
 
-  /**
-   * @returns {Promise<Box>}
-   */
   load = async () => {
     return IllustrationLoader.cache.has(this.path)
       ? this.fetchFromCache()
@@ -33,9 +29,6 @@ export default class IllustrationLoader {
 
   /**
    * @private
-   * @param {string} path 
-   * @param {IllustrationProps} props 
-   * @returns {Promise<Box>}
    */
   fetchFromServer = async () => {
     return fetch(this.path)
@@ -47,8 +40,7 @@ export default class IllustrationLoader {
 
   /**
    * @private
-   * @param {string} rawSvg 
-   * @returns {string}
+   * @param {string} rawSvg
    */
   replaceProps = (rawSvg) => {
     return Object
@@ -58,7 +50,8 @@ export default class IllustrationLoader {
 
   /**
    * @private
-   * @param {string} curr 
+   * @param {string} curr
+   * @param {[string, string]}  
    * @returns {string}
    */
   replaceProp = (curr, [prop, value]) => {
@@ -70,7 +63,6 @@ export default class IllustrationLoader {
   /**
    * @private
    * @param {string} path
-   * @returns {Box} 
    */
   createSvgElement = (svg) => {
     return (
@@ -82,8 +74,7 @@ export default class IllustrationLoader {
 
 
   /**
-   * @private
-   * @returns {Promise<Box>} 
+   * @private 
    */
   fetchFromCache = async () => {
     const elem = IllustrationLoader.cache.get(this.path);
@@ -92,8 +83,7 @@ export default class IllustrationLoader {
 
   /**
    * @private 
-   * @param {Box} element 
-   * @returns {Box}
+   * @param {JSX.Element} element 
    */
   storeInCache = (element) => {
     IllustrationLoader.cache.set(this.path, element);
@@ -103,14 +93,13 @@ export default class IllustrationLoader {
 
 /**
  * @private
- * @type {Map<string, Box>}
+ * @type {Map<string, JSX.Element>}
  */
 IllustrationLoader.cache = new Map();
 
-
 /**
  * @typedef {object} IllustrationProps
- * @property {string} path
+ * @property {string} [path]
  * @property {*} boxProps
  * @property {*} svgProps
  */

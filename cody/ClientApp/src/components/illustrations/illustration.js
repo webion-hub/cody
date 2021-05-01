@@ -8,7 +8,7 @@ export const Illustration = React.forwardRef((props, _ref) => {
   const illustration = useRef(null);
   const [, setIsLoaded] = useState(false);
 
-  const updateContent = svg => {
+  const updateContent = (svg) => {
     illustration.current = svg;
     setIsLoaded(true);
   };

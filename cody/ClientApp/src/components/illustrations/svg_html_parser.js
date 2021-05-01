@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactHtmlParser, { processNodes } from 'react-html-parser';
 
 
@@ -12,7 +11,7 @@ export const SvgHtmlParser = (svg) => {
 const transformSvgNode = (node) => {
   if (!node.name)
     return;
-  
+
   maybeReplaceAttributes(node);
 
   return <node.name {...node.attribs}>
