@@ -15,7 +15,7 @@ export const Illustration = React.forwardRef((props, _ref) => {
 
   useEffect(() => {
     IllustrationLoader
-      .create(props)
+      .create({...props, ref: ref })
       .load()
       .then(svg => updateContent(svg));
   }, []);

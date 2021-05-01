@@ -4,7 +4,7 @@ import { SvgHtmlParser } from "./svg_html_parser";
 
 export default class IllustrationLoader {
   /**
-   * @param {import("../components/illustration").IllustrationProps} props
+   * @param {IllustrationProps} props
    */
   static create = (props) => {
     return new IllustrationLoader(props);
@@ -16,15 +16,18 @@ export default class IllustrationLoader {
    */
   constructor (props) {
     this.path = props.path;
+    this.ref = props.ref;
     this.boxProps = props.boxProps;
     this.svgProps = props.svgProps;
   }
 
 
   load = async () => {
-    return IllustrationLoader.cache.has(this.path)
+    const svg = IllustrationLoader.cache.has(this.path)
       ? this.fetchFromCache()
       : this.fetchFromServer();
+
+    return svg.then(this.createSvgBox);
   }
 
   /**
@@ -34,7 +37,7 @@ export default class IllustrationLoader {
     return fetch(this.path)
       .then(resp => resp.text())
       .then(rawSvg => this.replaceProps(rawSvg))
-      .then(svg => this.createSvgElement(svg))
+      .then(rawSvg => this.parseSvg(rawSvg))
       .then(svg => this.storeInCache(svg));
   }
 
@@ -60,14 +63,19 @@ export default class IllustrationLoader {
   };
 
 
+  parseSvg = (rawSvg) => {
+    return SvgHtmlParser(rawSvg);
+  }
+
+
   /**
    * @private
-   * @param {string} path
+   * @param {JSX.Element} svg 
    */
-  createSvgElement = (svg) => {
+  createSvgBox = (svg) => {
     return (
-      <Box {...this.boxProps}>
-        {SvgHtmlParser(svg)}
+      <Box {...this.boxProps} ref={this.ref}>
+        {svg}
       </Box>
     );
   }
@@ -100,6 +108,7 @@ IllustrationLoader.cache = new Map();
 /**
  * @typedef {object} IllustrationProps
  * @property {string} [path]
+ * @property {React.ForwardedRef<any>} [ref]
  * @property {*} boxProps
  * @property {*} svgProps
  */
