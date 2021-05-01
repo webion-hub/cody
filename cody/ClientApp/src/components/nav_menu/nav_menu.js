@@ -12,17 +12,22 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 	children: {
+    position: "relative",
     marginTop: theme.appBar.fullHeight,
+    minHeight: `calc(100vh - ${theme.appBar.fullHeight}px)`,
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.drawer.width,
+      maxWidth: `calc(100vw - ${theme.drawer.width}px)`,
+      marginLeft: theme.drawer.width,
       width: "100%",
       transition: "all 0.25s",
     },
     [theme.breakpoints.down('xs')]: {
-      paddingLeft: 0,
+      marginLeft: 0,
+      maxWidth: '100vw',
       width: "100%",
       transition: "all 0.25s",
       marginTop: theme.appBar.mobileHeight,
+      minHeight: `calc(100vh - ${theme.appBar.mobileHeight}px)`,
     },
   }
 }));
