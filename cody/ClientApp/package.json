@@ -13,6 +13,7 @@
     "bootstrap": "^4.6.0",
     "date-fns": "^2.21.1",
     "exif-js": "^2.3.0",
+    "htmlparser2": "^6.1.0",
     "jquery": "^3.6.0",
     "merge": "^2.1.1",
     "moment": "^2.29.1",
@@ -33,6 +34,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@types/react-html-parser": "^2.0.1",
     "ajv": "^7.2.4",
     "eslint": "^7.25.0",
     "eslint-config-react-app": "^6.0.0",
