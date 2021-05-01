@@ -1,4 +1,4 @@
-import { Confirmation } from "src/components/illustrations/illustrations";
+import { Confirmation } from "src/components/illustrations/illustrations/illustrations";
 
 export const validateEmailOkSettings = {
   image: Confirmation,

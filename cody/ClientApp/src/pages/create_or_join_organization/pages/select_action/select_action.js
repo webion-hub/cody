@@ -5,7 +5,7 @@ import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
 import { OrganizationAction } from 'src/pages/create_or_join_organization/pages/select_action/components/organization_action';
 import { PageController } from 'src/lib/page_controller';
-import { NewOrganization, TeamMeeting } from 'src/components/illustrations/illustrations';
+import { NewOrganization, TeamMeeting } from 'src/components/illustrations/illustrations/illustrations';
 
 
 export const selectActionSettings = {

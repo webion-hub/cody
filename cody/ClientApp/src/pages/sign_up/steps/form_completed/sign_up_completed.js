@@ -5,7 +5,7 @@ import { Typography, Grid, useTheme, useMediaQuery } from '@material-ui/core';
 
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
-import { RocketLaunch } from 'src/components/illustrations/illustrations';
+import { RocketLaunch } from 'src/components/illustrations/illustrations/illustrations';
 
 
 export function SignUpCompleted(){

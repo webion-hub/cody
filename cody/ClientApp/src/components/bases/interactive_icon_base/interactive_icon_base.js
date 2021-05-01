@@ -33,6 +33,9 @@ export function InteractiveIconBase(props){
 			{props.notLoggedContent}
 		</LoadingDisplayComponent>
 
+  const mainComponent = userState === "logged" 
+    ? loggedContent 
+    : notLoggedContent
 
   return (    
     <>
@@ -46,7 +49,7 @@ export function InteractiveIconBase(props){
           display: finalLoading ? "block" : "none"  
         }}
       />
-			{userState === "logged" ? loggedContent : notLoggedContent}
+			{mainComponent}
     </>
   );
 }

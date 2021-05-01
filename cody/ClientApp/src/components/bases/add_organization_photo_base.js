@@ -1,5 +1,3 @@
-import React from "react";
-
 import OrganizationImages from 'src/lib/server_calls/organization_images';
 import { AddPhotoOverlay } from "src/components/pickers/others/add_photo_overlay";
 import { EventsDispatcher } from "src/lib/events_dispatcher";

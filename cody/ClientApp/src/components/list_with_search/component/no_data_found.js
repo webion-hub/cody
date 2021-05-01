@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { Grid, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { Sad } from 'src/components/illustrations/illustrations';
+import { Sad } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   findOrganizationButton: {

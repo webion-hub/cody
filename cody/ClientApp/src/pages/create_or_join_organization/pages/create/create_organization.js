@@ -7,7 +7,7 @@ import { CreateOrganizationContainer } from './components/create_organization_co
 
 import { PageController } from 'src/lib/page_controller';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-import { TeamWork } from 'src/components/illustrations/illustrations';
+import { TeamWork } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   imageContainer: {

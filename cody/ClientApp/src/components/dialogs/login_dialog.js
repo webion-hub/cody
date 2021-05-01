@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, ButtonGroup } from '@material-ui/core';
 import { DialogBase } from 'src/components/bases/dialog_base';

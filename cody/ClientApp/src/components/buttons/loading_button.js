@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
@@ -39,16 +37,11 @@ export function LoadingButton(props){
       {children}
     </Button>
 
-  return (
-    fullWidth ? 
-      <Box width={1}>
-        {mainButton}
-      </Box>
-      : 
-      <span>
-        {mainButton}
-      </span>   
-  ) 
+
+  if(fullWidth)
+    return <Box width={1}>{mainButton}</Box>
+
+  return <span>{mainButton}</span> 
 }
 
 LoadingButton.defaultProps = {

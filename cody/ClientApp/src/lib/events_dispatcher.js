@@ -37,6 +37,5 @@ EventsDispatcher._emitter = new EventEmitter();
  *  'updateOrganizationMember' | 
  *  'updateBookmarkedOrganizations' |
  *  'openLoginDialog' |
- *  'scroll'
  * )} UIEvent
  */

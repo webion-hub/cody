@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import { Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';

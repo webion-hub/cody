@@ -12,7 +12,7 @@ import { UserSummaryCard } from "src/components/user_summary_card";
 import { UserSmallSummary } from "src/components/user_small_summary";
 import { UserListItem } from "src/components/list_items/user_list_item";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
-import { UserGroup } from "src/components/illustrations/illustrations";
+import { UserGroup } from "src/components/illustrations/illustrations/illustrations";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {

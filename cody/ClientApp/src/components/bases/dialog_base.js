@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Dialog } from '@material-ui/core';
 import { DialogActions } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';

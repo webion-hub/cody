@@ -131,4 +131,3 @@ export function LeaveOrganizationButton(props){
 LeaveOrganizationButton.defaultProps = {
   ButtonComponent: LoadingButton
 }
-

@@ -15,7 +15,7 @@ import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutli
 import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
 import { AlertDialogItem } from 'src/components/alert_dialog_item'
 
-import { Error, Error404, NetworkError, Sad } from 'src/components/illustrations/illustrations';
+import { Error, Error404, NetworkError, Sad } from 'src/components/illustrations/illustrations/illustrations';
 
 export function MainAlertDialog(){
   const [currentError, setCurrentError] = React.useState("")

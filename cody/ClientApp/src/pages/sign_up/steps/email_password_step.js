@@ -11,7 +11,7 @@ import { FormatLengthController } from 'src/lib/format_controller/utilities/form
 import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
 import { TextFieldWrappedWithForm } from 'src/components/pickers/text_fields/text_field_wrapped_with_form';
 import { PasswordWithStrength } from 'src/components/pickers/text_fields/types/password/password_with_strength';
-import { Step1 } from 'src/components/illustrations/illustrations';
+import { Step1 } from 'src/components/illustrations/illustrations/illustrations';
 
 
 export function EmailPassword(props){

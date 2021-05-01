@@ -1,4 +1,3 @@
-import React from "react";
 import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,12 +18,7 @@ export function UserListItem(props){
     index,
     data,
     onClick,
-    onDataChange,
   } = props
-
-  const handleEvent = (newData) => {
-    onDataChange(newData, index)
-  }
 
   return (
     <div style={style} key={index}>

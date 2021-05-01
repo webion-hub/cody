@@ -1,4 +1,4 @@
-import { Error } from "src/components/illustrations/illustrations";
+import { Error } from "src/components/illustrations/illustrations/illustrations";
 
 export const validateEmailNotFoundSettings = {
   image: Error,

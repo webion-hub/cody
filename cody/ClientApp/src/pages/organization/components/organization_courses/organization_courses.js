@@ -18,7 +18,7 @@ import { AutocompleteWithVirtualizer } from "src/components/autocomplete_with_vi
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
 import { DescriptionTextField } from "src/components/pickers/text_fields/types/description_text_field";
-import { School, Teacher } from "src/components/illustrations/illustrations";
+import { School, Teacher } from "src/components/illustrations/illustrations/illustrations";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {

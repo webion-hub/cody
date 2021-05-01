@@ -19,7 +19,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { User } from 'src/lib/server_calls/user';
-import { Authentication } from 'src/components/illustrations/illustrations';
+import { Authentication } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   usernameTextField: {

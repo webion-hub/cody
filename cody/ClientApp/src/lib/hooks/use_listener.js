@@ -10,7 +10,6 @@ export const useListener = (
   
   useEffect(() => {
 		controller.listen(eventFunction)
-
     const delay = firstExecutionDelay ? firstExecutionDelay : 0
 
     if(!removeFirstExecution)

@@ -1,4 +1,4 @@
-import { Error } from 'src/components/illustrations/illustrations';
+import { Error } from 'src/components/illustrations/illustrations/illustrations';
 import { User } from 'src/lib/server_calls/user';
 
 export const getValidateEmailBadKeySettingsIsLogged = ({setOpenAlertDialog}) => {

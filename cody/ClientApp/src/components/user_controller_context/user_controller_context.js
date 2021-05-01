@@ -31,33 +31,37 @@ export function UserControllerContext(props){
   }
 
   useEffect(() => {
-    setRole(null)
-
     checkUserLogged({
-      onSuccess: async () => {
-        await fetchRole()
-        setUserGeneralState("logged")
-      },
-      onError: () => setUserGeneralState("notLogged"),
+      onSuccess: setLogged,
+      onError: setNotLogged,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps    
   }, []);
 
+
+  const setLogged = async _ => {
+    setUserGeneralState("loading")
+    await fetchRole()
+    setUserGeneralState("logged")
+  }
+
+  const setNotLogged = _ => {
+    setRole(null)
+    setUserGeneralState("notLogged")
+  }
+
+  const setLoading = _ => {
+    setUserGeneralState("loading")
+  }
+
   const setUserState = async (state) => {
-    switch (state) {
-      case "logged":
-        setUserGeneralState("loading")
-        await fetchRole()
-        setUserGeneralState("logged")
-        break;
-      case "notLogged":
-        setRole(null)
-        setUserGeneralState("notLogged")
-        break;
-      default:
-        setUserGeneralState("loading")
-        break;
-    }
+    const action = {
+      'logged': setLogged,
+      'notLogged': setNotLogged,
+      'loading': setLoading
+    }[state]
+
+    action();
   }
     
   const value = { 

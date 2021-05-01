@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button, Tooltip } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 

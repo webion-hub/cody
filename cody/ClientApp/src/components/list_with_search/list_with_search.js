@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTheme, Grid, Paper, LinearProgress, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core'
@@ -39,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ListWithSearch = React.memo((props) => {
+  const filterComponentRef = useRef();
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-  const filterComponentRef = React.useRef();
+  
   const filterComponentWidth = filterComponentRef.current
     ? filterComponentRef.current.offsetWidth + 16
     : 0

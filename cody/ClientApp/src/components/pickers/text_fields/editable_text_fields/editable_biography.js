@@ -4,7 +4,7 @@ import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { DescriptionTextField } from '../types/description_text_field';
-import { Reading } from 'src/components/illustrations/illustrations';
+import { Reading } from 'src/components/illustrations/illustrations/illustrations';
 
 export function EditableBiography(props){
 	const [editMode, setEditMode] = React.useState(false);

@@ -11,7 +11,7 @@ import { FormatLengthController } from 'src/lib/format_controller/utilities/form
 
 import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
 import { DatePickerWithErrors } from 'src/components/pickers/text_fields/date_pickers/date_picker_with_errors';
-import { Step2 } from 'src/components/illustrations/illustrations';
+import { Step2 } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({
   textFieldName: {
