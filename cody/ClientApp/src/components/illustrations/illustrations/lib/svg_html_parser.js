@@ -8,13 +8,13 @@ export const SvgHtmlParser = (svg) => {
 }
 
 
-const transformSvgNode = (node) => {
+const transformSvgNode = (node, index) => {
   if (!node.name)
     return;
 
   maybeReplaceAttributes(node);
 
-  return <node.name {...node.attribs}>
+  return <node.name {...node.attribs} key={index}>
     {processNodes(node.children, transformSvgNode)}
   </node.name>;
 }
