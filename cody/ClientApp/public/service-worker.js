@@ -12,6 +12,8 @@ const urlsToCache = [
   
   '/index.css',
   '/index.js',
+
+  '/illustrations/offline.svg',
 ];
 
 
