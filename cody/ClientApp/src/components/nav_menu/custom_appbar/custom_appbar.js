@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,9 +11,9 @@ import { useScrollTrigger } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
 
 import { AppBarSection } from './components/appbar_section';
-import { setOpacityColor } from 'src/lib/setOpacityColor';
 import { useListener } from 'src/lib/hooks/use_listener';
-import { EventsDispatcher } from 'src/lib/events_dispatcher';
+import { AppBarOpacityController } from './lib/appbar_opacity_controller';
+import { STDEventsDispatcher } from 'src/lib/std_events_dispatcher';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,27 +63,12 @@ export function CustomAppBar(props){
     setFadeInAppBar,
   }
 
-  const getOpacity = () => {
-    const scrollY = window.scrollY
-    const halfScreen = window.innerHeight / 2
-
-    if(scrollY >= halfScreen)
-      return 0.25;
-
-    return 1 - (scrollY / halfScreen) + 0.25
-  }
-
-  const updateAppBarOpacity = () => {
-    if(appBarRef.current === null || appBarRef.current === undefined)
-      return
-
-    appBarRef.current.style.backgroundColor = setOpacityColor(theme.appBar.color, getOpacity())
-  }
-
   useListener({
-    controller: EventsDispatcher.setEvent('scroll'),
-    eventFunction: updateAppBarOpacity
-  })
+    controller: STDEventsDispatcher.setEvent('scroll').on(window),
+    eventFunction: _ => AppBarOpacityController
+      .setRef(appBarRef)
+      .updateOpacity(theme.appBar.color)
+  }, [])
 
   const fadeLeft = fadeInAppBarSection.left
   const fadeCenter = fadeInAppBarSection.center || mobileView;
