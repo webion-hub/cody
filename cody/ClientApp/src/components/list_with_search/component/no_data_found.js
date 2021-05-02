@@ -28,7 +28,11 @@ export function NoDataFound(props) {
       justify="center"
       alignItems="center"
     >
-      <Sad/>
+      <Sad
+        boxProps={{
+          height: 200
+        }}
+      />
       <Typography variant="h6">
         {props.title}
       </Typography>
