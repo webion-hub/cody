@@ -1,15 +1,17 @@
+import loadable from '@loadable/component'
+
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
 import { Tab } from '@material-ui/core';
 
-import { UsersList } from 'src/pages/admin_pages/components/data_lists/users_list/users_list';
-import { OrganizationsList } from 'src/pages/admin_pages/components/data_lists/organizations_list/organizations_list';
 import { UserContext } from "src/components/user_controller_context/user_controller_context";
 import { DataTab } from "./components/data_tab";
 
 import { PageController } from 'src/lib/page_controller';
 
+const UsersList = loadable(() => import('src/pages/admin_pages/components/data_lists/users_list/users_list'))
+const OrganizationsList = loadable(() => import('src/pages/admin_pages/components/data_lists/organizations_list/organizations_list'))
 
 const useStyles = makeStyles((theme) => ({
 	dataGrid: {
