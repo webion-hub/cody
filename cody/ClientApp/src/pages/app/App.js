@@ -1,17 +1,16 @@
-import React from 'react';
+import loadable from '@loadable/component'
 import { Layout } from 'src/components/Layout';
 
 import { UserControllerContext } from "src/components/user_controller_context/user_controller_context";
-import CookieConsentSnackBar from "src/components/cookie_consent_snackbar";
-
 import { OfflineController } from 'src/components/offline_controller';
-import { MainAlertDialog } from 'src/pages/app/components/main_alert_dialog';
 
-import { MainLoginDialog } from './components/main_login_dialog';
 import { MainFab } from './components/main_fab';
 import { Routes } from './routes';
-
 import 'src/custom.css';
+
+const MainLoginDialog = loadable(() => import('./components/main_login_dialog'))
+const MainAlertDialog = loadable(() => import('./components/main_alert_dialog'))
+const CookieConsentSnackBar = loadable(() => import('src/components/cookie_consent_snackbar'))
 
 export default function App(){
   return (
