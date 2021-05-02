@@ -33,6 +33,7 @@ const maybeReplaceAttributes = (node) => {
     ['stroke-linecap', 'strokeLinecap'],
     ['font-weight', 'fontWeight'],
     ['font-size', 'fontSize'],
+    ['font-family', 'fontFamily'],
   ];
 
   return newAttribs
