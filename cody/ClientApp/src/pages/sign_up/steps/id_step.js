@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function IDData(props){
+export default function IDData(props){
 	const classes = useStyles();
   const nextFocus = new NextFocus(["username", "name", "surname"]);
 

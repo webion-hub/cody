@@ -17,7 +17,7 @@ import { AlertDialogItem } from 'src/components/alert_dialog_item'
 
 import { Error, Error404, NetworkError, Sad } from 'src/components/illustrations/illustrations/illustrations';
 
-export function MainAlertDialog(){
+export default function MainAlertDialog(){
   const [currentError, setCurrentError] = React.useState("")
 
   Requests.onError = (reason) => {

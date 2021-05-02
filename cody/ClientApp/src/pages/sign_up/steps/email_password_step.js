@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 import { Typography } from '@material-ui/core';
 
 import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
@@ -14,7 +12,7 @@ import { PasswordWithStrength } from 'src/components/pickers/text_fields/types/p
 import { Step1 } from 'src/components/illustrations/illustrations/illustrations';
 
 
-export function EmailPassword(props){
+export default function EmailPassword(props){
   const nextFocus = new NextFocus(["email", "password", "confirmPassword"]);
   
   const emailError = props.errors.emailError || props.errors.emailExist

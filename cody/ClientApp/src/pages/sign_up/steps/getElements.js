@@ -1,8 +1,9 @@
-import { EmailPassword } from './email_password_step';
-import { IDData } from './id_step';
-import { AddPhotoStep } from './addphoto_step';
-
+import loadable from '@loadable/component'
 import { FormatController } from 'src/lib/format_controller/format_controller';
+
+const EmailPassword = loadable(() => import('./email_password_step'))
+const IDData = loadable(() => import('./id_step'))
+const AddPhotoStep = loadable(() => import('./addphoto_step'))
 
 export const getElements = ({
   handleDataChange,

@@ -49,7 +49,6 @@ export function useOrganizationsInfoSettings(){
     theme.appBar.mobileHeight : theme.appBar.fullHeight
 
   return {
-    component: OrganizationsInfo,
     title: "Info",
     width: "100%",
     height: `calc(100vh - ${appBarHeight}px)`,
@@ -59,7 +58,7 @@ export function useOrganizationsInfoSettings(){
   }
 }
 
-function OrganizationsInfo(props){
+export default function OrganizationsInfo(props){
   const classes = useStyles();
 	const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));

@@ -1,11 +1,10 @@
-import React from 'react';
 import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base';
 import { Admin } from 'src/lib/server_calls/admin';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
 import { getEmailValidIcon } from 'src/pages/admin_pages/lib/get_email_valid_icon';
 import { AdminUserMenu } from './admin_user_menu';
 
-export function UsersList(props){
+export default function UsersList(props){
 	const associateUsers = (settings) => {
 		const list = settings.list;
 		const index = settings.index;

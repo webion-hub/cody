@@ -1,4 +1,3 @@
-import React from 'react';
 import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base';
 import { Organizations } from 'src/lib/server_calls/organizations';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
@@ -8,7 +7,7 @@ import { CustomAvatar } from 'src/components/custom_avatar';
 import { AdminOrganizationMenu } from './admin_organization_menu';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
 
-export function OrganizationsList(props){
+export default function OrganizationsList(props){
 
 	const associateOrganizations = (settings) => {
 		const list = settings.list;
@@ -22,7 +21,7 @@ export function OrganizationsList(props){
 			/>
 
 		const organizationLogo = organization.hasLogo
-			? <CustomAvatar src={OrganizationImages.of(organization.id).url`/logo`}/>
+			? <CustomAvatar disableLoadingRing src={OrganizationImages.of(organization.id).url`/logo`}/>
 			: null;
 
 		list.push({

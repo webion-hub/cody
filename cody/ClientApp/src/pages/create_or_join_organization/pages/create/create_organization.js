@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   menuLabel: {
     paddingLeft: theme.spacing(2)
   },
+  helperText: {
+    textAlign: 'center'
+  }
 }));
 
 
@@ -39,13 +42,12 @@ const organizationKinds = [
 ];
 
 export const createOrganizationSettings = {
-  component: CreateOrganization,
   title: "Crea un'organizzazione",
   width: 450,
   height: 484,
 }
 
-function CreateOrganization(){
+export default function CreateOrganization(){
   const classes = useStyles();
   const [organizationKind, setOrganizationKind] = React.useState('team');
 
@@ -69,6 +71,7 @@ function CreateOrganization(){
         label="Organizzazione"
         value={organizationKind}
         onChange={handleChange}
+        FormHelperTextProps={{className: classes.helperText}}
         helperText="Scegli il tipo di organizzazione"
         fullWidth
         variant="outlined"

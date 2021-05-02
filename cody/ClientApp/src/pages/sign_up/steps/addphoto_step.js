@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function AddPhotoStep(props){
+export default function AddPhotoStep(props){
 	const classes = useStyles();
   const [acceptTerms, setAcceptTerms] = React.useState(false)
 

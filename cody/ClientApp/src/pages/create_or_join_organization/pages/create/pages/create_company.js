@@ -1,14 +1,12 @@
-import React from 'react';
 import { CreateOrganizationBase } from '../components/create_organization_base/create_organization_base';
 
 export const createCompanySettings = {
-  component: CreateCompany,
   title: "Aggiungi un' Azienda",
   width: 450,
   height: 670,
 }
 
-function CreateCompany(){
+export default function CreateCompany(){
   return(
     <CreateOrganizationBase
       type="Company"

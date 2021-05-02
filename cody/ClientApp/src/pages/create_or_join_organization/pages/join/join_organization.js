@@ -8,13 +8,12 @@ import { Organizations } from 'src/lib/server_calls/organizations';
 import { ListWithSearch } from 'src/components/list_with_search/list_with_search';
 
 export const joinOrganizationSettings = {
-  component: JoinOrganization,
   title: "Unisciti ad un'organizzazione",
   width: 750,
   height: 616,
 }
 
-function JoinOrganization(){
+export default function JoinOrganization(){
   const [filters, setFilters] = React.useState(['Team', 'School', "Company"]);
 
   return(
