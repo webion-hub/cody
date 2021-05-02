@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { PageController } from 'src/lib/page_controller';
 import { StepperTopArea } from './components/stepper_top_area';
 import { useStepper } from './hooks/use_stepper';
 import { StepperLeftButton } from './components/stepper_left_button';
@@ -23,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttons: {
+    position: "absolute",
+    padding: theme.spacing(2),
+    bottom: 0,
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(2)
     },
