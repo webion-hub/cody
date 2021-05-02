@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField, Grid, Typography, Fade, InputAdornment } from '@material-ui/core';
+import { TextField, Grid, InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
@@ -9,7 +9,6 @@ import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
 import { tryCreateOrganization } from '../../lib/try_create_organization';
 
 import { NextFocus } from 'src/lib/next_focus';
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller';
 
 import { AddLocation } from './add_location';
 import { prepareData } from '../../lib/prepare_data';
