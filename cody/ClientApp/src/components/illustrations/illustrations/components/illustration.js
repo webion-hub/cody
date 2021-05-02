@@ -7,7 +7,7 @@ import IllustrationLoader from "../lib/illustration_loader";
 
 
 export const Illustration = React.forwardRef((props, ref) => {
-  const skeleton = getIllustrationSkeleton();
+  const skeleton = getIllustrationSkeleton(props.boxProps);
   const illustration = useRef(skeleton);
   const [, setIsLoaded] = useState(false);
 
@@ -27,16 +27,20 @@ export const Illustration = React.forwardRef((props, ref) => {
 });
 
 
-const getIllustrationSkeleton = () => {
+const getIllustrationSkeleton = (boxProps) => {
   return (
-    <Box>
+    <Box {...boxProps}>
       <Grid
         container
         direction="row"
         justify="center"
         alignItems="center"
       >
-        <Skeleton height={200} width={128}/>
+        <Skeleton 
+          animation="wave" 
+          height={200} 
+          width={128}
+        />
       </Grid>
     </Box>
   );
