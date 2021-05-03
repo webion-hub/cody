@@ -31,6 +31,7 @@
     "react-spring": "^8.0.27",
     "react-window": "^1.8.6",
     "rimraf": "^3.0.2",
+    "source-map-explorer": "^2.5.2",
     "styled-components": "^5.2.3",
     "zxcvbn": "^4.4.2"
   },
@@ -54,7 +55,8 @@
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {
     "production": [
