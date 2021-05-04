@@ -1,5 +1,5 @@
 
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
 import { BasePhotoText } from 'src/components/bases/base_photo_text';

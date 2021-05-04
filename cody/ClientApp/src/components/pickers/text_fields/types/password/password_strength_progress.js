@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { LinearProgress } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { PasswordController } from 'src/lib/format_controller/controllers/password_controller';
 
 

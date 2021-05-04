@@ -1,7 +1,6 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { SwipeableDrawer } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import useTheme from '@material-ui/styles/useTheme';
 
 const useStyles = makeStyles(() => ({
 	closeSideBarIcon: {

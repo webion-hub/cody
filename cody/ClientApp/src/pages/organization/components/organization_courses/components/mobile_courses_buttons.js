@@ -1,9 +1,10 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import useTheme from '@material-ui/styles/useTheme'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-import { Grid, Button } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   mobileButton: {

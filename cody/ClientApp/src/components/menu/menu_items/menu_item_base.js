@@ -1,5 +1,7 @@
 import React from 'react';
-import { Typography, ListItemIcon, MenuItem } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 export const MenuItemBase = React.forwardRef((props, ref) => {
 	const {

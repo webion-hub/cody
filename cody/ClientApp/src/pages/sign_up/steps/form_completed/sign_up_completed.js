@@ -1,8 +1,8 @@
 
-import React from 'react';
-
-import { Typography, Grid, useTheme, useMediaQuery } from '@material-ui/core';
-
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import useTheme from '@material-ui/styles/useTheme';
+import useMediaQuery  from '@material-ui/core/useMediaQuery';
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
 import { RocketLaunch } from 'src/components/illustrations/illustrations/illustrations';

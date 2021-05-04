@@ -3,7 +3,7 @@ import { VariableSizeList } from 'react-window';
 
 import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import useTheme from '@material-ui/styles/useTheme';
 
 import { OuterElementType, OuterElementContext } from './outer_element';
 import { AutocompleteContext } from '../autocomplete_with_virtualizer';

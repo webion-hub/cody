@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { Grid } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import { ClickAwayListener } from '@material-ui/core';
-import { useMediaQuery } from '@material-ui/core'
-import { useTheme } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useTheme from '@material-ui/styles/useTheme'
 
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar'

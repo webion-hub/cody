@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Grid from '@material-ui/core/Grid';
 
 import { Line } from './components/line';
 import { useGetSize } from 'src/lib/hooks/use_get_size';

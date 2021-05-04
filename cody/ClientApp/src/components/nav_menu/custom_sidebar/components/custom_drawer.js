@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { PageController } from 'src/lib/page_controller';
 import { getDrawerContent } from '../lib/get_drawer_content';
 
-import { useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useTheme from '@material-ui/styles/useTheme';
 
 
 const useStyles = makeStyles((theme) => ({

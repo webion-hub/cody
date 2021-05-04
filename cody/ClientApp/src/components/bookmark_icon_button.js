@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { IconButton } from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
 
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import BookmarkRoundedIcon from '@material-ui/icons/BookmarkRounded';

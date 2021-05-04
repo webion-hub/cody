@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Cropper from 'react-easy-crop'
 
-import { Box } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { Slider } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Slider from '@material-ui/core/Slider';
 
-import { withStyles } from '@material-ui/styles';
+import withStyles from '@material-ui/styles/withStyles';
 
 import { DialogBase } from 'src/components/bases/dialog_base';
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Fade, Grid, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Fade from '@material-ui/core/Fade';
+import Grid from '@material-ui/core/Grid';
 
 export function PickerWithErrorAndLabel(props){
   const {

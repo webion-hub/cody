@@ -2,9 +2,9 @@ import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
 import { ListWithSearch } from "src/components/list_with_search/list_with_search";
 import { Button, Grid, IconButton } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import useTheme from '@material-ui/styles/useTheme'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';

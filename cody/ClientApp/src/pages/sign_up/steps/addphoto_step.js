@@ -1,12 +1,13 @@
 
 import React from 'react';
 
-import { Grid, IconButton } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Checkbox } from '@material-ui/core';
-import { FormControlLabel } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Paper from '@material-ui/core/Paper';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 

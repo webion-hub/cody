@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { useTheme, Grid, Paper, LinearProgress, Fade } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
-import { useMediaQuery } from '@material-ui/core'
+import useTheme from '@material-ui/styles/useTheme'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import Fade from '@material-ui/core/Fade'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
 import { ListWithScrollUpdater } from 'src/components/list_with_search/component/list_with_scroll_updater';

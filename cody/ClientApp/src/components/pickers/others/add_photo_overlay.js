@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { Grid, IconButton } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 
 import { useAddPhoto } from './hooks/use_add_photo';
 import { ImageUploader } from './components/image_uploader';
 import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { setOpacityColor } from 'src/lib/setOpacityColor';
 
 const useStyles = makeStyles((theme) => ({

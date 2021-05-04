@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
 import { PwStrengthProgress } from 'src/components/pickers/text_fields/types/password/password_strength_progress';

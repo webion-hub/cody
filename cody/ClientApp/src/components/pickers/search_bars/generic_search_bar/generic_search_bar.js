@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { Fade, Paper } from '@material-ui/core';
-import { InputBase } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded';

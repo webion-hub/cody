@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 
 const useStyles = makeStyles((theme) => ({

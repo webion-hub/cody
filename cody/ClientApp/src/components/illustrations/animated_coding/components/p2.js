@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import { Colors } from 'src/lib/default_values/themes/colors/main_colors';
 
 export function P2(props){

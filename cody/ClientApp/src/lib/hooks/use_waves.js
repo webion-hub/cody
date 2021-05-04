@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { WavesGenerator } from "src/lib/waves_generator/waves_generator";
-import { useTheme } from '@material-ui/core/styles';
+import useTheme from '@material-ui/styles/useTheme';
 
 export function useWaves(settings) {
   const theme = useTheme()

@@ -1,15 +1,17 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, IconButton, Typography } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+
+import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
 import { CustomAvatar } from "src/components/custom_avatar";
 import { PageController } from "src/lib/page_controller";
 import { UserRoleLabel } from "src/components/user_role_label";
 
-import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 import { UserSettingsMenu } from "./menu/menus/user_settings_menu";
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
-import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 const useStyles = makeStyles((theme) => ({
   container: {

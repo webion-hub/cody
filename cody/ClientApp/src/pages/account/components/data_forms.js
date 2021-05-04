@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { Grid, Typography, Fade } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Fade from '@material-ui/core/Fade';
+import Typography from '@material-ui/core/Typography';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_text_fields/editable_custom_textfield'
 import { EditableDatePicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_date_picker';

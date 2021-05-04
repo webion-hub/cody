@@ -1,11 +1,11 @@
 import React from 'react';
-import { IconButton } from '@material-ui/core';
-import { OutlinedInput } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
-import { InputAdornment } from '@material-ui/core';
-import { FormControl } from '@material-ui/core';
-import { Visibility } from '@material-ui/icons';
-import { VisibilityOff } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel'
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl'
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 
 export function Password(props){

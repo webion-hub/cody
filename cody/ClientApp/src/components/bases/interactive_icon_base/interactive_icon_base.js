@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Skeleton } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { LoadingDisplayComponent } from './components/loading_display_component';

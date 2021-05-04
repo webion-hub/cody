@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Grid, Link, Typography } from "@material-ui/core";
 
 import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';

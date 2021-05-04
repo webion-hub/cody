@@ -1,6 +1,6 @@
 import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 
 const useStyles = makeStyles((theme) => ({

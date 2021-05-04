@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Checkbox, TextField, useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Box from '@material-ui/core/Box'
+import Checkbox from '@material-ui/core/Checkbox'
+import TextField from '@material-ui/core/TextField'
+import useTheme from '@material-ui/styles/useTheme'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid'
 
-import { Grid } from "@material-ui/core";
 import { GenericSearchBar } from "src/components/pickers/search_bars/generic_search_bar/generic_search_bar";
 import { OrganizationContext } from "../../organization_controller_context";
 import { CourseAccordion } from "src/components/accordions/course_accordion/course_accordion";

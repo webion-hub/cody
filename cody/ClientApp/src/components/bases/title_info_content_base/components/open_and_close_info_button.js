@@ -1,5 +1,5 @@
-import { IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import InfoRounded from '@material-ui/icons/InfoRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';

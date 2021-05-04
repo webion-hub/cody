@@ -1,7 +1,7 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import useTheme from '@material-ui/styles/useTheme'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';

@@ -1,5 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Grid, ButtonGroup } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Grid from '@material-ui/core/Grid';
 import { DialogBase } from 'src/components/bases/dialog_base';
 import { LoginBox } from 'src/pages/login/components/login_box';
 import { PageController } from 'src/lib/page_controller';

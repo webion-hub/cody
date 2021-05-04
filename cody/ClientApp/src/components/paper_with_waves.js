@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Paper } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 import { useBackgroundWaves } from 'src/lib/hooks/use_background_waves';
 
 export const PaperWithWaves = React.forwardRef((props, ref) => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { IconButton } from '@material-ui/core';
-import { ClickAwayListener } from '@material-ui/core';
-import { Backdrop } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Backdrop from '@material-ui/core/Backdrop';
 
 import { SearchBar } from '../search_bar/search_bar';
 

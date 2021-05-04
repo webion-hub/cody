@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { CustomStepper } from 'src/components/stepper/custom_stepper/custom_stepper';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';

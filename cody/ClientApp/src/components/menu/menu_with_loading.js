@@ -1,6 +1,8 @@
 import React from 'react';
-import { Fade, LinearProgress, Menu } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import Menu from '@material-ui/core/Menu';
+import Fade from '@material-ui/core/Fade';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
 	menuList: {
