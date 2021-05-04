@@ -62,3 +62,5 @@ function reloadPage() {
     location.reload();
   }
 }
+
+init();
