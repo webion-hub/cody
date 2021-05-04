@@ -13,14 +13,15 @@
       manifest.webmanifest provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="stylesheet" href="%PUBLIC_URL%/index.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/index.css" media="all">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.webmanifest">
     
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png">
     <link rel="shortcut icon" href="%PUBLIC_URL%/icons/cody-sm.png">
     
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" as="font" type="font/woff2" href="https://fonts.gstatic.com">
+    <link rel="prefetch" as="font" type="font/woff2" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    >
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -30,11 +31,10 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script type="text/javascript" src="%PUBLIC_URL%/index.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/index.js" async defer></script>
     <title>cody</title>
   </head>
   <body>
-
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
