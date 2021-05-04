@@ -13,7 +13,7 @@ const urlsToCache = [
   '/index.css',
   '/index.js',
 
-  '/illustrations/offline.svg',
+  '/illustrations/network_error.svg',
 ];
 
 
