@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import loadable from '@loadable/component'
+import { lazyLoader } from 'src/components/lazy_loader';
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { HashController } from 'src/lib/hash_controller';
 
-const Error404Page = loadable(() => import('../Error404Page'))
-const ValidateEmailOk = loadable(() => import('./pages_settings/validate_email_ok'))
-const ValidateEmailNotFound = loadable(() => import('./pages_settings/validate_email_not_found'))
-const ValidateEmailBadKey = loadable(() => import('./pages_settings/validate_email_bad_key/validate_email_bad_key'))
+const Error404Page = lazyLoader(() => import('../Error404Page'))
+const ValidateEmailOk = lazyLoader(() => import('./pages_settings/validate_email_ok'))
+const ValidateEmailNotFound = lazyLoader(() => import('./pages_settings/validate_email_not_found'))
+const ValidateEmailBadKey = lazyLoader(() => import('./pages_settings/validate_email_bad_key/validate_email_bad_key'))
 
 export default function EmailValidPage() {
   const initialHash = HashController.getHashValue()

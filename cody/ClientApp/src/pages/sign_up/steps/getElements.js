@@ -1,9 +1,9 @@
-import loadable from '@loadable/component'
+import { lazyLoader } from 'src/components/lazy_loader';
 import { FormatController } from 'src/lib/format_controller/format_controller';
 
-const EmailPassword = loadable(() => import('./email_password_step'))
-const IDData = loadable(() => import('./id_step'))
-const AddPhotoStep = loadable(() => import('./addphoto_step'))
+const EmailPassword = lazyLoader(() => import('./email_password_step'))
+const IDData = lazyLoader(() => import('./id_step'))
+const AddPhotoStep = lazyLoader(() => import('./addphoto_step'))
 
 export const getElements = ({
   handleDataChange,

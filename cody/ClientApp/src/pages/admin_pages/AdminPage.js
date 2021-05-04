@@ -1,4 +1,4 @@
-import loadable from '@loadable/component'
+import { lazyLoader } from 'src/components/lazy_loader';
 
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +10,8 @@ import { DataTab } from "./components/data_tab";
 
 import { PageController } from 'src/lib/page_controller';
 
-const UsersList = loadable(() => import('src/pages/admin_pages/components/data_lists/users_list/users_list'))
-const OrganizationsList = loadable(() => import('src/pages/admin_pages/components/data_lists/organizations_list/organizations_list'))
+const UsersList = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/users_list/users_list'))
+const OrganizationsList = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/organizations_list/organizations_list'))
 
 const useStyles = makeStyles((theme) => ({
 	dataGrid: {

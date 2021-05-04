@@ -1,4 +1,4 @@
-import loadable from '@loadable/component'
+import { lazyLoader } from 'src/components/lazy_loader';
 import { Layout } from 'src/components/Layout';
 
 import { UserControllerContext } from "src/components/user_controller_context/user_controller_context";
@@ -8,9 +8,9 @@ import { MainFab } from './components/main_fab';
 import { Routes } from './routes';
 import 'src/custom.css';
 
-const MainLoginDialog = loadable(() => import('./components/main_login_dialog'))
-const MainAlertDialog = loadable(() => import('./components/main_alert_dialog'))
-const CookieConsentSnackBar = loadable(() => import('src/components/cookie_consent_snackbar'))
+const MainLoginDialog = lazyLoader(() => import('./components/main_login_dialog'))
+const MainAlertDialog = lazyLoader(() => import('./components/main_alert_dialog'))
+const CookieConsentSnackBar = lazyLoader(() => import('src/components/cookie_consent_snackbar'))
 
 export default function App(){
   return (

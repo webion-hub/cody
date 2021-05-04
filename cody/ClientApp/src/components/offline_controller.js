@@ -1,9 +1,9 @@
-import loadable from '@loadable/component'
 import React, { useEffect } from 'react';
+import { lazyLoader } from 'src/components/lazy_loader';
 import { PageController } from 'src/lib/page_controller';
 import OfflinePage from 'src/pages/message_pages/OfflinePage';
 
-const SnackbarAlert = loadable(() => import('src/components/snackbar_alert'))
+const SnackbarAlert = lazyLoader(() => import('src/components/snackbar_alert'))
 
 export function OfflineController(props){
   const [openSnackBar, setOpenSnackBar] = React.useState(false)
