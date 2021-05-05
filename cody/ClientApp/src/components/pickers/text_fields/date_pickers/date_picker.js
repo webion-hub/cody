@@ -1,3 +1,4 @@
+import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import itLocale from "date-fns/locale/it";
 

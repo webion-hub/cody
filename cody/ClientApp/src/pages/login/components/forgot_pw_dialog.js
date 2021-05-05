@@ -1,12 +1,11 @@
 
-import { Component } from 'react';
+import React, { Component } from 'react';
 
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Fade from '@material-ui/core/Fade';
-import Typography from '@material-ui/core/Typography';
-import Alert from '@material-ui/lab/Alert';
+import { Box, Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';
 import { DialogBase } from 'src/components/bases/dialog_base';

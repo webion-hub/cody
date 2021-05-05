@@ -1,7 +1,6 @@
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { IconButton, Tooltip } from '@material-ui/core';
+import { Badge } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import NotificationsRoundedIcon from '@material-ui/icons/NotificationsRounded';
 

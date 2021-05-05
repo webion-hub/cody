@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import { AlertDialog } from 'src/components/dialogs/alert_dialog';
 import { PageController } from 'src/lib/page_controller';

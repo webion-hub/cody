@@ -1,10 +1,10 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import useTheme from '@material-ui/styles/useTheme';
+import { useTheme } from '@material-ui/core/styles';
 
 import { FadeAppBarContext } from 'src/components/nav_menu/custom_appbar/custom_appbar';
 import { SearchBar } from 'src/components/pickers/search_bars/search_bar/search_bar';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const fullDrawerWidth = 240;
 export const restrictedWidth = 48;

@@ -1,7 +1,7 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { Box } from '@material-ui/core';
 import { animated } from 'react-spring'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { P1 } from './components/p1';
 import { P2 } from './components/p2';

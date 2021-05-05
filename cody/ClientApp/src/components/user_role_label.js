@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 import { UserRoleIcon } from "./user_role_icon";
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {

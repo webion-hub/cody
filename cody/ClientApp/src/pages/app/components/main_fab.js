@@ -1,7 +1,8 @@
+import React from 'react';
 import { PageController } from 'src/lib/page_controller';
 
-import Fab from '@material-ui/core/Fab';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Fab } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import EcoRoundedIcon from '@material-ui/icons/EcoRounded';
 

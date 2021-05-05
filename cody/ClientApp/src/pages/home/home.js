@@ -6,7 +6,7 @@ import { DynamicSearchBar } from './components/dynamic_searchbar';
 import { AnimatedCoding } from 'src/components/illustrations/animated_coding/animated_coding';
 import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   firstAreaBox: {

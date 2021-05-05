@@ -1,8 +1,7 @@
-import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Button, Tooltip } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { InteractiveIconBase } from 'src/components/bases/interactive_icon_base/interactive_icon_base';
 

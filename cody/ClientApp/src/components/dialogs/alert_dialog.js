@@ -1,8 +1,8 @@
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Button } from '@material-ui/core';
+import { List } from '@material-ui/core';
+import { ListItem } from '@material-ui/core';
+import { ListItemText } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { DialogBase } from 'src/components/bases/dialog_base';

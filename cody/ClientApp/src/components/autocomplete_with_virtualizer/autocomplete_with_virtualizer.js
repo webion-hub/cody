@@ -1,9 +1,9 @@
 import React from 'react';
+
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { ListboxComponent } from './components/list_box_component';
 import ArrowDropDownRoundedIcon from '@material-ui/icons/ArrowDropDownRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-
-import { ListboxComponent } from './components/list_box_component';
 
 export const AutocompleteContext = React.createContext({
   heightBigScreen: 36,

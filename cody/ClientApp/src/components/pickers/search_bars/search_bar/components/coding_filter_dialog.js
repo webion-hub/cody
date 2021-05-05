@@ -1,11 +1,11 @@
 import React from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import { Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
+import { Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import { DialogBase } from 'src/components/bases/dialog_base';
 import { Form } from 'src/lib/default_values/sizes/form_size';

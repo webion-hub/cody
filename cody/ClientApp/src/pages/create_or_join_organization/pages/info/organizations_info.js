@@ -1,10 +1,9 @@
+import React from 'react';
 
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import useTheme from '@material-ui/styles/useTheme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { Grid, Typography, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 import { OrganizationsInfoCard } from './components/organization_info_card';
 import { School, TeamMeeting, TeamWork } from 'src/components/illustrations/illustrations/illustrations';

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
-import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import useTheme from '@material-ui/styles/useTheme';
-import IconButton from '@material-ui/core/IconButton';
+import { Grid } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
+import { IconButton } from '@material-ui/core';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 const useStyles = makeStyles((theme) => ({

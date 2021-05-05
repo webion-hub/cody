@@ -1,5 +1,5 @@
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PaperWithWaves } from '../paper_with_waves';

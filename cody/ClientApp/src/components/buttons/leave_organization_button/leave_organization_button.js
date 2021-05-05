@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';
 import { LoadingIconButton } from 'src/components/buttons/loading_icon_button';

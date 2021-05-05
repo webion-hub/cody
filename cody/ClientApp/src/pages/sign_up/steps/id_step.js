@@ -1,7 +1,7 @@
 
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Typography } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { BasePhotoText } from 'src/components/bases/base_photo_text'
 import { NextFocus } from 'src/lib/next_focus';

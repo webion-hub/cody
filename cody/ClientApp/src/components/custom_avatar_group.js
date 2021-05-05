@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import { AvatarWithMenu } from "./buttons/avatar_with_menu";
 import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
 

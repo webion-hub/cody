@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 
-import useTheme from '@material-ui/styles/useTheme';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { useTheme } from '@material-ui/core/styles';
+import { LinearProgress } from '@material-ui/core';
 
 import { DataTableTitleControllers } from 'src/pages/admin_pages/components/data_table_title_controllers';
 import { dataTableStyles } from 'src/pages/admin_pages/styles/data_table_styles';

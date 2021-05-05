@@ -2,8 +2,8 @@ import React from 'react';
 
 import MoreVertRoundedIcon from '@material-ui/icons/MoreVertRounded';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import { IconButton } from '@material-ui/core';
 import { MenuWithLoading } from 'src/components/menu/menu_with_loading';
 
 const useStyles = makeStyles((theme) => ({

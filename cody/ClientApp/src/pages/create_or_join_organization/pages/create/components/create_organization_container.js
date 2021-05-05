@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import useTheme from '@material-ui/styles/useTheme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid } from '@material-ui/core';
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 import { LoadingButton } from 'src/components/buttons/loading_button';
 
 const useStyles = makeStyles((theme) => ({

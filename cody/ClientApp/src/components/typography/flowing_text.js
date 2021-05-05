@@ -1,8 +1,8 @@
 import React, { createRef, useEffect } from 'react';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import { setOpacityColor } from 'src/lib/setOpacityColor';
 

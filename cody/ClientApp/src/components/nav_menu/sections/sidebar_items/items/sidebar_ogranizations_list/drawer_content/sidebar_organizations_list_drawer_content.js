@@ -6,7 +6,7 @@ import { getJoinedOrganizations } from './lib/get_joined_organizations';
 import { ListWithSearch } from 'src/components/list_with_search/list_with_search';
 import { PageController } from 'src/lib/page_controller';
 
-export default function SideBarOrganizationListDrawerContent() {
+export function SideBarOrganizationListDrawerContent() {
   const [filter, setFilter] = React.useState("@waiting")
 
 

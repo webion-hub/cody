@@ -1,11 +1,10 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import { Grid, Tooltip, Typography } from '@material-ui/core';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
 
 

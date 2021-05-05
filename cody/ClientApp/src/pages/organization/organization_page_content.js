@@ -1,9 +1,9 @@
 import React from "react";
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 import OrganizationInfoArea from "./components/organization_info_area/organization_info_area";
-import useTheme from '@material-ui/styles/useTheme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 import OrganizationTreeView from "./components/organization_treeview";
 import { OrganizationImageBackground } from "./components/organzation_image_background";

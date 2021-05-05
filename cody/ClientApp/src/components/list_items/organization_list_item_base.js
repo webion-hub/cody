@@ -1,4 +1,4 @@
-import ListItem from '@material-ui/core/ListItem'
+import { ListItem } from '@material-ui/core'
 
 import { PageController } from 'src/lib/page_controller';
 

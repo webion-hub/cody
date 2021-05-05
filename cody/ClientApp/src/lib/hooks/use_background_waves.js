@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useWaves } from './use_waves';
 
 const useStyles = makeStyles((theme) => ({

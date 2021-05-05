@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
+import { IconButton, Tooltip } from '@material-ui/core';
+import { Menu } from '@material-ui/core';
 
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { UserContext } from 'src/components/user_controller_context/user_controller_context';
 import { CustomAvatar } from 'src/components/custom_avatar';

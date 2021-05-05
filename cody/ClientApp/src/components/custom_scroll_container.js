@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
-import Box from '@material-ui/core/Box'
-import IconButton from '@material-ui/core/IconButton'
-import Grid from '@material-ui/core/Grid'
-import useTheme from '@material-ui/styles/useTheme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { Box, Grid, IconButton } from '@material-ui/core'
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';

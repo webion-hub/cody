@@ -1,6 +1,6 @@
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { Button } from '@material-ui/core';
+import { Box } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 
 export function LoadingButton(props){
   const {

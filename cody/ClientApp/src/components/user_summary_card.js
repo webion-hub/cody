@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { UserRoleLabel } from "src/components/user_role_label";
 import { UserSettingsMenu } from "src/components/menu/menus/user_settings_menu";

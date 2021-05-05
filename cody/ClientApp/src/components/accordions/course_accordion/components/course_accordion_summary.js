@@ -1,14 +1,15 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
-
-import useTheme from '@material-ui/styles/useTheme'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
+
+import Typography from '@material-ui/core/Typography';
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
+
+import { Grid, IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   openCourseIcon: {

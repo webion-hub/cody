@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
-import { LoadingButton } from 'src/components/buttons/loading_button';
 import { MenuItemBase } from './menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
+import { TextField, Button, Typography } from '@material-ui/core';
+import { LoadingButton } from 'src/components/buttons/loading_button';
 
 export const DeleteForeverMenuItem = React.forwardRef((props, ref) => {
   const [openDialog, setOpenDialog] = React.useState(false)

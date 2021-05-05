@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import Grid from '@material-ui/core/Grid'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { ListItemText, ListItemIcon, ListItemSecondaryAction, Grid } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 

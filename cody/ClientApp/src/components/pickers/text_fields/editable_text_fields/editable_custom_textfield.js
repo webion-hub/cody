@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import Box from '@material-ui/core/Box'
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import Skeleton from '@material-ui/lab/Skeleton';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import { Box, IconButton, InputAdornment } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+import { ClickAwayListener } from '@material-ui/core';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import UndoRoundedIcon from '@material-ui/icons/UndoRounded';

@@ -1,10 +1,7 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid, Typography, TextField, MenuItem } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { CreateOrganizationContainer } from './components/create_organization_container';
 

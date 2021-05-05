@@ -2,7 +2,7 @@ import { darkColors } from './colors/dark_colors'
 import { lightColors } from './colors/light_colors'
 
 import { itIT } from '@material-ui/core/locale';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';  
+import { createMuiTheme } from '@material-ui/core/styles';  
 import { setOpacityColor } from 'src/lib/setOpacityColor';
 
 export class ThemeController {

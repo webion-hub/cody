@@ -1,5 +1,5 @@
 import React from "react";
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import { OrganizationLabel } from "src/components/typography/organization_label";
 import { TypographyWithLoading } from "src/components/typography/typography_with_loading";
 import { JoinOrganizationButton } from "src/components/buttons/join_organization_button";

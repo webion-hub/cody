@@ -3,9 +3,8 @@ import React, { useEffect } from 'react';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { MenuItemBase } from 'src/components/menu/menu_items/menu_item_base';
 import { DialogBase } from 'src/components/bases/dialog_base';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Button, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';

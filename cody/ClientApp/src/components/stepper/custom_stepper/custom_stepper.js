@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { StepperTopArea } from './components/stepper_top_area';
 import { useStepper } from './hooks/use_stepper';

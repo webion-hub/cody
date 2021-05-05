@@ -1,8 +1,7 @@
 import { useRef } from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { Grid } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { FlowingText } from '../../typography/flowing_text';
 import { BackButton } from './components/back_button';

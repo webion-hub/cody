@@ -1,9 +1,9 @@
 import { lazyLoader } from 'src/components/lazy_loader';
 
 import React, { useEffect } from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { makeStyles } from '@material-ui/core/styles';
+import { Tabs } from '@material-ui/core';
+import { Tab } from '@material-ui/core';
 
 import { UserContext } from "src/components/user_controller_context/user_controller_context";
 import { DataTab } from "./components/data_tab";

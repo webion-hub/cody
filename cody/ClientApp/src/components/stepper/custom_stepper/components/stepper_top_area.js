@@ -1,7 +1,8 @@
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import React from 'react';
+import { Stepper } from '@material-ui/core/';
+import { Step } from '@material-ui/core/';
+import { StepLabel } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   stepperTopArea: {

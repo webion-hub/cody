@@ -1,8 +1,7 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { TextField, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { AutocompleteWithVirtualizer } from 'src/components/autocomplete_with_virtualizer/autocomplete_with_virtualizer';
 import { Cities } from 'src/lib/server_calls/cities';

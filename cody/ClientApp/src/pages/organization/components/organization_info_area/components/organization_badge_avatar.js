@@ -1,5 +1,5 @@
 import React from "react";
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Badge } from "@material-ui/core";
 import { OrganizationKindIcon } from "src/components/organization_kind_icon";
 import { CustomAvatar } from "src/components/custom_avatar";

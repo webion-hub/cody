@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
-import Box from '@material-ui/core/Box'
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Skeleton from '@material-ui/lab/Skeleton';
+import { Box, TextField, IconButton, InputAdornment, Button, Grid } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 import { DatePicker } from 'src/components/pickers/text_fields/date_pickers/date_picker';
 import { DialogBase } from 'src/components/bases/dialog_base';

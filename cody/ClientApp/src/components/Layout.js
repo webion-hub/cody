@@ -1,5 +1,6 @@
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
+import React from 'react';
+import { MuiThemeProvider } from '@material-ui/core/styles';  
+import { CssBaseline } from "@material-ui/core";
 
 import { ThemeController } from "src/lib/default_values/themes/theme_controller";
 

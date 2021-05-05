@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Backdrop from '@material-ui/core/Backdrop';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import { makeStyles } from '@material-ui/core/styles';
+import { Backdrop, ClickAwayListener } from '@material-ui/core';
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import useTheme from '@material-ui/styles/useTheme';
+import { useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 import { CustomDrawer } from './components/custom_drawer';
 import { CustomSideBarMobile } from './components/custom_sidebar_on_mobile';

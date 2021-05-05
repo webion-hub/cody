@@ -1,12 +1,12 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { TextField } from '@material-ui/core';
+import { Link } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
 import { LoadingButton } from 'src/components/buttons/loading_button';

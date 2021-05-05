@@ -1,8 +1,8 @@
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import useTheme from '@material-ui/styles/useTheme'
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
 

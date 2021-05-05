@@ -1,10 +1,10 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { ListItemIcon } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 
+import { ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
 import { CustomAvatar } from 'src/components/custom_avatar';
+
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { OrganizationLabel } from 'src/components/typography/organization_label';
 

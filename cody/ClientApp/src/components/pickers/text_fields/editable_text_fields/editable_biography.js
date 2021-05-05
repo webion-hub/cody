@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
+import { Grid, Typography, Link, Button } from '@material-ui/core';
 import { DialogBase } from 'src/components/bases/dialog_base';
 
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'

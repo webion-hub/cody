@@ -1,5 +1,5 @@
 import React from 'react';
-import useTheme from '@material-ui/styles/useTheme';
+import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AddPhotoOverlay } from 'src/components/pickers/others/add_photo_overlay';
