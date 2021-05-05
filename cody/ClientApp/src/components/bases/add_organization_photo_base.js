@@ -20,14 +20,14 @@ export function AddOrganizationPhotoBase(props){
       .update()
   }
 
-  const handleImageChange = (image) => {
-    organizationImages
+  const handleImageChange = async (image) => {
+    await organizationImages
       .update(type, image)
       .then(updateOrganization)
   }
 
-  const handleImageDelete = () => {
-    organizationImages
+  const handleImageDelete = async () => {
+    await organizationImages
       .delete(type)
       .then(updateOrganization)
   }
