@@ -130,14 +130,17 @@ export function AllOrganizationUserDialog(props){
               direction="column"
               alignItems="center"
             >
-              <UserGroup
-                boxProps={{
-                  className: `${userData !== null ? classes.hideImage : ""} ${classes.image}`,
-                  maxWidth: 300, 
-                  size: "100%", 
-                  padding: 4,
-                }}
-              />
+              <div 
+                className={`${userData !== null ? classes.hideImage : ""} ${classes.image}`}
+              >
+                <UserGroup
+                  boxProps={{
+                    maxWidth: 300, 
+                    size: "100%", 
+                    padding: 4,
+                  }}
+                />
+              </div>
               {
                 userData !== null &&
                   <div className={classes.userSmallSummary}>
