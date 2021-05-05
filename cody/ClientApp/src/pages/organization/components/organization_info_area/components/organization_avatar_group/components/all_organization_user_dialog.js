@@ -1,18 +1,16 @@
 import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
 import { ListWithSearch } from "src/components/list_with_search/list_with_search";
-import { Button, Grid, IconButton } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import { UserSummaryCard } from "src/components/user_summary_card";
-import { UserSmallSummary } from "src/components/user_small_summary";
 import { UserListItem } from "src/components/list_items/user_list_item";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
-import { UserGroup } from "src/components/illustrations/illustrations/illustrations";
+import { UserSmallSummaryDialog } from "src/components/user_summaries/user_small_summary_dialog";
+import { UserSummaryCardWithImageTransition } from "src/components/user_summaries/user_summary_card_with_image_transition";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -21,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
 			margin: theme.spacing(2),
     },
-  },
-  mobileDialog: {
-    padding: "0px !important",
   },
   areaWidth: {
     width: "50%",
@@ -49,17 +44,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     marginLeft: -12,
     position: "absolute",
-    animation: `$fade 0.25s linear`,
-  },
-  "@keyframes fade": {
-    "0%": {
-      opacity: 0,
-    },
-    "100%": {
-      opacity: 1,
-    }
-  },
-
+  }
 }));
 
 export function AllOrganizationUserDialog(props){
@@ -89,6 +74,10 @@ export function AllOrganizationUserDialog(props){
       .update()
   }
 
+  const UserSummary = mobileView 
+    ? UserSmallSummaryDialog 
+    : UserSummaryCardWithImageTransition
+
   return (
     <DialogBase
       open={props.open}
@@ -109,58 +98,14 @@ export function AllOrganizationUserDialog(props){
         container
         direction="row"
       >
-        {
-          mobileView ?
-            <DialogBase
-              className={classes.mobileDialog}
-              open={userData !== null}
-              onClose={_ => setUserData(null)}
-            >
-              <UserSmallSummary
-                user={userData}
-                callerIs={callerIs}
-                handler={organization}
-                onUserUpdate={updateOrganizationMember}
-              />
-            </DialogBase>
-            :
-            <Grid
-              className={classes.areaWidth}
-              container
-              direction="column"
-              alignItems="center"
-            >
-              <div 
-                className={`${userData !== null ? classes.hideImage : ""} ${classes.image}`}
-              >
-                <UserGroup
-                  boxProps={{
-                    maxWidth: 300, 
-                    size: "100%", 
-                    padding: 4,
-                  }}
-                />
-              </div>
-              {
-                userData !== null &&
-                  <div className={classes.userSmallSummary}>
-                    <UserSummaryCard
-                      onUserUpdate={updateOrganizationMember}
-                      user={userData}
-                      callerIs={callerIs}
-                      handler={organization}
-                      leftIcon={
-                        <IconButton 
-                          onClick={_ => setUserData(null)}
-                        >
-                          <CloseRoundedIcon/>
-                        </IconButton>
-                      }
-                    />
-                  </div>
-              }
-            </Grid>
-        }
+        <UserSummary
+          className={classes.areaWidth}
+          onClose={_ => setUserData(null)}
+          userData={userData}
+          callerIs={callerIs}
+          handler={organization}
+          onUserUpdate={updateOrganizationMember}
+        />
         <ListWithSearch
           className={classes.areaWidth}
           paperClassName={classes.userList}
