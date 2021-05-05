@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
@@ -6,6 +5,7 @@ import { OrganizationListItemBase } from 'src/components/list_items/organization
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
+import { CustomFade } from 'src/components/custom_fade';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,16 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 	sideBarAvatar: {
 		padding: 4,
-		animation: `$fade 0.25s linear`,
 	},
-	"@keyframes fade": {
-    "0%": {
-      opacity: 0,
-    },
-    "100%": {
-      opacity: 1,
-    }
-  },
 }));
 
 export function SidebarBookmarkedOrganizationList(props){
@@ -53,23 +44,24 @@ export function SidebarBookmarkedOrganizationList(props){
 
 	return organizationsList
     .map(organization => 
-      <OrganizationListItemBase 
-        className={classes.sideBarAvatar} 
-        key={organization.id}
-        organizationId={organization.id}
-      >
-        <Tooltip
-          key={organization.id}
-          arrow
-          placement="right"
-          title={getTooltipTitle(organization)}
+      <CustomFade key={organization.id}>
+        <OrganizationListItemBase 
+          className={classes.sideBarAvatar}          
+          organizationId={organization.id}
         >
-          <CustomAvatar
-            loading={loading}
-            src={OrganizationImages.of(organization.id).url`/logo`}
-            alt={organization.name}
-          />
-        </Tooltip>
-      </OrganizationListItemBase>
+          <Tooltip
+            key={organization.id}
+            arrow
+            placement="right"
+            title={getTooltipTitle(organization)}
+          >
+            <CustomAvatar
+              loading={loading}
+              src={OrganizationImages.of(organization.id).url`/logo`}
+              alt={organization.name}
+            />
+          </Tooltip>
+        </OrganizationListItemBase>
+      </CustomFade>
     )
 }
