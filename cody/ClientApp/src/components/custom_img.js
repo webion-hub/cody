@@ -38,7 +38,7 @@ export function CustomImg(props){
 
   const handleLoadEnd = () => {
     setImageLoading(false)
-    props.onLoadEnd?.()
+    onLoadEnd?.()
   }
 
   const handleOnError = () => {
@@ -48,6 +48,8 @@ export function CustomImg(props){
   }
 
   const handleOnLoad = () => {
+    if(srcImage === defaultImage)
+      return;
     handleLoadEnd()
     onLoad?.()
   }
