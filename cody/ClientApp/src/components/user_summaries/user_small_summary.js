@@ -7,9 +7,8 @@ import { PageController } from "src/lib/page_controller";
 import { UserRoleLabel } from "src/components/user_role_label";
 
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
-import { UserSettingsMenu } from "./menu/menus/user_settings_menu";
+import { UserSettingsMenu } from "src/components/menu/menus/user_settings_menu";
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
-import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 const useStyles = makeStyles((theme) => ({
   container: {
