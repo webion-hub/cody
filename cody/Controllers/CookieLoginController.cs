@@ -33,7 +33,7 @@ namespace Cody.Controllers
         public async Task<IActionResult> LoginWithCookie()
         {
             if (!Request.TryGetLoginCookies(out var cookieId, out var token))
-                return BadRequest();
+                return NoContent();
 
             var user =
                 await _cookieEmitter.TryLoginAsync(cookieId, token);

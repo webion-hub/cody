@@ -44,6 +44,7 @@ export const tryLoginWithCookie = async (options) => {
     validateStatus: (status) => {
       return tryInvokeCallback(status, {
         200: onSuccess,
+        204: onError,
         400: onError,
       });
     },
