@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Chip } from '@material-ui/core';
 
-import { CustomScrollContainer } from 'src/components/custom_scroll_container';
+import { CustomScrollContainer } from 'src/components/custom_scroll_container/custom_scroll_container';
 
 const useStyles = makeStyles((theme) => ({
   root: {
