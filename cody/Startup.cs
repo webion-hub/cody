@@ -12,6 +12,8 @@ using Cody.Security.Authorization;
 using Cody.Services.Sftp;
 using Cody.Security.Authentication;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Cody
 {
@@ -88,9 +90,16 @@ namespace Cody
                 app.UseHsts();
             }
 
+            var staticFileOptions = new StaticFileOptions {
+                OnPrepareResponse = e => {
+                    e.Context.Response.Headers.Add("Cache-Control", "max-age=31557600");
+                }
+            };
+
+            app.UseHsts();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            app.UseStaticFiles(staticFileOptions);
+            app.UseSpaStaticFiles(staticFileOptions);
 
             app.UseRouting();
 
