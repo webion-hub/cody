@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Grid, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 
@@ -8,33 +8,15 @@ import { useAddPhoto } from './hooks/use_add_photo';
 import { ImageUploader } from './components/image_uploader';
 import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog';
 import { makeStyles } from '@material-ui/core/styles';
-import { setOpacityColor } from 'src/lib/setOpacityColor';
 import { DeleteImageDialog } from './components/delete_image_dialog';
+import { ImageWithOverlay } from 'src/components/image_with_overlay';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    position: "relative"
-  },
-  overlay: {
-    position: "absolute",
-    zIndex: 1,
-    height: "100%",
-    opacity: 0,
-    background: setOpacityColor(theme.palette.secondary.main, 0.25),
-    backdropFilter: "blur(10px)",
-    "&:hover": {
-      opacity: 1,
-    },
-    transition: "0.25s all" 
-  },
   icon: {
     color: "rgba(255,255,255,1)"
   },
   disabledIcon: {
     color: "rgba(255,255,255,0.5)"
-  },
-  roundImage: {
-    borderRadius: "50%"
   }
 }));
 
@@ -81,7 +63,7 @@ export function AddPhotoOverlay(props){
   }
 
 
-  
+    
   const handleCloseEditDialog = () => {
     setOpenEditDialog(false);
   }
@@ -117,29 +99,28 @@ export function AddPhotoOverlay(props){
     return imageComponent
 
   return (
-    <div className={`${classes.container} ${props.className ?? ""}`}>
-      <Grid
-        className={`${classes.overlay} ${props.cropShape === "round" ? classes.roundImage : ""}`}
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-      >
-        <IconButton
-          component="label"
-        >
-          <ImageUploader
-            onImageChange={handleImageUpload}
-          />
-          <AddRoundedIcon className={classes.icon}/>
-        </IconButton>
-        <IconButton
-          disabled={notImage}
-          onClick={_ => setOpenDeleteDialog(true)}
-        >
-          <DeleteRoundedIcon className={notImage ? classes.disabledIcon : classes.icon}/>
-        </IconButton>
-      </Grid>
+    <ImageWithOverlay
+      className={props.className}
+      cropShape={props.cropShape}
+      overlayContent={
+        <>
+          <IconButton
+            component="label"
+          >
+            <ImageUploader
+              onImageChange={handleImageUpload}
+            />
+            <AddRoundedIcon className={classes.icon}/>
+          </IconButton>
+          <IconButton
+            disabled={notImage}
+            onClick={_ => setOpenDeleteDialog(true)}
+          >
+            <DeleteRoundedIcon className={notImage ? classes.disabledIcon : classes.icon}/>
+          </IconButton>
+        </>
+      }
+    >
       {imageComponent}
       <ImageCropperDialog
         aspect={props.aspect}
@@ -155,10 +136,6 @@ export function AddPhotoOverlay(props){
         onImageDelete={handleDeleteImage}
         onClose={_ => setOpenDeleteDialog(false)}
       />
-    </div>
+    </ImageWithOverlay>
   )
-}
-
-AddPhotoOverlay.defaultProps = {
-  cropShape: "round"
 }
