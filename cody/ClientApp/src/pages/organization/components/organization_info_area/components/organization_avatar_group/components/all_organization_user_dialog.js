@@ -7,10 +7,11 @@ import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
-import { UserListItem } from "src/components/list_items/user_list_item";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
 import { UserSmallSummaryDialog } from "src/components/user_summaries/user_small_summary_dialog";
 import { UserSummaryCardWithImageTransition } from "src/components/user_summaries/user_summary_card_with_image_transition";
+import { UserListItemWithShowMore } from "src/components/list_items/user_list_items/user_list_item_with_showmore";
+import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -53,6 +54,13 @@ export function AllOrganizationUserDialog(props){
 	const classes = useStyles();
   
   const [userData, setUserData] = React.useState(null)
+  const {
+    addActiveId,
+    cleanActiveIds,
+    isActive,
+    ListWithActiveIdsComponent
+  } = ListWithActiveIds()
+
 
   const {
     organization,
@@ -64,8 +72,21 @@ export function AllOrganizationUserDialog(props){
     setUserData(null)
   }
 
+  const handleCloseCard = () => {
+    setUserData(null)
+    cleanActiveIds()
+  }
+
   const handleUserChange = React.useCallback((user) => {
+    const id = user.id
+    if(isActive(id)){
+      handleCloseCard()
+      return
+    }
+
     setUserData(user)
+    cleanActiveIds()
+    addActiveId(id)
   }, [userData])
 
   const updateOrganizationMember = (val) => {
@@ -100,13 +121,13 @@ export function AllOrganizationUserDialog(props){
       >
         <UserSummary
           className={classes.areaWidth}
-          onClose={_ => setUserData(null)}
+          onClose={handleCloseCard}
           userData={userData}
           callerIs={callerIs}
           handler={organization}
           onUserUpdate={updateOrganizationMember}
         />
-        <ListWithSearch
+        <ListWithActiveIdsComponent
           className={classes.areaWidth}
           paperClassName={classes.userList}
           listHeight={400}
@@ -115,7 +136,7 @@ export function AllOrganizationUserDialog(props){
           elementForStep={25}
           itemSize={56}
           getList={organization.getMembers}
-          listItem={UserListItem}
+          listItem={UserListItemWithShowMore}
           listItemProps={{
             onClick: handleUserChange 
           }}
