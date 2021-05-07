@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Checkbox, TextField, useTheme } from '@material-ui/core'
+import { useTheme } from '@material-ui/core'
 import { useMediaQuery } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 
@@ -10,15 +10,7 @@ import { OrganizationContext } from "../../organization_controller_context";
 import { CourseAccordion } from "src/components/accordions/course_accordion/course_accordion";
 import { MobileCoursesButtons } from "./components/mobile_courses_buttons";
 import { CoursesButtons } from "./components/courses_buttons";
-import { DialogBase } from "src/components/bases/dialog_base";
-import { CustomStepper } from "src/components/stepper/custom_stepper/custom_stepper";
-import { BasePhotoText } from "src/components/bases/base_photo_text";
-import { AutocompleteWithVirtualizer } from "src/components/autocomplete_with_virtualizer/autocomplete_with_virtualizer";
-
-import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
-import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
-import { DescriptionTextField } from "src/components/pickers/text_fields/types/description_text_field";
-import { School, Teacher } from "src/components/illustrations/illustrations/illustrations";
+import { CreateCourseDialog } from "./components/create_course_dialog/create_course_dialog";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
@@ -46,23 +38,6 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
       marginBottom: theme.spacing(1)
     },
-  },
-  dialogContent: {
-    padding: 0,
-  },
-  dialogPaper: {
-    maxWidth: 616,
-    width: "100%"
-  },
-  description: {
-    marginTop: theme.spacing(2),
-  },
-  teachersAutocomplete: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2)
-  },
-  nameTextField: {
-    marginTop: theme.spacing(1)
   }
 }));
 
@@ -71,7 +46,6 @@ export function OrganizationCourses(){
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
 
-  const [users, setUsers] = React.useState([])
   const [showSearchBar, setShowSearchBar] = React.useState(false)
   const [openDialog, setOpenDialog] = React.useState(false)
 
@@ -80,12 +54,6 @@ export function OrganizationCourses(){
 		loading,
     organization
 	} = React.useContext(OrganizationContext);
-
-  useEffect(() => {
-    organization
-      .getMembers()
-      .then(data => setUsers(data.values))
-  }, [openDialog])
 
   return (
     <>
@@ -98,7 +66,7 @@ export function OrganizationCourses(){
         >
           <Typography
             className={classes.availableCourses}        
-            variant={mobileView ? "h4" : "h4"}
+            variant={mobileView ? "h5" : "h4"}
             noWrap
           >
             Corsi Disponibili
@@ -131,83 +99,10 @@ export function OrganizationCourses(){
           teachers={["Bedogni"]}
         />
       </div>
-      <DialogBase
-        className={classes.dialogContent}
-        paperClassName={classes.dialogPaper}
+      <CreateCourseDialog
         open={openDialog}
         onClose={_ => setOpenDialog(false)}
-      >
-        <CustomStepper
-          onBackFirstPage={_ => setOpenDialog(false)}
-          firstPageLabel="Chiudi"
-          component={Box}
-          elements={[
-            {
-              element: 
-                <BasePhotoText image={School}>
-                  <Typography>
-                    Dai un nome al corso
-                  </Typography>
-                  <TextField
-                    className={classes.nameTextField}
-                    color="secondary" 
-                    label="Nome corso" 
-                    fullWidth 
-                    variant="filled"
-                    required
-                  />
-                  <DescriptionTextField
-                    className={classes.description}
-                    variant="filled"
-                    fullWidth              
-                  />
-                </BasePhotoText>,
-              height: 411
-            },
-            {
-              element: 
-                <BasePhotoText image={Teacher}>
-                  <Typography>
-                    Seleziona i Professori
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="caption"
-                  >
-                    per questo corso
-                  </Typography>
-                  <AutocompleteWithVirtualizer
-                    multiple
-                    fullWidth
-                    className={classes.teachersAutocomplete}
-                    options={users}
-                    disableCloseOnSelect
-                    getOptionLabel={(option) => option.username}
-                    renderOption={(option, { selected }) => (
-                      <>
-                        <Checkbox
-                          icon={<CheckBoxOutlineBlankRoundedIcon fontSize="small"/>}
-                          checkedIcon={<CheckBoxRoundedIcon fontSize="small"/>}
-                          style={{ marginRight: 8 }}
-                          checked={selected}
-                        />
-                        {option.username}
-                      </>
-                    )}
-                    renderInput={(params) => (
-                      <TextField {...params} 
-                        variant="filled" 
-                        label="Utenti" 
-                        color="secondary"
-                      />
-                    )}
-                  />
-                </BasePhotoText>,
-              height: 365
-            },
-          ]}
-        />
-      </DialogBase>    
+      />
     </>
   );
 }
