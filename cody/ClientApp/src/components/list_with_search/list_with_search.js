@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 export const ListWithSearch = React.memo((props) => {
   const filterComponentRef = useRef();
   const theme = useTheme();
@@ -118,14 +119,15 @@ export const ListWithSearch = React.memo((props) => {
               width={props.width}
               itemSize={props.itemSize} 
               overscanCount={10}
-              getListItem={(index, style, data) => {
+              listItemProps={props.listItemProps}
+              getListItem={(index, style, data, listItemProps) => {
                 return (
                   <props.listItem
                     style={style}
                     key={index}
                     data={data}
                     mobileView={mobileView}
-                    {...props.listItemProps}
+                    {...listItemProps}
                   />
                 )
               }}

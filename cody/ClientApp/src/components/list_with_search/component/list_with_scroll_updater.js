@@ -1,5 +1,12 @@
-import React, { useRef } from 'react';
-import { ListWithVirtualized } from 'src/components/list_with_virtualizer/list_with_virtualizer';
+import { useRef } from 'react';
+import { ListWithVirtualized } from 'src/components/lists/list_with_virtualizer/list_with_virtualizer';
+import memoize from 'memoize-one';
+
+const createItem = memoize((items, listItemProps) => ({
+  items,
+  listItemProps
+}))
+
 
 export function ListWithScrollUpdater(props) {
   const listRef = useRef();
@@ -8,6 +15,7 @@ export function ListWithScrollUpdater(props) {
     height, 
     loading,
     onScrollEnd,
+    listItemProps,
     ...otherProps
   } = props;
 
@@ -27,6 +35,8 @@ export function ListWithScrollUpdater(props) {
       props.onScrollEnd?.()
   }
 
+  const preparedItemData = createItem(itemData, listItemProps)
+
   return (
     <ListWithVirtualized 
       {...otherProps}
@@ -35,7 +45,7 @@ export function ListWithScrollUpdater(props) {
       outerRef={listRef}
       onScroll={handleScroll}
       itemCount={itemData.length}
-      itemData={itemData}
+      itemData={preparedItemData}
     />
   )
 }

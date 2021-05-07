@@ -1,11 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { FixedSizeList } from 'react-window';
 
 const renderRow = (getListItem) => (props) => {
   const { index, style, data } = props;
+  const { items, listItemProps } = data;
 
-  return getListItem(index, style, data[index]);
+  return getListItem(index, style, items[index], listItemProps);
 }
 
 renderRow.propTypes = {
