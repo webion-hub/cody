@@ -69,10 +69,14 @@ export function CustomScrollContainer(props){
 	return (
 		<div
 			ref={scrollRef}
-			className={classes.container}
+			className={`${props.className} ${classes.container}`}
 			onMouseDown={() => setActiveDrag(true)}
 		>
 			{props.children}
 		</div>
   );
+}
+
+CustomScrollContainer.defaultProps = {
+	className: ""
 }
