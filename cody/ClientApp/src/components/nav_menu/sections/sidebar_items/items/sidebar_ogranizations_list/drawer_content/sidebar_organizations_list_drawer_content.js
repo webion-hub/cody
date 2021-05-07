@@ -3,7 +3,7 @@ import React from 'react';
 import { BookmarkOrganizationListItem } from 'src/components/list_items/bookmark_organization_list_item';
 
 import { getJoinedOrganizations } from './lib/get_joined_organizations';
-import { ListWithSearch } from 'src/components/list_with_search/list_with_search';
+import { ListWithSearch } from 'src/components/lists/list_with_search/list_with_search';
 import { PageController } from 'src/lib/page_controller';
 
 export function SideBarOrganizationListDrawerContent() {

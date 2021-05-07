@@ -1,5 +1,5 @@
 import React from "react";
-import { ListWithSearch } from "src/components/list_with_search/list_with_search";
+import { ListWithSearch } from "src/components/lists/list_with_search/list_with_search";
 
 export const ListActiveIdsContext = React.createContext({});
 

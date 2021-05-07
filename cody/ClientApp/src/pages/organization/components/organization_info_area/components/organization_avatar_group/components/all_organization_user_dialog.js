@@ -1,6 +1,6 @@
 import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
-import { ListWithSearch } from "src/components/list_with_search/list_with_search";
+import { ListWithSearch } from "src/components/lists/list_with_search/list_with_search";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core'

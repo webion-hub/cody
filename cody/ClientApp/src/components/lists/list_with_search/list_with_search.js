@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core'
 
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
-import { ListWithScrollUpdater } from 'src/components/list_with_search/component/list_with_scroll_updater';
+import { ListWithScrollUpdater } from 'src/components/lists/list_with_search/component/list_with_scroll_updater';
 import { useListWithSearch } from './hook/use_list_with_search';
 import { NoDataFound } from './component/no_data_found';
 

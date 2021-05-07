@@ -5,7 +5,7 @@ import { FilterComponent } from './components/filter_components';
 import { getOrganizationFilter } from './lib/get_organization_filter';
 
 import { Organizations } from 'src/lib/server_calls/organizations';
-import { ListWithSearch } from 'src/components/list_with_search/list_with_search';
+import { ListWithSearch } from 'src/components/lists/list_with_search/list_with_search';
 
 export const joinOrganizationSettings = {
   title: "Unisciti ad un'organizzazione",
