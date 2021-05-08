@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 		transition: "0.25s all"
 	}),
   descriptionBox: {
-    background: Color.setColor(theme.palette.background.paperSecondary).opacity(0.5).color
+    background: Color.setColor(theme.palette.background.paperSecondary).darkness(25).color
   },
   organizationSettings: {
     position: "absolute",

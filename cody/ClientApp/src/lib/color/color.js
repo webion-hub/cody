@@ -15,7 +15,7 @@ export class Color {
       b: this.getShade(normalizedColor, 'green'),
       alpha: this.getShade(normalizedColor, 'alpha'),
     }
-
+    
     return new Color(finalColor)
   }
 
@@ -27,11 +27,11 @@ export class Color {
   darkness = (percent) => {
     const newColor = ColorBrightness
       .changeBrightness(this.colorObj, percent, 'dark')
-
+    
     return new Color(newColor)
   }
 
-  lighter = (percent) => {
+  lightness = (percent) => {
     const newColor = ColorBrightness
       .changeBrightness(this.colorObj, percent, 'light')
 
@@ -61,8 +61,11 @@ export class Color {
     if(what === 'green'){firstIndex = 5; lastIndex = 6}
     if(what === 'alpha'){firstIndex = 7; lastIndex = 8}
 
-    const firstColor = color[firstIndex] ?? ""
-    const lastColor = color[lastIndex] ?? ""
+    if(what === 'alpha' && color.length <= 7)
+      return ''
+
+    const firstColor = color[firstIndex] ?? 0
+    const lastColor = color[lastIndex] ?? 0
     const shade = firstColor + lastColor
     return parseInt(shade, 16)
   }

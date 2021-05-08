@@ -19,6 +19,7 @@ export class ColorBrightness {
    */
   static changeShadeBrightness = (shade, percent, action) => {
     const brightnessPercent = this.getBrightnessPercent(shade, percent)
+
     if(action === 'dark')
       return shade - brightnessPercent
     
