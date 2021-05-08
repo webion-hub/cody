@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core'
+import { Box, useMediaQuery, useTheme } from '@material-ui/core'
 
 import { DialogBase } from "src/components/bases/dialog_base";
 import { CustomStepper } from "src/components/stepper/custom_stepper/custom_stepper";
@@ -24,9 +24,12 @@ const useStyles = makeStyles((theme) => ({
 
 export function CreateCourseDialog(props){
 	const classes = useStyles();
-
+  const theme = useTheme();
+  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  
   return (
     <DialogBase
+      fullScreen={mobileView}
       className={classes.dialogContent}
       paperClassName={classes.dialogPaper}
       open={props.open}
