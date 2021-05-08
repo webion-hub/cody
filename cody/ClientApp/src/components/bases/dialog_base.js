@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     padding: theme.spacing(2)
+  },
+  content: {
+    overflowX: "hidden"
   }
 }));
 
@@ -53,12 +56,15 @@ export function DialogBase(props){
       maxWidth="xl"
       open={props.open}
       onClose={props.onClose}
+      fullScreen={props.fullScreen}
       classes={{
         paper: paperClassNames
       }}
     >
       {dialogTitle}
-      <DialogContent className={props.className}>
+      <DialogContent 
+        className={`${props.className} ${classes.content}`}
+      >
         {props.children}
       </DialogContent>
       {buttons}
