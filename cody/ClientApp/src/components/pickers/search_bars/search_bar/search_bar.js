@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 import { ClickAwayListener } from '@material-ui/core';
-import { useMediaQuery } from '@material-ui/core'
 import { useTheme } from '@material-ui/core'
 
 import { ScrollableChipsArray } from 'src/components/scrollable_chips_array';
@@ -15,6 +14,7 @@ import { languages } from 'src/lib/default_values/lists/coding_languages'
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 import { SearchBarStartIcon } from './components/search_bar_start_icon';
 import { SearchBarEndtIcon } from './components/search_bar_end_icon';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +61,7 @@ export function SearchBar(props) {
   const [showFavorite, setShowFavorite] = React.useState(false);
   const [languageSelected, setLanguageSelected] = React.useState(null);
 
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
   const disableTooltipsOnMobile = props.disableTooltipsOnMobile ? mobileView : false;
   const disableTooltip = props.disableTooltips || disableTooltipsOnMobile;
 

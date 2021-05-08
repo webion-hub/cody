@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Backdrop, ClickAwayListener } from '@material-ui/core';
 
-import { useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-
 import { CustomDrawer } from './components/custom_drawer';
 import { CustomSideBarMobile } from './components/custom_sidebar_on_mobile';
 import { CustomSideBar } from './components/custom_sidebar';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
 	backdrop: {
@@ -19,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function CustomSideBarWithDrawer(props){
-	const theme = useTheme();
-	const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+	const mobileView = useMobileView()
 	const sideBarItems = props.sideBarItems;
 	const [drawerContent, setDrawerContent] = React.useState({
 		identifier: "",

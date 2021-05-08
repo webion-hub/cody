@@ -1,12 +1,9 @@
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-
 import { AddPhotoOverlay } from 'src/components/pickers/others/add_photo_overlay';
 import { CustomAvatar } from 'src/components/custom_avatar';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 export function AvatarAddPhoto(props){
-  const theme = useTheme();  
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
 
   const { alt, disableLoading, imageSize, ...other } = props
   const avatarSize = mobileView ? 75 : 100;

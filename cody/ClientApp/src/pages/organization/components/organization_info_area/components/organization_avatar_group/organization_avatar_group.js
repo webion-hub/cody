@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 
 import { CustomAvatarGroup } from "src/components/custom_avatar_group";
 import { AllOrganizationUserDialog } from "./components/all_organization_user_dialog";
@@ -9,6 +8,7 @@ import { UserSmallSummary } from "src/components/user_summaries/user_small_summa
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
+import { useMobileView } from "src/lib/hooks/use_mobile_view";
 
 const useStyles = makeStyles((theme) => ({
   avatarGroup: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export function  OrganizationAvatarGroup() {
 	const classes = useStyles();  
   const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
   const [openDialog, setOpenDialog] = React.useState(false)
 
 	const {

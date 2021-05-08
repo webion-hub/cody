@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { FlowingText } from 'src/components/typography/flowing_text'
 
@@ -13,6 +12,7 @@ import { Skeleton } from '@material-ui/lab';
 import { EditableBiography } from 'src/components/pickers/text_fields/editable_text_fields/editable_biography';
 import { useGetSize } from 'src/lib/hooks/use_get_size';
 import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export function InfoBox(props){
 	const classes = useStyles();
   const theme = useTheme();  
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
 
   const [image, setImage] = React.useState(props.defaultImage);
   const [data, setData] = React.useState(undefined);

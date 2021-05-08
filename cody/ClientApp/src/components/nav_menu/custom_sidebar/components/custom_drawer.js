@@ -4,8 +4,8 @@ import { UserContext } from 'src/components/user_controller_context/user_control
 import { PageController } from 'src/lib/page_controller';
 import { getDrawerContent } from '../lib/get_drawer_content';
 
-import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function CustomDrawer(props){
 	const theme = useTheme();
-	const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+	const mobileView = useMobileView()
   const classes = useStyles();
 
   const { userState } = React.useContext(UserContext);

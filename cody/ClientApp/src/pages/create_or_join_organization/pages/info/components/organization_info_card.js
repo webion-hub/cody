@@ -1,9 +1,6 @@
-import React from 'react';
-
 import { Grid, Typography, Card, CardActionArea } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   organizationCardPaper: {
@@ -25,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrganizationsInfoCard(props){
   const classes = useStyles();
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
   
   return (
     <Card className={classes.organizationCardPaper}>

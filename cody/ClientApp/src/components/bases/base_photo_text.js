@@ -1,10 +1,9 @@
 import { Box } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   container: props => ({
@@ -23,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export function BasePhotoText(props) {
   const marginBottom = props.marginBottom
   const classes = useStyles({marginBottom});
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
 
   const image = props.image &&
     <props.image

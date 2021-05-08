@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, IconButton } from "@material-ui/core";
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
@@ -14,6 +12,7 @@ import { OrganizationInfo } from "./components/organization_info";
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { OrganizationContext } from "../../organization_controller_context";
 import { Color } from "src/lib/color/color";
+import { useMobileView } from "src/lib/hooks/use_mobile_view";
 
 const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
@@ -59,8 +58,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function OrganizationInfoArea(){
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
   const [showDescription, setShowDescription] = React.useState(false)
 	const classes = useStyles({showDescription});
 

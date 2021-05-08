@@ -1,16 +1,13 @@
 
-import React from 'react';
-
-import { Typography, Grid, useTheme, useMediaQuery } from '@material-ui/core';
-
+import { Typography, Grid } from '@material-ui/core';
 
 import { Form } from 'src/lib/default_values/sizes/form_size';
 import { RocketLaunch } from 'src/components/illustrations/illustrations/illustrations';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 
 export function SignUpCompleted(){
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
 
   return (
     <Grid

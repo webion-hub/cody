@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function NavMenu(props){
   const classes = useStyles();
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
   const [openSidebar, setOpenSidebar] = React.useState(false);
 
   useEffect(() => {

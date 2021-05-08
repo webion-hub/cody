@@ -1,7 +1,5 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 
 import { Grid } from "@material-ui/core";
@@ -11,6 +9,7 @@ import { CourseAccordion } from "src/components/accordions/course_accordion/cour
 import { MobileCoursesButtons } from "./components/mobile_courses_buttons";
 import { CoursesButtons } from "./components/courses_buttons";
 import { CreateCourseDialog } from "./components/create_course_dialog/create_course_dialog";
+import { useMobileView } from "src/lib/hooks/use_mobile_view";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
@@ -43,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrganizationCourses(){
 	const classes = useStyles();
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
 
   const [showSearchBar, setShowSearchBar] = React.useState(false)
   const [openDialog, setOpenDialog] = React.useState(false)
@@ -52,7 +50,6 @@ export function OrganizationCourses(){
 	const {
     callerIs,
 		loading,
-    organization
 	} = React.useContext(OrganizationContext);
 
   return (

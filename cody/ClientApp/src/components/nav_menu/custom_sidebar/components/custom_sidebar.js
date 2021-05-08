@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { PageController } from 'src/lib/page_controller';
 import { Grid } from '@material-ui/core';
-import { useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
 	sideBar: {
@@ -34,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function CustomSideBar(props){
-	const theme = useTheme();
-	const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+	const mobileView = useMobileView()
   const classes = useStyles();
 	const sideBarItems = props.sideBarItems;
 	const drawerState = props.isDrawerOpen ? "open" : "close"

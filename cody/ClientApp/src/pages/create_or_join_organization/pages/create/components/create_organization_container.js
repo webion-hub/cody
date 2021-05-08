@@ -1,10 +1,7 @@
-import React from 'react';
-
 import { Grid } from '@material-ui/core';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { LoadingButton } from 'src/components/buttons/loading_button';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -23,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function CreateOrganizationContainer(props){
   const classes = useStyles();
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
 
   return(
     <Grid

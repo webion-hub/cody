@@ -1,9 +1,7 @@
-import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 
 import { Grid, Button } from "@material-ui/core";
+import { useMobileView } from "src/lib/hooks/use_mobile_view";
 
 const useStyles = makeStyles((theme) => ({
   mobileButton: {
@@ -15,8 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function MobileCoursesButtons(props){
 	const classes = useStyles();
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
 
   const {
     onAddCourse,

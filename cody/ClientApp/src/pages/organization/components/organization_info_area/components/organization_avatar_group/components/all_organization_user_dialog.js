@@ -1,10 +1,7 @@
 import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
-import { ListWithSearch } from "src/components/lists/list_with_search/list_with_search";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 import { EventsDispatcher } from "src/lib/events_dispatcher";
@@ -12,6 +9,7 @@ import { UserSmallSummaryDialog } from "src/components/user_summaries/user_small
 import { UserSummaryCardWithImageTransition } from "src/components/user_summaries/user_summary_card_with_image_transition";
 import { UserListItemWithShowMore } from "src/components/list_items/user_list_items/user_list_item_with_showmore";
 import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
+import { useMobileView } from "src/lib/hooks/use_mobile_view";
 
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
@@ -45,8 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function AllOrganizationUserDialog(props){
-  const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
 	const classes = useStyles();
   
   const [userData, setUserData] = React.useState(null)

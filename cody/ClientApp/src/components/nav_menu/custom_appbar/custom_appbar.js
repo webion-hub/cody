@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useMediaQuery } from '@material-ui/core';
 import { useScrollTrigger } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
 
@@ -14,6 +13,7 @@ import { AppBarSection } from './components/appbar_section';
 import { useListener } from 'src/lib/hooks/use_listener';
 import { AppBarOpacityController } from './lib/appbar_opacity_controller';
 import { STDEventsDispatcher } from 'src/lib/std_events_dispatcher';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ export function CustomAppBar(props){
   const appBarRef = React.useRef();
   const classes = useStyles();
   const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
+  const mobileView = useMobileView()
   const trigger = useScrollTrigger(); //hide on scroll
 
   const [fadeInAppBarSection, setFadeInAppBar] = React.useState({

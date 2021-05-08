@@ -1,12 +1,10 @@
-import React from 'react';
-
 import { Grid, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
 
 import { OrganizationsInfoCard } from './components/organization_info_card';
 import { School, TeamMeeting, TeamWork } from 'src/components/illustrations/illustrations/illustrations';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function useOrganizationsInfoSettings(){
 	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
 
-  const appBarHeight = mobileView ? 
-    theme.appBar.mobileHeight : theme.appBar.fullHeight
+  const appBarHeight = mobileView 
+    ? theme.appBar.mobileHeight 
+    : theme.appBar.fullHeight
 
   return {
     title: "Info",
@@ -60,8 +59,7 @@ export function useOrganizationsInfoSettings(){
 
 export default function OrganizationsInfo(props){
   const classes = useStyles();
-	const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
+  const mobileView = useMobileView()
  
   return(
     <Grid
