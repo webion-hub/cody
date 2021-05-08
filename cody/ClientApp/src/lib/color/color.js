@@ -38,6 +38,13 @@ export class Color {
     return new Color(newColor)
   }
 
+  brightness = (percent) => {
+    if(percent > 0)
+      return this.lightness(percent)
+
+    return this.darkness(Math.abs(percent))
+  }
+
   /**
    * @private
    */
