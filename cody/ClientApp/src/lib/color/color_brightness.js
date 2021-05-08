@@ -18,21 +18,16 @@ export class ColorBrightness {
    * @param {BrightnessAction} action
    */
   static changeShadeBrightness = (shade, percent, action) => {
-    const brightnessPercent = this.getBrightnessPercent(shade, percent)
-
-    if(action === 'dark')
+    if(action === 'dark'){
+      const brightnessPercent = Math.round((shade * percent) / 100)
       return shade - brightnessPercent
+    }
     
-    if(action === 'light')
+    if(action === 'light'){
+      const brightnessPercent = Math.round(((255 - shade) * percent) / 100)
       return shade + brightnessPercent
+    }
   } 
-
-  /**
-   * @private
-   */
-  static getBrightnessPercent = (shade, percent) => {
-    return Math.round((shade * percent) / 100)
-  }
 }
 
 /**
