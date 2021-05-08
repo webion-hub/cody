@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { setOpacityColor } from 'src/lib/setOpacityColor';
+import { Color } from 'src/lib/color/color';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     height: "100%",
     opacity: 0,
-    background: setOpacityColor(theme.palette.secondary.main, 0.25),
+    background: Color.setColor(theme.palette.secondary.main).opacity(0.25).color,
     backdropFilter: "blur(10px)",
     "&:hover": {
       opacity: 1,

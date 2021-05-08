@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { setOpacityColor } from 'src/lib/setOpacityColor';
+import { Color } from 'src/lib/color/color';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -53,7 +53,7 @@ export function FlowingText(props){
     // eslint-disable-next-line react-hooks/exhaustive-deps    
 	}, [props.children]);
 	
-	const colorTransparent = setOpacityColor(props.background, 0);
+	const colorTransparent = Color.setColor(props.background).opacity(0).color;
 	return (
 		<Box
 			position="relative"

@@ -1,4 +1,4 @@
-import { setOpacityColor } from 'src/lib/setOpacityColor';
+import { Color } from 'src/lib/color/color';
 
 export class AppBarOpacityController {
   constructor(ref){
@@ -14,7 +14,7 @@ export class AppBarOpacityController {
       return
 
     this.ref.current.style.backgroundColor = 
-      setOpacityColor(color, this.getOpacity())
+      Color.setColor(color).opacity(this.getOpacity()).color
   }
 
   /**

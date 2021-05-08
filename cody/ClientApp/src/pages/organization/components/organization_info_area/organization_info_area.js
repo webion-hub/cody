@@ -13,7 +13,7 @@ import { OrganizationInfo } from "./components/organization_info";
 
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { OrganizationContext } from "../../organization_controller_context";
-import { setOpacityColor } from "src/lib/setOpacityColor";
+import { Color } from "src/lib/color/color";
 
 const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 		transition: "0.25s all"
 	}),
   descriptionBox: {
-    background: setOpacityColor(theme.palette.background.paperSecondary, 0.5),
+    background: Color.setColor(theme.palette.background.paperSecondary).opacity(0.5).color
   },
   organizationSettings: {
     position: "absolute",

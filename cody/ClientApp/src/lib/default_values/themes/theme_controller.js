@@ -3,7 +3,7 @@ import { lightColors } from './colors/light_colors'
 
 import { itIT } from '@material-ui/core/locale';
 import { createMuiTheme } from '@material-ui/core/styles';  
-import { setOpacityColor } from 'src/lib/setOpacityColor';
+import { Color } from 'src/lib/color/color';
 
 export class ThemeController {
   constructor(){
@@ -116,12 +116,12 @@ export class ThemeController {
         MuiToggleButton: {
           root: {
             color: this.color.textSecondary,
-            borderColor: setOpacityColor(this.color.secondary, 0.5),
+            borderColor: Color.setColor(this.color.secondary).opacity(0.5).color,
             "&.Mui-selected:hover": {
-              backgroundColor: `${setOpacityColor(this.color.secondary, 0.9)} !important`
+              backgroundColor: `${Color.setColor(this.color.secondary).opacity(0.9).color} !important`
             },
             "&.Mui-selected": {
-              backgroundColor: setOpacityColor(this.color.secondary, 0.6),
+              backgroundColor: Color.setColor(this.color.secondary).opacity(0.6).color,
             }
           },
         },
