@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
     },
   },
-  userList: {
-    background: theme.palette.background.backgroundTransparent,
-    backdropFilter: "blur(10px)",
-  },
   image: {
     transition: "0.25s transform"
   },
@@ -70,6 +66,7 @@ export function AllOrganizationUserDialog(props){
   const handleClose = () => {
     props.onClose()
     setUserData(null)
+    cleanActiveIds()
   }
 
   const handleCloseCard = () => {
@@ -129,7 +126,6 @@ export function AllOrganizationUserDialog(props){
         />
         <ListWithActiveIdsComponent
           className={classes.areaWidth}
-          paperClassName={classes.userList}
           listHeight={400}
           listMobileHeight={window.innerHeight / 2}
           width="100%"
