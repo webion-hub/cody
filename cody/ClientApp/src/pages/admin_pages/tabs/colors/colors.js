@@ -1,4 +1,7 @@
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid, Typography, useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import SnackbarAlert from 'src/components/snackbar_alert';
 
 export default function Colors() {
   const theme = useTheme()
@@ -57,24 +60,38 @@ export default function Colors() {
   );
 }
 
+const useStyles = makeStyles((theme) => ({
+  box: {
+    "&:hover": {
+      cursor: 'pointer'
+    }
+  },
+}));
+
 function Co(props){
   const theme = useTheme()
+	const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   const {
     shade,
     color
   } = props
 
+  const colorLabel = `theme.palette.${color}.${shade}`
+
   return <>
     <Grid
       container
       direction="row"
       alignItems="center"
+      className={classes.box}
+      onClick={_ => setOpen(true)}
     >
       <div
         onClick={_ => {
           const el = document.createElement('textarea');
-          el.value = `theme.palette.${color}.${shade}`;
+          el.value = colorLabel;
           document.body.appendChild(el);
           el.select();
           document.execCommand('copy');
@@ -86,7 +103,20 @@ function Co(props){
           background: theme.palette[color][shade]
         }}
       />
-      {`\t-->${shade}`}
+      <SnackbarAlert open={open} onClose={_ => setOpen(false)}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+        >
+          Colore copiato
+          <Typography variant="caption">
+            {colorLabel}
+          </Typography>
+        </Grid>
+      </SnackbarAlert>
+      {`-->${shade}`}
     </Grid>
   </>
 }
