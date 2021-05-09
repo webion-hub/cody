@@ -78,7 +78,6 @@ export class Color {
   }
 }
 
-
 /**
  * @typedef {(
  *  'red' |
@@ -87,3 +86,15 @@ export class Color {
  *  'alpha'
  * )} ShadeStr
  */
+
+String.prototype.opacity = function (opacity){
+  return Color.setColor(this).opacity(opacity)
+};
+
+String.prototype.darkness = function (percent){
+  return Color.setColor(this).darkness(percent)
+};
+
+String.prototype.lightness = function (percent){
+  return Color.setColor(this).lightness(percent)
+};
