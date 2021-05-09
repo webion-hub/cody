@@ -15,8 +15,10 @@ export const UserContext = React.createContext({
 export const UserContextConsumer = UserContext.Consumer;
 
 export function UserControllerContext(props){
-  const [userState, setUserGeneralState] = React.useState("loading");
-  const [role, setRole] = React.useState(null);
+  const [userStatus, setUserStatus] = React.useState({
+    state: "loading",
+    role: null
+  });
 
   const fetchRole = async () => {
     return await UserAccountInfo
@@ -26,7 +28,10 @@ export function UserControllerContext(props){
       .then(resp => {
         const got = resp.got;
         const role = got.get('role')
-        setRole(role)
+        setUserStatus({
+          role: role,
+          state: "logged"
+        })
       })
   }
 
@@ -40,18 +45,25 @@ export function UserControllerContext(props){
 
 
   const setLogged = async _ => {
-    setUserGeneralState("loading")
+    setLoading()
     await fetchRole()
-    setUserGeneralState("logged")
   }
 
   const setNotLogged = _ => {
-    setRole(null)
-    setUserGeneralState("notLogged")
+    setUserStatus({
+      role: null,
+      state: "notLogged"
+    })
   }
 
   const setLoading = _ => {
-    setUserGeneralState("loading")
+    if(userStatus.state === "loading")
+      return
+
+    setUserStatus({
+      role: null,
+      state: "loading"
+    })
   }
 
   const setUserState = async (state) => {
@@ -64,10 +76,11 @@ export function UserControllerContext(props){
     action();
   }
     
+  const userState = userStatus.state
+  const role = userStatus.role
   const value = { 
     userState,
     setUserState,
-
     role,
   };
 
