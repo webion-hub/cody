@@ -1,8 +1,6 @@
 import React from "react";
 import Typography from '@material-ui/core/Typography';
-import { BasePhotoText } from "src/components/bases/base_photo_text";
 
-import { Teacher } from "src/components/illustrations/illustrations/illustrations";
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 import { CustomScrollContainer } from "src/components/custom_scroll_container/custom_scroll_container";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
@@ -11,9 +9,13 @@ import { AvatarWithOverlayAndLabel } from "src/components/avatar_with_overlay_an
 import { UserListItemWithCheckBox } from "src/components/list_items/user_list_items/user_list_item_with_checkbox";
 import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { useMediaQuery } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    maxWidth: 300,
+    paddingBottom: theme.spacing(2),
+  },
   avatars: {
     height: 83,
   },
@@ -36,7 +38,6 @@ export function AddCourseTeachersStep(){
 	const classes = useStyles();
   const [users, setUsers] = React.useState([]);
   const theme = useTheme();
-  const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
   
   const controller = EventsDispatcher.setEvent('newTeacher')
   const {
@@ -87,7 +88,13 @@ export function AddCourseTeachersStep(){
   })
 
   return (
-    <BasePhotoText image={!mobileView && Teacher}>
+    <Grid
+      className={classes.container}
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+    >
       <Typography>
         Seleziona i Professori
       </Typography>
@@ -124,6 +131,6 @@ export function AddCourseTeachersStep(){
           hide: true,
         }}
       />
-    </BasePhotoText>  
+    </Grid>  
   )
 }
