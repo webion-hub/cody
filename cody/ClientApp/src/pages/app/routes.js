@@ -22,9 +22,11 @@ const OrganizationPage = lazyLoader(() => import('src/pages/organization/Organiz
 const Form = lazyLoader(() => import('src/pages/Form'));
 
 export function Routes(){
-  const { userState } = React.useContext(UserContext);
+  const { userState, role } = React.useContext(UserContext);
   const isLogged = userState === "logged"
   const isNotLogged = userState === "notLogged"
+  const isAdmin = role === "Admin" || userState === "loading"
+  const isNotAdmin = !isAdmin
 
   Requests.onRedirect = (where) => {
     window.location.href = where;
@@ -47,8 +49,8 @@ export function Routes(){
           <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
           <CustomRoute exact path='/organization/:id' component={OrganizationPage}/>
           <CustomRoute exact path='/help-us' component={Form}/>
-          
-          <CustomRoute path='/admin' component={AdminPage}/>
+
+          <CustomRoute exact path='/admin' component={AdminPage} redirect={isNotAdmin} to='/access-denied'/>          
 
           <CustomRoute path='/test' component={Test}/>
           <CustomRoute path='/index.html' redirect/>
