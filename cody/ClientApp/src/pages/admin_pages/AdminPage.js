@@ -10,9 +10,9 @@ import { DataTab } from "./components/data_tab";
 
 import { PageController } from 'src/lib/page_controller';
 
-const UsersList = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/users_list/users_list'))
-const OrganizationsList = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/organizations_list/organizations_list'))
-const Colors = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/colors/colors'))
+const UsersList = lazyLoader(() => import('src/pages/admin_pages/tabs/users_list/users_list'))
+const OrganizationsList = lazyLoader(() => import('src/pages/admin_pages/tabs/organizations_list/organizations_list'))
+const Colors = lazyLoader(() => import('src/pages/admin_pages/tabs/colors/colors'))
 
 const useStyles = makeStyles((theme) => ({
 	dataGrid: {
