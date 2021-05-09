@@ -68,7 +68,7 @@ export function CustomAppBar(props){
     eventFunction: _ => AppBarOpacityController
       .setRef(appBarRef)
       .updateOpacity(theme.appBar.color)
-  }, [])
+  }, [theme])
 
   const fadeLeft = fadeInAppBarSection.left
   const fadeCenter = fadeInAppBarSection.center || mobileView;
@@ -98,6 +98,7 @@ export function CustomAppBar(props){
         in={mobileView ? !trigger : true}
       >
         <AppBar
+          elevation={0}
           ref={appBarRef}
           position="fixed"
           className={classes.appBar}
