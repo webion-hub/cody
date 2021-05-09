@@ -20,12 +20,14 @@ export class ColorBrightness {
   static changeShadeBrightness = (shade, percent, action) => {
     if(action === 'dark'){
       const brightnessPercent = Math.round((shade * percent) / 100)
-      return shade - brightnessPercent
+      const newShade = shade - brightnessPercent
+      return newShade > 255 ? 255 : newShade
     }
     
     if(action === 'light'){
       const brightnessPercent = Math.round(((255 - shade) * percent) / 100)
-      return shade + brightnessPercent
+      const newShade = shade - brightnessPercent
+      return newShade < 0 ? 0 : newShade
     }
   } 
 }
