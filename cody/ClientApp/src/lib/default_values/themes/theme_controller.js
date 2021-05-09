@@ -29,12 +29,14 @@ export class ThemeController {
     const colorController = Color.setColor(color)
 
     return {
-      light1: colorController.lightness(25).color,
-      light2: colorController.lightness(50).color,
-      light3: colorController.lightness(75).color,
-      dark1: colorController.darkness(25).color,
-      dark2: colorController.darkness(50).color,
-      dark3: colorController.darkness(75).color,
+      shade1: colorController.lightness(20).color,
+      shade2: colorController.lightness(40).color,
+      shade3: colorController.lightness(60).color,
+      shade4: colorController.lightness(80).color,
+      shade5: colorController.darkness(20).color,
+      shade6: colorController.darkness(40).color,
+      shade7: colorController.darkness(60).color,
+      shade8: colorController.darkness(80).color,
     }
   }
 
