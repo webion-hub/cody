@@ -1,4 +1,3 @@
-import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
 export function CustomRoute(props){
@@ -6,7 +5,7 @@ export function CustomRoute(props){
     <>
       {
         props.redirect ? (
-          <Redirect to={props.redirectTo}/>
+          <Redirect to={props.to}/>
         ):(
           <Route 
             exact={props.exact}
@@ -20,5 +19,5 @@ export function CustomRoute(props){
 }
 
 CustomRoute.defaultProps = {
-  redirectTo: '/'
+  to: '/'
 }
