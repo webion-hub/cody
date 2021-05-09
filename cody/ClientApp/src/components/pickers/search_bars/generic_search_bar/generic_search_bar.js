@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 500,
     width: "100%",
     background: props.background ? 
-      props.background : theme.palette.background.paperSecondary
+      props.background : theme.palette.background[750]
   }),
   input: {
     marginLeft: theme.spacing(1),
@@ -77,6 +77,7 @@ export function GenericSearchBar(props){
   return (
     <Paper 
       ref={props.searchBarRef}
+      elevation={0}
       component="form"
       onSubmit={handleSubmitWithoutRefresh}
       className={`${classes.paper} ${props.className}`}

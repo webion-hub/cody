@@ -10,7 +10,7 @@ import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[750],
     marginRight: 14,
     height: "100%",
   },
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   userInfoContainer: {
     padding: theme.spacing(2),
-    background: theme.palette.background.backgroundTransparent
+    background: theme.palette.background[800]
   },
   username: {
     marginTop: theme.spacing(1),
@@ -60,7 +60,7 @@ export function UserSummaryCard(props){
   );
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={0}>
       {leftIconWithProps}
       <UserSettingsMenu
         className={classes.userSettingsMenu}

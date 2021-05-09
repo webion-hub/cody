@@ -7,7 +7,7 @@ import { PageController } from  'src/lib/page_controller'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: theme.palette.background.paperSecondary
+    backgroundColor: theme.palette.background[700]
   }
 }));
 

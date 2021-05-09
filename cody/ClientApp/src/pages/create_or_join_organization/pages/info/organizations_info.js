@@ -9,7 +9,7 @@ import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[650],
     padding: theme.spacing(4),
     maxWidth: 950,
     margin: "0 20%",
@@ -67,7 +67,7 @@ export default function OrganizationsInfo(props){
       alignItems="center"
       justify="center"
     >
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={12}>
         <Grid
           container
           direction="column"

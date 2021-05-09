@@ -139,7 +139,7 @@ export function LoginBox(props){
             id="username"
             label="Username"
             name="login_username"
-            variant="outlined"
+            variant="filled"
             color="secondary"
             fullWidth
             onChange={_updateUsername}

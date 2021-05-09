@@ -98,7 +98,7 @@ export function OrganizationPageContent(){
 							<OrganizationInfoArea/>
 							<div className={classes.paper}>
 								<OrganizationCourses/>
-								<BackgroundWithLines background={theme.palette.background.paper}/>
+								<BackgroundWithLines background={theme.palette.background[550]}/>
 							</div>
 						</Grid>
 						<Grid 

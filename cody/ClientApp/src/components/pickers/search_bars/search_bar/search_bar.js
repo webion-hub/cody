@@ -17,14 +17,6 @@ import { SearchBarEndtIcon } from './components/search_bar_end_icon';
 import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    maxWidth: 500,
-    width: "100%",
-    background: theme.palette.background.paperSecondary
-  },
   searchBarBox: {
     maxWidth: 500,
     [theme.breakpoints.down('sm')]: {

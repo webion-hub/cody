@@ -74,7 +74,7 @@ export default function CreateOrganization(){
         FormHelperTextProps={{className: classes.helperText}}
         helperText="Scegli il tipo di organizzazione"
         fullWidth
-        variant="outlined"
+        variant="filled"
       >
         {organizationKinds.map((option) => (
           <MenuItem key={option.value} value={option.value}>

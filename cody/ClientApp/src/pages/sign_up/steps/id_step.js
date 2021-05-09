@@ -52,7 +52,7 @@ export default function IDData(props){
           <TextField
             id="username"
             label="Username"
-            variant="outlined"
+            variant="filled"
             color="secondary"
             inputRef={nextFocus.getInput("username")}
             error={usernameError}
@@ -67,7 +67,7 @@ export default function IDData(props){
           className={classes.textFieldName}
           id="name"
           label="Nome"
-          variant="outlined"
+          variant="filled"
           color="secondary"
           inputRef={nextFocus.getInput("name")} 
           fullWidth
@@ -81,7 +81,7 @@ export default function IDData(props){
           className={classes.textFieldSurname}
           id="surname"
           label="Cognome"
-          variant="outlined"
+          variant="filled"
           color="secondary"
           inputRef={nextFocus.getInput("surname")} 
           fullWidth
@@ -95,7 +95,7 @@ export default function IDData(props){
           generalError={birthDateError}
           minBirthDateError={minBirthDateError}
           maxBirthDateError={maxBirthDateError}
-          variant="outlined"
+          variant="filled"
           value={props.values.birthDate}
           onChange={props.onBirthDateChange}
         />

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   biographyPaper: {
     padding: theme.spacing(1),
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[800],
   }
 }));
 
@@ -160,7 +160,10 @@ export function InfoBox(props){
         </div>
       </Grid>
       <div className={classes.biography}>
-        <Paper className={classes.biographyPaper}>
+        <Paper 
+          className={classes.biographyPaper}
+          elevation={0}
+        >
           {
             props.loading? 
               <>

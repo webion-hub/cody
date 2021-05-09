@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   usernameAvatarContainer: {
     marginBottom: theme.spacing(1),
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[800],
     borderRadius: 28,
   },
   userInfoTextBox: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginRight: -theme.spacing(1),
     marginLeft: -theme.spacing(1),
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[800],
     height: 44
   },
   userInfoText: {

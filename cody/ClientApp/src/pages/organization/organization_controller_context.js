@@ -74,7 +74,7 @@ export const OrganizationControllerContext = ({id, children}) => {
 
 	const value = {
     id,
-		organizationData,
+		organizationData: organizationData,
 		smallUserList,
 		callerIs: callerIs ?? "noMember",
 		organization,

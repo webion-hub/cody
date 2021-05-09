@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   createAccount: {
     margin: theme.spacing(1),
     backdropFilter: "blur(10px)",
-    background: theme.palette.background.backgroundTransparent,
+    background: theme.palette.background[750].opacity(0.3).color,
     color: "rgba(255,255,255,0.9)",
   },
   pageContainer: {

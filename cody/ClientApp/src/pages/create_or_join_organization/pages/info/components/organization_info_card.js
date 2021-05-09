@@ -4,6 +4,7 @@ import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   organizationCardPaper: {
+    backgroundColor: theme.palette.background[700],
     marginTop: theme.spacing(4),
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(2),
@@ -25,7 +26,10 @@ export function OrganizationsInfoCard(props){
   const mobileView = useMobileView()
   
   return (
-    <Card className={classes.organizationCardPaper}>
+    <Card 
+      className={classes.organizationCardPaper}
+      elevation={0}
+    >
       <CardActionArea>
         <Grid
           className={classes.organizationCardContainer}

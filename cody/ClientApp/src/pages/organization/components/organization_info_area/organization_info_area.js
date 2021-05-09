@@ -11,12 +11,11 @@ import { OrganizationInfo } from "./components/organization_info";
 
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { OrganizationContext } from "../../organization_controller_context";
-import { Color } from "src/lib/color/color";
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
 
 const useStyles = makeStyles((theme) => ({
   organizationInfoContainer: {
-    background: theme.palette.background.backgroundTransparent,
+    background: theme.palette.background[650],
   },
   organizationInfoList: {
     width: "auto",
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 		transition: "0.25s all"
 	}),
   descriptionBox: {
-    background: Color.setColor(theme.palette.background.paperSecondary).opacity(0.5).color
+    background: theme.palette.background[700]
   },
   organizationSettings: {
     position: "absolute",

@@ -37,7 +37,7 @@ export default function EmailPassword(props){
           <TextFieldWrappedWithForm
             id="registration_email"
             label="Email"
-            variant="outlined"
+            variant="filled"
             color="secondary"
             defaultValue={props.values.email}
             fullWidth

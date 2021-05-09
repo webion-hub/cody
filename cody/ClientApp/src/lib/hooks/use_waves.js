@@ -8,7 +8,7 @@ export function useWaves(settings) {
 
   const asSvg = settings ? settings.asSvg : false;
   let color = settings?.color
-  color = color ?? theme.palette.background.paper;  
+  color = color ?? theme.palette.background[750];  
 
   useEffect(() => {
     const waves = asSvg ? 

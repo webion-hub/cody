@@ -8,7 +8,7 @@ import { CourseAccordionDetails } from "./components/course_accordion_details";
 
 const useStyles = makeStyles((theme) => ({
   accordion: {
-    background: theme.palette.background.paperSecondary
+    background: theme.palette.background[700]
   },
   hideLine: {
     "&.MuiAccordion-root:before": {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   showLine: {
     "&.MuiAccordion-root:before": {
-      backgroundColor: theme.palette.background.default
+      backgroundColor: theme.palette.background[500]
     }
   },
 }));
@@ -33,6 +33,7 @@ export function CourseAccordion(props){
 
   return (
     <Accordion
+      elevation={8}
       square
       className={classes.accordion}
       classes={{

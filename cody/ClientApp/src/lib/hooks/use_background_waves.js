@@ -3,7 +3,7 @@ import { useWaves } from './use_waves';
 
 const useStyles = makeStyles((theme) => ({
   wavedBackground: props => ({
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[600],
     backgroundImage: `url("${props.waves}")`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",

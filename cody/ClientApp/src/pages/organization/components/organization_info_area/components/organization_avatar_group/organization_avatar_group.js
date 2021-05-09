@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 64,
     padding: theme.spacing(1),
     margin: 0,
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[750],
     [theme.breakpoints.down('xs')]: {
       minHeight: 64,
       width: "100%",
@@ -72,7 +72,7 @@ export function  OrganizationAvatarGroup() {
         onExtraAvatarClick={_ => setOpenDialog(true)}
         loading={loading}        
         direction={mobileView ? "horizontal" : "vertical"}
-        borderColor={theme.palette.background.paperSecondary}
+        borderColor={theme.palette.background[750]}
         avatarsProps={userList?.userList}
         numberOfAvatar={userList?.totalMember}
       />

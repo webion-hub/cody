@@ -15,6 +15,9 @@ const OrganizationsList = lazyLoader(() => import('src/pages/admin_pages/tabs/or
 const ColorsTab = lazyLoader(() => import('src/pages/admin_pages/tabs/colors/colors_tab'))
 
 const useStyles = makeStyles((theme) => ({
+	tabs: {
+		background: theme.palette.background[800]
+	},
 	dataGrid: {
 		position: "relative",
 		maxWidth: `calc(100vw - ${theme.drawer.width}px)`,
@@ -49,7 +52,11 @@ export default function AdminPage(){
 
 	return (
 		<div className={classes.dataGrid}>
-			<Tabs value={value} onChange={handleChangeTab}>
+			<Tabs 
+				className={classes.tabs} 
+				value={value} 
+				onChange={handleChangeTab}
+			>
 				<Tab label="Users"/>
 				<Tab label="Organizations"/>
 				<Tab label="Colors"/>

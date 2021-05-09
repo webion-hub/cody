@@ -1,12 +1,10 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 	line: {
 		height: 80,
 		borderRadius: 40,
-		background: theme.palette.background.backgroundTransparent,
+		background: theme.palette.background[700].opacity(0.3).color,
 		margin: 10,
 	},
 }));
@@ -24,7 +22,7 @@ export function Line(){
 			style={{
 				maxWidth: `${randomValue(10, 45)}%`,
 				width: "100%",
-				transition: "5s all",
+				transition: "5s max-width",
 				transitionDelay: "0.5s",
 			}}
 		/>

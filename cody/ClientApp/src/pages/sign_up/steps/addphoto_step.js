@@ -60,7 +60,7 @@ export default function AddPhotoStep(props){
             Aggiungi un'immagine profilo
           </Typography>
         </Grid>,
-        <Paper>
+        <Paper elevation={0}>
           <Grid
             container
             justify="center"

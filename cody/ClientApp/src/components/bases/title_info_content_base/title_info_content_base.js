@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   titleContainer: {
     width: "100%",
     padding: theme.spacing(1),
-    background: theme.palette.background.paperSecondary,
+    background: theme.palette.background[800],
   },
   backButton: {
     position: "absolute",
@@ -50,7 +50,7 @@ export function TitleInfoContentBase(props){
       <FlowingText
         containerWidth={titleWidth}
         variant="h5"
-        background={theme.palette.background.paperSecondary}
+        background={theme.palette.background[800]}
       >
         {props.title}
       </FlowingText>

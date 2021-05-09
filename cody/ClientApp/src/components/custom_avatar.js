@@ -17,7 +17,6 @@ export const CustomAvatar = React.forwardRef((props, ref) => {
   const [loading, setLoading] = React.useState(true);
   const { 
     disableLoading,
-    shadow, 
     size,
     onLoadEnd,
     loading: propsLoading, 
@@ -99,7 +98,6 @@ export const CustomAvatar = React.forwardRef((props, ref) => {
           height: size,
           fontSize: `${1.25 * (size / 40)}rem`,
           display: finalLoading ? "none" : "flex",
-          boxShadow: shadow && `2px 2px 6px 0px ${theme.palette.background.paperSecondary}`,
         }}
       />
     </div> 

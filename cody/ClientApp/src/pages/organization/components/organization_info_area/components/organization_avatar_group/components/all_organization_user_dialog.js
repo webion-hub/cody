@@ -1,6 +1,6 @@
 import React from "react";
 import { DialogBase } from "src/components/bases/dialog_base";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, useTheme } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export function AllOrganizationUserDialog(props){
   const mobileView = useMobileView()
 	const classes = useStyles();
+	const theme = useTheme();
   
   const [userData, setUserData] = React.useState(null)
   const {

@@ -2,24 +2,24 @@ export const dataTableStyles = (theme) => {
   return {
     rows: {
       style: {
-        background: theme.palette.background.paperSecondary,
+        background: theme.palette.background[650],
       }
     },
     header: {
       style: {
-        background: theme.palette.background.paperSecondary,
+        background: theme.palette.background[700],
         color: theme.palette.text.primary
       },
     },
     progress: {
       style: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background[400],
         width: "100%"
       }
     },
     headCells: {
       style: {
-        background: theme.palette.background.paperSecondary,
+        background: theme.palette.background[700],
         color: theme.palette.text.primary,
       },
       activeSortStyle: {
@@ -37,7 +37,7 @@ export const dataTableStyles = (theme) => {
     },
     cells: {
       style: {
-        background: theme.palette.background.paper,
+        background: theme.palette.background[600],
         color: theme.palette.text.secondary
       },
     },

@@ -1,6 +1,5 @@
 import React from 'react';
-import { IconButton } from '@material-ui/core';
-import { OutlinedInput } from '@material-ui/core';
+import { FilledInput, IconButton } from '@material-ui/core';
 import { InputLabel } from '@material-ui/core';
 import { InputAdornment } from '@material-ui/core';
 import { FormControl } from '@material-ui/core';
@@ -29,7 +28,7 @@ export function Password(props){
 
   return (
     <FormControl 
-      variant="outlined"
+      variant="filled"
       fullWidth={true}
     >
       <InputLabel 
@@ -40,7 +39,7 @@ export function Password(props){
       >
         {props.label}
       </InputLabel>
-      <OutlinedInput
+      <FilledInput
         id={props.label}
         name={props.name}
         color="secondary"

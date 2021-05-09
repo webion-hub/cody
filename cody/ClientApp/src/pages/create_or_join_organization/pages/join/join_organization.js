@@ -17,7 +17,7 @@ export default function JoinOrganization(){
   const [filters, setFilters] = React.useState(['Team', 'School', "Company"]);
 
   return(
-    <ListWithSearch
+    <ListWithSearch      
       listHeight={472}
       listMobileHeight={window.innerHeight - 264}
       width="100%"

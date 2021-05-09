@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useTheme, Grid, Paper, LinearProgress, Fade } from '@material-ui/core'
+import { Grid, Paper, LinearProgress, Fade, useTheme } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 import { GenericSearchBar } from 'src/components/pickers/search_bars/generic_search_bar/generic_search_bar';
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   listContainer: props => ({
     height: props.listHeight,
     marginTop: theme.spacing(1),
-    background: theme.palette.background.paperSecondary,
+    background: props.paperColor,
     transition: "0.25s height"
   }),
   list: {
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const ListWithSearch = React.memo((props) => {
   const filterComponentRef = useRef();
-  const theme = useTheme();
   const mobileView = useMobileView();
+  const theme = useTheme()
   
   const filterComponentWidth = filterComponentRef.current
     ? filterComponentRef.current.offsetWidth + 16
@@ -51,7 +51,9 @@ export const ListWithSearch = React.memo((props) => {
     ? props.listMobileHeight 
     : props.listHeight
 
-  const classes = useStyles({filterComponentWidth, listHeight});
+  const paperColor = props.paperColor ?? theme.palette.background[800]
+
+  const classes = useStyles({filterComponentWidth, listHeight, paperColor});
   const {
     handleScrollEnd,
     setSearchValue,
@@ -79,8 +81,8 @@ export const ListWithSearch = React.memo((props) => {
         alignContent="center"
       >
         <GenericSearchBar
+          background={paperColor}
           className={classes.searchBarStyle}
-          background={theme.palette.background.paperSecondary}
           onChange={setSearchValue}
           value={searchValue}
         />
@@ -102,7 +104,10 @@ export const ListWithSearch = React.memo((props) => {
           className={classes.linearProgress}
         />
       </Fade>
-      <Paper className={`${classes.listContainer} ${props.paperClassName ? props.paperClassName : ""}`}>
+      <Paper
+        elevation={0}
+        className={`${classes.listContainer} ${props.paperClassName ? props.paperClassName : ""}`}
+      >
         {
           dataList?.total === 0 ?
             <NoDataFound 

@@ -9,7 +9,7 @@ export default function ColorsTab() {
   return (
     <Grid
       style={{
-        background: theme.palette.text.primary,
+        background: theme.palette.background.contrastText.opacity(0.8).color,
         color: theme.palette.background.default,
         position: "absolute",
         height: '100%'
@@ -21,49 +21,52 @@ export default function ColorsTab() {
     >
       <div>
         background
-        <Co shade='shade1' color='background'/>
-        <Co shade='shade2' color='background'/>
-        <Co shade='shade3' color='background'/>
-        <Co shade='shade4' color='background'/>
-
-        <Co shade='default' color='background'/>
-
-        <Co shade='shade5' color='background'/>
-        <Co shade='shade6' color='background'/>
-        <Co shade='shade7' color='background'/>
-        <Co shade='shade8' color='background'/>
+        <Co shade='100' color='background'/>
+        <Co shade='200' color='background'/>
+        <Co shade='300' color='background'/>
+        <Co shade='400' color='background'/>
+        <Co shade='500' color='background'/>
+        <Co shade='550' color='background'/>
+        <Co shade='600' color='background'/>
+        <Co shade='650' color='background'/>
+        <Co shade='700' color='background'/>
+        <Co shade='750' color='background'/>
+        <Co shade='800' color='background'/>
+        <Co shade='900' color='background'/>
       </div>
 
 
       <div>
         primary
-        <Co shade='shade1' color='primary'/>
-        <Co shade='shade2' color='primary'/>
-        <Co shade='shade3' color='primary'/>
-        <Co shade='shade4' color='primary'/>
-
-        <Co shade='main' color='primary'/>
-
-        <Co shade='shade5' color='primary'/>
-        <Co shade='shade6' color='primary'/>
-        <Co shade='shade7' color='primary'/>
-        <Co shade='shade8' color='primary'/>
+        <Co shade='100' color='primary'/>
+        <Co shade='200' color='primary'/>
+        <Co shade='300' color='primary'/>
+        <Co shade='400' color='primary'/>
+        <Co shade='500' color='primary'/>
+        <Co shade='550' color='primary'/>
+        <Co shade='600' color='primary'/>
+        <Co shade='650' color='primary'/>
+        <Co shade='700' color='primary'/>
+        <Co shade='750' color='primary'/>
+        <Co shade='800' color='primary'/>
+        <Co shade='900' color='primary'/>
       </div>
 
 
       <div>
         secondary
-        <Co shade='shade1' color='secondary'/>
-        <Co shade='shade2' color='secondary'/>
-        <Co shade='shade3' color='secondary'/>
-        <Co shade='shade4' color='secondary'/>
-
-        <Co shade='main' color='secondary'/>
-
-        <Co shade='shade5' color='secondary'/>
-        <Co shade='shade6' color='secondary'/>
-        <Co shade='shade7' color='secondary'/>
-        <Co shade='shade8' color='secondary'/>
+        <Co shade='100' color='secondary'/>
+        <Co shade='200' color='secondary'/>
+        <Co shade='300' color='secondary'/>
+        <Co shade='400' color='secondary'/>
+        <Co shade='500' color='secondary'/>
+        <Co shade='550' color='secondary'/>
+        <Co shade='600' color='secondary'/>
+        <Co shade='650' color='secondary'/>
+        <Co shade='700' color='secondary'/>
+        <Co shade='750' color='secondary'/>
+        <Co shade='800' color='secondary'/>
+        <Co shade='900' color='secondary'/>
       </div>
 
     </Grid>
@@ -89,7 +92,7 @@ function Co(props){
     color
   } = props
 
-  const colorLabel = `theme.palette.${color}.${shade}`
+  const colorLabel = `theme.palette.${color}[${shade}]`
 
   return <>
     <Grid
