@@ -45,6 +45,17 @@ export class Color {
     return this.darkness(Math.abs(percent))
   }
 
+  negative = () => {
+    const finalColor = {
+      r: 255 - this.colorObj.r,
+      g: 255 - this.colorObj.g,
+      b: 255 - this.colorObj.b,
+      alpha: this.colorObj.alpha,
+    }
+    
+    return new Color(finalColor)
+  }
+
   /**
    * @private
    */
@@ -97,4 +108,8 @@ String.prototype.darkness = function (percent){
 
 String.prototype.lightness = function (percent){
   return Color.setColor(this).lightness(percent)
+};
+
+String.prototype.negative = function (){
+  return Color.setColor(this).negative()
 };
