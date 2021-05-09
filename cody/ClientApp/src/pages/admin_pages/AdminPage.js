@@ -12,6 +12,7 @@ import { PageController } from 'src/lib/page_controller';
 
 const UsersList = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/users_list/users_list'))
 const OrganizationsList = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/organizations_list/organizations_list'))
+const Colors = lazyLoader(() => import('src/pages/admin_pages/components/data_lists/colors/colors'))
 
 const useStyles = makeStyles((theme) => ({
 	dataGrid: {
@@ -51,12 +52,16 @@ export default function AdminPage(){
 			<Tabs value={value} onChange={handleChangeTab}>
 				<Tab label="Users"/>
 				<Tab label="Organizations"/>
+				<Tab label="Colors"/>
 			</Tabs>
 			<DataTab tabValue={value} index={0}>
 				<UsersList maxPageElements={maxPageElements}/>
 			</DataTab>
 			<DataTab tabValue={value} index={1}>
 				<OrganizationsList maxPageElements={maxPageElements}/>
+			</DataTab>
+			<DataTab tabValue={value} index={2}>
+				<Colors/>
 			</DataTab>
 		</div>
 	);
