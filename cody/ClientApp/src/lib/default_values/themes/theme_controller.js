@@ -25,16 +25,31 @@ export class ThemeController {
     }
   }
 
+  getShades(color){
+    const colorController = Color.setColor(color)
+
+    return {
+      light1: colorController.lightness(25).color,
+      light2: colorController.lightness(50).color,
+      light3: colorController.lightness(75).color,
+      dark1: colorController.darkness(25).color,
+      dark2: colorController.darkness(50).color,
+      dark3: colorController.darkness(75).color,
+    }
+  }
+
   getTheme(themeMode){
     this.setThemeMode(themeMode);
     return createMuiTheme({
       palette: {
         type: this.themeMode,
         primary: {
+          ...this.getShades(this.color.primary),
           main: this.color.primary,
           contrastText: '#fff',
         },
         secondary: {
+          ...this.getShades(this.color.secondary),
           main: this.color.secondary,
           contrastText: '#fff',
         },
@@ -42,6 +57,7 @@ export class ThemeController {
           main: this.color.tertiary,
         },
         background: {
+          ...this.getShades(this.color.background),
           paper: this.color.paper,
           paperSecondary: this.color.paperSecondary,
 
