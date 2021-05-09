@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import SnackbarAlert from 'src/components/snackbar_alert';
 
-export default function Colors() {
+export default function ColorsTab() {
   const theme = useTheme()
 
   return (
@@ -21,38 +21,49 @@ export default function Colors() {
     >
       <div>
         background
+        <Co shade='dark4' color='background'/>
         <Co shade='dark3' color='background'/>
         <Co shade='dark2' color='background'/>
         <Co shade='dark1' color='background'/>
+
         <Co shade='default' color='background'/>
 
         <Co shade='light1' color='background'/>
         <Co shade='light2' color='background'/>
         <Co shade='light3' color='background'/>
+        <Co shade='light4' color='background'/>
       </div>
 
 
       <div>
         primary
+        <Co shade='dark4' color='primary'/>
         <Co shade='dark3' color='primary'/>
         <Co shade='dark2' color='primary'/>
         <Co shade='dark1' color='primary'/>
+
         <Co shade='main' color='primary'/>
+
         <Co shade='light1' color='primary'/>
         <Co shade='light2' color='primary'/>
         <Co shade='light3' color='primary'/>
+        <Co shade='light4' color='primary'/>
       </div>
 
 
       <div>
         secondary
+        <Co shade='dark4' color='secondary'/>
         <Co shade='dark3' color='secondary'/>
         <Co shade='dark2' color='secondary'/>
         <Co shade='dark1' color='secondary'/>
+
         <Co shade='main' color='secondary'/>
+
         <Co shade='light1' color='secondary'/>
         <Co shade='light2' color='secondary'/>
         <Co shade='light3' color='secondary'/>
+        <Co shade='light4' color='secondary'/>
       </div>
 
     </Grid>
