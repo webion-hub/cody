@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function LoginBox(props){
+export default function LoginBox(props){
 	const classes = useStyles();
   const { setUserState } = React.useContext(UserContext);
 

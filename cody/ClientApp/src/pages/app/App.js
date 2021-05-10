@@ -6,11 +6,11 @@ import { OfflineController } from 'src/components/offline_controller';
 
 import { MainFab } from './components/main_fab';
 import { Routes } from './routes';
+import CookieConsentSnackBar from 'src/components/cookie_consent_snackbar'
+import MainLoginDialog from './components/main_login_dialog'
 import 'src/custom.css';
 
-const MainLoginDialog = lazyLoader(() => import('./components/main_login_dialog'))
 const MainAlertDialog = lazyLoader(() => import('./components/main_alert_dialog'))
-const CookieConsentSnackBar = lazyLoader(() => import('src/components/cookie_consent_snackbar'))
 
 export default function App(){
   return (

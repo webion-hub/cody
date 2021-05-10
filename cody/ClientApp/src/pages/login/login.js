@@ -1,10 +1,6 @@
-import React from 'react';
-
 import { Button } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { LoginBox } from './components/login_box';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
@@ -13,6 +9,7 @@ import { Images } from 'src/lib/default_values/images/images';
 import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
 import { PaperWithWaves } from 'src/components/paper_with_waves';
+import LoginBox from './components/login_box';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   createAccount: {
     margin: theme.spacing(1),
     backdropFilter: "blur(10px)",
-    background: theme.palette.background[750].opacity(0.3).color,
+    background: theme.palette.background[750].opacity(0.3),
     color: "rgba(255,255,255,0.9)",
   },
   pageContainer: {
