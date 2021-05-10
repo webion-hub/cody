@@ -26,40 +26,37 @@ export class ThemeController {
 
     this.palette = this.createPalette()
   }
+  
+  getDarknessMultiplier = (color) => {
+    const colorObj = Color.setColor(color).colorObj
+
+    const averageColor = (colorObj.r + colorObj.g + colorObj.b) / 3
+    const maxVal = 1
+    const minVal = 0.2
+    const darknessMultiplier = (maxVal - (averageColor / 255)) * (maxVal - minVal) + minVal
+    
+    return darknessMultiplier
+  }
 
   getShades(color){
     const colorController = Color.setColor(color)
     const shadeController = colorController.darkness
 
-    if(this.themeMode === 'light')
-      return {
-        '100': shadeController(-8).color,
-        '200': shadeController(-6).color,
-        '300': shadeController(-4).color,
-        '400': shadeController(-2).color,
-        '500': color,
-        '550': shadeController(2).color,
-        '600': shadeController(4).color,
-        '650': shadeController(6).color,
-        '700': shadeController(8).color,
-        '750': shadeController(10).color,
-        '800': shadeController(12).color,
-        '900': shadeController(14).color,
-      }
-      
+    const darknessMultiplier = this.getDarknessMultiplier(this.color.background)
+
     return {
-      '100': shadeController(-80).color,
-      '200': shadeController(-60).color,
-      '300': shadeController(-40).color,
-      '400': shadeController(-20).color,
+      '100': shadeController(-80 * darknessMultiplier).color,
+      '200': shadeController(-60 * darknessMultiplier).color,
+      '300': shadeController(-40 * darknessMultiplier).color,
+      '400': shadeController(-20 * darknessMultiplier).color,
       '500': color,
-      '550': shadeController(10).color,
-      '600': shadeController(20).color,
-      '650': shadeController(30).color,
-      '700': shadeController(40).color,
-      '750': shadeController(50).color,
-      '800': shadeController(60).color,
-      '900': shadeController(80).color,
+      '550': shadeController(10 * darknessMultiplier).color,
+      '600': shadeController(20 * darknessMultiplier).color,
+      '650': shadeController(30 * darknessMultiplier).color,
+      '700': shadeController(40 * darknessMultiplier).color,
+      '750': shadeController(50 * darknessMultiplier).color,
+      '800': shadeController(60 * darknessMultiplier).color,
+      '900': shadeController(80 * darknessMultiplier).color,
     }
   }
 
@@ -156,31 +153,31 @@ export class ThemeController {
           },
           MuiAvatar: {
             colorDefault: {
-              backgroundColor: this.palette.background.contrastText.opacity(0.8).color,
+              backgroundColor: this.palette.background.contrastText.opacity(0.8),
               color: this.palette.background[700]
             }
           },
           MuiToggleButton: {
             root: {
               color: this.color.textSecondary,
-              borderColor: this.color.secondary.opacity(0.5).color,
+              borderColor: this.color.secondary.opacity(0.5),
               "&.Mui-selected:hover": {
-                backgroundColor: `${this.color.secondary.opacity(0.9).color} !important`
+                backgroundColor: `${this.color.secondary.opacity(0.9)} !important`
               },
               "&.Mui-selected": {
-                backgroundColor: this.color.secondary.opacity(0.6).color,
+                backgroundColor: this.color.secondary.opacity(0.6),
               }
             },
           },
           MuiFilledInput: {
             root: {
-              backgroundColor: this.palette.background[400].opacity(0.3).color,
+              backgroundColor: this.palette.background[400].opacity(0.3),
               backdropFilter: 'blur(10px)',
               "&:hover": {
-                backgroundColor: this.palette.secondary[500].opacity(0.2).color
+                backgroundColor: this.palette.secondary[500].opacity(0.2)
               },
               "&.Mui-focused": {
-                backgroundColor: this.palette.secondary[600].opacity(0.2).color
+                backgroundColor: this.palette.secondary[600].opacity(0.2)
               }
             },
             underline: {
@@ -197,7 +194,7 @@ export class ThemeController {
           MuiButtonBase: {
             root: {
               "&:hover": {
-                backgroundColor: this.palette.secondary[500].opacity(0.2).color
+                backgroundColor: this.palette.secondary[500].opacity(0.2)
               }
             }
           },
