@@ -5,7 +5,6 @@ export const darkColors = {
   secondary: Colors.secondary,
   tertiary: Colors.tertiary,
   
-  paper: '#141D29', 
   background: '#172230', 
   contrastText: '#fff', 
   
