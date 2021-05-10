@@ -10,6 +10,7 @@ import { CenterComponentPageBase } from 'src/components/bases/center_component_p
 import { PageController } from 'src/lib/page_controller';
 import { PaperWithWaves } from 'src/components/paper_with_waves';
 import LoginBox from './components/login_box';
+import { Color } from 'src/lib/color/color';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   createAccount: {
     margin: theme.spacing(1),
     backdropFilter: "blur(10px)",
-    background: theme.palette.background[750].opacity(0.3),
+    background: Color.o(theme.palette.background[750], 0.3),
     color: "rgba(255,255,255,0.9)",
   },
   pageContainer: {

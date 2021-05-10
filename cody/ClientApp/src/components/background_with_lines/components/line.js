@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { Color } from 'src/lib/color/color';
 
 const useStyles = makeStyles((theme) => ({
 	line: {
 		height: 80,
 		borderRadius: 40,
-		background: theme.palette.background[650].opacity(0.2),
+		background: Color.o(theme.palette.background[650], 0.2),
 		margin: 10,
 	},
 }));

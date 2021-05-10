@@ -7,7 +7,7 @@ export class Color {
     this.color = this.getColor()
   }
 
-  static setColor = (color) => {
+  static set = (color) => {
     const normalizedColor = Hex.getLongHex(color)
     const finalColor = {
       r: this.getShade(normalizedColor, 'red'),
@@ -17,6 +17,10 @@ export class Color {
     }
     
     return new Color(finalColor)
+  }
+
+  static o = (color, opacity) => {
+    return Color.set(color).opacity(opacity).color
   }
 
   opacity = (opacity) => {
@@ -97,19 +101,3 @@ export class Color {
  *  'alpha'
  * )} ShadeStr
  */
-
-String.prototype.opacity = function (opacity){
-  return Color.setColor(this).opacity(opacity).color
-};
-
-String.prototype.darkness = function (percent){
-  return Color.setColor(this).darkness(percent).color
-};
-
-String.prototype.lightness = function (percent){
-  return Color.setColor(this).lightness(percent).color
-};
-
-String.prototype.negative = function (){
-  return Color.setColor(this).negative().color
-};

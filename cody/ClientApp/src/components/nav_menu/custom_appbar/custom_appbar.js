@@ -10,9 +10,6 @@ import { useScrollTrigger } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
 
 import { AppBarSection } from './components/appbar_section';
-import { useListener } from 'src/lib/hooks/use_listener';
-import { AppBarOpacityController } from './lib/appbar_opacity_controller';
-import { STDEventsDispatcher } from 'src/lib/std_events_dispatcher';
 import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 
@@ -46,9 +43,7 @@ export const FadeAppBarContext = React.createContext({
 });
 
 export function CustomAppBar(props){
-  const appBarRef = React.useRef();
   const classes = useStyles();
-  const theme = useTheme();
   const mobileView = useMobileView()
   const trigger = useScrollTrigger(); //hide on scroll
 
@@ -62,13 +57,6 @@ export function CustomAppBar(props){
     fadeInAppBarSection,
     setFadeInAppBar,
   }
-
-  useListener({
-    controller: STDEventsDispatcher.setEvent('scroll').on(window),
-    eventFunction: _ => AppBarOpacityController
-      .setRef(appBarRef)
-      .updateOpacity(theme.appBar.color)
-  }, [theme])
 
   const fadeLeft = fadeInAppBarSection.left
   const fadeCenter = fadeInAppBarSection.center || mobileView;
@@ -99,7 +87,6 @@ export function CustomAppBar(props){
       >
         <AppBar
           elevation={0}
-          ref={appBarRef}
           position="fixed"
           className={classes.appBar}
         >

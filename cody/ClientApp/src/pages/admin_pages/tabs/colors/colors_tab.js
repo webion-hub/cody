@@ -2,6 +2,7 @@ import { Grid, Typography, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import SnackbarAlert from 'src/components/snackbar_alert';
+import { Color } from 'src/lib/color/color';
 
 export default function ColorsTab() {
   const theme = useTheme()
@@ -9,7 +10,7 @@ export default function ColorsTab() {
   return (
     <Grid
       style={{
-        background: theme.palette.background.contrastText.opacity(0.8),
+        background: Color.o(theme.palette.background.contrastText, 0.8),
         color: theme.palette.background.default,
         position: "absolute",
         height: '100%'
