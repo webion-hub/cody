@@ -22,6 +22,9 @@ export const UserListItemWithCheckBox = React.memo((props) => {
       key={index}
       style={style}
       data={data}
+      selected={activeItems[userId] ?? false}
+      textMaxWidth="calc(100% - 96px)"
+      onClick={_ => onClick?.(data)}
       secondaryAction={
         <Checkbox
           checked={activeItems[userId] ?? false}

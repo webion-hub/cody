@@ -1,13 +1,10 @@
-import React from "react";
-
-import { ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Checkbox, IconButton } from "@material-ui/core";
+import { IconButton, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from "@material-ui/core";
 import { CustomAvatar } from "src/components/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
-import { areEqual } from 'react-window';
 import { PageController } from "src/lib/page_controller";
 
-import ZoomInRoundedIcon from '@material-ui/icons/ZoomInRounded';
+import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -27,11 +24,6 @@ export function UserListItem(props) {
 
   const userId = data?.id
 
-  const secondaryActionComponent = secondaryAction &&
-    <ListItemSecondaryAction>
-      {secondaryAction}
-    </ListItemSecondaryAction>
-
   return (
     <ListItem 
       className={classes.listItem}
@@ -41,8 +33,8 @@ export function UserListItem(props) {
       }}
       component="a"
       button
-      href={`user/${userId}`}
-      onClick={e => PageController.push(`user/${userId}`, e)}
+      selected={props.selected}
+      onClick={props.onClick}
     >
       <ListItemAvatar>
         <CustomAvatar
@@ -52,12 +44,21 @@ export function UserListItem(props) {
       </ListItemAvatar>
       <ListItemText
         primaryTypographyProps={{
-          noWrap: true
+          noWrap: true,
+          style: {maxWidth: props.textMaxWidth}
         }}
       >
         {data?.username}
       </ListItemText>
-      {secondaryActionComponent}
+      <ListItemSecondaryAction>
+        {secondaryAction}
+        <IconButton
+          href={`user/${userId}`}
+          onClick={e => PageController.push(`user/${userId}`, e)}
+        >
+          <OpenInNewRoundedIcon/>
+        </IconButton>
+      </ListItemSecondaryAction>
     </ListItem>
   )
 }

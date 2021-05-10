@@ -1,10 +1,6 @@
 import React from "react";
 
-import { IconButton } from "@material-ui/core";
 import { areEqual } from 'react-window';
-
-import MoreRoundedIcon from '@material-ui/icons/MoreRounded';
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 import { UserListItem } from "./user_list_item";
 import { ListActiveIdsContext } from "src/components/lists/list_with_active_ids";
@@ -26,17 +22,9 @@ export const UserListItemWithShowMore = React.memo((props) => {
       key={index}
       style={style}
       data={data}
-      secondaryAction={
-        <IconButton
-          onClick={_ => onClick?.(data)}
-        >
-          {
-            isActive 
-              ? <CloseRoundedIcon/> 
-              : <MoreRoundedIcon/>
-          }          
-        </IconButton>
-      }
+      textMaxWidth="calc(100% - 48px)"
+      onClick={_ => onClick?.(data)}
+      selected={isActive}
     />
   )
 }, areEqual)
