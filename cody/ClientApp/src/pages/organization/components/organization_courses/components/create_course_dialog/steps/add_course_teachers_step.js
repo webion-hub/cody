@@ -8,12 +8,11 @@ import { useListener } from "src/lib/hooks/use_listener";
 import { AvatarWithOverlayAndLabel } from "src/components/avatar_with_overlay_and_label";
 import { UserListItemWithCheckBox } from "src/components/list_items/user_list_items/user_list_item_with_checkbox";
 import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    maxWidth: 300,
     paddingBottom: theme.spacing(2),
   },
   avatars: {
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 export function AddCourseTeachersStep(){
 	const classes = useStyles();
   const [users, setUsers] = React.useState([]);
-  const theme = useTheme();
   
   const controller = EventsDispatcher.setEvent('newTeacher')
   const {
