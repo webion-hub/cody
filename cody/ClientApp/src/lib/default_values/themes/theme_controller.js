@@ -171,7 +171,7 @@ export class ThemeController {
           },
           MuiFilledInput: {
             root: {
-              backgroundColor: Color.o(this.palette.secondary[400], 0.3),
+              backgroundColor: Color.o(this.palette.background[400], 0.3),
               backdropFilter: 'blur(10px)',
               "&:hover": {
                 backgroundColor: Color.o(this.palette.secondary[500], 0.2)
@@ -183,6 +183,13 @@ export class ThemeController {
             underline: {
               "&:before": {
                 borderColor: `${this.palette.secondary[800]} !important`
+              }
+            }
+          },
+          MuiListItem: {
+            root: {
+              "&.Mui-selected": {
+                backgroundColor: Color.o(this.palette.secondary[600], 0.2)
               }
             }
           },
