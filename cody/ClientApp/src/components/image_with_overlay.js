@@ -6,17 +6,20 @@ const useStyles = makeStyles((theme) => ({
   container: {
     position: "relative"
   },
-  overlay: {
+  overlay: props => ({
     position: "absolute",
     zIndex: 1,
     height: "100%",
-    opacity: 0,
+    opacity: props.showOverlay ? 1 : 0,
     background: Color.o(theme.palette.secondary.main, 0.25),
     backdropFilter: "blur(10px)",
     "&:hover": {
       opacity: 1,
     },
     transition: "0.25s all" 
+  }),
+  showOverlay: {
+    opacity: 1
   },
   roundImage: {
     borderRadius: "50%"
@@ -24,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function ImageWithOverlay(props){
-  const classes = useStyles()
+  const showOverlay = props.showOverlay
+  const classes = useStyles({showOverlay})
 
   return (
     <div className={`${classes.container} ${props.className}`}>

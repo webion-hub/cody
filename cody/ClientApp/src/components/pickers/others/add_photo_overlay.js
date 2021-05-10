@@ -100,6 +100,7 @@ export function AddPhotoOverlay(props){
 
   return (
     <ImageWithOverlay
+      showOverlay={notImage && props.showOverlay}
       className={props.className}
       cropShape={props.cropShape}
       overlayContent={

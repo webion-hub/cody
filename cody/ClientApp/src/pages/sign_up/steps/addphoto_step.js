@@ -48,6 +48,7 @@ export default function AddPhotoStep(props){
           justify="center"
         >
           <AvatarAddPhoto
+            showOverlay
             disableLoading
             onImageChange={props.onProfileImageChange}
             alt={props.values.username}
