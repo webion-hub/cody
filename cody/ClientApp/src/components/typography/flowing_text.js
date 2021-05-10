@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Box } from '@material-ui/core';
 
-import { Color } from 'src/lib/color/color';
-
 const useStyles = makeStyles((theme) => ({
 	container: {
 		whiteSpace: "nowrap",
@@ -53,7 +51,7 @@ export function FlowingText(props){
     // eslint-disable-next-line react-hooks/exhaustive-deps    
 	}, [props.children]);
 	
-	const colorTransparent = Color.setColor(props.background).opacity(0).color;
+	const colorTransparent = props.background.opacity(0);
 	return (
 		<Box
 			position="relative"

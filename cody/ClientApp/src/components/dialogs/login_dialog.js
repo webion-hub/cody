@@ -1,8 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, ButtonGroup } from '@material-ui/core';
 import { DialogBase } from 'src/components/bases/dialog_base';
-import { LoginBox } from 'src/pages/login/components/login_box';
 import { PageController } from 'src/lib/page_controller';
+import { lazyLoader } from '../lazy_loader';
+
+const LoginBox = lazyLoader(() => import('src/pages/login/components/login_box'))
 
 const useStyles = makeStyles((theme) => ({
   paperClassName: {

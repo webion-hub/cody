@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	organizationsList: props => ({
 		padding: 0,
 		margin: "8px 0px",
-		background: theme.palette.background[750],
+		background: theme.palette.background[800],
 		borderRadius: theme.drawer.width / 2,
 		height: props.organizationsListHeight,
 		transition: "0.25s height",

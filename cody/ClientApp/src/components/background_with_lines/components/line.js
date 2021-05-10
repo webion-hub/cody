@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
 	line: {
 		height: 80,
 		borderRadius: 40,
-		background: theme.palette.background[700].opacity(0.3).color,
+		background: theme.palette.background[650].opacity(0.2),
 		margin: 10,
 	},
 }));

@@ -12,7 +12,7 @@ export class AppBarOpacityController {
       return
 
     this.ref.current.style.backgroundColor = 
-      color.opacity(this.getOpacity()).color
+      color.opacity(this.getOpacity())
   }
 
   /**

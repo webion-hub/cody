@@ -9,7 +9,7 @@ export default function ColorsTab() {
   return (
     <Grid
       style={{
-        background: theme.palette.background.contrastText.opacity(0.8).color,
+        background: theme.palette.background.contrastText.opacity(0.8),
         color: theme.palette.background.default,
         position: "absolute",
         height: '100%'

@@ -1,4 +1,3 @@
-import { Color } from "../color/color";
 import { getRandomValue } from "../get_random_value";
 import { WaveGenerator } from "./utilities/wave_generator";
 
@@ -34,7 +33,7 @@ export class WavesGenerator{
   getColor(index){
     const colorStep = 1 / this.waves;
     const colorOpacity = colorStep*(index + 1)
-    const color = Color.setColor(this.color).opacity(colorOpacity).color 
+    const color = this.color.opacity(colorOpacity) 
     return color.replace('#', '%23')
   }
 

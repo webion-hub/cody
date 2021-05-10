@@ -99,17 +99,17 @@ export class Color {
  */
 
 String.prototype.opacity = function (opacity){
-  return Color.setColor(this).opacity(opacity)
+  return Color.setColor(this).opacity(opacity).color
 };
 
 String.prototype.darkness = function (percent){
-  return Color.setColor(this).darkness(percent)
+  return Color.setColor(this).darkness(percent).color
 };
 
 String.prototype.lightness = function (percent){
-  return Color.setColor(this).lightness(percent)
+  return Color.setColor(this).lightness(percent).color
 };
 
 String.prototype.negative = function (){
-  return Color.setColor(this).negative()
+  return Color.setColor(this).negative().color
 };
