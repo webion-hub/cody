@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     height: "100%",
     opacity: props.showOverlay ? 1 : 0,
-    background: Color.o(theme.palette.secondary.main, 0.25),
+    background: Color.o(theme.palette.secondary.main, 0),
     backdropFilter: "blur(10px)",
     "&:hover": {
       opacity: 1,

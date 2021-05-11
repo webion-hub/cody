@@ -38,6 +38,7 @@ export function LoginDialog(props){
         alignItems="center"
       >
         <LoginBox
+          suspenseHeight={225}
           onSuccess={props.onSuccess}
         />
         <ButtonGroup

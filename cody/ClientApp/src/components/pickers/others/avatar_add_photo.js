@@ -16,7 +16,9 @@ export function AvatarAddPhoto(props){
         disableLoading={disableLoading}
         alt={alt}
         size={imageSize ? imageSize : avatarSize}
-      />
+      >
+        {` `}
+      </CustomAvatar>
     </AddPhotoOverlay>
   )
 }
