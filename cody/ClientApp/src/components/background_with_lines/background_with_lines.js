@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 
 import { Line } from './components/line';
 import { useGetSize } from 'src/lib/hooks/use_get_size';
@@ -15,12 +15,14 @@ const useStyles = makeStyles((theme) => ({
 		height: "100%",
 		overflow: "hidden",
     whiteSpace: "nowrap",
-		background: props.background ?? theme.palette.background.backgroundGradient
+		background: props.background
 	}),
 }));
 
 export function BackgroundWithLines(props){
-	const background = props.background
+	const theme = useTheme()
+	const background = props.background ?? theme.palette.background[500]
+
   const classes = useStyles({background});
 	const box = useRef();
 	const boxHeight = useGetSize(box).height;
@@ -34,8 +36,8 @@ export function BackgroundWithLines(props){
 				direction="row"
 				justify="space-between"
 			>
-				<Line/>
-				<Line/>
+				<Line color={background}/>
+				<Line color={background}/>
 			</Grid>
 		))
 

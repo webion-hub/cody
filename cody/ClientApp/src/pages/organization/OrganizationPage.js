@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { OrganizationPageContent } from "./organization_page_content";
 import { OrganizationControllerContext } from "./organization_controller_context";

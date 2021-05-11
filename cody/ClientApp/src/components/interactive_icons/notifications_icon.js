@@ -1,4 +1,4 @@
-import { IconButton, Tooltip } from '@material-ui/core';
+import { IconButton, Tooltip, useTheme } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 export function NotificationsIcon(){
   const classes = useStyles();
-  
+  const theme = useTheme()
+
   return (
     <InteractiveIconBase
       loggedContent={
@@ -33,7 +34,7 @@ export function NotificationsIcon(){
                 horizontal: 'left',
               }}
             >
-                <NotificationsRoundedIcon />
+                <NotificationsRoundedIcon style={{color: theme.palette.secondary.contrastText}}/>
             </Badge>
           </IconButton>
         </Tooltip>

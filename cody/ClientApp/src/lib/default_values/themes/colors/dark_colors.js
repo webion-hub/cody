@@ -8,6 +8,6 @@ export const darkColors = {
   background: '#172230', 
   contrastText: '#fff', 
   
-  textPrimary: 'rgba(255,255,255,0.95)',
-  textSecondary: 'rgba(255,255,255,0.65)',
+  textPrimary: '#FFFFFFF3',
+  textSecondary: '#FFFFFFA6',
 } 

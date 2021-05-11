@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Badge } from "@material-ui/core";
+import { Badge, useTheme } from "@material-ui/core";
 import { OrganizationKindIcon } from "src/components/organization_kind_icon";
 import { CustomAvatar } from "src/components/custom_avatar";
 
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function OrganizationBadgeAvatar(props){
 	const classes = useStyles();
+  const theme = useTheme()
 
 	const {
 		organizationData,
@@ -46,7 +47,11 @@ export function OrganizationBadgeAvatar(props){
                 animation="wave"
               />
               :
-              <OrganizationKindIcon kind={organizationData?.kind} size="small"/>
+              <OrganizationKindIcon 
+                kind={organizationData?.kind} 
+                size="small"
+                color={theme.palette.secondary.contrastText}
+              />
           }
         </div>
       }

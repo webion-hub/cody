@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { AvatarWithMenu } from "./buttons/avatar_with_menu";
 import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
 
@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function CustomAvatarGroup(props){
 	const classes = useStyles(props);
+  const theme = useTheme()
 
   //I've used a ref because is the only way 
   //for passing the real status of "open" inside listeners
@@ -144,7 +145,7 @@ export function CustomAvatarGroup(props){
       className={classes.finalAvatar}
       buttonClassName={`${classes.avatar} ${getAvatarGroupClassStatus()}`}
     >
-      <MenuOpenRoundedIcon/>
+      <MenuOpenRoundedIcon style={{color: theme.palette.secondary.contrastText}}/>
     </AvatarWithMenu>
 
   return (

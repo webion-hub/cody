@@ -69,12 +69,12 @@ export class ThemeController {
       primary: {
         ...primaryShades,
         main: this.color.primary,
-        contrastText: '#fff',
+        contrastText: '#FFFFFFD9',
       },
       secondary: {
         ...secondaryShades,
         main: this.color.secondary,
-        contrastText: '#fff',
+        contrastText: '#FFFFFFD9',
       },
       tertiary: {
         main: this.color.tertiary,
@@ -84,7 +84,6 @@ export class ThemeController {
         paper: backgroundShades[800],
         default: backgroundShades[500],
 
-        backgroundGradient: `linear-gradient(180deg, ${secondaryShades[900]} -80%, ${backgroundShades[500]} 100%)`,
         contrastText: this.color.contrastText,
       },
       text: {

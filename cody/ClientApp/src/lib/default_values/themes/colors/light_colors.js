@@ -8,6 +8,6 @@ export const lightColors = {
   background: '#f0f2f5', 
   contrastText: '#000', 
 
-  textPrimary: 'rgba(0,0,0,0.95)',
-  textSecondary: 'rgba(0,0,0,0.65)',
+  textPrimary: '#000000F3',
+  textSecondary: '#000000A6',
 }
