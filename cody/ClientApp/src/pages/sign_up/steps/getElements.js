@@ -14,6 +14,7 @@ export const getElements = ({
     height: 415,
     element: 
       <EmailPassword
+        suspenseHeight={327}
         onEmailChange = {handleDataChange("email")}
         onPasswordChange = {handleDataChange("password")}
         onConfirmPasswordChange = {handleDataChange("confirmPassword")}
@@ -29,6 +30,7 @@ export const getElements = ({
     height: 494,
     element: 
       <IDData
+        suspenseHeight={406}
         onUsernameChange = {handleDataChange("username")}
         onNameChange = {handleDataChange("name")}
         onSurnameChange = {handleDataChange("surname")}
@@ -47,6 +49,7 @@ export const getElements = ({
     height: 397,
     element: 
       <AddPhotoStep
+        suspenseHeight={309}
         onProfileImageChange = {handleDataChange("profileImage")}
         onAcceptTerms = {handleDataChange("acceptTerms")}
         values = {data}

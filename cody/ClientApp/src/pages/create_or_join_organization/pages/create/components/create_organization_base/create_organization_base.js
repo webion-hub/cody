@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField, Grid, InputAdornment } from '@material-ui/core';
+import { TextField, Grid, InputAdornment, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
@@ -97,6 +97,7 @@ export function CreateOrganizationBase(props){
       loading={loading}
     >
       <AvatarAddPhoto
+        showOverlay
         disableLoading
         className={classes.addPhoto}
         imageSize={100}

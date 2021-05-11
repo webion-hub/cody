@@ -39,8 +39,8 @@ export default function CreateOrJoinOrganization(){
     <CenterComponentPageBase>
       <TitleInfoContentBase
         {...content.settings}
-      >
-        <content.component/>
+      >        
+        <content.component suspenseHeight={content.settings.height}/>
       </TitleInfoContentBase>
       <BackgroundWithLines/> 
     </CenterComponentPageBase>
