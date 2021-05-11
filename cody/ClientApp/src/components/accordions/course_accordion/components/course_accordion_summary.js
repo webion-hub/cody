@@ -1,35 +1,19 @@
-import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from '@material-ui/core'
-import { useMediaQuery } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-
-import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
 import Typography from '@material-ui/core/Typography';
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
-import { Grid, IconButton } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
-  openCourseIcon: {
-    marginLeft: -theme.spacing(1),
-    marginRight: theme.spacing(1)
+  teachersContainer: {
+    width: "calc(100% - 90px)",
   },
   title: {
-    width: "calc(100% - 64px)"
-  },
-  titleContainer: {
-    width: "70%",
-    [theme.breakpoints.down('md')]: {
-      width: "100%"
-    },
-  },
-  teachersContainer: {
-    width: "30%",
-    [theme.breakpoints.down('md')]: {
-      width: "100%"
-    },
+    width: "100%"
   },
   teachers: {
     width: "100%"
@@ -37,15 +21,19 @@ const useStyles = makeStyles((theme) => ({
   teachersLabel: {
     width: "100%"
   },
-  accordionSummary: {
-    width: 0
+  accordionSummaryContent: {
+    width: 0,
+  },
+  openButton: {
+    position: "absolute",
+    zIndex: 1,
+    right: 16,
+    top: 16,
   }
 }));
 
 export function CourseAccordionSummary(props){
 	const classes = useStyles();
-  const theme = useTheme();
-  const smallScreenView = useMediaQuery(theme.breakpoints.down('md'));
 
   const {
     title,
@@ -53,48 +41,35 @@ export function CourseAccordionSummary(props){
   } = props
 
   return (
+    <>
     <AccordionSummary
       classes={{
-        content: classes.accordionSummary
+        content: classes.accordionSummaryContent
       }}
-      expandIcon={<ExpandMoreRoundedIcon />}
     >
       <Grid
         container
-        direction={smallScreenView ? "column" : "row"}
+        direction="row"
         justify="space-between"
-        alignItems={smallScreenView ? "flex-start" : "center"}
+        alignItems="center"
       >
-        <Grid
-          className={classes.titleContainer}
-          container
-          direction="row"
-          alignItems="center"
-        >
-          <IconButton
-            className={classes.openCourseIcon}
-            color="secondary"
-            onClick={e => e.stopPropagation()}
-            onFocus={e => e.stopPropagation()}
-          >
-            <OpenInNewRoundedIcon/>
-          </IconButton>
-          <Typography
-            noWrap
-            className={classes.title}
-          >
-            {title}
-          </Typography>
-        </Grid>
         <Grid
           container
           direction="column"
           className={classes.teachersContainer}
         >
           <Typography
+            noWrap
+            className={classes.title}
+            variant="h6"
+            color="secondary"
+          >
+            {title}
+          </Typography>
+          <Typography
             className={classes.teachersLabel}
             variant="caption"
-            align={smallScreenView ? "left" : "right"}
+            align="left"
             color="textSecondary"
             noWrap
           >
@@ -102,7 +77,7 @@ export function CourseAccordionSummary(props){
           </Typography>
           <Typography
             className={classes.teachers}
-            align={smallScreenView ? "left" : "right"}
+            align="left"
             color="textSecondary"
             noWrap
           >
@@ -113,5 +88,20 @@ export function CourseAccordionSummary(props){
         </Grid>
       </Grid>
     </AccordionSummary>
+    <Button
+      className={classes.openButton}
+      variant="outlined"
+      color="secondary"
+      href={`${window.location.href}/course/ID`}
+      onClick={e => {
+        e.stopPropagation()
+        PageController.push(e, `${window.location.href}/course/ID`)
+      }}
+      onFocus={e => e.stopPropagation()}
+      endIcon={<OpenInNewRoundedIcon/>}
+    >
+      Apri
+    </Button>
+    </>
   )
 }

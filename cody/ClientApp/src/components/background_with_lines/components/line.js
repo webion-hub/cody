@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
 	line: props => ({
 		height: 80,
 		borderRadius: 40,
-		background: Color.set(props.color).darkness(theme.palette.type === "dark" ? 8 : 4).color,
+		background: Color.set(props.color).darkness(theme.palette.type === "dark" ? 7 : 4).color,
 		margin: 10,
 	}),
 }));

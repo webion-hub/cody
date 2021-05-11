@@ -33,7 +33,7 @@ export function CourseAccordion(props){
 
   return (
     <Accordion
-      elevation={8}
+      elevation={6}
       square
       className={classes.accordion}
       classes={{
