@@ -2,6 +2,7 @@
 using Cody.Models.Organizations;
 using Cody.Models.Users;
 using Microsoft.EntityFrameworkCore;
+using Courses = Cody.Models.Organizations.Courses;
 
 namespace Cody.Contexts
 {
@@ -39,6 +40,10 @@ namespace Cody.Contexts
             modelBuilder
                 .Entity<BookmarkedOrganization>()
                 .HasKey(fo => new { fo.UserAccountId, fo.OrganizationId });
+
+            modelBuilder
+                .Entity<Courses.Member>()
+                .HasKey(cm => new { cm.UserAccountId, cm.CourseId });
         }
 
 
