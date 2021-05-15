@@ -26,6 +26,9 @@ namespace Cody.Contexts
         public DbSet<OrganizationLogo> OrganizationLogos { get; set; }
         public DbSet<OrganizationMember> OrganizationMembers { get; set; }
 
+        public DbSet<Courses.Course> Courses { get; set; }
+        public DbSet<Courses.Lesson> Lessons { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
