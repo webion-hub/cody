@@ -1,12 +1,13 @@
-import React from 'react';
+import Editor from "@monaco-editor/react";
 
-import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
-
-
-export default function Test() {  
+export default function Test() {
   return (
-    <CenterComponentPageBase>
-
-    </CenterComponentPageBase>
+   <Editor
+     width="100%"
+     height="90vh"
+     theme="vs-dark"
+     defaultLanguage="javascript"
+     defaultValue="// some comment"
+   />
   );
 }
