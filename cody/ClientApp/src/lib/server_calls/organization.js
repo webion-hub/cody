@@ -71,7 +71,17 @@ export default class Organization {
   getMembers = async (options) => {
     return Requests.search({
       url: this.url`/members`,
-      method: 'GET',
+      params: options,
+    });
+  }
+
+  /**
+   * @param {CommonFilterOptions} options 
+   * @returns {Promise<SearchResult<OrganizationMember>>}
+   */
+  getCourses = async (options) => {
+    return Requests.search({
+      url: this.url`/courses`,
       params: options,
     });
   }

@@ -25,7 +25,10 @@ export default class Requests {
   static search = async (config) => {
     const emptySearch = {total: 0, values: []};
     return Requests
-      .single(config)
+      .single({
+        method: 'GET',
+        ...config,
+      })
       .then(response => {
         return response?.data ?? emptySearch;
       });
