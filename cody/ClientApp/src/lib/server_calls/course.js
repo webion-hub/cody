@@ -1,18 +1,20 @@
-import Requests from '../requests';
+import Lesson from './lesson';
+import Organization from './organization';
+import Requests from './requests';
 
 export default class Course {
   /**
-   * @param {number} organizationId 
+   * @param {Organization} organization 
    */
-  static of = (organizationId) => {
-    return new Course(organizationId);
+  static of = (organization) => {
+    return new Course(organization);
   }
   
   /**
-   * @param {number} organizationId 
+   * @param {Organization} organization
    */
-  constructor(organizationId) {
-    this._organizationId = organizationId;
+  constructor(organization) {
+    this._organization = organization;
   }
 
   /**
@@ -21,8 +23,9 @@ export default class Course {
    */
   withId = (courseId) => {
     this._id = courseId;
+    this.lesson = Lesson.of(this).withId;
     this.url = Requests.createUrlTag(
-      `organization/${this._organizationId}/course/${this._id}`
+      this._organization.url`/course/${this._id}`
     );
 
     return this;
