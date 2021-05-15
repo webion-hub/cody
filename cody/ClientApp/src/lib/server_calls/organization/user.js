@@ -1,19 +1,21 @@
+import ChangesListener from "../changes_listener";
+import Organization from "../organization";
 import Requests from "../requests";
 
 
 export default class User {
   /**
-   * @param {number} organizationId 
+   * @param {Organization} organization 
    */
-  static of(organizationId) {
-    return new User(organizationId);
+  static of(organization) {
+    return new User(organization);
   }
 
   /**
-   * @param {number} organizationId 
+   * @param {Organization} organization 
    */
-  constructor(organizationId) {
-    this._organizationId = organizationId;
+  constructor(organization) {
+    this._organization = organization;
   }
 
   /**
@@ -22,7 +24,7 @@ export default class User {
   withId = (userId) => {
     this._id = userId;
     this.url = Requests.createUrlTag(
-      `organization/${this._organizationId}/user/${this._id}`
+      this._organization.url`/user/${this._id}`
     );
     
     return this;
@@ -53,5 +55,12 @@ export default class User {
       url: this.url``,
       method: 'DELETE',
     });
+  }
+
+  /**
+   * @param {'userAccount' | 'userAccountDetail'} entity
+   */
+  listenFor = (entity) => {
+    return new ChangesListener(`${entity}/${this._id}`);
   }
 }

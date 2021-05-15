@@ -1,8 +1,6 @@
-import Course from "./course/course";
+import Course from "./course";
 import User from "./organization/user";
 import Requests from "./requests";
-import SingleXHRRequest from "./single_xhr_request";
-
 
 export default class Organization {
   /**
@@ -17,8 +15,8 @@ export default class Organization {
    */
   constructor(organizationId) {
     this._id = organizationId;
-    this.user = User.of(organizationId).withId;
-    this.course = Course.of(organizationId).withId;
+    this.user = User.of(this).withId;
+    this.course = Course.of(this).withId;
     this.url = Requests.createUrlTag(
       `organization/${organizationId}`
     );
