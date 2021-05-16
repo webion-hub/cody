@@ -75,6 +75,21 @@ export default class Organization {
     });
   }
 
+
+  /**
+   * @param {CourseCreationRequest} course
+   * @returns {Promise<number>} courseId 
+   */
+  createCourse = async (course) => {
+    course.organizationId = this._id;
+    return Requests.send({
+      url: this.url`/create/course`,
+      method: 'POST',
+      data: course,
+    })
+    .then(resp => resp.data);
+  }
+
   /**
    * @param {CommonFilterOptions} options 
    * @returns {Promise<SearchResult<OrganizationMember>>}
@@ -134,4 +149,11 @@ export default class Organization {
  * @property {string} name
  * @property {string} surname
  * @property {OrganizationRole} role
+ */
+
+/**
+ * @typedef {object} CourseCreationRequest
+ * @property {string} title
+ * @property {number} organizationId
+ * @property {string} [description]
  */
