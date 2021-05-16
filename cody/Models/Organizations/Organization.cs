@@ -16,15 +16,10 @@ namespace Cody.Models.Organizations
         Team,
     }
 
+
     [Table("organization")]
-    public class Organization : IRejectable
+    public class Organization : Entity, IRejectable
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-
         [Required]
         [DefaultMinMaxLength]
         public string Name { get; set; }
@@ -39,6 +34,7 @@ namespace Cody.Models.Organizations
 
 
         public List<OrganizationMember> Members { get; set; }
+        public List<Courses.Course> Courses { get; set; }
 
 
         [NotMapped]
