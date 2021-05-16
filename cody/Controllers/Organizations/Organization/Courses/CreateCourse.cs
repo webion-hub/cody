@@ -9,24 +9,27 @@ namespace Cody.Controllers.Organizations
 {
     public partial class OrganizationController
     {
-        [HttpPost("create/course")]
+        [HttpPost("courses/create")]
         [Authorize]
         public async Task<IActionResult> CreateCourse(
             [FromBody] CourseCreationRequest request
         ) {
+            var course = request.AsCourse();
             var userId = HttpContext.User.GetId();
             var isAdmin = await _dbContext
                 .OrganizationMembers
-                .IsAdminOfAsync(userId, request.OrganizationId);
+                .IsAdminOfAsync(userId, course.OrganizationId);
 
-            if (!isAdmin) {
+            if (!isAdmin)
                 return Unauthorized();
-            }
 
-            var course = request.AsCourse();
+            var isDuplicate = await IsDuplicateAsync(course);
+            if (isDuplicate)
+                return BadRequest();
+
             _dbContext.Courses.Add(course);
             await _dbContext.SaveChangesAsync();
-            
+
             return Created(
                 uri: $"organization/{course.OrganizationId}/course/{course.Id}", 
                 value: course.Id
