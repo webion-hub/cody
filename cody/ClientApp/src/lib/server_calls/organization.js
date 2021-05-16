@@ -75,6 +75,11 @@ export default class Organization {
     });
   }
 
+  isCourseDuplicate = async (title) => {
+    return Requests.get({
+      url: this.url`/courses/is_duplicate/${title}`,
+    });
+  }
 
   /**
    * @param {CourseCreationRequest} course
@@ -83,7 +88,7 @@ export default class Organization {
   createCourse = async (course) => {
     course.organizationId = this._id;
     return Requests.send({
-      url: this.url`/create/course`,
+      url: this.url`/courses/create`,
       method: 'POST',
       data: course,
     })
