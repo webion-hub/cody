@@ -35,6 +35,7 @@ namespace Cody.Contexts
             ConfigurePrimaryKeys(modelBuilder);
             ConfigureDefaultValues(modelBuilder);
             ConfigureOrganizationMembership(modelBuilder);
+            ConfigureCourseMembership(modelBuilder);
         }
 
 
@@ -43,10 +44,6 @@ namespace Cody.Contexts
             modelBuilder
                 .Entity<BookmarkedOrganization>()
                 .HasKey(fo => new { fo.UserAccountId, fo.OrganizationId });
-
-            modelBuilder
-                .Entity<Courses.Member>()
-                .HasKey(cm => new { cm.UserAccountId, cm.CourseId });
         }
 
 
@@ -84,6 +81,25 @@ namespace Cody.Contexts
                 .Entity<OrganizationMember>()
                 .HasOne(om => om.UserAccount)
                 .WithMany(u => u.Organizations)
+                .HasForeignKey(om => om.UserAccountId);
+        }
+
+        private static void ConfigureCourseMembership(ModelBuilder modelBuilder)
+        {
+             modelBuilder
+                .Entity<Courses.Member>()
+                .HasKey(cm => new { cm.UserAccountId, cm.CourseId });
+
+            modelBuilder
+                .Entity<Courses.Member>()
+                .HasOne(cm => cm.Course)
+                .WithMany(c => c.Members)
+                .HasForeignKey(cm => cm.CourseId);
+
+            modelBuilder
+                .Entity<Courses.Member>()
+                .HasOne(om => om.UserAccount)
+                .WithMany(u => u.Courses)
                 .HasForeignKey(om => om.UserAccountId);
         }
     }

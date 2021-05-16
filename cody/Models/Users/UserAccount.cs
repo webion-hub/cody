@@ -1,5 +1,4 @@
 ﻿using Cody.Models.Organizations;
-using Cody.Models.Organizations.Courses;
 using Cody.Security.Validation;
 using Cody.Security.Validation.Attributes;
 using Cody.Security.Validation.PropertyValidators;
@@ -50,7 +49,7 @@ namespace Cody.Models.Users
         public List<UserAccountPersistentLoginCookie> LoginCookies { get; set; }
         public List<UserRefreshToken> RefreshTokens { get; set; }
         public List<OrganizationMember> Organizations { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<Organizations.Courses.Member> Courses { get; set; }
 
 
         public RejectionResult MaybeReject()
