@@ -44,7 +44,8 @@ export const FadeAppBarContext = React.createContext({
 
 export function CustomAppBar(props){
   const classes = useStyles();
-  const mobileView = useMobileView()
+  const theme = useTheme();
+  const mobileView = useMobileView();
   const trigger = useScrollTrigger(); //hide on scroll
 
   const [fadeInAppBarSection, setFadeInAppBar] = React.useState({
@@ -75,7 +76,7 @@ export function CustomAppBar(props){
       className={classes.menuButton}
       onClick={props.toggleMobileDrawer}
     >
-      <MenuIcon />
+      <MenuIcon style={{color: theme.palette.secondary.contrastText}}/>
     </IconButton>
 
   return (
