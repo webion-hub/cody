@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { TextField } from '@material-ui/core';
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller';
 import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
