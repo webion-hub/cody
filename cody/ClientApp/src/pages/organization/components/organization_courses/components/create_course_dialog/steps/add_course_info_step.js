@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function AddCourseInfoStep(props){
+export default function AddCourseInfoStep(props){
 	const classes = useStyles();
 
   return (
@@ -31,11 +31,18 @@ export function AddCourseInfoStep(props){
         fullWidth 
         variant="filled"
         required
+        onChange={props.onTitleChange}
+        error={props.errors.courseTitleError}
+        defaultValue={props.values.title}
       />
       <DescriptionTextField
         className={classes.description}
         variant="filled"
-        fullWidth              
+        fullWidth
+        onChange={props.onDescriptionChange}
+        error={props.errors.descriptionError}
+        defaultValue={props.values.description}
+        descriptionLength={props.values.description.length}
       />
     </BasePhotoText>
   )

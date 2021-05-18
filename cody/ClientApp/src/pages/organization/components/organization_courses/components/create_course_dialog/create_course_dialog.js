@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, useMediaQuery, useTheme } from '@material-ui/core'
+import { useMediaQuery, useTheme } from '@material-ui/core'
 
 import { DialogBase } from "src/components/bases/dialog_base";
-import { CustomStepper } from "src/components/stepper/custom_stepper/custom_stepper";
-import { AddCourseInfoStep } from "./steps/add_course_info_step";
-import { AddCourseTeachersStep } from "./steps/add_course_teachers_step";
+import { lazyLoader } from 'src/components/lazy_loader';
+
+const CreateCourse = lazyLoader(() => import('./create_course'))
+
 
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
@@ -26,7 +27,7 @@ export function CreateCourseDialog(props){
 	const classes = useStyles();
   const theme = useTheme();
   const mobileView = useMediaQuery(theme.breakpoints.down('xs'));
-  
+
   return (
     <DialogBase
       fullScreen={mobileView}
@@ -35,20 +36,9 @@ export function CreateCourseDialog(props){
       open={props.open}
       onClose={props.onClose}
     >
-      <CustomStepper
-        onBackFirstPage={props.onClose}
-        firstPageLabel="Chiudi"
-        component={Box}
-        elements={[
-          {
-            element: <AddCourseInfoStep/>,
-            height: 411
-          },
-          {
-            element: <AddCourseTeachersStep/>,
-            height: 675
-          },
-        ]}
+      <CreateCourse 
+        suspenseHeight={400}
+        onClose={props.onClose}
       />
     </DialogBase>
   );

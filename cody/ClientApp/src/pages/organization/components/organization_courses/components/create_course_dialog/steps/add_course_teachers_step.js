@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Typography from '@material-ui/core/Typography';
 
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
@@ -9,7 +9,7 @@ import { AvatarWithOverlayAndLabel } from "src/components/avatar_with_overlay_an
 import { UserListItemWithCheckBox } from "src/components/list_items/user_list_items/user_list_item_with_checkbox";
 import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from "@material-ui/core";
+import { Fade, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,20 +33,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function AddCourseTeachersStep(){
+export default function AddCourseTeachersStep(props){
 	const classes = useStyles();
-  const [users, setUsers] = React.useState([]);
-  
+  const [users, setUsers] = React.useState(props.teachers ?? []);
+  const {
+    organization
+	} = React.useContext(OrganizationContext);
+
   const controller = EventsDispatcher.setEvent('newTeacher')
   const {
     addActiveId,
     removeActiveId,
     ListWithActiveIdsComponent
   } = ListWithActiveIds()
-
-	const {
-    organization
-	} = React.useContext(OrganizationContext);
 
   const isNotNewUser = (newUser) => (user) => {
     return newUser.id === user.id;
@@ -85,6 +84,10 @@ export function AddCourseTeachersStep(){
     removeFirstExecution: true
   })
 
+  useEffect(() => {
+    props?.onTeachersChange(users)
+  }, [users])
+
   return (
     <Grid
       className={classes.container}
@@ -102,6 +105,15 @@ export function AddCourseTeachersStep(){
       >
         per questo corso
       </Typography>
+      <Fade in={props.errors.teachersError}>
+        <Typography
+          variant="caption"
+          color="error"
+        >
+          Nessun professore aggiunto!
+        </Typography>
+      </Fade>
+      
       <CustomScrollContainer className={classes.avatars}>
         {
           users.map((user, index) => (
