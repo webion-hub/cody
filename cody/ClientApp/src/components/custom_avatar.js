@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Avatar, CircularProgress, useTheme } from '@material-ui/core';
+import { Avatar, CircularProgress } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CustomAvatar = React.forwardRef((props, ref) => {
-  const theme = useTheme()
   const classes = useStyles()
   const [loading, setLoading] = React.useState(true);
   const { 
