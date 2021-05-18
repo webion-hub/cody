@@ -37,7 +37,9 @@ export function CourseAccordion(props){
       square
       className={classes.accordion}
       classes={{
-        root: props.firstAccordion ? classes.hideLine : classes.showLine
+        root: props.firstAccordion 
+          ? classes.hideLine 
+          : classes.showLine
       }}
     >
       <CourseAccordionSummary

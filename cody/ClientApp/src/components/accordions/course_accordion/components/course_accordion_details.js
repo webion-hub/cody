@@ -37,17 +37,11 @@ export function CourseAccordionDetails(props){
         alignItems="center"
       >
         <Button
-          color="secondary"
-          variant="outlined"
-        >
-          Esercitazioni
-        </Button>
-        <Button
           className={classes.lessonButton}
           color="secondary"
           variant="outlined"
         >
-          Lezioni
+          Vai alla ultima lezione
         </Button>
       </Grid>
     </Grid>
