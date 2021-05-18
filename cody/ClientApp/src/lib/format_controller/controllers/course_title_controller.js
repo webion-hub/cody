@@ -1,18 +1,16 @@
 import { FormatControllerBase } from '../format_controller_base';
 
-export class LocationController extends FormatControllerBase{
-
+export class CourseTitleController extends FormatControllerBase{
   static check = (values, skip) => {
-    const location = values.location
+    const title = values.title
 
-    if(this.canSkip(location, skip))
+    if(this.canSkip(title, skip))
       return new Promise(resolve => resolve());
 
     return new Promise(resolve => {
-
-      if(this.wrongLength(location, 'location'))
+      if(this.wrongLength(title, 'generalName'))
       {
-        resolve("locationControllerError");
+        resolve("courseTitleError");
       }
       else {
         resolve()

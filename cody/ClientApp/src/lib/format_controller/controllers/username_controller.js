@@ -1,5 +1,4 @@
 import { User } from 'src/lib/server_calls/user';
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { FormatControllerBase } from '../format_controller_base';
 
 
@@ -11,13 +10,13 @@ export class UsernameController extends FormatControllerBase{
   }
 
   static wrongFormat = (username) => {
-    return this.wrongLength(username);
-  } 
+    const wrongLength = this.wrongLength(username, 'username')
 
-  static wrongLength = (username) => {
-    return FormatLengthController
-      .set('username')
-      .wrongFormat(username, {skippable: false});
+    if(wrongLength)
+      return true;
+      
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    return !usernameRegex.test(username);
   }
 
   static check = (values, skip) => {
@@ -27,10 +26,10 @@ export class UsernameController extends FormatControllerBase{
       return new Promise(resolve => resolve());
 
     return new Promise(resolve => {
-      const wrongLenght = this.wrongLength(username);
       const wrongFormat = this.wrongFormat(username);
 
-      if(wrongFormat || wrongLenght)
+
+      if(wrongFormat)
       {
         resolve("usernameError");
       }

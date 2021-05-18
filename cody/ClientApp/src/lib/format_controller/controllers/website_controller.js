@@ -1,11 +1,8 @@
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { FormatControllerBase } from '../format_controller_base';
 
 export class WebsiteController extends FormatControllerBase{
   static wrongFormat = (website) => {
-    const wrongLength = FormatLengthController
-      .set('website')
-      .wrongFormat(website, {skippable: true});
+    const wrongLength = this.wrongLength(website, 'website')
       
     if(wrongLength)
       return true;

@@ -1,16 +1,10 @@
 import zxcvbn from 'zxcvbn';
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { FormatControllerBase } from '../format_controller_base';
 
 export class PasswordController extends FormatControllerBase{
-  static wrongFormat = (password) => {
-    return FormatLengthController
-      .set('password')
-      .wrongFormat(password, {skippable: false});
-  }
   
   static arePwWrong = (password, confirmPassword) => {
-    const isWrongLength = this.wrongFormat(password);
+    const isWrongLength = this.wrongLength(password, 'password');
     const areDifferent = !(password === confirmPassword);
     const wrongPw = isWrongLength || areDifferent;
 

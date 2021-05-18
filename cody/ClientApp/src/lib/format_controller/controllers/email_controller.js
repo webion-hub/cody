@@ -1,5 +1,4 @@
 import { User } from 'src/lib/server_calls/user';
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { FormatControllerBase } from '../format_controller_base';
 
 export class EmailController extends FormatControllerBase {
@@ -10,9 +9,7 @@ export class EmailController extends FormatControllerBase {
   }
   
   static wrongFormat = (email) => {
-    const wrongLength = FormatLengthController
-      .set('email')
-      .wrongFormat(email, {skippable: false})
+    const wrongLength = this.wrongLength(email, 'email')
 
     if(wrongLength)
       return true;

@@ -14,7 +14,7 @@ export class FormatLengthController{
   getLengths(type){
     switch(type){
       case "username":
-      case "organizationName":
+      case "generalName":
         return formatLengths.usernameLength;
 
       case "std":

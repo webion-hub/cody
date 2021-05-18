@@ -1,4 +1,3 @@
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { FormatControllerBase } from '../format_controller_base';
 
 export class NameSurnameController{
@@ -23,9 +22,8 @@ export class NameSurnameController{
       return new Promise(resolve => resolve());
 
     return new Promise(resolve => {
-      const wrongLength = FormatLengthController
-        .set('std')
-        .wrongFormat(nameOrSurname, {skippable: false});
+      const wrongLength = FormatControllerBase
+        .wrongLength(nameOrSurname, 'std')
 
       if(wrongLength)
         resolve(errorType)

@@ -1,4 +1,3 @@
-import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 import { FormatControllerBase } from '../format_controller_base';
 
 export class DescriptionController extends FormatControllerBase{
@@ -6,9 +5,7 @@ export class DescriptionController extends FormatControllerBase{
     if(description.length === 0)
       return false;
 
-    return FormatLengthController
-      .set('description')
-      .wrongFormat(description, {skippable: true});
+    return this.wrongLength(description, 'description', true)
   }
 
   static check = (values, skip) => {
