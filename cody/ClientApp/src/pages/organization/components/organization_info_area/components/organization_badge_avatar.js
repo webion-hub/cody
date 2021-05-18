@@ -26,6 +26,7 @@ export function OrganizationBadgeAvatar(props){
 		organizationData,
     callerIs,
     id,
+    loading
 	} = React.useContext(OrganizationContext);
 
 
@@ -60,12 +61,11 @@ export function OrganizationBadgeAvatar(props){
         id={id}
         callerIs={callerIs}
         type="logo"
-        loading={props.loading}
+        loading={loading}
       >
         <CustomAvatar       
           alt={organizationData?.name}
           size={110}
-          loading={props.loading}
         />
       </AddOrganizationPhotoBase>
     </Badge>
