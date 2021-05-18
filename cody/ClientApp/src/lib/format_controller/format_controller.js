@@ -8,6 +8,7 @@ import { OrganizationNameController } from "./controllers/organization_name_cont
 import { LocationController } from "./controllers/loaction_controller";
 import { DescriptionController } from "./controllers/description_controller";
 import { WebsiteController } from "./controllers/website_controller";
+import { CourseTitleController } from "./controllers/course_title_controller";
 
 export class FormatController {
   constructor(controllers){
@@ -23,15 +24,16 @@ export class FormatController {
     this.errorsList.push(error);
   }
 
-  addController = (controller, skippable) => {
+  addController = (controller, skippable, customController = null) => {
     this.controllersLabel
       .push({
         controller,
         skippable,
+        customController
       });
   }
 
-  getController = (controllerLabel) => {
+  getController = (controllerLabel, customController) => {
     const controller = {
       'email':            EmailController,
       'password':         PasswordController,
@@ -41,9 +43,11 @@ export class FormatController {
       'birthDate':        BirthDateController,
       'termsAndService':  TermsAndServiceController,
       'organizationName': OrganizationNameController,
+      'courseTitle':      CourseTitleController,
       'location':         LocationController,
       'description':      DescriptionController,
-      'website':          WebsiteController
+      'website':          WebsiteController,
+      'custom':           customController
     }[controllerLabel]
 
     return controller
@@ -51,11 +55,12 @@ export class FormatController {
 
   getControllersList = (values) => {
     return this.controllersLabel
-      .map(controller => 
-        this.getController(controller.controller)
+      .map(controller => {
+        this
+          .getController(controller.controller, controller.customController)
           .check(values, controller.skippable)
           .then(this.insertError)
-      );
+      });
   }
 
   getErrorObject = () => {
