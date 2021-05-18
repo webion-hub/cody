@@ -72,6 +72,29 @@ export class FormatController {
     return new FormatController([])
   }
 
+
+  /**
+   * @param {Function} errorCondition
+   * @param {String} controlerrorLabeller 
+   */
+  create = ({errorCondition, errorLabel}, skippable = false) => {
+    const controller = {
+      check: val => {
+        return new Promise(resolve => {
+          if(errorCondition(val)){
+            resolve(errorLabel)
+            return;
+          }
+
+          resolve()                  
+        }) 
+      }
+    }
+
+    this.addController('custom', skippable, controller);    
+    return new FormatController(this.controllersLabel)
+  }
+
   /**
    * @param {Controllers} controller 
    */
