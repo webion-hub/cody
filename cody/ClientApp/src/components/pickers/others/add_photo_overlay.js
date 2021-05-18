@@ -24,7 +24,6 @@ export function AddPhotoOverlay(props){
   const classes = useStyles()
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [imageLoading, setImageLoading] = React.useState(true);
   const [notImage, setNotImage] = React.useState(true);
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
    
@@ -83,13 +82,12 @@ export function AddPhotoOverlay(props){
     setNotImage(true)
   }
 
-  const finalLoading = props.loading || imageLoading || loading
+  const finalLoading = props.loading || loading
 
   const imageComponent = React.Children.map(props.children, child =>
     React.cloneElement(child, { 
       src: image,
       loading: child.props.loading || finalLoading,
-      onLoadEnd: _=> setImageLoading(false),
       onError: _=> setNotImage(true),
       onLoad: _=> setNotImage(false)
     }),
