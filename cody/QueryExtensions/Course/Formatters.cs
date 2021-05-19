@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cody.QueryExtensions
 {
-  public static partial class OrganizationQueries
+  public static partial class CourseQueries
     {
         public static IQueryable<object> Format(this IQueryable<Course> self) 
         {

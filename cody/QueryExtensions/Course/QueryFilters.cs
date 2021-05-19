@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Cody.QueryExtensions
 {
-    public static partial class OrganizationQueries
+    public static partial class CourseQueries
     {
         public static IQueryable<Course> DefaultMatch(this QueryFilter<Course> self)
         {

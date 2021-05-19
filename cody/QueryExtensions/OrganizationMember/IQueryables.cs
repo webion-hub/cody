@@ -23,15 +23,6 @@ namespace Cody.QueryExtensions
             return self.ThenBy(om => om.UserAccountId);
         }
 
-
-        public static async Task<bool> IsAdminOfAsync(this QueryableMember self, int userId, int organizationId)
-        {
-            return await self
-                .Where(om => om.OrganizationId == organizationId)
-                .ThatAreAdmins()
-                .AnyAsync(om => om.UserAccountId == userId);
-        }
-
         public static QueryableMember ThatAreAdmins(this QueryableMember self)
         {
             return self.Where(om =>
