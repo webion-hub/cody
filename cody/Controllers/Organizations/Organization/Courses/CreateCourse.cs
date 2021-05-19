@@ -3,6 +3,8 @@ using Cody.Extensions;
 using Cody.QueryExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
@@ -25,15 +27,36 @@ namespace Cody.Controllers.Organizations
 
             var isDuplicate = await IsDuplicateAsync(course);
             if (isDuplicate)
-                return BadRequest();
+                return BadRequest("duplicate");
+
+            var areAllMembers = await AreAllMembersAsync(request);
+            if (!areAllMembers)
+                return BadRequest("teachers_not_all_members");
 
             _dbContext.Courses.Add(course);
             await _dbContext.SaveChangesAsync();
-
             return Created(
                 uri: $"organization/{course.OrganizationId}/course/{course.Id}", 
                 value: course.Id
             );
+        }
+
+
+        private async Task<bool> AreAllMembersAsync(CourseCreationRequest request) 
+        {
+            return await _dbContext
+                .CourseMembers
+                .Where(cm => request
+                    .Teachers
+                    .Contains(cm.UserAccountId)
+                )
+                .AllAsync(cm => _dbContext
+                    .OrganizationMembers
+                    .Any(om => 
+                        om.OrganizationId == request.OrganizationId && 
+                        om.UserAccountId == cm.UserAccountId
+                    )
+                );
         }
     }
 }

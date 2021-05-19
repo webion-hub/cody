@@ -27,6 +27,7 @@ namespace Cody.Contexts
         public DbSet<OrganizationMember> OrganizationMembers { get; set; }
 
         public DbSet<Courses.Course> Courses { get; set; }
+        public DbSet<Courses.Member> CourseMembers { get; set; }
         public DbSet<Courses.Lesson> Lessons { get; set; }
 
 
