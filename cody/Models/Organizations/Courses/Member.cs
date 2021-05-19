@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Cody.Models.Organizations.Courses
 {
     public enum MemberRole {
-        Professor,
+        Teacher,
         Student,
     }
 

@@ -1,6 +1,8 @@
 using Cody.Security.Validation.Attributes;
 using Cody.Models.Organizations.Courses;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cody.Controllers.Requests
 {
@@ -12,13 +14,24 @@ namespace Cody.Controllers.Requests
         string Description,
 
         [Required]
-        int OrganizationId
+        int OrganizationId,
+
+        [Required]
+        int[] Teachers
     ) {
-        public Course AsCourse() => new Course
+        public Course AsCourse() 
         {
-            Title = Title,
-            Description = Description,
-            OrganizationId = OrganizationId,
-        };
+            var teachers = Teachers.Select(id => new Member {
+                UserAccountId = id,
+                Role = MemberRole.Teacher,
+            });
+
+            return new Course {
+                Title = Title,
+                Description = Description,
+                OrganizationId = OrganizationId,
+                Members = teachers.ToList(),
+            };
+        }
     }
 }

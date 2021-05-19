@@ -159,6 +159,7 @@ export default class Organization {
 /**
  * @typedef {object} CourseCreationRequest
  * @property {string} title
- * @property {number} organizationId
+ * @property {number[]} teachers
+ * @property {number} [organizationId]
  * @property {string} [description]
  */
