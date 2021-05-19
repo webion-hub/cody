@@ -97,7 +97,7 @@ export default class Organization {
 
   /**
    * @param {CommonFilterOptions} options 
-   * @returns {Promise<SearchResult<OrganizationMember>>}
+   * @returns {Promise<SearchResult<import("./course").CourseInfo>>}
    */
   getCourses = async (options) => {
     return Requests.search({
