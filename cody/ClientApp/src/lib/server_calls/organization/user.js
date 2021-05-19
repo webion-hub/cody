@@ -1,4 +1,3 @@
-import ChangesListener from "../changes_listener";
 import Organization from "../organization";
 import Requests from "../requests";
 
@@ -55,12 +54,5 @@ export default class User {
       url: this.url``,
       method: 'DELETE',
     });
-  }
-
-  /**
-   * @param {'userAccount' | 'userAccountDetail'} entity
-   */
-  listenFor = (entity) => {
-    return new ChangesListener(`${entity}/${this._id}`);
   }
 }
