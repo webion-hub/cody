@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationController 
+    public partial class OrganizationsCoursesController 
     {
         [Authorize]
-        [HttpGet("courses/is_duplicate/{title}")]
+        [HttpGet("is_duplicate/{title}")]
         public async Task<IActionResult> IsDuplicate(string title) 
         {
             var isDuplicate = await IsDuplicateAsync(new () {

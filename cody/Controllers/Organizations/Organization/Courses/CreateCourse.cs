@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationController
+    public partial class OrganizationsCoursesController
     {
-        [HttpPost("courses/create")]
+        [HttpPost("create")]
         [Authorize]
         public async Task<IActionResult> CreateCourse(
             [FromBody] CourseCreationRequest request
@@ -29,7 +29,7 @@ namespace Cody.Controllers.Organizations
             if (isDuplicate)
                 return BadRequest("duplicate");
 
-            var areAllMembers = await AreAllMembersAsync(request);
+            var areAllMembers = await AreAllTeachersMembersAsync(request);
             if (!areAllMembers)
                 return BadRequest("teachers_not_all_members");
 
@@ -42,7 +42,7 @@ namespace Cody.Controllers.Organizations
         }
 
 
-        private async Task<bool> AreAllMembersAsync(CourseCreationRequest request) 
+        private async Task<bool> AreAllTeachersMembersAsync(CourseCreationRequest request) 
         {
             return await _dbContext
                 .CourseMembers
