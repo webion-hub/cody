@@ -11,9 +11,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     height: "100%",
     opacity: props.showOverlay ? 1 : 0,
+    transform: props.showOverlay ? props.scale : undefined,
     background: Color.o(theme.palette.secondary.main, 0.75),
     "&:hover": {
       opacity: 1,
+      transform: props.scale
     },
     transition: "0.25s all" 
   }),
@@ -27,12 +29,19 @@ const useStyles = makeStyles((theme) => ({
 
 export function ImageWithOverlay(props){
   const showOverlay = props.showOverlay
-  const classes = useStyles({showOverlay})
+  const isRound = props.cropShape === "round"
+
+  const disableScale = !isRound
+  const scale = disableScale 
+    ? undefined
+    : "scale(1.1)"
+
+  const classes = useStyles({showOverlay, scale})
 
   return (
     <div className={`${classes.container} ${props.className}`}>
       <Grid
-        className={`${classes.overlay} ${props.cropShape === "round" ? classes.roundImage : ""}`}
+        className={`${classes.overlay} ${isRound ? classes.roundImage : ""}`}
         container
         direction="row"
         justify="center"
