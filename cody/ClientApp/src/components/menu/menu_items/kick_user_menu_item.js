@@ -5,7 +5,6 @@ import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 export const KickUserMenuItem =  React.forwardRef((props, ref) => {
   const kickUser = () => {
-    console.log(props.handler)
     props.setLoading(true)
     props.handler
       .remove()
