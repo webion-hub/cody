@@ -58,7 +58,7 @@ export class FormatController {
     let errorsFromController = {};
 
     errorsList.forEach(result => {
-      errorsFromController[result] = true;
+      errorsFromController[result.value] = true;
     });
 
     return errorsFromController
@@ -117,11 +117,13 @@ export class FormatController {
 
     return new Promise(async resolve => {
       const controllers = this.getControllersList(values)
-      await Promise.all(controllers)
+      await Promise.allSettled(controllers)
         .then(async errorsList => {          
-          const errorsFiltered = errorsList.filter(error => 
-            error !== undefined
-          );
+          const errorsFiltered = errorsList
+            .filter(error => 
+              error.status == "fulfilled"
+            );
+            
           const noError = errorsFiltered.length === 0
 
           if(noError){
