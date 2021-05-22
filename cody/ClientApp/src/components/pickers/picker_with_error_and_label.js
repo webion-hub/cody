@@ -8,6 +8,7 @@ export function PickerWithErrorAndLabel(props){
     errorMessage,
     leftMessage,
     leftMessageColor,
+    errorPosition
   } = props
   
   const areErrors = 
@@ -23,7 +24,7 @@ export function PickerWithErrorAndLabel(props){
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify={errorPosition ?? "space-between"}
       >
         <Typography
           variant="caption"
