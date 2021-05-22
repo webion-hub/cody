@@ -84,7 +84,6 @@ export function CreateOrganizationBase(props){
       kind: props.type,
       onSuccess: (id) => PageController.push(`/organization/${id}`),
       onConflict: () => setExistingOrganization(true),
-      onError: (err) => {},
       onFormatError: setErrors
     })
     .finally(_ => setLoading(false))
@@ -110,7 +109,8 @@ export function CreateOrganizationBase(props){
       >
         <PickerWithErrorAndLabel
           fadeError={existingOrganization}
-          errorLabel={props.errorLabel}
+          errorMessage={props.errorLabel}
+          errorPosition="center"
         >
           <TextField
             className={classes.fieldWithText}
