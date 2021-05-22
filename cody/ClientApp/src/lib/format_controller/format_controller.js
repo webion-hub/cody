@@ -14,14 +14,6 @@ export class FormatController {
   constructor(controllers){
     this.controllersLabel = controllers;
     this.skippableControllers = []
-    this.errorsList = [];
-  }
-
-  insertError = (error) => {
-    if(error === undefined)
-      return
-
-    this.errorsList.push(error);
   }
 
   addController = (controller, skippable, customController = null) => {
@@ -55,18 +47,17 @@ export class FormatController {
 
   getControllersList = (values) => {
     return this.controllersLabel
-      .map(controller => {
+      .map(controller => 
         this
           .getController(controller.controller, controller.customController)
           .check(values, controller.skippable)
-          .then(this.insertError)
-      });
+      );
   }
 
-  getErrorObject = () => {
+  getErrorObject = (errorsList) => {
     let errorsFromController = {};
 
-    this.errorsList.forEach(result => {
+    errorsList.forEach(result => {
       errorsFromController[result] = true;
     });
 
@@ -127,14 +118,18 @@ export class FormatController {
     return new Promise(async resolve => {
       const controllers = this.getControllersList(values)
       await Promise.all(controllers)
-        .then(async _ => {
-          const noError = this.errorsList.length === 0
+        .then(async errorsList => {          
+          const errorsFiltered = errorsList.filter(error => 
+            error !== undefined
+          );
+          const noError = errorsFiltered.length === 0
+
           if(noError){
             await onNoErrors?.()
             return;
           }
 
-          const errors = this.getErrorObject()
+          const errors = this.getErrorObject(errorsFiltered)
           await onErrors?.(errors)
         })
         

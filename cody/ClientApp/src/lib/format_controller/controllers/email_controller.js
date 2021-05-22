@@ -22,22 +22,16 @@ export class EmailController extends FormatControllerBase {
     const email = values.email;
 
     if(this.canSkip(email, skip))
-      return new Promise(resolve => resolve());
+      return Promise.resolve();
 
-    return new Promise(resolve => {
+    if(this.wrongFormat(email))
+      return Promise.resolve("emailError");
 
-      if(this.wrongFormat(email))
-        resolve("emailError");
-      else {
-        this
-          .emailExist(email)
-          .then(result => {
-            if(result)
-              resolve("emailExist")
-            else
-              resolve()
-          });
-      }
-    })
+
+    return this
+      .emailExist(email)
+      .then(result => result ? 
+          "emailExist" : undefined
+      );
   }
 }

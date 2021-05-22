@@ -17,12 +17,9 @@ export class DescriptionController extends FormatControllerBase{
     return new Promise(resolve => {
 
       if(this.wrongFormat(description))
-      {
         resolve("descriptionError");
-      }
-      else {
+      else
         resolve()
-      }
     })
   }
 }

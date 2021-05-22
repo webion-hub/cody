@@ -11,12 +11,9 @@ export class OrganizationNameController extends FormatControllerBase{
     return new Promise(resolve => {
 
       if(this.wrongLength(name, 'generalName'))
-      {
         resolve("organizationNameError");
-      }
-      else {
+      else
         resolve()
-      }
     })
   }
 }

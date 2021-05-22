@@ -11,12 +11,9 @@ export class LocationController extends FormatControllerBase{
     return new Promise(resolve => {
 
       if(this.wrongLength(location, 'location'))
-      {
         resolve("locationControllerError");
-      }
-      else {
+      else
         resolve()
-      }
     })
   }
 }
