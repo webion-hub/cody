@@ -1,6 +1,19 @@
 import { User } from 'src/lib/server_calls/user';
 import { ProfilePicture } from 'src/lib/server_calls/profile_picture';
 
+const setUser = (data) => {
+  return {
+    username: data.username,
+    password: data.password,
+    email: data.email,
+    accountDetail: {
+      name: data.name,
+      surname: data.surname,
+      birthDate: data.birthDate,
+    }
+  } 
+}
+
 export const tryRegister = (settings) => {
   settings.onError({
     registerError: null,
@@ -8,7 +21,7 @@ export const tryRegister = (settings) => {
     imageUploadError: null,  
   })
 
-  const data = settings.data;
+  const data = setUser(settings.data);
   const registrationErrors = settings.registrationErrors;
   const profileImage = settings.profileImage;
 
