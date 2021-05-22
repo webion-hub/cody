@@ -16,13 +16,14 @@ export default function CreateOrJoinOrganization(){
   const content = useContentByHash(hash)
 
   useEffect(() => {
+    const notLogged = userState === "notLogged"
     HashController
       .setController()
-        .addForbiddenPage('join', userState !== "logged")
-        .addForbiddenPage('create', userState !== "logged")
-        .addForbiddenPage('createteam', userState !== "logged")
-        .addForbiddenPage('createschool', userState !== "logged")
-        .addForbiddenPage('createcompany', userState !== "logged")
+        .addForbiddenPage('join', notLogged)
+        .addForbiddenPage('create', notLogged)
+        .addForbiddenPage('createteam', notLogged)
+        .addForbiddenPage('createschool', notLogged)
+        .addForbiddenPage('createcompany', notLogged)
       .trySetHash()
       .then(setHash)
       .catch(openLoginDialog)
