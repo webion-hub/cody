@@ -20,16 +20,15 @@ export const OrganizationControllerContext = ({id, children}) => {
   const { userState } = React.useContext(UserContext)
 
   const [loading, setLoading] = React.useState(true)
-  const organizationData = React.useRef(null)
-  const smallUserList = React.useRef([])
-  const callerIs = React.useRef("noMember")
-  
+  const [organizationData, setOrganizationData] = React.useState(null)
+  const [smallUserList, setSmallUserList] = React.useState([])
+  const [callerIs, setCallerIs] = React.useState("noMember")
 	const organization = Organization.withId(id)
 
   const getOrganizationByPageId = async () => {
     await organization
       .getInfo()
-      .then(data => organizationData.current = data)
+      .then(setOrganizationData)
   } 
 
   const getMembers = async () => {
@@ -39,20 +38,20 @@ export const OrganizationControllerContext = ({id, children}) => {
         limit: 3,
         offset: null
       })
-      .then(users => smallUserList.current = users)
+      .then(setSmallUserList)
   }
 
   const getRole = async () => {
     await User
       .getRoleIn(id)
-      .then(role => callerIs.current = role)
+      .then(role => setCallerIs(role ?? "noMember"))
   }
 
 	const getOrganizationData = async () => {
     if(userState === "loading")
       return
 
-    callerIs.current = "noMember"
+    setCallerIs("noMember")
 		setLoading(true)
 		await getOrganizationByPageId()
 		await getMembers()
@@ -61,10 +60,8 @@ export const OrganizationControllerContext = ({id, children}) => {
 	}
 
   const updateMembers = async () => {
-		setLoading(true)
     await getMembers()
 		await getRole()
-		setLoading(false)
   }
 
   useEffect(getOrganizationData, [id, userState])
@@ -77,9 +74,9 @@ export const OrganizationControllerContext = ({id, children}) => {
 
 	const value = {
     id,
-		organizationData: organizationData.current,
-		smallUserList: smallUserList.current,
-		callerIs: callerIs.current,
+		organizationData,
+		smallUserList,
+		callerIs: callerIs ?? "noMember",
 		organization,
 		loading,
 	}
