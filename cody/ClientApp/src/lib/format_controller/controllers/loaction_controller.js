@@ -6,14 +6,11 @@ export class LocationController extends FormatControllerBase{
     const location = values.location
 
     if(this.canSkip(location, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
+      
+    if(this.wrongLength(location, 'location'))
+      return Promise.resolve("locationError");
 
-    return new Promise(resolve => {
-
-      if(this.wrongLength(location, 'location'))
-        resolve("locationControllerError");
-      else
-        resolve()
-    })
+    return Promise.reject()
   }
 }

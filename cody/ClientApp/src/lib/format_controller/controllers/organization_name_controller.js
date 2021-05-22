@@ -6,14 +6,11 @@ export class OrganizationNameController extends FormatControllerBase{
     const name = values.name
 
     if(this.canSkip(name, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
 
-    return new Promise(resolve => {
+    if(this.wrongLength(name, 'generalName'))
+      return Promise.resolve("organizationNameError")
 
-      if(this.wrongLength(name, 'generalName'))
-        resolve("organizationNameError");
-      else
-        resolve()
-    })
+    return Promise.reject();
   }
 }

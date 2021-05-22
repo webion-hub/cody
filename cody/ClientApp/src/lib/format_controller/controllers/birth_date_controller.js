@@ -5,9 +5,9 @@ export class BirthDateController extends FormatControllerBase{
     const birthDate = values.birthDate
 
     if(this.canSkip(birthDate, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       let re = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
 
       const minDate = new Date('01/01/1920');
@@ -35,7 +35,7 @@ export class BirthDateController extends FormatControllerBase{
         return;
       }
 
-      resolve()
+      reject()
     })
   }
 }

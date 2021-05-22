@@ -15,18 +15,15 @@ export class WebsiteController extends FormatControllerBase{
     const website = values.website
 
     if(this.canSkip(website, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
 
       if(this.wrongFormat(website))
-      {
         resolve("websiteError");
-      }
       else {
-        let url;
-        fetch(url, {mode: "no-cors"})
-          .then(r => resolve())
+        fetch(website, {mode: "no-cors"})
+          .then(r => reject())
           .catch(_=> resolve("websiteError"))
       }
     })

@@ -12,14 +12,11 @@ export class DescriptionController extends FormatControllerBase{
     const description = values.description
     
     if(this.canSkip(description, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
+    
+    if(this.wrongFormat(description))
+      return Promise.resolve("descriptionError")
 
-    return new Promise(resolve => {
-
-      if(this.wrongFormat(description))
-        resolve("descriptionError");
-      else
-        resolve()
-    })
+    return Promise.reject()
   }
 }

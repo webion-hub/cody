@@ -2,12 +2,6 @@ import { User } from 'src/lib/server_calls/user';
 import { FormatControllerBase } from '../format_controller_base';
 
 export class EmailController extends FormatControllerBase {
-  static emailExist = (email) => {
-    return User.existsWith({
-      usernameOrEmail: email,
-    });
-  }
-  
   static wrongFormat = (email) => {
     const wrongLength = this.wrongLength(email, 'email')
 
@@ -18,20 +12,21 @@ export class EmailController extends FormatControllerBase {
     return !re.test(email);
   }
 
-  static check = (values, skip) => {
+  static check = async (values, skip) => {
     const email = values.email;
 
     if(this.canSkip(email, skip))
-      return Promise.resolve();
+      return Promise.reject();
 
     if(this.wrongFormat(email))
       return Promise.resolve("emailError");
 
-
-    return this
-      .emailExist(email)
-      .then(result => result ? 
-          "emailExist" : undefined
-      );
+    return await this
+      .valueExist({
+        promise: User.existsWith({
+          usernameOrEmail: email,
+        }),
+        errorLabel: "emailExist"
+      })
   }
 }

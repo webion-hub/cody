@@ -9,6 +9,16 @@ export class NameSurnameController{
     return new NameSurnameController(type)
   }
 
+  wrongFormat = (value) => {
+    const wrongLength = FormatControllerBase
+      .wrongLength(value, 'std')
+
+    const re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
+    const wrongId = value.length === 0 || !re.test(value)
+
+    return wrongLength || wrongId
+  }
+
   check = (values, skip) => {
     const nameOrSurname = this.type === 'name' 
       ? values.name
@@ -19,22 +29,11 @@ export class NameSurnameController{
       : 'surnameError'
 
     if(FormatControllerBase.canSkip(nameOrSurname, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
 
-    return new Promise(resolve => {
-      const wrongLength = FormatControllerBase
-        .wrongLength(nameOrSurname, 'std')
+    if(this.wrongFormat(nameOrSurname))
+      return Promise.resolve(errorType)
 
-      if(wrongLength)
-        resolve(errorType)
-
-      let re = /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+([ A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'-]+)*$/;
-      const wrongId = nameOrSurname.length === 0 || !re.test(nameOrSurname)
-      
-      if(wrongId)
-        resolve(errorType);
-      else
-        resolve()
-    })
+    return Promise.reject()
   }
 }

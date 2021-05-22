@@ -5,15 +5,11 @@ export class TermsAndServiceController extends FormatControllerBase{
     const acceptTerms = values.acceptTerms
 
     if(this.canSkip(acceptTerms, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
 
-    return new Promise(resolve => {
+    if(acceptTerms)
+      return Promise.reject()
 
-      if(acceptTerms)
-        resolve()
-      else
-        resolve('acceptTermsError')
-
-    })
+    return Promise.resolve('acceptTermsError')
   }
 }

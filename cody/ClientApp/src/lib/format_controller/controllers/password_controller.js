@@ -15,15 +15,12 @@ export class PasswordController extends FormatControllerBase{
     const {password, confirmPassword} = values;
 
     if(this.canSkip(password, skip))
-      return new Promise(resolve => resolve());
+      return Promise.reject();
 
-    return new Promise(resolve => {
-      const pwError = this.arePwWrong(password, confirmPassword)
-      if(pwError)
-        resolve("passwordError")
-      else
-        resolve();
-    });
+    if(this.arePwWrong(password, confirmPassword))
+      return Promise.resolve("passwordError")
+
+    return Promise.reject();
   }
 
   static pwStrength = (password) => {
