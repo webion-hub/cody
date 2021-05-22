@@ -5,15 +5,19 @@ import { Box } from '@material-ui/core'
 import { CustomStepper } from "src/components/stepper/custom_stepper/custom_stepper";
 import { FormatController } from 'src/lib/format_controller/format_controller';
 import { lazyLoader } from 'src/components/lazy_loader';
+import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
 
 const AddCourseInfoStep = lazyLoader(() => import("./steps/add_course_info_step"));
 const AddCourseTeachersStep = lazyLoader(() => import("./steps/add_course_teachers_step"));
 
 export default function CreateCourse(props){
+	const { organization } = React.useContext(OrganizationContext);
+
   const [newCourseInfo, setNewCourseInfo] = React.useState({
     title: "",
     description: "",
     teachers: null,
+    organization: organization
   });
   const [errors, setErrors] = React.useState({
     courseTitleError: false,
@@ -36,10 +40,18 @@ export default function CreateCourse(props){
     })
   }
 
+  const tryCreateCourse = (values) => {
+    const organization = values.organization
+
+    organization.createCourse(values)
+      .then(courseId => alert(courseId));
+  }
+ 
   return (
     <CustomStepper
       data={newCourseInfo}
       onBackFirstPage={props.onClose}
+      onFormCompleted={tryCreateCourse}
       firstPageLabel="Chiudi"
       component={Box}
       setErrors={setErrors}

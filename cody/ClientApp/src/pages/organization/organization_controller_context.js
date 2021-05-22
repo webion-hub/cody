@@ -23,6 +23,7 @@ export const OrganizationControllerContext = ({id, children}) => {
   const organizationData = React.useRef(null)
   const smallUserList = React.useRef([])
   const callerIs = React.useRef("noMember")
+  
 	const organization = Organization.withId(id)
 
   const getOrganizationByPageId = async () => {
