@@ -1,4 +1,5 @@
 import Course from "./course";
+import Courses from "./courses";
 import User from "./organization/user";
 import Requests from "./requests";
 
@@ -17,6 +18,7 @@ export default class Organization {
     this._id = organizationId;
     this.user = User.of(this).withId;
     this.course = Course.of(this).withId;
+    this.courses = Courses.of(this);
     this.url = Requests.createUrlTag(
       `organization/${organizationId}`
     );
@@ -71,37 +73,6 @@ export default class Organization {
   getMembers = async (options) => {
     return Requests.search({
       url: this.url`/members`,
-      params: options,
-    });
-  }
-
-  isCourseDuplicate = async (title) => {
-    return Requests.get({
-      url: this.url`/courses/is_duplicate/${title}`,
-    });
-  }
-
-  /**
-   * @param {CourseCreationRequest} course
-   * @returns {Promise<number>} courseId 
-   */
-  createCourse = async (course) => {
-    course.organizationId = this._id;
-    return Requests.send({
-      url: this.url`/courses/create`,
-      method: 'POST',
-      data: course,
-    })
-    .then(resp => resp.data);
-  }
-
-  /**
-   * @param {CommonFilterOptions} options 
-   * @returns {Promise<SearchResult<import("./course").CourseInfo>>}
-   */
-  getCourses = async (options) => {
-    return Requests.search({
-      url: this.url`/courses`,
       params: options,
     });
   }

@@ -6,6 +6,7 @@ import { CustomStepper } from "src/components/stepper/custom_stepper/custom_step
 import { FormatController } from 'src/lib/format_controller/format_controller';
 import { lazyLoader } from 'src/components/lazy_loader';
 import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
+import Organization from 'src/lib/server_calls/organization';
 
 const AddCourseInfoStep = lazyLoader(() => import("./steps/add_course_info_step"));
 const AddCourseTeachersStep = lazyLoader(() => import("./steps/add_course_teachers_step"));
@@ -17,7 +18,7 @@ export default function CreateCourse(props){
     title: "",
     description: "",
     teachers: null,
-    organization: organization
+    organization,
   });
   const [errors, setErrors] = React.useState({
     courseTitleError: false,
@@ -40,10 +41,14 @@ export default function CreateCourse(props){
     })
   }
 
+  /**
+   * @param {{organization: Organization}} values 
+   */
   const tryCreateCourse = async (values) => {
-    const organization = values.organization
-
-    await organization.createCourse(values)
+    const organization = values.organization;
+    await organization
+      .courses
+      .create(values)
       .then(courseId => alert(courseId));
   }
  

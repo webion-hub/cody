@@ -14,7 +14,7 @@ export class CourseTitleController extends FormatControllerBase{
 
     return await this
       .valueExist({
-        promise: organization.isCourseDuplicate(title),
+        promise: organization.courses.exists(title),
         errorLabel: "courseExist"
       })
   }
