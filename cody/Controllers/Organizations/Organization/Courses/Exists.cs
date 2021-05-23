@@ -9,17 +9,17 @@ namespace Cody.Controllers.Organizations
     public partial class OrganizationCoursesController 
     {
         [Authorize]
-        [HttpGet("is_duplicate/{title}")]
-        public async Task<IActionResult> IsDuplicate(string title) 
+        [HttpGet("exists/{title}")]
+        public async Task<IActionResult> Exists(string title) 
         {
-            var isDuplicate = await IsDuplicateAsync(new () {
+            var isDuplicate = await ExistsAsync(new () {
                 Title = title,
             });
 
             return Ok(isDuplicate); 
         } 
 
-        private async Task<bool> IsDuplicateAsync(Course course)
+        private async Task<bool> ExistsAsync(Course course)
         {
             return await _dbContext
                 .Courses

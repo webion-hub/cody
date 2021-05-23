@@ -25,7 +25,7 @@ namespace Cody.Controllers.Organizations
             if (!isAdmin)
                 return Unauthorized();
 
-            var isDuplicate = await IsDuplicateAsync(course);
+            var isDuplicate = await ExistsAsync(course);
             if (isDuplicate)
                 return BadRequest("duplicate");
 
