@@ -63,7 +63,6 @@ export function Password(props){
             </IconButton>
           </InputAdornment>
         }
-        labelWidth={props.labelWidth}
       />
     </FormControl>
   );

@@ -54,7 +54,6 @@ export default function EmailPassword(props){
           <PasswordWithStrength
             label="Password"
             name="new_password"
-            labelWidth={85}
             required
             defaultValue={props.values.password}
             onChange={props.onPasswordChange}
@@ -65,7 +64,6 @@ export default function EmailPassword(props){
         </PickerWithErrorAndLabel>,
         <Password
           label="Conferma Password"
-          labelWidth= {163}
           required
           defaultValue={props.values.confirmPassword}
           onChange={props.onConfirmPasswordChange}

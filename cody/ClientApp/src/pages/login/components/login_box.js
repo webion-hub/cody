@@ -150,7 +150,6 @@ export default function LoginBox(props){
           <Password
             label="Password"
             name="login_password"
-            labelWidth={70}
             onChange={_updatePassword}
             inputRef={nextFocus.getInput("password")}
             onKeyDown={(e) => nextFocus.removeFocus(e, _maybeLogin)}
