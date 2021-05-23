@@ -40,10 +40,10 @@ export default function CreateCourse(props){
     })
   }
 
-  const tryCreateCourse = (values) => {
+  const tryCreateCourse = async (values) => {
     const organization = values.organization
 
-    organization.createCourse(values)
+    await organization.createCourse(values)
       .then(courseId => alert(courseId));
   }
  
