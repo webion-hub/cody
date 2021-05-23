@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import { tryInvokeCallback } from './utility';
-import SingleXHRRequest from './single_xhr_request';
 import Requests from './requests';
 
 
@@ -9,7 +8,7 @@ export class Organizations {
    * @param {Organizations.CreateNewOptions} options
    * @returns {Promise<AxiosResponse>}
    */
-  static async createNew(options) {
+  static createNew = async (options) => {
     const {
       organization,
       onSuccess,
@@ -43,11 +42,23 @@ export class Organizations {
    * @param {CommonFilterOptions} options
    * @returns {Promise<SearchResult<Organization>>}
    */
-  static async listAll(options) {
+  static listAll = async (options) => {
     return Requests.search({
       url: 'organizations',
       method: 'GET',
       params: options,
+    });
+  }
+
+
+  /**
+   * @param {string} name 
+   * @param {import('./organization').OrganizationKind} kind 
+   * @returns {Promise<boolean>}
+   */
+  static exists = async (name, kind) => {
+    return Requests.get({
+      url: `organizations/exists/${kind}/${name}/`,
     });
   }
 }
