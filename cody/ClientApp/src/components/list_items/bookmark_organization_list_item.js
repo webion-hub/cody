@@ -6,11 +6,11 @@ import { ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
 import { CustomAvatar } from 'src/components/custom_avatar';
 
 import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-import { OrganizationLabel } from 'src/components/typography/organization_label';
 
 import { BookmarkIconButton } from 'src/components/bookmark_icon_button';
 import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
+import { OrganizationVerifiedLabel } from '../typography/organization_verified_label';
 
 const useStyles = makeStyles((theme) => ({
   listItemText: {
@@ -63,7 +63,7 @@ export function BookmarkOrganizationListItem(props) {
       }
       <ListItemText
         className={classes.listItemText}
-        primary={<OrganizationLabel organization={organization}/>} 
+        primary={<OrganizationVerifiedLabel organizationData={organization}/>} 
         primaryTypographyProps={{
           noWrap: true,
           className: classes.listItemText

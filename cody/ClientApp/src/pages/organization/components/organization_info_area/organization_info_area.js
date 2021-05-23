@@ -1,109 +1,57 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, IconButton } from "@material-ui/core";
-
-import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
-
-import OrganizationDescription from "./components/organization_description";
-import { OrganizationBadgeAvatar } from "./components/organization_badge_avatar";
-import { OrganizationAvatarGroup } from "./components/organization_avatar_group/organization_avatar_group";
-import { OrganizationInfo } from "./components/organization_info";
-
+import { BookmarkIconButton } from "src/components/bookmark_icon_button";
+import InfoArea from "src/components/info/info_area";
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
+import { EventsDispatcher } from "src/lib/events_dispatcher";
+import JoinOrganization from "src/pages/create_or_join_organization/pages/join/join_organization";
 import { OrganizationContext } from "../../organization_controller_context";
-import { useMobileView } from "src/lib/hooks/use_mobile_view";
+import { OrganizationBadgeAvatar } from "./components/organization_badge_avatar";
 
-const useStyles = makeStyles((theme) => ({
-  organizationInfoContainer: {
-    background: theme.palette.background[650],
-  },
-  organizationInfoList: {
-    width: "auto",
-    paddingLeft: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
-      paddingLeft: 0,
-      paddingTop: theme.spacing(2),
-    },
-  },
-  organizationInfoBox:{
-    display: "grid",
-    marginLeft: theme.spacing(3),
-    tableLayout: "fixed",
-    width: `calc(100% - 198px)`,
-    transition: "0.25s all",
-    [theme.breakpoints.down('xs')]: {
-      width: "100%",
-      textAlign: "center",
-      marginTop: theme.spacing(2),
-      marginLeft: 0,
-    },
-  },
-	bottomArea: {
-		width: "100%",
-		textAlign: "center",
-    position: "relative",
-	},
-	expandIcon: props => ({
-		transform: props.showDescription && "rotate(180deg)",
-		transition: "0.25s all"
-	}),
-  descriptionBox: {
-    background: theme.palette.background[700]
-  },
-  organizationSettings: {
-    position: "absolute",
-    right: 8
-  }
-}));
 
-export default function OrganizationInfoArea(){
-  const mobileView = useMobileView()
-  const [showDescription, setShowDescription] = React.useState(false)
-	const classes = useStyles({showDescription});
-
+export default function OrganizationInfoArea(props){
 	const {
 		organizationData,
+    smallUserList,
     callerIs,
-		loading
+    organization,
+		loading,
 	} = React.useContext(OrganizationContext);
+  const isCallerAMember = callerIs !== "noMember"
 
   return (
-    <>
-			<div className={classes.organizationInfoContainer}>
-				<Grid
-          className={classes.organizationInfoList}
-          style={{position: "relative"}}
-					container
-					direction={mobileView ? "column" : "row"}
-          alignItems="center"
-				>
-					<OrganizationBadgeAvatar/>
-          <OrganizationInfo
-            className={classes.organizationInfoBox}
+    <InfoArea
+      onUserUpdate={_ => EventsDispatcher.setEvent('updateOrganizationMember').update()}
+      data={{
+        title: organizationData?.name,
+        subTitle: organizationData?.detail.location,
+        verified: organizationData?.state.hasBeenVerified,
+        description: organizationData?.detail.description,
+        website: organizationData?.detail.website,
+      }}
+      smallUserList={smallUserList}
+      callerIs={callerIs}
+      loading={loading}
+      handler={organization}
+      button={
+        (!isCallerAMember && !loading) && 
+          <JoinOrganization
+            organization={organizationData}
           />
-          <OrganizationAvatarGroup/>
-				</Grid>
-        <div className={classes.descriptionBox}>
-          <OrganizationDescription
+      }
+      leftIcon={
+        isCallerAMember &&
+          <BookmarkIconButton
             organizationData={organizationData}
-            showDescription={showDescription}
           />
-          <div className={classes.bottomArea}>
-            <OrganizationSettingsMenu 
-              className={classes.organizationSettings}
-              organizationData={organizationData}
-              callerIs={callerIs}
-              loading={loading}
-            />
-            <IconButton 
-              onClick={_ => setShowDescription(!showDescription)}
-              disabled={loading}
-            >
-              <ExpandMoreRoundedIcon className={classes.expandIcon}/>
-            </IconButton>
-          </div>
-        </div>
-			</div>
-    </>
+      }
+      rightMenu={
+        <OrganizationSettingsMenu 
+          organizationData={organizationData}
+          callerIs={callerIs}
+          loading={loading}
+        />
+      }
+      avatar={<OrganizationBadgeAvatar/>}
+    />
   );
 }

@@ -6,8 +6,8 @@ import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
 
 import { JoinOrganizationButton } from '../buttons/join_organization_button';
 import { LeaveOrganizationButton } from '../buttons/leave_organization_button/leave_organization_button';
-import { OrganizationLabel } from 'src/components/typography/organization_label';
 import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
+import { OrganizationVerifiedLabel } from '../typography/organization_verified_label';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -102,7 +102,7 @@ export function JoinOrganizationsListItem(props){
       </ListItemIcon>
       <ListItemText
         className={classes.listItemText}
-        primary={<OrganizationLabel organization={data}/>}
+        primary={<OrganizationVerifiedLabel organizationData={data}/>}
         secondary={`${membersCountLabel}${locationLabel}`}
         primaryTypographyProps={{
           noWrap: true,
