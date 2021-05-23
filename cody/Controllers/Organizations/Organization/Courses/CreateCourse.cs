@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationsCoursesController
+    public partial class OrganizationCoursesController
     {
         [HttpPost("create")]
         [Authorize]

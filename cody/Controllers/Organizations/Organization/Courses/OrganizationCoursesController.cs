@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cody.Controllers.Organizations
 {
-    [Route("api/organizations/courses")]
+    [Route("api/organization/{organizationId}/courses")]
     [ApiController]
     [Authorize]
-    public partial class OrganizationsCoursesController : ControllerBase
+    public partial class OrganizationCoursesController : ControllerBase
     {
         private readonly CodyContext _dbContext;
 
-        public OrganizationsCoursesController(CodyContext context)
+        public OrganizationCoursesController(CodyContext context)
         {
             _dbContext = context;
         }

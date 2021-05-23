@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cody.Controllers.Organizations
 {
-    public partial class OrganizationsCoursesController 
+    public partial class OrganizationCoursesController 
     {
         [Authorize]
         [HttpGet("is_duplicate/{title}")]
