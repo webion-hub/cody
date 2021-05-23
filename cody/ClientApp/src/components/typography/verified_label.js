@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 const useStyles = makeStyles((theme) => ({
-  verifiedOrganization: props => ({
+  verified: props => ({
     transform: props.translateIconY ?
       `translate(0px, ${props.translateIconY}px)` : "translate(0px, 4px)",
     marginLeft: `${theme.spacing(1)}px !important`,
@@ -12,24 +12,25 @@ const useStyles = makeStyles((theme) => ({
   })
 }));
 
-export const OrganizationLabel = (props) => {
+export const VerifiedLabel = (props) => {
   const {
-    organization,
+    label,
+    verified,
     translateIconY,
     iconSize
   } = props
   const classes = useStyles({translateIconY, iconSize});
 
-  if(organization?.state.hasBeenVerified)
+  if(verified)
     return (
       <>
-        {organization?.name}<CheckCircleRoundedIcon className={classes.verifiedOrganization}/>
+        {label}<CheckCircleRoundedIcon className={classes.verified}/>
       </>
     )
-  else
-    return organization? organization.name : null
+  
+  return label ?? null
 }
 
-OrganizationLabel.defaultProps = {
+VerifiedLabel.defaultProps = {
   iconSize: 18
 }
