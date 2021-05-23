@@ -76,14 +76,10 @@ export class FormatController {
   create = ({errorCondition, errorLabel}, skippable = false) => {
     const controller = {
       check: val => {
-        return new Promise(resolve => {
-          if(errorCondition(val)){
-            resolve(errorLabel)
-            return;
-          }
+        if(errorCondition(val))
+          return Promise.resolve(errorLabel)
 
-          resolve()                  
-        }) 
+        return Promise.reject()
       }
     }
 
