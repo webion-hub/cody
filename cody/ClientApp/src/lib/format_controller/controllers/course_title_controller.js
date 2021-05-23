@@ -12,7 +12,6 @@ export class CourseTitleController extends FormatControllerBase{
     if(this.wrongLength(title, 'generalName'))
       return Promise.resolve("courseTitleError");
 
-
     return await this
       .valueExist({
         promise: organization.isCourseDuplicate(title),

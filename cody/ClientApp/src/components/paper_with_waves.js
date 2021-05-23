@@ -14,7 +14,7 @@ export const PaperWithWaves = React.forwardRef((props, ref) => {
       {...otherProps}
       ref={ref}
       className={classesName}
-      elevation={8}
+      elevation={0}
     >
       {children}
     </Paper>
