@@ -67,7 +67,7 @@ export default function OrganizationsInfo(props){
       alignItems="center"
       justify="center"
     >
-      <Paper className={classes.paper} elevation={12}>
+      <Paper className={classes.paper}>
         <Grid
           container
           direction="column"
