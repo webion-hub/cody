@@ -36,7 +36,7 @@ export default class Courses {
    * @returns {Promise<number>} courseId 
    */
   create = async (course) => {
-    course.organizationId = this._id;
+    course.organizationId = this.organization._id;
     return Requests.send({
       url: this.url`/create`,
       method: 'POST',

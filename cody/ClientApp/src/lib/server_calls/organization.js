@@ -16,12 +16,13 @@ export default class Organization {
    */
   constructor(organizationId) {
     this._id = organizationId;
-    this.user = User.of(this).withId;
-    this.course = Course.of(this).withId;
-    this.courses = Courses.of(this);
     this.url = Requests.createUrlTag(
       `organization/${organizationId}`
     );
+
+    this.user = User.of(this).withId;
+    this.course = Course.of(this).withId;
+    this.courses = Courses.of(this);
   }
 
 

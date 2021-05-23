@@ -48,7 +48,11 @@ export default function CreateCourse(props){
     const organization = values.organization;
     await organization
       .courses
-      .create(values)
+      .create({
+        title: values.title,
+        description: values.description,
+        teachers: values.teachers,
+      })
       .then(courseId => alert(courseId));
   }
  
