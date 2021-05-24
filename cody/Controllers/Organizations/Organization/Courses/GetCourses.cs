@@ -19,7 +19,7 @@ namespace Cody.Controllers.Organizations
             [FromQuery] int? limit,
             [FromQuery] int? offset
         ) {
-            var members = _dbContext
+            var courses = _dbContext
                 .Organizations
                 .ThatArePublic()
                 .ThatHaveNotBeenDeleted()
@@ -33,7 +33,7 @@ namespace Cody.Controllers.Organizations
                 .Format();
 
             var result = await SearchResult.FormatAsync(
-                results: members,
+                results: courses,
                 limit: limit,
                 offset: offset
             );
