@@ -30,7 +30,7 @@ export default function Course(){
     course
       .getInfo()
       .then(setCourseData)
-  })
+  }, [])
 
   return(
     <MultipleSectionsBase
