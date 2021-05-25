@@ -7,11 +7,10 @@ import { Fade, Grid, LinearProgress } from "@material-ui/core";
 import { OrganizationContext } from "../../organization_controller_context";
 import { CourseAccordion } from "src/components/accordions/course_accordion/course_accordion";
 
-import { CreateCourseDialog } from "./components/create_course_dialog/create_course_dialog";
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
 import { SearchBarWithPageController } from "src/components/pickers/search_bars/search_bar_with_page_controller/search_bar_with_page_controller";
 import { usePageController } from "src/lib/hooks/use_page_controller";
-import { AddCourseButton } from "./components/add_course_button";
+import { AddCourseButton } from "../../../../components/buttons/add_course_button";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
@@ -34,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 export function OrganizationCourses(){
 	const classes = useStyles();
   const mobileView = useMobileView()
-  const [openDialog, setOpenDialog] = React.useState(false)
   
 	const {
     organization,
@@ -75,44 +73,37 @@ export function OrganizationCourses(){
   }
 
   return (
-    <>
-      <div className={classes.coursesBox}>
-        <Grid
-          className={classes.coursesTitle}
-          container
-          direction="row"
-          alignItems="center"
+    <div className={classes.coursesBox}>
+      <Grid
+        className={classes.coursesTitle}
+        container
+        direction="row"
+        alignItems="center"
+      >
+        <Typography
+          variant={mobileView ? "h5" : "h4"}
+          noWrap
         >
-          <Typography
-            variant={mobileView ? "h5" : "h4"}
-            noWrap
-          >
-            Corsi Disponibili
-          </Typography>
-          <AddCourseButton
-            onAddCourse={_ => setOpenDialog(true)}
-            callerIs={callerIs}
-          />
-        </Grid>
-        <SearchBarWithPageController 
-          className={classes.searchBar}
-          onChange={handleChange}
-          onBack={back.handle}
-          onNext={next.handle}
-          disableBack={back.disable}
-          disableNext={next.disable}
+          Corsi Disponibili
+        </Typography>
+        <AddCourseButton
+          callerIs={callerIs}
         />
-        <Fade 
-          className={classes.linearProgress}
-          in={loading}>
-          <LinearProgress color="secondary"/>
-        </Fade>
-        {getCourses()}
-      </div>
-      <CreateCourseDialog
-        open={openDialog}
-        onClose={_ => setOpenDialog(false)}
+      </Grid>
+      <SearchBarWithPageController 
+        className={classes.searchBar}
+        onChange={handleChange}
+        onBack={back.handle}
+        onNext={next.handle}
+        disableBack={back.disable}
+        disableNext={next.disable}
       />
-    </>
+      <Fade 
+        className={classes.linearProgress}
+        in={loading}>
+        <LinearProgress color="secondary"/>
+      </Fade>
+      {getCourses()}
+    </div>
   );
 }
