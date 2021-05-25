@@ -13,10 +13,6 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		position: "relative",
 		minHeight: `calc(100vh - ${436 + theme.appBar.fullHeight}px)`,
-		[theme.breakpoints.down('xs')]: {
-			top: theme.appBar.mobileHeight + 8,
-			minHeight: "auto",
-    },
 	}
 }));
 
