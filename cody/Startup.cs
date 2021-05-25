@@ -14,6 +14,7 @@ using Cody.Security.Authentication;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Cody.Services;
 
 namespace Cody
 {
@@ -74,6 +75,8 @@ namespace Cody
                 .AddSftpService(Configuration)
                 .AddEmailValidationService(Configuration)
                 .AddPersistentLoginCookieEmitterService();
+
+            services.AddHttpClient<BingMapsService>();
         }
 
 
