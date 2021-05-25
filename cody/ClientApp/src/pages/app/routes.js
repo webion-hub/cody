@@ -19,6 +19,7 @@ const Test = lazyLoader(() => import('src/pages/test'));
 const AdminPage = lazyLoader(() => import('src/pages/admin_pages/AdminPage'));
 const CreateOrJoinOrganization = lazyLoader(() => import('src/pages/create_or_join_organization/CreateOrJoinOrganizationPage'));
 const OrganizationPage = lazyLoader(() => import('src/pages/organization/OrganizationPage'));
+const Course = lazyLoader(() => import('src/pages/course/Course'));
 const Form = lazyLoader(() => import('src/pages/Form'));
 
 export function Routes(){
@@ -47,7 +48,8 @@ export function Routes(){
           <CustomRoute path='/access-denied' component={UnauthorizedPage} />
           <CustomRoute path='/account' component={Account} redirect={isNotLogged}/>
           <CustomRoute exact path='/organization' component={CreateOrJoinOrganization}/>
-          <CustomRoute exact path='/organization/:id' component={OrganizationPage}/>
+          <CustomRoute exact path='/organization/:organizationId' component={OrganizationPage}/>
+          <CustomRoute exact path='/organization/:organizationId/course/:courseId' component={Course}/>
           <CustomRoute exact path='/help-us' component={Form}/>
 
           <CustomRoute exact path='/admin' component={AdminPage} redirect={isNotAdmin} to='/access-denied'/>          

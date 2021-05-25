@@ -93,10 +93,10 @@ export function CourseAccordionSummary(props){
       className={classes.openButton}
       variant="outlined"
       color="secondary"
-      href={`${window.location.href}/course/${id}`}
+      href={`${window.location.pathname}/course/${id}`}
       onClick={e => {
         e.stopPropagation()
-        PageController.push(e, `${window.location.href}/course/${id}`)
+        PageController.push(`${window.location.pathname}/course/${id}`, e)
       }}
       onFocus={e => e.stopPropagation()}
       endIcon={<OpenInNewRoundedIcon/>}
