@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background[650],
   },
   infoList: {
+    minHeight: 150,
     width: "auto",
     paddingLeft: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
@@ -95,13 +96,16 @@ export default function InfoArea(props){
             button={button}
             leftIcon={leftIcon}
           />
-          <DynamicAvatarGroup
-            smallUserList={smallUserList}
-            callerIs={callerIs}
-            handler={handler}
-            loading={loading}
-            onUserUpdate={onUserUpdate}
-          />
+          {
+            smallUserList &&
+              <DynamicAvatarGroup
+                smallUserList={smallUserList}
+                callerIs={callerIs}
+                handler={handler}
+                loading={loading}
+                onUserUpdate={onUserUpdate}
+              />
+          }
 				</Grid>
         <ShowableDescription
           disabled={loading}
