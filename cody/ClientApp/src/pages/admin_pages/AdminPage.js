@@ -44,7 +44,7 @@ export default function AdminPage(){
 			PageController.push('/access-denied')
 	},[userState])
 
-	const handleChangeTab = (event, newValue) => {
+	const handleChangeTab = (_, newValue) => {
 		setValue(newValue)
 	}
 
