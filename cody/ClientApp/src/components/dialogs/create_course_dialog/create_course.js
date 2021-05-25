@@ -7,12 +7,13 @@ import { FormatController } from 'src/lib/format_controller/format_controller';
 import { lazyLoader } from 'src/components/lazy_loader';
 import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
 import Organization from 'src/lib/server_calls/organization';
+import { PageController } from 'src/lib/page_controller';
 
 const AddCourseInfoStep = lazyLoader(() => import("./steps/add_course_info_step"));
 const AddCourseTeachersStep = lazyLoader(() => import("./steps/add_course_teachers_step"));
 
 export default function CreateCourse(props){
-	const { organization } = React.useContext(OrganizationContext);
+	const { organization, organizationData } = React.useContext(OrganizationContext);
 
   const [newCourseInfo, setNewCourseInfo] = React.useState({
     title: "",
@@ -53,7 +54,7 @@ export default function CreateCourse(props){
         description: values.description,
         teachers: values.teachers,
       })
-      .then(courseId => alert(courseId));
+      .then(courseId => PageController.push(`organization/${organizationData.id}/course/${courseId}`));
   }
  
   return (
