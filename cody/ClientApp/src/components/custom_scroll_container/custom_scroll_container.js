@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
     width: "100%",
     overflow: "auto",
+		overflowY: "hidden"
 	}
 }));
 
