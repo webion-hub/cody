@@ -36,6 +36,7 @@ export function CourseAccordionSummary(props){
 	const classes = useStyles();
 
   const {
+    id,
     title,
     teachers,
   } = props
@@ -82,7 +83,7 @@ export function CourseAccordionSummary(props){
             noWrap
           >
             {teachers.map((teacher, index) => 
-              `${index !== 0 ? ", " : ""}${teacher}`
+              `${index !== 0 ? ", " : ""}${teacher.username}`
             )}
           </Typography>
         </Grid>
@@ -92,10 +93,10 @@ export function CourseAccordionSummary(props){
       className={classes.openButton}
       variant="outlined"
       color="secondary"
-      href={`${window.location.href}/course/ID`}
+      href={`${window.location.href}/course/${id}`}
       onClick={e => {
         e.stopPropagation()
-        PageController.push(e, `${window.location.href}/course/ID`)
+        PageController.push(e, `${window.location.href}/course/${id}`)
       }}
       onFocus={e => e.stopPropagation()}
       endIcon={<OpenInNewRoundedIcon/>}
