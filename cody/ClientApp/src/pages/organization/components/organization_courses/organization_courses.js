@@ -56,6 +56,9 @@ export function OrganizationCourses(){
 
 
   const getCourses = () => {
+    if(loading)
+      return;
+      
     if(courses.length === 0)
       return (
         <Typography>
