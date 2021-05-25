@@ -7,6 +7,7 @@ import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
 import { Grid } from "@material-ui/core";
 import { PageController } from 'src/lib/page_controller';
+import TooltipLink from 'src/components/typography/tooltip_link';
 
 const useStyles = makeStyles((theme) => ({
   teachersContainer: {
@@ -83,7 +84,12 @@ export function CourseAccordionSummary(props){
             noWrap
           >
             {teachers.map((teacher, index) => 
-              `${index !== 0 ? ", " : ""}${teacher.username}`
+              <>
+                {index !== 0 ? ", " : ""}
+                <TooltipLink
+                  user={teacher}
+                />
+              </>
             )}
           </Typography>
         </Grid>
