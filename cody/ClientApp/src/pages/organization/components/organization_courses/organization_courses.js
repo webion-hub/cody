@@ -2,14 +2,16 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import { Grid } from "@material-ui/core";
-import { GenericSearchBar } from "src/components/pickers/search_bars/generic_search_bar/generic_search_bar";
+import { Fade, Grid, LinearProgress } from "@material-ui/core";
+
 import { OrganizationContext } from "../../organization_controller_context";
 import { CourseAccordion } from "src/components/accordions/course_accordion/course_accordion";
-import { MobileCoursesButtons } from "./components/mobile_courses_buttons";
-import { CoursesButtons } from "./components/courses_buttons";
+
 import { CreateCourseDialog } from "./components/create_course_dialog/create_course_dialog";
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
+import { SearchBarWithPageController } from "src/components/pickers/search_bars/search_bar_with_page_controller/search_bar_with_page_controller";
+import { usePageController } from "src/lib/hooks/use_page_controller";
+import { AddCourseButton } from "./components/add_course_button";
 
 const useStyles = makeStyles((theme) => ({
 	coursesBox: {
@@ -17,40 +19,60 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2)
 	},
 	coursesTitle: {
-    position: "relative",
     [theme.breakpoints.down('xs')]: {
       maxWidth: `calc(100vw - ${theme.spacing(4)}px)`
     },
 	},
   searchBar: {
     marginBottom: theme.spacing(2),
-    transition: "0.25s all"
   },
-  hideSearchBar: {
-    marginTop: -64,
-    opacity: 0,
-    pointerEvents: "none"
-  },
-  availableCourses: {
-    [theme.breakpoints.down('xs')]: {
-      width: "100%",
-      textAlign: "center",
-      marginBottom: theme.spacing(1)
-    },
+  linearProgress: {
+    marginBottom: theme.spacing(1)
   }
 }));
 
 export function OrganizationCourses(){
 	const classes = useStyles();
   const mobileView = useMobileView()
-
-  const [showSearchBar, setShowSearchBar] = React.useState(false)
   const [openDialog, setOpenDialog] = React.useState(false)
+  
+	const {
+    organization,
+    callerIs,
+	} = React.useContext(OrganizationContext);
+
+	const pageController = usePageController({
+		maxPageElements: 5,
+		getData: organization
+      .courses
+      .listAll
+	})
 
 	const {
-    callerIs,
+		next,
+		back,
+		handleChange,
 		loading,
-	} = React.useContext(OrganizationContext);
+		dataList: courses
+	} = pageController
+
+
+  const getCourses = () => {
+    if(courses.length === 0)
+      return (
+        <Typography>
+          Nessun corso trovato.
+        </Typography>
+      )
+
+    return courses.map((course, index) => 
+      <CourseAccordion
+        index={index}
+        key={index}
+        data={course}
+      />
+    )
+  }
 
   return (
     <>
@@ -62,39 +84,30 @@ export function OrganizationCourses(){
           alignItems="center"
         >
           <Typography
-            className={classes.availableCourses}        
             variant={mobileView ? "h5" : "h4"}
             noWrap
           >
             Corsi Disponibili
           </Typography>
-          <CoursesButtons
-            onShowSearch={_ => setShowSearchBar(!showSearchBar)}
+          <AddCourseButton
             onAddCourse={_ => setOpenDialog(true)}
-            showSearchBar={showSearchBar}
             callerIs={callerIs}
           />
         </Grid>
-        <GenericSearchBar className={`${classes.searchBar} ${showSearchBar ? "" : classes.hideSearchBar}`}/>
-        <MobileCoursesButtons
-          onShowSearch={_ => setShowSearchBar(!showSearchBar)}
-          onAddCourse={_ => setOpenDialog(true)}
-          showSearchBar={showSearchBar}
-          callerIs={callerIs}
+        <SearchBarWithPageController 
+          className={classes.searchBar}
+          onChange={handleChange}
+          onBack={back.handle}
+          onNext={next.handle}
+          disableBack={back.disable}
+          disableNext={next.disable}
         />
-        <CourseAccordion
-          firstAccordion
-          loading={loading}
-          title="Corso base Python"
-          description="Il corso è pensato e strutturato per essere godibile anche da non tecnici, ovvero da persone che si stanno avvicinando per la prima volta al mondo della programmazione, e per questo motivo tra gli argomenti trattati nella serie ci sono anche degli accenni ai concetti di Algoritmo, Diagramma di Flusso e Logica Booleana."
-          teachers={["Valente", "Bassoli", "Mandreoli"]}
-        />
-        <CourseAccordion
-          loading={loading}
-          title="Corso Java"
-          description="Il corso è pensato e strutturato per essere godibile anche da non tecnici, ovvero da persone che si stanno avvicinando per la prima volta al mondo della programmazione, e per questo motivo tra gli argomenti trattati nella serie ci sono anche degli accenni ai concetti di Algoritmo, Diagramma di Flusso e Logica Booleana."
-          teachers={["Bedogni"]}
-        />
+        <Fade 
+          className={classes.linearProgress}
+          in={loading}>
+          <LinearProgress color="secondary"/>
+        </Fade>
+        {getCourses()}
       </div>
       <CreateCourseDialog
         open={openDialog}
