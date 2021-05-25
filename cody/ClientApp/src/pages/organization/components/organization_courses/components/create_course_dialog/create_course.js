@@ -67,13 +67,13 @@ export default function CreateCourse(props){
       elements={[
         {
           element: <AddCourseInfoStep
-            suspenseHeight={411}
+            suspenseHeight={433}
             errors={errors}
             onTitleChange={handleChange('title')}
             onDescriptionChange={handleChange('description')}
             values={newCourseInfo}
           />,
-          height: 411,
+          height: 433,
           controller: FormatController
             .setController()
             .add('courseTitle')
