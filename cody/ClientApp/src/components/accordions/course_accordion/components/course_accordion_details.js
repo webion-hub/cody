@@ -27,7 +27,7 @@ export function CourseAccordionDetails(props){
       direction="column"
     >
       <Typography>
-        {description}
+        {description.length === 0 ? "Nessuna descrizione." : description}
       </Typography>
       <Grid
         className={classes.buttonContainer}
