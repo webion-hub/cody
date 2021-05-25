@@ -7,6 +7,7 @@ import { BasePhotoText } from "src/components/bases/base_photo_text";
 import { DescriptionTextField } from "src/components/pickers/text_fields/types/description_text_field";
 import { School } from "src/components/illustrations/illustrations/illustrations";
 import { NextFocus } from 'src/lib/next_focus';
+import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
 
 const useStyles = makeStyles((theme) => ({
   description: {
@@ -26,19 +27,24 @@ export default function AddCourseInfoStep(props){
       <Typography>
         Dai un nome al corso
       </Typography>
-      <TextField
-        className={classes.nameTextField}
-        color="secondary" 
-        label="Nome corso" 
-        fullWidth 
-        variant="filled"
-        required
-        onChange={props.onTitleChange}
-        error={props.errors.courseTitleError}
-        defaultValue={props.values.title}
-        inputRef={nextFocus.getInput("title")} 
-        onKeyDown={nextFocus.enterPressedFocusOn("description")}
-      />
+      <PickerWithErrorAndLabel
+        errorMessage="Corso già esistente!"
+        fadeError={props.errors.courseExist}
+      >
+        <TextField
+          className={classes.nameTextField}
+          color="secondary" 
+          label="Nome corso" 
+          fullWidth 
+          variant="filled"
+          required
+          onChange={props.onTitleChange}
+          error={props.errors.courseTitleError}
+          defaultValue={props.values.title}
+          inputRef={nextFocus.getInput("title")} 
+          onKeyDown={nextFocus.enterPressedFocusOn("description")}
+        />
+      </PickerWithErrorAndLabel>
       <DescriptionTextField
         className={classes.description}
         variant="filled"
