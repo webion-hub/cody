@@ -42,7 +42,9 @@ export function InfoBox(props){
     verified,
     button,
     loading,
-   } = props
+  } = props
+
+  const shiftSubTitle = subTitle && leftIcon && !loading 
 
   return (
     <div className={className}>
@@ -64,7 +66,7 @@ export function InfoBox(props){
         variant="caption"
         noWrap
         loading={loading}
-        className={`${classes.centerText} ${subTitle && leftIcon ? classes.shiftLeft : ""}`}
+        className={`${classes.centerText} ${shiftSubTitle ? classes.shiftLeft : ""}`}
       >
         {subTitle}
       </TypographyWithLoading>

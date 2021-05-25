@@ -21,15 +21,18 @@ export default function Course(){
   const classes = useStyles();
   const { organizationId, courseId } = useParams();
   const [courseData, setCourseData] = React.useState()
+  const [loading, setLoading] = React.useState(false)
 
   const course = Organization
     .withId(organizationId)
     .course(courseId)
 
   useEffect(() => {
+    setLoading(true)
     course
       .getInfo()
       .then(setCourseData)
+      .finally(_ => setLoading(false))
   }, [])
 
   return(
@@ -38,6 +41,7 @@ export default function Course(){
       centerSection={
         <>
           <InfoArea
+            loading={loading}
             data={{
               title: courseData?.title,
               subTitle: courseData?.teachers?.map((teacher, index) => 
