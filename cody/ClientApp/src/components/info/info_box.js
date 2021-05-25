@@ -64,7 +64,7 @@ export function InfoBox(props){
         variant="caption"
         noWrap
         loading={loading}
-        className={`${classes.centerText} ${subTitle ? classes.shiftLeft : ""}`}
+        className={`${classes.centerText} ${subTitle && leftIcon ? classes.shiftLeft : ""}`}
       >
         {subTitle}
       </TypographyWithLoading>
