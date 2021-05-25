@@ -26,22 +26,32 @@ export function CourseAccordion(props){
 	const classes = useStyles();
 
   const {
+    data,
+    index,
+  } = props
+
+  const {
+    id,
     title,
     description,
-    teachers,
-  } = props
+    teachers
+  } = data
+
+  const isFirst = index === 0
 
   return (
     <Accordion
+      key={index}
       elevation={0}
       className={classes.accordion}
       classes={{
-        root: props.firstAccordion 
+        root: isFirst 
           ? classes.hideLine 
           : classes.showLine
       }}
     >
       <CourseAccordionSummary
+        id={id}
         title={title}
         teachers={teachers}
       />
