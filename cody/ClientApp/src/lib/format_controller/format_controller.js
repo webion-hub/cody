@@ -106,33 +106,32 @@ export class FormatController {
     return new FormatController(this.controllersLabel);
   }
 
-  checkAll = (settings) => {
+  checkAll = async (settings) => {
     const values = settings?.values;
     const onErrors = settings?.onErrors;
     const onNoErrors = settings?.onNoErrors;
 
-    return new Promise(async resolve => {
-      const controllers = this.getControllersList(values)
-      await Promise.allSettled(controllers)
-        .then(async errorsList => {          
-          const errorsFiltered = errorsList
-            .filter(error => 
-              error.status == "fulfilled"
-            );
-            
-          const noError = errorsFiltered.length === 0
+    const controllers = this.getControllersList(values)
+    
+    await Promise.allSettled(controllers)
+    .then(async errorsList => {          
+      const errorsFiltered = errorsList
+        .filter(error => 
+          error.status == "fulfilled"
+        );
+      
+      const noError = errorsFiltered.length === 0
 
-          if(noError){
-            await onNoErrors?.()
-            return;
-          }
+      if(noError){
+        await onNoErrors?.()
+        return;
+      }
 
-          const errors = this.getErrorObject(errorsFiltered)
-          await onErrors?.(errors)
-        })
-        
-      resolve()
+      const errors = this.getErrorObject(errorsFiltered)
+      await onErrors?.(errors)
     })
+
+    return Promise.resolve()
   }    
 }
 
