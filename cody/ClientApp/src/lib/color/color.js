@@ -23,6 +23,10 @@ export class Color {
     return Color.set(color).opacity(opacity).color
   }
 
+  static d = (color, darkness) => {
+    return Color.set(color).darkness(darkness).color
+  }
+
   opacity = (opacity) => {
     this.colorObj.alpha = Hex.getHex(opacity)
     return new Color(this.colorObj)
