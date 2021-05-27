@@ -1,15 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 
 import Typography from '@material-ui/core/Typography';
-import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
+import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
 import { Grid } from "@material-ui/core";
-import { PageController } from 'src/lib/page_controller';
 import TooltipLink from 'src/components/typography/tooltip_link';
+import { Color } from 'src/lib/color/color';
 
 const useStyles = makeStyles((theme) => ({
+  sumamry: {
+    background: Color.o(theme.palette.background[800], 0.3)
+  },
   teachersContainer: {
     width: "calc(100% - 90px)",
   },
@@ -25,11 +28,17 @@ const useStyles = makeStyles((theme) => ({
   accordionSummaryContent: {
     width: 0,
   },
-  openButton: {
+  expandButton: {
     position: "absolute",
-    zIndex: 1,
-    right: 16,
-    top: 16,
+    right: 0,
+    transform: "translate(0, -50%)",
+    top: "50%"
+  },
+  expandIcon: {
+    transition: "0.25s all"
+  },
+  expanded: {
+    transform: "rotate(180deg)"
   }
 }));
 
@@ -37,14 +46,15 @@ export function CourseAccordionSummary(props){
 	const classes = useStyles();
 
   const {
-    id,
     title,
     teachers,
+    expanded,
+    onExpand
   } = props
 
   return (
-    <>
     <AccordionSummary
+      className={classes.sumamry}
       classes={{
         content: classes.accordionSummaryContent
       }}
@@ -94,21 +104,17 @@ export function CourseAccordionSummary(props){
           </Typography>
         </Grid>
       </Grid>
+      <IconButton
+        onClick={e => {
+          e.stopPropagation()
+          onExpand()
+        }}
+        className={classes.expandButton}
+      >
+        <ExpandMoreRoundedIcon 
+          className={`${expanded ? classes.expanded  : ""} ${classes.expandIcon}`}
+        />
+      </IconButton>
     </AccordionSummary>
-    <Button
-      className={classes.openButton}
-      variant="outlined"
-      color="secondary"
-      href={`${window.location.pathname}/course/${id}`}
-      onClick={e => {
-        e.stopPropagation()
-        PageController.push(`${window.location.pathname}/course/${id}`, e)
-      }}
-      onFocus={e => e.stopPropagation()}
-      endIcon={<OpenInNewRoundedIcon/>}
-    >
-      Apri
-    </Button>
-    </>
   )
 }

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import Accordion from '@material-ui/core/Accordion';
@@ -5,6 +7,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 
 import { CourseAccordionSummary } from "./components/course_accordion_summary";
 import { CourseAccordionDetails } from "./components/course_accordion_details";
+import { PageController } from 'src/lib/page_controller';
 
 const useStyles = makeStyles((theme) => ({
   accordion: {
@@ -24,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function CourseAccordion(props){
 	const classes = useStyles();
+  const [expand, setExpand] = React.useState(false)
 
   const {
     data,
@@ -41,9 +45,15 @@ export function CourseAccordion(props){
 
   return (
     <Accordion
+      expanded={expand}
       key={index}
       elevation={0}
       className={classes.accordion}
+      href={`${window.location.pathname}/course/${id}`}
+      onClick={e => {
+        e.stopPropagation()
+        PageController.push(`${window.location.pathname}/course/${id}`, e)
+      }}
       classes={{
         root: isFirst 
           ? classes.hideLine 
@@ -54,6 +64,8 @@ export function CourseAccordion(props){
         id={id}
         title={title}
         teachers={teachers}
+        expanded={expand}
+        onExpand={_ => setExpand(!expand)}
       />
       <AccordionDetails>
         <CourseAccordionDetails
