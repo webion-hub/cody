@@ -54,7 +54,7 @@ export default function CreateCourse(props){
         description: values.description,
         teachers: values.teachers,
       })
-      .then(courseId => PageController.push(`organization/${organizationData.id}/course/${courseId}`));
+      .then(courseId => PageController.push(`/organization/${organizationData.id}/course/${courseId}`));
   }
  
   return (
