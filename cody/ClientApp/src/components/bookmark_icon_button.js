@@ -9,10 +9,9 @@ import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { useListener } from 'src/lib/hooks/use_listener';
 
 export function BookmarkIconButton(props) {
-  const {
-    isBookmarked,
-    id,
-  } = props.organizationData
+
+  const isBookmarked = props.organizationData?.isBookmarked
+  const id = props.organizationData?.id
 
   const [isBookmarkedState, setIsBookmarkedState] = React.useState(isBookmarked)
   const [loading, setLoading] = React.useState(false)
