@@ -12,24 +12,15 @@ export const getJoinedOrganizations = (settings) => {
     const showOnlyBookmarked = filterNotUndefined.startsWith("onlyBookmarked");
     const prepFilter = filterNotUndefined.replace("onlyBookmarked", "");
 
-    if(showOnlyBookmarked){
-      User
-        .getBookmarkedOrganizations({
-          filter: prepFilter,
-          limit: limit,
-          offset: offset,
-        })
-        .then(data => resolve(data))
-      
-      return;
-    }
+    const organizationAction = showOnlyBookmarked 
+      ? User.getBookmarkedOrganizations
+      : User.getJoinedOrganizations
 
-    User
-      .getJoinedOrganizations({
-        filter: prepFilter,
-        limit: limit,
-        offset: offset,
-      })
-      .then(data => resolve(data))
+    organizationAction({
+      filter: prepFilter,
+      limit: limit,
+      offset: offset,
+    })
+    .then(data => resolve(data))
   })
 }
