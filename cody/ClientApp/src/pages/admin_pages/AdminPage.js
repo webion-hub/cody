@@ -6,7 +6,7 @@ import { Tabs } from '@material-ui/core';
 import { Tab } from '@material-ui/core';
 
 import { UserContext } from "src/components/user_controller_context/user_controller_context";
-import { DataTab } from "./components/data_tab";
+import { TabContent } from "src/components/tab_content";
 
 import { PageController } from 'src/lib/page_controller';
 
@@ -61,15 +61,15 @@ export default function AdminPage(){
 				<Tab label="Organizations"/>
 				<Tab label="Colors"/>
 			</Tabs>
-			<DataTab tabValue={value} index={0}>
+			<TabContent tabValue={value} index={0}>
 				<UsersList maxPageElements={maxPageElements}/>
-			</DataTab>
-			<DataTab tabValue={value} index={1}>
+			</TabContent>
+			<TabContent tabValue={value} index={1}>
 				<OrganizationsList maxPageElements={maxPageElements}/>
-			</DataTab>
-			<DataTab tabValue={value} index={2}>
+			</TabContent>
+			<TabContent tabValue={value} index={2}>
 				<ColorsTab/>
-			</DataTab>
+			</TabContent>
 		</div>
 	);
 }
