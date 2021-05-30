@@ -6,13 +6,14 @@ import { useBackgroundWaves } from 'src/lib/hooks/use_background_waves';
 export const PaperWithWaves = React.forwardRef((props, ref) => {
   const classWithWavedBackground = useBackgroundWaves({color: props.color});
 
-  const { className, children, otherProps } = props;
+  const { className, children, style, otherProps } = props;
   const classesName = `${classWithWavedBackground} ${className}`
 
   return(
     <Paper
       {...otherProps}
       ref={ref}
+      style={style}
       className={classesName}
       elevation={0}
     >
