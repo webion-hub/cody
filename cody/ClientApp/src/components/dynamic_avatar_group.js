@@ -9,12 +9,12 @@ import { useMobileView } from "src/lib/hooks/use_mobile_view";
 import { UserListDialog } from "./dialogs/user_list_dialog";
 
 const useStyles = makeStyles((theme) => ({
-  avatarGroup: {
-    minHeight: 148,
+  avatarGroup: props => ({
+    minHeight: props.direction === "vertical" ? 148 : "auto",
     minWidth: 64,
     padding: theme.spacing(1),
     margin: 0,
-    background: theme.palette.background[750],
+    background: props.boxBackground,
     [theme.breakpoints.down('xs')]: {
       minHeight: 64,
       width: "100%",
@@ -23,11 +23,10 @@ const useStyles = makeStyles((theme) => ({
         margin: "0 auto"
       }
     },
-  },
+  }),
 }));
 
 export function DynamicAvatarGroup(props) {
-	const classes = useStyles();  
   const theme = useTheme();
   const mobileView = useMobileView()
   const [openDialog, setOpenDialog] = React.useState(false)
@@ -37,8 +36,22 @@ export function DynamicAvatarGroup(props) {
 		loading,
     handler,
     callerIs,
-    onUserUpdate
+    onUserUpdate,
+    direction,
+    background,
+    className,
 	} = props;
+
+  const autoDirection = mobileView ? "horizontal" : "vertical"
+  const avatarGroupDirection = direction === "auto"
+    ? autoDirection
+    : direction
+
+  const boxBackground = background 
+    ? background 
+    : theme.palette.background[750] 
+
+	const classes = useStyles({direction: avatarGroupDirection, boxBackground}); 
 
   const setUserList = (data) => {
     if(data.length === 0)
@@ -66,12 +79,12 @@ export function DynamicAvatarGroup(props) {
   const userList = setUserList(smallUserList)
 
   return (
-    <div className={classes.avatarGroup}>
+    <div className={`${classes.avatarGroup} ${className ?? ""}`}>
       <CustomAvatarGroup
         onExtraAvatarClick={_ => setOpenDialog(true)}
         loading={loading}        
-        direction={mobileView ? "horizontal" : "vertical"}
-        borderColor={theme.palette.background[750]}
+        direction={avatarGroupDirection}
+        borderColor={boxBackground}
         avatarsProps={userList?.userList}
         numberOfAvatar={userList?.totalMember}
       />
@@ -84,4 +97,9 @@ export function DynamicAvatarGroup(props) {
       />
     </div>
   )
+}
+
+
+DynamicAvatarGroup.defaultProps = {
+  direction: "auto"
 }
