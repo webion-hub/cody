@@ -40,10 +40,11 @@ const StyledTreeItem = withStyles((theme) => ({
 export default function CustomTreeView(){
   return (
     <>
-		<GenericSearchBar/>
+			<GenericSearchBar/>
 			<TreeView
 				defaultCollapseIcon={<RemoveRoundedIcon/>}
 				defaultExpandIcon={<AddRoundedIcon/>}
+				multiSelect
 			>
 				<StyledTreeItem nodeId="1" label="Applications">
 					<StyledTreeItem nodeId="2" label="Calendar" />
