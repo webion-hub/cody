@@ -7,24 +7,35 @@ import Organization from "src/lib/server_calls/organization";
 import InfoArea from "src/components/info/info_area";
 import CustomTreeView from "src/components/custom_treeview";
 import Editor from "@monaco-editor/react";
+import { TabContent } from "src/components/tab_content";
 
 import TooltipLink from "src/components/typography/tooltip_link";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton, Tab, Tabs, Tooltip, useTheme } from "@material-ui/core";
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { PageController } from "src/lib/page_controller";
+import { BackgroundWithLines } from "src/components/background_with_lines/background_with_lines";
+import { ListWithPages } from "src/components/lists/list_with_pages";
 
 const useStyles = makeStyles((theme) => ({
-
+  lessonBox: {
+    paddingTop: theme.spacing(6),
+    padding: theme.spacing(2)
+  }
 }));
 
 export default function Course(){
   const classes = useStyles();
+	const theme = useTheme();
+
   const { organizationId, courseId } = useParams();
   const [courseData, setCourseData] = React.useState()
   const [loading, setLoading] = React.useState(false)
+  const [tab, setTab] = React.useState(0);
 
-  const course = Organization
+  const organization = Organization
     .withId(organizationId)
+
+  const course = organization
     .course(courseId)
 
   useEffect(() => {
@@ -57,7 +68,7 @@ export default function Course(){
               <Tooltip
                 arrow
                 placement="bottom"
-                title="Torna alla organizzazione"
+                title="Torna all' organizzazione"
               >
                 <IconButton
                   href={`/organization/${organizationId}`}
@@ -68,9 +79,32 @@ export default function Course(){
               </Tooltip>
             }
           />
+          <div style={{position: "relative"}}>
+            <Tabs              
+              value={tab} 
+              onChange={(_, val) => setTab(val)}
+            >
+              <Tab label="Lezioni"/>
+              <Tab label="Esercitazioni"/>
+            </Tabs>
+            <TabContent tabValue={tab} index={0}>
+              <div className={classes.lessonBox}>
+                <ListWithPages
+                  maxPageElements={5}
+                  title="Lezioni Disponibili"
+                  notFoundMessage="Nessuna lezione trovata."
+                  getData={course.getLessons}
+                />
+              </div>
+            </TabContent>
+            <TabContent tabValue={tab} index={1}>
+              aaaaaaaaaaa
+            </TabContent>
+            <BackgroundWithLines background={theme.palette.background[550]}/>
+          </div>
           <Editor
             width="100%"
-            height="calc(100vh - 262px)"
+            height="350px"
             theme="vs-dark"
             defaultLanguage="javascript"
             defaultValue='console.log("ciao mondo");'
