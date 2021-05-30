@@ -20,7 +20,7 @@ export const usePageController = (props) => {
 		offset: 0,
   })
 
-  const totalItems = data.total
+  const totalItems = data ? data.total : 0
 	const maxPages = totalItems / maxPageElements;
 	const disableNext = loading || page >= maxPages;
 	const disableBack = loading || page === 1;
@@ -77,6 +77,6 @@ export const usePageController = (props) => {
 		handleChange,
 		refreshDataList,
 		loading,
-		dataList: data.values
+		dataList: data ? data.values : []
 	}
 }
