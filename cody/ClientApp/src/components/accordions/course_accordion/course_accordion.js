@@ -8,6 +8,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import { CourseAccordionSummary } from "./components/course_accordion_summary";
 import { CourseAccordionDetails } from "./components/course_accordion_details";
 import { PageController } from 'src/lib/page_controller';
+import { Grow } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   accordion: {
@@ -44,34 +45,38 @@ export function CourseAccordion(props){
   const isFirst = index === 0
 
   return (
-    <Accordion
-      expanded={expand}
-      key={index}
-      elevation={0}
-      className={classes.accordion}
-      href={`${window.location.pathname}/course/${id}`}
-      onClick={e => {
-        e.stopPropagation()
-        PageController.push(`${window.location.pathname}/course/${id}`, e)
-      }}
-      classes={{
-        root: isFirst 
-          ? classes.hideLine 
-          : classes.showLine
-      }}
+    <Grow
+      in
+      timeout={400*(index + 1)}
     >
-      <CourseAccordionSummary
-        id={id}
-        title={title}
-        teachers={teachers}
+      <Accordion
         expanded={expand}
-        onExpand={_ => setExpand(!expand)}
-      />
-      <AccordionDetails>
-        <CourseAccordionDetails
-          description={description}
+        key={index}
+        elevation={0}
+        className={classes.accordion}
+        onClick={e => {
+          e.stopPropagation()
+          PageController.push(`${window.location.pathname}/course/${id}`, e)
+        }}
+        classes={{
+          root: isFirst 
+            ? classes.hideLine 
+            : classes.showLine
+        }}
+      >
+        <CourseAccordionSummary
+          id={id}
+          title={title}
+          teachers={teachers}
+          expanded={expand}
+          onExpand={_ => setExpand(!expand)}
         />
-      </AccordionDetails>
-    </Accordion>
+        <AccordionDetails>
+          <CourseAccordionDetails
+            description={description}
+          />
+        </AccordionDetails>
+      </Accordion>
+    </Grow>
   )
 }
