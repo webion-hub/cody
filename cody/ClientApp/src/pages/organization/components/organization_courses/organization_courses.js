@@ -11,18 +11,7 @@ const useStyles = makeStyles((theme) => ({
 	coursesBox: {
 		paddingTop: theme.spacing(6),
     padding: theme.spacing(2)
-	},
-	coursesTitle: {
-    [theme.breakpoints.down('xs')]: {
-      maxWidth: `calc(100vw - ${theme.spacing(4)}px)`
-    },
-	},
-  searchBar: {
-    marginBottom: theme.spacing(2),
-  },
-  linearProgress: {
-    marginBottom: theme.spacing(1)
-  }
+	}
 }));
 
 export function OrganizationCourses(){
