@@ -10,6 +10,8 @@ import { InfoBox } from "./info_box";
 const useStyles = makeStyles((theme) => ({
   infoContainer: {
     background: theme.palette.background[650],
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
   },
   infoList: {
     minHeight: 150,
