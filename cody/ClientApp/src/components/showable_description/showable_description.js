@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
 		transition: "0.25s all"
 	}),
   descriptionBox: {
-    background: theme.palette.background[700]
+    background: theme.palette.background[700],
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
   }
 }));
 
