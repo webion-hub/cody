@@ -1,9 +1,9 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Controllers.Requests;
 using Cody.Extensions;
-using Cody.Models;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+using Cody.Db.Models;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Cody.Services;
 using Cody.Services.Sftp;
 using Cody.Utilities;

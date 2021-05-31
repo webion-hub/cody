@@ -1,8 +1,8 @@
-﻿using Cody.Contexts;
-using Cody.Models;
-using Cody.Models.Organizations;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+﻿using Cody.Db;
+using Cody.Db.Models;
+using Cody.Db.Models.Organizations;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

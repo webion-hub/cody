@@ -1,7 +1,7 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Extensions;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

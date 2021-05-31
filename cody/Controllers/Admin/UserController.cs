@@ -1,12 +1,8 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Security.Authorization;
 using Cody.Services.Sftp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cody.Controllers.Admin
 {

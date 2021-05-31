@@ -1,5 +1,5 @@
-﻿using Cody.Models;
-using Cody.Models.Users;
+﻿using Cody.Db.Models;
+using Cody.Db.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,9 +1,9 @@
 ﻿using Cody.Controllers.Responses.Formatters;
 using Cody.Extensions;
-using Cody.Models;
-using Cody.QueryExtensions;
+using Cody.Db.Models;
+using Cody.Db.Extensions;
 using Cody.Security.Authorization;
-using Cody.Utilities.QueryFilters;
+using Cody.Db.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

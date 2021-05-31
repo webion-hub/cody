@@ -1,15 +1,11 @@
-﻿using Cody.Contexts;
-using Cody.Extensions;
-using Cody.Models;
+﻿using Cody.Db;
+using Cody.Db.Bags;
+using Cody.Security.Extensions;
 using Cody.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Cody.Controllers
@@ -20,11 +16,15 @@ namespace Cody.Controllers
     public class CookieLoginController : ControllerBase
     {
         private readonly PersistentLoginCookieEmitterService _cookieEmitter;
+        private readonly CodyContext _dbContext;
 
 
-        public CookieLoginController(PersistentLoginCookieEmitterService cookieEmitter) 
-        {
+        public CookieLoginController(
+            PersistentLoginCookieEmitterService cookieEmitter,
+            CodyContext dbContext
+        ) {
             _cookieEmitter = cookieEmitter;
+            _dbContext = dbContext;
         }
 
 
@@ -41,7 +41,7 @@ namespace Cody.Controllers
             if (user is null)
                 return BadRequest();
 
-            await HttpContext.SignInAsync(user);
+            await HttpContext.SignInAsync(user, new RefreshTokensBag(_dbContext));
             await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
             return Ok();
         }

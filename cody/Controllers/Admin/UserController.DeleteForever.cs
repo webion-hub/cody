@@ -1,11 +1,11 @@
-﻿using Cody.Extensions;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+﻿using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Cody.Security.Extensions;
 
 namespace Cody.Controllers.Admin
 {

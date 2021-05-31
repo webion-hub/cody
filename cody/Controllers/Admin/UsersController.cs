@@ -1,8 +1,8 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Extensions;
-using Cody.QueryExtensions;
+using Cody.Db.Extensions;
 using Cody.Security.Authorization;
-using Cody.Utilities.QueryFilters;
+using Cody.Db.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;

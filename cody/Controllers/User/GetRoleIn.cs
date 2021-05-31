@@ -1,4 +1,4 @@
-﻿using Cody.Extensions;
+﻿using Cody.Security.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 using Cody.Controllers.Requests;
-using Cody.Extensions;
-using Cody.QueryExtensions;
+using Cody.Security.Extensions;
+using Cody.Db.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

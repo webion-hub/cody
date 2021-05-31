@@ -1,9 +1,9 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Controllers.Requests;
 using Cody.Extensions;
-using Cody.Models;
-using Cody.Models.Organizations;
-using Cody.QueryExtensions;
+using Cody.Db.Models;
+using Cody.Db.Models.Organizations;
+using Cody.Db.Extensions;
 using Cody.Services.Sftp;
 using Cody.Storage;
 using Microsoft.AspNetCore.Authorization;

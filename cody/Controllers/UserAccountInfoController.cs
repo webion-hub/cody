@@ -1,7 +1,7 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Controllers.Helpers;
 using Cody.Extensions;
-using Cody.QueryExtensions;
+using Cody.Db.Extensions;
 using Cody.Security.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

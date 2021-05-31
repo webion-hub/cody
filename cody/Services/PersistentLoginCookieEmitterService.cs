@@ -1,6 +1,5 @@
-﻿using Cody.Contexts;
-using Cody.Extensions;
-using Cody.Models.Users;
+﻿using Cody.Db;
+using Cody.Db.Models.Users;
 using Cody.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Cody.Security.Extensions;
 
 namespace Cody.Services
 {

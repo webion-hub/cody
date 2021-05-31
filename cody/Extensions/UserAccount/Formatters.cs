@@ -1,14 +1,14 @@
 ﻿using Cody.Controllers.Responses.Formatters;
-using Cody.Models;
-using Cody.Models.Users;
+using Cody.Db.Models;
+using Cody.Db.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cody.QueryExtensions
+namespace Cody.Db.Extensions
 {
-    public partial class UserAccountQueries
+    public static class UserAccountQueries
     {
         public static IQueryable<object> FormatFor(
             this IQueryable<UserAccount> self,

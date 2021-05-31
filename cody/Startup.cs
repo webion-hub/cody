@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Cody.Services;
+using Cody.Security.Authentication.Cookies;
+using Cody.Db.Bags;
+using Cody.Db;
 
 namespace Cody
 {
@@ -61,14 +64,24 @@ namespace Cody
 
                     options.Events.OnValidatePrincipal = async (context) =>
                     {
+                        var dbContext = context
+                            .HttpContext
+                            .RequestServices
+                            .GetCodyContext();
+
                         await SessionCookieRefresher
-                            .For(context)
+                            .For(context, new AuthBags(dbContext))
                             .MaybeRefreshAsync();
                     };
                 });
 
 
-            services.AddScoped<IAuthorizationHandler, UserRolesAuthorizationHandler>();
+            services.AddScoped<IAuthorizationHandler, UserRolesAuthorizationHandler>(sp =>
+            {
+                var dbContext = sp.GetCodyContext();
+                return new(new UsersBag(dbContext));
+            });
+
             services
                 .AddLogging()
                 .AddCodyContext(Configuration)

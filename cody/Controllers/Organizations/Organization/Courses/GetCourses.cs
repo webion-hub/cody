@@ -1,6 +1,6 @@
 using Cody.Extensions;
-using Cody.QueryExtensions;
-using Cody.Utilities.QueryFilters;
+using Cody.Db.Extensions;
+using Cody.Db.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

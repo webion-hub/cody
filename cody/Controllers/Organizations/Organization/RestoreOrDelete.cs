@@ -1,4 +1,4 @@
-﻿using Cody.Models;
+﻿using Cody.Db.Models;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

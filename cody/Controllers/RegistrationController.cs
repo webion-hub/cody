@@ -1,20 +1,15 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Controllers.Requests;
-using Cody.Extensions;
-using Cody.Models;
+using Cody.Security.Extensions;
 using Cody.Security;
 using Cody.Security.Validation;
-using Cody.Services;
 using Cody.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Cody.Db.Models.Users;
+using Cody.Db.Bags;
 
 namespace Cody.Controllers
 {
@@ -46,7 +41,7 @@ namespace Cody.Controllers
                 return validator.StatusCode;
 
             user.Password =
-                await Password.CreateAsync(user.PlainPassword);
+                await Password.CreateAsync(user.PlainPassword) as UserAccountPassword;
 
             
             try
@@ -59,7 +54,7 @@ namespace Cody.Controllers
                 return Problem();
             }
 
-            await HttpContext.SignInAsync(user);
+            await HttpContext.SignInAsync(user, new RefreshTokensBag(_dbContext));
             return Ok(user.Id);
         }
     }

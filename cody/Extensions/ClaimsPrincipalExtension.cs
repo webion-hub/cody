@@ -1,12 +1,11 @@
-﻿using Cody.Contexts;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+﻿using Cody.Db;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Cody.Security.Extensions;
 
 namespace Cody.Extensions
 {
@@ -20,7 +19,7 @@ namespace Cody.Extensions
             CodyContext dbContext,
             Includer include = null 
         ) {
-            var userId = MaybeGetId(claim);
+            var userId = claim.MaybeGetId();
             if (userId is null)
                 return null;
 
@@ -34,20 +33,6 @@ namespace Cody.Extensions
                 query = include(query);
 
             return await query.FirstOrDefaultAsync(u => u.Id == userId);
-        }
-
-
-        public static int GetId(this ClaimsPrincipal claim)
-        {
-            return MaybeGetId(claim) ?? throw new Exception("Cannot retrieve the user's id");
-        }
-
-        public static int? MaybeGetId(this ClaimsPrincipal claim)
-        {
-            var rawId = claim.FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.TryParse(rawId, out int userId)
-                ? userId
-                : null;
         }
     }
 }

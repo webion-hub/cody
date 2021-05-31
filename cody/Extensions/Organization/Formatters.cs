@@ -1,13 +1,13 @@
 ﻿using Cody.Controllers.Responses.Formatters;
-using Cody.Models;
-using Cody.Models.Organizations;
-using Cody.Models.Users;
+using Cody.Db.Models;
+using Cody.Db.Models.Organizations;
+using Cody.Db.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cody.QueryExtensions
+namespace Cody.Db.Extensions
 {
     public static partial class OrganizationQueries
     {

@@ -1,10 +1,10 @@
-﻿using Cody.Contexts;
-using Cody.Extensions;
-using Cody.Models.Organizations;
+﻿using Cody.Db;
+using Cody.Db.Models.Organizations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Cody.Security.Extensions;
 
 namespace Cody.Controllers
 {

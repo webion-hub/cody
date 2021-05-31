@@ -1,8 +1,6 @@
-﻿using Cody.Models.Organizations;
-using Cody.Models.Users;
-using Cody.Security.Authentication;
-using Cody.Security.Authorization;
-using Microsoft.AspNetCore.Authentication;
+﻿using Cody.Db.Models.Organizations;
+using Cody.Db.Models.Users;
+using Cody.Security.Extensions;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using static Cody.Extensions.ClaimsPrincipalExtension;
@@ -11,12 +9,6 @@ namespace Cody.Extensions
 {
     internal static class HttpContextExtension
     {
-        public static async Task SignInAsync(this HttpContext context, UserAccount user)
-        {
-            await LoginManager.SignIntoContextAsync(user, context);
-        }
-
-
         public static async Task<bool> IsUserOwnerOfAsync(this HttpContext context, Organization organization)
         {
             var dbContext = context

@@ -1,5 +1,5 @@
-﻿using Cody.Models.Users;
-using Cody.QueryExtensions;
+﻿using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Cody.Security.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,11 +1,11 @@
 ﻿using Cody.Extensions;
-using Cody.QueryExtensions;
-using Cody.Utilities.QueryFilters;
+using Cody.Db.Extensions;
+using Cody.Db.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Cody.Security.Extensions;
 
 namespace Cody.Controllers
 {

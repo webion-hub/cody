@@ -1,6 +1,6 @@
-﻿using Cody.Contexts;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+﻿using Cody.Db;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 

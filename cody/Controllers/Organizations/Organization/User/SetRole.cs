@@ -1,6 +1,6 @@
 ﻿using Cody.Extensions;
-using Cody.Models.Organizations;
-using Cody.QueryExtensions;
+using Cody.Db.Models.Organizations;
+using Cody.Db.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

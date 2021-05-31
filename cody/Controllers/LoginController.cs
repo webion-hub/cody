@@ -1,8 +1,8 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Controllers.Requests;
-using Cody.Extensions;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+using Cody.Security.Extensions;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using Cody.Security;
 using Cody.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Cody.Db.Bags;
 
 namespace Cody.Controllers
 {
@@ -43,8 +44,7 @@ namespace Cody.Controllers
             if (!isPasswordCorrect)
                 return BadRequest();
 
-            await HttpContext.SignInAsync(user);
-
+            await HttpContext.SignInAsync(user, new RefreshTokensBag(_dbContext));
             if (request.RememberMe is true)
                 await _cookieEmitter.EmitAndAttachToResponseAsync(user, Response);
 

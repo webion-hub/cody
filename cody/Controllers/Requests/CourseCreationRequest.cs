@@ -1,5 +1,5 @@
 using Cody.Security.Validation.Attributes;
-using Cody.Models.Organizations.Courses;
+using Cody.Db.Models.Organizations.Courses;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,6 @@
-﻿using Cody.Contexts;
+﻿using Cody.Db;
 using Cody.Extensions;
+using Cody.Security.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,12 +15,10 @@ namespace Cody.Controllers
     [Authorize]
     public class LogoutController : ControllerBase
     {
-        private readonly ILogger<LogoutController> _logger;
         private readonly CodyContext _dbContext;
 
-        public LogoutController(ILogger<LogoutController> logger, CodyContext dbContext)
+        public LogoutController(CodyContext dbContext)
         {
-            _logger = logger;
             _dbContext = dbContext;
         }
 

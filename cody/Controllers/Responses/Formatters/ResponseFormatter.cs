@@ -1,4 +1,4 @@
-﻿using Cody.Models.Users;
+﻿using Cody.Db.Models.Users;
 using Cody.Security.Authorization;
 using System.Linq;
 

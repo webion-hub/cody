@@ -1,5 +1,5 @@
 ﻿using Cody.Extensions;
-using Cody.QueryExtensions;
+using Cody.Db.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

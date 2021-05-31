@@ -1,15 +1,9 @@
-﻿using Cody.Contexts;
-using Cody.Services;
+﻿using Cody.Services;
 using Cody.Services.Email;
 using Cody.Services.Sftp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cody.Extensions
 {
@@ -19,7 +13,7 @@ namespace Cody.Extensions
             this IServiceCollection services,
             IConfiguration configuration
         ) {
-            return services.AddDbContext<CodyContext>(options =>
+            return services.AddDbContext<Db.CodyContext>(options =>
             {
                 var connectionString =
                     configuration.GetConnectionString("CodyContextRemote");

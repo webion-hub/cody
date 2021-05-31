@@ -1,7 +1,7 @@
-﻿using Cody.Models;
-using Cody.Models.Organizations;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
+﻿using Cody.Db.Models;
+using Cody.Db.Models.Organizations;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
-﻿using Cody.Contexts;
-using Cody.Models;
+﻿using Cody.Db;
+using Cody.Db.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -15,7 +15,7 @@ using Cody.Services;
 using Cody.Security;
 using Microsoft.AspNetCore.Authorization;
 using Cody.Extensions;
-using Cody.QueryExtensions;
+using Cody.Db.Extensions;
 
 namespace Cody.Controllers
 {

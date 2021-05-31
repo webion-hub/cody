@@ -1,8 +1,8 @@
 ﻿using Cody.Extensions;
-using Cody.Models.Organizations;
-using Cody.Models.Users;
-using Cody.QueryExtensions;
-using Cody.Utilities.QueryFilters;
+using Cody.Db.Models.Organizations;
+using Cody.Db.Models.Users;
+using Cody.Db.Extensions;
+using Cody.Db.QueryFilters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,13 +1,9 @@
-﻿using Cody.Extensions;
-using Cody.QueryExtensions;
-using Cody.Security.Authorization;
+﻿using Cody.Db.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Cody.Security.Extensions;
 
 namespace Cody.Controllers
 {

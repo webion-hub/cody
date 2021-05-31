@@ -1,4 +1,4 @@
-﻿using Cody.Utilities.QueryFilters;
+﻿using Cody.Db.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

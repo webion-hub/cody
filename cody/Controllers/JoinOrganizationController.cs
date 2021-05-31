@@ -1,6 +1,6 @@
-﻿using Cody.Contexts;
-using Cody.Extensions;
-using Cody.Models.Organizations;
+﻿using Cody.Db;
+using Cody.Security.Extensions;
+using Cody.Db.Models.Organizations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

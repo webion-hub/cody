@@ -1,9 +1,9 @@
 using Cody.Controllers.Responses.Formatters;
-using Cody.Models.Organizations.Courses;
-using Cody.Models.Users;
+using Cody.Db.Models.Organizations.Courses;
+using Cody.Db.Models.Users;
 using System.Linq;
 
-namespace Cody.QueryExtensions
+namespace Cody.Db.Extensions
 {
     public static partial class CourseQueries
     {

@@ -1,5 +1,5 @@
-﻿using Cody.Contexts;
-using Cody.Models.Users;
+﻿using Cody.Db;
+using Cody.Db.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace Cody.Security.Validation
 
         protected virtual void MaybeReject(UserAccount user)
         {
-            _rejectReasons = user.MaybeReject().ToList();
+            _rejectReasons = new List<string>();
         }
     }
 }
