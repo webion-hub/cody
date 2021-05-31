@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CreateOrganizationContainer } from './components/create_organization_container';
 
 import { PageController } from 'src/lib/page_controller';
-import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
+import { OrganizationKindIcon } from 'src/components/icons/organization_kind_icon';
 import { TeamWork } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({

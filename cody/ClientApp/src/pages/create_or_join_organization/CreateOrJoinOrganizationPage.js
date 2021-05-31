@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
-import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
-import { TitleInfoContentBase } from 'src/components/bases/title_info_content_base/title_info_content_base';
+import { BackgroundWithLines } from 'src/components/others/background_with_lines/background_with_lines';
+import { CenterComponentPageBase } from 'src/components/bases/layouts/center_component_page_base';
+import { TitleInfoContentBase } from 'src/components/bases/papers/title_info_content_base/title_info_content_base';
 
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { useContentByHash } from './lib/use_content_by_hash';
 import { HashController } from '../../lib/hash_controller';

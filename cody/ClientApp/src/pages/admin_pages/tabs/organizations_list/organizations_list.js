@@ -2,8 +2,8 @@ import { DataTableBase } from 'src/pages/admin_pages/components/data_table_base'
 import { Organizations } from 'src/lib/server_calls/organizations';
 import { getDeletedIcon } from 'src/pages/admin_pages/lib/get_deleted_icon';
 import { getVerificationIcon } from 'src/pages/admin_pages/lib/get_verification_icon';
-import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
-import { CustomAvatar } from 'src/components/custom_avatar';
+import { OrganizationKindIcon } from 'src/components/icons/organization_kind_icon';
+import { CustomAvatar } from 'src/components/avatars/custom_avatar';
 import { AdminOrganizationMenu } from './admin_organization_menu';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
 

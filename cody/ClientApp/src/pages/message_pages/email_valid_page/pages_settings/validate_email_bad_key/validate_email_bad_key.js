@@ -1,7 +1,7 @@
 import React from 'react';
-import { lazyLoader } from 'src/components/lazy_loader';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 
 const ValidateEmailBadKeyLogged = lazyLoader(() => import('./validate_email_bad_key_logged/validate_email_bad_key_is_logged'))
 const ValidateEmailBadKeyNotLogged = lazyLoader(() => import('./validate_email_bad_key_is_not_logged'))

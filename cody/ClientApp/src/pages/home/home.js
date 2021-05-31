@@ -4,7 +4,7 @@ import { useSpring } from 'react-spring'
 import { MainTextBox } from './components/main_text_box';
 import { DynamicSearchBar } from './components/dynamic_searchbar';
 import { AnimatedCoding } from 'src/components/illustrations/animated_coding/animated_coding';
-import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
+import { BackgroundWithLines } from 'src/components/others/background_with_lines/background_with_lines';
 
 import { makeStyles } from '@material-ui/core/styles';
 

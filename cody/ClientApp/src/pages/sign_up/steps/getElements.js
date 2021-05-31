@@ -1,4 +1,4 @@
-import { lazyLoader } from 'src/components/lazy_loader';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 import { FormatController } from 'src/lib/format_controller/format_controller';
 
 const EmailPassword = lazyLoader(() => import('./email_password_step'))

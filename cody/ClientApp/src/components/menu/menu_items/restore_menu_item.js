@@ -1,7 +1,7 @@
 import React from 'react';
 
 import RestoreRoundedIcon from '@material-ui/icons/RestoreRounded';
-import { MenuItemBase } from 'src/components/menu/menu_items/menu_item_base';
+import { MenuItemBase } from 'src/components/bases/items/menu_item_base';
 
 export const RestoreMenuItem = React.forwardRef((props, ref) => {
   const {

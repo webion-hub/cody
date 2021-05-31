@@ -3,12 +3,12 @@ import { Typography } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { BasePhotoText } from 'src/components/bases/base_photo_text'
+import { BasePhotoText } from 'src/components/bases/layouts/base_photo_text'
 import { NextFocus } from 'src/lib/next_focus';
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 
-import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
-import { DatePickerWithErrors } from 'src/components/pickers/text_fields/date_pickers/date_picker_with_errors';
+import { PickerWithErrorAndLabel } from 'src/components/textfields/picker_with_error_and_label';
+import { DatePickerWithErrors } from 'src/components/textfields/date_pickers/date_picker_with_errors';
 import { Step2 } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({

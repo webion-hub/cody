@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
+import { OrganizationKindIcon } from 'src/components/icons/organization_kind_icon';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
 export const FilterComponent = React.forwardRef((props, ref) => {

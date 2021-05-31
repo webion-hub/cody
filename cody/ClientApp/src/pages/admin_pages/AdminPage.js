@@ -1,12 +1,12 @@
-import { lazyLoader } from 'src/components/lazy_loader';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Tabs } from '@material-ui/core';
 import { Tab } from '@material-ui/core';
 
-import { UserContext } from "src/components/user_controller_context/user_controller_context";
-import { TabContent } from "src/components/tab_content";
+import { UserContext } from "src/components/global_contexts/user_controller_context/user_controller_context";
+import { TabContent } from "src/components/bases/layouts/tab_content";
 
 import { PageController } from 'src/lib/page_controller';
 

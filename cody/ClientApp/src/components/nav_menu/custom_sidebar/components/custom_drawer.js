@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 import { PageController } from 'src/lib/page_controller';
 import { getDrawerContent } from '../lib/get_drawer_content';
 

@@ -6,9 +6,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { Images } from 'src/lib/default_values/images/images';
 
-import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
+import { CenterComponentPageBase } from 'src/components/bases/layouts/center_component_page_base';
 import { PageController } from 'src/lib/page_controller';
-import { PaperWithWaves } from 'src/components/paper_with_waves';
+import { PaperWithWaves } from 'src/components/bases/papers/paper_with_waves';
 import LoginBox from './components/login_box';
 import { Color } from 'src/lib/color/color';
 

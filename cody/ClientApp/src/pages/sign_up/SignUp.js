@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 
-import { DialogBase } from 'src/components/bases/dialog_base';
-import { CustomStepper } from 'src/components/stepper/custom_stepper/custom_stepper';
-import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { CustomStepper } from 'src/components/bases/others/custom_stepper/custom_stepper';
+import { CenterComponentPageBase } from 'src/components/bases/layouts/center_component_page_base';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 import { SignUpAlertError } from './components/sign_up_alert_error';
 
 import { dataDefault, noErrors } from './default_values/default_values';

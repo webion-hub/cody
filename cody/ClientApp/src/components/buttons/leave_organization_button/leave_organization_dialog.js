@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 
-import { DialogBase } from 'src/components/bases/dialog_base';
+import { DialogBase } from 'src/components/bases/others/dialog_base';
 import { LoadingButton } from 'src/components/buttons/loading_button';
 
 const useStyles = makeStyles((theme) => ({

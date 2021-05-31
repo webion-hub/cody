@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useMediaQuery, useTheme } from '@material-ui/core'
 
-import { DialogBase } from "src/components/bases/dialog_base";
-import { lazyLoader } from 'src/components/lazy_loader';
+import { DialogBase } from "src/components/bases/others/dialog_base";
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 
 const CreateCourse = lazyLoader(() => import('./create_course'))
 

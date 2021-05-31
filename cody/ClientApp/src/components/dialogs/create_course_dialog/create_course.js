@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Box } from '@material-ui/core'
 
-import { CustomStepper } from "src/components/stepper/custom_stepper/custom_stepper";
+import { CustomStepper } from "src/components/bases/others/custom_stepper/custom_stepper";
 import { FormatController } from 'src/lib/format_controller/format_controller';
-import { lazyLoader } from 'src/components/lazy_loader';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
 import Organization from 'src/lib/server_calls/organization';
 import { PageController } from 'src/lib/page_controller';

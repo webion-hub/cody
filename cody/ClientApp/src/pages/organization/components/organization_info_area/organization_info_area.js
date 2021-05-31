@@ -1,6 +1,6 @@
 import React from "react";
-import { BookmarkIconButton } from "src/components/bookmark_icon_button";
-import InfoArea from "src/components/info/info_area";
+import { BookmarkIconButton } from "src/components/icon_buttons/bookmark_icon_button";
+import InfoArea from "src/components/bases/informations/info_area/info_area";
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
 import JoinOrganization from "src/pages/create_or_join_organization/pages/join/join_organization";

@@ -14,9 +14,9 @@ import { AddLocation } from './add_location';
 import { prepareData } from '../../lib/prepare_data';
 import { CreateOrganizationContainer } from '../create_organization_container';
 import { PageController } from 'src/lib/page_controller';
-import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
-import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
-import { DescriptionTextField } from 'src/components/pickers/text_fields/types/description_text_field';
+import { AvatarAddPhoto } from 'src/components/avatars/avatar_add_photo';
+import { PickerWithErrorAndLabel } from 'src/components/textfields/picker_with_error_and_label';
+import { DescriptionTextField } from 'src/components/textfields/description_text_field';
 
 const useStyles = makeStyles((theme) => ({
   fields: {

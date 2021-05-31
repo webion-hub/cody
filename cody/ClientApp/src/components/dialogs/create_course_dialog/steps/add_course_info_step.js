@@ -2,12 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography';
 
-import { BasePhotoText } from "src/components/bases/base_photo_text";
+import { BasePhotoText } from "src/components/bases/layouts/base_photo_text";
 
-import { DescriptionTextField } from "src/components/pickers/text_fields/types/description_text_field";
+import { DescriptionTextField } from "src/components/textfields/description_text_field";
 import { School } from "src/components/illustrations/illustrations/illustrations";
 import { NextFocus } from 'src/lib/next_focus';
-import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
+import { PickerWithErrorAndLabel } from 'src/components/textfields/picker_with_error_and_label';
 
 const useStyles = makeStyles((theme) => ({
   description: {

@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import Typography from '@material-ui/core/Typography';
 
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
-import { CustomScrollContainer } from "src/components/custom_scroll_container/custom_scroll_container";
+import { CustomScrollContainer } from "src/components/overflows/custom_scroll_container/custom_scroll_container";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
 import { useListener } from "src/lib/hooks/use_listener";
-import { AvatarWithOverlayAndLabel } from "src/components/avatar_with_overlay_and_label";
-import { UserListItemWithCheckBox } from "src/components/list_items/user_list_items/user_list_item_with_checkbox";
+import { AvatarWithOverlayAndLabel } from "src/components/avatars/avatar_with_overlay_and_label";
+import { UserListItemWithCheckBox } from "src/components/lists/list_items/user_list_items/user_list_item_with_checkbox";
 import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
 import { makeStyles } from '@material-ui/core/styles';
 import { Fade, Grid } from "@material-ui/core";

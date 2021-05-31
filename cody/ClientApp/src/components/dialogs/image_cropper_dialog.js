@@ -7,7 +7,7 @@ import { Slider } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
 
-import { DialogBase } from 'src/components/bases/dialog_base';
+import { DialogBase } from 'src/components/bases/others/dialog_base';
 
 const ResponsiveBox = withStyles((theme) => ({
   root: {

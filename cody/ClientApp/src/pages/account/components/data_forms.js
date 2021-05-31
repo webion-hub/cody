@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Grid, Typography, Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { EditableCustomTextField } from 'src/components/pickers/text_fields/editable_text_fields/editable_custom_textfield'
-import { EditableDatePicker } from 'src/components/pickers/text_fields/editable_text_fields/editable_date_picker';
-import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
+import { EditableCustomTextField } from 'src/components/textfields/editable_text_fields/editable_custom_textfield'
+import { EditableDatePicker } from 'src/components/textfields/editable_text_fields/editable_date_picker';
+import { PickerWithErrorAndLabel } from 'src/components/textfields/picker_with_error_and_label';
 
 
 const useStyles = makeStyles((theme) => ({

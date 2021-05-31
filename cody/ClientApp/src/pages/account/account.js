@@ -7,15 +7,15 @@ import { DataForms } from './components/data_forms';
 import { useAccountStyles } from './styles/account_styles';
 import { nullData, noErrors } from './default_values/default_states';
 
-import { AlertDialog } from 'src/components/dialogs/alert_dialog';
-import { BackgroundWithLines } from 'src/components/background_with_lines/background_with_lines';
+import { AlertDialog } from 'src/components/dialogs/alert_dialog/alert_dialog';
+import { BackgroundWithLines } from 'src/components/others/background_with_lines/background_with_lines';
 
 import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
-import { PaperWithWaves } from 'src/components/paper_with_waves';
+import { PaperWithWaves } from 'src/components/bases/papers/paper_with_waves';
 
 import { getUserAllData } from './lib/get_user_all_data';
 import { trySave } from './lib/try_save';
-import { CenterComponentPageBase } from 'src/components/bases/center_component_page_base';
+import { CenterComponentPageBase } from 'src/components/bases/layouts/center_component_page_base';
 
 export default function Account(){
 	const classes = useAccountStyles();

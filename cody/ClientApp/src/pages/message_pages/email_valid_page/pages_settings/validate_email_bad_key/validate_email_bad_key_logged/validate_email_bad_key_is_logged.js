@@ -1,7 +1,7 @@
 import React from 'react';
 import { Error } from 'src/components/illustrations/illustrations/illustrations';
 import { User } from 'src/lib/server_calls/user';
-import { MessagePageBase } from 'src/components/bases/message_page_base';
+import { MessagePageBase } from 'src/components/bases/layouts/message_page_base';
 import ValidateEmailBadKeyDialog from './components/validate_email_bad_key_dialog';
 
 export default function ValidateEmailBadKeyLogged(){

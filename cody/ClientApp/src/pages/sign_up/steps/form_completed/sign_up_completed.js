@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import { Form } from 'src/lib/default_values/sizes/form_size';
 import { RocketLaunch } from 'src/components/illustrations/illustrations/illustrations';
 import { useMobileView } from 'src/lib/hooks/use_mobile_view';
-import { DialogBase } from 'src/components/bases/dialog_base';
+import { DialogBase } from 'src/components/bases/others/dialog_base';
 
 
 const useStyles = makeStyles((theme) => ({

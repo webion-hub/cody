@@ -1,12 +1,11 @@
 import React from "react";
-import { DialogBase } from "src/components/bases/dialog_base";
+import { DialogBase } from "src/components/bases/others/dialog_base";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
-import { EventsDispatcher } from "src/lib/events_dispatcher";
-import { UserSmallSummaryDialog } from "src/components/user_summaries/user_small_summary_dialog";
+import { UserSmallSummaryDialog } from "src/components/dialogs/user_small_summary_dialog";
 import { UserSummaryCardWithImageTransition } from "src/components/user_summaries/user_summary_card_with_image_transition";
-import { UserListItemWithShowMore } from "src/components/list_items/user_list_items/user_list_item_with_showmore";
+import { UserListItemWithShowMore } from "src/components/lists/list_items/user_list_items/user_list_item_with_showmore";
 import { ListWithActiveIds } from "src/components/lists/list_with_active_ids";
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
 

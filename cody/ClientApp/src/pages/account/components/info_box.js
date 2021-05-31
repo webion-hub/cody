@@ -9,9 +9,9 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import { Skeleton } from '@material-ui/lab';
 
-import { EditableBiography } from 'src/components/pickers/text_fields/editable_text_fields/editable_biography';
+import { EditableBiography } from 'src/components/textfields/editable_text_fields/editable_biography';
 import { useGetSize } from 'src/lib/hooks/use_get_size';
-import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
+import { AvatarAddPhoto } from 'src/components/avatars/avatar_add_photo';
 import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({

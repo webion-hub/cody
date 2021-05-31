@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { OrganizationContext } from "../organization_controller_context";
-import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_photo_base";
-import { CustomImg } from "src/components/custom_img";
+import { AddOrganizationPhotoBase } from "src/components/bases/others/add_organization_photo_base";
+import { CustomImg } from "src/components/images/custom_img";
 
 const useStyles = makeStyles((theme) => ({
   backgroundImage: props => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BookmarkOrganizationListItem } from 'src/components/list_items/bookmark_organization_list_item';
+import { BookmarkOrganizationListItem } from 'src/components/lists/list_items/bookmark_organization_list_item';
 
 import { getJoinedOrganizations } from './lib/get_joined_organizations';
 import { ListWithSearch } from 'src/components/lists/list_with_search/list_with_search';

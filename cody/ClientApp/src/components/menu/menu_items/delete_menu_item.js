@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
-import { MenuItemBase } from 'src/components/menu/menu_items/menu_item_base';
+import { MenuItemBase } from 'src/components/bases/items/menu_item_base';
 
 export const DeleteMenuItem = React.forwardRef((props, ref) => {
   const {

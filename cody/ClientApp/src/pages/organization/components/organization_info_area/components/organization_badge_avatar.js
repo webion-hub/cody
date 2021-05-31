@@ -1,11 +1,11 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Badge, useTheme } from "@material-ui/core";
-import { OrganizationKindIcon } from "src/components/organization_kind_icon";
-import { CustomAvatar } from "src/components/custom_avatar";
+import { OrganizationKindIcon } from "src/components/icons/organization_kind_icon";
+import { CustomAvatar } from "src/components/avatars/custom_avatar";
 
 import { Skeleton } from "@material-ui/lab";
-import { AddOrganizationPhotoBase } from "src/components/bases/add_organization_photo_base";
+import { AddOrganizationPhotoBase } from "src/components/bases/others/add_organization_photo_base";
 import { OrganizationContext } from "src/pages/organization/organization_controller_context";
 
 const useStyles = makeStyles((theme) => ({

@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { Fade, Grid, LinearProgress } from "@material-ui/core";
 
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
-import { SearchBarWithPageController } from "src/components/pickers/search_bars/search_bar_with_page_controller/search_bar_with_page_controller";
+import { SearchBarWithPageController } from "src/components/textfields/search_bars/search_bar_with_page_controller/search_bar_with_page_controller";
 import { usePageController } from "src/lib/hooks/use_page_controller";
 
 const useStyles = makeStyles((theme) => ({

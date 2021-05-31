@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import BrightnessMediumRoundedIcon from '@material-ui/icons/BrightnessMediumRounded';
 
-import { ThemeContextConsumer } from 'src/components/theme_context'
+import { ThemeContextConsumer } from 'src/components/global_contexts/theme_context'
 
 const useStyles = makeStyles((theme) => ({
 	sideBarList: {

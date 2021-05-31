@@ -8,10 +8,10 @@ import { Checkbox } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 
-import { BasePhotoText } from 'src/components/bases/base_photo_text'
+import { BasePhotoText } from 'src/components/bases/layouts/base_photo_text'
 
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
-import { AvatarAddPhoto } from 'src/components/pickers/others/avatar_add_photo';
+import { AvatarAddPhoto } from 'src/components/avatars/avatar_add_photo';
 import { Step3 } from 'src/components/illustrations/illustrations/illustrations';
 
 const useStyles = makeStyles((theme) => ({

@@ -5,7 +5,7 @@ import { SideBarThemeIcon } from './items/sidebar_theme_icon';
 import { SideBarOrganizationList } from './items/sidebar_ogranizations_list/sidebar_organizations_list';
 import { SideBarOrganizationListDrawerContent } from './items/sidebar_ogranizations_list/drawer_content/sidebar_organizations_list_drawer_content';
 
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 import { SideBarCreateOrJoinOrganizationIcon } from './items/sidebar_create_or_join_organization_icon';
 
 

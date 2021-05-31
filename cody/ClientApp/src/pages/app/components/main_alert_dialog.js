@@ -1,7 +1,7 @@
 import React from 'react';
 import Requests from 'src/lib/server_calls/requests';
 
-import { AlertDialog } from 'src/components/dialogs/alert_dialog';
+import { AlertDialog } from 'src/components/dialogs/alert_dialog/alert_dialog';
 import { PageController } from 'src/lib/page_controller';
 
 import PanToolRoundedIcon from '@material-ui/icons/PanToolRounded';
@@ -13,7 +13,7 @@ import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutli
 
 
 import FindInPageRoundedIcon from '@material-ui/icons/FindInPageRounded';
-import { AlertDialogItem } from 'src/components/alert_dialog_item'
+import { AlertDialogItem } from 'src/components/dialogs/alert_dialog/alert_dialog_item'
 
 import { Error, Error404, NetworkError, Sad } from 'src/components/illustrations/illustrations/illustrations';
 

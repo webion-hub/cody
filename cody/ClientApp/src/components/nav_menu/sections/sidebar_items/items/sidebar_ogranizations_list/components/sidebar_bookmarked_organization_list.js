@@ -1,11 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { CustomAvatar } from 'src/components/custom_avatar';
+import { CustomAvatar } from 'src/components/avatars/custom_avatar';
 
-import { OrganizationListItemBase } from 'src/components/list_items/organization_list_item_base';
-import { OrganizationKindIcon } from 'src/components/organization_kind_icon';
+import { OrganizationListItemBase } from 'src/components/bases/items/organization_list_item_base';
+import { OrganizationKindIcon } from 'src/components/icons/organization_kind_icon';
 import { Grid, Tooltip, Typography } from '@material-ui/core';
 import OrganizationImages from 'src/lib/server_calls/organization_images';
-import { CustomFade } from 'src/components/custom_fade';
+import { CustomFade } from 'src/components/utilities/custom_fade';
 
 
 const useStyles = makeStyles((theme) => ({

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import { UserSummaryCard } from "src/components/user_summaries/user_summary_card";
 import { UserGroup } from "src/components/illustrations/illustrations/illustrations";
-import { CustomFade } from "src/components/custom_fade";
+import { CustomFade } from "src/components/utilities/custom_fade";
 
 const useStyles = makeStyles((theme) => ({
   image: {

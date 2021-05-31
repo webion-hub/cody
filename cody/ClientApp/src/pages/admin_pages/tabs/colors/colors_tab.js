@@ -1,7 +1,7 @@
 import { Grid, Typography, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import SnackbarAlert from 'src/components/snackbar_alert';
+import SnackbarAlert from 'src/components/snackbars/snackbar_alert';
 import { Color } from 'src/lib/color/color';
 
 export default function ColorsTab() {

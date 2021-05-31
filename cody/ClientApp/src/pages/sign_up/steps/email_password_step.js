@@ -1,14 +1,14 @@
 
 import { Typography } from '@material-ui/core';
 
-import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
-import { BasePhotoText } from 'src/components/bases/base_photo_text';
+import { Password } from 'src/components/textfields/password';
+import { BasePhotoText } from 'src/components/bases/layouts/base_photo_text';
 import { NextFocus } from 'src/lib/next_focus';
 import { FormatLengthController } from 'src/lib/format_controller/utilities/format_length_controller'
 
-import { PickerWithErrorAndLabel } from 'src/components/pickers/picker_with_error_and_label';
-import { TextFieldWrappedWithForm } from 'src/components/pickers/text_fields/text_field_wrapped_with_form';
-import { PasswordWithStrength } from 'src/components/pickers/text_fields/types/password/password_with_strength';
+import { PickerWithErrorAndLabel } from 'src/components/textfields/picker_with_error_and_label';
+import { TextFieldWrappedWithForm } from 'src/components/textfields/text_field_wrapped_with_form';
+import { PasswordWithStrength } from 'src/components/textfields/password_with_strength/password_with_strength';
 import { Step1 } from 'src/components/illustrations/illustrations/illustrations';
 
 

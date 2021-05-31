@@ -8,16 +8,16 @@ import { FormControlLabel } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Password } from 'src/components/pickers/text_fields/types/password/password_textfield';
+import { Password } from 'src/components/textfields/password';
 import { LoadingButton } from 'src/components/buttons/loading_button';
 import  { ForgotPasswordDialog } from './forgot_pw_dialog'
-import { BasePhotoText } from 'src/components/bases/base_photo_text';
+import { BasePhotoText } from 'src/components/bases/layouts/base_photo_text';
 
 import { NextFocus } from 'src/lib/next_focus';
 
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 import { User } from 'src/lib/server_calls/user';
 import { Authentication } from 'src/components/illustrations/illustrations/illustrations';
 

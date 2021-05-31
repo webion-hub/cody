@@ -8,7 +8,7 @@ import { Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';
-import { DialogBase } from 'src/components/bases/dialog_base';
+import { DialogBase } from 'src/components/bases/others/dialog_base';
 import { EmailController } from 'src/lib/format_controller/controllers/email_controller';
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 
-import { AlertDialog } from 'src/components/dialogs/alert_dialog';
+import { AlertDialog } from 'src/components/dialogs/alert_dialog/alert_dialog';
 import { PageController } from 'src/lib/page_controller';
 
 export function SignUpAlertError(props){

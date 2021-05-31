@@ -4,7 +4,7 @@ import Organization from "src/lib/server_calls/organization";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
 import { useListener } from "src/lib/hooks/use_listener";
 import { User } from "src/lib/server_calls/user";
-import { UserContext } from "src/components/user_controller_context/user_controller_context";
+import { UserContext } from "src/components/global_contexts/user_controller_context/user_controller_context";
 
 export const OrganizationContext = React.createContext({
 	organizationData: null,

@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SearchBarWithPageController } from 'src/components/pickers/search_bars/search_bar_with_page_controller/search_bar_with_page_controller';
+import { SearchBarWithPageController } from 'src/components/textfields/search_bars/search_bar_with_page_controller/search_bar_with_page_controller';
 
 const useStyles = makeStyles((theme) => ({
 	titleContainer: {

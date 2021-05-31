@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, ButtonGroup } from '@material-ui/core';
-import { DialogBase } from 'src/components/bases/dialog_base';
+import { DialogBase } from 'src/components/bases/others/dialog_base';
 import { PageController } from 'src/lib/page_controller';
-import { lazyLoader } from '../lazy_loader';
+import { lazyLoader } from '../utilities/lazy_loader';
 
 const LoginBox = lazyLoader(() => import('src/pages/login/components/login_box'))
 

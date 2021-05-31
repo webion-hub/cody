@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
-import { CustomAvatar } from "src/components/custom_avatar";
+import { CustomAvatar } from "src/components/avatars/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
 
-import { UserRoleLabel } from "src/components/user_role_label";
+import { UserRoleLabel } from "src/components/typography/user_role_label";
 import { UserSettingsMenu } from "src/components/menu/menus/user_settings_menu";
 import { PageController } from "src/lib/page_controller";
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";

@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItemBase } from "src/components/menu/menu_items/menu_item_base";
+import { MenuItemBase } from "src/components/bases/items/menu_item_base";
 
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import { LeaveOrganizationButton } from "src/components/buttons/leave_organization_button/leave_organization_button";

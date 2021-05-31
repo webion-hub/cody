@@ -1,4 +1,4 @@
-import { DialogBase } from 'src/components/bases/dialog_base';
+import { DialogBase } from 'src/components/bases/others/dialog_base';
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 

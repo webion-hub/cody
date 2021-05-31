@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 
 import { Grid } from "@material-ui/core";
-import TooltipLink from 'src/components/typography/tooltip_link';
+import TooltipAvatarLink from 'src/components/avatars/tooltip_avatar_link';
 import { Color } from 'src/lib/color/color';
 
 const useStyles = makeStyles((theme) => ({
@@ -96,7 +96,7 @@ export function CourseAccordionSummary(props){
             {teachers.map((teacher, index) => 
               <>
                 {index !== 0 ? ", " : ""}
-                <TooltipLink
+                <TooltipAvatarLink
                   user={teacher}
                 />
               </>

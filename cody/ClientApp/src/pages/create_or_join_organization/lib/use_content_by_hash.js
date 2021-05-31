@@ -1,4 +1,4 @@
-import { lazyLoader } from 'src/components/lazy_loader';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 
 import { selectActionSettings } from 'src/pages/create_or_join_organization/pages/select_action/select_action';
 import { createOrganizationSettings } from 'src/pages/create_or_join_organization/pages/create/create_organization';

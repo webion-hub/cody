@@ -1,12 +1,12 @@
 import React, { Suspense } from 'react';
 import { Router, Switch} from 'react-router-dom';
 
-import { UserContext } from "src/components/user_controller_context/user_controller_context";
-import { CustomRoute } from "src/components/route_components/custom_route";
+import { UserContext } from "src/components/global_contexts/user_controller_context/user_controller_context";
+import { CustomRoute } from "src/components/utilities/custom_route";
 
 import history from 'src/history';
 import Requests from 'src/lib/server_calls/requests';
-import { lazyLoader } from 'src/components/lazy_loader';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
 
 const Login = lazyLoader(() => import('src/pages/login/login'));
 const SignUp = lazyLoader(() => import('src/pages/sign_up/SignUp'));

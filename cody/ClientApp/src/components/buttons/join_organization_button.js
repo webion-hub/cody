@@ -2,10 +2,10 @@ import React from 'react';
 import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
 import { LoadingButton } from 'src/components/buttons/loading_button';
-import { LoadingIconButton } from 'src/components/buttons/loading_icon_button';
+import { LoadingIconButton } from 'src/components/icon_buttons/loading_icon_button';
 import { User } from 'src/lib/server_calls/user';
 import { EventsDispatcher } from 'src/lib/events_dispatcher';
-import { UserContext } from '../user_controller_context/user_controller_context';
+import { UserContext } from '../global_contexts/user_controller_context/user_controller_context';
 
 export function JoinOrganizationButton(props){
   const { userState } = React.useContext(UserContext)

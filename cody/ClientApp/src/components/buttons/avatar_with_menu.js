@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonBase, Menu } from "@material-ui/core";
-import { CustomAvatar } from "src/components/custom_avatar";
+import { CustomAvatar } from "src/components/avatars/custom_avatar";
 import { makeStyles } from '@material-ui/core/styles';
 import { useBackgroundWaves } from "src/lib/hooks/use_background_waves";
 import { useMenu } from "src/lib/hooks/use_menu";

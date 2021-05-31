@@ -1,19 +1,19 @@
 import { useParams } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { MultipleSectionsBase } from 'src/components/bases/multiple_sections_base';
+import { MultipleSectionsBase } from 'src/components/bases/layouts/multiple_sections_base';
 import React, { useEffect } from "react";
 import Organization from "src/lib/server_calls/organization";
-import InfoArea from "src/components/info/info_area";
-import CustomTreeView from "src/components/custom_treeview";
+import InfoArea from "src/components/bases/informations/info_area/info_area";
+import CustomTreeView from "src/components/others/custom_treeview";
 import Editor from "@monaco-editor/react";
-import { TabContent } from "src/components/tab_content";
+import { TabContent } from "src/components/bases/layouts/tab_content";
 
-import TooltipLink from "src/components/typography/tooltip_link";
+import TooltipAvatarLink from "src/components/avatars/tooltip_avatar_link";
 import { IconButton, Tab, Tabs, Tooltip, useTheme } from "@material-ui/core";
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { PageController } from "src/lib/page_controller";
-import { BackgroundWithLines } from "src/components/background_with_lines/background_with_lines";
+import { BackgroundWithLines } from "src/components/others/background_with_lines/background_with_lines";
 import { ListWithPages } from "src/components/lists/list_with_pages";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +58,7 @@ export default function Course(){
               subTitle: courseData?.teachers?.map((teacher, index) => 
                 <>
                   {index !== 0 ? ", " : "Professori: "}
-                  <TooltipLink
+                  <TooltipAvatarLink
                     user={teacher}
                   />
                 </>

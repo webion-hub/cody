@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { lazyLoader } from 'src/components/lazy_loader';
-import { UserContext } from 'src/components/user_controller_context/user_controller_context';
+import { lazyLoader } from 'src/components/utilities/lazy_loader';
+import { UserContext } from 'src/components/global_contexts/user_controller_context/user_controller_context';
 import { HashController } from 'src/lib/hash_controller';
 
 const Error404Page = lazyLoader(() => import('../Error404Page'))
