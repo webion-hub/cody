@@ -10,7 +10,7 @@ import { nullData, noErrors } from './default_values/default_states';
 import { AlertDialog } from 'src/components/dialogs/alert_dialog/alert_dialog';
 import { BackgroundWithLines } from 'src/components/others/background_with_lines/background_with_lines';
 
-import { profileImage } from 'src/lib/default_values/profile_constants/profile_image';
+import { ProfilePicture } from 'src/lib/server_calls/profile_picture';
 import { PaperWithWaves } from 'src/components/bases/papers/paper_with_waves';
 
 import { getUserAllData } from './lib/get_user_all_data';
@@ -29,7 +29,7 @@ export default function Account(){
   const accountIsEdited = isEdited || isEditedImage;
 
   //Data & image
-  const oldImage = profileImage;
+  const oldImage = ProfilePicture.url``;
   const [image, setImage] = React.useState(oldImage);
   const [oldData, setOldData] = React.useState(nullData);
   const [data, setData] = React.useState(nullData);
