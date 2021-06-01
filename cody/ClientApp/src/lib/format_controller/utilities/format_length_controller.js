@@ -1,4 +1,4 @@
-import { formatLengths } from 'src/lib/default_values/profile_constants/format_lengths'
+import { formatLengths } from 'src/lib/format_controller/utilities/format_lengths'
 
 export class FormatLengthController{
   constructor(type){
@@ -12,27 +12,20 @@ export class FormatLengthController{
   }
 
   getLengths(type){
-    switch(type){
-      case "username":
-      case "generalName":
-        return formatLengths.usernameLength;
+    const length = {
+      'username':     formatLengths.usernameLength,
+      'generalName':  formatLengths.usernameLength,
+      'std':          formatLengths.stdLength,
+      'name':         formatLengths.stdLength,
+      'surname':      formatLengths.stdLength,
+      'location':     formatLengths.stdLength,
+      'website':      formatLengths.stdLength,
+      'email':        formatLengths.stdLength,
+      'password':     formatLengths.passwordLength,
+      'description':  formatLengths.descriptionLength
+    }[type]
 
-      case "std":
-      case "name":
-      case "surname":
-      case "location":
-      case "website":
-      case "email":
-        return formatLengths.stdLength;
-
-      case "password":
-        return formatLengths.passwordLength;
-      case "description":
-        return formatLengths.descriptionLength;
-      
-      default:
-        return;
-    }
+    return length
   }
 
   wrongFormat(value, {skippable}){
