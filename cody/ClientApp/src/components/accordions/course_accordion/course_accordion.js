@@ -51,7 +51,6 @@ export function CourseAccordion(props){
     >
       <Accordion
         expanded={expand}
-        key={index}
         elevation={0}
         className={classes.accordion}
         onClick={e => {
@@ -65,7 +64,6 @@ export function CourseAccordion(props){
         }}
       >
         <CourseAccordionSummary
-          id={id}
           title={title}
           teachers={teachers}
           expanded={expand}
