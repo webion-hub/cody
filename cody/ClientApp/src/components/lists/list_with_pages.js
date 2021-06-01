@@ -30,7 +30,8 @@ export function ListWithPages(props){
     getData,
     listItem: ListItem,
     title,
-    notFoundMessage
+    notFoundMessage,
+    rightIcon,
   } = props
 
 	const pageController = usePageController({
@@ -43,7 +44,6 @@ export function ListWithPages(props){
 		back,
 		handleChange,
 		loading,
-    rightIcon,
 		dataList
 	} = pageController
 
