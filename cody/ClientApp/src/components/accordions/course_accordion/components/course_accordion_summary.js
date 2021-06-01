@@ -8,6 +8,7 @@ import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import { Grid } from "@material-ui/core";
 import TooltipAvatarLink from 'src/components/avatars/tooltip_avatar_link';
 import { Color } from 'src/lib/color/color';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   sumamry: {
@@ -94,12 +95,12 @@ export function CourseAccordionSummary(props){
             noWrap
           >
             {teachers.map((teacher, index) => 
-              <>
+              <React.Fragment key={index}>
                 {index !== 0 ? ", " : ""}
                 <TooltipAvatarLink
                   user={teacher}
                 />
-              </>
+              </React.Fragment>
             )}
           </Typography>
         </Grid>
