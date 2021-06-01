@@ -18,10 +18,10 @@ export default function TooltipAvatarLink({user}){
             alt={user.username}
             src={ProfilePicture.url`/${user.id}`}
           />
-          <Typography variant="capiton">
+          <Typography variant="caption">
             {user.name}
           </Typography>
-          <Typography variant="capiton">
+          <Typography variant="caption">
             {user.surname}
           </Typography>
         </Grid>
