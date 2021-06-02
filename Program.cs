@@ -32,8 +32,13 @@ namespace Cody
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://0.0.0.0:443");
+                    webBuilder
+                        .UseStartup<Startup>()
+                        .UseUrls("https://127.0.0.1:5000")
+                        .ConfigureKestrel(options =>
+                        {
+                            options.AddServerHeader = false;
+                        });
                 });
         }
     }

@@ -10,14 +10,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Cody.Security.Authorization;
 using Cody.Services.Sftp;
-using Cody.Security.Authentication;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using Cody.Services;
 using Cody.Security.Authentication.Cookies;
 using Cody.Db.Bags;
-using Cody.Db;
 
 namespace Cody
 {
@@ -134,11 +129,11 @@ namespace Cody
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-                
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseReactDevelopmentServer(npmScript: "start");
+                //}
             });
 
             sftp.Connect();
