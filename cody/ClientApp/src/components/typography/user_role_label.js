@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserRoleLabel({role, yTranslate, ...other}){
 	const classes = useStyles({yTranslate});
+  
+  if(!role)
+    return null
 
   const getLabel = () => {
     const labels = {
