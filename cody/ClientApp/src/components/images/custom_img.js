@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   circularProgress: {
@@ -62,9 +63,11 @@ export function CustomImg(props){
           display: isLoading ? "block" : "none"
         }}
       >
-        <div className={classes.circularProgress}>
-          <CircularProgress/>
-        </div>
+        <Skeleton
+          animation="wave"
+          variant="rect" 
+          height="100%"
+        />
       </div>
       <img
         style={{
