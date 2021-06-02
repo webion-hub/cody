@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function CourseAccordion(props){
 	const classes = useStyles();
-  const [expand, setExpand] = React.useState(false)
 
   const {
     data,
@@ -50,13 +49,8 @@ export function CourseAccordion(props){
       timeout={400*(index + 1)}
     >
       <Accordion
-        expanded={expand}
         elevation={0}
         className={classes.accordion}
-        onClick={e => {
-          e.stopPropagation()
-          PageController.push(`${window.location.pathname}/course/${id}`, e)
-        }}
         classes={{
           root: isFirst 
             ? classes.hideLine 
@@ -64,16 +58,13 @@ export function CourseAccordion(props){
         }}
       >
         <CourseAccordionSummary
+          id={id}
           title={title}
           teachers={teachers}
-          expanded={expand}
-          onExpand={_ => setExpand(!expand)}
         />
-        <AccordionDetails>
-          <CourseAccordionDetails
-            description={description}
-          />
-        </AccordionDetails>
+        <CourseAccordionDetails
+          description={description}
+        />
       </Accordion>
     </Grow>
   )

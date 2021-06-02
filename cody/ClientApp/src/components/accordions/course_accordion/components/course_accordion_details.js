@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, AccordionActions, AccordionDetails } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   lessonButton: {
@@ -22,28 +22,25 @@ export function CourseAccordionDetails(props){
   } = props
   
   return (
-    <Grid
-      container
-      direction="column"
-    >
-      <Typography>
-        {description.length === 0 ? "Nessuna descrizione." : description}
-      </Typography>
-      <Grid
-        className={classes.buttonContainer}
-        container
-        direction="row"
-        justify="flex-end"
-        alignItems="center"
-      >
+    <>
+      <AccordionDetails>
+        <Grid
+          container
+          direction="column"
+        >
+          <Typography>
+            {description.length === 0 ? "Nessuna descrizione." : description}
+          </Typography>
+        </Grid>
+      </AccordionDetails>
+      <AccordionActions>
         <Button
           className={classes.lessonButton}
           color="secondary"
-          variant="outlined"
         >
           Vai alla ultima lezione
         </Button>
-      </Grid>
-    </Grid>
+      </AccordionActions>
+    </>
   )
 }
