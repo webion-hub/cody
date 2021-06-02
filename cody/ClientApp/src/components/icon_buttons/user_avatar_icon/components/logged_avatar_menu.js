@@ -33,6 +33,7 @@ export function LoggedAvatarMenu(){
     handleOpenMenu,
     handleCloseMenu,
     isMenuOpen,
+    anchor
   } = useMenu()
 
   const { userState, setUserState } = React.useContext(UserContext);  
@@ -75,8 +76,8 @@ export function LoggedAvatarMenu(){
       </Tooltip>
       <Menu
         id="simple-menu"
-        anchorEl={isMenuOpen}
-        open={Boolean(isMenuOpen)}
+        anchorEl={anchor}
+        open={isMenuOpen}
         keepMounted
         onClose={handleCloseMenu}
       >

@@ -12,6 +12,7 @@ export function OrganizationSettingsMenu(props){
     handleOpenMenu,
     handleCloseMenu,
     isMenuOpen,
+    anchor
   } = useMenu()
 
   return (
@@ -24,8 +25,8 @@ export function OrganizationSettingsMenu(props){
         <MoreHorizRoundedIcon/>
       </IconButton>
       <MenuWithLoading
-        anchorEl={isMenuOpen}
-        open={Boolean(isMenuOpen)}
+        anchorEl={anchor}
+        open={isMenuOpen}
         onClose={handleCloseMenu}
       >
         <ReportMenuItem/>

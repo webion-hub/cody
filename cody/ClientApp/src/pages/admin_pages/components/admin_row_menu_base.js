@@ -8,6 +8,7 @@ export function AdminRowMenuBase(props){
 		children,
 		loading,
 		open,
+		anchorEl,
 		onMenuOpen,
 		onMenuClose,
 	} = props
@@ -20,10 +21,10 @@ export function AdminRowMenuBase(props){
 				<MoreVertRoundedIcon/>
 			</IconButton>
 			<MenuWithLoading
-				anchorEl={open}
+				anchorEl={anchorEl}
 				loading={loading}
 				keepMounted
-				open={Boolean(open)}
+				open={open}
 				onClose={onMenuClose}
 			>
 				{children}

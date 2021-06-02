@@ -4,16 +4,19 @@ export const useMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleOpenMenu = (e) => {
+    e.stopPropagation()
     setAnchorEl(e.currentTarget);
   }
   
-  const handleCloseMenu = () => {
+  const handleCloseMenu = (e) => {
+    e?.stopPropagation()
     setAnchorEl(null)
   }
 
   return {
     handleOpenMenu: handleOpenMenu,
     handleCloseMenu: handleCloseMenu,
-    isMenuOpen: anchorEl,
+    anchor: anchorEl,
+    isMenuOpen: Boolean(anchorEl),
   }
 }

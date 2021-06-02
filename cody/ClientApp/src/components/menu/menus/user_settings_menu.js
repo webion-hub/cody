@@ -23,6 +23,7 @@ export function UserSettingsMenu(props){
     handleOpenMenu,
     handleCloseMenu,
     isMenuOpen,
+    anchor
   } = useMenu()
 
   const user = handler.user(userId)
@@ -40,8 +41,8 @@ export function UserSettingsMenu(props){
       </IconButton>
       <MenuWithLoading
         loading={loading}
-        anchorEl={isMenuOpen}
-        open={Boolean(isMenuOpen)}
+        anchorEl={anchor}
+        open={isMenuOpen}
         onClose={handleCloseMenu}
         keepMounted
       >

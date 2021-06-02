@@ -21,6 +21,7 @@ export function AdminUserMenu(props) {
     handleOpenMenu,
     handleCloseMenu,
     isMenuOpen,
+		anchor
   } = useMenu()
 
 	const user = Admin.User.withId(id);
@@ -34,6 +35,7 @@ export function AdminUserMenu(props) {
 			loading={loading}
 			onMenuOpen={handleOpenMenu}
 			onMenuClose={handleCloseMenu}
+			anchorEl={anchor}
 			open={isMenuOpen}
 		>
 			<EditRoleMenuItem

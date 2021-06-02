@@ -20,6 +20,7 @@ export function AdminOrganizationMenu(props) {
     handleOpenMenu,
     handleCloseMenu,
     isMenuOpen,
+		anchor
   } = useMenu()
 
 	const organization = Organization.withId(id);
@@ -34,6 +35,7 @@ export function AdminOrganizationMenu(props) {
 			loading={loading}
 			onMenuOpen={handleOpenMenu}
 			onMenuClose={handleCloseMenu}
+			anchorEl={anchor}
 			open={isMenuOpen}
 		>
 			<VerifyOrganizationMenuItem
