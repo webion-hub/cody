@@ -1,20 +1,8 @@
 import React, { useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
+import { LinearProgress } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  circularProgress: {
-    display: "block",
-    position: "absolute",
-    transform: "translate(-50%, -50%)",
-    left: "50%",
-    top: "50%",
-  }
-}));
 
 export function CustomImg(props){
-	const classes = useStyles();
   const {
     loading, 
     className, 
@@ -23,8 +11,10 @@ export function CustomImg(props){
     onLoadEnd, 
     onError,
     onLoad,
+    height,
     ...imgProps
   } = props
+
   const [srcImage, setSrcImage] = React.useState(src)
   const [imageLoading, setImageLoading] = React.useState(true)
   
@@ -57,21 +47,11 @@ export function CustomImg(props){
 
   return (
     <>
-      <div
-        className={className}
-        style={{
-          display: isLoading ? "block" : "none"
-        }}
-      >
-        <Skeleton
-          animation="wave"
-          variant="rect" 
-          height="100%"
-        />
-      </div>
+      {isLoading && <LinearProgress color="secondary"/>}     
       <img
         style={{
-          display: isLoading ? "none" : "block"
+          height: isLoading ? 0 : height,
+          transition: "height 0.25s ease-in-out"
         }}
         onError={handleOnError}
         onLoad={handleOnLoad}
