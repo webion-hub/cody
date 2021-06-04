@@ -37,5 +37,6 @@ EventsDispatcher._emitter = new EventEmitter();
  *  'updateOrganizationMember' | 
  *  'updateBookmarkedOrganizations' |
  *  'openLoginDialog' |
+ *  'close-interactive-tooltips'
  * )} UIEvent
  */
