@@ -12,7 +12,7 @@ import { PageController } from 'src/lib/page_controller';
 import { UserSmallSummary } from 'src/components/user_summaries/user_small_summary';
 import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
-import { LinkMenu } from 'src/components/typography/link_menu';
+import { LinkWithTooltip } from 'src/components/tooltips/link_with_tooltip';
 import { MenuWithWaves } from 'src/components/menu/menus/menu_with_waves';
 
 const useStyles = makeStyles((theme) => ({
@@ -109,9 +109,10 @@ export function CourseAccordionSummary(props){
             {teachers.map((teacher, index) => 
               <React.Fragment key={index}>
                 {index !== 0 ? ", " : ""}
-                <LinkMenu
-                  MenuComponent={MenuWithWaves}
-                  menuContent={
+                <LinkWithTooltip
+                  href={`/user/${teacher.id}`}
+                  onClick={e => PageController.push(`/user/${teacher.id}` ,e)}
+                  title={
                     <UserSmallSummary
                       user={teacher}
                       callerIs={callerIs}
@@ -121,7 +122,7 @@ export function CourseAccordionSummary(props){
                   }
                 >
                   {teacher.username}
-                </LinkMenu>
+                </LinkWithTooltip>
               </React.Fragment>
             )}
           </Typography>

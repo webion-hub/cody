@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { AvatarWithMenu } from "../buttons/avatar_with_menu";
+import { AvatarWithTooltip } from "../buttons/avatar_with_tooltip";
 import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
+import { Box, Tooltip, Typography } from "@material-ui/core";
 
 const avatarGroupOpenHorizontal = {
   marginLeft: "8px !important",
@@ -87,7 +88,6 @@ export function CustomAvatarGroup(props){
     setOpen(state)
   }
 
-  const handleKeepOpen = () => setOpenRef("keepOpen")
   const handleForceClose = () => setOpenRef("close")
   const handleOpen = () => {
     if(openRef.current === "keepOpen")
@@ -116,37 +116,32 @@ export function CustomAvatarGroup(props){
 
 
   const avatars = avatarsProps
-    ?.map((avatarProps, index) => {
-      const {onClick, ...otherProps} = avatarProps
-
-      return (
-        <AvatarWithMenu
-          {...otherProps}
-          key={index}
-          style={{zIndex: numberOfAvatar - index}}
-          onClick={onClick}
-          onMenuOpen={handleKeepOpen}
-          onMenuClose={handleForceClose}
-          buttonClassName={`${classes.avatar} ${avatarSpacingClassName} ${getAvatarGroupClassStatus()}`}
-        />
-      )
-    })
+    ?.map((avatarProps, index) =>       
+      <AvatarWithTooltip
+        {...avatarProps}
+        placement={isDirectionHorizontal ? "bottom" : "left"}
+        key={index}
+        style={{zIndex: numberOfAvatar - index}}
+        buttonClassName={`${classes.avatar} ${avatarSpacingClassName} ${getAvatarGroupClassStatus()}`}
+      />     
+    )
 
   const extraAvatarsIcon = 
-    <AvatarWithMenu
+    <AvatarWithTooltip
       disableLoading
+      TooltipComponent={Tooltip}
+      tooltipTitle="Mostra tutti gli utenti."
+      placement={isDirectionHorizontal ? "bottom" : "left"}
       style={{zIndex: numberOfAvatar + 1}}
       onClick={_ => {
         props.onExtraAvatarClick?.()
         handleForceClose()
       }}
-      onMenuOpen={handleKeepOpen}
-      onMenuClose={handleForceClose}
       className={classes.finalAvatar}
       buttonClassName={`${classes.avatar} ${getAvatarGroupClassStatus()}`}
     >
       <MenuOpenRoundedIcon style={{color: theme.palette.secondary.contrastText}}/>
-    </AvatarWithMenu>
+    </AvatarWithTooltip>
 
   return (
     <div

@@ -14,7 +14,7 @@ import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { PageController } from "src/lib/page_controller";
 import { BackgroundWithLines } from "src/components/others/background_with_lines/background_with_lines";
 import { ListWithPages } from "src/components/lists/list_with_pages";
-import { LinkMenu } from "src/components/typography/link_menu";
+import { LinkWithTooltip } from "src/components/tooltips/link_with_tooltip";
 import { MenuWithWaves } from "src/components/menu/menus/menu_with_waves";
 import { UserSmallSummary } from "src/components/user_summaries/user_small_summary";
 import { User } from "src/lib/server_calls/user";
@@ -72,9 +72,10 @@ export default function Course(){
               subTitle: courseData?.teachers?.map((teacher, index) => 
                 <React.Fragment key={index}>
                   {index !== 0 ? ", " : "Professori: "}
-                  <LinkMenu
-                    MenuComponent={MenuWithWaves}
-                    menuContent={
+                  <LinkWithTooltip
+                    href={`/user/${teacher.id}`}
+                    onClick={e => PageController.push(`/user/${teacher.id}` ,e)}
+                    title={
                       <UserSmallSummary
                         user={teacher}
                         callerIs={callerIs}
@@ -83,7 +84,7 @@ export default function Course(){
                     }
                   >
                     {teacher.username}
-                  </LinkMenu>
+                  </LinkWithTooltip>
                 </React.Fragment>
               )
             }}
@@ -112,12 +113,12 @@ export default function Course(){
             </Tabs>
             <TabContent tabValue={tab} index={0}>
               <div className={classes.lessonBox}>
-                <ListWithPages
+                {/*<ListWithPages
                   maxPageElements={5}
                   title="Lezioni Disponibili"
                   notFoundMessage="Nessuna lezione trovata."
                   getData={course.getLessons}
-                />
+                />*/}
               </div>
             </TabContent>
             <TabContent tabValue={tab} index={1}>

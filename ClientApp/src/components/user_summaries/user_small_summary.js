@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: -theme.spacing(1),
     marginLeft: -theme.spacing(1),
     background: theme.palette.background[800],
-    height: 44
+    height: 44,
+    borderRadius: 4
   },
   userInfoText: {
     width: "100%",
@@ -75,6 +76,7 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
             className={classes.userInfoTextBox}
             noWrap
             variant="subtitle1"
+            color="textPrimary"
           >
             {user.username}
           </Typography>

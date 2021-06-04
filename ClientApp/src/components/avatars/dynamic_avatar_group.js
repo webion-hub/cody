@@ -7,6 +7,7 @@ import { UserSmallSummary } from "src/components/user_summaries/user_small_summa
 import { ProfilePicture } from "src/lib/server_calls/profile_picture";
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
 import { UserListDialog } from "../dialogs/user_list_dialog";
+import { PageController } from "src/lib/page_controller";
 
 const useStyles = makeStyles((theme) => ({
   avatarGroup: props => ({
@@ -61,7 +62,9 @@ export function DynamicAvatarGroup(props) {
     const userList = values.map(user => ({
       src: ProfilePicture.url`/${user.id}`,
       alt: user.username,
-      menuContent: 
+      href: `/user/${user.id}`,
+      onClick: e => PageController.push(`/user/${user.id}` ,e),
+      tooltipTitle: 
         <UserSmallSummary 
           user={user}
           callerIs={callerIs}
