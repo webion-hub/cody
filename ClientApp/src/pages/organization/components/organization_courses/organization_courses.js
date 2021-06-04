@@ -25,7 +25,7 @@ export function OrganizationCourses(){
   return (
     <div className={classes.coursesBox}>
       <ListWithPages      
-        maxPageElements={5}
+        maxPageElements={8}
         title="Corsi Disponibili"
         notFoundMessage="Nessun corso trovato."
         getData={organization.courses.listAll}

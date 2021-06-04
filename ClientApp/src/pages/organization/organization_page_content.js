@@ -12,7 +12,7 @@ import OrganizationInfoArea from './components/organization_info_area/organizati
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		position: "relative",
-		minHeight: `calc(100vh - ${436 + theme.appBar.fullHeight}px)`,
+		minHeight: 636,
 	}
 }));
 
