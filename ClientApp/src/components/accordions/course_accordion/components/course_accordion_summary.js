@@ -13,7 +13,6 @@ import { UserSmallSummary } from 'src/components/user_summaries/user_small_summa
 import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
 import { LinkWithTooltip } from 'src/components/tooltips/link_with_tooltip';
-import { MenuWithWaves } from 'src/components/menu/menus/menu_with_waves';
 
 const useStyles = makeStyles((theme) => ({
   sumamry: {
@@ -22,14 +21,8 @@ const useStyles = makeStyles((theme) => ({
   teachersContainer: {
     width: "calc(100% - 100px)",
   },
-  title: {
-    width: "100%"
-  },
-  teachers: {
-    width: "100%"
-  },
-  teachersLabel: {
-    width: "100%"
+  halfLabel: {
+    width: "50%"
   },
   accordionSummaryContent: {
     width: 0,
@@ -71,12 +64,14 @@ export function CourseAccordionSummary(props){
       >
         <Grid
           container
-          direction="column"
+          direction="row"
+          alignItems="center"
+          justify="space-between"
           className={classes.teachersContainer}
         >
           <Typography
+            className={classes.halfLabel}
             noWrap
-            className={classes.title}
             variant="h6"
             color="secondary"
           >
@@ -92,18 +87,10 @@ export function CourseAccordionSummary(props){
             </Link>
           </Typography>
           <Typography
-            className={classes.teachersLabel}
+            className={classes.halfLabel}
+            align="right"
+            color="textSecondary"
             variant="caption"
-            align="left"
-            color="textSecondary"
-            noWrap
-          >
-            Professori
-          </Typography>
-          <Typography
-            className={classes.teachers}
-            align="left"
-            color="textSecondary"
             noWrap
           >
             {teachers.map((teacher, index) => 
