@@ -12,7 +12,7 @@ using Cody.Db.Models.Organizations.Courses;
 
 namespace Cody.Controllers
 {
-    public partial class BookmarkedOrganizationsController
+    public partial class BookmarkedCoursesController
     {
         [HttpGet]
         [Authorize]

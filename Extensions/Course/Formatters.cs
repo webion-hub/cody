@@ -13,7 +13,7 @@ namespace Cody.Db.Extensions
                 from c in self
                 let m = c.Members
                 let t = m
-                    .Where(m => m.Role == MemberRole.Teacher)
+                    .Where(m => m.Role == CourseMemberRole.Teacher)
                     .Select(t => t.UserAccount)
 
                 select new {

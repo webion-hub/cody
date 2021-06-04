@@ -21,9 +21,9 @@ namespace Cody.Controllers.Requests
     ) {
         public Course AsCourse() 
         {
-            var teachers = Teachers.Select(id => new Member {
+            var teachers = Teachers.Select(id => new CourseMember {
                 UserAccountId = id,
-                Role = MemberRole.Teacher,
+                Role = CourseMemberRole.Teacher,
             });
 
             return new Course {
