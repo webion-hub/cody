@@ -5,6 +5,7 @@ import * as State from './state';
 import * as Theme from './theme';
 import * as Organizations from './organizations';
 import * as BookmarkedOrganizations from './bookmarked_organizations';
+import { bookmarks } from './bookmarks/bookmarks';
 
 export class User {
   static logout = Logout.logout;
@@ -28,3 +29,5 @@ export class User {
   static removeBookmarkedOrganization = BookmarkedOrganizations.removeBookmarkedOrganization;
   static getBookmarkedOrganizations = BookmarkedOrganizations.getBookmarkedOrganizations;
 }
+
+User.bookmarks = bookmarks;
