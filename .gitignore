@@ -1,6 +1,8 @@
 .vscode/*
 !.vscode/settings.json
 
+nuget.config
+
 cody_server.log
 pub_out
 

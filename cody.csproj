@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-    <PackageReference Include="Cody.Db" Version="1.0.6" />
-    <PackageReference Include="Cody.Security" Version="1.0.10" />
+    <PackageReference Include="Cody.Db" Version="1.0.0" />
+    <PackageReference Include="Cody.Security" Version="1.0.0" />
     <PackageReference Include="EFCore.NamingConventions" Version="5.0.2" />
     <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.2.1" />
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.24" />
