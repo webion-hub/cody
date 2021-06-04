@@ -1,4 +1,6 @@
-.vscode
+.vscode/*
+!.vscode/settings.json
+
 cody_server.log
 pub_out
 
