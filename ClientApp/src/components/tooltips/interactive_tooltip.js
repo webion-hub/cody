@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { useListener } from 'src/lib/hooks/use_listener';
+import { KeyGenerator } from 'src/lib/key_generator';
 import { PopperWithAwayListener } from './popper_with_away_listener';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,12 +24,7 @@ export function InteractiveTooltip(props){
   const [open, setOpen] = React.useState(false)
 	const classes = useStyles();
 
-  const generateKey = () => {
-    return Math.random().toString(36).substring(2, 15) 
-      + Math.random().toString(36).substring(2, 15);
-  }
-
-  const ref = React.useRef(generateKey())
+  const ref = React.useRef(KeyGenerator.generate())
   const key = ref.current
 
   const handleOpen = () => {
