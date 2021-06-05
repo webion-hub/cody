@@ -17,14 +17,19 @@ export function AvatarWithTooltip(props){
     ...otherProps
   } = props
 
+  const tooltipWithWavesProps = TooltipComponent === TooltipWithWaves 
+    && {
+      TooltipComponent: InteractiveTooltip,
+      removePadding: true
+    }
+
 
   return (
     <TooltipComponent
       title={tooltipTitle}
       placement={placement}
-      TooltipComponent={InteractiveTooltip}
-      removePadding
       arrow
+      {...tooltipWithWavesProps}
     >
       <ButtonBase
         href={href}
