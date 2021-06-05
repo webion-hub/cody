@@ -6,6 +6,7 @@ import * as Theme from './theme';
 import * as Organizations from './organizations';
 import * as BookmarkedOrganizations from './bookmarked_organizations';
 import { bookmarks } from './bookmarks/bookmarks';
+import UserCourses from './courses/courses';
 
 export class User {
   static logout = Logout.logout;
@@ -31,3 +32,4 @@ export class User {
 }
 
 User.bookmarks = bookmarks;
+User.courses = UserCourses;
