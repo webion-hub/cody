@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core'
+import { Button, useTheme } from '@material-ui/core'
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 
 import Typography from '@material-ui/core/Typography';
@@ -9,14 +9,16 @@ import { Grid, Link } from "@material-ui/core";
 import { Color } from 'src/lib/color/color';
 import React from 'react';
 import { PageController } from 'src/lib/page_controller';
-import { UserSmallSummary } from 'src/components/user_summaries/user_small_summary';
-import { EventsDispatcher } from 'src/lib/events_dispatcher';
 import { OrganizationContext } from 'src/pages/organization/organization_controller_context';
-import { LinkWithTooltip } from 'src/components/tooltips/link_with_tooltip';
+import { CustomAvatarGroup } from 'src/components/avatars/custom_avatar_group/custom_avatar_group';
 
 const useStyles = makeStyles((theme) => ({
   sumamry: {
-    background: Color.o(theme.palette.background[800], 0.3)
+    background: theme.palette.background[750],
+    "&:hover": {
+      background: "inherit",
+      boxShadow: `inset 6px 0px 0px 0px ${Color.o(theme.palette.secondary.main, 0.9)}`
+    }
   },
   teachersContainer: {
     width: "calc(100% - 100px)",
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   accordionSummaryContent: {
     width: 0,
+    margin: "4px 0"
   },
   openButton: {
     transform: "translate(0, -50%)",
@@ -37,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function CourseAccordionSummary(props){
 	const classes = useStyles();
+  const theme = useTheme()
 
   const {
     id,
@@ -48,6 +52,7 @@ export function CourseAccordionSummary(props){
     callerIs,
     organization,
 	} = React.useContext(OrganizationContext);
+  
 
   return (
     <AccordionSummary
@@ -86,33 +91,15 @@ export function CourseAccordionSummary(props){
               {title}
             </Link>
           </Typography>
-          <Typography
-            className={classes.halfLabel}
-            align="right"
-            color="textSecondary"
-            variant="caption"
-            noWrap
-          >
-            {teachers.map((teacher, index) => 
-              <React.Fragment key={index}>
-                {index !== 0 ? ", " : ""}
-                <LinkWithTooltip
-                  href={`/user/${teacher.id}`}
-                  onClick={e => PageController.push(`/user/${teacher.id}` ,e)}
-                  title={
-                    <UserSmallSummary
-                      user={teacher}
-                      callerIs={callerIs}
-                      handler={organization}
-                      onUserUpdate={_ => EventsDispatcher.setEvent('updateOrganizationMember').update()}
-                    />
-                  }
-                >
-                  {teacher.username}
-                </LinkWithTooltip>
-              </React.Fragment>
-            )}
-          </Typography>
+          <CustomAvatarGroup
+            users={teachers}
+            direction="horizontal"
+            callerIs={callerIs}
+            handler={organization}
+            borderColor={theme.palette.background[750] }
+            size={30}
+            maxAvatars={4}
+          />
         </Grid>
       </Grid>
       <div>
