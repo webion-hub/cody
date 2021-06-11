@@ -7,22 +7,14 @@ import { useListener } from 'src/lib/hooks/use_listener';
 import { KeyGenerator } from 'src/lib/key_generator';
 import { PopperWithAwayListener } from './popper_with_away_listener';
 
-const useStyles = makeStyles((theme) => ({
-  popper: {
-    zIndex: 0
-  }
-}));
-
 export function InteractiveTooltip(props){
   const {
     children,
     canOpen,
-    classes: classesFromProps,
     ...other
   } = props
 
   const [open, setOpen] = React.useState(false)
-	const classes = useStyles();
 
   const ref = React.useRef(KeyGenerator.generate())
   const key = ref.current
@@ -60,10 +52,6 @@ export function InteractiveTooltip(props){
       open={open && canOpen}
       arrow
       interactive
-      classes={{
-        ...classesFromProps,
-        popper: classes.popper
-      }}
       PopperComponent={PopperWithAwayListener}
       PopperProps={{
         onMouseEnter: handleOpen,

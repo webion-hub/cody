@@ -51,7 +51,7 @@ export const UserSmallSummary = React.forwardRef((props, ref) => {
   const { user, callerIs, handler, className } = props
   
   if(user === null)
-    return <div></div>
+    return null
 
   return (
     <Grid

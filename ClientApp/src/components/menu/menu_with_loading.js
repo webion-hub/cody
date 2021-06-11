@@ -13,6 +13,7 @@ export function MenuWithLoading(props){
 	const {
 		loading,
 		children,
+		classes: classesWithProps,
 		...otherProps
 	} = props
 
@@ -28,6 +29,7 @@ export function MenuWithLoading(props){
 		<Menu
 			{...otherProps}
 			classes={{
+				...classesWithProps,
 				list: classes.menuList
 			}}
 		>

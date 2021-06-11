@@ -7,8 +7,17 @@ import { ReportMenuItem } from "src/components/menu/menu_items/report_menu_item"
 import { MenuWithLoading } from "src/components/menu/menu_with_loading";
 import { KickUserMenuItem } from "src/components/menu/menu_items/kick_user_menu_item";
 import { EditRoleMenuItem } from "src/components/menu/menu_items/edit_role_menu_item";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  popover: {
+    zIndex: `${theme.zIndex.tooltip + 1} !important`
+  }
+}));
 
 export function UserSettingsMenu(props){
+	const classes = useStyles();
+
   const {
     userId,
     callerIs,
@@ -44,6 +53,9 @@ export function UserSettingsMenu(props){
         anchorEl={anchor}
         open={isMenuOpen}
         onClose={handleCloseMenu}
+        PopoverClasses={{
+          root: classes.popover,
+        }}
         keepMounted
       >
         <EditRoleMenuItem
