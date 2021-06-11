@@ -10,6 +10,7 @@ import { ImageCropperDialog } from 'src/components/dialogs/image_cropper_dialog'
 import { makeStyles } from '@material-ui/core/styles';
 import { DeleteImageDialog } from './components/delete_image_dialog';
 import { ImageWithOverlay } from 'src/components/images/image_with_overlay';
+import { useMobileView } from 'src/lib/hooks/use_mobile_view';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function AddPhotoOverlay(props){
   const classes = useStyles()
+  const mobileView = useMobileView()
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [notImage, setNotImage] = React.useState(true);
@@ -105,6 +107,7 @@ export function AddPhotoOverlay(props){
         <>
           <IconButton
             component="label"
+            size={mobileView ? "small" : "medium"}
           >
             <ImageUploader
               onImageChange={handleImageUpload}
@@ -114,6 +117,7 @@ export function AddPhotoOverlay(props){
           <IconButton
             disabled={notImage}
             onClick={_ => setOpenDeleteDialog(true)}
+            size={mobileView ? "small" : "medium"}
           >
             <DeleteRoundedIcon className={notImage ? classes.disabledIcon : classes.icon}/>
           </IconButton>
