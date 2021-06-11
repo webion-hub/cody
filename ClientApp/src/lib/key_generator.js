@@ -12,15 +12,21 @@ export class KeyGenerator {
     return rndNumber.toString(36).substring(2, 15)
   }
 
-  static generate = (index = actualKey) => {
+  static generate = (word) => {
     const fromDate = this.getKeyFromDate()
-    const fromRandom = this.getKeyFromRandom(index)
+    const fromRandom = this.getKeyFromRandom(actualKey)
 
-    const uniqueSeed = fromDate 
+    const optionalWord = word 
+      ? `${word}-` 
+      : ""
+
+    const uniqueSeed = 
+      optionalWord
+      + fromDate 
       + "-" 
       + fromRandom 
       + "-" 
-      + actualKey;
+      + actualKey
 
     actualKey++;
     return uniqueSeed
