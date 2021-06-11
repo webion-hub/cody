@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 
 import { useMobileView } from "src/lib/hooks/use_mobile_view";
 import { ShowableDescription } from "src/components/bases/informations/showable_description/showable_description";
-import { DynamicAvatarGroup } from "src/components/avatars/dynamic_avatar_group";
+import { AvatarGroupWithBox } from "src/components/avatars/avatar_group_with_box";
 import { InfoBox } from "./info_box";
 
 const useStyles = makeStyles((theme) => ({
@@ -100,12 +100,13 @@ export default function InfoArea(props){
           />
           {
             smallUserList &&
-              <DynamicAvatarGroup
-                smallUserList={smallUserList}
+              <AvatarGroupWithBox
+                users={smallUserList.values}
                 callerIs={callerIs}
                 handler={handler}
                 loading={loading}
                 onUserUpdate={onUserUpdate}
+                maxAvatars={3}
               />
           }
 				</Grid>
