@@ -3,9 +3,9 @@ import { BookmarkIconButton } from "src/components/icon_buttons/bookmark_icon_bu
 import InfoArea from "src/components/bases/informations/info_area/info_area";
 import { OrganizationSettingsMenu } from "src/components/menu/menus/organization_settings_menu";
 import { EventsDispatcher } from "src/lib/events_dispatcher";
-import JoinOrganization from "src/pages/create_or_join_organization/pages/join/join_organization";
 import { OrganizationContext } from "../../organization_controller_context";
 import { OrganizationBadgeAvatar } from "./components/organization_badge_avatar";
+import { JoinOrganizationButton } from 'src/components/buttons/join_organization_button';
 
 
 export default function OrganizationInfoArea(props){
@@ -34,9 +34,9 @@ export default function OrganizationInfoArea(props){
       handler={organization}
       button={
         (!isCallerAMember && !loading) && 
-          <JoinOrganization
-            organization={organizationData}
-          />
+        <JoinOrganizationButton
+          organization={organizationData}
+        />
       }
       leftIcon={
         isCallerAMember &&
