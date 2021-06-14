@@ -1,5 +1,4 @@
 using Cody.Db.Models.Users;
-using Cody.Db.Extensions;
 using System.Linq;
 using Cody.Db.Models.Organizations.Courses;
 
@@ -14,28 +13,39 @@ namespace Cody.Controllers.Responses.Formatters
 
         public override IQueryable<object> Format()
         {
-            return 
-                from c in Values
-                let m = c.Members
-                let t = m
-                    .Where(m => m.Role == CourseMemberRole.Teacher)
-                    .Select(t => t.UserAccount)
+            return
+                from course in Values
+                let members = course.Members
+                let teachers =
+                    from cm in members
+                    from om in course
+                        .Organization
+                        .Members
+                        .Where(om => 
+                            om.UserAccountId == cm.UserAccountId &&
+                            om.OrganizationId == course.OrganizationId
+                        )
+                        .DefaultIfEmpty()
 
-                let u = 
-                    m.Where(cm => cm.UserAccountId == CallerId)
+                    where cm.Role == CourseMemberRole.Teacher
+                    select new {
+                        cm.UserAccount.Id,
+                        cm.UserAccount.Username,
+                        cm.UserAccount.AccountDetail.Name,
+                        cm.UserAccount.AccountDetail.Surname,
+                        Role = om.Role.ToString(),
+                    }
+                
+                let user = 
+                    members.Where(cm => cm.UserAccountId == CallerId)
 
-                orderby c.Id ascending
+                orderby course.Id ascending
                 select new {
-                    c.Id,
-                    c.Title,
-                    c.Description,
-                    Teachers = t.Select(t => new {
-                        t.Id,
-                        t.Username,
-                        t.AccountDetail.Name,
-                        t.AccountDetail.Surname,
-                    }),
-                    IsBookmarked = u.Any(cm => cm.IsCourseBookmarked)
+                    course.Id,
+                    course.Title,
+                    course.Description,
+                    Teachers = teachers,
+                    IsBookmarked = user.Any(cm => cm.IsCourseBookmarked)
                 };
         }
     }
